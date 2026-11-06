@@ -18,4 +18,8 @@ labels retain their existing `same_process_hal_file` contexts.
 (including the Chinese label “人声”), tone/dialog controls and five grouped EQ
 sliders backed by the native 20 bands. The user's saved EQ settings are retained.
 Temporary validation confirmed six speakers and a changed sound when enabled.
-The rebuilt-image Settings, playback and Dolby regression tests are pending.
+The r4 image boots normally; the user verified the Settings entry and six
+speakers. However, toggles, modes and EQ had no audible effect. DMS accepted
+the profile, but the native driver logged failed realtime DAP updates and
+PAL returned -EINVAL. Device-owned PAL tracing is being used to compare the
+requested and active stream routes. Real-time processing is not yet verified.

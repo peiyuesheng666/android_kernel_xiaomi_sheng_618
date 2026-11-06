@@ -10225,6 +10225,12 @@ int ResourceManager::setParameter(uint32_t param_id, void *param_payload,
                 if ((*sIter) != NULL) {
                     match = (*sIter)->checkStreamMatch(pal_device_id,
                                                        pal_stream_type);
+                    if (property_get_bool("vendor.audio.sheng.dolby_trace", false)) {
+                        pal_stream_attributes attributes = {};
+                        (*sIter)->getStreamAttributes(&attributes);
+                        PAL_INFO(LOG_TAG, "GEF candidate requested=%u actual=%u direction=%u match=%d",
+                                 pal_stream_type, attributes.type, attributes.direction, match);
+                    }
                     if (match) {
                         if (increaseStreamUserCounter(*sIter) < 0)
                             continue;

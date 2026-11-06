@@ -68,6 +68,7 @@
 #include <stdlib.h>
 #include <mutex>
 #include <PalApi.h>
+#include <cutils/properties.h>
 #include "Stream.h"
 #include "Device.h"
 #include "ResourceManager.h"
@@ -1197,6 +1198,13 @@ int32_t pal_gef_rw_param(uint32_t param_id, void *param_payload,
 
     if (rm) {
         if (GEF_PARAM_WRITE == dir) {
+            if (param_id == PAL_PARAM_ID_UIEFFECT && param_payload && payload_size >= 16 &&
+                    property_get_bool("vendor.audio.sheng.dolby_trace", false)) {
+                const auto *words = static_cast<const uint32_t *>(param_payload);
+                PAL_INFO(LOG_TAG, "GEF route device=%u stream=%u bytes=%zu header=%x,%x,%x,%x",
+                         pal_device_id, pal_stream_type, payload_size,
+                         words[0], words[1], words[2], words[3]);
+            }
             status = rm->setParameter(param_id, param_payload, payload_size,
                                         pal_device_id, pal_stream_type);
             if (0 != status) {
