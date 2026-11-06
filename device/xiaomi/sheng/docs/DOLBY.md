@@ -99,3 +99,8 @@ was `default_internal_speaker`; live CSMO readback still specified two outputs.
 The device Settings app selects the existing portrait/landscape OEM tuning via
 verified DMS 2.0 transactions 13/14 and checks selection. Profile/EQ preferences
 are untouched. Runtime quad format and audibility remain required validation.
+
+The exact platform-signed Settings package has its own system_ext app domain
+and is a client of the sheng DMS HAL. Ordinary platform apps retain their
+existing service restrictions. This is required for the verified tuning API;
+the initial live app test was blocked by a platform_app hwservice find denial.
