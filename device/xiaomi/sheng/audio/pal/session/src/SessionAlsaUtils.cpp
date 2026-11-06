@@ -1486,7 +1486,7 @@ int SessionAlsaUtils::open(Stream * streamHandle, std::shared_ptr<ResourceManage
     uint32_t streamPropId[] = {0x08000010, 1, 0x1}; /** gsl_subgraph_platform_driver_props.xml */
     uint32_t devicePropId[] = {0x08000010, 2, 0x2, 0x5};
     uint32_t streamDevicePropId[] = {0x08000010, 1, 0x3}; /** gsl_subgraph_platform_driver_props.xml */
-    uint32_t i, rxDevNum;
+    uint32_t i;
     struct pal_device_info devinfo = {};
     struct vsid_info vsidinfo = {};
     sidetone_mode_t sidetoneMode = SIDETONE_OFF;
@@ -1722,11 +1722,6 @@ int SessionAlsaUtils::open(Stream * streamHandle, std::shared_ptr<ResourceManage
         goto freeTxMetaData;
     }
 
-    if (SessionAlsaUtils::isRxDevice(associatedDevices[0]->getSndDeviceId()))
-        rxDevNum = 0;
-    else
-        rxDevNum = 1;
-
     /** set TX mixer controls */
     mixer_ctl_set_enum_by_string(txFeMixerCtrls[FE_CONTROL], "ZERO");
     if (streamTxMetaData.size)
@@ -1896,7 +1891,7 @@ int SessionAlsaUtils::close(Stream * streamHandle, std::shared_ptr<ResourceManag
     uint32_t streamPropId[] = {0x08000010, 1, 0x1}; /** gsl_subgraph_platform_driver_props.xml */
     uint32_t devicePropId[] = {0x08000010, 2, 0x2, 0x5};
     uint32_t streamDevicePropId[] = {0x08000010, 1, 0x3}; /** gsl_subgraph_platform_driver_props.xml */
-    uint32_t i, rxDevNum;
+    uint32_t i;
 
     status = streamHandle->getStreamAttributes(&sAttr);
     if(0 != status) {
@@ -1985,11 +1980,6 @@ int SessionAlsaUtils::close(Stream * streamHandle, std::shared_ptr<ResourceManag
         status = -EINVAL;
         goto freeTxMetaData;
     }
-
-    if (SessionAlsaUtils::isRxDevice(associatedDevices[0]->getSndDeviceId()))
-        rxDevNum = 0;
-    else
-        rxDevNum = 1;
 
     if (sAttr.type != PAL_STREAM_VOICE_CALL) {
         txFeMixerCtrls[FE_LOOPBACK] = getFeMixerControl(mixerHandle, txFeName.str(), FE_LOOPBACK);
