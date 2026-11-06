@@ -93,6 +93,22 @@ int main(int argc, char **argv) {
     result = ioctl_fn(ACDB_CMD_GET_SUBGRAPH_DATA, &request, sizeof(request), &response, sizeof(response));
     printf("ACDB_DATA result=%d\n", result);
     if (!result) inspect(&response.spf_blob);
+    AcdbModuleParamList modules[] = {{0x401d, {0}}, {0x4174, {0}}, {0x4615, {0}}};
+    AcdbGetCalDataReq calibration = {gkv, {0}, 3, modules};
+    AcdbBlob calibrated = {0};
+    result = ioctl_fn(ACDB_CMD_GET_CAL_DATA, &calibration, sizeof(calibration),
+                     &calibrated, sizeof(calibrated));
+    printf("ACDB_CALIBRATION size-query=%d bytes=%u\n", result, calibrated.buf_size);
+    if (calibrated.buf_size && calibrated.buf_size <= 1024 * 1024) {
+        calibrated.buf = calloc(1, calibrated.buf_size);
+        if (calibrated.buf) {
+            result = ioctl_fn(ACDB_CMD_GET_CAL_DATA, &calibration, sizeof(calibration),
+                             &calibrated, sizeof(calibrated));
+            printf("ACDB_CALIBRATION result=%d\n", result);
+            if (!result) inspect(&calibrated);
+        }
+    }
+    free(calibrated.buf);
     AcdbSubGraphList links = {graph.num_subgraphs, graph.subgraphs};
     AcdbBlob connections = {0};
     result = ioctl_fn(ACDB_CMD_GET_SUBGRAPH_CONNECTIONS, &links, sizeof(links), &connections, sizeof(connections));
