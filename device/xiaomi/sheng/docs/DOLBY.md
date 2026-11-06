@@ -93,3 +93,9 @@ DAP to distinguish stock formats from PAL's runtime overrides.
 Unsaved profiles and an explicit profile reset use a flat 20-band EQ (0 dB).
 Existing per-profile saved bands are restored unchanged. This changes EQ
 defaults only, without altering pregain or factory speaker protection.
+
+The native database contains OEM quad tunings, but its selected speaker device
+was `default_internal_speaker`; live CSMO readback still specified two outputs.
+The device Settings app selects the existing portrait/landscape OEM tuning via
+verified DMS 2.0 transactions 13/14 and checks selection. Profile/EQ preferences
+are untouched. Runtime quad format and audibility remain required validation.
