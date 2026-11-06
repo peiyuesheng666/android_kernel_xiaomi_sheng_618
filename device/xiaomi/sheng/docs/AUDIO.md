@@ -47,7 +47,9 @@ right for five seconds, followed by a ten-second combined segment. This gives
 the physical rotation check time to finish before the test stops.
 
 The host impulse-routing check passes for four angles. The candidate's full
-build and physical channel/dynamic rotation checks are pending. The preceding
+hardware build passed after adding the explicit property-interface header to
+SessionAlsaUtils (85 remaining tasks, 1:33). Fresh-fetch public source checks
+also passed. Physical channel/dynamic rotation checks are pending. The preceding
 clean native-quad batch compiled successfully in 266 tasks, with fresh-fetch
 upstream verification passing for all 13 audited public repositories and clean
 status across 1,243 manifest projects. The installed image is still r4.

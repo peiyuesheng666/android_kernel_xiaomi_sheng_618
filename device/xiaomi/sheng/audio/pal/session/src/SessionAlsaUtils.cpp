@@ -33,6 +33,7 @@
 */
 
 #define LOG_TAG "PAL: SessionAlsaUtils"
+#include <cutils/properties.h>
 
 #include "SessionAlsaUtils.h"
 
