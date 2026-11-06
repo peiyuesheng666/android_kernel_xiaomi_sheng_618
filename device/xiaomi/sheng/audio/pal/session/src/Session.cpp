@@ -298,6 +298,7 @@ exit:
 int Session::getEffectParameters(Stream *s __unused, effect_pal_payload_t *effectPayload)
 {
     int status = 0;
+    size_t dataSize = 0;
     uint8_t *ptr = NULL;
 
     uint8_t *payloadData = NULL;
@@ -341,8 +342,8 @@ int Session::getEffectParameters(Stream *s __unused, effect_pal_payload_t *effec
     }
 
     ptr = (uint8_t *)payloadData + sizeof(struct apm_module_param_data_t);
-    ar_mem_cpy(effectCustomPayload->data, effectPayload->payloadSize,
-                        ptr, effectPayload->payloadSize);
+    dataSize = effectPayload->payloadSize - sizeof(uint32_t);
+    ar_mem_cpy(effectCustomPayload->data, dataSize, ptr, dataSize);
 
 exit:
     ctl = NULL;

@@ -10265,6 +10265,26 @@ int ResourceManager::setParameter(uint32_t param_id, void *param_payload,
                         unlockActiveStream();
                         status = (*sIter)->setEffectParameters(param_payload);
                         applied |= status == 0;
+                        if (speaker_dap && status == 0 &&
+                                property_get_bool("vendor.audio.sheng.dolby_trace", false)) {
+                            const auto *payload = static_cast<const pal_param_payload *>(param_payload);
+                            const auto *effect = reinterpret_cast<const effect_pal_payload_t *>(payload->payload);
+                            const auto *custom = reinterpret_cast<const pal_effect_custom_payload_t *>(effect->payload);
+                            if (effect->payloadSize >= 8 && payload_size <= 4096 &&
+                                    (custom->paramId == 0x10904 || custom->paramId == 0x108eb)) {
+                                std::vector<uint8_t> readback(payload_size);
+                                memcpy(readback.data(), param_payload, payload_size);
+                                const int result = (*sIter)->getEffectParameters(readback.data());
+                                const size_t offset = sizeof(pal_param_payload) + sizeof(effect_pal_payload_t) +
+                                        sizeof(pal_effect_custom_payload_t);
+                                const size_t size = effect->payloadSize - sizeof(pal_effect_custom_payload_t);
+                                const bool equal = result == 0 &&
+                                        memcmp(readback.data() + offset, custom->data, size) == 0;
+                                PAL_INFO(LOG_TAG, "DAP DSP readback param=%x result=%d matches=%d value=%u expected=%u",
+                                         custom->paramId, result, equal,
+                                         *reinterpret_cast<const uint32_t *>(readback.data() + offset), custom->data[0]);
+                            }
+                        }
                         lockActiveStream();
                         decreaseStreamUserCounter(*sIter);
                         if (status) {

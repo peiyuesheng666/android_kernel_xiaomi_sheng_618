@@ -34,3 +34,7 @@ EQ and dialog-strength sliders now send changes while dragging. Per-profile
 parameter generations discard superseded writes/readbacks, so rapid gestures
 do not falsely report a mismatch against a newer value. Saved custom values
 and the stock processing profiles are retained. Live A/B testing is pending.
+
+DSP readback diagnostics distinguish DMS's stored values from the actual
+active module. The PAL query copies only the returned data length, excluding
+the parameter ID, to avoid the original four-byte overread/overwrite.
