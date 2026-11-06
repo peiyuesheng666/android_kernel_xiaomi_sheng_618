@@ -33,6 +33,23 @@ public final class ShengDmsStateProbe {
         }
     }
     public static void main(String[] args) throws Exception {
+        if (args.length == 2 && "channel-count".equals(args[0])) {
+            int channels = Integer.parseInt(args[1]);
+            if (channels < 1 || channels > 8) throw new IllegalArgumentException("Channel count");
+            Object request = PARCEL.getConstructor().newInstance();
+            Object reply = PARCEL.getConstructor().newInstance();
+            try {
+                PARCEL.getMethod("writeInterfaceToken", String.class).invoke(request, DMS);
+                PARCEL.getMethod("writeInt32", int.class).invoke(request, channels);
+                // Stock BpHwDms::setChannelCount uses transaction 17.
+                TRANSACT.invoke(BINDER, 17, request, reply, 0);
+                PARCEL.getMethod("verifySuccess").invoke(reply);
+                System.out.println("SET_CHANNEL_COUNT=" + channels);
+            } finally {
+                PARCEL.getMethod("releaseTemporaryStorage").invoke(request);
+                PARCEL.getMethod("release").invoke(reply);
+            }
+        }
         if (args.length == 2 && "tuning-select".equals(args[0])) {
             Object request = PARCEL.getConstructor().newInstance();
             Object reply = PARCEL.getConstructor().newInstance();
