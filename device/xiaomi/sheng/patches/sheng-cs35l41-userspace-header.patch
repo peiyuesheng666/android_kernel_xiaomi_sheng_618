@@ -1,0 +1,21 @@
+diff --git a/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h b/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h
+index 4d41dc9..e75d8eb 100644
+--- a/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h
++++ b/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h
+@@ -13,6 +13,9 @@
+ #ifndef __CS35L41_H
+ #define __CS35L41_H
+ 
++/* Platform data and driver state are kernel-only, not a userspace ABI. */
++#ifdef __KERNEL__
++
+ struct cs35l41_classh_cfg {
+ 	bool classh_bst_override;
+ 	bool classh_algo_enable;
+@@ -147,4 +150,6 @@ int cs35l41_probe(struct cs35l41_private *cs35l41,
+ 				struct cs35l41_platform_data *pdata);
+ int cs35l41_remove(struct cs35l41_private *cs35l41);
+ 
++#endif /* __KERNEL__ */
++
+ #endif /* __CS35L41_H */

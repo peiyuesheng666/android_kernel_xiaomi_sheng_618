@@ -1,0 +1,20 @@
+diff --git a/gsl/Android.bp b/gsl/Android.bp
+index fcebc8f..bb54b2a 100644
+--- a/gsl/Android.bp
++++ b/gsl/Android.bp
+@@ -69,3 +69,15 @@ cc_library_shared {
+         "liblx-osal",
+     ],
+ }
++
++// Keep the stock shared library while exporting its matching source API headers.
++cc_library_headers {
++    name: "libsheng_gsl_headers",
++    vendor: true,
++    export_include_dirs: [
++        "api",
++        "dls_client_api",
++        "hw_rsc_api",
++        "rtc_api",
++    ],
++}

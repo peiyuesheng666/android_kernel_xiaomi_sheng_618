@@ -203,6 +203,9 @@ TARGET_KERNEL_CONFIG_EXT := $(DEVICE_PATH)/configs/kernel/sheng.config
 # Kernel 5.15's C90 UAPI tests need POSIX timespec declarations from host libc.
 # Keep the header tests enabled and retain the original UAPI layouts.
 TARGET_KERNEL_ADDITIONAL_FLAGS += USERCFLAGS=-D_POSIX_C_SOURCE=200809L
+# Header-only BSP snapshot keeps kernel declarations out of the userspace ABI.
+# The normal headers_install and C90 header tests remain enabled.
+TARGET_KERNEL_ADDITIONAL_FLAGS += ext-mod-dir=../../../device/xiaomi/sheng/kernel/uapi
 TARGET_AUTO_COLLECT_KERNEL_MODULE_DEPS := false
 
 

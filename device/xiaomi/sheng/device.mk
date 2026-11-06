@@ -44,7 +44,8 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@7.0-impl \
     audio.primary.default \
     audio.r_submix.default \
-    libtinycompress
+    libtinycompress \
+    libar-pal-sheng
 
 PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.2-impl \
