@@ -69,6 +69,7 @@
 #define LOG_TAG "PAL: Session"
 
 #include "Session.h"
+#include "ShengSpeakerRotation.h"
 #include "Stream.h"
 #include "ResourceManager.h"
 #include "SessionGsl.h"
@@ -768,18 +769,39 @@ int Session::handleDeviceRotation(Stream *s, pal_speaker_rotation_type rotation_
                 PAL_DBG(LOG_TAG, "miid : %x id = %d, data %s, dev id = %d\n", miid,
                     device, rxAifBackEnds[i].second.data(), dAttr.id);
 
-                if (rm->activeGroupDevConfig) {
+                const bool shengQuadSpeaker = dAttr.config.ch_info.channels == 4 &&
+                        property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false);
+                if (rm->activeGroupDevConfig && !shengQuadSpeaker) {
                     if (rm->activeGroupDevConfig->devpp_mfc_cfg.channels)
                         dAttr.config.ch_info.channels =rm->activeGroupDevConfig->devpp_mfc_cfg.channels;
                 }
-                builder->payloadMFCMixerCoeff((uint8_t **)&alsaParamData,
+                if (shengQuadSpeaker) {
+                    int degrees = rotation_type >= PAL_SPEAKER_ROTATION_SHENG_0 &&
+                            rotation_type <= PAL_SPEAKER_ROTATION_SHENG_270
+                            ? (rotation_type - PAL_SPEAKER_ROTATION_SHENG_0) * 90
+                            : (rotation_type == PAL_SPEAKER_ROTATION_RL ? 270 : 0);
+                    uint8_t order[4];
+                    shengSpeakerPermutation(degrees, order);
+                    struct pal_channel_info channelInfo = {};
+                    channelInfo.channels = 4;
+                    const uint8_t logicalChannels[] = {1, 2, 8, 9}; // FL, FR, LB, RB
+                    for (unsigned output = 0; output < 4; ++output)
+                        channelInfo.ch_map[output] = logicalChannels[order[output]];
+                    struct sessionToPayloadParam format = {};
+                    format.sampleRate = dAttr.config.sample_rate;
+                    format.bitWidth = dAttr.config.bit_width;
+                    format.numChannel = 4;
+                    format.ch_info = &channelInfo;
+                    builder->payloadMFCConfig(&alsaParamData, &alsaPayloadSize, miid, &format);
+                    PAL_INFO(LOG_TAG, "sheng quad output rotation=%d miid=%x map=%u,%u,%u,%u",
+                             degrees, miid, channelInfo.ch_map[0], channelInfo.ch_map[1],
+                             channelInfo.ch_map[2], channelInfo.ch_map[3]);
+                } else {
+                    builder->payloadMFCMixerCoeff((uint8_t **)&alsaParamData,
                                             &alsaPayloadSize, miid,
                                             dAttr.config.ch_info.channels,
-                                            rotation_type);
-
-                if (dAttr.config.ch_info.channels == 4)
-                    PAL_INFO(LOG_TAG, "sheng quad rotation=%d miid=%x payload=%zu",
-                             rotation_type, miid, alsaPayloadSize);
+                                                rotation_type);
+                }
 
                 if (alsaPayloadSize) {
                     status = updateCustomPayload(alsaParamData, alsaPayloadSize);

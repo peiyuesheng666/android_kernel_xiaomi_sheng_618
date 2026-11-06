@@ -16,10 +16,13 @@ int main() {
             seen |= 1u << input;
         }
         assert(seen == 15);
-        // FL/LB impulses must share the physical left side in landscape;
-        // inversion must move them together to the opposite physical side.
-        if (degrees == 0) assert(map[0] % 2 == 0 && map[1] % 2 == 0);
-        if (degrees == 180) assert(map[2] % 2 == 0 && map[3] % 2 == 0);
+        // Opposite orientations must reverse both side pairs. The hardware
+        // test supplies the absolute ordering; this catches channel loss or
+        // an inconsistent opposite-angle mapping independently of that order.
+        uint8_t opposite[4];
+        shengSpeakerPermutation((degrees + 180) % 360, opposite);
+        assert(opposite[0] == map[3] && opposite[1] == map[2]);
+        assert(opposite[2] == map[1] && opposite[3] == map[0]);
     }
     puts("PASS four rotations preserve native quad channels and unity gain");
 }

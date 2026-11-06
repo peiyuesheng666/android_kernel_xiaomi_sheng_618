@@ -36,21 +36,25 @@ unchanged compiled `audio.primary.kalama` and forwards the complete display
 angle to the device-owned PAL instead of the phone's two-state request.
 Other parameter keys still reach the original HAL.
 
-The post-DAP mixer receives a four-by-four Q14 permutation for every angle.
-The permutation preserves each native Dolby channel and unity gain; it does
-not reduce Dolby to stereo or copy channels after it. Plain PCM and compressed
+The post-DAP MFC output media format uses four unique channel IDs ordered for
+the tablet's physical TDM backend at every angle. This preserves each native
+Dolby channel; it does not reduce Dolby to stereo or copy channels after it.
+Plain PCM and compressed
 paths use the same logical quad order. Rotation is applied to active streams,
 new streams, route reconnections and pause/resume. Existing LR/RL enum values
 are retained, with device-only values 0x100..0x103 added for the four angles.
 The channel probe accepts `on|off` and 1..8 rounds; each round plays left then
 right for five seconds, followed by a ten-second combined segment. This gives
 the physical rotation check time to finish before the test stops.
-The first loaded rotation test still used portrait channel placement. The
-speaker MFC reports quad output, but its coefficient tables are matched against
-both input and output formats. A new candidate supplies separate 4-to-4 native
-and 2-to-4 bypass tables; the native table keeps four channels distinct. This
-candidate still requires physical verification with DAP enabled and disabled.
-The format-specific table candidate compiled successfully in seven PAL tasks.
+Speaker-swap coefficient requests did not change audible placement, including
+the separate native/bypass table experiment. Direct MFC output-format channel
+ordering changed portrait placement to landscape. DSP readback confirmed the
+four unique IDs, and the user verified low tone left/high tone right at display
+rotation zero with `[9,2,8,1]`. The working output-format path replaces the
+unsuccessful four-channel coefficient experiments; generic stereo behavior
+remains as upstream. `ShengSpeakerFormatProbe.c` is the bounded active-MFC
+diagnostic used to establish this ordering. The final format-based candidate
+compiled in eight PAL tasks. Its other angles and Dolby-on behavior are pending.
 
 The host impulse-routing check passes for four angles. The candidate's full
 hardware build passed after adding the explicit property-interface header to
