@@ -45,6 +45,12 @@ are retained, with device-only values 0x100..0x103 added for the four angles.
 The channel probe accepts `on|off` and 1..8 rounds; each round plays left then
 right for five seconds, followed by a ten-second combined segment. This gives
 the physical rotation check time to finish before the test stops.
+The first loaded rotation test still used portrait channel placement. The
+speaker MFC reports quad output, but its coefficient tables are matched against
+both input and output formats. A new candidate supplies separate 4-to-4 native
+and 2-to-4 bypass tables; the native table keeps four channels distinct. This
+candidate still requires physical verification with DAP enabled and disabled.
+The format-specific table candidate compiled successfully in seven PAL tasks.
 
 The host impulse-routing check passes for four angles. The candidate's full
 hardware build passed after adding the explicit property-interface header to

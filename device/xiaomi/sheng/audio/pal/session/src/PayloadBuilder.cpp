@@ -576,6 +576,51 @@ void PayloadBuilder::payloadMFCMixerCoeff(uint8_t** payload, size_t* size,
 
     *payload = nullptr;
     *size = 0;
+    if (numChannels == 4) {
+        // DAP's disabled/bypass graph can retain its stereo input even when
+        // the speaker MFC output is quad. SPF selects a coefficient table by
+        // BOTH input and output media formats; a 4->4-only table is ignored for
+        // a 2->4 bypass. Preserve all four native channels when DAP renders
+        // quad, with a separate stereo table for the disabled source format.
+        constexpr uint16_t inputs[] = {4, 2};
+        constexpr size_t table4 = sizeof(chmixer_coeff_t) + sizeof(uint16_t) * (4 + 4 + 16);
+        constexpr size_t table2 = sizeof(chmixer_coeff_t) + sizeof(uint16_t) * (4 + 2 + 8);
+        static_assert(table4 % 4 == 0 && table2 % 4 == 0, "SPF table alignment");
+        const size_t bytes = sizeof(apm_module_param_data_t) +
+                sizeof(param_id_chmixer_coeff_t) + table4 + table2;
+        auto* data = static_cast<uint8_t*>(calloc(1, bytes + PAL_PADDING_8BYTE_ALIGN(bytes)));
+        if (!data) return;
+        auto* apm = reinterpret_cast<apm_module_param_data_t*>(data);
+        apm->module_instance_id = miid;
+        apm->param_id = PARAM_ID_CHMIXER_COEFF;
+        apm->param_size = bytes - sizeof(*apm);
+        auto* tables = reinterpret_cast<param_id_chmixer_coeff_t*>(data + sizeof(*apm));
+        tables->num_coeff_tbls = 2;
+        int degrees = rotationType >= PAL_SPEAKER_ROTATION_SHENG_0 &&
+                rotationType <= PAL_SPEAKER_ROTATION_SHENG_270
+                ? (rotationType - PAL_SPEAKER_ROTATION_SHENG_0) * 90
+                : (rotationType == PAL_SPEAKER_ROTATION_RL ? 270 : 0);
+        uint8_t permutation[4];
+        shengSpeakerPermutation(degrees, permutation);
+        uint8_t* cursor = data + sizeof(*apm) + sizeof(*tables);
+        for (uint16_t inputCount : inputs) {
+            auto* table = reinterpret_cast<chmixer_coeff_t*>(cursor);
+            table->num_output_channels = 4;
+            table->num_input_channels = inputCount;
+            auto* map = reinterpret_cast<uint16_t*>(cursor + sizeof(*table));
+            populateChannelMap(map, 4);
+            populateChannelMap(map + 4, inputCount);
+            auto* coefficients = map + 4 + inputCount;
+            for (unsigned output = 0; output < 4; ++output) {
+                unsigned input = inputCount == 4 ? permutation[output] : permutation[output] % 2;
+                coefficients[output * inputCount + input] = 0x4000;
+            }
+            cursor += sizeof(*table) + sizeof(uint16_t) * (4 + inputCount + 4 * inputCount);
+        }
+        *payload = data;
+        *size = bytes + PAL_PADDING_8BYTE_ALIGN(bytes);
+        return;
+    }
     if (numChannels != 2 && numChannels != 4)
         return;
 
