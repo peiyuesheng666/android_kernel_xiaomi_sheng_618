@@ -45,8 +45,11 @@ The candidate now applies the four unique output IDs at the final MFC for
 active rotations, new speaker streams and route reconnections. The earlier
 MFC retains its normal format. Dolby keeps stereo source input and native
 quad output; the rotation stage permutes four distinct channels at unity gain.
-Other devices retain the upstream stereo-swap behavior. Automatic four-pose,
-Dolby-on, offload and restart validation of this candidate remains pending.
+Other devices retain the upstream stereo-swap behavior. The first automatic
+test passed both landscape postures, while both portrait postures reversed
+left/right. The portrait entries were exchanged based on that physical test.
+Verification of those revised entries, Dolby-on, offload and restart remains
+pending.
 
 `ShengSpeakerFormatProbe.c` can target the earlier or final stock MFC.
 `ShengSpeakerMatrixProbe.c` tests coefficient tables without changing saved

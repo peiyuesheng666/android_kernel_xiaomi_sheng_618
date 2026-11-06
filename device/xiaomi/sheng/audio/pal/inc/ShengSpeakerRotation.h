@@ -10,9 +10,9 @@ constexpr uint32_t SHENG_FINAL_SPEAKER_MFC_TAG = 0xc000003d;
 inline void shengSpeakerPermutation(int degrees, uint8_t outputToInput[4]) {
     static constexpr uint8_t permutations[4][4] = {
         {3, 1, 2, 0},  // landscape
-        {1, 0, 3, 2},  // reverse portrait
+        {2, 3, 0, 1},  // reverse portrait
         {0, 2, 1, 3},  // reverse landscape
-        {2, 3, 0, 1},  // portrait, charging port downward
+        {1, 0, 3, 2},  // portrait, charging port downward
     };
     // Absolute calibration: display rotation zero with the USB port on the
     // right uses [5,2,4,1]. Derive every other posture from that frame.
