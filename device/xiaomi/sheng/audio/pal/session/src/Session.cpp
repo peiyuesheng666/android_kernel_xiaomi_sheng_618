@@ -900,11 +900,23 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
     bool devicePPMFCSet =  true;
     char shengDevice[PROPERTY_VALUE_MAX] = {};
     property_get("ro.product.vendor.device", shengDevice, "");
-    const bool dapStereoStage = !strcmp(shengDevice, "sheng") &&
-            property_get_bool("vendor.audio.sheng.dap_stereo_stage", false) &&
+    bool nativeQuadStage = !strcmp(shengDevice, "sheng") &&
+            property_get_bool("vendor.audio.sheng.dap_native_quad", false) &&
+            property_get_bool("ro.vendor.audio.adsp.spatial", false) &&
             dAttr.id == PAL_DEVICE_OUT_SPEAKER && !strcmp(intf, "TDM-LPAIF-RX-SECONDARY") &&
-            sAttr.direction == PAL_AUDIO_OUTPUT && isPalPCMFormat(sAttr.out_media_config.aud_fmt_id) &&
-            sAttr.out_media_config.ch_info.channels == 2 && dAttr.config.ch_info.channels == 4;
+            sAttr.direction == PAL_AUDIO_OUTPUT &&
+            ((isPalPCMFormat(sAttr.out_media_config.aud_fmt_id) &&
+              sAttr.out_media_config.ch_info.channels == 2) ||
+             (sAttr.type == PAL_STREAM_COMPRESSED &&
+              (sAttr.out_media_config.ch_info.channels == 1 ||
+               sAttr.out_media_config.ch_info.channels == 2))) &&
+            dAttr.config.ch_info.channels == 4;
+    if (nativeQuadStage) {
+        uint32_t dapMiid = 0;
+        // Plain speaker graphs keep the independently verified PCM/offload map.
+        nativeQuadStage = !SessionAlsaUtils::getModuleInstanceId(mixer, pcmDevIds.at(0),
+                intf, 0xc00000db, &dapMiid);
+    }
 
     // clear any cached custom payload
     freeCustomPayload();
@@ -959,10 +971,9 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
         setSlotMask(rm, sAttr, dAttr, pcmDevIds);
     }
 
-    // Diagnostic only: stock topology places device PP MFC immediately before
-    // DAP and speaker-swap MFC after the speaker processing. Both must be
-    // configured explicitly; changing PSPD alone cannot make DAP stereo.
-    if (dapStereoStage) {
+    // Preserve the decoder's stereo source until DAP. DAP itself renders the
+    // factory quad output; expanding music before DAP bypasses live processing.
+    if (nativeQuadStage) {
         status = SessionAlsaUtils::getModuleInstanceId(mixer, pcmDevIds.at(0), intf,
                 TAG_DEVICE_PP_MFC, &miid);
         if (status) goto exit;
@@ -975,7 +986,7 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
         status = updateCustomPayload(payload, payloadSize);
         freeCustomPayload(&payload, &payloadSize);
         if (status) goto exit;
-        PAL_INFO(LOG_TAG, "sheng DAP stereo stage: pre-DAP MFC miid=%x channels=2", miid);
+        PAL_INFO(LOG_TAG, "sheng native quad DAP: source MFC miid=%x channels=2", miid);
         status = SessionAlsaUtils::getModuleInstanceId(mixer, pcmDevIds.at(0), intf,
                 TAG_MFC_SPEAKER_SWAP, &miid);
         if (status) goto exit;
@@ -985,12 +996,7 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
         status = updateCustomPayload(payload, payloadSize);
         freeCustomPayload(&payload, &payloadSize);
         if (status) goto exit;
-        builder->payloadShengStereoQuadCoeff(&payload, &payloadSize, miid, 2);
-        if (!payload || !payloadSize) { status = -ENOMEM; goto exit; }
-        status = updateCustomPayload(payload, payloadSize);
-        freeCustomPayload(&payload, &payloadSize);
-        if (status) goto exit;
-        PAL_INFO(LOG_TAG, "sheng DAP stereo stage: post-processing MFC miid=%x channels=4", miid);
+        PAL_INFO(LOG_TAG, "sheng native quad DAP: speaker MFC miid=%x channels=4", miid);
     }
 
     /* Prepare stream MFC payload */
@@ -1065,7 +1071,7 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
             dAttr.id == PAL_DEVICE_OUT_HDMI)
             mfcData.ch_info = &dAttr.config.ch_info;
 
-        if (dapStereoStage) mfcData.numChannel = 2;
+        if (nativeQuadStage) mfcData.numChannel = 2;
 
         builder->payloadMFCConfig((uint8_t **)&payload, &payloadSize, miid, &mfcData);
         if (!payloadSize) {

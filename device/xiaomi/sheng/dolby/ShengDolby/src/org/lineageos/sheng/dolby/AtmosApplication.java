@@ -3,7 +3,6 @@ package org.lineageos.sheng.dolby;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.media.audiofx.AudioEffect;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -61,10 +60,6 @@ public final class AtmosApplication extends Application {
         worker = new Handler(thread.getLooper()); worker.post(reconcile);
     }
     public State getState() { return state; }
-    @Override public void onConfigurationChanged(Configuration configuration) {
-        super.onConfigurationChanged(configuration);
-        worker.removeCallbacks(reconcile); worker.post(reconcile);
-    }
     public void setRequested(boolean enabled) {
         requested = enabled;
         preferences.edit().putBoolean("enabled", enabled).apply();
@@ -164,7 +159,6 @@ public final class AtmosApplication extends Application {
             IBinder current = ServiceManager.checkService("media.audio_flinger");
             if (current == null || !current.isBinderAlive()) throw new IllegalStateException("Audio server unavailable");
             if (audioServer == null) { current.linkToDeath(serverDeath, 0); audioServer = current; }
-            SpeakerTuning.apply(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
             if (effect == null) {
                 effect = new AudioEffect(TYPE_NULL, DAP, 10, 0);
                 effect.setControlStatusListener((unused, control) -> {

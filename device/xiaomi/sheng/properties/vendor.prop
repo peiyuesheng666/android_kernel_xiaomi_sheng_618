@@ -262,3 +262,4 @@ ro.vendor.audio.dolby.dax.support=true
 ro.vendor.audio.dolby.eq.half=true
 vendor.audio.sheng.offload_quad_coeff=true
 vendor.audio.sheng.offload_master_unity=true
+vendor.audio.sheng.dap_native_quad=true

@@ -1,5 +1,0 @@
-# SPDX-License-Identifier: Apache-2.0
-typeattribute sheng_dolby_app coredomain;
-app_domain(sheng_dolby_app)
-platform_app_domain(sheng_dolby_app)
-hwbinder_use(sheng_dolby_app)

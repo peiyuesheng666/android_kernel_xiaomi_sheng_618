@@ -1,2 +1,0 @@
-# SPDX-License-Identifier: Apache-2.0
-user=_app seinfo=platform name=org.lineageos.sheng.dolby domain=sheng_dolby_app type=app_data_file levelFrom=user
