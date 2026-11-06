@@ -154,3 +154,4 @@ persist.vendor.ssr.restart_level=ALL_ENABLE
 # sheng has a side-mounted fingerprint sensor
 ro.hardware.fp.fod=false
 vendor.audio.dolby.control.support=true
+ro.vendor.audio.adsp.spatial=true

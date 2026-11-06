@@ -104,3 +104,8 @@ The exact platform-signed Settings package has its own system_ext app domain
 and is a client of the sheng DMS HAL. Ordinary platform apps retain their
 existing service restrictions. This is required for the verified tuning API;
 the initial live app test was blocked by a platform_app hwservice find denial.
+
+Stock odm/etc/build.prop declares `ro.vendor.audio.adsp.spatial=true`, absent
+from the port. In libhwdap this property initializes dolbyMultiChannelEnabled;
+its false branch builds a stereo CSMO even with the OEM quad tuning selected.
+The device ODM properties now retain the stock flag. Live validation is pending.
