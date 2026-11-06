@@ -4,4 +4,43 @@
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
     <string name="waiting">Waiting for the audio service</string>
+    <string name="settings_summary">Sound modes, tone and equalizer</string>
+    <string name="back">Back</string>
+    <string name="sound_mode">Sound mode</string>
+    <string name="dynamic">Dynamic</string>
+    <string name="movie">Movie</string>
+    <string name="music">Music</string>
+    <string name="voice">Voice</string>
+    <string name="custom">Custom</string>
+    <string name="dynamic_description">Adapts the sound to the content you play.</string>
+    <string name="movie_description">Adds space and clarity to movies and dialogue.</string>
+    <string name="music_description">Balanced tuning for music playback.</string>
+    <string name="voice_description">Makes speech and dialogue easier to hear.</string>
+    <string name="custom_description">Shape the sound with the equalizer below.</string>
+    <string name="sound_tuning">Sound tuning</string>
+    <string name="tone">Tone</string>
+    <string name="detailed">Detailed</string>
+    <string name="dialog_enhancement">Dialogue enhancement</string>
+    <string name="dialog_strength">Dialogue strength</string>
+    <string name="strength">Strength</string>
+    <string name="strength_percent">Strength · %1$d%%</string>
+    <string name="equalizer">Equalizer</string>
+    <string name="eq_hint">Select Custom mode to adjust the equalizer.</string>
+    <string name="eq_description">Adjust five frequency ranges, from bass to treble.</string>
+    <string name="bass">Bass</string>
+    <string name="low_mid">Low mids</string>
+    <string name="mid">Mids</string>
+    <string name="high_mid">High mids</string>
+    <string name="treble">Treble</string>
+    <string name="zero_db">0 dB</string>
+    <string name="reset_profile">Restore this mode</string>
+    <string name="reset">Restore</string>
+    <string name="reset_description">Restore the original tone, dialogue and equalizer settings for this sound mode?</string>
+    <string name="apply_failed">Unable to apply. Try changing this option again.</string>
+    <string-array name="tone_labels">
+        <item>Off</item>
+        <item>Detailed</item>
+        <item>Balanced</item>
+        <item>Warm</item>
+    </string-array>
 </resources>

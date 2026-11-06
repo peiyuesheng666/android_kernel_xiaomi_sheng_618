@@ -4,4 +4,43 @@
     <string name="enabled">已开启</string>
     <string name="disabled">已关闭</string>
     <string name="waiting">等待音频服务就绪</string>
+    <string name="settings_summary">声音模式、音色与均衡器</string>
+    <string name="back">返回</string>
+    <string name="sound_mode">声音模式</string>
+    <string name="dynamic">动态</string>
+    <string name="movie">电影</string>
+    <string name="music">音乐</string>
+    <string name="voice">人声</string>
+    <string name="custom">自定义</string>
+    <string name="dynamic_description">随播放内容自动调整音效。</string>
+    <string name="movie_description">增强电影的空间感与对白清晰度。</string>
+    <string name="music_description">适合音乐的均衡调校。</string>
+    <string name="voice_description">让人声与对白更清晰。</string>
+    <string name="custom_description">使用均衡器调整你喜欢的声音。</string>
+    <string name="sound_tuning">音效调节</string>
+    <string name="tone">音色</string>
+    <string name="detailed">清晰</string>
+    <string name="dialog_enhancement">人声增强</string>
+    <string name="dialog_strength">人声增强强度</string>
+    <string name="strength">强度</string>
+    <string name="strength_percent">强度 · %1$d%%</string>
+    <string name="equalizer">均衡器</string>
+    <string name="eq_hint">选择“自定义”模式后可调节均衡器。</string>
+    <string name="eq_description">调整低音到高音的五组频段。</string>
+    <string name="bass">低音</string>
+    <string name="low_mid">中低音</string>
+    <string name="mid">中音</string>
+    <string name="high_mid">中高音</string>
+    <string name="treble">高音</string>
+    <string name="zero_db">0 dB</string>
+    <string name="reset_profile">恢复当前模式默认值</string>
+    <string name="reset">恢复</string>
+    <string name="reset_description">将当前声音模式的音色、人声增强与均衡器恢复为原厂默认值。</string>
+    <string name="apply_failed">未能应用，请重新调整此选项。</string>
+    <string-array name="tone_labels">
+        <item>关闭</item>
+        <item>清晰</item>
+        <item>均衡</item>
+        <item>温暖</item>
+    </string-array>
 </resources>

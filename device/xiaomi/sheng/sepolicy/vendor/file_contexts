@@ -53,3 +53,4 @@
 /vendor/bin/hw/vendor\.dolby\.media\.c2@1\.0-service u:object_r:vendorcodec_exec:s0
 /vendor/bin/hw/dolbycodec2 u:object_r:vendorcodec_exec:s0
 /data/vendor/dolby(/.*)? u:object_r:vendor_sheng_dolby_data_file:s0
+/(vendor|system/vendor)/lib64/hw/libshgdolby_foundation\.so    u:object_r:vendor_file:s0
