@@ -1,0 +1,256 @@
+{
+  "date_utc": "2026-11-06T21:15:02.116791+00:00",
+  "comparison": "Fresh upstream exact revision pinned by the current manifest; branch tips are not substituted.",
+  "repositories": [
+    {
+      "path": "frameworks/base",
+      "remote": "https://github.com/LineageOS/android_frameworks_base",
+      "head": "696a5773fa284f53429dbb6c3e5dcc96bf5bd0b3",
+      "tree": "f62f764e6f4b9d5498b59ba2a949aec642767988",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_frameworks_base\n * branch                696a5773fa284f53429dbb6c3e5dcc96bf5bd0b3 -> FETCH_HEAD"
+      },
+      "fetched_head": "696a5773fa284f53429dbb6c3e5dcc96bf5bd0b3",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 65040,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "frameworks/native",
+      "remote": "https://github.com/LineageOS/android_frameworks_native",
+      "head": "a96adf2c6e62dbb22299cd83bbb9ea4bc569e985",
+      "tree": "524b3c3c7e297a20474e8cece67c44b24c2d5678",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_frameworks_native\n * branch            a96adf2c6e62dbb22299cd83bbb9ea4bc569e985 -> FETCH_HEAD"
+      },
+      "fetched_head": "a96adf2c6e62dbb22299cd83bbb9ea4bc569e985",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 4344,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "frameworks/av",
+      "remote": "https://github.com/LineageOS/android_frameworks_av",
+      "head": "1c5914737a1a89d0c5b3e52e8289019eab3f8cbf",
+      "tree": "df8d7b78dd385311803e0a8892eed47b67455751",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_frameworks_av\n * branch            1c5914737a1a89d0c5b3e52e8289019eab3f8cbf -> FETCH_HEAD"
+      },
+      "fetched_head": "1c5914737a1a89d0c5b3e52e8289019eab3f8cbf",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 5433,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "packages/apps/Settings",
+      "remote": "https://github.com/LineageOS/android_packages_apps_Settings",
+      "head": "2f16bfe2c784623a324350cd19dae7f6066e2cfb",
+      "tree": "beb4a22b0fdb9d2db85f9df00a420d86576718e8",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_packages_apps_Settings\n * branch            2f16bfe2c784623a324350cd19dae7f6066e2cfb -> FETCH_HEAD"
+      },
+      "fetched_head": "2f16bfe2c784623a324350cd19dae7f6066e2cfb",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 10346,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "system/sepolicy",
+      "remote": "https://github.com/LineageOS/android_system_sepolicy",
+      "head": "d61fd80832f558d52de026097d30d695634e8b0f",
+      "tree": "e5fe6e943d26b99972f2f6221a7e92160f35b11c",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_system_sepolicy\n * branch            d61fd80832f558d52de026097d30d695634e8b0f -> FETCH_HEAD"
+      },
+      "fetched_head": "d61fd80832f558d52de026097d30d695634e8b0f",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 4280,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "hardware/xiaomi",
+      "remote": "https://github.com/LineageOS/android_hardware_xiaomi",
+      "head": "c3de4412ad6317b820c8cef7c5e80b7cceb4acda",
+      "tree": "1147ab68c6a069df46023d0eee3e91f5f206c069",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_hardware_xiaomi\n * branch            c3de4412ad6317b820c8cef7c5e80b7cceb4acda -> FETCH_HEAD"
+      },
+      "fetched_head": "c3de4412ad6317b820c8cef7c5e80b7cceb4acda",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 268,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/display",
+      "remote": "https://github.com/LineageOS/android_hardware_qcom_display",
+      "head": "d679d895cd1e35d088b67bfd19d9141c76da5207",
+      "tree": "2d75d93a0e9f87062fc227b0800aa471c4c83d5d",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_hardware_qcom_display\n * branch            d679d895cd1e35d088b67bfd19d9141c76da5207 -> FETCH_HEAD"
+      },
+      "fetched_head": "d679d895cd1e35d088b67bfd19d9141c76da5207",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 373,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/audio/pal",
+      "remote": "https://github.com/LineageOS/android_vendor_qcom_opensource_arpal-lx",
+      "head": "c4949689ac552ce13edc13265ff16c0735994e00",
+      "tree": "2999f7663c070e67b793e027b2e40485f7a29992",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_vendor_qcom_opensource_arpal-lx\n * branch            c4949689ac552ce13edc13265ff16c0735994e00 -> FETCH_HEAD"
+      },
+      "fetched_head": "c4949689ac552ce13edc13265ff16c0735994e00",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 255,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/audio/graphservices",
+      "remote": "https://github.com/LineageOS/android_vendor_qcom_opensource_audioreach-graphservices",
+      "head": "1d2e82222dbc35b9b2cff966281cd2b7a26d081a",
+      "tree": "28de8f83bb3ea74d8a50539819eef6c48097da32",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_vendor_qcom_opensource_audioreach-graphservices\n * branch            1d2e82222dbc35b9b2cff966281cd2b7a26d081a -> FETCH_HEAD"
+      },
+      "fetched_head": "1d2e82222dbc35b9b2cff966281cd2b7a26d081a",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 389,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/audio/primary-hal",
+      "remote": "https://github.com/LineageOS/android_hardware_qcom_audio-ar",
+      "head": "a674b233f85bb00f48705a72cf2c0f5a43dad045",
+      "tree": "a382a3f20eb7a586ed92d8b0d53c5a2ed6096fa6",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_hardware_qcom_audio-ar\n * branch            a674b233f85bb00f48705a72cf2c0f5a43dad045 -> FETCH_HEAD"
+      },
+      "fetched_head": "a674b233f85bb00f48705a72cf2c0f5a43dad045",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 171,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "kernel/xiaomi/sm8550",
+      "remote": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550",
+      "head": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "tree": "45cd31bf6fa130c803a0ab79839b6d7d5ca99028",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_kernel_xiaomi_sm8550\n * branch                f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d -> FETCH_HEAD"
+      },
+      "fetched_head": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 71264,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "kernel/xiaomi/sm8550-modules",
+      "remote": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-modules",
+      "head": "92a9fde479d3262da080cfd28bab0775b0da500a",
+      "tree": "303d14a030e5c715514a052e0a21ca7b411d27b2",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_kernel_xiaomi_sm8550-modules\n * branch            92a9fde479d3262da080cfd28bab0775b0da500a -> FETCH_HEAD"
+      },
+      "fetched_head": "92a9fde479d3262da080cfd28bab0775b0da500a",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 8359,
+      "physical_file_mismatches": [],
+      "passed": true
+    },
+    {
+      "path": "kernel/xiaomi/sm8550-devicetrees",
+      "remote": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-devicetrees",
+      "head": "43b5ada5654ed84c25f74789bc8f6326b7bacd20",
+      "tree": "ab3d48925ce5f3df81572eb93fa2d348a254d7ff",
+      "fetch": {
+        "returncode": 0,
+        "output": "From https://github.com/LineageOS/android_kernel_xiaomi_sm8550-devicetrees\n * branch            43b5ada5654ed84c25f74789bc8f6326b7bacd20 -> FETCH_HEAD"
+      },
+      "fetched_head": "43b5ada5654ed84c25f74789bc8f6326b7bacd20",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": [],
+      "status": "",
+      "tracked_files_byte_verified": 5748,
+      "physical_file_mismatches": [],
+      "passed": true
+    }
+  ],
+  "project_count": 1243,
+  "all_project_nonclean_status": [],
+  "known_public_sources_passed": true
+}
