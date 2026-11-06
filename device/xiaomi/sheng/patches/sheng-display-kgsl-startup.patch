@@ -1,0 +1,60 @@
+diff --git a/composer/service.cpp b/composer/service.cpp
+index 426a015..c225936 100644
+--- a/composer/service.cpp
++++ b/composer/service.cpp
+@@ -37,6 +37,7 @@
+ #include <android/binder_manager.h>
+ #include <android/binder_process.h>
+ #include <hidl/LegacySupport.h>
++#include <unistd.h>
+ 
+ #include "DisplayConfigAIDL.h"
+ #include "QtiComposer.h"
+@@ -52,6 +53,17 @@ using vendor::qti::hardware::display::composer::V3_1::IQtiComposer;
+ using vendor::qti::hardware::display::composer::V3_1::implementation::QtiComposer;
+ 
+ int main(int, char **) {
++  // The stock KGSL driver probes asynchronously. Do not let the prebuilt
++  // gralloc utility cache missing GPU alignment support for this process.
++  int gpu_wait_attempts = 0;
++  while (access("/dev/kgsl-3d0", F_OK) != 0 && gpu_wait_attempts++ < 100) {
++    usleep(100000);
++  }
++  if (access("/dev/kgsl-3d0", F_OK) != 0) {
++    ALOGE("KGSL unavailable after 10 seconds; retrying graphics service startup");
++    return -ENODEV;
++  }
++
+   ALOGI("Creating Display HW Composer HAL");
+ 
+   int composer_thread_count = 8;
+diff --git a/gralloc/service.cpp b/gralloc/service.cpp
+index 9784783..a73f6e8 100644
+--- a/gralloc/service.cpp
++++ b/gralloc/service.cpp
+@@ -27,6 +27,7 @@
+  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  */
+ #include <hidl/LegacySupport.h>
++#include <unistd.h>
+ 
+ #include "QtiAllocator.h"
+ 
+@@ -35,6 +36,17 @@ using android::hardware::joinRpcThreadpool;
+ using IQtiAllocator4 = vendor::qti::hardware::display::allocator::V4_0::IQtiAllocator;
+ 
+ int main(int, char **) {
++  // The stock KGSL driver probes asynchronously. Do not let the prebuilt
++  // gralloc utility cache missing GPU alignment support for this process.
++  int gpu_wait_attempts = 0;
++  while (access("/dev/kgsl-3d0", F_OK) != 0 && gpu_wait_attempts++ < 100) {
++    usleep(100000);
++  }
++  if (access("/dev/kgsl-3d0", F_OK) != 0) {
++    ALOGE("KGSL unavailable after 10 seconds; retrying graphics service startup");
++    return -ENODEV;
++  }
++
+   configureRpcThreadpool(4, true /*callerWillJoin*/);
+ 
+   android::sp<IQtiAllocator4> service4 =
