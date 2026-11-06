@@ -42,14 +42,16 @@ int main(int argc, char **argv) {
     int (*get)(uint32_t, void *, size_t) = dlsym(library, "agm_session_get_params");
     int (*set)(uint32_t, void *, size_t) = dlsym(library, "agm_session_set_params");
     if (!tags || !get || !set) return 3;
-    uint32_t buffer[1024] = {0}, miid = 0;
+    uint32_t buffer[1024] = {0}, miid = 0, predecessor = 0;
     size_t bytes = sizeof(buffer), offset = 4;
     if (tags(session, aif, buffer, &bytes) || bytes > sizeof(buffer) || bytes < 4) return 4;
     for (unsigned i = 0; i < buffer[0] && offset + 8 <= bytes; ++i) {
         uint32_t *tag = (void *)((uint8_t *)buffer + offset);
         if (tag[1] > (bytes - offset - 8) / 8) return 5;
-        for (unsigned j = 0; j < tag[1]; ++j)
+        for (unsigned j = 0; j < tag[1]; ++j) {
             if (tag[0] == wanted && tag[2+j*2] == 0x07001015) miid = tag[3+j*2];
+            if (tag[0] == 0xc0000039 && tag[2+j*2] == 0x07001015) predecessor = tag[3+j*2];
+        }
         offset += 8 + tag[1] * 8;
     }
     if (!miid) return 6;
@@ -66,6 +68,16 @@ int main(int argc, char **argv) {
     offset += table(payload + offset, format.format.map, quad, 4, degrees / 90);
     offset += table(payload + offset, format.format.map, factory, 4, degrees / 90);
     offset += table(payload + offset, format.format.map, stereo, 2, degrees / 90);
+    if (wanted == 0xc000003d && predecessor) {
+        struct request input = {{predecessor, 0x08001024, sizeof(struct format), 0}, {0}};
+        if (!get(session, &input, sizeof(input)) && !input.header.error && input.format.channels == 4 &&
+                memcmp(input.format.map, quad, 8) && memcmp(input.format.map, factory, 8)) {
+            offset += table(payload + offset, format.format.map, input.format.map, 4, degrees / 90);
+            ++*tables;
+            printf("ACTUAL_INPUT=%u,%u,%u,%u\n", input.format.map[0], input.format.map[1],
+                    input.format.map[2], input.format.map[3]);
+        }
+    }
     header->miid = miid;
     header->parameter = 0x0800101f;
     header->bytes = offset - sizeof(*header);
