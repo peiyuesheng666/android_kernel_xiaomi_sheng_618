@@ -10270,8 +10270,7 @@ int ResourceManager::setParameter(uint32_t param_id, void *param_payload,
                             const auto *payload = static_cast<const pal_param_payload *>(param_payload);
                             const auto *effect = reinterpret_cast<const effect_pal_payload_t *>(payload->payload);
                             const auto *custom = reinterpret_cast<const pal_effect_custom_payload_t *>(effect->payload);
-                            if (effect->payloadSize >= 8 && payload_size <= 4096 &&
-                                    (custom->paramId == 0x10904 || custom->paramId == 0x108eb)) {
+                            if (effect->payloadSize >= 8 && payload_size <= 4096) {
                                 std::vector<uint8_t> readback(payload_size);
                                 memcpy(readback.data(), param_payload, payload_size);
                                 const int result = (*sIter)->getEffectParameters(readback.data());

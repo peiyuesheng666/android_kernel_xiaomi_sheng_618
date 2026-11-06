@@ -38,3 +38,6 @@ and the stock processing profiles are retained. Live A/B testing is pending.
 DSP readback diagnostics distinguish DMS's stored values from the actual
 active module. The PAL query copies only the returned data length, excluding
 the parameter ID, to avoid the original four-byte overread/overwrite.
+Enable values 0 and 1 were read back from the DSP correctly. The user still
+reported no audible change, so the trace now checks the complete parameter
+bundles as well; a successful control write is not an audibility claim.
