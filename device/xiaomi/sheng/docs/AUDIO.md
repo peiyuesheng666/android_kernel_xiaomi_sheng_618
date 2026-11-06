@@ -51,3 +51,13 @@ build and physical channel/dynamic rotation checks are pending. The preceding
 clean native-quad batch compiled successfully in 266 tasks, with fresh-fetch
 upstream verification passing for all 13 audited public repositories and clean
 status across 1,243 manifest projects. The installed image is still r4.
+
+`scripts/package_sheng_dolby_followup.py` prepares an optional r5-or-later
+development image over the exact installed r4 vendor/AVB and r2 ODM/system_ext
+bases, preserving the r4 display-startup fix. It includes the compiled PAL,
+rotation adapter, Dolby clients, effect configuration, app and required
+hardware properties. It verifies base hashes, preferred PAL input, APK signer,
+partition sizes, image contents, existing EROFS metadata, installed public
+policy input IDs, signatures and unrelated AVB descriptors. Syntax and base
+hash checks pass; packaging and reboot validation remain pending. Ordinary
+rebuilds use the device's product modules and need no delta packager.
