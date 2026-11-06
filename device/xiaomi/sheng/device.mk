@@ -390,8 +390,6 @@ PRODUCT_PACKAGES += \
 # sheng board configuration
 LOCAL_PATH := device/xiaomi/sheng
 
-LOCAL_PATH := device/xiaomi/sheng
-
 PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH)
 PRODUCT_VENDOR_PROPERTIES += \

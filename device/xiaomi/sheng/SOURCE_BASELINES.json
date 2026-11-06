@@ -1,0 +1,27 @@
+{
+  "pal": {
+    "upstream": "hardware/qcom-caf/sm8550/audio/pal",
+    "revision": "c4949689ac552ce13edc13265ff16c0735994e00",
+    "patch_sha256": "58b49d024bf2fa320eb6e2d4396c6e3f5cd6e2cdbfb6f221b12b32deb2454154"
+  },
+  "sensors": {
+    "upstream": "hardware/xiaomi",
+    "revision": "c3de4412ad6317b820c8cef7c5e80b7cceb4acda",
+    "patch_sha256": "9000a43d1ad27b3e26b51746dbb3f0df40e9fa79e52e8f181ce10b7e956037fc"
+  },
+  "display": {
+    "upstream": "hardware/qcom-caf/sm8550/display",
+    "revision": "d679d895cd1e35d088b67bfd19d9141c76da5207",
+    "patch_sha256": "81ea03de6d583cc795809cdf7fdb38cc9a65605c55664ab66eb5fbe390f5c545"
+  },
+  "gsl": {
+    "upstream": "hardware/qcom-caf/sm8550/audio/graphservices",
+    "revision": "1d2e82222dbc35b9b2cff966281cd2b7a26d081a",
+    "patch_sha256": "2e70f2a6183d4f616c8dd56c08d75b0d43652cffa802f313cba93d22a88f74cb"
+  },
+  "kernel_uapi": {
+    "upstream": "kernel/xiaomi/sm8550-modules",
+    "revision": "92a9fde479d3262da080cfd28bab0775b0da500a",
+    "patch_sha256": "e64050216ec87bddef7b37a7c8c9d596f215d2620d8e161bcf9c9bad48e1465e"
+  }
+}

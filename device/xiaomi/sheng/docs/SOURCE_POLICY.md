@@ -24,6 +24,13 @@ changes and untracked sources, and scans all repo-managed projects for changes.
 It never changes a checkout or replaces the manifest's kernel/BSP versions with
 unrelated branch tips. A network/fetch failure is a failure, not a clean result.
 
+The local hardware-build helper uses the provisioned 80 GiB swap, 24 jobs,
+compressed 10 GiB ccache and standard Ninja. On the 20 GiB WSL host it temporarily
+wraps the generated Soong executable to set Go's 12 GiB memory limit and restores
+that executable on exit. This is build-environment handling under `out/`, not
+a platform source patch or an installed device component. Regular ROM builds
+can use the ordinary LineageOS build commands on a sufficiently provisioned host.
+
 `SOURCE_BASELINES.json` records the upstream inputs of device-owned source
 snapshots. `patches/` holds historical diffs for review and provenance only;
 they are not build steps. The GSL extraction hook changes only the generated
