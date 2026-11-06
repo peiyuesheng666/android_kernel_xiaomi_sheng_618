@@ -42,6 +42,9 @@ not reduce Dolby to stereo or copy channels after it. Plain PCM and compressed
 paths use the same logical quad order. Rotation is applied to active streams,
 new streams, route reconnections and pause/resume. Existing LR/RL enum values
 are retained, with device-only values 0x100..0x103 added for the four angles.
+The channel probe accepts `on|off` and 1..8 rounds; each round plays left then
+right for five seconds, followed by a ten-second combined segment. This gives
+the physical rotation check time to finish before the test stops.
 
 The host impulse-routing check passes for four angles. The candidate's full
 build and physical channel/dynamic rotation checks are pending. The preceding

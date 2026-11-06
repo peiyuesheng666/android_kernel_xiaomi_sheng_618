@@ -43,6 +43,8 @@ public final class ShengDolbyChannelProbe {
                 java.util.UUID.fromString("ec7178ec-e5e1-4432-a3f4-4657e6795210"),
                 java.util.UUID.fromString("9d4921da-8225-4f29-aefa-39537a04bcaa"), 30, 0);
         boolean enabled = args.length > 0 && "on".equals(args[0]);
+        int rounds = args.length > 1 ? Integer.parseInt(args[1]) : 2;
+        if (rounds < 1 || rounds > 8) throw new IllegalArgumentException("rounds must be 1..8");
         byte[] command = java.nio.ByteBuffer.allocate(12).order(java.nio.ByteOrder.LITTLE_ENDIAN)
                 .putInt(0).putInt(0).putInt(enabled ? 1 : 0).array();
         int status = effect.setParameter(5, command);
@@ -57,14 +59,14 @@ public final class ShengDolbyChannelProbe {
             throw new IllegalStateException("AudioTrack not initialized");
         try {
             track.play();
-            segment(track, "LEFT_500HZ", 5, true, false);
-            segment(track, "SILENCE", 1, false, false);
-            segment(track, "RIGHT_800HZ", 5, false, true);
-            segment(track, "SILENCE", 1, false, false);
-            segment(track, "LEFT_500HZ", 5, true, false);
-            segment(track, "SILENCE", 1, false, false);
-            segment(track, "RIGHT_800HZ", 5, false, true);
-            segment(track, "BOTH_CONTINUOUS", 1, true, true);
+            for (int round = 1; round <= rounds; ++round) {
+                System.out.println("ROUND " + round + "/" + rounds);
+                segment(track, "LEFT_500HZ", 5, true, false);
+                segment(track, "SILENCE", 1, false, false);
+                segment(track, "RIGHT_800HZ", 5, false, true);
+                segment(track, "SILENCE", 1, false, false);
+            }
+            segment(track, "BOTH_CONTINUOUS", 10, true, true);
             Thread.sleep(500);
             System.out.println("PASS completed isolated PCM; underruns=" + track.getUnderrunCount());
         } finally {
