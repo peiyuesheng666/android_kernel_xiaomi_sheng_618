@@ -45,7 +45,7 @@ PRODUCT_PACKAGES += \
     audio.primary.default \
     audio.r_submix.default \
     libtinycompress \
-    libar-pal-sheng
+    libar-pal
 
 PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.2-impl \
@@ -149,8 +149,6 @@ PRODUCT_COPY_FILES += \
 # Dolby
 PRODUCT_PACKAGES += \
     ShengDolby \
-    libdlbdsservice-sheng \
-    libhwdap-sheng \
     libshgdolby_foundation
 
 # DRM

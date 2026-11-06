@@ -17,7 +17,7 @@ cc_library_headers {
 cc_library_shared {
     name: "libar-pal-sheng",
     stem: "libar-pal",
-    overrides: ["libar-pal"],
+    installable: false,
     defaults: [
         "android_hardware_qtiaudio_config_defaults",
     ],
@@ -161,5 +161,25 @@ cc_library_shared {
         "kalama": ["libPeripheralStateUtils"],
         default: [],
     }),
+}
+
+// Select the device-compiled ELF as the public PAL module's preferred prebuilt.
+// Unlike package overrides, prebuilt selection disables the old install rule
+// and replaces its link dependencies before Make writes installation targets.
+cc_prebuilt_library_shared {
+    name: "libar-pal-sheng-install",
+    source_module_name: "libar-pal",
+    stem: "libar-pal",
+    prefer: true,
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":libar-pal-sheng"],
+    strip: { none: true },
+    export_include_dirs: ["inc"],
+    shared_libs: [
+        "libagmclient", "libar-gsl", "libaudioroute", "libcutils", "libexpat",
+        "liblog", "liblx-osal", "libtinyalsa", "libtinycompress",
+        "libutilscallstack", "libPeripheralStateUtils", "libc++", "libc", "libm", "libdl",
+    ],
 }
 

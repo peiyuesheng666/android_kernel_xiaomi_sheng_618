@@ -48,9 +48,9 @@ if [[ -f "$builder" ]]; then
     trap restore_builder EXIT
 fi
 m -j"$(nproc)" \
-    libar-pal-sheng \
+    libar-pal \
     android.hardware.sensors-service.sheng-multihal \
     vendor.qti.hardware.display.composer-service-sheng \
     vendor.qti.hardware.display.allocator-service-sheng \
-    libshgdolby_foundation libdlbdsservice-sheng libhwdap-sheng \
+    libshgdolby_foundation libdlbdsservice libhwdap \
     ShengDolby FrameworkResOverlaySheng vendor_file_contexts selinux_policy

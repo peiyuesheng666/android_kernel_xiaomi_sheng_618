@@ -2,8 +2,10 @@
 
 All board fixes live in `device/xiaomi/sheng`. Public repositories must match
 the upstream revisions pinned by the ROM manifest before compilation. Device
-modules may replace installed modules with their own Soong identities and
-`overrides`; no normal build applies a patch to a public repository.
+modules use their own Soong identities. Services keep their Binder names while
+using unique binary/RC filenames; PAL uses preferred-prebuilt selection with a
+device-compiled ELF input. Package `overrides` alone cannot prevent same-path
+Make installation collisions. No normal build patches a public repository.
 
 The `seventeen` piano tree is an organizational reference, at revision
 `3f10fc25273b42d18d0bd533551a0a5c3dda0094`. Its board values and firmware are
@@ -33,8 +35,9 @@ can use the ordinary LineageOS build commands on a sufficiently provisioned host
 
 `SOURCE_BASELINES.json` records the upstream inputs of device-owned source
 snapshots. `patches/` holds historical diffs for review and provenance only;
-they are not build steps. The GSL extraction hook changes only the generated
-`vendor/xiaomi/sheng/Android.bp` so it exports this tree's header provider.
+they are not build steps. The extraction hook changes only the generated
+`vendor/xiaomi/sheng/Android.bp` to export this tree's GSL headers and reference
+its compatible Dolby filegroups.
 Stock partition inputs remain read-only.
 
 Each newly completed logical fix gets a separate commit and a record of its

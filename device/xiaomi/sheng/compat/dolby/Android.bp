@@ -9,33 +9,12 @@ cc_prebuilt_library_shared {
     shared_libs: ["libutils", "libcutils", "liblog", "libc++", "libc", "libm", "libdl"],
 }
 
-cc_prebuilt_library_shared {
-    name: "libdlbdsservice-sheng",
-    stem: "libdlbdsservice",
-    overrides: ["libdlbdsservice"],
+filegroup {
+    name: "sheng_dolby_dms_compat",
     srcs: ["libdlbdsservice.so"],
-    compile_multilib: "64",
-    vendor: true,
-    strip: { none: true },
-    shared_libs: [
-        "libutils", "libcutils", "libshgdolby_foundation", "liblog",
-        "libxml2", "libcrypto", "libdapparamstorage", "libsqlite",
-        "libhidlbase", "vendor.dolby.hardware.dms@2.0", "libc++", "libc", "libm", "libdl",
-    ],
 }
 
-cc_prebuilt_library_shared {
-    name: "libhwdap-sheng",
-    stem: "libhwdap",
-    overrides: ["libhwdap"],
+filegroup {
+    name: "sheng_dolby_effect_compat",
     srcs: ["libhwdap.so"],
-    compile_multilib: "64",
-    vendor: true,
-    relative_install_path: "soundfx",
-    strip: { none: true },
-    shared_libs: [
-        "libspatializerparamstorage", "liblog", "libutils", "libcutils",
-        "libaudioutils", "libdapparamstorage", "libhidlbase", "libdlbpreg",
-        "vendor.dolby.hardware.dms@2.0", "libshgdolby_foundation", "libc++", "libc", "libm", "libdl",
-    ],
 }

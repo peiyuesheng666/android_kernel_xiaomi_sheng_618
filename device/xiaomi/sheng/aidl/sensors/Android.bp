@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 cc_binary {
     name: "android.hardware.sensors-service.sheng-multihal",
-    stem: "android.hardware.sensors-service.xiaomi-multihal",
     overrides: ["android.hardware.sensors-service.xiaomi-multihal"],
     vendor: true,
     relative_install_path: "hw",
@@ -14,7 +13,7 @@ cc_binary {
         "android.hardware.sensors@2.X-multihal.header",
         "android.hardware.sensors@2.X-shared-utils",
     ],
-    init_rc: ["android.hardware.sensors-service.xiaomi-multihal.rc"],
+    init_rc: ["android.hardware.sensors-service.sheng-multihal.rc"],
     vintf_fragment_modules: ["android.hardware.sensors.xiaomi-multihal.xml"],
     shared_libs: [
         "android.hardware.sensors@2.0-ScopedWakelock",

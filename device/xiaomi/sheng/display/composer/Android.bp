@@ -3,7 +3,6 @@ composer_srcs = ["*.cpp"]
 cc_binary {
 
     name: "vendor.qti.hardware.display.composer-service-sheng",
-    stem: "vendor.qti.hardware.display.composer-service",
     overrides: ["vendor.qti.hardware.display.composer-service"],
     defaults: ["qtidisplay_defaults"],
     sanitize: {
@@ -92,8 +91,15 @@ cc_binary {
     srcs: composer_srcs,
 
     required: [
-        "vendor.qti.hardware.display.composer-service.rc",
+        "vendor.qti.hardware.display.composer-service-sheng.rc",
         "vendor.qti.hardware.display.composer-service.xml",
     ],
 
+}
+
+prebuilt_etc {
+    name: "vendor.qti.hardware.display.composer-service-sheng.rc",
+    src: "vendor.qti.hardware.display.composer-service-sheng.rc",
+    sub_dir: "init",
+    vendor: true,
 }

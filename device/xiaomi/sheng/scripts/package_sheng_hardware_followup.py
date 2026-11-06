@@ -71,9 +71,13 @@ changes = {
         'lib64/hw/libshgdolby_foundation.so',
         'lib64/libdlbdsservice.so',
         'lib64/soundfx/libhwdap.so',
-        'bin/hw/android.hardware.sensors-service.xiaomi-multihal',
-        'bin/hw/vendor.qti.hardware.display.composer-service',
-        'bin/hw/vendor.qti.hardware.display.allocator-service',
+        'bin/hw/android.hardware.sensors-service.sheng-multihal',
+        'bin/hw/vendor.qti.hardware.display.composer-service-sheng',
+        'bin/hw/vendor.qti.hardware.display.allocator-service-sheng',
+        'etc/init/android.hardware.sensors-service.sheng-multihal.rc',
+        'etc/init/vendor.qti.hardware.display.composer-service-sheng.rc',
+        'etc/init/vendor.qti.hardware.display.allocator-service-sheng.rc',
+        'etc/vintf/manifest/vendor.qti.hardware.display.allocator-service-sheng.xml',
         'etc/selinux/vendor_file_contexts',
         'etc/selinux/vendor_sepolicy.cil',
     )
@@ -90,16 +94,25 @@ for name, digest in expected_libs.items():
 for relative, source in changes.items():
     target = vendor/relative
     target.parent.mkdir(parents=True, exist_ok=True)
-    mode = target.stat().st_mode & 0o7777 if target.exists() else 0o644
+    mode = target.stat().st_mode & 0o7777 if target.exists() else (0o755 if relative.startswith('bin/') else 0o644)
     shutil.copyfile(source, target)
     os.chmod(target, mode)
     os.chown(target, 0, 0)
 (vendor/'etc/displayconfig').chmod(0o755)
-removed = [
+removed_fake_vibrator = [
     'bin/hw/vendor.qti.hardware.vibrator.service',
     'etc/init/vendor.qti.hardware.vibrator.service.rc',
     'etc/vintf/manifest/vendor.qti.hardware.vibrator.service.xml',
     'lib64/hw/vibrator.default.so',
+]
+removed = removed_fake_vibrator + [
+    'bin/hw/android.hardware.sensors-service.xiaomi-multihal',
+    'bin/hw/vendor.qti.hardware.display.composer-service',
+    'bin/hw/vendor.qti.hardware.display.allocator-service',
+    'etc/init/android.hardware.sensors-service.xiaomi-multihal.rc',
+    'etc/init/vendor.qti.hardware.display.composer-service.rc',
+    'etc/init/vendor.qti.hardware.display.allocator-service.rc',
+    'etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml',
 ]
 for relative in removed:
     assert (vendor/relative).is_file(), relative
@@ -126,6 +139,11 @@ config.write_text(vendor_config.read_text().rstrip()+'\n'+
     'vendor/etc/displayconfig 0 0 755 capabilities=0x0\n'+
     'vendor/etc/displayconfig/display_id_4630947038039379843.xml 0 0 644 capabilities=0x0\n'+
     'vendor/lib64/hw/libshgdolby_foundation.so 0 0 644 capabilities=0x0\n')
+with config.open('a') as stream:
+    for relative in changes:
+        if relative.startswith(('bin/', 'etc/init/', 'etc/vintf/')):
+            mode = '755' if relative.startswith('bin/') else '644'
+            stream.write('vendor/'+relative+' 0 0 '+mode+' capabilities=0x0\n')
 
 def build_image(partition, stage, size, fs_config=None, selinux_fc=None):
     packaging = product/'obj/PACKAGING'/(partition+'_intermediates')
@@ -252,7 +270,8 @@ for partition, path in [('vendor', new_vendor), ('odm', new_odm), ('system_ext',
     assert sha(destination/filename) == sha(path)
     files.append(dict(partition=partition, name=filename, bytes=path.stat().st_size, sha256=sha(path)))
 report = dict(files=files, work_dir=str(build), changed_vendor_files=sorted(vendor_changed),
-    changed_system_ext_files=sorted(system_changed), removed_fake_vibrator_files=removed,
+    changed_system_ext_files=sorted(system_changed), removed_fake_vibrator_files=removed_fake_vibrator,
+    removed_superseded_service_files=sorted(set(removed)-set(removed_fake_vibrator)),
     changed_odm_files=sorted(odm_changed), partition_sizes_unchanged=True, signatures_verified=True,
     other_avb_descriptors_and_chain_preserved=True, readback_verified=True,
     unrelated_vendor_metadata_unchanged=True, unrelated_odm_metadata_unchanged=True,

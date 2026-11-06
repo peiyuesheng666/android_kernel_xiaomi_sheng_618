@@ -3,7 +3,10 @@
 The stock KGSL driver probes asynchronously. Allocator and composer must wait
 for `/dev/kgsl-3d0` before their gralloc helpers cache GPU alignment information.
 The device-owned service modules retain the verified wait (up to ten seconds,
-then fail for init to retry), with original installed names and interfaces.
+then fail for init to retry). They use unique sheng binary/RC filenames, the
+original Binder interfaces and init service names, and exact original HAL
+execution labels. This prevents duplicate installation rules from the public
+service modules while preserving Android's service discovery.
 
 The implementation sources and their upstream notices are under `display/`.
 `SOURCE_BASELINES.json` and the historical diff record the upstream revision
