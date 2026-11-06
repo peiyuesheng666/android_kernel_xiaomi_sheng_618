@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: Apache-2.0
+hal_attribute(sheng_dolby)
+
+type hal_sheng_dolby_default, domain;
+type hal_sheng_dolby_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_sheng_dolby_default)
+hal_server_domain(hal_sheng_dolby_default, hal_sheng_dolby)
+
+type hal_sheng_dolby_hwservice, hwservice_manager_type, protected_hwservice;
+hal_attribute_hwservice(hal_sheng_dolby, hal_sheng_dolby_hwservice)
+hwbinder_use(hal_sheng_dolby_default)
+
+type vendor_sheng_dolby_data_file, file_type, data_file_type;
+allow hal_sheng_dolby_default vendor_sheng_dolby_data_file:dir create_dir_perms;
+allow hal_sheng_dolby_default vendor_sheng_dolby_data_file:file create_file_perms;
+get_prop(hal_sheng_dolby_default, vendor_audio_prop)
+vendor_public_prop(vendor_sheng_dolby_prop)
+get_prop(hal_sheng_dolby_default, vendor_sheng_dolby_prop)
+get_prop(hal_audio_default, vendor_sheng_dolby_prop)
+get_prop(audioserver, vendor_sheng_dolby_prop)
+
+hal_client_domain(hal_audio_default, hal_sheng_dolby)
+hal_client_domain(audioserver, hal_sheng_dolby)
+hal_client_domain(platform_app, hal_sheng_dolby)
+
+# DAP retrieves tuning and registers callbacks through the stock DMS HAL.
+# Service discovery alone does not grant the HIDL calls or their callbacks.
+binder_call(hal_sheng_dolby_client, hal_sheng_dolby_server)
+binder_call(hal_sheng_dolby_server, hal_sheng_dolby_client)

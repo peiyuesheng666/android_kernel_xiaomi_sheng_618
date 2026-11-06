@@ -1,0 +1,143 @@
+{
+  "revision": "r4-serial",
+  "image": "lineage-24.0-sheng-recovery-r4-serial.img",
+  "bytes": 104857600,
+  "sha256": "f7387c1d24826cf86e64f6db35372cee752c09834362c8f48f88dd7b50cc76d9",
+  "source_r2_sha256": "43c65078ab22ce7465298b488841e741913d975f38e118fbd36701138840f3b4",
+  "work_dir": "/root/sheng-lineage/recovery-r4/20261105T150315Z",
+  "static_preinit_sha256": "063652d050f2977335f279a8d7a97bd8bad0ce451767b9776f6e1ee19cbdc58d",
+  "module_bootstrap_count": 335,
+  "stock_blocklist_respected": [
+    "llcc_perfmon.ko"
+  ],
+  "cmdline": "video=vfb:640x400,bpp=32,memsize=3072000 disable_dma32=on androidboot.hardware=qcom androidboot.memcg=1 androidboot.usbcontroller=a600000.dwc3 androidboot.force_normal_boot=0 firmware_class.path=/lib/firmware loop.max_part=7 androidboot.load_modules_parallel=false mtdoops.mtddev=0 printk.devkmsg=on loglevel=7 log_buf_len=4M",
+  "kernel_dtb_dtbo_unchanged_from_r2": true,
+  "host_transport_test_passed": true,
+  "avb_verified": true,
+  "hardware_boot_tested": false,
+  "usb_hardware_tested": false,
+  "hold_before_android_init_until_host_go": true,
+  "commands": [
+    [
+      "/usr/bin/python3",
+      "/root/sheng-lineage/lineage-24.0/system/tools/mkbootimg/unpack_bootimg.py",
+      "--boot_img",
+      "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/recovery-sheng-lineage-24.0-r2/lineage-24.0-sheng-recovery-r2.img",
+      "--out",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/parts"
+    ],
+    [
+      "lz4",
+      "-dc",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/parts/ramdisk"
+    ],
+    [
+      "cpio",
+      "-idmu",
+      "--no-absolute-filenames"
+    ],
+    [
+      "aarch64-linux-gnu-gcc",
+      "-O2",
+      "-static",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-o",
+      "/root/sheng-lineage/recovery-r3-tools/serial-init",
+      "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/device/xiaomi/sheng/recovery/serial_init.c"
+    ],
+    [
+      "qemu-aarch64",
+      "/root/sheng-lineage/recovery-r3-tools/serial-init",
+      "--self-test"
+    ],
+    [
+      "/usr/bin/python3",
+      "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/scripts/test_serial_transport.py"
+    ],
+    [
+      "aarch64-linux-gnu-readelf",
+      "-l",
+      "/root/sheng-lineage/recovery-r3-tools/serial-init"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/bin/mkbootfs",
+      "-d",
+      "/root/sheng-lineage/lineage-24.0/out/target/product/sheng",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/root"
+    ],
+    [
+      "lz4",
+      "-l",
+      "-12",
+      "-f",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/ramdisk.cpio",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/ramdisk.lz4"
+    ],
+    [
+      "/usr/bin/python3",
+      "/root/sheng-lineage/lineage-24.0/system/tools/mkbootimg/mkbootimg.py",
+      "--header_version",
+      "2",
+      "--pagesize",
+      "4096",
+      "--base",
+      "0x00000000",
+      "--kernel_offset",
+      "0x00008000",
+      "--ramdisk_offset",
+      "0x02000000",
+      "--tags_offset",
+      "0x01e00000",
+      "--dtb_offset",
+      "0x01f00000",
+      "--second_offset",
+      "0",
+      "--os_version",
+      "17.0.0",
+      "--os_patch_level",
+      "2026-11",
+      "--kernel",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/parts/kernel",
+      "--ramdisk",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/ramdisk.lz4",
+      "--dtb",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/parts/dtb",
+      "--recovery_dtbo",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/parts/recovery_dtbo",
+      "--cmdline",
+      "video=vfb:640x400,bpp=32,memsize=3072000 disable_dma32=on androidboot.hardware=qcom androidboot.memcg=1 androidboot.usbcontroller=a600000.dwc3 androidboot.force_normal_boot=0 firmware_class.path=/lib/firmware loop.max_part=7 androidboot.load_modules_parallel=false mtdoops.mtddev=0 printk.devkmsg=on loglevel=7 log_buf_len=4M",
+      "--output",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/recovery.img"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/bin/avbtool",
+      "add_hash_footer",
+      "--image",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/recovery.img",
+      "--partition_name",
+      "recovery",
+      "--partition_size",
+      "104857600",
+      "--algorithm",
+      "SHA256_RSA4096",
+      "--key",
+      "/root/sheng-lineage/lineage-24.0/external/avb/test/data/testkey_rsa4096.pem"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/bin/avbtool",
+      "verify_image",
+      "--image",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/recovery.img"
+    ],
+    [
+      "/usr/bin/python3",
+      "/root/sheng-lineage/lineage-24.0/system/tools/mkbootimg/unpack_bootimg.py",
+      "--boot_img",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/recovery.img",
+      "--out",
+      "/root/sheng-lineage/recovery-r4/20261105T150315Z/verified"
+    ]
+  ]
+}

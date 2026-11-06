@@ -1,0 +1,74 @@
+[
+  {
+    "name": "source-patches/cs35l41-kernel-private-uapi.patch",
+    "bytes": 588,
+    "sha256": "2ec2a3435979f9dd4005d28c8bf5fffab2cab7559fbf963c025ba77752e8f5fe",
+    "matches": true
+  },
+  {
+    "name": "source-patches/gsl-prebuilt-header-provider.patch",
+    "bytes": 471,
+    "sha256": "3f23c059c95e864084f54f107a6cc205bbd334be06b6b6a08b5e9f5d94525992",
+    "matches": true
+  },
+  {
+    "name": "sheng-build-configuration.tar.gz",
+    "bytes": 237841,
+    "sha256": "f9ec52aaf4c9c847e66d95c6efc63ce70bf876c33ac1d5070d4e8902db51f905",
+    "matches": true
+  },
+  {
+    "name": "source-manifest.xml",
+    "bytes": 305206,
+    "sha256": "adeff634980cf77f6387f6721b6f6df0559faf07893572eb39637d62b2335a5a",
+    "matches": true
+  },
+  {
+    "name": "lineage-24.0-20261105-UNOFFICIAL-sheng.zip",
+    "bytes": 1883238740,
+    "sha256": "76184f072b0b8c9a5144533a2ceb181ff664c8dacdc62a56f68ddf139f907ad9",
+    "matches": true
+  },
+  {
+    "name": "boot.img",
+    "bytes": 100663296,
+    "sha256": "7325be6aecbab7e8bfffc41c10cb2ba93b6704e911c3cb6b50952e1dfefe645a",
+    "matches": true
+  },
+  {
+    "name": "vendor_boot.img",
+    "bytes": 100663296,
+    "sha256": "bd2f6d0ec504fda7d851046e756e3bdedc18c6c2931e31aafab599ff1d325c56",
+    "matches": true
+  },
+  {
+    "name": "init_boot.img",
+    "bytes": 8388608,
+    "sha256": "509a157bb3249a0ed4cd68f4aa064d4de6464c0abd271a24504456478899341c",
+    "matches": true
+  },
+  {
+    "name": "recovery.img",
+    "bytes": 104857600,
+    "sha256": "dd7d8757db7325252f9cf9ded453a9c3f81000cf328ae6ac3c56e48ba5cef281",
+    "matches": true
+  },
+  {
+    "name": "dtbo.img",
+    "bytes": 16777216,
+    "sha256": "4ab8ac751db0786c2546eaf8c5a65d89d7c2e9308e46c186ad0dece4db431101",
+    "matches": true
+  },
+  {
+    "name": "vbmeta.img",
+    "bytes": 65536,
+    "sha256": "c1a05868431ca3ce3bf67298c260eb2580df743487e4839ccab28aef1cd8fc99",
+    "matches": true
+  },
+  {
+    "name": "vbmeta_system.img",
+    "bytes": 65536,
+    "sha256": "6ad25352b1bf85f0333d37febcf759ec7e6edd7c183e874bdb8528ab2c31a744",
+    "matches": true
+  }
+]

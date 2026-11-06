@@ -1,0 +1,2336 @@
+{
+  "/root/sheng-612/stock/vendor_boot/vendor_ramdisk00": [
+    {
+      "path": "first_stage_ramdisk",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "first_stage_ramdisk/fstab.qcom",
+      "mode": "0o100644",
+      "bytes": 13054
+    },
+    {
+      "path": "lib",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "lib/modules",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "lib/modules/adsp_sleepmon.ko",
+      "mode": "0o100644",
+      "bytes": 74664,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/altmode-glink.ko",
+      "mode": "0o100644",
+      "bytes": 36144,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/arm_smmu.ko",
+      "mode": "0o100644",
+      "bytes": 371000,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/bam_dma.ko",
+      "mode": "0o100644",
+      "bytes": 113840,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/bcl_pmic5.ko",
+      "mode": "0o100644",
+      "bytes": 36928,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/bcl_soc.ko",
+      "mode": "0o100644",
+      "bytes": 22312,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/binder_gki.ko",
+      "mode": "0o100644",
+      "bytes": 105360,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/binder_prio.ko",
+      "mode": "0o100644",
+      "bytes": 78720,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/block2mtd.ko",
+      "mode": "0o100644",
+      "bytes": 28976,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/boot_stats.ko",
+      "mode": "0o100644",
+      "bytes": 14000,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/bootinfo.ko",
+      "mode": "0o100644",
+      "bytes": 20728,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/bwmon.ko",
+      "mode": "0o100644",
+      "bytes": 90512,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/c1dcvs_scmi.ko",
+      "mode": "0o100644",
+      "bytes": 32296,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/c1dcvs_vendor.ko",
+      "mode": "0o100644",
+      "bytes": 21040,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/camcc-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 201336,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cdsp-loader.ko",
+      "mode": "0o100644",
+      "bytes": 18528,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cdsprm.ko",
+      "mode": "0o100644",
+      "bytes": 75936,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cfg80211.ko",
+      "mode": "0o100644",
+      "bytes": 2587064,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/charger-ulog-glink.ko",
+      "mode": "0o100644",
+      "bytes": 31160,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/chipreg.ko",
+      "mode": "0o100644",
+      "bytes": 16232,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/clk-dummy.ko",
+      "mode": "0o100644",
+      "bytes": 18144,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/clk-qcom.ko",
+      "mode": "0o100644",
+      "bytes": 453072,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/clk-rpmh.ko",
+      "mode": "0o100644",
+      "bytes": 110672,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cma_balance.ko",
+      "mode": "0o100644",
+      "bytes": 12080,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cmd-db.ko",
+      "mode": "0o100644",
+      "bytes": 21728,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/core_hang_detect.ko",
+      "mode": "0o100644",
+      "bytes": 27144,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-csr.ko",
+      "mode": "0o100644",
+      "bytes": 91840,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-cti.ko",
+      "mode": "0o100644",
+      "bytes": 165296,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-dummy.ko",
+      "mode": "0o100644",
+      "bytes": 71864,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-funnel.ko",
+      "mode": "0o100644",
+      "bytes": 87512,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-hwevent.ko",
+      "mode": "0o100644",
+      "bytes": 74568,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-remote-etm.ko",
+      "mode": "0o100644",
+      "bytes": 78456,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-replicator.ko",
+      "mode": "0o100644",
+      "bytes": 87912,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-stm.ko",
+      "mode": "0o100644",
+      "bytes": 113608,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-tgu.ko",
+      "mode": "0o100644",
+      "bytes": 75584,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-tmc.ko",
+      "mode": "0o100644",
+      "bytes": 226232,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-tpda.ko",
+      "mode": "0o100644",
+      "bytes": 86792,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight-tpdm.ko",
+      "mode": "0o100644",
+      "bytes": 194352,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/coresight.ko",
+      "mode": "0o100644",
+      "bytes": 214320,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cpq.ko",
+      "mode": "0o100644",
+      "bytes": 54256,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cpu_hotplug.ko",
+      "mode": "0o100644",
+      "bytes": 21728,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cpu_voltage_cooling.ko",
+      "mode": "0o100644",
+      "bytes": 23296,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cpufreq_stats_scmi.ko",
+      "mode": "0o100644",
+      "bytes": 22104,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cpufreq_stats_vendor.ko",
+      "mode": "0o100644",
+      "bytes": 15352,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/cqhci.ko",
+      "mode": "0o100644",
+      "bytes": 59936,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/crypto-qti-common.ko",
+      "mode": "0o100644",
+      "bytes": 24176,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/crypto-qti-hwkm.ko",
+      "mode": "0o100644",
+      "bytes": 17840,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/dcc_v2.ko",
+      "mode": "0o100644",
+      "bytes": 71160,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/dcvs_fp.ko",
+      "mode": "0o100644",
+      "bytes": 19072,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ddr_cdev.ko",
+      "mode": "0o100644",
+      "bytes": 16344,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/debug-regulator.ko",
+      "mode": "0o100644",
+      "bytes": 110400,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/debug_ext.ko",
+      "mode": "0o100644",
+      "bytes": 43232,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/debug_symbol.ko",
+      "mode": "0o100644",
+      "bytes": 15328,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/debugcc-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 46768,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/dispcc-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 110600,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/dmesg_dumper.ko",
+      "mode": "0o100644",
+      "bytes": 31552,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/dump_display.ko",
+      "mode": "0o100644",
+      "bytes": 14592,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/dwc3-msm.ko",
+      "mode": "0o100644",
+      "bytes": 222408,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ehset.ko",
+      "mode": "0o100644",
+      "bytes": 14176,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/eud.ko",
+      "mode": "0o100644",
+      "bytes": 37912,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/f_fs_ipc_log.ko",
+      "mode": "0o100644",
+      "bytes": 94760,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/fpc1552.ko",
+      "mode": "0o100644",
+      "bytes": 58256,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/frpc-adsprpc.ko",
+      "mode": "0o100644",
+      "bytes": 715672,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/fsa4480-i2c.ko",
+      "mode": "0o100644",
+      "bytes": 31480,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gcc-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 184616,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gdsc-regulator.ko",
+      "mode": "0o100644",
+      "bytes": 109312,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gh_arm_drv.ko",
+      "mode": "0o100644",
+      "bytes": 16448,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gh_ctrl.ko",
+      "mode": "0o100644",
+      "bytes": 25696,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gh_dbl.ko",
+      "mode": "0o100644",
+      "bytes": 31184,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gh_irq_lend.ko",
+      "mode": "0o100644",
+      "bytes": 29152,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gh_mem_notifier.ko",
+      "mode": "0o100644",
+      "bytes": 16568,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gh_msgq.ko",
+      "mode": "0o100644",
+      "bytes": 32680,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gh_rm_drv.ko",
+      "mode": "0o100644",
+      "bytes": 243128,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gh_tlmm_vm_mem_access.ko",
+      "mode": "0o100644",
+      "bytes": 23952,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gh_virt_wdt.ko",
+      "mode": "0o100644",
+      "bytes": 20096,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/glink_pkt.ko",
+      "mode": "0o100644",
+      "bytes": 78600,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/glink_probe.ko",
+      "mode": "0o100644",
+      "bytes": 24888,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gpucc-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 43424,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/gunyah.ko",
+      "mode": "0o100644",
+      "bytes": 234456,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/hdcp_qseecom_dlkm.ko",
+      "mode": "0o100644",
+      "bytes": 56968,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/heap_mem_ext_v01.ko",
+      "mode": "0o100644",
+      "bytes": 13824,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/hid-xbox_haptics-mi.ko",
+      "mode": "0o100644",
+      "bytes": 19232,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/hung_task_enh.ko",
+      "mode": "0o100644",
+      "bytes": 20544,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/hvc_gunyah.ko",
+      "mode": "0o100644",
+      "bytes": 22720,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/hwid.ko",
+      "mode": "0o100644",
+      "bytes": 24672,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/hwkm.ko",
+      "mode": "0o100644",
+      "bytes": 19960,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/i2c-msm-geni.ko",
+      "mode": "0o100644",
+      "bytes": 161136,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/i3c-master-msm-geni.ko",
+      "mode": "0o100644",
+      "bytes": 176096,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/icc-bcm-voter.ko",
+      "mode": "0o100644",
+      "bytes": 75056,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/icc-debug.ko",
+      "mode": "0o100644",
+      "bytes": 60288,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/icc-rpmh.ko",
+      "mode": "0o100644",
+      "bytes": 31280,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/icc-test.ko",
+      "mode": "0o100644",
+      "bytes": 15768,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/industrialio-buffer-cb.ko",
+      "mode": "0o100644",
+      "bytes": 19304,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/iommu-logger.ko",
+      "mode": "0o100644",
+      "bytes": 14152,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ipa_fmwk.ko",
+      "mode": "0o100644",
+      "bytes": 395352,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ir-spi.ko",
+      "mode": "0o100644",
+      "bytes": 25464,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/kunit.ko",
+      "mode": "0o100644",
+      "bytes": 76928,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/leds-qti-flash.ko",
+      "mode": "0o100644",
+      "bytes": 64528,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/leds-qti-tri-led.ko",
+      "mode": "0o100644",
+      "bytes": 25640,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/llcc-qcom.ko",
+      "mode": "0o100644",
+      "bytes": 55536,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/llcc_perfmon.ko",
+      "mode": "0o100644",
+      "bytes": 55432,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/low_free_memory_kill.ko",
+      "mode": "0o100644",
+      "bytes": 25856,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/lt9611uxc.ko",
+      "mode": "0o100644",
+      "bytes": 84208,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mac80211.ko",
+      "mode": "0o100644",
+      "bytes": 2347856,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/max31760_fan.ko",
+      "mode": "0o100644",
+      "bytes": 29864,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mdt_loader.ko",
+      "mode": "0o100644",
+      "bytes": 20520,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mem-hooks.ko",
+      "mode": "0o100644",
+      "bytes": 17936,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mem-offline.ko",
+      "mode": "0o100644",
+      "bytes": 71976,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mem_buf.ko",
+      "mode": "0o100644",
+      "bytes": 74200,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mem_buf_dev.ko",
+      "mode": "0o100644",
+      "bytes": 211256,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mem_buf_msgq.ko",
+      "mode": "0o100644",
+      "bytes": 33848,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/memlat.ko",
+      "mode": "0o100644",
+      "bytes": 97944,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/memlat_scmi.ko",
+      "mode": "0o100644",
+      "bytes": 11936,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/memlat_vendor.ko",
+      "mode": "0o100644",
+      "bytes": 34040,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/memory_dump_v2.ko",
+      "mode": "0o100644",
+      "bytes": 41224,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/metis.ko",
+      "mode": "0o100644",
+      "bytes": 391040,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mhi.ko",
+      "mode": "0o100644",
+      "bytes": 278744,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mhi_cntrl_qcom.ko",
+      "mode": "0o100644",
+      "bytes": 94144,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mhi_dev_dtr.ko",
+      "mode": "0o100644",
+      "bytes": 28480,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mhi_dev_netdev.ko",
+      "mode": "0o100644",
+      "bytes": 122136,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mhi_dev_satellite.ko",
+      "mode": "0o100644",
+      "bytes": 49568,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mhi_dev_uci.ko",
+      "mode": "0o100644",
+      "bytes": 52648,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mi_cnss_statistic.ko",
+      "mode": "0o100644",
+      "bytes": 56176,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mi_freqwdg.ko",
+      "mode": "0o100644",
+      "bytes": 34104,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mi_memory.ko",
+      "mode": "0o100644",
+      "bytes": 66488,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mi_mempool.ko",
+      "mode": "0o100644",
+      "bytes": 58824,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mi_power.ko",
+      "mode": "0o100644",
+      "bytes": 112408,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mi_schedule.ko",
+      "mode": "0o100644",
+      "bytes": 153864,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mi_thermal_interface.ko",
+      "mode": "0o100644",
+      "bytes": 126464,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/microdump_collector.ko",
+      "mode": "0o100644",
+      "bytes": 22504,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/miev.ko",
+      "mode": "0o100644",
+      "bytes": 40736,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/migt.ko",
+      "mode": "0o100644",
+      "bytes": 340728,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/millet_binder.ko",
+      "mode": "0o100644",
+      "bytes": 109768,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/millet_core.ko",
+      "mode": "0o100644",
+      "bytes": 120880,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/millet_hs.ko",
+      "mode": "0o100644",
+      "bytes": 94288,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/millet_oem_cgroup.ko",
+      "mode": "0o100644",
+      "bytes": 94224,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/millet_pkg.ko",
+      "mode": "0o100644",
+      "bytes": 105144,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/millet_sig.ko",
+      "mode": "0o100644",
+      "bytes": 96192,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/minidump.ko",
+      "mode": "0o100644",
+      "bytes": 230624,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/modules.alias",
+      "mode": "0o100644",
+      "bytes": 39494
+    },
+    {
+      "path": "lib/modules/modules.blocklist",
+      "mode": "0o100644",
+      "bytes": 1289
+    },
+    {
+      "path": "lib/modules/modules.dep",
+      "mode": "0o100644",
+      "bytes": 49471
+    },
+    {
+      "path": "lib/modules/modules.load",
+      "mode": "0o100644",
+      "bytes": 1728
+    },
+    {
+      "path": "lib/modules/modules.load.recovery",
+      "mode": "0o100644",
+      "bytes": 5350
+    },
+    {
+      "path": "lib/modules/modules.softdep",
+      "mode": "0o100644",
+      "bytes": 596
+    },
+    {
+      "path": "lib/modules/msm-mmrm.ko",
+      "mode": "0o100644",
+      "bytes": 98224,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_dma_iommu_mapping.ko",
+      "mode": "0o100644",
+      "bytes": 28056,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_drm.ko",
+      "mode": "0o100644",
+      "bytes": 5936040,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_ext_display.ko",
+      "mode": "0o100644",
+      "bytes": 26984,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_geni_serial.ko",
+      "mode": "0o100644",
+      "bytes": 246736,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_gpi.ko",
+      "mode": "0o100644",
+      "bytes": 115064,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_hw_fence.ko",
+      "mode": "0o100644",
+      "bytes": 235792,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_lmh_dcvs.ko",
+      "mode": "0o100644",
+      "bytes": 27520,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_memshare.ko",
+      "mode": "0o100644",
+      "bytes": 48128,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_performance.ko",
+      "mode": "0o100644",
+      "bytes": 90864,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_qmp.ko",
+      "mode": "0o100644",
+      "bytes": 49968,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_sharedmem.ko",
+      "mode": "0o100644",
+      "bytes": 16832,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_show_epoch.ko",
+      "mode": "0o100644",
+      "bytes": 11424,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_show_resume_irq.ko",
+      "mode": "0o100644",
+      "bytes": 22480,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/msm_sysstats.ko",
+      "mode": "0o100644",
+      "bytes": 101704,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mtd.ko",
+      "mode": "0o100644",
+      "bytes": 185656,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mtd_blkdevs.ko",
+      "mode": "0o100644",
+      "bytes": 36304,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mtdblock.ko",
+      "mode": "0o100644",
+      "bytes": 20104,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/mtdoops.ko",
+      "mode": "0o100644",
+      "bytes": 40080,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/nanosic_platform.ko",
+      "mode": "0o100644",
+      "bytes": 65248,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ns.ko",
+      "mode": "0o100644",
+      "bytes": 150368,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ntag5_i2c.ko",
+      "mode": "0o100644",
+      "bytes": 55816,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/nvme-core.ko",
+      "mode": "0o100644",
+      "bytes": 321064,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/nvme.ko",
+      "mode": "0o100644",
+      "bytes": 120280,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/nvmem_qcom-spmi-sdam.ko",
+      "mode": "0o100644",
+      "bytes": 15184,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/nvmem_qfprom.ko",
+      "mode": "0o100644",
+      "bytes": 26736,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ofpart.ko",
+      "mode": "0o100644",
+      "bytes": 19392,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/panel_event_notifier.ko",
+      "mode": "0o100644",
+      "bytes": 16984,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pci-msm-drv.ko",
+      "mode": "0o100644",
+      "bytes": 492792,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pdr_interface.ko",
+      "mode": "0o100644",
+      "bytes": 38008,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/perf_helper.ko",
+      "mode": "0o100644",
+      "bytes": 51312,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/perfmgr.ko",
+      "mode": "0o100644",
+      "bytes": 77136,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-generic.ko",
+      "mode": "0o100644",
+      "bytes": 25816,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-msm-m31-eusb2.ko",
+      "mode": "0o100644",
+      "bytes": 35688,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-msm-snps-eusb2.ko",
+      "mode": "0o100644",
+      "bytes": 52880,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-msm-ssusb-qmp.ko",
+      "mode": "0o100644",
+      "bytes": 48080,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-qcom-emu.ko",
+      "mode": "0o100644",
+      "bytes": 17688,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-qcom-ufs-qmp-v4-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 31176,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-qcom-ufs-qmp-v4-khaje.ko",
+      "mode": "0o100644",
+      "bytes": 26136,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-qcom-ufs-qmp-v4-kona.ko",
+      "mode": "0o100644",
+      "bytes": 26864,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-qcom-ufs-qmp-v4-lahaina.ko",
+      "mode": "0o100644",
+      "bytes": 26840,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-qcom-ufs-qmp-v4-waipio.ko",
+      "mode": "0o100644",
+      "bytes": 26840,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-qcom-ufs-qmp-v4.ko",
+      "mode": "0o100644",
+      "bytes": 27552,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-qcom-ufs-qrbtc-sdm845.ko",
+      "mode": "0o100644",
+      "bytes": 21640,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/phy-qcom-ufs.ko",
+      "mode": "0o100644",
+      "bytes": 50728,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pinctrl-crow.ko",
+      "mode": "0o100644",
+      "bytes": 157136,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pinctrl-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 187712,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pinctrl-msm.ko",
+      "mode": "0o100644",
+      "bytes": 78968,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pinctrl-spmi-gpio.ko",
+      "mode": "0o100644",
+      "bytes": 63424,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pinctrl-spmi-mpp.ko",
+      "mode": "0o100644",
+      "bytes": 40408,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pm8941-pwrkey.ko",
+      "mode": "0o100644",
+      "bytes": 29416,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pmic-pon-log.ko",
+      "mode": "0o100644",
+      "bytes": 31880,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pmic_glink.ko",
+      "mode": "0o100644",
+      "bytes": 44200,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pmu_scmi.ko",
+      "mode": "0o100644",
+      "bytes": 11920,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pmu_vendor.ko",
+      "mode": "0o100644",
+      "bytes": 16416,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/policy_engine.ko",
+      "mode": "0o100644",
+      "bytes": 19808,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/proxy-consumer.ko",
+      "mode": "0o100644",
+      "bytes": 23624,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ps5169.ko",
+      "mode": "0o100644",
+      "bytes": 58648,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/pwm-qti-lpg.ko",
+      "mode": "0o100644",
+      "bytes": 57464,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qbt_handler.ko",
+      "mode": "0o100644",
+      "bytes": 67480,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-cpufreq-hw-debug.ko",
+      "mode": "0o100644",
+      "bytes": 21712,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-cpufreq-hw.ko",
+      "mode": "0o100644",
+      "bytes": 100344,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-dcvs.ko",
+      "mode": "0o100644",
+      "bytes": 157200,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-dload-mode.ko",
+      "mode": "0o100644",
+      "bytes": 30712,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-hv-haptics.ko",
+      "mode": "0o100644",
+      "bytes": 269592,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-pdc.ko",
+      "mode": "0o100644",
+      "bytes": 37456,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-pmu-lib.ko",
+      "mode": "0o100644",
+      "bytes": 102240,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-pon.ko",
+      "mode": "0o100644",
+      "bytes": 14488,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-reboot-reason.ko",
+      "mode": "0o100644",
+      "bytes": 17920,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-scm.ko",
+      "mode": "0o100644",
+      "bytes": 204344,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-spmi-adc5-gen3.ko",
+      "mode": "0o100644",
+      "bytes": 60280,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-spmi-pmic.ko",
+      "mode": "0o100644",
+      "bytes": 21104,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-spmi-temp-alarm.ko",
+      "mode": "0o100644",
+      "bytes": 28456,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom-vadc-common.ko",
+      "mode": "0o100644",
+      "bytes": 39872,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_aoss.ko",
+      "mode": "0o100644",
+      "bytes": 51864,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_cpu_vendor_hooks.ko",
+      "mode": "0o100644",
+      "bytes": 23736,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_cpuss_sleep_stats.ko",
+      "mode": "0o100644",
+      "bytes": 28104,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_dma_heaps.ko",
+      "mode": "0o100644",
+      "bytes": 163008,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_edac.ko",
+      "mode": "0o100644",
+      "bytes": 21136,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_esoc.ko",
+      "mode": "0o100644",
+      "bytes": 251752,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_glink.ko",
+      "mode": "0o100644",
+      "bytes": 106984,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_glink_smem.ko",
+      "mode": "0o100644",
+      "bytes": 21360,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_hwspinlock.ko",
+      "mode": "0o100644",
+      "bytes": 16440,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_iommu_debug.ko",
+      "mode": "0o100644",
+      "bytes": 105064,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_iommu_util.ko",
+      "mode": "0o100644",
+      "bytes": 153976,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_ipc_lite.ko",
+      "mode": "0o100644",
+      "bytes": 16768,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_ipc_logging.ko",
+      "mode": "0o100644",
+      "bytes": 59592,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_ipcc.ko",
+      "mode": "0o100644",
+      "bytes": 24464,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_llcc_pmu.ko",
+      "mode": "0o100644",
+      "bytes": 62768,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_logbuf_vh.ko",
+      "mode": "0o100644",
+      "bytes": 22752,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_lpm.ko",
+      "mode": "0o100644",
+      "bytes": 163032,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_pil_info.ko",
+      "mode": "0o100644",
+      "bytes": 17544,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_q6v5.ko",
+      "mode": "0o100644",
+      "bytes": 108384,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_q6v5_pas.ko",
+      "mode": "0o100644",
+      "bytes": 100504,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_ramdump.ko",
+      "mode": "0o100644",
+      "bytes": 25296,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_rimps.ko",
+      "mode": "0o100644",
+      "bytes": 19264,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_rpmh.ko",
+      "mode": "0o100644",
+      "bytes": 152200,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_smd.ko",
+      "mode": "0o100644",
+      "bytes": 47584,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_sysmon.ko",
+      "mode": "0o100644",
+      "bytes": 48360,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_tsens.ko",
+      "mode": "0o100644",
+      "bytes": 103072,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_va_minidump.ko",
+      "mode": "0o100644",
+      "bytes": 40672,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qcom_wdt_core.ko",
+      "mode": "0o100644",
+      "bytes": 56552,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qdss_bridge.ko",
+      "mode": "0o100644",
+      "bytes": 51024,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qmi_helpers.ko",
+      "mode": "0o100644",
+      "bytes": 124520,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qnoc-crow.ko",
+      "mode": "0o100644",
+      "bytes": 190360,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qnoc-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 303672,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qnoc-qos.ko",
+      "mode": "0o100644",
+      "bytes": 12144,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qrng_dlkm.ko",
+      "mode": "0o100644",
+      "bytes": 25952,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qrtr-gunyah.ko",
+      "mode": "0o100644",
+      "bytes": 34488,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qrtr-mhi.ko",
+      "mode": "0o100644",
+      "bytes": 107112,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qrtr-smd.ko",
+      "mode": "0o100644",
+      "bytes": 17272,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qrtr.ko",
+      "mode": "0o100644",
+      "bytes": 165976,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qsee_ipc_irq_bridge.ko",
+      "mode": "0o100644",
+      "bytes": 35592,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qseecom_proxy.ko",
+      "mode": "0o100644",
+      "bytes": 16264,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti-fixed-regulator.ko",
+      "mode": "0o100644",
+      "bytes": 20360,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti-ocp-notifier.ko",
+      "mode": "0o100644",
+      "bytes": 18256,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti-regmap-debugfs.ko",
+      "mode": "0o100644",
+      "bytes": 31624,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti_battery_charger.ko",
+      "mode": "0o100644",
+      "bytes": 368592,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti_battery_debug.ko",
+      "mode": "0o100644",
+      "bytes": 41456,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti_cpufreq_cdev.ko",
+      "mode": "0o100644",
+      "bytes": 21712,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti_devfreq_cdev.ko",
+      "mode": "0o100644",
+      "bytes": 20392,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti_qmi_cdev.ko",
+      "mode": "0o100644",
+      "bytes": 35312,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti_qmi_sensor_v2.ko",
+      "mode": "0o100644",
+      "bytes": 43544,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/qti_userspace_cdev.ko",
+      "mode": "0o100644",
+      "bytes": 16544,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/rdbg.ko",
+      "mode": "0o100644",
+      "bytes": 36608,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/reboot-mode.ko",
+      "mode": "0o100644",
+      "bytes": 18496,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/redriver.ko",
+      "mode": "0o100644",
+      "bytes": 25040,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/regmap-spmi.ko",
+      "mode": "0o100644",
+      "bytes": 18264,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/repeater-i2c-eusb2.ko",
+      "mode": "0o100644",
+      "bytes": 22224,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/repeater-qti-pmic-eusb2.ko",
+      "mode": "0o100644",
+      "bytes": 38336,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/repeater.ko",
+      "mode": "0o100644",
+      "bytes": 17568,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/rimps_log.ko",
+      "mode": "0o100644",
+      "bytes": 70304,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/rpmh-regulator.ko",
+      "mode": "0o100644",
+      "bytes": 49872,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/rproc_qcom_common.ko",
+      "mode": "0o100644",
+      "bytes": 107184,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/rq_stats.ko",
+      "mode": "0o100644",
+      "bytes": 16416,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/rtc-pm8xxx.ko",
+      "mode": "0o100644",
+      "bytes": 30104,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/sched-walt.ko",
+      "mode": "0o100644",
+      "bytes": 920232,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/sdhci-msm.ko",
+      "mode": "0o100644",
+      "bytes": 149944,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/sdpm_clk.ko",
+      "mode": "0o100644",
+      "bytes": 18840,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/secure_buffer.ko",
+      "mode": "0o100644",
+      "bytes": 100920,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/sg.ko",
+      "mode": "0o100644",
+      "bytes": 147704,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/slim-qcom-ngd-ctrl.ko",
+      "mode": "0o100644",
+      "bytes": 220184,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/slimbus.ko",
+      "mode": "0o100644",
+      "bytes": 64240,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/smcinvoke_dlkm.ko",
+      "mode": "0o100644",
+      "bytes": 310104,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/smem.ko",
+      "mode": "0o100644",
+      "bytes": 29120,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/smp2p.ko",
+      "mode": "0o100644",
+      "bytes": 36768,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/smp2p_sleepstate.ko",
+      "mode": "0o100644",
+      "bytes": 14944,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/snd-soc-hdmi-codec.ko",
+      "mode": "0o100644",
+      "bytes": 48784,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/snd-usb-audio-qmi.ko",
+      "mode": "0o100644",
+      "bytes": 101256,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/soc_sleep_stats.ko",
+      "mode": "0o100644",
+      "bytes": 36256,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/socinfo.ko",
+      "mode": "0o100644",
+      "bytes": 118632,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/spi-msm-geni.ko",
+      "mode": "0o100644",
+      "bytes": 167296,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/spmi-glink-debug.ko",
+      "mode": "0o100644",
+      "bytes": 21064,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/spmi-pmic-arb-debug.ko",
+      "mode": "0o100644",
+      "bytes": 23136,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/spmi-pmic-arb.ko",
+      "mode": "0o100644",
+      "bytes": 81928,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/sps_drv.ko",
+      "mode": "0o100644",
+      "bytes": 506120,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/stm_console.ko",
+      "mode": "0o100644",
+      "bytes": 13016,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/stm_core.ko",
+      "mode": "0o100644",
+      "bytes": 74936,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/stm_ftrace.ko",
+      "mode": "0o100644",
+      "bytes": 14184,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/stm_p_basic.ko",
+      "mode": "0o100644",
+      "bytes": 13664,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/stm_p_ost.ko",
+      "mode": "0o100644",
+      "bytes": 13848,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/stub-regulator.ko",
+      "mode": "0o100644",
+      "bytes": 19104,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/subsystem_sleep_stats.ko",
+      "mode": "0o100644",
+      "bytes": 34264,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/swinfo.ko",
+      "mode": "0o100644",
+      "bytes": 61112,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/sync_fence.ko",
+      "mode": "0o100644",
+      "bytes": 41880,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/synx-driver.ko",
+      "mode": "0o100644",
+      "bytes": 156848,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/sys_pm_vx.ko",
+      "mode": "0o100644",
+      "bytes": 30208,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/sysmon_subsystem_stats.ko",
+      "mode": "0o100644",
+      "bytes": 48224,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/tcsrcc-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 18216,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/thermal_minidump.ko",
+      "mode": "0o100644",
+      "bytes": 14168,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/thermal_pause.ko",
+      "mode": "0o100644",
+      "bytes": 30568,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/tmecom-intf.ko",
+      "mode": "0o100644",
+      "bytes": 38784,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/tz_log_dlkm.ko",
+      "mode": "0o100644",
+      "bytes": 47464,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ucsi_glink.ko",
+      "mode": "0o100644",
+      "bytes": 38808,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ufs_qcom.ko",
+      "mode": "0o100644",
+      "bytes": 24007288,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/ufshcd-crypto-qti.ko",
+      "mode": "0o100644",
+      "bytes": 25880,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/usb_bam.ko",
+      "mode": "0o100644",
+      "bytes": 98472,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/usb_f_ccid.ko",
+      "mode": "0o100644",
+      "bytes": 56688,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/usb_f_cdev.ko",
+      "mode": "0o100644",
+      "bytes": 82712,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/usb_f_diag.ko",
+      "mode": "0o100644",
+      "bytes": 50392,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/usb_f_gsi.ko",
+      "mode": "0o100644",
+      "bytes": 269000,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/usb_f_qdss.ko",
+      "mode": "0o100644",
+      "bytes": 61320,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/usb_f_rndis.ko",
+      "mode": "0o100644",
+      "bytes": 128416,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/usbmon.ko",
+      "mode": "0o100644",
+      "bytes": 90352,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/videocc-kalama.ko",
+      "mode": "0o100644",
+      "bytes": 42728,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/virtual_fg.ko",
+      "mode": "0o100644",
+      "bytes": 33632,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/wl2866d.ko",
+      "mode": "0o100644",
+      "bytes": 26072,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/wl2868c.ko",
+      "mode": "0o100644",
+      "bytes": 39120,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/xiaomi_wifi_gpio.ko",
+      "mode": "0o100644",
+      "bytes": 68288,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/xiaomifp.ko",
+      "mode": "0o100644",
+      "bytes": 17056,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/xlogchar.ko",
+      "mode": "0o100644",
+      "bytes": 30008,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/xm_battmngr_init.ko",
+      "mode": "0o100644",
+      "bytes": 25176,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/xm_charger.ko",
+      "mode": "0o100644",
+      "bytes": 94480,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/xm_power.ko",
+      "mode": "0o100644",
+      "bytes": 30392,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/xm_utils.ko",
+      "mode": "0o100644",
+      "bytes": 95744,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/zram.ko",
+      "mode": "0o100644",
+      "bytes": 125520,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "lib/modules/zsmalloc.ko",
+      "mode": "0o100644",
+      "bytes": 83744,
+      "vermagic": "5.15.78 SMP preempt mod_unload modversions aarch64"
+    },
+    {
+      "path": "system",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "system/bin",
+      "mode": "0o40751",
+      "bytes": 0
+    },
+    {
+      "path": "system/bin/defrag.f2fs",
+      "mode": "0o120755",
+      "bytes": 9,
+      "link_target": "fsck.f2fs"
+    },
+    {
+      "path": "system/bin/dump.f2fs",
+      "mode": "0o120755",
+      "bytes": 9,
+      "link_target": "fsck.f2fs"
+    },
+    {
+      "path": "system/bin/e2fsck",
+      "mode": "0o100755",
+      "bytes": 263016
+    },
+    {
+      "path": "system/bin/fsck.f2fs",
+      "mode": "0o100755",
+      "bytes": 281832
+    },
+    {
+      "path": "system/bin/linker64",
+      "mode": "0o100755",
+      "bytes": 1825624
+    },
+    {
+      "path": "system/bin/linker_asan64",
+      "mode": "0o120755",
+      "bytes": 8,
+      "link_target": "linker64"
+    },
+    {
+      "path": "system/bin/resize.f2fs",
+      "mode": "0o120755",
+      "bytes": 9,
+      "link_target": "fsck.f2fs"
+    },
+    {
+      "path": "system/bin/snapuserd",
+      "mode": "0o100755",
+      "bytes": 1337712
+    },
+    {
+      "path": "system/lib64",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "system/lib64/ld-android.so",
+      "mode": "0o100644",
+      "bytes": 9496
+    },
+    {
+      "path": "system/lib64/libbase.so",
+      "mode": "0o100644",
+      "bytes": 255344
+    },
+    {
+      "path": "system/lib64/libc++.so",
+      "mode": "0o100644",
+      "bytes": 725688
+    },
+    {
+      "path": "system/lib64/libc.so",
+      "mode": "0o100644",
+      "bytes": 1381832
+    },
+    {
+      "path": "system/lib64/libdl.so",
+      "mode": "0o100644",
+      "bytes": 13816
+    },
+    {
+      "path": "system/lib64/libext2_blkid.so",
+      "mode": "0o100644",
+      "bytes": 52952
+    },
+    {
+      "path": "system/lib64/libext2_com_err.so",
+      "mode": "0o100644",
+      "bytes": 15296
+    },
+    {
+      "path": "system/lib64/libext2_e2p.so",
+      "mode": "0o100644",
+      "bytes": 37600
+    },
+    {
+      "path": "system/lib64/libext2_quota.so",
+      "mode": "0o100644",
+      "bytes": 61888
+    },
+    {
+      "path": "system/lib64/libext2_uuid.so",
+      "mode": "0o100644",
+      "bytes": 19232
+    },
+    {
+      "path": "system/lib64/libext2fs.so",
+      "mode": "0o100644",
+      "bytes": 379936
+    },
+    {
+      "path": "system/lib64/liblog.so",
+      "mode": "0o100644",
+      "bytes": 66528
+    },
+    {
+      "path": "system/lib64/libm.so",
+      "mode": "0o100644",
+      "bytes": 225168
+    },
+    {
+      "path": "system/lib64/libsparse.so",
+      "mode": "0o100644",
+      "bytes": 37160
+    },
+    {
+      "path": "system/lib64/libz.so",
+      "mode": "0o100644",
+      "bytes": 106248
+    }
+  ],
+  "/root/sheng-612/stock/init_boot/ramdisk": [
+    {
+      "path": "debug_ramdisk",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "dev",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "init",
+      "mode": "0o100750",
+      "bytes": 2890176
+    },
+    {
+      "path": "metadata",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "mnt",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "proc",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "second_stage_resources",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "sys",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "system",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "system/bin",
+      "mode": "0o40751",
+      "bytes": 0
+    },
+    {
+      "path": "system/bin/snapuserd",
+      "mode": "0o100755",
+      "bytes": 1337712
+    },
+    {
+      "path": "system/etc",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "system/etc/init",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "system/etc/init/snapuserd.rc",
+      "mode": "0o100644",
+      "bytes": 507
+    },
+    {
+      "path": "system/etc/ramdisk",
+      "mode": "0o40755",
+      "bytes": 0
+    },
+    {
+      "path": "system/etc/ramdisk/build.prop",
+      "mode": "0o100644",
+      "bytes": 929
+    }
+  ],
+  "device_trees": [
+    {
+      "index": 0,
+      "offset": 0,
+      "bytes": 464090,
+      "root_compatible": "\"qcom,kalama\""
+    },
+    {
+      "index": 1,
+      "offset": 464090,
+      "bytes": 446937,
+      "root_compatible": "\"qcom,kalama\""
+    },
+    {
+      "index": 2,
+      "offset": 911027,
+      "bytes": 510564,
+      "root_compatible": "\"qcom,kalama\""
+    },
+    {
+      "index": 3,
+      "offset": 1421591,
+      "bytes": 529006,
+      "root_compatible": "\"qcom,kalama\""
+    },
+    {
+      "index": 4,
+      "offset": 1950597,
+      "bytes": 460227,
+      "root_compatible": "\"qcom,kalamap\""
+    },
+    {
+      "index": 5,
+      "offset": 2410824,
+      "bytes": 443074,
+      "root_compatible": "\"qcom,kalamap\""
+    },
+    {
+      "index": 6,
+      "offset": 2853898,
+      "bytes": 506701,
+      "root_compatible": "\"qcom,kalamap\""
+    },
+    {
+      "index": 7,
+      "offset": 3360599,
+      "bytes": 524404,
+      "root_compatible": "\"qcom,kalamap\""
+    }
+  ]
+}

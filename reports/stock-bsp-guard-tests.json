@@ -1,0 +1,14 @@
+{
+  "real_effective_modules_checked": 419,
+  "stock_modules": 417,
+  "source_gki_modules": [
+    "zram.ko",
+    "zsmalloc.ko"
+  ],
+  "real_staging_passed": true,
+  "repeat_staging_preserves_contents": true,
+  "bad_kernel_crc_rejected_without_staging_mutation": true,
+  "log": "/root/sheng-lineage/logs/verify-stock-bsp-guard.log",
+  "full_validation_run_passed": false,
+  "rom_compiled": false
+}

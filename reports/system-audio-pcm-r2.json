@@ -1,0 +1,51 @@
+{
+  "files": [
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "c7b454eca8ef011c5ff3dc74003f2aff7f515df7667c85de4f29ec6f561ce5c4"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "95a9e99881f48a558da3180f1c2528cd926e30f710ea9e0192d70c39a8b90df9"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/system-audio-pcm-r2",
+  "base_files": {
+    "vendor": {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "7762d270cee1aad7d24d7d4589df8005c8bc77f49d29994e15d90a4904a54bd8"
+    },
+    "odm": {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "380aac5b18d5573a8389847553ffcdfdbbf8422413548daddd3389f5bcc76b6d"
+    },
+    "vbmeta": {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "6aaa327d19de9704c9b0aec8cf9bf02e5c33febf9d0cd03c3ffd795ee1043d5c"
+    }
+  },
+  "changed_files": [
+    "build.prop",
+    "etc/audio/sku_kalama/audio_policy_configuration.xml"
+  ],
+  "unchanged_partition_sizes": true,
+  "readback_content_and_ownership_verified": true,
+  "avb_signatures_verified": true,
+  "all_original_chain_descriptors_preserved": true,
+  "unchanged_odm_sha256": "380aac5b18d5573a8389847553ffcdfdbbf8422413548daddd3389f5bcc76b6d",
+  "speaker_offload_excluded_by_policy": true,
+  "hardware_boot_tested": true,
+  "six_speaker_playback_after_reboot": true,
+  "boot_evidence": "reports/device/system-bringup-r2-20261106-184936/",
+  "dolby_enabled": false
+}

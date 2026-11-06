@@ -1,0 +1,22 @@
+--- a/Pal.cpp
++++ b/Pal.cpp
+@@ -1,3 +1,4 @@
++#include <cutils/properties.h>
+ /*
+  * Copyright (c) 2019-2021, The Linux Foundation. All rights reserved.
+  *
+@@ -1197,6 +1198,14 @@
+ 
+     if (rm) {
+         if (GEF_PARAM_WRITE == dir) {
++            if (param_id == PAL_PARAM_ID_UIEFFECT && param_payload &&
++                payload_size >= sizeof(effect_pal_payload_t) &&
++                property_get_bool("vendor.audio.sheng.dolby_trace", false)) {
++                const auto *effect = static_cast<const effect_pal_payload_t*>(param_payload);
++                PAL_INFO(LOG_TAG, "sheng GEF write: device=%d stream=%d tag=%x tkv=%d bytes=%zu payload=%u",
++                         pal_device_id, pal_stream_type, effect->tag,
++                         effect->isTKV, payload_size, effect->payloadSize);
++            }
+             status = rm->setParameter(param_id, param_payload, payload_size,
+                                         pal_device_id, pal_stream_type);
+             if (0 != status) {

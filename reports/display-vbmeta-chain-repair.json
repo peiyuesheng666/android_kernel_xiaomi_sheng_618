@@ -1,0 +1,10 @@
+{
+  "file": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/system-display-fix-sheng-lineage-24.0-r1/vbmeta-chain-fixed.img",
+  "bytes": 8192,
+  "sha256": "f0a9d448f68ee32a09e3597750089e4c8334f23b4cc42a977ee72768fdd76ed5",
+  "signature_verified": true,
+  "all_original_chain_descriptors_preserved": true,
+  "only_changed_descriptor": "odm",
+  "original_flags_preserved": 3,
+  "hardware_boot_tested": false
+}

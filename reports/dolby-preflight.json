@@ -1,0 +1,10 @@
+{
+  "resource_api37_compilation_passed": true,
+  "java_platform_api_compilation": "pending full Android build",
+  "native_dap_uuid_and_library_verified": true,
+  "hidl_dms2_verified": true,
+  "eac3_joc_decoder_manifest_preserved": true,
+  "stock_input_count_verified": 43,
+  "full_rom_compiled": false,
+  "device_audio_runtime_validated": false
+}

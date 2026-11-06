@@ -1,0 +1,149 @@
+{
+  "revision": "r6-qti",
+  "image": "lineage-24.0-sheng-recovery-r6-qti.img",
+  "bytes": 104857600,
+  "sha256": "14b129e555f29ae87a09f6432fb7341bdd410aab796fe331b46838a92678eafc",
+  "source_r5_sha256": "9f25b8e681a84f34460432ca312efccbb87b597410ace08a32b14fa1b1bad3b5",
+  "work_dir": "/root/sheng-lineage/recovery-r6/20261105T162101Z",
+  "changed_ui_files": {
+    "system/bin/recovery": {
+      "before": "737d788bad297f40af936f04987e4f42df33c18cf39b3419dfad93e0a67121ad",
+      "after": "737d788bad297f40af936f04987e4f42df33c18cf39b3419dfad93e0a67121ad"
+    },
+    "system/lib64/librecovery_ui.so": {
+      "before": "467e891a3d43b76a140d37e876f7ae118dd4d64bd3d45a04d1e7979df5e5b760",
+      "after": "de6aa42386b584f8ab7d0373672d2f067a3091d8f6b2a877e58b25aa40e7ec7c"
+    },
+    "system/lib64/librecovery_ui_ext.so": {
+      "before": "a218df9dd385d53972cfa5631b77b8ab41035559ab7f0c533754174881e68790",
+      "after": "a218df9dd385d53972cfa5631b77b8ab41035559ab7f0c533754174881e68790"
+    }
+  },
+  "qti_backend": {
+    "qti_flag": true,
+    "qti_flag_type": "bool",
+    "build_run_id": "2d8f1b686d6d4c8ba1084821b931c2a3",
+    "library": "librecovery_ui.so",
+    "bytes": 417736,
+    "sha256": "de6aa42386b584f8ab7d0373672d2f067a3091d8f6b2a877e58b25aa40e7ec7c",
+    "original_sha256": "467e891a3d43b76a140d37e876f7ae118dd4d64bd3d45a04d1e7979df5e5b760",
+    "needed_libraries": [
+      "android.hardware.health-V5-ndk.so",
+      "libbase.so",
+      "libc++.so",
+      "libc.so",
+      "libcutils.so",
+      "libdl.so",
+      "libhidlbase.so",
+      "libm.so",
+      "libpng.so",
+      "libutils.so",
+      "libvolume_manager.so",
+      "libz.so"
+    ],
+    "hardware_tested": false,
+    "note": "minui backend is linked into librecovery_ui.so; replacing only recovery is insufficient."
+  },
+  "kernel_dtb_dtbo_unchanged_from_r5": true,
+  "cmdline": "video=vfb:640x400,bpp=32,memsize=3072000 disable_dma32=on androidboot.hardware=qcom androidboot.memcg=1 androidboot.usbcontroller=a600000.dwc3 androidboot.force_normal_boot=0 firmware_class.path=/lib/firmware loop.max_part=7 androidboot.load_modules_parallel=false mtdoops.mtddev=0 printk.devkmsg=on loglevel=7 log_buf_len=4M",
+  "avb_verified": true,
+  "hardware_tested": false,
+  "commands": [
+    [
+      "/usr/bin/python3",
+      "/root/sheng-lineage/lineage-24.0/system/tools/mkbootimg/unpack_bootimg.py",
+      "--boot_img",
+      "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/recovery-sheng-lineage-24.0-r5-adb/lineage-24.0-sheng-recovery-r5-adb.img",
+      "--out",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/parts"
+    ],
+    [
+      "lz4",
+      "-dc",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/parts/ramdisk"
+    ],
+    [
+      "cpio",
+      "-idmu",
+      "--no-absolute-filenames"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/bin/mkbootfs",
+      "-d",
+      "/root/sheng-lineage/lineage-24.0/out/target/product/sheng",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/root"
+    ],
+    [
+      "lz4",
+      "-l",
+      "-12",
+      "-f",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/ramdisk.cpio",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/ramdisk.lz4"
+    ],
+    [
+      "/usr/bin/python3",
+      "/root/sheng-lineage/lineage-24.0/system/tools/mkbootimg/mkbootimg.py",
+      "--header_version",
+      "2",
+      "--pagesize",
+      "4096",
+      "--base",
+      "0x00000000",
+      "--kernel_offset",
+      "0x00008000",
+      "--ramdisk_offset",
+      "0x02000000",
+      "--tags_offset",
+      "0x01e00000",
+      "--dtb_offset",
+      "0x01f00000",
+      "--second_offset",
+      "0",
+      "--os_version",
+      "17.0.0",
+      "--os_patch_level",
+      "2026-11",
+      "--kernel",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/parts/kernel",
+      "--ramdisk",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/ramdisk.lz4",
+      "--dtb",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/parts/dtb",
+      "--recovery_dtbo",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/parts/recovery_dtbo",
+      "--cmdline",
+      "video=vfb:640x400,bpp=32,memsize=3072000 disable_dma32=on androidboot.hardware=qcom androidboot.memcg=1 androidboot.usbcontroller=a600000.dwc3 androidboot.force_normal_boot=0 firmware_class.path=/lib/firmware loop.max_part=7 androidboot.load_modules_parallel=false mtdoops.mtddev=0 printk.devkmsg=on loglevel=7 log_buf_len=4M",
+      "--output",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/recovery.img"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/bin/avbtool",
+      "add_hash_footer",
+      "--image",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/recovery.img",
+      "--partition_name",
+      "recovery",
+      "--partition_size",
+      "104857600",
+      "--algorithm",
+      "SHA256_RSA4096",
+      "--key",
+      "/root/sheng-lineage/lineage-24.0/external/avb/test/data/testkey_rsa4096.pem"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/bin/avbtool",
+      "verify_image",
+      "--image",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/recovery.img"
+    ],
+    [
+      "/usr/bin/python3",
+      "/root/sheng-lineage/lineage-24.0/system/tools/mkbootimg/unpack_bootimg.py",
+      "--boot_img",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/recovery.img",
+      "--out",
+      "/root/sheng-lineage/recovery-r6/20261105T162101Z/verified"
+    ]
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "real_agm_compile_passed": true,
+  "returncode": 0,
+  "log": "/root/sheng-lineage/logs/verify-agm-gsl.log",
+  "soong_export_propagation": "pending current validation run"
+}

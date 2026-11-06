@@ -1,0 +1,47 @@
+{
+  "standalone_reference_check_passed": true,
+  "checked_files": [
+    "Android.bp",
+    "AndroidProducts.mk",
+    "BoardConfig.mk",
+    "device.mk",
+    "extract-files.py",
+    "lineage.dependencies",
+    "lineage_sheng.mk",
+    "setup-makefiles.py",
+    "dolby/ShengDolby/Android.bp",
+    "kernel/stock-modules/stage.py",
+    "overlay/FrameworkResOverlaySheng/Android.bp",
+    "overlay/LineageResOverlaySheng/Android.bp",
+    "overlay/SettingsResOverlaySheng/Android.bp",
+    "overlay/SystemUIResOverlaySheng/Android.bp",
+    "overlay/WifiResOverlaySheng/Android.bp",
+    "properties/odm.prop",
+    "properties/product.prop",
+    "properties/system.prop",
+    "properties/system_ext.prop",
+    "properties/vendor.prop",
+    "rootdir/Android.bp"
+  ],
+  "gnu_make_board_values_checked": {
+    "TARGET_ARCH": "arm64",
+    "TARGET_BOARD_PLATFORM": "kalama",
+    "BOARD_BOOTIMAGE_PARTITION_SIZE": "100663296",
+    "BOARD_SUPER_PARTITION_SIZE": "11811160064",
+    "BOARD_QTI_DYNAMIC_PARTITIONS_SIZE": "11800674304",
+    "BOARD_SUPER_PARTITION_GROUPS": "qti_dynamic_partitions",
+    "TARGET_KERNEL_CONFIG": "gki_defconfig vendor/kalama_GKI.config",
+    "TARGET_KERNEL_CONFIG_EXT": "device/xiaomi/sheng/configs/kernel/sheng.config",
+    "TARGET_RECOVERY_FSTAB": "device/xiaomi/sheng/rootdir/etc/fstab.qcom",
+    "TARGET_VENDOR_PROP": "device/xiaomi/sheng/properties/vendor.prop",
+    "BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE": "erofs",
+    "BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE": "ext4"
+  },
+  "external_includes_deferred_to_android_build": [
+    "include vendor/lineage/config/BoardConfigReservedSize.mk",
+    "include device/qcom/sepolicy_vndr/SEPolicy.mk",
+    "include vendor/xiaomi/sheng/BoardConfigVendor.mk"
+  ],
+  "full_android_build_passed": false,
+  "hardware_boot_tested": false
+}

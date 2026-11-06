@@ -1,0 +1,39 @@
+{
+  "source_sha256": "845202770a4171c0a65538716c1fcb976923efe390ef7bf92c79dbbac7a326dd",
+  "patched_sha256": "a6e6a4bad9717aed9e95f2d98b8465b20ee9e07bbedc92c75560eb9ed56543f2",
+  "old_allocation_bytes": 256,
+  "required_allocation_bytes": 3376,
+  "abi_measurement": "exact current vendor libui compilation flags",
+  "changes": [
+    {
+      "virtual_address": "0xe6ab0",
+      "file_offset": 944816,
+      "constructor": "mihal::GraBuffer::GraBuffer(unsigned int, unsigned int, int, unsigned long, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>)>",
+      "old_instruction": "52802000",
+      "new_instruction": "5281a600"
+    },
+    {
+      "virtual_address": "0xe6fe4",
+      "file_offset": 946148,
+      "constructor": "mihal::GraBuffer::GraBuffer(mihal::Stream const*, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>)>",
+      "old_instruction": "52802000",
+      "new_instruction": "5281a600"
+    },
+    {
+      "virtual_address": "0xe73e8",
+      "file_offset": 947176,
+      "constructor": "mihal::GraBuffer::GraBuffer(unsigned int, unsigned int, int, unsigned long, native_handle const*)>",
+      "old_instruction": "52802000",
+      "new_instruction": "5281a600"
+    },
+    {
+      "virtual_address": "0xe74b0",
+      "file_offset": 947376,
+      "constructor": "mihal::GraBuffer::GraBuffer(mihal::Stream const*, native_handle const*)>",
+      "old_instruction": "52802000",
+      "new_instruction": "5281a600"
+    }
+  ],
+  "original_firmware_unchanged": true,
+  "hardware_tested": false
+}

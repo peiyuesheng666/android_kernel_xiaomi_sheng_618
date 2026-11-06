@@ -1,0 +1,1345 @@
+{
+  "kernel_release": "5.15.220-gf9ca2b71f672",
+  "source_modules": 398,
+  "stock_modules": [
+    "altmode-glink.ko",
+    "camcc-kalama.ko",
+    "cfg80211.ko",
+    "clk-qcom.ko",
+    "cmd-db.ko",
+    "cnss2.ko",
+    "cnss_nl.ko",
+    "cnss_plat_ipc_qmi_svc.ko",
+    "cnss_prealloc.ko",
+    "cnss_utils.ko",
+    "cs35l43_dlkm.ko",
+    "debug-regulator.ko",
+    "dispcc-kalama.ko",
+    "dmesg_dumper.ko",
+    "dwc3-msm.ko",
+    "fpc1552.ko",
+    "frpc-adsprpc.ko",
+    "fsa4480-i2c.ko",
+    "gcc-kalama.ko",
+    "gdsc-regulator.ko",
+    "gh_arm_drv.ko",
+    "gh_dbl.ko",
+    "gh_irq_lend.ko",
+    "gh_mem_notifier.ko",
+    "gh_msgq.ko",
+    "gh_rm_drv.ko",
+    "gh_tlmm_vm_mem_access.ko",
+    "gpucc-kalama.ko",
+    "gsim.ko",
+    "gunyah.ko",
+    "hdcp_qseecom_dlkm.ko",
+    "hdmi_dlkm.ko",
+    "hvc_gunyah.ko",
+    "hwid.ko",
+    "ipa_clientsm.ko",
+    "ipa_fmwk.ko",
+    "ipam.ko",
+    "ipanetm.ko",
+    "leds-qti-flash.ko",
+    "llcc-qcom.ko",
+    "mac80211.ko",
+    "mdt_loader.ko",
+    "mem_buf_dev.ko",
+    "memory_dump_v2.ko",
+    "metis.ko",
+    "mhi.ko",
+    "mhi_cntrl_qcom.ko",
+    "mhi_dev_dtr.ko",
+    "mhi_dev_netdev.ko",
+    "mhi_dev_satellite.ko",
+    "mhi_dev_uci.ko",
+    "mi_cnss_statistic.ko",
+    "mi_schedule.ko",
+    "mi_thermal_interface.ko",
+    "miev.ko",
+    "minidump.ko",
+    "mixdp.ko",
+    "msm-eva.ko",
+    "msm-mmrm.ko",
+    "msm_dma_iommu_mapping.ko",
+    "msm_drm.ko",
+    "msm_ext_display.ko",
+    "msm_hw_fence.ko",
+    "msm_qmp.ko",
+    "nanosic_driver.ko",
+    "nanosic_platform.ko",
+    "ns.ko",
+    "nt36532_touch.ko",
+    "panel_event_notifier.ko",
+    "pci-msm-drv.ko",
+    "pdr_interface.ko",
+    "pinctrl-crow.ko",
+    "pinctrl-kalama.ko",
+    "pinctrl-msm.ko",
+    "pm8941-pwrkey.ko",
+    "pmic_glink.ko",
+    "proxy-consumer.ko",
+    "qca_cld3_kiwi_v2.ko",
+    "qcom-scm.ko",
+    "qcom_aoss.ko",
+    "qcom_esoc.ko",
+    "qcom_glink.ko",
+    "qcom_glink_smem.ko",
+    "qcom_iommu_util.ko",
+    "qcom_ipc_lite.ko",
+    "qcom_ipc_logging.ko",
+    "qcom_pil_info.ko",
+    "qcom_q6v5.ko",
+    "qcom_q6v5_pas.ko",
+    "qcom_ramdump.ko",
+    "qcom_rpmh.ko",
+    "qcom_smd.ko",
+    "qcom_sysmon.ko",
+    "qcom_va_minidump.ko",
+    "qdss_bridge.ko",
+    "qmi_helpers.ko",
+    "qrtr-gunyah.ko",
+    "qrtr-mhi.ko",
+    "qrtr.ko",
+    "qseecom_proxy.ko",
+    "qti-regmap-debugfs.ko",
+    "qti_battery_charger.ko",
+    "redriver.ko",
+    "rndisipam.ko",
+    "rproc_qcom_common.ko",
+    "secure_buffer.ko",
+    "smem.ko",
+    "socinfo.ko",
+    "spmi-pmic-arb.ko",
+    "sps_drv.ko",
+    "sync_fence.ko",
+    "synx-driver.ko",
+    "tcsrcc-kalama.ko",
+    "ucsi_glink.ko",
+    "usb_bam.ko",
+    "usb_f_qdss.ko",
+    "videocc-kalama.ko",
+    "virtual_fg.ko",
+    "wlan_firmware_service.ko",
+    "xiaomi_hall.ko",
+    "xiaomi_keyboard_driver.ko",
+    "xiaomi_touch.ko",
+    "xiaomi_wifi_gpio.ko",
+    "xiaomifp.ko",
+    "xlogchar.ko",
+    "xm_battmngr_init.ko",
+    "xm_charger.ko",
+    "xm_power.ko",
+    "xm_utils.ko"
+  ],
+  "source_replacement_names": [
+    "altmode-glink.ko",
+    "camcc-kalama.ko",
+    "cfg80211.ko",
+    "clk-qcom.ko",
+    "cmd-db.ko",
+    "cnss2.ko",
+    "cnss_nl.ko",
+    "cnss_plat_ipc_qmi_svc.ko",
+    "cnss_prealloc.ko",
+    "cnss_utils.ko",
+    "debug-regulator.ko",
+    "dispcc-kalama.ko",
+    "dmesg_dumper.ko",
+    "dwc3-msm.ko",
+    "frpc-adsprpc.ko",
+    "fsa4480-i2c.ko",
+    "gcc-kalama.ko",
+    "gdsc-regulator.ko",
+    "gh_arm_drv.ko",
+    "gh_dbl.ko",
+    "gh_irq_lend.ko",
+    "gh_mem_notifier.ko",
+    "gh_msgq.ko",
+    "gh_rm_drv.ko",
+    "gh_tlmm_vm_mem_access.ko",
+    "gpucc-kalama.ko",
+    "gsim.ko",
+    "gunyah.ko",
+    "hdcp_qseecom_dlkm.ko",
+    "hdmi_dlkm.ko",
+    "hvc_gunyah.ko",
+    "hwid.ko",
+    "ipa_clientsm.ko",
+    "ipa_fmwk.ko",
+    "ipam.ko",
+    "ipanetm.ko",
+    "leds-qti-flash.ko",
+    "llcc-qcom.ko",
+    "mac80211.ko",
+    "mdt_loader.ko",
+    "mem_buf_dev.ko",
+    "memory_dump_v2.ko",
+    "mhi.ko",
+    "mhi_cntrl_qcom.ko",
+    "mhi_dev_dtr.ko",
+    "mhi_dev_netdev.ko",
+    "mhi_dev_satellite.ko",
+    "mhi_dev_uci.ko",
+    "mi_thermal_interface.ko",
+    "minidump.ko",
+    "msm-eva.ko",
+    "msm-mmrm.ko",
+    "msm_dma_iommu_mapping.ko",
+    "msm_drm.ko",
+    "msm_ext_display.ko",
+    "msm_hw_fence.ko",
+    "msm_qmp.ko",
+    "panel_event_notifier.ko",
+    "pci-msm-drv.ko",
+    "pdr_interface.ko",
+    "pinctrl-crow.ko",
+    "pinctrl-kalama.ko",
+    "pinctrl-msm.ko",
+    "pm8941-pwrkey.ko",
+    "pmic_glink.ko",
+    "proxy-consumer.ko",
+    "qca_cld3_kiwi_v2.ko",
+    "qcom-scm.ko",
+    "qcom_aoss.ko",
+    "qcom_esoc.ko",
+    "qcom_glink.ko",
+    "qcom_glink_smem.ko",
+    "qcom_iommu_util.ko",
+    "qcom_ipc_lite.ko",
+    "qcom_ipc_logging.ko",
+    "qcom_pil_info.ko",
+    "qcom_q6v5.ko",
+    "qcom_q6v5_pas.ko",
+    "qcom_ramdump.ko",
+    "qcom_rpmh.ko",
+    "qcom_smd.ko",
+    "qcom_sysmon.ko",
+    "qcom_va_minidump.ko",
+    "qdss_bridge.ko",
+    "qmi_helpers.ko",
+    "qrtr-gunyah.ko",
+    "qrtr-mhi.ko",
+    "qrtr.ko",
+    "qseecom_proxy.ko",
+    "qti-regmap-debugfs.ko",
+    "qti_battery_charger.ko",
+    "redriver.ko",
+    "rndisipam.ko",
+    "rproc_qcom_common.ko",
+    "secure_buffer.ko",
+    "smem.ko",
+    "socinfo.ko",
+    "spmi-pmic-arb.ko",
+    "sps_drv.ko",
+    "sync_fence.ko",
+    "synx-driver.ko",
+    "tcsrcc-kalama.ko",
+    "ucsi_glink.ko",
+    "usb_bam.ko",
+    "usb_f_qdss.ko",
+    "videocc-kalama.ko",
+    "wlan_firmware_service.ko",
+    "xiaomi_touch.ko"
+  ],
+  "iterations": [
+    {
+      "iteration": 0,
+      "stock_modules": 67,
+      "import_errors": 74,
+      "duplicate_exports": 0,
+      "add_stock_modules": [
+        "camcc-kalama.ko",
+        "dispcc-kalama.ko",
+        "dmesg_dumper.ko",
+        "frpc-adsprpc.ko",
+        "gcc-kalama.ko",
+        "gh_tlmm_vm_mem_access.ko",
+        "gpucc-kalama.ko",
+        "gunyah.ko",
+        "hdmi_dlkm.ko",
+        "hvc_gunyah.ko",
+        "leds-qti-flash.ko",
+        "mdt_loader.ko",
+        "mem_buf_dev.ko",
+        "mi_thermal_interface.ko",
+        "msm-eva.ko",
+        "ns.ko",
+        "pinctrl-crow.ko",
+        "pinctrl-kalama.ko",
+        "qcom_aoss.ko",
+        "qcom_ipc_lite.ko",
+        "qcom_pil_info.ko",
+        "qcom_q6v5.ko",
+        "qcom_q6v5_pas.ko",
+        "qcom_ramdump.ko",
+        "qcom_sysmon.ko",
+        "qrtr-gunyah.ko",
+        "qrtr.ko",
+        "synx-driver.ko",
+        "tcsrcc-kalama.ko",
+        "videocc-kalama.ko"
+      ]
+    },
+    {
+      "iteration": 1,
+      "stock_modules": 97,
+      "import_errors": 36,
+      "duplicate_exports": 0,
+      "add_stock_modules": [
+        "cnss2.ko",
+        "cnss_plat_ipc_qmi_svc.ko",
+        "cnss_utils.ko",
+        "memory_dump_v2.ko",
+        "mhi.ko",
+        "msm_qmp.ko",
+        "pci-msm-drv.ko",
+        "wlan_firmware_service.ko"
+      ]
+    },
+    {
+      "iteration": 2,
+      "stock_modules": 105,
+      "import_errors": 146,
+      "duplicate_exports": 0,
+      "add_stock_modules": [
+        "cfg80211.ko",
+        "cnss_nl.ko",
+        "cnss_prealloc.ko",
+        "gsim.ko",
+        "ipa_fmwk.ko",
+        "ipam.ko",
+        "mhi_cntrl_qcom.ko",
+        "mhi_dev_dtr.ko",
+        "mhi_dev_netdev.ko",
+        "mhi_dev_satellite.ko",
+        "mhi_dev_uci.ko",
+        "mi_cnss_statistic.ko",
+        "mixdp.ko",
+        "qca_cld3_kiwi_v2.ko",
+        "qcom_esoc.ko",
+        "qdss_bridge.ko",
+        "qrtr-mhi.ko",
+        "sps_drv.ko",
+        "usb_bam.ko",
+        "usb_f_qdss.ko"
+      ]
+    },
+    {
+      "iteration": 3,
+      "stock_modules": 125,
+      "import_errors": 72,
+      "duplicate_exports": 0,
+      "add_stock_modules": [
+        "ipa_clientsm.ko",
+        "ipanetm.ko",
+        "mac80211.ko",
+        "rndisipam.ko"
+      ]
+    },
+    {
+      "iteration": 4,
+      "stock_modules": 129,
+      "import_errors": 44,
+      "duplicate_exports": 0,
+      "add_stock_modules": []
+    }
+  ],
+  "errors": [
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "ims_private_service_wfc_call_status_ind_msg_v01_ei",
+      "expected_crc": "0x39e5d4bf",
+      "providers": []
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "ims_private_service_subscribe_ind_rsp_msg_v01_ei",
+      "expected_crc": "0x9f65241",
+      "providers": []
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "ims_private_service_subscribe_ind_req_msg_v01_ei",
+      "expected_crc": "0xae8f799f",
+      "providers": []
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "wlfw_driver_async_data_ind_msg_v01_ei",
+      "expected_crc": "0x53fccf40",
+      "providers": []
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "ims_private_service_wfc_call_twt_config_req_msg_v01_ei",
+      "expected_crc": "0x3b033a5f",
+      "providers": []
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "ims_private_service_wfc_call_twt_config_rsp_msg_v01_ei",
+      "expected_crc": "0x9c7a1181",
+      "providers": []
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "wlfw_wlan_hw_init_cfg_req_msg_v01_ei",
+      "expected_crc": "0x5ec95a3",
+      "providers": []
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "wlfw_wlan_hw_init_cfg_resp_msg_v01_ei",
+      "expected_crc": "0x79f6a6f2",
+      "providers": []
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "qmp_get",
+      "expected_crc": "0x1a4416d3",
+      "providers": [
+        {
+          "module": "qcom_aoss.ko",
+          "crc": "0xe93e8c4"
+        }
+      ]
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "cnss_deinitialize_prealloc_pool",
+      "expected_crc": "0x9935df72",
+      "providers": []
+    },
+    {
+      "module": "icnss2.ko",
+      "stock": false,
+      "symbol": "cnss_initialize_prealloc_pool",
+      "expected_crc": "0x6e55144e",
+      "providers": []
+    },
+    {
+      "module": "camcc-crow.ko",
+      "stock": false,
+      "symbol": "clk_alpha_pll_regs",
+      "expected_crc": "0x5f907b96",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xc6721d97"
+        }
+      ]
+    },
+    {
+      "module": "camcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_sync_state",
+      "expected_crc": "0x494ef5bf",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x52eb10e5"
+        }
+      ]
+    },
+    {
+      "module": "camcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_really_probe",
+      "expected_crc": "0x541a5353",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xf202ea17"
+        }
+      ]
+    },
+    {
+      "module": "camcc-crow.ko",
+      "stock": false,
+      "symbol": "clk_rivian_evo_pll_configure",
+      "expected_crc": "0xf078e759",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x31a9e46c"
+        }
+      ]
+    },
+    {
+      "module": "camcc-crow.ko",
+      "stock": false,
+      "symbol": "clk_lucid_evo_pll_configure",
+      "expected_crc": "0xb14da71b",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x916cc2ca"
+        }
+      ]
+    },
+    {
+      "module": "camcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_runtime_init",
+      "expected_crc": "0x12b19c00",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xc1e06be4"
+        }
+      ]
+    },
+    {
+      "module": "camcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_map",
+      "expected_crc": "0x44d942e1",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xcf9c91ca"
+        }
+      ]
+    },
+    {
+      "module": "dispcc-crow.ko",
+      "stock": false,
+      "symbol": "clk_alpha_pll_regs",
+      "expected_crc": "0x5f907b96",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xc6721d97"
+        }
+      ]
+    },
+    {
+      "module": "dispcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_sync_state",
+      "expected_crc": "0x494ef5bf",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x52eb10e5"
+        }
+      ]
+    },
+    {
+      "module": "dispcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_really_probe",
+      "expected_crc": "0x541a5353",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xf202ea17"
+        }
+      ]
+    },
+    {
+      "module": "dispcc-crow.ko",
+      "stock": false,
+      "symbol": "clk_lucid_evo_pll_configure",
+      "expected_crc": "0xb14da71b",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x916cc2ca"
+        }
+      ]
+    },
+    {
+      "module": "dispcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_runtime_init",
+      "expected_crc": "0x12b19c00",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xc1e06be4"
+        }
+      ]
+    },
+    {
+      "module": "dispcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_map",
+      "expected_crc": "0x44d942e1",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xcf9c91ca"
+        }
+      ]
+    },
+    {
+      "module": "gcc-crow.ko",
+      "stock": false,
+      "symbol": "clk_alpha_pll_regs",
+      "expected_crc": "0x5f907b96",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xc6721d97"
+        }
+      ]
+    },
+    {
+      "module": "gcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_sync_state",
+      "expected_crc": "0x494ef5bf",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x52eb10e5"
+        }
+      ]
+    },
+    {
+      "module": "gcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_really_probe",
+      "expected_crc": "0x541a5353",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xf202ea17"
+        }
+      ]
+    },
+    {
+      "module": "gcc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_map",
+      "expected_crc": "0x44d942e1",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xcf9c91ca"
+        }
+      ]
+    },
+    {
+      "module": "gpucc-crow.ko",
+      "stock": false,
+      "symbol": "clk_alpha_pll_regs",
+      "expected_crc": "0x5f907b96",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xc6721d97"
+        }
+      ]
+    },
+    {
+      "module": "gpucc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_sync_state",
+      "expected_crc": "0x494ef5bf",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x52eb10e5"
+        }
+      ]
+    },
+    {
+      "module": "gpucc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_really_probe",
+      "expected_crc": "0x541a5353",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xf202ea17"
+        }
+      ]
+    },
+    {
+      "module": "gpucc-crow.ko",
+      "stock": false,
+      "symbol": "clk_lucid_evo_pll_configure",
+      "expected_crc": "0xb14da71b",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x916cc2ca"
+        }
+      ]
+    },
+    {
+      "module": "gpucc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_map",
+      "expected_crc": "0x44d942e1",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xcf9c91ca"
+        }
+      ]
+    },
+    {
+      "module": "videocc-crow.ko",
+      "stock": false,
+      "symbol": "clk_alpha_pll_regs",
+      "expected_crc": "0x5f907b96",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xc6721d97"
+        }
+      ]
+    },
+    {
+      "module": "videocc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_sync_state",
+      "expected_crc": "0x494ef5bf",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x52eb10e5"
+        }
+      ]
+    },
+    {
+      "module": "videocc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_really_probe",
+      "expected_crc": "0x541a5353",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xf202ea17"
+        }
+      ]
+    },
+    {
+      "module": "videocc-crow.ko",
+      "stock": false,
+      "symbol": "clk_lucid_evo_pll_configure",
+      "expected_crc": "0xb14da71b",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0x916cc2ca"
+        }
+      ]
+    },
+    {
+      "module": "videocc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_runtime_init",
+      "expected_crc": "0x12b19c00",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xc1e06be4"
+        }
+      ]
+    },
+    {
+      "module": "videocc-crow.ko",
+      "stock": false,
+      "symbol": "qcom_cc_map",
+      "expected_crc": "0x44d942e1",
+      "providers": [
+        {
+          "module": "clk-qcom.ko",
+          "crc": "0xcf9c91ca"
+        }
+      ]
+    },
+    {
+      "module": "qti_amoled_ecm.ko",
+      "stock": false,
+      "symbol": "panel_event_notifier_register",
+      "expected_crc": "0x3e10df0f",
+      "providers": [
+        {
+          "module": "panel_event_notifier.ko",
+          "crc": "0xf043dd9b"
+        }
+      ]
+    },
+    {
+      "module": "qcom_spss.ko",
+      "stock": false,
+      "symbol": "qcom_rproc_toggle_load_state",
+      "expected_crc": "0xc569ebe0",
+      "providers": []
+    },
+    {
+      "module": "qcom_spss.ko",
+      "stock": false,
+      "symbol": "qmp_get",
+      "expected_crc": "0x1a4416d3",
+      "providers": [
+        {
+          "module": "qcom_aoss.ko",
+          "crc": "0xe93e8c4"
+        }
+      ]
+    },
+    {
+      "module": "nb7vpq904m.ko",
+      "stock": false,
+      "symbol": "usb_remove_redriver",
+      "expected_crc": "0xf1fb47f4",
+      "providers": [
+        {
+          "module": "redriver.ko",
+          "crc": "0x43fb26c1"
+        }
+      ]
+    },
+    {
+      "module": "nb7vpq904m.ko",
+      "stock": false,
+      "symbol": "usb_add_redriver",
+      "expected_crc": "0x7337bcaa",
+      "providers": [
+        {
+          "module": "redriver.ko",
+          "crc": "0xc20564de"
+        }
+      ]
+    }
+  ],
+  "duplicate_exports": [],
+  "effective_mix_passed": false,
+  "stock_inputs": {
+    "altmode-glink.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/altmode-glink.ko",
+      "sha256": "febd7311f5c6a15b27879fc9601c663eea00d45bddf60c038d0a675c13893d55"
+    },
+    "camcc-kalama.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/camcc-kalama.ko",
+      "sha256": "4bd0dd824992cee422790aa5aebb234985b9c4a0adfca9ae372d9e9dee0a032e"
+    },
+    "cfg80211.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/cfg80211.ko",
+      "sha256": "3014a49cdd2a14fd69caa484b655543f1b8113d3ba75dc3f840e370346a39b5a"
+    },
+    "clk-qcom.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/clk-qcom.ko",
+      "sha256": "ad479535f198efe256febcd8015fed0c5bd45282c3de67a71a00e5b210b0769c"
+    },
+    "cmd-db.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/cmd-db.ko",
+      "sha256": "f58c9907502bd4a493f5e2b79039eb2e35d7d97852be138e0082d8edfe98be20"
+    },
+    "cnss2.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cnss2.ko",
+      "sha256": "fe601aeca4a84e159db57c438bae84a2549203bdb59688c02e9a0f14db06a651"
+    },
+    "cnss_nl.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cnss_nl.ko",
+      "sha256": "b623063ea43d1958e7557bca799ce96a43561eda8c4d71d010c98ba4dfb9452e"
+    },
+    "cnss_plat_ipc_qmi_svc.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cnss_plat_ipc_qmi_svc.ko",
+      "sha256": "d1a5c2a8053e20c29d1e2541070a2b153793df048d8af7f871fd4551f29eb243"
+    },
+    "cnss_prealloc.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cnss_prealloc.ko",
+      "sha256": "404b610c5bdde207a5a3c54366e67f26726d9652bd988cb643aa471e0fb579ff"
+    },
+    "cnss_utils.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cnss_utils.ko",
+      "sha256": "b6709f66adc36dd2f4816ce93f851558a5f11670f329f83d95e7b13bb4aa21d6"
+    },
+    "cs35l43_dlkm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cs35l43_dlkm.ko",
+      "sha256": "bf3d042b681c119b0731123bee4477de26993e24c09f5e5e721ad76da98ebab3"
+    },
+    "debug-regulator.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/debug-regulator.ko",
+      "sha256": "fc98fdbf2f592199e4f534a99978cb19e63b9ced81b4c7bdfb0ae93f1629b3ea"
+    },
+    "dispcc-kalama.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/dispcc-kalama.ko",
+      "sha256": "614f7d59ebc42a6f50527bb3fcf1d1a54b7d9897bddfe34b25477cc856897ecf"
+    },
+    "dmesg_dumper.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/dmesg_dumper.ko",
+      "sha256": "4e70bdef9dccee8f92fbf4ad6e68c7b96c9c42873512565a5a170f9dd36673d1"
+    },
+    "dwc3-msm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/dwc3-msm.ko",
+      "sha256": "38cdd7f0efcaececdb703198206c63e815bc68321be1274c4c93c7bd94a48418"
+    },
+    "fpc1552.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/fpc1552.ko",
+      "sha256": "2c78d413cc7842f36cba5a7c1c38cb2607c0a58e837c98cb00c6ebb6e7a7b266"
+    },
+    "frpc-adsprpc.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/frpc-adsprpc.ko",
+      "sha256": "37c72e97a14cc3747d140658fda3002f07978e9ea3e87a855a216ad4434abb1e"
+    },
+    "fsa4480-i2c.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/fsa4480-i2c.ko",
+      "sha256": "806b124086e9a7e986fe26321d4740dc64093fbdbd4537502f0246eba830c278"
+    },
+    "gcc-kalama.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gcc-kalama.ko",
+      "sha256": "f331418da80125c65c0048b8788030a7a313a87fcb3e31baeaf67c0b14172f24"
+    },
+    "gdsc-regulator.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gdsc-regulator.ko",
+      "sha256": "2339b32e7f1b720686c8cead3ba723330ee3d938b454853389ab93a562ab1833"
+    },
+    "gh_arm_drv.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gh_arm_drv.ko",
+      "sha256": "c2aafcde37efdd699a92bad0e899bd92c9f1ba91888f921c0a3a550b226dc4a9"
+    },
+    "gh_dbl.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gh_dbl.ko",
+      "sha256": "7610a48eb0ccc29e1034d69242fa01f6f7e54df8a91774783a1d5d1f844a5c6a"
+    },
+    "gh_irq_lend.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gh_irq_lend.ko",
+      "sha256": "a2d54c4216eced5516279808e6bd86e5b962b5e582fb38fb4561edf16e4018f4"
+    },
+    "gh_mem_notifier.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gh_mem_notifier.ko",
+      "sha256": "62badb668fe3cb7c38e6ee595f96998f1ede314bd9565969d3ddeb31a204e92c"
+    },
+    "gh_msgq.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gh_msgq.ko",
+      "sha256": "54d639ff29e70fe4145c203d317825aba01f039d5a852864286ff7bffa3a14b3"
+    },
+    "gh_rm_drv.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gh_rm_drv.ko",
+      "sha256": "4bdf5c605292865025893e12c2534c6b3dac3ab144802ebfd2a6f1cd031eaca7"
+    },
+    "gh_tlmm_vm_mem_access.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gh_tlmm_vm_mem_access.ko",
+      "sha256": "9ad986fd99d7eb18ed9298bde993983740f14b61dd60981d4eec17907230caf7"
+    },
+    "gpucc-kalama.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gpucc-kalama.ko",
+      "sha256": "f16595b94057ecb9932c6692f6ea1d513e1d909b51e71c69bbf96bcb614f9e9a"
+    },
+    "gsim.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/gsim.ko",
+      "sha256": "4e45f1b2e33d428bcc22949135a8e0f0ff6ce685da563b3e38bd3eaf138ef44b"
+    },
+    "gunyah.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/gunyah.ko",
+      "sha256": "2cfb33011d74e640a9ce2cd0c06c20c1d4711a0ccdf92fbf9ebc92297635f113"
+    },
+    "hdcp_qseecom_dlkm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/hdcp_qseecom_dlkm.ko",
+      "sha256": "255954f239077973cecb2bfb9db0575fe85cf6c23425f108c8c670bf1b26ab9e"
+    },
+    "hdmi_dlkm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/hdmi_dlkm.ko",
+      "sha256": "e0b1120adaa0157defeb3eefadde79c912309a5769e6cd6a678770cbe7be5875"
+    },
+    "hvc_gunyah.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/hvc_gunyah.ko",
+      "sha256": "a653ddc41ddd0ce006ef013ba60c0d36b94126de2134b97d72c57d0608d56c69"
+    },
+    "hwid.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/hwid.ko",
+      "sha256": "0018ea7590e9cfbf3ce5a59f5488a749af8b49d4187e53eedbb591601059c19d"
+    },
+    "ipa_clientsm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ipa_clientsm.ko",
+      "sha256": "9dbce441460bae7c55544232077030aad3e905175050d2ba63c11abbb1235ce6"
+    },
+    "ipa_fmwk.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/ipa_fmwk.ko",
+      "sha256": "2e7c90c99fa41f5a48878592114a61d0d960660d11a597c60b49a9c0ff62b20f"
+    },
+    "ipam.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ipam.ko",
+      "sha256": "9dda0830b10489245a0c8b0f5f9664c2dd8016a7b915426980394aa09ccee674"
+    },
+    "ipanetm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ipanetm.ko",
+      "sha256": "674dfec7d0864e014a9a1625d716bb3be095e0193253536b5338334f54f18bf7"
+    },
+    "leds-qti-flash.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/leds-qti-flash.ko",
+      "sha256": "1902d1547c61d0915a4b391dad2db43d6cf4dc1da074a99cde8c10b5dfcfc812"
+    },
+    "llcc-qcom.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/llcc-qcom.ko",
+      "sha256": "831ab4e4e85ac9b7272577eb189a756bc1f1eb9b96e625325592475f443fef90"
+    },
+    "mac80211.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mac80211.ko",
+      "sha256": "07561e765eadc7a72b788a40f4d0dac3f672ba1169f0763d157da4c66b05f183"
+    },
+    "mdt_loader.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mdt_loader.ko",
+      "sha256": "ad3b335d0bae60a9720e7bc621b444d3eb86db6659dc6be0658d890b1d45cc1a"
+    },
+    "mem_buf_dev.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mem_buf_dev.ko",
+      "sha256": "65ac4097a812f6166eb85ca701d5a9de039efbc350d7645a756f213787198cd4"
+    },
+    "memory_dump_v2.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/memory_dump_v2.ko",
+      "sha256": "8b63cf5977116c95bca2769eb754efdb904d8e658acb0fda0fa74de76c7d4988"
+    },
+    "metis.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/metis.ko",
+      "sha256": "7d26db91e3a40d9d942b7cf7514a7b2ede4d4ec52e9f4fd7329d9979a70f427b"
+    },
+    "mhi.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mhi.ko",
+      "sha256": "9cbe0bd6dc01825a7f85ca88d860754362eaff97825caa999b2b6a1631d55173"
+    },
+    "mhi_cntrl_qcom.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mhi_cntrl_qcom.ko",
+      "sha256": "9f7c57d3fb4531bc18eecdcf88a3560826d4a6f2526e5eaf732b86f58e1eafcc"
+    },
+    "mhi_dev_dtr.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mhi_dev_dtr.ko",
+      "sha256": "2cddd641099b38bfcb271c733144645bb277ec592218a7a83ed2424fae8ab241"
+    },
+    "mhi_dev_netdev.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mhi_dev_netdev.ko",
+      "sha256": "d069cbe2f2db24fca0e11e8955d6390b7ab82ac325f3174fbb22f9a96c7f0d97"
+    },
+    "mhi_dev_satellite.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mhi_dev_satellite.ko",
+      "sha256": "e3b7d506b99cce8fc02abb4456e0aa8f207d38ce6bf67903a0a6c46777ff392c"
+    },
+    "mhi_dev_uci.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mhi_dev_uci.ko",
+      "sha256": "f3996dbf985266089054a67568db7254882ee3eea8392c899fec502a18a6fdbc"
+    },
+    "mi_cnss_statistic.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mi_cnss_statistic.ko",
+      "sha256": "8d0ec6f388a724cbecd8e900f9e2ee0a158be7c6dccbe2946ed21ad8359bb53a"
+    },
+    "mi_schedule.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mi_schedule.ko",
+      "sha256": "4f8e3dd756a2628acf89ad99a41b0c158f5f392cd97079357623b21e66476b8a"
+    },
+    "mi_thermal_interface.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/mi_thermal_interface.ko",
+      "sha256": "48fa8da640329a37cc5e8353396667b5ca46642f580b50d90f741c0690f71517"
+    },
+    "miev.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/miev.ko",
+      "sha256": "7ee00a7bbae7925d734d54fa963ff8e2e269a7a9ceb9e1d9b35c1e13048baec4"
+    },
+    "minidump.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/minidump.ko",
+      "sha256": "fc4703c5dff8a3f90b33d9a068b2d418c6f23f01d32b4ec54922fc589a7e1ff5"
+    },
+    "mixdp.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mixdp.ko",
+      "sha256": "c1224a10812288eedbfe5f6e108f5d5c49adde65a628de4693bfdab08d8d08dc"
+    },
+    "msm-eva.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm-eva.ko",
+      "sha256": "52cbee710356a095c07db6cb8cb99ff7144bd9a6b38f9f17ef6f971b0e2d57bd"
+    },
+    "msm-mmrm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/msm-mmrm.ko",
+      "sha256": "83a243ae36ead13f90d1f70f826d060679b6bbb4468bc8b8b54b01fc183a9ead"
+    },
+    "msm_dma_iommu_mapping.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/msm_dma_iommu_mapping.ko",
+      "sha256": "f6710fffedefb209cd3d5e28245ea391837000eed4ef0884b86fdd6de788d249"
+    },
+    "msm_drm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/msm_drm.ko",
+      "sha256": "9b672fae4fdce22ecaaaf0b1ab52ed5cd1aa9591eb72a6396969296d4e77fdf4"
+    },
+    "msm_ext_display.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/msm_ext_display.ko",
+      "sha256": "6ee19dfb94e49b2c3605b03a62ba4327a7198627874501a2c124db7e670341d2"
+    },
+    "msm_hw_fence.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/msm_hw_fence.ko",
+      "sha256": "79fb7d3f7c251d2fed6d6b778d30e45eb3b58f352a68db17c3ca7ec23d699b53"
+    },
+    "msm_qmp.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/msm_qmp.ko",
+      "sha256": "95c211b8a2bdaf6c18e707b04d2934c33d90ddac9047e410dc54888d21789e2e"
+    },
+    "nanosic_driver.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/nanosic_driver.ko",
+      "sha256": "3e6a7409b9bf87a1f7a8c10f3b5e42d4d9ec862ba7f3b9c3c0d9a614bf0081b4"
+    },
+    "nanosic_platform.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/nanosic_platform.ko",
+      "sha256": "2161aa2283981781e29a5372338b9dd4572170574e5fc85ba009b72f834db6f6"
+    },
+    "ns.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/ns.ko",
+      "sha256": "c8f9be8b44fcf1d6b970498111b68b402eab6f7a40704fc63127ac275b9b18d6"
+    },
+    "nt36532_touch.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/nt36532_touch.ko",
+      "sha256": "a1f3f907f4519eaf3d63243561fc32c7f75337188a3953b3857bcad60135233f"
+    },
+    "panel_event_notifier.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/panel_event_notifier.ko",
+      "sha256": "eaa8c847c5341f570edc5592189b4b8715e7fb95f26f8ce9c07e7bfe1a0575be"
+    },
+    "pci-msm-drv.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/pci-msm-drv.ko",
+      "sha256": "973768ce442779a73b9e05c68e0159e896bd807dc62a1bba36839583a8e310f0"
+    },
+    "pdr_interface.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/pdr_interface.ko",
+      "sha256": "b3a519cfbce7c4363c8f372e5dde583e2ea81f0aea4ba312fe7f5ae696190d88"
+    },
+    "pinctrl-crow.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/pinctrl-crow.ko",
+      "sha256": "fb5b0458e0c0259111fedcdcef7d4b84fa32055ac77b9144848eca145ad47192"
+    },
+    "pinctrl-kalama.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/pinctrl-kalama.ko",
+      "sha256": "d10dff410b934a135620e02f50d551e2e4d62d0c38dcd0df79907bb604fc2c6e"
+    },
+    "pinctrl-msm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/pinctrl-msm.ko",
+      "sha256": "b4e193da3c851a23f710b8984b53e80d173c84bb975855bdba51f7f12b3946e5"
+    },
+    "pm8941-pwrkey.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/pm8941-pwrkey.ko",
+      "sha256": "d3dff42ca4df9f67e793465005734fd24d708aec18554255a53c2e5e2b602cf4"
+    },
+    "pmic_glink.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/pmic_glink.ko",
+      "sha256": "f21eeb219ced392e81f46b600242dcd597c4b7d21a0c589b7fa286c55efb7c76"
+    },
+    "proxy-consumer.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/proxy-consumer.ko",
+      "sha256": "44cebd5a8053dab5f1349a4f4fe6a7773da95a7e4e9916481dedd160ed509cf2"
+    },
+    "qca_cld3_kiwi_v2.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qca_cld3_kiwi_v2.ko",
+      "sha256": "670e4f802801b168e91b667e71d5d45e9aa7723628b9c4d4d3cfdcda9a311d35"
+    },
+    "qcom-scm.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom-scm.ko",
+      "sha256": "3ed2f1b925878bb57d8a9bba2daae447b350686f6effbc169f3030eb2d460aa2"
+    },
+    "qcom_aoss.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_aoss.ko",
+      "sha256": "2c43e3e4e708b33c1bcef9c2b0e3a1ce51e2b07cee36dcf30ed3988678ea2d9e"
+    },
+    "qcom_esoc.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_esoc.ko",
+      "sha256": "a33aea70f0ba2514efe30849f43c906656659b79b847679e212c9c9a386f85b6"
+    },
+    "qcom_glink.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_glink.ko",
+      "sha256": "03e82a8bd2757bb5cf776ac00e3aa596d67d063885ee1dcc931cb2dd0dc56f9b"
+    },
+    "qcom_glink_smem.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_glink_smem.ko",
+      "sha256": "6e400a1bff0f52ac14080ddc663634719a624a28a35cb025d09d3eee2e142449"
+    },
+    "qcom_iommu_util.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_iommu_util.ko",
+      "sha256": "8b32025eee5888eff1af78a3e0844ae66c297bedd25b77177aa9a7783279065d"
+    },
+    "qcom_ipc_lite.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_ipc_lite.ko",
+      "sha256": "c7b5dda936d19502fae71e2f7daa8c76a15046ab9d3bfe087ce7b2546ab59573"
+    },
+    "qcom_ipc_logging.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_ipc_logging.ko",
+      "sha256": "2cb07232467bdef6a19ec479084d22ff060809503956134b95c2ad1a5c47ad67"
+    },
+    "qcom_pil_info.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_pil_info.ko",
+      "sha256": "bb8a61ad86de07b92bb6594cb8106893145ff1927f0315b5cbdf6b8461f34ce0"
+    },
+    "qcom_q6v5.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_q6v5.ko",
+      "sha256": "1da2f28ab57a8475f513bd76fa664cfb093d40511a9edfeb2f7429fa2aeea0d7"
+    },
+    "qcom_q6v5_pas.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_q6v5_pas.ko",
+      "sha256": "163181f64268ef11028bf92df22dcec46e573f7824685fadc5013868d0e96a5f"
+    },
+    "qcom_ramdump.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_ramdump.ko",
+      "sha256": "4918eb023ee396b9edc05c4cc906e2e688aef4233ee89050ad8ce060702f6ef7"
+    },
+    "qcom_rpmh.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_rpmh.ko",
+      "sha256": "9b533697e5321615a353f5b46ac40e9331db97ec9c930ec0768544a6c8d7c7b0"
+    },
+    "qcom_smd.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_smd.ko",
+      "sha256": "f80df64fb8f265c5f3b3a2e5c58c0de9c42ae66a9bf1748c1488c18adce94733"
+    },
+    "qcom_sysmon.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_sysmon.ko",
+      "sha256": "027fa2b395f4b6adf08e0caf19021147f430a765571ed02b507430a847bdfcf3"
+    },
+    "qcom_va_minidump.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qcom_va_minidump.ko",
+      "sha256": "f54c2f7d938435a2f40b35e65f8a7d5e6bd6a34a486009fba7ba6d37ca30157f"
+    },
+    "qdss_bridge.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qdss_bridge.ko",
+      "sha256": "887e651478bc64e965f8010bf4f359ff116f4f8c4a53cb32ad0c6b9ccb5abff6"
+    },
+    "qmi_helpers.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qmi_helpers.ko",
+      "sha256": "4468511bc7a7f425020a760a841ad3b09159d448aaaa46c3fbf85adcc797a335"
+    },
+    "qrtr-gunyah.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qrtr-gunyah.ko",
+      "sha256": "270531e9afc7ad70fc33ac42c7fc3439a46db515f81da57f55eb12c9fe8a8eea"
+    },
+    "qrtr-mhi.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qrtr-mhi.ko",
+      "sha256": "6cf58f4fbac95d152b87e85c6c070cd8268b9b2e5ded4ace10f51016593146eb"
+    },
+    "qrtr.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qrtr.ko",
+      "sha256": "dd384e3e3b6101ad33258455a4ac1d13f6b0435ddeb390f0736f759a74c65b70"
+    },
+    "qseecom_proxy.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qseecom_proxy.ko",
+      "sha256": "31a8a8c2a50c75e060106be992d7349bcba795bba23cc5a387eb975617f14048"
+    },
+    "qti-regmap-debugfs.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qti-regmap-debugfs.ko",
+      "sha256": "4b704697c39dc3599b5333d2432deea6fcaf3534b434cf74685b660431c934bc"
+    },
+    "qti_battery_charger.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/qti_battery_charger.ko",
+      "sha256": "3190a88b2bbc3abb3de123a08233c0ebea2bade2e424d67f18e62ea9e2e38047"
+    },
+    "redriver.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/redriver.ko",
+      "sha256": "635ca37a6ade1f0e5721ba4da5e63efe2d7a4cb2fb3930b6951b4dd4f30a7c53"
+    },
+    "rndisipam.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/rndisipam.ko",
+      "sha256": "b842d255aaa22bee0b6da676b8fb899433361d4b8ca08ef850c5161783e49b72"
+    },
+    "rproc_qcom_common.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/rproc_qcom_common.ko",
+      "sha256": "3f6d255301e9eb4f6c3bbe50d09fb1eb04df644b027b32847bbedf72fc12c75e"
+    },
+    "secure_buffer.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/secure_buffer.ko",
+      "sha256": "fc8ff201aa805542b97c8c179911cc8e0bef4cf18614522ab7c0684218f9a4ea"
+    },
+    "smem.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/smem.ko",
+      "sha256": "b20cbf0639ef222f072fb4bfb848fd25f8d90906f2ab71dc628c399eedc1a0ea"
+    },
+    "socinfo.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/socinfo.ko",
+      "sha256": "974ec6c5a7a23732235ee9f8407eaa52285f262c5ba374c21e42288a4fbfab40"
+    },
+    "spmi-pmic-arb.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/spmi-pmic-arb.ko",
+      "sha256": "dafc7356aa475e1bf2bf619bc9781b7754a489fbe1c4b47c91c4fcab50230d01"
+    },
+    "sps_drv.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/sps_drv.ko",
+      "sha256": "f904798f91e6cd774e96faf3b96b992620ca439cbf3fd6036dc2a847d95dcf82"
+    },
+    "sync_fence.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/sync_fence.ko",
+      "sha256": "9560efa8389f71868b4314e6555455a626317b882751ff22b7aa44e39479f46d"
+    },
+    "synx-driver.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/synx-driver.ko",
+      "sha256": "fc9ea7a788af01fe87e481c62f7fc12d8f8d511fe5e3e8dfcdfbffbdf9e43ed2"
+    },
+    "tcsrcc-kalama.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/tcsrcc-kalama.ko",
+      "sha256": "77d19afa473738fcb0e1ec6932d2be4d56c37c976c558cbc5ac353ca6225f129"
+    },
+    "ucsi_glink.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/ucsi_glink.ko",
+      "sha256": "4ead755b90159370410c44288b03d5141bb31df2862818e1b947eab3388a8f9e"
+    },
+    "usb_bam.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/usb_bam.ko",
+      "sha256": "50f8eac11a367bad257f6d3d99d9ee312ed1de4065fa51b0f3dd48e4131b640e"
+    },
+    "usb_f_qdss.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/usb_f_qdss.ko",
+      "sha256": "f6af34b77958723644448102e1c46994f7cdff583b8c37cf3603cea9131021d9"
+    },
+    "videocc-kalama.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/videocc-kalama.ko",
+      "sha256": "c401bab9d43aa7fa74ebf448ffdb207eeb439deaa9389cfcff5863b687c67c91"
+    },
+    "virtual_fg.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/virtual_fg.ko",
+      "sha256": "39892fe6ffd5d50d8d2b7e4bb61916cf9dc75fade65f44131bd85b4715cf2609"
+    },
+    "wlan_firmware_service.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/wlan_firmware_service.ko",
+      "sha256": "be8b1fce20a872115cbfde7a0651349b9f725983f9288c003547fcf570727885"
+    },
+    "xiaomi_hall.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xiaomi_hall.ko",
+      "sha256": "935f4e5fb6a65d62afd7dacb0dfc9d2423cde99931758f6dd0045ef0daacecae"
+    },
+    "xiaomi_keyboard_driver.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xiaomi_keyboard_driver.ko",
+      "sha256": "424ca2ec1399f2399b970a57b22087a77c721b93cfe9f819dbff24f58650fa87"
+    },
+    "xiaomi_touch.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xiaomi_touch.ko",
+      "sha256": "da9accaffbd76a339c12e998757ccc3406973b6bf41f72bca615a81752e5c791"
+    },
+    "xiaomi_wifi_gpio.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/xiaomi_wifi_gpio.ko",
+      "sha256": "e7c417cdab7a7b1a98cb1d7cbdf5131120721860c32c2c5c372d60551bb14eaf"
+    },
+    "xiaomifp.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/xiaomifp.ko",
+      "sha256": "8676782082e0c7993e30836fff99d387d9f4d3d459f4dda24f8b03db322ed19a"
+    },
+    "xlogchar.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/xlogchar.ko",
+      "sha256": "f5380818c09e6487064bf6530c663199d4cbabb566a817062f6b06e59bb47dfd"
+    },
+    "xm_battmngr_init.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/xm_battmngr_init.ko",
+      "sha256": "0b6f2c1ff32f3c271a07ca59282899b2216944af828e3b46f0b3fe947b4079a6"
+    },
+    "xm_charger.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/xm_charger.ko",
+      "sha256": "e4490e629ad79be93c1ebfccd4376a9f78ffb56e45dc234728c5949b6b9d9332"
+    },
+    "xm_power.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/xm_power.ko",
+      "sha256": "7b9e37eba99da26920a26d65431dca73f8f5b2514f4690249ac1d7354fd93788"
+    },
+    "xm_utils.ko": {
+      "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_boot/xm_utils.ko",
+      "sha256": "f5b062a2a9afddb1e9cbe01836d3778a22bfd1c22a23be35d89f2cf2985d556d"
+    }
+  },
+  "automatic_changes": false,
+  "rom_compiled": false
+}

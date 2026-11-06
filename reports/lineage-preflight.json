@@ -1,0 +1,2085 @@
+{
+  "preparation_checks_passed": true,
+  "device_dependencies_present": true,
+  "full_platform_sync_complete": true,
+  "rom_compiled": false,
+  "hardware_boot_tested": false,
+  "c_free_gib": 103.67,
+  "checks": [
+    {
+      "check": "Repo metadata cache prepared outside build sandbox",
+      "passed": true
+    },
+    {
+      "check": "Python scripts parse",
+      "passed": true
+    },
+    {
+      "check": "Shell scripts parse",
+      "passed": true
+    },
+    {
+      "check": "Device XML parses",
+      "passed": true
+    },
+    {
+      "check": "PRODUCT_DEVICE matches supplied stock ODM",
+      "passed": true
+    },
+    {
+      "check": "PRODUCT_MODEL matches supplied stock ODM",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: Android.bp",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: AndroidProducts.mk",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: BoardConfig.mk",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: device.mk",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: extract-files.py",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: lineage.dependencies",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: lineage_sheng.mk",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: setup-makefiles.py",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: dolby/ShengDolby/Android.bp",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: kernel/stock-modules/stage.py",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: overlay/FrameworkResOverlaySheng/Android.bp",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: overlay/LineageResOverlaySheng/Android.bp",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: overlay/SettingsResOverlaySheng/Android.bp",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: overlay/SystemUIResOverlaySheng/Android.bp",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: overlay/WifiResOverlaySheng/Android.bp",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: properties/odm.prop",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: properties/product.prop",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: properties/system.prop",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: properties/system_ext.prop",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: properties/vendor.prop",
+      "passed": true
+    },
+    {
+      "check": "No common device reference: rootdir/Android.bp",
+      "passed": true
+    },
+    {
+      "check": "Phone entry removed: XiaomiEsimSwitcher",
+      "passed": true
+    },
+    {
+      "check": "Phone entry removed: android.hardware.consumerir.xml",
+      "passed": true
+    },
+    {
+      "check": "Phone entry removed: android.hardware.location.gps.xml",
+      "passed": true
+    },
+    {
+      "check": "Phone entry removed: android.hardware.nfc.xml",
+      "passed": true
+    },
+    {
+      "check": "Phone entry removed: uinput-goodix.kl",
+      "passed": true
+    },
+    {
+      "check": "Phone entry removed: CarrierConfigOverlayCommon",
+      "passed": true
+    },
+    {
+      "check": "Phone entry removed: TelephonyOverlayCommon",
+      "passed": true
+    },
+    {
+      "check": "Recovery touch firmware: novatek_nt36532_n81a_fw_csot.bin",
+      "passed": true
+    },
+    {
+      "check": "Recovery touch firmware: novatek_nt36532_n81a_mp_csot.bin",
+      "passed": true
+    },
+    {
+      "check": "Recovery touch firmware: n81a_nova_thp_config.ini",
+      "passed": true
+    },
+    {
+      "check": "Stock pen input: Vendor_0022_Product_5081.idc",
+      "passed": true
+    },
+    {
+      "check": "Stock pen input: Vendor_0022_Product_5081.kcm",
+      "passed": true
+    },
+    {
+      "check": "Local stock hardware inventory exists",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: odm/etc/dolby/dax-default.xml",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/bin/hw/dolbycodec2",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/bin/hw/vendor.dolby.hardware.dms@2.0-service",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/bin/hw/vendor.dolby.media.c2@1.0-service",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/etc/dolby/dax-default.xml",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/etc/init/dolbycodec2.rc",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/etc/media_codecs_dolby_audio.xml",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/etc/vintf/manifest/vendor.dolby.hardware.dms.xml",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib/libdapparamstorage.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib/libdlbpreg.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib/libspatializerparamstorage.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib/soundfx/libdlbvol.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib/soundfx/libhwdap.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib/soundfx/libswgamedap.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib/soundfx/libswspatializer.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib/soundfx/libswvqe.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib/vendor.dolby.hardware.dms@2.0.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/c2.dolby.client.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/c2.dolby.hevc.dec.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/c2.dolby.hevc.enc.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/c2.dolby.hevc.sec.dec.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/c2.dolby.store.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libDecoderProcessor.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libEncoderProcessor.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libcodec2_soft_ac4dec.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libcodec2_soft_ddpdec.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libcodec2_store_dolby.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libdapparamstorage.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libdeccfg.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libdlbdsservice.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libdlbpreg.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libdolbyottcameracontrol.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libeglcore.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/libspatializerparamstorage.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/soundfx/libdlbvol.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/soundfx/libhwdap.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/soundfx/libswgamedap.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/soundfx/libswspatializer.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/soundfx/libswvqe.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/vendor.dolby.hardware.dms@2.0-impl.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/lib64/vendor.dolby.hardware.dms@2.0.so",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/bin/hw/vendor.qti.hardware.lights.service",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/etc/init/vendor.qti.hardware.lights.service.rc",
+      "passed": true
+    },
+    {
+      "check": "Integrated native input: vendor/etc/vintf/manifest/vendor.qti.hardware.lights.service.xml",
+      "passed": true
+    },
+    {
+      "check": "Actual stock lights AIDL V2 included",
+      "passed": true
+    },
+    {
+      "check": "Official dependency: hardware/xiaomi",
+      "passed": true
+    },
+    {
+      "check": "Official dependency: kernel/xiaomi/sm8550",
+      "passed": true
+    },
+    {
+      "check": "Official dependency: kernel/xiaomi/sm8550-modules",
+      "passed": true
+    },
+    {
+      "check": "Official dependency: kernel/xiaomi/sm8550-devicetrees",
+      "passed": true
+    },
+    {
+      "check": "Generated sheng vendor Android.bp",
+      "passed": true
+    },
+    {
+      "check": "Generated sheng vendor BoardConfigVendor.mk",
+      "passed": true
+    },
+    {
+      "check": "Generated sheng vendor sheng-vendor.mk",
+      "passed": true
+    },
+    {
+      "check": "vendor/xiaomi/sheng/Android.bp has unique module names",
+      "passed": true
+    },
+    {
+      "check": "Stock sheng dtb/stock.dtb",
+      "passed": true
+    },
+    {
+      "check": "Stock sheng dtbo.img",
+      "passed": true
+    },
+    {
+      "check": "All prepared board modules present",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: reboot-mode.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_memshare.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mi_freqwdg.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ucsi_glink.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-stm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_wdt_core.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: thermal_pause.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: millet_pkg.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: audio_prm_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: secure_buffer.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: virtual_fg.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gh_tlmm_vm_mem_access.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: leds-qti-flash.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xiaomi_wifi_gpio.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: crypto-qti-common.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: socinfo.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: panel_event_notifier.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_iommu_util.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-msm-m31-eusb2.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: boot_stats.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ipa_fmwk.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_pil_info.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qrtr-mhi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ns.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-cpufreq-hw-debug.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cameralog.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_glink.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cs35l41_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: smem.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xlogchar.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: dump_display.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: icc-bcm-voter.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: videocc-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: clk-qcom.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: stm_console.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cpu_hotplug.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: snd_event_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: swr_haptics_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: bt_fm_slim.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pinctrl-spmi-mpp.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: slim-qcom-ngd-ctrl.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: tcsrcc-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ddr_cdev.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mtdblock.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mac80211.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm-eva.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pmu_scmi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cpufreq_stats_scmi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-csr.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mi_schedule.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: wsa884x_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti_qmi_cdev.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_drm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: smcinvoke_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-tmc.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: q6_notifier_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cnss_utils.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mem_buf_dev.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cs35l43_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: sps_drv.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qce50_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_glink_smem.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_rpmh.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: sched-walt.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-pdc.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: millet_binder.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gh_ctrl.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: block2mtd.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mi_mempool.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_logbuf_vh.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: llcc_perfmon.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gdsc-regulator.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_sysmon.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: lpass_cdc_tx_macro_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: sdhci-msm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: usb_f_rndis.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qrtr-gunyah.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: proxy-consumer.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: kunit.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mhi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gpr_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qnoc-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: wcd938x_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti-fixed-regulator.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_aoss.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: binder_prio.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gcc-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_esoc.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-qcom-ufs-qmp-v4-waipio.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rmnet_core.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: bootinfo.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: usb_f_qdss.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_cpuss_sleep_stats.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: swr_dmic_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: hvc_gunyah.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cqhci.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: tmecom-intf.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qrtr-smd.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: altmode-glink.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_qmp.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: hung_task_enh.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcedev-mod_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rmnet_sch.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: core_hang_detect.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qseecom_proxy.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: heap_mem_ext_v01.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: minidump.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-qcom-ufs.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-spmi-temp-alarm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cdsp-loader.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mbhc_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xm_utils.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: lpass_cdc_rx_macro_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_lpm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cmd-db.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cpufreq_stats_vendor.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: nt36532_touch.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-msm-ssusb-qmp.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mhi_dev_satellite.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: clk-dummy.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_video.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_hw_fence.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-pmu-lib.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: wl2868c.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: redriver.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ufshcd-crypto-qti.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: spi-msm-geni.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rmnet_ctl.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_show_resume_irq.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: wcd_core_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti-ocp-notifier.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_lmh_dcvs.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: audio_pkt_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rproc_qcom_common.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-dload-mode.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cnss_nl.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: swinfo.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: spmi-pmic-arb-debug.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: dmesg_dumper.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: snd-soc-hdmi-codec.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: c1dcvs_scmi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: eud.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: lt9611uxc.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cnss_prealloc.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rmnet_shs.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: swr_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: repeater.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_q6v5.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti_battery_charger.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_dma_iommu_mapping.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: millet_hs.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qmi_helpers.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-hwevent.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: icc-test.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_kgsl.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-qcom-emu.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: fpc1552.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mi_power.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-pon.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qdss_bridge.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti_qmi_sensor_v2.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-vadc-common.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mtdoops.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti_battery_debug.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cma_balance.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mhi_cntrl_qcom.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rmnet_perf.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-qcom-ufs-qmp-v4.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xiaomifp.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_rimps.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xiaomi_touch.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gh_msgq.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ipanetm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: migt.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: nanosic_platform.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: iommu-logger.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_ipc_logging.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: subsystem_sleep_stats.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: perfmgr.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_show_epoch.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_dma_heaps.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: stm_ftrace.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: hdmi_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: bcl_soc.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: policy_engine.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: arm_smmu.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mhi_dev_dtr.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qca_cld3_kiwi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qnoc-crow.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: miev.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: spmi-glink-debug.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: miicmpfilter.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qca_cld3_kiwi_v2.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: stm_nfc_i2c.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qnoc-qos.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_ramdump.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-dummy.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pwm-qti-lpg.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: bcl_pmic5.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti-regmap-debugfs.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: dcvs_fp.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: audpkt_ion_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-cpufreq-hw.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pmu_vendor.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: usb_f_diag.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ir-spi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: wsa883x_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: dcc_v2.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mem-hooks.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: camera.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: metis.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: nxp-nci.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: lpass_cdc_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: leds-qti-tri-led.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-replicator.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: binder_gki.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pinctrl-msm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xm_power.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcrypto-msm_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-qcom-ufs-qmp-v4-kona.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: nvmem_qcom-spmi-sdam.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: i3c-master-msm-geni.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: stm_st54se_gpio.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cpu_voltage_cooling.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: usb_f_ccid.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ipam.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: millet_core.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: sync_fence.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: f_fs_ipc_log.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mem_buf_msgq.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: snd-usb-audio-qmi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: synx-driver.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: clk-rpmh.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rtc-pm8xxx.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-spmi-adc5-gen3.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: aw882xx_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: hid-xbox_haptics-mi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: q6_pdr_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mdt_loader.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-tgu.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ps5169.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cfg80211.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: hdcp_qseecom_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: stub_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cpq.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: perf_helper.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-tpdm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_ipcc.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xiaomi_keyboard_driver.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_edac.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: miwill.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: chipreg.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pdr_interface.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti_cpufreq_cdev.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rmnet_offload.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qbt_handler.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: smp2p_sleepstate.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: sg.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: sdpm_clk.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: spmi-pmic-arb.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ntag5_i2c.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gunyah.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: smp2p.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-hv-haptics.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti_devfreq_cdev.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gh_irq_lend.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: icc-debug.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mem_buf.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: nvme-core.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_sharedmem.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: lpass_cdc_wsa2_macro_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pinctrl-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_cpu_vendor_hooks.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_gpi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gpucc-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: wl2866d.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pinctrl-crow.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: memory_dump_v2.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: debug-regulator.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: slimbus.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: btpower.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-generic.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mhi_dev_uci.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_va_minidump.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: c1dcvs_vendor.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: hardwareinfo.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rmnet_wlan.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: dispcc-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_ext_display.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qti_userspace_cdev.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: industrialio-buffer-cb.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm-mmrm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: hwkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: q6_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_tsens.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mhi_dev_netdev.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: glink_pkt.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: swr_ctrl_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ehset.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: adsp_sleepmon.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: debug_symbol.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pm8941-pwrkey.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: usb_f_cdev.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rimps_log.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_iommu_debug.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: usb_bam.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qrtr.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mtd_blkdevs.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_sysstats.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-qcom-ufs-qmp-v4-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: machine_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cdsprm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_smd.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pmic-pon-log.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: usbmon.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-funnel.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-spmi-pmic.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: adsp_loader_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cnss_plat_ipc_qmi_svc.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_ipc_lite.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: microdump_collector.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mtd.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rndisipam.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rmnet_aps.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-cti.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: max31760_fan.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gh_dbl.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gh_virt_wdt.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: memlat_scmi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: nanosic_driver.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mem-offline.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rq_stats.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xiaomi_hall.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gsim.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xm_battmngr_init.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mi_cnss_statistic.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: dwc3-msm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gh_mem_notifier.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: lpass_cdc_va_macro_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-msm-snps-eusb2.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: hwid.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: nvme.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pci-msm-drv.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_q6v5_pas.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pmic_glink.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: stm_p_basic.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mmrm_test_module.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: radio-i2c-rtc6226-qca.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gh_rm_drv.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: llcc-qcom.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-reboot-reason.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: millet_oem_cgroup.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: minet.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: wlan_firmware_service.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: sysmon_subsystem_stats.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ofpart.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rpmh-regulator.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: stub-regulator.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: camcc-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qrng_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_performance.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-tpda.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: memlat.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: icc-rpmh.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-scm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mi_memory.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qsee_ipc_irq_bridge.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: cnss2.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: low_free_memory_kill.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: stm_p_ost.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: gh_arm_drv.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: tz_log_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: wcd938x_slave_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: wcd9xxx_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: thermal_minidump.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: charger-ulog-glink.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rdbg.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: glink_probe.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: xm_charger.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: fsa4480-i2c.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pinctrl_lpi_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: debug_ext.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: regmap-spmi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: crypto-qti-hwkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: i2c-msm-geni.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: rmnet_perf_tether.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_llcc_pmu.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ufs_qcom.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: memlat_vendor.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom_hwspinlock.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-qcom-ufs-qmp-v4-khaje.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: frpc-adsprpc.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mixdp.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: lpass_cdc_wsa_macro_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: coresight-remote-etm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: bwmon.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: debugcc-kalama.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: ipa_clientsm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: nvmem_qfprom.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-qcom-ufs-qmp-v4-lahaina.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: repeater-i2c-eusb2.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qca_cld3_qca6490.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: millet_sig.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: sys_pm_vx.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: bam_dma.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: usb_f_gsi.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: mi_thermal_interface.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: stm_core.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: msm_geni_serial.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: soc_sleep_stats.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: spf_core_dlkm.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: pinctrl-spmi-gpio.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: qcom-dcvs.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: repeater-qti-pmic-eusb2.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: sla.ko",
+      "passed": true
+    },
+    {
+      "check": "ELF CRC parser agrees with kmod: phy-qcom-ufs-qrbtc-sdm845.ko",
+      "passed": true
+    },
+    {
+      "check": "About 80 GiB swap active",
+      "passed": true
+    },
+    {
+      "check": "Host build dependencies installed",
+      "passed": true
+    },
+    {
+      "check": "C: safety margin above 25 GiB",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "awaiting_sync": [],
+  "abi_validation_against_built_kernel": "pending actual kernel build"
+}

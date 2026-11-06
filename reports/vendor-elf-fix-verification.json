@@ -1,0 +1,43 @@
+{
+  "all_six_real_elf_checks_passed": true,
+  "results": [
+    {
+      "file": "vendor/xiaomi/sheng/proprietary/odm/lib64/libMiPhotoFilter.so",
+      "returncode": 0,
+      "provider": "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/frameworks/native/libs/nativewindow/libnativewindow/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libnativewindow.so",
+      "log": "/root/sheng-lineage/logs/verify-elf-libMiPhotoFilter.so.log"
+    },
+    {
+      "file": "vendor/xiaomi/sheng/proprietary/odm/lib64/libmorpho_ubwc.so",
+      "returncode": 0,
+      "provider": "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/frameworks/native/libs/nativewindow/libnativewindow/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libnativewindow.so",
+      "log": "/root/sheng-lineage/logs/verify-elf-libmorpho_ubwc.so.log"
+    },
+    {
+      "file": "vendor/xiaomi/sheng/proprietary/odm/lib64/libTrueSight.so",
+      "returncode": 0,
+      "provider": "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/frameworks/native/libs/nativewindow/libnativewindow/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libnativewindow.so",
+      "log": "/root/sheng-lineage/logs/verify-elf-libTrueSight.so.log"
+    },
+    {
+      "file": "vendor/xiaomi/sheng/proprietary/odm/lib64/libwrapper_dlengine.so",
+      "returncode": 0,
+      "provider": "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/system/logging/liblog/liblog/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/liblog.so",
+      "log": "/root/sheng-lineage/logs/verify-elf-libwrapper_dlengine.so.log"
+    },
+    {
+      "file": "vendor/xiaomi/sheng/proprietary/odm/lib64/libcrussp.so",
+      "returncode": 0,
+      "provider": "/root/sheng-lineage/out/verify-vendor-elf/libsheng_audio_log_compat.so",
+      "log": "/root/sheng-lineage/logs/verify-elf-libcrussp.so.log"
+    },
+    {
+      "file": "vendor/xiaomi/sheng/proprietary/vendor/lib64/c2.dolby.client.so",
+      "returncode": 0,
+      "provider": "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/hardware/lineage/compat/libcodec2_shim/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libcodec2_shim.so",
+      "log": "/root/sheng-lineage/logs/verify-elf-c2.dolby.client.so.log"
+    }
+  ],
+  "soong_integration": "pending validation run",
+  "checks_disabled": false
+}

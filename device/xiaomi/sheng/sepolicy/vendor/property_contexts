@@ -1,0 +1,19 @@
+# Camera
+persist.vendor.EnableP3ColorSpace               u:object_r:vendor_camera_p3enable_prop:s0
+vendor.camera.sensor.                           u:object_r:vendor_camera_sensor_prop:s0
+
+# Fingerprint
+persist.vendor.fingerprint. u:object_r:vendor_fp_prop:s0
+persist.vendor.sys.fp. u:object_r:vendor_fp_prop:s0
+ro.hardware.fp.udfps u:object_r:vendor_fp_prop:s0
+
+# Thermal
+vendor.sys.thermal.data.path u:object_r:vendor_thermal_normal_prop:s0
+
+# Mlipay
+persist.vendor.sys.pay.fido u:object_r:vendor_payment_security_prop:s0
+persist.vendor.sys.pay.fido2 u:object_r:vendor_payment_security_prop:s0
+persist.vendor.sys.pay.ifaa u:object_r:vendor_payment_security_prop:s0
+
+# NFC
+ro.vendor.dolby.dax.version u:object_r:vendor_sheng_dolby_prop:s0 exact string

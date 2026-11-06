@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<manifest>
+  <project name="LineageOS/android_hardware_xiaomi" path="hardware/xiaomi" remote="github" revision="lineage-24.0" clone-depth="1" />
+  <project name="LineageOS/android_kernel_xiaomi_sm8550" path="kernel/xiaomi/sm8550" remote="github" revision="lineage-24.0" clone-depth="1" />
+  <project name="LineageOS/android_kernel_xiaomi_sm8550-modules" path="kernel/xiaomi/sm8550-modules" remote="github" revision="lineage-24.0" clone-depth="1" />
+  <project name="LineageOS/android_kernel_xiaomi_sm8550-devicetrees" path="kernel/xiaomi/sm8550-devicetrees" remote="github" revision="lineage-24.0" clone-depth="1" />
+</manifest>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">杜比全景声</string>
+    <string name="switch_label">使用杜比全景声</string>
+    <string name="enabled">已开启</string>
+    <string name="disabled">已关闭</string>
+    <string name="waiting">等待音频服务就绪</string>
+</resources>

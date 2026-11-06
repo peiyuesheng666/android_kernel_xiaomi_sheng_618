@@ -1,0 +1,33 @@
+{
+  "files": [
+    {
+      "name": "system_ext.img",
+      "bytes": 469950732,
+      "sha256": "4135580582cd64cd75fc59eb4a4e547c8340174ee5703b3b1cab887d5f93a4a4"
+    },
+    {
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "de2ef601ac755772662dd9b8496bb78190af4f4ab8760c4f4fe078fc04cf5fa7"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/system-ext-permission-fix/20261105T233306464313Z",
+  "source": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/device/xiaomi/sheng/dolby/ShengDolby/privapp-permissions-org.lineageos.sheng.dolby.xml",
+  "allowlist_sha256": "1eb31818392c453f76e5270dbe0cabe9d87f62c3a459fe50f7c480880dccb348",
+  "only_added_staging_file": "etc/permissions/privapp-permissions-org.lineageos.sheng.dolby.xml",
+  "base_matches_installed_ota": true,
+  "partition_size_unchanged": 572813312,
+  "allowlist_and_apk_readback_verified": true,
+  "avb_image_and_vbmeta_verified": true,
+  "other_vbmeta_roots_unchanged": true,
+  "hardware_boot_tested": true,
+  "hardware_result": {
+    "serial": "ca10ede3",
+    "slot": "b",
+    "sys_boot_completed": "1",
+    "dolby_privileged_permission_crash_resolved": true,
+    "adb_root_verified": true,
+    "selinux": "Enforcing",
+    "display_requires_separate_fix": true
+  }
+}

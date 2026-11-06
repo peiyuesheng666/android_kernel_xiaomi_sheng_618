@@ -1,0 +1,90 @@
+{
+  "package": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/lineage-24.0-20261105-UNOFFICIAL-sheng/lineage-24.0-20261105-UNOFFICIAL-sheng.zip",
+  "metadata": {
+    "ota-property-files": "payload_metadata.bin:4848:160891,payload.bin:4848:1883230398,payload_properties.txt:1883235304:156,apex_info.pb:2180:1402,care_map.pb:3629:1172,metadata:69:678,metadata.pb:815:1317                        ",
+    "ota-required-cache": "0",
+    "ota-streaming-property-files": "payload.bin:4848:1883230398,payload_properties.txt:1883235304:156,apex_info.pb:2180:1402,care_map.pb:3629:1172,metadata:69:678,metadata.pb:815:1317                          ",
+    "ota-type": "AB",
+    "post-build": "Xiaomi/lineage_sheng/sheng:17/CP2A.260605.016/eng.root:userdebug/test-keys",
+    "post-build-incremental": "1793885988",
+    "post-sdk-level": "37",
+    "post-security-patch-level": "2026-11-01",
+    "post-timestamp": "1793885988",
+    "pre-device": "sheng"
+  },
+  "partitions": [
+    {
+      "name": "boot",
+      "bytes": 100663296,
+      "sha256": "7325be6aecbab7e8bfffc41c10cb2ba93b6704e911c3cb6b50952e1dfefe645a"
+    },
+    {
+      "name": "dtbo",
+      "bytes": 16777216,
+      "sha256": "eb84a11ea0facd3b3d53bbc3fdb0806b018a1e35f24debfa313e6a64efa7c018"
+    },
+    {
+      "name": "init_boot",
+      "bytes": 8388608,
+      "sha256": "c0b93bed6f6fcbd2f77cb79f0c43a9baac23c097f3c8413fcd345069b400ad7e"
+    },
+    {
+      "name": "odm",
+      "bytes": 1141067776,
+      "sha256": "90f0defe062c4a793b76d11de8a25f180b2fd2af15a86f1b8e96e231de501e90"
+    },
+    {
+      "name": "product",
+      "bytes": 2489184256,
+      "sha256": "943933c299688f3b769567ef0d554512614e3cb70c9ce7242083e34d935b9cee"
+    },
+    {
+      "name": "recovery",
+      "bytes": 104857600,
+      "sha256": "3bf15116b23e516e5dd35866d62945a27e6f17e050d1c5b8320722185c2f2ea0"
+    },
+    {
+      "name": "system",
+      "bytes": 1005133824,
+      "sha256": "f89b07d973531ceea3d2d3a695754065382947b401393d382862f3b44a03aea4"
+    },
+    {
+      "name": "system_dlkm",
+      "bytes": 348160,
+      "sha256": "73e36df936817c4c266ce0ec5a8ff372db9fb5007e6476d6ebd8973f989b2855"
+    },
+    {
+      "name": "system_ext",
+      "bytes": 572813312,
+      "sha256": "07ec9ef890e1134f394f39aad003684aaa3343e2c7c3d99a47b9cee0eaac87e6"
+    },
+    {
+      "name": "vbmeta",
+      "bytes": 8192,
+      "sha256": "e393bc8785ac1a8de9ed5757a60173a32cef4ae374c58c5ab9258dc14ea19668"
+    },
+    {
+      "name": "vbmeta_system",
+      "bytes": 4096,
+      "sha256": "aa51e32938367b97c8a75fff4748038ee688265225819d1d6d69b77918a21068"
+    },
+    {
+      "name": "vendor",
+      "bytes": 303517696,
+      "sha256": "6bac85ce3832ec394790ef615f1399b9bdad1807d2b33cd329eb8a27d4d88936"
+    },
+    {
+      "name": "vendor_boot",
+      "bytes": 100663296,
+      "sha256": "6cfc89bac563d15af78065b592ac8a22d5794826a8cae9be41e033977700fd4a"
+    },
+    {
+      "name": "vendor_dlkm",
+      "bytes": 62590976,
+      "sha256": "ade517337e3cef0cbb52eb1096ed46ceb98a97cec51b2d53c7f092c481ceae1f"
+    }
+  ],
+  "payload_recovery_matches_original_export": false,
+  "payload_recovery_differs_from_r13": true,
+  "r13_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f"
+}

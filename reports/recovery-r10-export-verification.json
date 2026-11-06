@@ -1,0 +1,22 @@
+[
+  {
+    "bytes": 104857600,
+    "sha256": "8d8423a600ad15c1c131a7628aec804300ad520fa02255d6975d69a6b961b117",
+    "name": "lineage-24.0-sheng-recovery-r10-native-source-raw.img"
+  },
+  {
+    "bytes": 1653,
+    "sha256": "6d507f5556000c93389782c923c108056d39c65128d5b284c91cc64143a8777b",
+    "name": "README.txt"
+  },
+  {
+    "bytes": 46713,
+    "sha256": "8ec5bd86250b73e104d752f12d9ff344e14ffab16b40b17622406fc45e702be5",
+    "name": "recovery-build-result.json"
+  },
+  {
+    "bytes": 18602,
+    "sha256": "d8f4e59ee093090d8d9d3be73e59e6c27602341237a7f64725a7f2c02c75db50",
+    "name": "recovery-source-configuration.tar.gz"
+  }
+]

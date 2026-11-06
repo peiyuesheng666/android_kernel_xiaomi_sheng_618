@@ -1,0 +1,8 @@
+{
+  "source": "kernel/xiaomi/sm8550-modules/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h",
+  "sha256": "62b166e31ad0cde0ecfcdcf1d1a84f1a415e0202dca39f01c767f24307582c31",
+  "kernel_preprocessed_declarations_unchanged": true,
+  "real_headers_install_passed": true,
+  "exported_header_c90_double_include_passed": true,
+  "header_checks_disabled": false
+}

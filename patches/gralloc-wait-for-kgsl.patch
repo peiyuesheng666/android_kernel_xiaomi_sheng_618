@@ -1,0 +1,28 @@
+diff --git a/gralloc/gr_adreno_info.cpp b/gralloc/gr_adreno_info.cpp
+index f1d9b0d..bf02485 100644
+--- a/gralloc/gr_adreno_info.cpp
++++ b/gralloc/gr_adreno_info.cpp
+@@ -38,6 +38,7 @@
+ #include <dlfcn.h>
+ #include <mutex>
+ #include <fstream>
++#include <unistd.h>
+ 
+ #include "gr_adreno_info.h"
+ #include "gr_utils.h"
+@@ -72,7 +73,15 @@ AdrenoMemInfo::AdrenoMemInfo() {
+   }
+ 
+   fstream fs(kgsl_path, fstream::in);
++  // KGSL probes asynchronously. Caching an uninitialized singleton before
++  // /dev/kgsl-3d0 exists makes allocation and import disagree on RGB stride.
++  for (int attempt = 0; !fs.is_open() && attempt < 100; ++attempt) {
++    usleep(100000);
++    fs.clear();
++    fs.open(kgsl_path, fstream::in);
++  }
+   if (!fs.is_open()) {
++    ALOGE("KGSL did not become available within 10 seconds");
+     return;
+   }
+ 

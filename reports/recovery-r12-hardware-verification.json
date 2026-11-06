@@ -1,0 +1,27 @@
+{
+  "user_confirmed_r11_live_rotation": "点击位置正确，返回也正常",
+  "touch_service": "running",
+  "time": "2026-11-06T07:02:22.1906982+08:00",
+  "user_r12_feedback": "不对是触摸启动的很慢大概要十几秒",
+  "boot_succeeded": true,
+  "serial": "ca10ede3",
+  "flash_succeeded": true,
+  "kernel_uname": "5.15.220-gf9ca2b71f672",
+  "startup_latency_optimization_implemented": false,
+  "recovery_service": "running",
+  "partition": "recovery_a",
+  "bcb_operation_in_recovery_log": "Clearing BCB",
+  "adb": "adb",
+  "revision": "r12-native-source-touch-rotation",
+  "misc": "/dev/block/by-name/misc",
+  "cold_start_seconds": {
+    "driver_probe_start": 3.715587,
+    "firmware_ready": 18.007897,
+    "driver_probe_end": 3.739882,
+    "firmware_request": 17.911025,
+    "daemon_start": 4.245411
+  },
+  "sha256": "62049d914a2711e0022aa04670812f3f152c58c9e61082fe7e7de62852d78350",
+  "diagnostics": "reports/device/flash-recovery-20261106-065927/r12-diagnostics.txt",
+  "touch_rotation_after_reboot": "ROTATION_RIGHT"
+}

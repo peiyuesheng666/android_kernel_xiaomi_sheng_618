@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "file": "lineage-24.0-sheng-recovery-r13-native-source-fast-touch.img",
+      "sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f"
+    },
+    {
+      "file": "recovery-build-result.json",
+      "sha256": "6950377b3cd6c4381d758e658c7dc406c643a14a53d33883d4a94bc58a433726"
+    },
+    {
+      "file": "recovery-source-configuration.tar.gz",
+      "sha256": "06587b98e4018e64d67f6867c04ade896ac8d50b1a4b08ba16e70d2385745f4a"
+    }
+  ],
+  "all_passed": true,
+  "revision": "r13-native-source-fast-touch",
+  "time": "2026-11-06T07:08:33.0869188+08:00"
+}

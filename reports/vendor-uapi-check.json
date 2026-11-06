@@ -1,0 +1,94 @@
+{
+  "vendor_headers_checked": 17,
+  "all_passed": true,
+  "original_timespec_failure_reproduced": true,
+  "user_cflags": "-D_POSIX_C_SOURCE=200809L",
+  "header_tests_disabled": false,
+  "results": [
+    {
+      "header": "usr/include/audio/linux/msm_audio.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/audio/sound/audio_compressed_formats.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/audio/sound/audio_effects.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/audio/sound/audio_slimslave.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/audio/sound/cs35l41.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/audio/sound/devdep_params.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/audio/sound/lsm_params.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/audio/sound/msmcal-hwdep.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/audio/sound/voice_params.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/audio/sound/wcd-dsp-glink.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/display/drm/mi_disp.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/display/drm/msm_drm_pp.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/display/drm/sde_drm.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/display/hdcp/msm_hdmi_hdcp_mgr.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/display/media/mmm_color_fmt.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/display/media/msm_sde_rotator.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    },
+    {
+      "header": "usr/include/linux/nfc/nfcinfo.h",
+      "passed": true,
+      "diagnostics": "perl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n\tLANGUAGE = (unset),\n\tLC_ALL = (unset),\n\tLC_CTYPE = \"C.UTF-8\",\n\tLANG = \"en_US.UTF-8\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n"
+    }
+  ]
+}

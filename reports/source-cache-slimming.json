@@ -1,0 +1,62 @@
+{
+  "checkout_files_removed": 0,
+  "projects": [
+    {
+      "path": "prebuilts/sdk",
+      "commit": "0f07e8d60ab0aba46129e427101f96ba459a95c1",
+      "refs": [
+        "refs/remotes/m/lineage-24.0",
+        "refs/tags/android-17.0.0_r1"
+      ],
+      "before_bytes": 21551120384,
+      "after_bytes": 1330597888,
+      "shallow": true,
+      "connectivity_checked": true,
+      "checkout_unchanged": true,
+      "log": "/root/sheng-lineage/logs/slim-prebuilts-sdk.log"
+    },
+    {
+      "path": "prebuilts/module_sdk/art",
+      "commit": "28d24261d3f7d9b43e71feb9ecbfdbc2a4261457",
+      "refs": [
+        "refs/remotes/m/lineage-24.0",
+        "refs/tags/android-17.0.0_r1"
+      ],
+      "before_bytes": 17227771904,
+      "after_bytes": 849776640,
+      "shallow": true,
+      "connectivity_checked": true,
+      "checkout_unchanged": true,
+      "log": "/root/sheng-lineage/logs/slim-prebuilts-module_sdk-art.log"
+    },
+    {
+      "path": "prebuilts/remoteexecution-client",
+      "commit": "9158169c8c48a3f16dae517b8a44318ce3e0890a",
+      "refs": [
+        "refs/remotes/m/lineage-24.0",
+        "refs/tags/android-17.0.0_r1"
+      ],
+      "before_bytes": 11501584384,
+      "after_bytes": 596008960,
+      "shallow": true,
+      "connectivity_checked": true,
+      "checkout_unchanged": true,
+      "log": "/root/sheng-lineage/logs/slim-prebuilts-remoteexecution-client.log"
+    },
+    {
+      "path": "prebuilts/misc",
+      "commit": "be7c3a630b5dc5eb3260035d77a81b2f322754f8",
+      "refs": [
+        "refs/remotes/m/lineage-24.0",
+        "refs/tags/android-17.0.0_r1"
+      ],
+      "before_bytes": 6416437248,
+      "after_bytes": 2050330624,
+      "shallow": true,
+      "connectivity_checked": true,
+      "checkout_unchanged": true,
+      "log": "/root/sheng-lineage/logs/slim-prebuilts-misc.log"
+    }
+  ],
+  "reclaimed_bytes": 51870199808
+}

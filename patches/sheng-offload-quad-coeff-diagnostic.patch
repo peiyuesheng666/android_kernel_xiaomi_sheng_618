@@ -1,0 +1,25 @@
+--- a/session/src/Session.cpp
++++ b/session/src/Session.cpp
+@@ -989,7 +989,9 @@
+             dAttr.id == PAL_DEVICE_OUT_SPEAKER &&
+             !strcmp(intf, "TDM-LPAIF-RX-SECONDARY") &&
+             sAttr.direction == PAL_AUDIO_OUTPUT &&
+-            isPalPCMFormat(sAttr.out_media_config.aud_fmt_id) &&
++            (isPalPCMFormat(sAttr.out_media_config.aud_fmt_id) ||
++             (sAttr.type == PAL_STREAM_COMPRESSED &&
++              property_get_bool("vendor.audio.sheng.offload_quad_coeff", false))) &&
+             sAttr.out_media_config.ch_info.channels == 2 &&
+             mfcData.numChannel == 4) {
+             builder->payloadShengStereoQuadCoeff(&payload, &payloadSize, miid);
+@@ -997,8 +999,9 @@
+                 status = -ENOMEM;
+                 goto exit;
+             }
+-            PAL_INFO(LOG_TAG, "sheng PCM stereo->quad mixer: miid=%x payload=%zu stream=%d",
+-                     miid, payloadSize, sAttr.type);
++            PAL_INFO(LOG_TAG, "sheng %s stereo->quad mixer: miid=%x payload=%zu stream=%d format=%d",
++                     isPalPCMFormat(sAttr.out_media_config.aud_fmt_id) ? "PCM" : "offload",
++                     miid, payloadSize, sAttr.type, sAttr.out_media_config.aud_fmt_id);
+             status = updateCustomPayload(payload, payloadSize);
+             freeCustomPayload(&payload, &payloadSize);
+             if (status)

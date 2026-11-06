@@ -1,0 +1,25 @@
+{
+  "qti_flag": true,
+  "qti_flag_type": "bool",
+  "build_run_id": "2d8f1b686d6d4c8ba1084821b931c2a3",
+  "library": "librecovery_ui.so",
+  "bytes": 417736,
+  "sha256": "de6aa42386b584f8ab7d0373672d2f067a3091d8f6b2a877e58b25aa40e7ec7c",
+  "original_sha256": "467e891a3d43b76a140d37e876f7ae118dd4d64bd3d45a04d1e7979df5e5b760",
+  "needed_libraries": [
+    "android.hardware.health-V5-ndk.so",
+    "libbase.so",
+    "libc++.so",
+    "libc.so",
+    "libcutils.so",
+    "libdl.so",
+    "libhidlbase.so",
+    "libm.so",
+    "libpng.so",
+    "libutils.so",
+    "libvolume_manager.so",
+    "libz.so"
+  ],
+  "hardware_tested": false,
+  "note": "minui backend is linked into librecovery_ui.so; replacing only recovery is insufficient."
+}

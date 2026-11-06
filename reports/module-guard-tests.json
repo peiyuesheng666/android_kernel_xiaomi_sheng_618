@@ -1,0 +1,14 @@
+{
+  "guard_test_passed": true,
+  "actual_built_kernel_abi_validated": false,
+  "results": [
+    {
+      "fixture": "matching_crc",
+      "expected_behavior_verified": true
+    },
+    {
+      "fixture": "wrong_crc",
+      "expected_behavior_verified": true
+    }
+  ]
+}

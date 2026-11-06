@@ -1,0 +1,16 @@
+allow hal_lineage_touch_default vendor_sysfs_touch:file rw_file_perms;
+
+# The stock THP host processor is separate from the Lineage polling-rate HAL.
+type vendor_sheng_touch_report, domain;
+type vendor_sheng_touch_report_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(vendor_sheng_touch_report)
+allow vendor_sheng_touch_report self:capability sys_nice;
+allow vendor_sheng_touch_report self:unix_stream_socket create_stream_socket_perms;
+allow vendor_sheng_touch_report self:unix_dgram_socket create_socket_perms;
+allow vendor_sheng_touch_report input_device:dir r_dir_perms;
+allow vendor_sheng_touch_report input_device:chr_file rw_file_perms;
+allow vendor_sheng_touch_report touchfeature_device:chr_file rw_file_perms;
+r_dir_file(vendor_sheng_touch_report, vendor_sysfs_touch)
+allow vendor_sheng_touch_report vendor_sysfs_touch:file rw_file_perms;
+r_dir_file(vendor_sheng_touch_report, vendor_firmware_file)
+write_logd(vendor_sheng_touch_report)

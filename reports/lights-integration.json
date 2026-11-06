@@ -1,0 +1,25 @@
+{
+  "aidl": "android.hardware.light.ILights/default",
+  "version": 2,
+  "implementation": "original sheng vendor binary",
+  "inputs_sha256": {
+    "vendor/bin/hw/vendor.qti.hardware.lights.service": "ea8a145a0a8573197138b625c74a5fe8531fb34963cd57e8e7275a5cd93a0954",
+    "vendor/etc/init/vendor.qti.hardware.lights.service.rc": "dd42446a73e8c12c7945903911c81f84e9193946e0281301be3c98462db58736",
+    "vendor/etc/vintf/manifest/vendor.qti.hardware.lights.service.xml": "b77889f51d4a1ff27840f57dc4bde6fdd47b651b22e1cbb43680ad0dbf57bf7c"
+  },
+  "needed_platform_libraries": [
+    "libbase.so",
+    "liblog.so",
+    "libhardware.so",
+    "libbinder_ndk.so",
+    "android.hardware.light-V2-ndk.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+  ],
+  "existing_qti_policy_verified": true,
+  "android17_elf_validation": "pending build",
+  "hardware_runtime_validated": false,
+  "omitted_stock_java_library_xml": "Refers to a legacy light-V2.0 Java jar; not required by the native AIDL HAL"
+}

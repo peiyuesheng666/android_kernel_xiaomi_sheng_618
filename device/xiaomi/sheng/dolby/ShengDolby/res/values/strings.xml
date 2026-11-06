@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Dolby Atmos</string>
+    <string name="switch_label">Use Dolby Atmos</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="waiting">Waiting for the audio service</string>
+</resources>

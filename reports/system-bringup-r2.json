@@ -1,0 +1,46 @@
+{
+  "files": [
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "a4f8d6aca18835ac05f589261b848cae672fbb5d071b84afffd4e8bf5f3b1052"
+    },
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "380aac5b18d5573a8389847553ffcdfdbbf8422413548daddd3389f5bcc76b6d"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "4f1f552165c28bf9216b6ee1238e40c121237607526fca67b4c3b7b819657e1d"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/system-bringup-r2",
+  "changed_files": {
+    "vendor": [
+      "bin/hw/vendor.qti.hardware.display.allocator-service",
+      "bin/hw/vendor.qti.hardware.display.composer-service",
+      "bin/hw/android.hardware.sensors-service.xiaomi-multihal",
+      "etc/selinux/vendor_sepolicy.cil",
+      "etc/selinux/vendor_file_contexts",
+      "bin/sheng-touch-report",
+      "usr/idc/NVTCapacitiveTouchScreen.idc",
+      "etc/init/init.sheng.rc",
+      "etc/audio/sku_kalama/resourcemanager_kalama_mtp.xml",
+      "etc/audio/sku_kalama/mixer_paths_kalama_mtp.xml"
+    ],
+    "odm": [
+      "overlay/FrameworkResOverlaySheng.apk",
+      "etc/init/vendor.qti.camera.provider-service_64.rc"
+    ]
+  },
+  "unchanged_partition_sizes": true,
+  "readback_content_and_ownership_verified": true,
+  "avb_signatures_verified": true,
+  "all_original_chain_descriptors_preserved": true,
+  "hardware_boot_tested": false
+}

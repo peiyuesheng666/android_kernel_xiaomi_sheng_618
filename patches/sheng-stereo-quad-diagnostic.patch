@@ -1,0 +1,35 @@
+--- a/session/src/Session.cpp
++++ b/session/src/Session.cpp
+@@ -79,6 +79,7 @@
+ #include "SessionAlsaVoice.h"
+ 
+ #include <sstream>
++#include <cutils/properties.h>
+ 
+ struct pcm *Session::pcmEcTx = NULL;
+ std::vector<int> Session::pcmDevEcTxIds = {0};
+@@ -968,6 +969,24 @@
+             dAttr.id == PAL_DEVICE_OUT_HDMI)
+             mfcData.ch_info = &dAttr.config.ch_info;
+ 
++        // Diagnostic only: determine whether empty rear channels mute two
++        // of sheng's four TDM slots when playing ordinary stereo content.
++        struct pal_channel_info shengStereoQuad = {};
++        char shengQuadTest[PROPERTY_VALUE_MAX] = {};
++        property_get("vendor.audio.sheng.stereo_quad_test", shengQuadTest, "0");
++        if (!strcmp(shengQuadTest, "1") && dAttr.id == PAL_DEVICE_OUT_SPEAKER &&
++            sAttr.direction == PAL_AUDIO_OUTPUT &&
++            sAttr.out_media_config.ch_info.channels == 2 &&
++            mfcData.numChannel == 4) {
++            shengStereoQuad.channels = 4;
++            shengStereoQuad.ch_map[0] = PAL_CHMAP_CHANNEL_FL;
++            shengStereoQuad.ch_map[1] = PAL_CHMAP_CHANNEL_FR;
++            shengStereoQuad.ch_map[2] = PAL_CHMAP_CHANNEL_FL;
++            shengStereoQuad.ch_map[3] = PAL_CHMAP_CHANNEL_FR;
++            mfcData.ch_info = &shengStereoQuad;
++            PAL_INFO(LOG_TAG, "sheng diagnostic stereo quad MFC: FL FR FL FR");
++        }
++
+         builder->payloadMFCConfig((uint8_t **)&payload, &payloadSize, miid, &mfcData);
+         if (!payloadSize) {
+             PAL_ERR(LOG_TAG, "payloadMFCConfig failed\n");

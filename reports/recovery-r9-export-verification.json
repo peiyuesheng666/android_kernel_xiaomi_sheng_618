@@ -1,0 +1,17 @@
+[
+  {
+    "matched": true,
+    "sha256": "5ab6ec2a9f6b94a86790f97b642c3e98f812e682216747c659efed8144f1cdf8",
+    "name": "lineage-24.0-sheng-recovery-r9-native-source-touch.img"
+  },
+  {
+    "matched": true,
+    "sha256": "6208368dd8c5d91b775ecbe9fb147d55a7039f6743fd4066bf4e0f7fb025a764",
+    "name": "recovery-build-result.json"
+  },
+  {
+    "matched": true,
+    "sha256": "26ff85cfa21d2b72e87444fe29cd1b4bdafbc58cb6d46953ad918ab16e04d60f",
+    "name": "recovery-source-configuration.tar.gz"
+  }
+]

@@ -1,0 +1,35 @@
+--- a/session/src/SessionAlsaCompress.cpp
++++ b/session/src/SessionAlsaCompress.cpp
+@@ -1339,6 +1339,18 @@
+                 codec.ch_in = CHS_2;
+                 codec.ch_out = codec.ch_in;
+             }
++            // Retain the encoded mono input, but request two decoded PCM
++            // channels so it follows the verified stereo speaker graph.
++            char shengDeviceName[PROPERTY_VALUE_MAX] = {};
++            property_get("ro.product.vendor.device", shengDeviceName, "");
++            if (!strcmp(shengDeviceName, "sheng") &&
++                property_get_bool("vendor.audio.sheng.offload_quad_coeff", false) &&
++                codec.id == SND_AUDIOCODEC_MP3 && codec.ch_in == 1 &&
++                !rxAifBackEnds.empty() &&
++                rxAifBackEnds[0].second == "TDM-LPAIF-RX-SECONDARY") {
++                codec.ch_out = CHS_2;
++                PAL_INFO(LOG_TAG, "sheng mono MP3 stereo decoder output");
++            }
+             compress_config.fragment_size = out_buf_size;
+             compress_config.fragments = out_buf_count;
+             compress_config.codec = &codec;
+@@ -1403,9 +1415,10 @@
+                     property_get_bool("vendor.audio.sheng.offload_quad_coeff", false) &&
+                     dAttr.id == PAL_DEVICE_OUT_SPEAKER &&
+                     rxAifBackEnds[i].second == "TDM-LPAIF-RX-SECONDARY" &&
+-                    SND_AUDIOCODEC_AAC == codec.id &&
+-                    codec.options.generic.reserved[0] == AACObjHE_PS &&
+-                    codec.ch_out == CHS_2) {
++                    codec.ch_out == CHS_2 &&
++                    ((SND_AUDIOCODEC_AAC == codec.id &&
++                      codec.options.generic.reserved[0] == AACObjHE_PS) ||
++                     (SND_AUDIOCODEC_MP3 == codec.id && codec.ch_in == 1))) {
+                     mfcAttributes.out_media_config.ch_info.channels = CHS_2;
+                 }
+                 status = configureMFC(rm, mfcAttributes, dAttr, compressDevIds,

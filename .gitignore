@@ -1,0 +1,13 @@
+artifacts/
+analysis/
+__pycache__/
+*.pyc
+
+# Downloaded tools, native runtimes and compiled diagnostics.
+tools/*
+!tools/recovery-touch-capture.c
+
+# Keep raw hardware evidence locally; commit the curated reports instead.
+reports/device/
+reports/serial/
+reports/*.txt

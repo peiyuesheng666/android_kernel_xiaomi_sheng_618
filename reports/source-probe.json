@@ -1,0 +1,234 @@
+{
+  "ack_head": {
+    "url": "https://android.googlesource.com/kernel/common/+/refs/heads/android16-6.12?format=JSON",
+    "data": {
+      "commit": "5b520dbdc04814eaa6105090a94c20d9a8e5a401",
+      "tree": "542b05411c59da7edb617ad1a440716d25b3b171",
+      "parents": [
+        "921dbf2fe1b96b1eeb3f7e4e989a5f790ece5e0a"
+      ],
+      "author": {
+        "name": "Scott Collyer",
+        "email": "scollyer@google.com",
+        "time": "Thu Oct 29 09:28:46 2026 +0000"
+      },
+      "committer": {
+        "name": "Satyam Gupta",
+        "email": "sgsatyam@google.com",
+        "time": "Tue Nov 03 22:05:02 2026 -0800"
+      },
+      "message": "FROMGIT: platform/chrome: cros_ec_sensorhub: Drop sensor samples with past timestamps\n\nWhen a sample timestamp is earlier than the newest timestamp seen for\nthat sensor, the sample is clamped to the last batch timestamp so that\nthe batch spreading logic re-times it. This makes the spreading logic\ntreat it as part of the previous batch, which produces stale timestamps\ndownstream.\n\nDrop such Out Of Order (OOO) samples instead. The previous batch length\nthen no longer covers the interval up to the next batch, so reset it to\nprevent the next batch from computing its sample period across the gap.\n\nRename cros_ec_sensor_ring_check_for_past_timestamp() to\ncros_ec_sensor_ring_is_past_timestamp() and make it return true for past\ntimestamps.\n\nSigned-off-by: Scott Collyer <scollyer@google.com>\nSigned-off-by: Satyam Gupta <sgsatyam@google.com>\nLink: https://lore.kernel.org/r/20261029092846.1567475-8-sgsatyam@google.com\nSigned-off-by: Tzung-Bi Shih <tzungbi@kernel.org>\n\nBug: 580727817\nTest: atest CtsSensorTestCases on Sapphire (6.12) and Moonstone (6.18)\n(cherry picked from commit f19a0c420750d232fdd4b91848f0e12a2911fa53\n https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-next)\nChange-Id: I1cceda7e9014e249cc201380b97dca69c032aba1\nSigned-off-by: Satyam Gupta <sgsatyam@google.com>\n",
+      "tree_diff": [
+        {
+          "type": "modify",
+          "old_id": "42b0074c10e08fd79b792d4b6df638b85dfb9e20",
+          "old_mode": 33188,
+          "old_path": "drivers/platform/chrome/cros_ec_sensorhub_ring.c",
+          "new_id": "3ca5e5ff736dd31eee89b4139e0b28aeb9d858c3",
+          "new_mode": 33188,
+          "new_path": "drivers/platform/chrome/cros_ec_sensorhub_ring.c"
+        }
+      ]
+    }
+  },
+  "manifest_head": {
+    "url": "https://android.googlesource.com/kernel/manifest/+/refs/heads/common-android16-6.12?format=JSON",
+    "data": {
+      "commit": "1e6983be370c1baf010f37ca80f93abb419ebc39",
+      "tree": "097f59c6bb135af625e41a2cdc643dce78fbe711",
+      "parents": [
+        "e202b2abd386b2eb4a6852917df8e5691ceb84d2"
+      ],
+      "author": {
+        "name": "Will McVicker",
+        "email": "willmcvicker@google.com",
+        "time": "Wed Feb 18 19:02:46 2026 +0000"
+      },
+      "committer": {
+        "name": "Will McVicker",
+        "email": "willmcvicker@google.com",
+        "time": "Wed Feb 18 19:06:36 2026 +0000"
+      },
+      "message": "Add the wonder driver project for GKI\n\nBug: 471002774\nChange-Id: Ie6b26a732adc2eab4049eaba675f0102621a3b82\nSigned-off-by: Will McVicker <willmcvicker@google.com>\n",
+      "tree_diff": [
+        {
+          "type": "modify",
+          "old_id": "14bf2737330963118f66226f53ea2f4981a82e35",
+          "old_mode": 33188,
+          "old_path": "default.xml",
+          "new_id": "966e08aafea3e3141dc3eb7f35ff9a8ed3a563cf",
+          "new_mode": 33188,
+          "new_path": "default.xml"
+        }
+      ]
+    }
+  },
+  "clang_tree": {
+    "url": "https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/refs/heads/main-kernel-2025/?format=JSON",
+    "data": {
+      "id": "bf4fa346eb52a040f68204be393c7e318fd86bab",
+      "entries": [
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "23f6953a9f8bc091fc4921f7c0c8927c82ded321",
+          "name": ".gitignore"
+        },
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "67c5339d02077e08acc876ad419c7848e1260d97",
+          "name": "Android.bp"
+        },
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "01b0356626f8f9ab1ec1293f52e790c5e739df30",
+          "name": "BINUTILS_KERNEL_DEPRECATION.md"
+        },
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "5cb815c7dcde4d85a25888ba2c176acfbcdde658",
+          "name": "CleanSpec.mk"
+        },
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "21d64b158a02486014c865720b02b7aa6adede0f",
+          "name": "GCC_4_9_DEPRECATION.md"
+        },
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "4685cd00d35cca912491919b160ea89193fdf9be",
+          "name": "METADATA"
+        },
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "27ed4bbc0ad8e8712aef8f973b1e7a803dc48156",
+          "name": "OWNERS"
+        },
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "87ddae4bc75d091f0b64f071826b64d9db2795a4",
+          "name": "README.md"
+        },
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "84ce545a178c493500d3f69b0057df0c2a722940",
+          "name": "RELEASE_NOTES.md"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "5cb948404f969a9f643ad9ec6719916d1e470cee",
+          "name": "clang-r536225"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "3226bf4cb1fd950d93c3ae54b3ea2e2eba03b380",
+          "name": "clang-r547379"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "01369c42f7d2f986452507e3354cd4828d3b90c2",
+          "name": "clang-stable"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "29d516a2ea544d55d125180b1421038fe3dbf80d",
+          "name": "docs"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "df75ac5345a01c6c9d938d4035842f8ecb17eb0a",
+          "name": "embedded-sysroots"
+        },
+        {
+          "mode": 33188,
+          "type": "blob",
+          "id": "8bf771e8d043ce311a8ff3a7c5e3d283e27f8033",
+          "name": "go.mod"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "5f299e3aad9493b1e5b4c21f04fcedc6d3273960",
+          "name": "kleaf"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "1fc9445cd87650429376b85cdb8e79a15a7f74bd",
+          "name": "llvm-binutils-stable"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "6f71543000424ee5969833bbbcd51340119bc7b6",
+          "name": "mlgo-models"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "85ccacf4497bf901019584c6c051c379f245ead7",
+          "name": "profiles"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "94801bd189c44c6ec48daea189568c4137a5b0c6",
+          "name": "soong"
+        }
+      ]
+    }
+  },
+  "rust_tree": {
+    "url": "https://android.googlesource.com/platform/prebuilts/rust/+/refs/heads/main-kernel-2025/linux-x86/?format=JSON",
+    "data": {
+      "id": "62134fd0adbeb27b551d2ee255b58f9864374841",
+      "entries": [
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "b7b95d7ac8f65ef3d9bcbd0c15e69fbaa600faee",
+          "name": "1.82.0.p1"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "94ac5b5f1377b32edbde5359d17a7994a80363b1",
+          "name": "1.82.0.p2"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "c6363a8369ca3b32aebd16fa8acea49c4f716b45",
+          "name": "1.82.0"
+        },
+        {
+          "mode": 16384,
+          "type": "tree",
+          "id": "90b000d0cad0dc863e9b26d1d9595814a0a8b7f4",
+          "name": "1.83.0"
+        }
+      ]
+    }
+  },
+  "ack_constants": {
+    "url": "https://android.googlesource.com/kernel/common/+/refs/heads/android16-6.12/build.config.constants?format=TEXT",
+    "data": "BRANCH=android16-6.12\nKMI_GENERATION=7\nCLANG_VERSION=r536225\nRUSTC_VERSION=1.82.0.p2\nAARCH64_NDK_TRIPLE=aarch64-linux-android31\nX86_64_NDK_TRIPLE=x86_64-linux-android31\nARM_NDK_TRIPLE=arm-linux-androideabi31\n"
+  },
+  "ack_version": {
+    "url": "https://android.googlesource.com/kernel/common/+/refs/heads/android16-6.12/Makefile?format=TEXT",
+    "data": "# SPDX-License-Identifier: GPL-2.0\nVERSION = 6\nPATCHLEVEL = 12\nSUBLEVEL = 96\nEXTRAVERSION =\nNAME = Baby Opossum Posse\n"
+  }
+}

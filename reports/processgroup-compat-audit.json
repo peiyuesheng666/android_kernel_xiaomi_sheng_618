@@ -1,0 +1,31 @@
+{
+  "aarch64_dynamic_elfs_checked": 943,
+  "targets": [
+    {
+      "path": "odm/lib64/hw/camera.xiaomi.so",
+      "symbols": [
+        "SetTaskProfiles"
+      ]
+    },
+    {
+      "path": "odm/lib64/hw/com.qti.chi.override.so",
+      "symbols": [
+        "SetTaskProfiles"
+      ]
+    },
+    {
+      "path": "odm/lib64/libchifeature2.so",
+      "symbols": [
+        "SetTaskProfiles"
+      ]
+    },
+    {
+      "path": "odm/lib64/libmialgoengine.so",
+      "symbols": [
+        "SetTaskProfiles"
+      ]
+    }
+  ],
+  "shim": "libprocessgroup_shim.so",
+  "implementation": "official hardware/lineage/compat/libprocessgroup"
+}

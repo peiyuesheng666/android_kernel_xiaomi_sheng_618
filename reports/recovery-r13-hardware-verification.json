@@ -1,0 +1,56 @@
+{
+  "revision": "r13-native-source-fast-touch",
+  "time": "2026-11-06T07:11:00.4106482+08:00",
+  "bcb_operation_in_recovery_log": "Clearing BCB",
+  "user_feedback": "很快响应，点击位置正常",
+  "touch_module_actual_sha256": "08c2462399d0a45f7ff3e08005332f765fb55ff409b93cd9120966d9c9979070",
+  "startup_latency_optimization_implemented": true,
+  "kernel_uname": "5.15.220-gf9ca2b71f672",
+  "touch_rotation_after_reboot": "ROTATION_RIGHT",
+  "misc": "/dev/block/by-name/misc",
+  "sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "serial": "ca10ede3",
+  "diagnostics": "reports/device/flash-recovery-20261106-070838/r13-diagnostics.txt",
+  "board_module_patches": [
+    {
+      "module": "nt36532_touch.ko",
+      "kind": "recovery-only-guarded-ELF-instruction-patch",
+      "original_sha256": "a1f3f907f4519eaf3d63243561fc32c7f75337188a3953b3857bcad60135233f",
+      "patched_sha256": "08c2462399d0a45f7ff3e08005332f765fb55ff409b93cd9120966d9c9979070",
+      "symbol": "nvt_ts_probe",
+      "text_address": "0x7020",
+      "file_offset": 323616,
+      "original_instruction_hex": "83b58152",
+      "patched_instruction_hex": "431f8052",
+      "kernel_hz": 250,
+      "old_delay_jiffies": 3500,
+      "new_delay_jiffies": 250,
+      "old_delay_ms": 14000,
+      "new_delay_ms": 1000,
+      "unchanged": [
+        "firmware callback",
+        "firmware bytes",
+        "locking",
+        "vermagic",
+        "module metadata",
+        "import CRCs",
+        "export CRCs",
+        "all bytes outside one instruction"
+      ]
+    }
+  ],
+  "boot_succeeded": true,
+  "touch_service": "running",
+  "partition": "recovery_a",
+  "touch_startup_seconds": {
+    "daemon_start": 4.25103,
+    "previous_firmware_ready": 18.007897,
+    "firmware_request": 4.75944,
+    "driver_probe_end": 3.740131,
+    "firmware_ready": 4.858837,
+    "driver_probe_start": 3.715882
+  },
+  "recovery_service": "running",
+  "adb": "adb",
+  "flash_succeeded": true
+}

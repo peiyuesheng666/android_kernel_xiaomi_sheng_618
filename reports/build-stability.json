@@ -1,0 +1,18 @@
+{
+  "run_id": "3965185c2dc349dab9cb5edf8060e2c7",
+  "observed_at": "2026-11-04T23:32:14.511172+00:00",
+  "building_since_epoch": 1793834826.175192,
+  "elapsed_building_seconds": 308.3,
+  "phase": "building",
+  "exit_event": false,
+  "error_in_recent_log": false,
+  "recent_progress": [
+    "ninja: ignore missing out error in depfile ",
+    "",
+    "E1105 07:28:04.825539       1 trace_sys_linux.go:89] memory stall 594.699ms/s",
+    "E1105 07:29:07.565868       1 trace_sys_linux.go:89] memory stall 514.383ms/s",
+    "E1105 07:30:41.607244       1 trace_sys_linux.go:89] memory stall 540.11ms/s"
+  ],
+  "rom_compiled": false,
+  "hardware_boot_tested": false
+}

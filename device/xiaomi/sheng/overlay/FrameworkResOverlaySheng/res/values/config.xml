@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="config_voice_capable">false</bool>
+    <bool name="config_sms_capable">false</bool>
+    <bool name="config_showNavigationBar">true</bool>
+    <bool name="config_supportAutoRotation">true</bool>
+    <integer name="config_num_physical_slots">0</integer>
+    <!-- Official sheng panel modes peak at 144 Hz. -->
+    <integer name="config_defaultPeakRefreshRate">60</integer>
+</resources>

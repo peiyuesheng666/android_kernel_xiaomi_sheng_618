@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: Apache-2.0
+# Standalone recovery: no installed vendor_boot or init_boot is required.
+on init
+    # NVT reports portrait axes; the panel scans out landscape (3048 x 2032).
+    # Real corner traces require x <- y and y <- 1-x. Keep display rotation.
+    setprop ro.minui.default_touch_rotation ROTATION_RIGHT
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller ${ro.boot.usbcontroller:-a600000.dwc3}
+    write /sys/class/backlight/panel0-backlight/brightness 200
+
+on property:ro.boot.usbcontroller=*
+    wait /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode 5
+    write /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode peripheral
+    wait /sys/class/udc/${ro.boot.usbcontroller} 5
+
+on fs
+    # sheng UFS exposes both paths; retain the alias for external recovery tools.
+    wait /dev/block/platform/soc/${ro.boot.bootdevice:-1d84000.ufshc} 5
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice:-1d84000.ufshc} /dev/block/bootdevice
+    mkdir /firmware 0755 root root
+    wait /dev/block/by-name/modem${ro.boot.slot_suffix} 5
+    mount vfat /dev/block/by-name/modem${ro.boot.slot_suffix} /firmware ro context=u:object_r:firmware_file:s0
+    write /sys/module/firmware_class/parameters/path /firmware/image
+    start sheng-recovery-hardware
+
+on boot
+    setprop sys.usb.config adb
+    start sheng-recovery-touch
+
+service sheng-recovery-touch /system/bin/sh /system/bin/sheng-recovery-touch
+    user root
+    group root system input uhid
+    disabled
+    seclabel u:r:recovery:s0
+
+service sheng-recovery-hardware /system/bin/sh /system/bin/sheng-recovery-hardware
+    user root
+    group root system
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0

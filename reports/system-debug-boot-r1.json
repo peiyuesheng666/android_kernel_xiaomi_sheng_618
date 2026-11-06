@@ -1,0 +1,22 @@
+{
+  "image": "lineage-24.0-sheng-init_boot-debug-r1.img",
+  "bytes": 8388608,
+  "sha256": "2c48a30e99b71b1bbd3dc6366c7afa190a242230418928f68aa5563bce620a8f",
+  "base": {
+    "path": "/root/sheng-lineage/ota-boot-audit/init_boot.img",
+    "sha256": "c0b93bed6f6fcbd2f77cb79f0c43a9baac23c097f3c8413fcd345069b400ad7e",
+    "bytes": 8388608
+  },
+  "work_dir": "/root/sheng-lineage/system-debug-boot/20261105T232048707250Z",
+  "added_official_debug_files": {
+    "force_debuggable": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "adb_debug.prop": "fbab445af438d19dc94be20d44bf800556708f37d5529e5ebbdf0c5d7003cbcc",
+    "userdebug_plat_sepolicy.cil": "df3bd49946d6ede8e2a01c04af3f2d8d2a4b29ddf84733d2120e644117d75630"
+  },
+  "all_original_ramdisk_files_unchanged": true,
+  "avb_verified": true,
+  "embedded_files_readback_verified": true,
+  "purpose": "Android official unlocked-device debug ramdisk: ADB/root for system boot diagnosis",
+  "kernel_boot_vendor_boot_unchanged": true,
+  "new_image_hardware_tested": false
+}

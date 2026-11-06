@@ -1,0 +1,345 @@
+{
+  "removed_duplicates": [
+    {
+      "blob": "vendor/lib/android.frameworks.cameraservice.common@2.0.so",
+      "module": "android.frameworks.cameraservice.common@2.0",
+      "source": "frameworks/hardware/interfaces/cameraservice/common/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.frameworks.cameraservice.device@2.0.so",
+      "module": "android.frameworks.cameraservice.device@2.0",
+      "source": "frameworks/hardware/interfaces/cameraservice/device/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.frameworks.cameraservice.device@2.1.so",
+      "module": "android.frameworks.cameraservice.device@2.1",
+      "source": "frameworks/hardware/interfaces/cameraservice/device/2.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.frameworks.cameraservice.service@2.0.so",
+      "module": "android.frameworks.cameraservice.service@2.0",
+      "source": "frameworks/hardware/interfaces/cameraservice/service/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.frameworks.cameraservice.service@2.1.so",
+      "module": "android.frameworks.cameraservice.service@2.1",
+      "source": "frameworks/hardware/interfaces/cameraservice/service/2.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.frameworks.cameraservice.service@2.2.so",
+      "module": "android.frameworks.cameraservice.service@2.2",
+      "source": "frameworks/hardware/interfaces/cameraservice/service/2.2/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.frameworks.sensorservice@1.0.so",
+      "module": "android.frameworks.sensorservice@1.0",
+      "source": "frameworks/hardware/interfaces/sensorservice/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.hardware.camera.common@1.0.so",
+      "module": "android.hardware.camera.common@1.0",
+      "source": "hardware/interfaces/camera/common/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.hardware.graphics.composer@2.1.so",
+      "module": "android.hardware.graphics.composer@2.1",
+      "source": "hardware/interfaces/graphics/composer/2.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.hardware.graphics.composer@2.2.so",
+      "module": "android.hardware.graphics.composer@2.2",
+      "source": "hardware/interfaces/graphics/composer/2.2/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.hardware.graphics.composer@2.3.so",
+      "module": "android.hardware.graphics.composer@2.3",
+      "source": "hardware/interfaces/graphics/composer/2.3/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.hardware.graphics.composer@2.4.so",
+      "module": "android.hardware.graphics.composer@2.4",
+      "source": "hardware/interfaces/graphics/composer/2.4/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.hardware.sensors@1.0.so",
+      "module": "android.hardware.sensors@1.0",
+      "source": "hardware/interfaces/sensors/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.hardware.sensors@2.0.so",
+      "module": "android.hardware.sensors@2.0",
+      "source": "hardware/interfaces/sensors/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.hardware.sensors@2.1.so",
+      "module": "android.hardware.sensors@2.1",
+      "source": "hardware/interfaces/sensors/2.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/android.hidl.allocator@1.0.so",
+      "module": "android.hidl.allocator@1.0",
+      "source": "system/libhidl/transport/allocator/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.frameworks.cameraservice.common@2.0.so",
+      "module": "android.frameworks.cameraservice.common@2.0",
+      "source": "frameworks/hardware/interfaces/cameraservice/common/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.frameworks.cameraservice.device@2.0.so",
+      "module": "android.frameworks.cameraservice.device@2.0",
+      "source": "frameworks/hardware/interfaces/cameraservice/device/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.frameworks.cameraservice.device@2.1.so",
+      "module": "android.frameworks.cameraservice.device@2.1",
+      "source": "frameworks/hardware/interfaces/cameraservice/device/2.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.frameworks.cameraservice.service@2.0.so",
+      "module": "android.frameworks.cameraservice.service@2.0",
+      "source": "frameworks/hardware/interfaces/cameraservice/service/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.frameworks.cameraservice.service@2.1.so",
+      "module": "android.frameworks.cameraservice.service@2.1",
+      "source": "frameworks/hardware/interfaces/cameraservice/service/2.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.frameworks.cameraservice.service@2.2.so",
+      "module": "android.frameworks.cameraservice.service@2.2",
+      "source": "frameworks/hardware/interfaces/cameraservice/service/2.2/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.frameworks.sensorservice@1.0.so",
+      "module": "android.frameworks.sensorservice@1.0",
+      "source": "frameworks/hardware/interfaces/sensorservice/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.hardware.camera.common@1.0.so",
+      "module": "android.hardware.camera.common@1.0",
+      "source": "hardware/interfaces/camera/common/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.hardware.graphics.composer@2.1.so",
+      "module": "android.hardware.graphics.composer@2.1",
+      "source": "hardware/interfaces/graphics/composer/2.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.hardware.graphics.composer@2.2.so",
+      "module": "android.hardware.graphics.composer@2.2",
+      "source": "hardware/interfaces/graphics/composer/2.2/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.hardware.graphics.composer@2.3.so",
+      "module": "android.hardware.graphics.composer@2.3",
+      "source": "hardware/interfaces/graphics/composer/2.3/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.hardware.graphics.composer@2.4.so",
+      "module": "android.hardware.graphics.composer@2.4",
+      "source": "hardware/interfaces/graphics/composer/2.4/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.hardware.sensors@1.0.so",
+      "module": "android.hardware.sensors@1.0",
+      "source": "hardware/interfaces/sensors/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.hardware.sensors@2.0.so",
+      "module": "android.hardware.sensors@2.0",
+      "source": "hardware/interfaces/sensors/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.hardware.sensors@2.1.so",
+      "module": "android.hardware.sensors@2.1",
+      "source": "hardware/interfaces/sensors/2.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/android.hidl.allocator@1.0.so",
+      "module": "android.hidl.allocator@1.0",
+      "source": "system/libhidl/transport/allocator/1.0/Android.bp"
+    },
+    {
+      "blob": "odm/lib/vendor.xiaomi.hardware.fx.tunnel@1.0.so",
+      "module": "vendor.xiaomi.hardware.fx.tunnel@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/fx/tunnel/1.0/Android.bp"
+    },
+    {
+      "blob": "odm/lib/vendor.xiaomi.hardware.mfidoca@1.0.so",
+      "module": "vendor.xiaomi.hardware.mfidoca@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mfidoca/1.0/Android.bp"
+    },
+    {
+      "blob": "odm/lib/vendor.xiaomi.hardware.mlipay@1.0.so",
+      "module": "vendor.xiaomi.hardware.mlipay@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mlipay/1.0/Android.bp"
+    },
+    {
+      "blob": "odm/lib/vendor.xiaomi.hardware.mlipay@1.1.so",
+      "module": "vendor.xiaomi.hardware.mlipay@1.1",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mlipay/1.1/Android.bp"
+    },
+    {
+      "blob": "odm/lib/vendor.xiaomi.hardware.mtdservice@1.0.so",
+      "module": "vendor.xiaomi.hardware.mtdservice@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mtdservice/1.0/Android.bp"
+    },
+    {
+      "blob": "odm/lib64/vendor.xiaomi.hardware.fx.tunnel@1.0.so",
+      "module": "vendor.xiaomi.hardware.fx.tunnel@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/fx/tunnel/1.0/Android.bp"
+    },
+    {
+      "blob": "odm/lib64/vendor.xiaomi.hardware.mfidoca@1.0.so",
+      "module": "vendor.xiaomi.hardware.mfidoca@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mfidoca/1.0/Android.bp"
+    },
+    {
+      "blob": "odm/lib64/vendor.xiaomi.hardware.mlipay@1.0.so",
+      "module": "vendor.xiaomi.hardware.mlipay@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mlipay/1.0/Android.bp"
+    },
+    {
+      "blob": "odm/lib64/vendor.xiaomi.hardware.mlipay@1.1.so",
+      "module": "vendor.xiaomi.hardware.mlipay@1.1",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mlipay/1.1/Android.bp"
+    },
+    {
+      "blob": "odm/lib64/vendor.xiaomi.hardware.mtdservice@1.0.so",
+      "module": "vendor.xiaomi.hardware.mtdservice@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mtdservice/1.0/Android.bp"
+    },
+    {
+      "blob": "odm/lib64/vendor.xiaomi.hardware.mtdservice@1.1.so",
+      "module": "vendor.xiaomi.hardware.mtdservice@1.1",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mtdservice/1.1/Android.bp"
+    },
+    {
+      "blob": "odm/lib64/vendor.xiaomi.hardware.mtdservice@1.2.so",
+      "module": "vendor.xiaomi.hardware.mtdservice@1.2",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mtdservice/1.2/Android.bp"
+    },
+    {
+      "blob": "odm/lib64/vendor.xiaomi.hardware.mtdservice@1.3.so",
+      "module": "vendor.xiaomi.hardware.mtdservice@1.3",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hardware/mtdservice/1.3/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/vendor.display.config@2.0.so",
+      "module": "vendor.display.config@2.0",
+      "source": "vendor/qcom/opensource/interfaces/display/config/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/vendor.qti.hardware.display.allocator@3.0.so",
+      "module": "vendor.qti.hardware.display.allocator@3.0",
+      "source": "vendor/qcom/opensource/interfaces/display/allocator/3.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/vendor.qti.hardware.display.allocator@4.0.so",
+      "module": "vendor.qti.hardware.display.allocator@4.0",
+      "source": "vendor/qcom/opensource/interfaces/display/allocator/4.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/vendor.qti.hardware.display.composer@3.0.so",
+      "module": "vendor.qti.hardware.display.composer@3.0",
+      "source": "vendor/qcom/opensource/interfaces/display/composer/3.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/vendor.qti.hardware.display.mapper@3.0.so",
+      "module": "vendor.qti.hardware.display.mapper@3.0",
+      "source": "vendor/qcom/opensource/interfaces/display/mapper/3.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/vendor.qti.hardware.display.mapper@4.0.so",
+      "module": "vendor.qti.hardware.display.mapper@4.0",
+      "source": "vendor/qcom/opensource/interfaces/display/mapper/4.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/vendor.qti.hardware.display.mapperextensions@1.0.so",
+      "module": "vendor.qti.hardware.display.mapperextensions@1.0",
+      "source": "vendor/qcom/opensource/interfaces/display/mapperextensions/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/vendor.qti.hardware.display.mapperextensions@1.1.so",
+      "module": "vendor.qti.hardware.display.mapperextensions@1.1",
+      "source": "vendor/qcom/opensource/interfaces/display/mapperextensions/1.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib/vendor.xiaomi.hw.touchfeature@1.0.so",
+      "module": "vendor.xiaomi.hw.touchfeature@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hw/touchfeature/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.display.config@2.0.so",
+      "module": "vendor.display.config@2.0",
+      "source": "vendor/qcom/opensource/interfaces/display/config/2.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.camera.aon@1.0.so",
+      "module": "vendor.qti.hardware.camera.aon@1.0",
+      "source": "vendor/qcom/opensource/interfaces/camera/aon/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.camera.aon@1.1.so",
+      "module": "vendor.qti.hardware.camera.aon@1.1",
+      "source": "vendor/qcom/opensource/interfaces/camera/aon/1.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.camera.aon@1.2.so",
+      "module": "vendor.qti.hardware.camera.aon@1.2",
+      "source": "vendor/qcom/opensource/interfaces/camera/aon/1.2/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.camera.aon@1.3.so",
+      "module": "vendor.qti.hardware.camera.aon@1.3",
+      "source": "vendor/qcom/opensource/interfaces/camera/aon/1.3/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.camera.postproc@1.0.so",
+      "module": "vendor.qti.hardware.camera.postproc@1.0",
+      "source": "vendor/qcom/opensource/interfaces/camera/postproc/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.display.allocator@3.0.so",
+      "module": "vendor.qti.hardware.display.allocator@3.0",
+      "source": "vendor/qcom/opensource/interfaces/display/allocator/3.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.display.allocator@4.0.so",
+      "module": "vendor.qti.hardware.display.allocator@4.0",
+      "source": "vendor/qcom/opensource/interfaces/display/allocator/4.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.display.composer@3.0.so",
+      "module": "vendor.qti.hardware.display.composer@3.0",
+      "source": "vendor/qcom/opensource/interfaces/display/composer/3.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.display.mapper@3.0.so",
+      "module": "vendor.qti.hardware.display.mapper@3.0",
+      "source": "vendor/qcom/opensource/interfaces/display/mapper/3.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.display.mapper@4.0.so",
+      "module": "vendor.qti.hardware.display.mapper@4.0",
+      "source": "vendor/qcom/opensource/interfaces/display/mapper/4.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.display.mapperextensions@1.0.so",
+      "module": "vendor.qti.hardware.display.mapperextensions@1.0",
+      "source": "vendor/qcom/opensource/interfaces/display/mapperextensions/1.0/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.qti.hardware.display.mapperextensions@1.1.so",
+      "module": "vendor.qti.hardware.display.mapperextensions@1.1",
+      "source": "vendor/qcom/opensource/interfaces/display/mapperextensions/1.1/Android.bp"
+    },
+    {
+      "blob": "vendor/lib64/vendor.xiaomi.hw.touchfeature@1.0.so",
+      "module": "vendor.xiaomi.hw.touchfeature@1.0",
+      "source": "hardware/xiaomi/interfaces/xiaomi/hw/touchfeature/1.0/Android.bp"
+    }
+  ],
+  "reason": "Same-version HIDL bindings are generated by platform source; driver implementations remain stock"
+}

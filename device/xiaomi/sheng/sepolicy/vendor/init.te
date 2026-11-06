@@ -1,0 +1,16 @@
+allow init sysfs_goodix_touch:file w_file_perms;
+allow init vendor_configs_file:dir mounton;
+allow init vendor_configs_file:file mounton;
+
+recovery_only(`
+allow init init:capability { sys_module };
+allow init proc:file w_file_perms;
+allow init rootfs:system { module_load };
+allow recovery touchfeature_device:chr_file { rw_file_perms map };
+allowxperm recovery touchfeature_device:chr_file ioctl { 0x5400-0x54ff };
+allow recovery input_device:chr_file rw_file_perms;
+r_dir_file(recovery, vendor_sysfs_touch)
+allow recovery vendor_sysfs_touch:file w_file_perms;
+allow recovery vendor_proc_sheng_touch:file rw_file_perms;
+allow recovery self:global_capability_class_set sys_nice;
+')

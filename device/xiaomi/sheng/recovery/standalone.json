@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "header_version": 2,
+  "page_size": 4096,
+  "base": "0x00000000",
+  "kernel_offset": "0x00008000",
+  "ramdisk_offset": "0x02000000",
+  "tags_offset": "0x01e00000",
+  "dtb_offset": "0x01f00000",
+  "partition_size": 104857600,
+  "recovery_os_version": "17.0.0",
+  "recovery_os_patch_level": "2026-11",
+  "stock_firmware": "OS3.0.303.0.WNXCNXM",
+  "kernel_strategy": "exact-stock-kernel-and-stock-modules-for-recovery-bringup",
+  "cmdline": "video=vfb:640x400,bpp=32,memsize=3072000 disable_dma32=on androidboot.hardware=qcom androidboot.memcg=1 androidboot.usbcontroller=a600000.dwc3 androidboot.force_normal_boot=0 firmware_class.path=/lib/firmware loop.max_part=7 androidboot.load_modules_parallel=false",
+  "layout_reference": "https://github.com/peiyuesheng666/twrp_device_xiaomi_sheng/blob/2a05a067497a565e10442bff6736609d2d3f4f40/BoardConfig.mk",
+  "implementation": "Own packager and board startup files; no third-party recovery binary, kernel or modules imported."
+}

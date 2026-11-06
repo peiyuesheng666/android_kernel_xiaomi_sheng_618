@@ -1,0 +1,12 @@
+{
+  "target": "LineageOS 24.0",
+  "aosp_tag": "android-17.0.0_r1",
+  "lunch": "lineage_sheng-cp2a-userdebug",
+  "source_path": "/root/sheng-lineage/lineage-24.0",
+  "reused_existing_git_objects": true,
+  "old_checkout_deleted": false,
+  "independent_device_tree_preserved": true,
+  "stock_firmware_cache_preserved": true,
+  "official_sm8550_kernel_branch": "lineage-24.0",
+  "observed_kernel_version": "5.15.220"
+}

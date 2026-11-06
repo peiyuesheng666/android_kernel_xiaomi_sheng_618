@@ -1,0 +1,604 @@
+{
+  "status": "compiled-and-checked",
+  "device_boot_tested": false,
+  "device_ready": false,
+  "release": "6.12.96-4k-android16-7-sheng-ack-baseline",
+  "ack_commit": "5b520dbdc04814eaa6105090a94c20d9a8e5a401",
+  "build_method": "Direct Kbuild; official GKI defconfig, including Rust/BTF and its default LTO_NONE; no Google certification or ABI certification claimed",
+  "missing_for_sheng": [
+    "SM8550/Kalama BSP and device driver migration",
+    "6.12-compatible vendor modules",
+    "matched board DTB/DTBO",
+    "boot/vendor_boot/module partition packaging",
+    "physical device boot validation"
+  ],
+  "files": {
+    "Image": {
+      "bytes": 42650112,
+      "sha256": "b64032f72f02117a8cf9c2b3966dcfbc0ca5877f44d2abac07c06e72b5fa1567"
+    },
+    "Image.gz": {
+      "bytes": 16877735,
+      "sha256": "93f498fe0c25e46470ddab74fe297993402b3ce077b1a40f625b55a3ff146a12"
+    },
+    "System.map": {
+      "bytes": 6851727,
+      "sha256": "cc61442c67bb014c287ec8816566e4c230e31e99b650885836078baff83afb9b"
+    },
+    "Module.symvers": {
+      "bytes": 1381547,
+      "sha256": "8752df064d5f6cfff5c719e0073cd52a3c0bcaf854b10bdc1697ed5ef1ba7670"
+    },
+    "ack.config": {
+      "bytes": 225203,
+      "sha256": "8995b62b68d3cb68b115be7c0936a54a7540b7b821dc8d0d7a024bd77e177251"
+    }
+  },
+  "gki_modules": [
+    {
+      "name": "aes-neon-blk.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 51425
+    },
+    {
+      "name": "gzvm.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 131817
+    },
+    {
+      "name": "rust_binder.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 872977
+    },
+    {
+      "name": "regmap-kunit.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 210577
+    },
+    {
+      "name": "regmap-ram.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 14953
+    },
+    {
+      "name": "regmap-raw-ram.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 15513
+    },
+    {
+      "name": "virtio_blk.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 56033
+    },
+    {
+      "name": "zram.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 162401
+    },
+    {
+      "name": "btbcm.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 48913
+    },
+    {
+      "name": "btqca.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 47881
+    },
+    {
+      "name": "btsdio.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 30953
+    },
+    {
+      "name": "hci_uart.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 196873
+    },
+    {
+      "name": "cctrng.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 27201
+    },
+    {
+      "name": "virtio_console.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 78521
+    },
+    {
+      "name": "clk-gate_test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 65393
+    },
+    {
+      "name": "clk-test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 230609
+    },
+    {
+      "name": "clk_kunit_helpers.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 18297
+    },
+    {
+      "name": "gnss.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 35145
+    },
+    {
+      "name": "hid-uclogic-test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 17097
+    },
+    {
+      "name": "iio-test-format.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 62737
+    },
+    {
+      "name": "input_test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 27433
+    },
+    {
+      "name": "open-dice.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 18241
+    },
+    {
+      "name": "vcpu_stall_detector.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 20633
+    },
+    {
+      "name": "can-dev.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 96329
+    },
+    {
+      "name": "slcan.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 40089
+    },
+    {
+      "name": "vcan.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 18577
+    },
+    {
+      "name": "macsec.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 129113
+    },
+    {
+      "name": "mii.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 22641
+    },
+    {
+      "name": "bsd_comp.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 24497
+    },
+    {
+      "name": "ppp_deflate.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 27537
+    },
+    {
+      "name": "ppp_generic.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 98737
+    },
+    {
+      "name": "ppp_mppe.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 28849
+    },
+    {
+      "name": "pppox.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 20665
+    },
+    {
+      "name": "pptp.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 38233
+    },
+    {
+      "name": "slhc.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 23761
+    },
+    {
+      "name": "aqc111.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 49361
+    },
+    {
+      "name": "asix.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 104945
+    },
+    {
+      "name": "ax88179_178a.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 79793
+    },
+    {
+      "name": "cdc_eem.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 19393
+    },
+    {
+      "name": "cdc_ether.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 36769
+    },
+    {
+      "name": "cdc_ncm.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 71249
+    },
+    {
+      "name": "r8152.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 281753
+    },
+    {
+      "name": "r8153_ecm.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 18449
+    },
+    {
+      "name": "rtl8150.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 41457
+    },
+    {
+      "name": "usbnet.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 91129
+    },
+    {
+      "name": "wwan.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 65369
+    },
+    {
+      "name": "of_kunit_helpers.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 13921
+    },
+    {
+      "name": "pwrseq-core.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 47289
+    },
+    {
+      "name": "pps_core.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 46777
+    },
+    {
+      "name": "ptp.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 83929
+    },
+    {
+      "name": "ptp_kvm.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 18921
+    },
+    {
+      "name": "lib_test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 15233
+    },
+    {
+      "name": "cdc-acm.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 83329
+    },
+    {
+      "name": "xhci-pci-renesas.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 25289
+    },
+    {
+      "name": "usbmon.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 92217
+    },
+    {
+      "name": "ftdi_sio.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 165985
+    },
+    {
+      "name": "usbserial.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 95297
+    },
+    {
+      "name": "exynos-hvm.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 94569
+    },
+    {
+      "name": "virtio_balloon.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 48409
+    },
+    {
+      "name": "virtio_pci.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 74281
+    },
+    {
+      "name": "virtio_pci_legacy_dev.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 21865
+    },
+    {
+      "name": "virtio_pci_modern_dev.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 34809
+    },
+    {
+      "name": "pretimeout_dump.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 13641
+    },
+    {
+      "name": "efivarfs.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 56929
+    },
+    {
+      "name": "ext4-inode-test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 14873
+    },
+    {
+      "name": "fat_test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 17169
+    },
+    {
+      "name": "netfs.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 347545
+    },
+    {
+      "name": "pstore_blk.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 28385
+    },
+    {
+      "name": "pstore_zone.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 45777
+    },
+    {
+      "name": "kheaders.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 4347353
+    },
+    {
+      "name": "time_test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 14497
+    },
+    {
+      "name": "libarc4.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 12289
+    },
+    {
+      "name": "kunit-example-test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 33857
+    },
+    {
+      "name": "kunit-test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 97017
+    },
+    {
+      "name": "kunit.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 150969
+    },
+    {
+      "name": "platform-test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 34849
+    },
+    {
+      "name": "zsmalloc.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 62945
+    },
+    {
+      "name": "6lowpan.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 46073
+    },
+    {
+      "name": "nhc_dest.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 12841
+    },
+    {
+      "name": "nhc_fragment.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 12841
+    },
+    {
+      "name": "nhc_hop.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 12841
+    },
+    {
+      "name": "nhc_ipv6.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 12841
+    },
+    {
+      "name": "nhc_mobility.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 12841
+    },
+    {
+      "name": "nhc_routing.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 12841
+    },
+    {
+      "name": "nhc_udp.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 14737
+    },
+    {
+      "name": "8021q.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 80817
+    },
+    {
+      "name": "9pnet.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 202265
+    },
+    {
+      "name": "9pnet_fd.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 42297
+    },
+    {
+      "name": "bluetooth.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 1376217
+    },
+    {
+      "name": "hidp.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 91257
+    },
+    {
+      "name": "rfcomm.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 163137
+    },
+    {
+      "name": "can-bcm.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 63073
+    },
+    {
+      "name": "can-gw.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 45713
+    },
+    {
+      "name": "can-raw.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 50513
+    },
+    {
+      "name": "can.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 58673
+    },
+    {
+      "name": "dev_addr_lists_test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 39129
+    },
+    {
+      "name": "ieee802154_6lowpan.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 49217
+    },
+    {
+      "name": "ieee802154.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 293337
+    },
+    {
+      "name": "ieee802154_socket.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 56369
+    },
+    {
+      "name": "l2tp_core.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 119425
+    },
+    {
+      "name": "l2tp_ppp.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 58113
+    },
+    {
+      "name": "mac802154.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 279625
+    },
+    {
+      "name": "nfc.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 218817
+    },
+    {
+      "name": "rfkill.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 68153
+    },
+    {
+      "name": "tipc.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 733249
+    },
+    {
+      "name": "tipc_diag.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 15289
+    },
+    {
+      "name": "vmw_vsock_virtio_transport.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 44265
+    },
+    {
+      "name": "snd-hda-codec-hdmi.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 143393
+    },
+    {
+      "name": "snd-soc-audio-graph-card.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 34521
+    },
+    {
+      "name": "snd-soc-simple-card-utils.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 53161
+    },
+    {
+      "name": "soc-topology-test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 57673
+    },
+    {
+      "name": "soc-utils-test.ko",
+      "vermagic": "6.12.96-4k-android16-7-sheng-ack-baseline SMP preempt mod_unload modversions aarch64",
+      "bytes": 15289
+    }
+  ],
+  "export": {
+    "path": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/6.12.96-4k-android16-7-sheng-ack-baseline-baseline.tar.gz",
+    "bytes": 42474883,
+    "sha256": "747ac0a6efe4736961f728bb4b0d5a2c18e01a15fc2f839d6d28de3ab1cd5ea0"
+  }
+}

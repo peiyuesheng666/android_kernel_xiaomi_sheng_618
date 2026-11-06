@@ -1,0 +1,384 @@
+{
+  "standalone": true,
+  "runtime_common_device_dependency": false,
+  "piano_files_copied": 0,
+  "source_reference_commit": "dfb9e56a0d9c38742ec569471d25657f91a4a38b",
+  "licensed_platform_inputs": [
+    {
+      "source": "configs/config.fs",
+      "destination": "configs/config.fs",
+      "source_sha256": "7651e22589fc951b2e70129534d0d759f2358f3daf63afe26333d81ee80e6d62"
+    },
+    {
+      "source": "configs/sensors/hals.conf",
+      "destination": "configs/sensors/hals.conf",
+      "source_sha256": "73c581650b4e72cc9a558dbbaf8e11858aafaa738139c296954b1a31badc92bb"
+    },
+    {
+      "source": "configs/permissions/camerax-vendor-extensions.xml",
+      "destination": "configs/permissions/camerax-vendor-extensions.xml",
+      "source_sha256": "411b44ad463720472bf6f69e15a6b400e4390d54046b3f5b3df23e7cafdd010c"
+    },
+    {
+      "source": "configs/vintf/framework_manifest.xml",
+      "destination": "configs/vintf/framework_manifest.xml",
+      "source_sha256": "0a864413633900220dbd5d422d67705a11aa3912dc6dcaf50814df0e577cdbc5"
+    },
+    {
+      "source": "configs/audio/audio_cloud_control_white_list.xml",
+      "destination": "configs/audio/audio_cloud_control_white_list.xml",
+      "source_sha256": "c2a9d7248fb9433e3b36f2915cc5bdd212935adea10f45b8aff3baf6fff83dea"
+    },
+    {
+      "source": "configs/audio/audio_policy_volumes.xml",
+      "destination": "configs/audio/audio_policy_volumes.xml",
+      "source_sha256": "6732440a6237e80159e71cd4b861d94b9aed6908070a43786f9e216bfbb3f2c7"
+    },
+    {
+      "source": "configs/audio/usecaseKvManager.xml",
+      "destination": "configs/audio/usecaseKvManager.xml",
+      "source_sha256": "74d97e69086875645429abe640bdbac95e1cce6132d5708725c6c3b7505cfa5b"
+    },
+    {
+      "source": "configs/audio/sku_kalama/adsp_sleep_monitor.conf",
+      "destination": "configs/audio/sku_kalama/adsp_sleep_monitor.conf",
+      "source_sha256": "a6e89f08f891dd153da0e8a5e65f40a262b9190fd86454cee9f1ab0e4584e00e"
+    },
+    {
+      "source": "configs/audio/sku_kalama/audio_policy_configuration.xml",
+      "destination": "configs/audio/sku_kalama/audio_policy_configuration.xml",
+      "source_sha256": "f4c3c89ba48313484548c4e3fca9a74a76c2126f390d4dd4f513d83db82fc6be"
+    },
+    {
+      "source": "configs/audio/sku_kalama/audio_effects.conf",
+      "destination": "configs/audio/sku_kalama/audio_effects.conf",
+      "source_sha256": "6d9ef9583fdd3329f3ea4df02c062e2b5d1ab92f8a64688e25749f8dfcccea09"
+    },
+    {
+      "source": "modules.load.first_stage",
+      "destination": "configs/modules/modules.load.first_stage",
+      "source_sha256": "c5e18a5b73c8a42303a09056b054ebde21de4324de15511420252bf200af56be"
+    },
+    {
+      "source": "modules.load.vendor_dlkm",
+      "destination": "configs/modules/modules.load.vendor_dlkm",
+      "source_sha256": "f6b104ffe12a8726ee47e0ac70becc2781c6562db2413d28b9405326db6f1b73"
+    },
+    {
+      "source": "modules.load.recovery",
+      "destination": "configs/modules/modules.load.recovery",
+      "source_sha256": "cfe3cded2f89ac2063da793dbf2a7a057566adc173c4b5f4962cf4b3dc787048"
+    },
+    {
+      "source": "init/ueventd-odm.rc",
+      "destination": "rootdir/etc/ueventd-odm.rc",
+      "source_sha256": "f24ff9dacd6df32f8a2cbac59e377113d0b17002351cfb9bd5f7989c5e9a59a4"
+    },
+    {
+      "source": "init/init.kernel.post_boot.sh",
+      "destination": "rootdir/bin/init.kernel.post_boot.sh",
+      "source_sha256": "81468950cabede166b9db5322a08c66a214fecd405e88fe474779f7c476abf38"
+    },
+    {
+      "source": "init/init.qcom.rc",
+      "destination": "rootdir/etc/init.qcom.rc",
+      "source_sha256": "5d2df9a3886fc0f8323f251286cfd497d14a6af29505165a0d5cae542b0c3fa4"
+    },
+    {
+      "source": "init/vendor_modprobe.sh",
+      "destination": "rootdir/bin/vendor_modprobe.sh",
+      "source_sha256": "00d7ed47117272883e0d195537ac4b930a509ba09fd3c67ec77fe4c3c449d882"
+    },
+    {
+      "source": "init/init.qcom.class_core.sh",
+      "destination": "rootdir/bin/init.qcom.class_core.sh",
+      "source_sha256": "fdf84ed982871b51fb4e76471ec661abd7c6a33239184e0a0a61428d90b6d3ba"
+    },
+    {
+      "source": "init/init.qcom.post_boot.sh",
+      "destination": "rootdir/bin/init.qcom.post_boot.sh",
+      "source_sha256": "fbbcbb14b22bee2e4d3a4b57b7955d820112f63138b0c2b0a9b304d1f525ac25"
+    },
+    {
+      "source": "init/init.qcom.early_boot.sh",
+      "destination": "rootdir/bin/init.qcom.early_boot.sh",
+      "source_sha256": "a092f4acdb6cd19a3d33279afc45c6234be59d3be6e77aa0b032740704f98120"
+    },
+    {
+      "source": "init/ueventd.qcom.rc",
+      "destination": "rootdir/etc/ueventd.qcom.rc",
+      "source_sha256": "25caf0f2a7875eb9c94a486277afe18fdd4de8f7614bdc2496ad8b0ff05307d8"
+    },
+    {
+      "source": "init/init.qti.kernel.sh",
+      "destination": "rootdir/bin/init.qti.kernel.sh",
+      "source_sha256": "115e259f424b6c87f5a5bb9c17d197d46e0b62d1660cd13c48a579feda686eea"
+    },
+    {
+      "source": "init/init.qti.write.sh",
+      "destination": "rootdir/bin/init.qti.write.sh",
+      "source_sha256": "ba6820e92beb129b848fea7dcf2988fd42d0e21f423df1ea67bceb9c95b1966d"
+    },
+    {
+      "source": "init/init.sm8550.rc",
+      "destination": "rootdir/etc/init.sm8550.rc",
+      "source_sha256": "c04a548596f16b249f902ea2982ce2d8cd65d79d50e20a990a0f7c40d4191a71"
+    },
+    {
+      "source": "init/init.qcom.sh",
+      "destination": "rootdir/bin/init.qcom.sh",
+      "source_sha256": "e6bc5f3c5aab77312dc0c323ba47f8e6c6037ced911023832f88f5f29a18e2a0"
+    },
+    {
+      "source": "init/system_dlkm_modprobe.sh",
+      "destination": "rootdir/bin/system_dlkm_modprobe.sh",
+      "source_sha256": "02a9569cf0696c488a083c8c34fb82108945bc07cd21818053e8f179f17b7d9c"
+    },
+    {
+      "source": "init/init.target.rc",
+      "destination": "rootdir/etc/init.target.rc",
+      "source_sha256": "cd6a88683649d90dcdfcd8995ac920b278f55e926c82804b17347f02d12f2701"
+    },
+    {
+      "source": "init/init.recovery.qcom.rc",
+      "destination": "rootdir/etc/init.recovery.qcom.rc",
+      "source_sha256": "4582ab05d86df5f955a7266d96f12c4055bf07d50109bcb9e0d2d75557961e2b"
+    },
+    {
+      "source": "init/init.qcom.factory.rc",
+      "destination": "rootdir/etc/init.qcom.factory.rc",
+      "source_sha256": "9231679b45207ae272245a26a51de5d0e9804f774e62b299a80b0c234844f857"
+    },
+    {
+      "source": "init/init.class_main.sh",
+      "destination": "rootdir/bin/init.class_main.sh",
+      "source_sha256": "4fe935ea9b0afe25907bfc321fd487384844c856e6d6bac1d93093ffc60dae7b"
+    },
+    {
+      "source": "init/init.qti.kernel.rc",
+      "destination": "rootdir/etc/init.qti.kernel.rc",
+      "source_sha256": "a17e4fe9077c17e185fdc568a1c752122ecf3602cb381596f2e42e3ff2d65f1e"
+    },
+    {
+      "source": "init/charger_fw_fstab.qti",
+      "destination": "rootdir/etc/charger_fw_fstab.qti",
+      "source_sha256": "ea20ec5865dbfc2d877fcd7cc407f2eb58a1e7c89f3b9ed2389dc7f996dade33"
+    },
+    {
+      "source": "init/init.kernel.post_boot-kalama.sh",
+      "destination": "rootdir/bin/init.kernel.post_boot-kalama.sh",
+      "source_sha256": "960bbafc3a087b8bc53db522a621770b709bd3670e54ca344855ab9c487a0e40"
+    },
+    {
+      "source": "sepolicy/vendor/vndservice_contexts",
+      "destination": "sepolicy/vendor/vndservice_contexts",
+      "source_sha256": "e683e8ef102bc87114dde413bf5ab2df7da9dd0ceb154f977929f1c1ee2a9daa"
+    },
+    {
+      "source": "sepolicy/vendor/hal_camera_default.te",
+      "destination": "sepolicy/vendor/hal_camera_default.te",
+      "source_sha256": "18e08ae2c388f3019a916773530f9746899ec8019c6662f0f97e79b2b166693f"
+    },
+    {
+      "source": "sepolicy/vendor/property.te",
+      "destination": "sepolicy/vendor/property.te",
+      "source_sha256": "ebff57fdba84733a6affee0a342b7544186160a714ef511720177c8fc5e5db31"
+    },
+    {
+      "source": "sepolicy/vendor/mi_thermald.te",
+      "destination": "sepolicy/vendor/mi_thermald.te",
+      "source_sha256": "406d1bd9a45abb0c5402958a349e13b278cb81706fc7b0121491a6ec7d3b3c4d"
+    },
+    {
+      "source": "sepolicy/vendor/file_contexts",
+      "destination": "sepolicy/vendor/file_contexts",
+      "source_sha256": "17d6f80e95c20e037dd80089ab66c0d12718f24f31677e0dc92b088a05f1dbce"
+    },
+    {
+      "source": "sepolicy/vendor/init.te",
+      "destination": "sepolicy/vendor/init.te",
+      "source_sha256": "66940965d9a1a5de05f00fc49cb08aced24265f1e492e3316eb10cda7ab388bb"
+    },
+    {
+      "source": "sepolicy/vendor/miclstc_service.te",
+      "destination": "sepolicy/vendor/miclstc_service.te",
+      "source_sha256": "0dcde6d01ffb2ddd17a9e92c2610b96ce523b4dc8834cc9a805275ccc548580c"
+    },
+    {
+      "source": "sepolicy/vendor/hal_lineage_touch_default.te",
+      "destination": "sepolicy/vendor/hal_lineage_touch_default.te",
+      "source_sha256": "23b93c5f3c43d4f29a6edede70ec58246353893296faee64b950944cf8857d74"
+    },
+    {
+      "source": "sepolicy/vendor/hal_dumpstate_impl.te",
+      "destination": "sepolicy/vendor/hal_dumpstate_impl.te",
+      "source_sha256": "faafeb47fbd023daa29ca124e985dfe6dc56e6f17a12cce72bed76e094b13d82"
+    },
+    {
+      "source": "sepolicy/vendor/hwservice_contexts",
+      "destination": "sepolicy/vendor/hwservice_contexts",
+      "source_sha256": "770ee3f772db4eb21e32e830fff8c31c7630e1a9889942b8f7fb6ff82a91cd3c"
+    },
+    {
+      "source": "sepolicy/vendor/vendor_init.te",
+      "destination": "sepolicy/vendor/vendor_init.te",
+      "source_sha256": "a80a7d2f4563b71057c5025d0e9f695a698d267abb9cf82d86ea956881c5d943"
+    },
+    {
+      "source": "sepolicy/vendor/device.te",
+      "destination": "sepolicy/vendor/device.te",
+      "source_sha256": "a9d93ed9f3392a092fe205e33163b915ac19a033b51bae2befe5aaf367ecb4c2"
+    },
+    {
+      "source": "sepolicy/vendor/file.te",
+      "destination": "sepolicy/vendor/file.te",
+      "source_sha256": "48f499530f4a194b80234a13678bb1594229e1033eebfe0f3da6b312697e324b"
+    },
+    {
+      "source": "sepolicy/vendor/vendor_hal_perf.te",
+      "destination": "sepolicy/vendor/vendor_hal_perf.te",
+      "source_sha256": "31e7ae13ecf65368b2bad6faa013550921ce03c40d07e8531bb0c247fc22e517"
+    },
+    {
+      "source": "sepolicy/vendor/hal_sensors_default.te",
+      "destination": "sepolicy/vendor/hal_sensors_default.te",
+      "source_sha256": "5f0c2e8877f7a33de1c83840452189306084a8a5c19055f34237cad151903b02"
+    },
+    {
+      "source": "sepolicy/vendor/hal_fingerprint_default.te",
+      "destination": "sepolicy/vendor/hal_fingerprint_default.te",
+      "source_sha256": "76ac11477a11852d2919cd739a03a215fb800419aff413c981172f674581d386"
+    },
+    {
+      "source": "sepolicy/vendor/hal_power_default.te",
+      "destination": "sepolicy/vendor/hal_power_default.te",
+      "source_sha256": "e1047037b15e973e17a8f3365d8e2a792bba652bc058666f2b2baaae0e575430"
+    },
+    {
+      "source": "sepolicy/vendor/genfs_contexts",
+      "destination": "sepolicy/vendor/genfs_contexts",
+      "source_sha256": "3342519dbe48e5cdc30a39ed3734dcc3dc6ec55d2785899ef9cf287717067b26"
+    },
+    {
+      "source": "sepolicy/vendor/vendorcodec.te",
+      "destination": "sepolicy/vendor/vendorcodec.te",
+      "source_sha256": "28a57df6ece847b32dba8369e9039b2e162a3104cafb8791c4dd2c493c304bf3"
+    },
+    {
+      "source": "sepolicy/vendor/mistcdisplay_service.te",
+      "destination": "sepolicy/vendor/mistcdisplay_service.te",
+      "source_sha256": "a1abab2b4cc8ea9074c592a90be1f291319f73ca95224715de721f5254241594"
+    },
+    {
+      "source": "sepolicy/vendor/hal_camerapostproc_xiaomi.te",
+      "destination": "sepolicy/vendor/hal_camerapostproc_xiaomi.te",
+      "source_sha256": "b04f83daf999436267e92db5359bb9127e80f95001b430fe153497d56f36f40c"
+    },
+    {
+      "source": "sepolicy/vendor/attributes",
+      "destination": "sepolicy/vendor/attributes",
+      "source_sha256": "28fe020cd3f821d0ca608b9c99da3f1a1c58da70df1a649f62ab41efb780fb67"
+    },
+    {
+      "source": "sepolicy/vendor/app.te",
+      "destination": "sepolicy/vendor/app.te",
+      "source_sha256": "db7f6e5d556f5ebbaf464123228fb25c110689f06daf0cef63707edf6b2598ac"
+    },
+    {
+      "source": "sepolicy/vendor/tee.te",
+      "destination": "sepolicy/vendor/tee.te",
+      "source_sha256": "eec5df82a52b939336ac8e00ab5ef1d0a2eeef77afc5c4b168b782786f488343"
+    },
+    {
+      "source": "sepolicy/vendor/property_contexts",
+      "destination": "sepolicy/vendor/property_contexts",
+      "source_sha256": "f1f2ca18d8ff46eec108afa52db541159cb44506c647a0f7641bf036a3d6d904"
+    },
+    {
+      "source": "sepolicy/vendor/hal_graphics_composer.te",
+      "destination": "sepolicy/vendor/hal_graphics_composer.te",
+      "source_sha256": "f5855cc37bb027ee5749e63bb4f000653f4ab33bd79271fde79b6f082b016e83"
+    },
+    {
+      "source": "sepolicy/vendor/batterysecret.te",
+      "destination": "sepolicy/vendor/batterysecret.te",
+      "source_sha256": "460ea9fadc4b568979709dad0cf40d6b1c038ac0fdbbb2c5de5297457b746a0d"
+    },
+    {
+      "source": "sepolicy/vendor/system_app.te",
+      "destination": "sepolicy/vendor/system_app.te",
+      "source_sha256": "cbc12299ce47ff3d1a20c226e0eae0048287b2c6c95eec5a372e7ab7932c49e0"
+    },
+    {
+      "source": "sepolicy/vendor/hal_quickcamera.te",
+      "destination": "sepolicy/vendor/hal_quickcamera.te",
+      "source_sha256": "5dccf7ba70d9ad9cfd1d0069b63522a715ad273173ec930530e66382581772a6"
+    },
+    {
+      "source": "overlay/SystemUIOverlayCommon/Android.bp",
+      "destination": "overlay/SystemUIResOverlaySheng/Android.bp",
+      "source_sha256": "c0a374654f94aebf37c0baa5036049eee641291ab07d3153aadcc8b8ff5e47da"
+    },
+    {
+      "source": "overlay/SystemUIOverlayCommon/AndroidManifest.xml",
+      "destination": "overlay/SystemUIResOverlaySheng/AndroidManifest.xml",
+      "source_sha256": "58f02a46425a2cc9647a82ff81ccdcf5cc787040d6ee3a197db572b93413846d"
+    },
+    {
+      "source": "overlay/SystemUIOverlayCommon/res/values/config.xml",
+      "destination": "overlay/SystemUIResOverlaySheng/res/values/config.xml",
+      "source_sha256": "c299180e84125a76d2bd69e51a30edbd73c9d7863104e8e5bad5a443fc8fa329"
+    },
+    {
+      "source": "overlay/SettingsOverlayCommon/Android.bp",
+      "destination": "overlay/SettingsResOverlaySheng/Android.bp",
+      "source_sha256": "14881c7a5b95df887638aa55eca450139d76a637082e00eb7fa11fbf39eabebb"
+    },
+    {
+      "source": "overlay/SettingsOverlayCommon/AndroidManifest.xml",
+      "destination": "overlay/SettingsResOverlaySheng/AndroidManifest.xml",
+      "source_sha256": "0f4e2f1f0ab9493d08a9fcc3d95b52aaa23fe366fe94d037fd130020dc913106"
+    },
+    {
+      "source": "overlay/SettingsOverlayCommon/res/values/config.xml",
+      "destination": "overlay/SettingsResOverlaySheng/res/values/config.xml",
+      "source_sha256": "57ff97c2c87c6ccef9591aa05730e1d9a678658498b32ae75a96b9e436edfda1"
+    },
+    {
+      "source": "overlay/SettingsOverlayCommon/res/values/lineage.xml",
+      "destination": "overlay/SettingsResOverlaySheng/res/values/lineage.xml",
+      "source_sha256": "011c0e82d76883755c625e4a4bd28c05314cd249aa7e5bd9c82b8712d0240c70"
+    },
+    {
+      "source": "overlay/WifiOverlayCommon/Android.bp",
+      "destination": "overlay/WifiResOverlaySheng/Android.bp",
+      "source_sha256": "e0c36a426208de2154912cc8792ef363e9505a03449977be1f8ce52a10f7b719"
+    },
+    {
+      "source": "overlay/WifiOverlayCommon/AndroidManifest.xml",
+      "destination": "overlay/WifiResOverlaySheng/AndroidManifest.xml",
+      "source_sha256": "e5bab8ea96cf46616cc2ec3c61e027298758678b52939b8eaa1a7751b3dc7931"
+    },
+    {
+      "source": "overlay/WifiOverlayCommon/res/values/config.xml",
+      "destination": "overlay/WifiResOverlaySheng/res/values/config.xml",
+      "source_sha256": "9a336cb1e2bebb572336ba1ad48e9ee055f289b107c9f11c6a7c7f0bb2127a3d"
+    },
+    {
+      "source": "overlay/LineageResXiaomi/Android.bp",
+      "destination": "overlay/LineageResOverlaySheng/Android.bp",
+      "source_sha256": "a3d514ccc31738328040419053ceebf9241ab3110b84558bbb0629abc478085c"
+    },
+    {
+      "source": "overlay/LineageResXiaomi/AndroidManifest.xml",
+      "destination": "overlay/LineageResOverlaySheng/AndroidManifest.xml",
+      "source_sha256": "d25637c084276721f4011a81a4be4902de8b474c46a97326476f07bf98b4b757"
+    },
+    {
+      "source": "overlay/LineageResXiaomi/res/values/config.xml",
+      "destination": "overlay/LineageResOverlaySheng/res/values/config.xml",
+      "source_sha256": "569ea633449f5ebcc5788ac9d24fa543dfa54e4b84e51bc61cba2d4d89b924ba"
+    }
+  ],
+  "blob_entries": 2027
+}

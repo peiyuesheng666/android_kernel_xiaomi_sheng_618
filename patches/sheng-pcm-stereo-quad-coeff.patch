@@ -1,0 +1,110 @@
+diff --git a/session/inc/PayloadBuilder.h b/session/inc/PayloadBuilder.h
+index 0228668..3efc93a 100644
+--- a/session/inc/PayloadBuilder.h
++++ b/session/inc/PayloadBuilder.h
+@@ -195,6 +195,8 @@ public:
+     void payloadMFCConfig(uint8_t** payload, size_t* size,
+                            uint32_t miid,
+                            struct sessionToPayloadParam* data);
++    void payloadShengStereoQuadCoeff(uint8_t** payload, size_t* size,
++                           uint32_t miid);
+     void payloadMFCMixerCoeff(uint8_t** payload, size_t* size,
+                            uint32_t miid, int numCh, int rotationType);
+     void payloadVolumeConfig(uint8_t** payload, size_t* size,
+diff --git a/session/src/PayloadBuilder.cpp b/session/src/PayloadBuilder.cpp
+index 7b0c973..427f200 100644
+--- a/session/src/PayloadBuilder.cpp
++++ b/session/src/PayloadBuilder.cpp
+@@ -629,6 +629,51 @@ void PayloadBuilder::payloadMFCMixerCoeff(uint8_t** payload, size_t* size,
+     PAL_DBG(LOG_TAG, "Exit");
+ }
+ 
++void PayloadBuilder::payloadShengStereoQuadCoeff(uint8_t** payload, size_t* size,
++        uint32_t miid)
++{
++    constexpr uint16_t inputChannels = 2;
++    constexpr uint16_t outputChannels = 4;
++    static_assert(sizeof(apm_module_param_data_t) == 16, "APM header ABI");
++    static_assert(sizeof(param_id_chmixer_coeff_t) == 4, "mixer table header ABI");
++    static_assert(sizeof(chmixer_coeff_t) == 4, "mixer channel header ABI");
++    const size_t payloadSize = sizeof(apm_module_param_data_t) +
++            sizeof(param_id_chmixer_coeff_t) + sizeof(chmixer_coeff_t) +
++            sizeof(uint16_t) * (outputChannels + inputChannels +
++                               outputChannels * inputChannels);
++    const size_t padBytes = PAL_PADDING_8BYTE_ALIGN(payloadSize);
++    *payload = nullptr;
++    *size = 0;
++    uint8_t* data = static_cast<uint8_t*>(calloc(1, payloadSize + padBytes));
++    if (!data)
++        return;
++    auto* header = reinterpret_cast<apm_module_param_data_t*>(data);
++    header->module_instance_id = miid;
++    header->param_id = PARAM_ID_CHMIXER_COEFF;
++    header->param_size = payloadSize - sizeof(*header);
++    auto* tableHeader = reinterpret_cast<param_id_chmixer_coeff_t*>(data + sizeof(*header));
++    tableHeader->num_coeff_tbls = 1;
++    auto* table = reinterpret_cast<chmixer_coeff_t*>(data + sizeof(*header) + sizeof(*tableHeader));
++    table->num_output_channels = outputChannels;
++    table->num_input_channels = inputChannels;
++    auto* channels = reinterpret_cast<uint16_t*>(data + sizeof(*header) +
++                                               sizeof(*tableHeader) + sizeof(*table));
++    // Keep the output channel IDs unique; mirror samples via coefficients.
++    populateChannelMap(channels, outputChannels); // FL, FR, LB, RB
++    channels += outputChannels;
++    populateChannelMap(channels, inputChannels); // FL, FR
++    channels += inputChannels;
++    // SPF coefficients have OUTPUT rows and INPUT columns. On sheng the
++    // physical left speakers use TDM slots 0/1 and right speakers use 2/3.
++    // Keep both slots on each physical side on the same stereo input.
++    // Verified with isolated left/right PCM tones; Q14 unity adds no gain.
++    constexpr uint16_t coefficients[] = {0x4000, 0, 0x4000, 0,
++                                        0, 0x4000, 0, 0x4000};
++    memcpy(channels, coefficients, sizeof(coefficients));
++    *payload = data;
++    *size = payloadSize + padBytes;
++}
++
+ void PayloadBuilder::payloadMFCConfig(uint8_t** payload, size_t* size,
+         uint32_t miid, struct sessionToPayloadParam* data)
+ {
+diff --git a/session/src/Session.cpp b/session/src/Session.cpp
+index 848e6d2..00157d0 100644
+--- a/session/src/Session.cpp
++++ b/session/src/Session.cpp
+@@ -79,6 +79,7 @@
+ #include "SessionAlsaVoice.h"
+ 
+ #include <sstream>
++#include <cutils/properties.h>
+ 
+ struct pcm *Session::pcmEcTx = NULL;
+ std::vector<int> Session::pcmDevEcTxIds = {0};
+@@ -981,6 +982,28 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
+             PAL_ERR(LOG_TAG, "updateCustomPayload Failed\n");
+             goto exit;
+         }
++        char deviceName[PROPERTY_VALUE_MAX] = {};
++        property_get("ro.product.vendor.device", deviceName, "");
++        if (property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false) &&
++            !strcmp(deviceName, "sheng") &&
++            dAttr.id == PAL_DEVICE_OUT_SPEAKER &&
++            !strcmp(intf, "TDM-LPAIF-RX-SECONDARY") &&
++            sAttr.direction == PAL_AUDIO_OUTPUT &&
++            isPalPCMFormat(sAttr.out_media_config.aud_fmt_id) &&
++            sAttr.out_media_config.ch_info.channels == 2 &&
++            mfcData.numChannel == 4) {
++            builder->payloadShengStereoQuadCoeff(&payload, &payloadSize, miid);
++            if (!payload || !payloadSize) {
++                status = -ENOMEM;
++                goto exit;
++            }
++            PAL_INFO(LOG_TAG, "sheng PCM stereo->quad mixer: miid=%x payload=%zu stream=%d",
++                     miid, payloadSize, sAttr.type);
++            status = updateCustomPayload(payload, payloadSize);
++            freeCustomPayload(&payload, &payloadSize);
++            if (status)
++                goto exit;
++        }
+     } else {
+         PAL_ERR(LOG_TAG, "getModuleInstanceId failed");
+         if (sAttr.direction == (PAL_AUDIO_INPUT | PAL_AUDIO_OUTPUT))

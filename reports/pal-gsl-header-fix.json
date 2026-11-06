@@ -1,0 +1,14 @@
+{
+  "source": "hardware/qcom-caf/sm8550/audio/pal/Android.bp",
+  "sha256": "a0639b9321fa454c548618fd83b13cb98afee30895853243f52c729cabbc5325",
+  "exported_gsl_header_directories": [
+    "hardware/qcom-caf/sm8550/audio/graphservices/gsl/api",
+    "hardware/qcom-caf/sm8550/audio/graphservices/gsl/dls_client_api",
+    "hardware/qcom-caf/sm8550/audio/graphservices/gsl/hw_rsc_api",
+    "hardware/qcom-caf/sm8550/audio/graphservices/gsl/rtc_api"
+  ],
+  "uses_stock_gsl_library": true,
+  "compile_reproduction_passed": true,
+  "returncode": 0,
+  "log": "/root/sheng-lineage/logs/verify-pal-gsl.log"
+}

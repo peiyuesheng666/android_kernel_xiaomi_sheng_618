@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: Apache-2.0
+# Paths verified in the supplied firmware's init.mfp-daemon.rc.
+service vendor.sheng-touch-report /vendor/bin/sheng-touch-report
+    class hal
+    user system
+    group system uhid input
+    capabilities SYS_NICE
+    setenv LD_LIBRARY_PATH /odm/lib64
+
+on post-fs-data
+    chown system system /sys/class/touch/touch_dev/abnormal_event
+    chmod 0664 /sys/class/touch/touch_dev/abnormal_event
+    chown system system /sys/class/touch/touch_dev/touch_finger_status
+    chmod 0664 /sys/class/touch/touch_dev/touch_finger_status
+
+on boot
+    chown system system /sys/bus/platform/devices/soc:xiaomi_fingerprint/fingerdown
+    chmod 0660 /sys/bus/platform/devices/soc:xiaomi_fingerprint/fingerdown
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/irq
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/irq_enable
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/wakeup_enable
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/hw_reset
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/device_prepare
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/fingerdown_wait
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/vendor
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/request_vreg
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/simulate_irq
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/finger_irq
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/power_cfg
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/power_ctrl
+    chown system system /sys/bus/platform/devices/soc:fingerprint_fpc/screen
+    chown system system /dev/xiaomi_hall
+    chmod 0660 /dev/xiaomi_hall

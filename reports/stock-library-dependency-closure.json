@@ -1,0 +1,275 @@
+{
+  "added": [
+    {
+      "path": "vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so",
+      "consumer": "vendor/lib64/vendor.qti.data.factory@2.7.so",
+      "needed": "vendor.qti.ims.rcsconfig@1.0.so"
+    },
+    {
+      "path": "vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so",
+      "consumer": "vendor/lib64/vendor.qti.data.factory@2.7.so",
+      "needed": "vendor.qti.ims.rcsconfig@1.1.so"
+    },
+    {
+      "path": "vendor/lib64/libdsi_netctrl.so",
+      "consumer": "vendor/bin/ssgtzd",
+      "needed": "libdsi_netctrl.so"
+    },
+    {
+      "path": "vendor/lib64/libqdi.so",
+      "consumer": "vendor/lib64/libdsi_netctrl.so",
+      "needed": "libqdi.so"
+    },
+    {
+      "path": "vendor/lib64/libnetmgr.so",
+      "consumer": "vendor/lib64/libdsi_netctrl.so",
+      "needed": "libnetmgr.so"
+    },
+    {
+      "path": "vendor/lib64/libconfigdb.so",
+      "consumer": "vendor/lib64/libdsi_netctrl.so",
+      "needed": "libconfigdb.so"
+    },
+    {
+      "path": "vendor/lib64/libnetmgrxfrmutils.so",
+      "consumer": "vendor/lib64/libnetmgr.so",
+      "needed": "libnetmgrxfrmutils.so"
+    }
+  ],
+  "unresolved": [
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpt_action_recognition.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_vqa_networks.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_svc_skel.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_svc_skel.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_frc.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_frc.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_frc.so",
+      "needed": "ubwcdma_dynlib.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_frc.so",
+      "needed": "libhcpfrc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_ais_networks.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_ais.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_ais.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libvpp_ais.so",
+      "needed": "ubwcdma_dynlib.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libtracker_6dof_skel_8450.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libtracker_6dof_skel_8450.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libtracker_6dof_skel_8450.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libqvr_dsp_driver_skel.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libqvr_dsp_driver_skel.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libqvr_dsp_driver_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libqvr_cam_dsp_driver_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libqvr_3dof_tracker_skel.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libqvr_3dof_tracker_skel.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libqvr_3dof_tracker_skel.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libqvr_3dof_tracker_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libmobilenet_dsp_frc_networks.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libmobilenet_dsp_frc.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libmobilenet_dsp_frc.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libmobilenet_dsp_frc.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libmobilenet_dsp_frc.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libmobilenet_dsp_frc.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libhalide_hexagon_remote_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libeye_tracking_dsp_sample_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libevadsp_3_0.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libevadsp_3_0.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libevadsp_3_0.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libevadsp_3_0.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libevadsp_3_0.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libdsp_streamer_qvrcam_receiver.so",
+      "needed": "libdsp_streamer_skel.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libdsp_streamer_qvrcam_receiver.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libVppFrcQnnHtp.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libVppFrcQnnHtp.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libVppAisQnnHtp.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libVppAisQnnHtp.so",
+      "needed": "libc++abi.so.1"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/libDspIOProxy_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "vendor/lib/rfsa/adsp/capi_cirrus_sp.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "odm/lib64/libcrussp.so",
+      "needed": "audio.primary.kalama.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_mc_bokeh_cdsp_skel.so",
+      "needed": "libmialgo_basic_cdsp_skel.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_mc_bokeh_cdsp_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_ell_cdsp_skel.so",
+      "needed": "libmialgo_basic_cdsp_skel.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_ell_cdsp_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_bokeh_effect_cdsp_skel.so",
+      "needed": "libmialgo_basic_cdsp_skel.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_bokeh_effect_cdsp_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_bokeh_depth_cdsp_skel.so",
+      "needed": "libmialgo_basic_cdsp_skel.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_bokeh_depth_cdsp_skel.so",
+      "needed": "libc++.so.1"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_bokeh_depth_cdsp_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_ai_process_cdsp_skel.so",
+      "needed": "libmialgo_basic_cdsp_skel.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libmialgo_ai_process_cdsp_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "odm/lib/rfsa/adsp/libarcsoft_beauty_hvx_skel.so",
+      "needed": "libgcc.so"
+    },
+    {
+      "consumer": "odm/lib/libcrussp.so",
+      "needed": "audio.primary.kalama.so"
+    }
+  ],
+  "elf_inputs_inspected": 1086,
+  "elf_abi_checks_disabled": false
+}

@@ -1,0 +1,7 @@
+{
+  "conf": "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/system/sepolicy/vendor_sepolicy.conf/android_common/sheng/vendor_sepolicy.conf",
+  "declared_types_and_attributes": 3502,
+  "unknown_references": [],
+  "scope": "AV rules, typeattribute and type transition rules; checkpolicy remains authoritative",
+  "automatic_changes": false
+}

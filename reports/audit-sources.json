@@ -1,0 +1,62 @@
+[
+  {
+    "name": "micode-devicetree",
+    "repository": "MiCode/kernel_devicetree",
+    "url": "https://github.com/MiCode/kernel_devicetree.git",
+    "branch": "sheng-u-oss",
+    "commit": "c4e85e1569f8acbbfe8e6dd694623aa56e424c60",
+    "path": "/root/sheng-612/reference/micode-devicetree",
+    "file_count": 4877,
+    "audit_only": true
+  },
+  {
+    "name": "lineage-modules",
+    "repository": "LineageOS/android_kernel_xiaomi_sm8550-modules",
+    "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-modules.git",
+    "branch": "lineage-23.2",
+    "commit": "9e8972287159837a256d0afcddc3f636f67ce8dd",
+    "path": "/root/sheng-612/reference/lineage-modules",
+    "file_count": 8359,
+    "audit_only": true
+  },
+  {
+    "name": "micode-kernel",
+    "repository": "MiCode/Xiaomi_Kernel_OpenSource",
+    "url": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+    "branch": "sheng-u-oss",
+    "commit": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+    "path": "/root/sheng-612/reference/micode-kernel",
+    "file_count": 71097,
+    "audit_only": true
+  },
+  {
+    "name": "lineage-devicetrees",
+    "repository": "LineageOS/android_kernel_xiaomi_sm8550-devicetrees",
+    "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-devicetrees.git",
+    "branch": "lineage-23.2",
+    "commit": "acfb24b4006bc2e0f2333181ce98c08c6e322a49",
+    "path": "/root/sheng-612/reference/lineage-devicetrees",
+    "file_count": 5748,
+    "audit_only": true
+  },
+  {
+    "name": "lineage-common",
+    "repository": "LineageOS/android_device_xiaomi_sm8550-common",
+    "url": "https://github.com/LineageOS/android_device_xiaomi_sm8550-common.git",
+    "branch": "lineage-23.2",
+    "commit": "dfb9e56a0d9c38742ec569471d25657f91a4a38b",
+    "path": "/root/sheng-612/reference/lineage-common",
+    "file_count": 116,
+    "audit_only": true
+  },
+  {
+    "name": "lineage-kernel",
+    "repository": "LineageOS/android_kernel_xiaomi_sm8550",
+    "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+    "branch": "lineage-23.2",
+    "commit": "093e3da978e7b954d041a261d40975957c7fe6f1",
+    "path": "/root/sheng-612/reference/lineage-kernel",
+    "file_count": 71257,
+    "audit_only": true
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "stock_gsl_binary_retained": true,
+  "header_provider": "libsheng_gsl_headers",
+  "source": "hardware/qcom-caf/sm8550/audio/graphservices/gsl/Android.bp",
+  "source_sha256": "0e7254433ff78ba9330e63ee7e5538eea92a2fc9fba5645194515c67bee46bcb",
+  "vendor_bp": "/root/sheng-lineage/extraction-standalone/vendor/xiaomi/sheng/Android.bp",
+  "vendor_bp_sha256": "5a386953919bd4a78779de98654d2ccfdcb4e3f20510376c0b5238ae947605ac",
+  "exported_header_dependency_configured": true,
+  "soong_build_verification": "pending validation run",
+  "pal_consumer_workaround_removed": true
+}

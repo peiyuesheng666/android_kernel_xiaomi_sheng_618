@@ -1,0 +1,57 @@
+{
+  "boot": {
+    "input": "/mnt/e/6/玩机资源/XiaomiPad6SPro12.4刷机资源/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/boot.img",
+    "sha256": "4156a2369f78bc5df61b6a521b07a508dedf20d5e63c207d30986ae37df3eaea",
+    "bytes": 100663296,
+    "header": "boot magic: ANDROID!\nkernel_size: 47442432\nramdisk size: 0\nos version: None\nos patch level: None\nboot image header version: 4\ncommand line args: \nboot.img signature size: 0\n",
+    "files": [
+      "kernel",
+      "header.txt",
+      "ramdisk"
+    ]
+  },
+  "vendor_boot": {
+    "input": "/mnt/e/6/玩机资源/XiaomiPad6SPro12.4刷机资源/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/vendor_boot.img",
+    "sha256": "2f30ea2ca6ea3752924f0c1e27c0ba74d0256de1bfc90cc4f6df6e5eaf1a6c98",
+    "bytes": 100663296,
+    "header": "boot magic: VNDRBOOT\nvendor boot image header version: 4\npage size: 0x00001000\nkernel load address: 0x00008000\nramdisk load address: 0x01000000\nvendor ramdisk total size: 30994054\nvendor command line args: video=vfb:640x400,bpp=32,memsize=3072000 disable_dma32=on swinfo.fingerprint=sheng:13/OS3.0.303.0.WNXCNXM:user mtdoops.fingerprint=sheng:13/OS3.0.303.0.WNXCNXM:user bootconfig\nkernel tags load address: 0x00000100\nproduct name: \nvendor boot image header size: 2128\ndtb size: 3885003\ndtb address: 0x0000000001f00000\nvendor ramdisk table size: 108\nvendor ramdisk table: [\n    vendor_ramdisk00: {\n        size: 30994054\n        offset: 0\n        type: 0x1\n        name: \n        board_id: [\n            0x00000000, 0x00000000, 0x00000000, 0x00000000,\n            0x00000000, 0x00000000, 0x00000000, 0x00000000,\n            0x00000000, 0x00000000, 0x00000000, 0x00000000,\n            0x00000000, 0x00000000, 0x00000000, 0x00000000,\n        ]\n    }\n]\nvendor bootconfig size: 113\n",
+    "files": [
+      "dtb",
+      "vendor_ramdisk00",
+      "vendor-ramdisk-by-name",
+      "header.txt",
+      "bootconfig"
+    ]
+  },
+  "init_boot": {
+    "input": "/mnt/e/6/玩机资源/XiaomiPad6SPro12.4刷机资源/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/init_boot.img",
+    "sha256": "8939823e8a43b39347a28204a58e106f7e310855963bbcea005269f0d984c0fd",
+    "bytes": 8388608,
+    "header": "boot magic: ANDROID!\nkernel_size: 0\nramdisk size: 2242438\nos version: None\nos patch level: None\nboot image header version: 4\ncommand line args: \nboot.img signature size: 0\n",
+    "files": [
+      "kernel",
+      "header.txt",
+      "ramdisk"
+    ]
+  },
+  "recovery": {
+    "input": "/mnt/e/6/玩机资源/XiaomiPad6SPro12.4刷机资源/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/recovery.img",
+    "sha256": "4b66cca647e21929870dfcc38c5915e35c004016bbe815bb91a87239230d649f",
+    "bytes": 104857600,
+    "header": "boot magic: ANDROID!\nkernel_size: 0\nramdisk size: 27721631\nos version: None\nos patch level: None\nboot image header version: 4\ncommand line args: \nboot.img signature size: 0\n",
+    "files": [
+      "kernel",
+      "header.txt",
+      "ramdisk"
+    ]
+  },
+  "kernel": {
+    "compression": "uncompressed",
+    "uncompressed_bytes": 47442432,
+    "banners": [
+      "Linux version %s (%s)",
+      "Linux version 5.15.178-android13-8-00021-g6f2f96be86b9-ab13729987 (build-user@build-host) (Android (8508608, based on r450784e) clang version 14.0.7 (https://android.googlesource.com/toolchain/llvm-project 4c603efb0cca074e9238af8b4106c30add4418f6), LLD 14.0.7) #1 SMP PREEMPT Wed Jul 2 02:41:59 UTC 2025"
+    ],
+    "config": "/root/sheng-612/stock/boot/stock.config"
+  }
+}

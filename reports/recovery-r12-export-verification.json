@@ -1,0 +1,19 @@
+{
+  "revision": "r12-native-source-touch-rotation",
+  "files": [
+    {
+      "sha256": "62049d914a2711e0022aa04670812f3f152c58c9e61082fe7e7de62852d78350",
+      "file": "lineage-24.0-sheng-recovery-r12-native-source-touch-rotation.img"
+    },
+    {
+      "sha256": "45be07774937aa664fa9fcbf7053e2e4cc6736e32cd2e1285657d7551daa1615",
+      "file": "recovery-build-result.json"
+    },
+    {
+      "sha256": "e82cb03fca693af9e1539c0dee8279636e2374463d34c7d4fd62c2b182b5e466",
+      "file": "recovery-source-configuration.tar.gz"
+    }
+  ],
+  "all_passed": true,
+  "time": "2026-11-06T06:58:19.5772175+08:00"
+}

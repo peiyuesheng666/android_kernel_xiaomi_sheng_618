@@ -1,0 +1,205 @@
+{
+  "source_package": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0",
+  "original_package_write_operations": 0,
+  "images": [
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/abl.elf",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/abl.img",
+      "bytes": 233272,
+      "sha256": "e4803cd563517b2b836dd20f1a2401cc2dcd0b4edce450ee832395b4696f0aac",
+      "partition": "abl"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/xbl_s.melf",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/xbl.img",
+      "bytes": 1198964,
+      "sha256": "4f5ade42287e642f135166c457c0601939a81804229d06a3eeaea398810e741e",
+      "partition": "xbl"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/xbl_config.elf",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/xbl_config.img",
+      "bytes": 188456,
+      "sha256": "1daa70824df92855ac539a299dd803abb3d766f051a97e2cc16262c0797333be",
+      "partition": "xbl_config"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/shrm.elf",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/shrm.img",
+      "bytes": 64240,
+      "sha256": "d03941e556e330e9603c4445f952ac3809050fbd5912bd112644d85f64cf482b",
+      "partition": "shrm"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/aop.mbn",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/aop.img",
+      "bytes": 278704,
+      "sha256": "bcae8c06178acaad49bb33e0a17d4c094c72c02ac94323bac677838a9ba22dad",
+      "partition": "aop"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/aop_devcfg.mbn",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/aop_config.img",
+      "bytes": 16232,
+      "sha256": "7ef001533c126bcd025cda25e15488cfe0a552d6a93ef22f846760922b81ff1c",
+      "partition": "aop_config"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/tz.mbn",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/tz.img",
+      "bytes": 3969456,
+      "sha256": "239356fdc21c3e3310d5492b91ea6fecb88773288bd9fd978120cefe8a1574d8",
+      "partition": "tz"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/devcfg.mbn",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/devcfg.img",
+      "bytes": 57192,
+      "sha256": "ad2eef8a64b409c3f0f1ba7b94285d1cbc9e088652fb709ee83297ccadb38af2",
+      "partition": "devcfg"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/featenabler.mbn",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/featenabler.img",
+      "bytes": 97248,
+      "sha256": "29e6a32a270a62910f1d46c3ea7e25994936516e4ad10d59b5294eebd0774680",
+      "partition": "featenabler"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/hypvmperformance.mbn",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/hyp.img",
+      "bytes": 1457120,
+      "sha256": "311d24f1e926dd81a448e42df6b0818843af7ba1be5cbbb4e9a9d8b98fd3411e",
+      "partition": "hyp"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/uefi.elf",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/uefi.img",
+      "bytes": 2944824,
+      "sha256": "5ad7d31d78dc2247924e1fd3884f289fd3962cd146bf7b874e486adaea9a50df",
+      "partition": "uefi"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/uefi_sec.mbn",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/uefisecapp.img",
+      "bytes": 176216,
+      "sha256": "dec1a07c25064f55c28014e3d28e067169b08bbfd50588e98e0f7f83615cc9a1",
+      "partition": "uefisecapp"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/NON-HLOS.bin",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/modem.img",
+      "bytes": 138891264,
+      "sha256": "598188e71095d1d06775176a7aa36459bebe997e61bf920b39d406d4b0b2b57b",
+      "partition": "modem"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/BTFM.bin",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/bluetooth.img",
+      "bytes": 1257472,
+      "sha256": "d7a6a31b30b8562e6422187dad2ae57b8b406b554d47dfd6478aa0fb6d525f91",
+      "partition": "bluetooth"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/dspso.bin",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/dsp.img",
+      "bytes": 67108864,
+      "sha256": "c0ed1d8a0459a07f1f729ebdc12011011097c02234a9a0afc079a55a8126acf8",
+      "partition": "dsp"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/keymint.mbn",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/keymaster.img",
+      "bytes": 405592,
+      "sha256": "67c3172779793b466504e30382ccfb7cdeee1267df326b5a8bf35c6c9fa2a488",
+      "partition": "keymaster"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/qupv3fw.elf",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/qupfw.img",
+      "bytes": 53520,
+      "sha256": "37c0b25bfbf77db0ce2a2034dabb9d2ed96c6cc2aacd7e1755cf47f3c1cfa06c",
+      "partition": "qupfw"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/cpucp.elf",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/cpucp.img",
+      "bytes": 191648,
+      "sha256": "4e87b42740a39a0b9d5c485b8576e1e1234e7d80a243f095964493129e00f64d",
+      "partition": "cpucp"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/XblRamdump.elf",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/xbl_ramdump.img",
+      "bytes": 884632,
+      "sha256": "0d7b75914f08544b0ff926c3f5630885a98843c1011997f1fad8d786dfa840d0",
+      "partition": "xbl_ramdump"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/imagefv.elf",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/firmware-images/imagefv.img",
+      "bytes": 6299448,
+      "sha256": "ba146672f3e7b93b37e14bdc153fc252a6b2ea81788818edde282db1899147dc",
+      "partition": "imagefv"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/init_boot.img",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/boot-images/init_boot.img",
+      "bytes": 8388608,
+      "sha256": "8939823e8a43b39347a28204a58e106f7e310855963bbcea005269f0d984c0fd",
+      "partition": "init_boot"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/vendor_boot.img",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/boot-images/vendor_boot.img",
+      "bytes": 100663296,
+      "sha256": "2f30ea2ca6ea3752924f0c1e27c0ba74d0256de1bfc90cc4f6df6e5eaf1a6c98",
+      "partition": "vendor_boot"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/dtbo.img",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/boot-images/dtbo.img",
+      "bytes": 16777216,
+      "sha256": "5b37138479a28a5c9c1c2b7a2470643929e7c2d15722419d117f52bfee1a5554",
+      "partition": "dtbo"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/vbmeta.img",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/boot-images/vbmeta.img",
+      "bytes": 8192,
+      "sha256": "dfa47a6087564ae05e907817b601b3301b5b549cb83eea5951e2f8ab15661ea6",
+      "partition": "vbmeta"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/vbmeta_system.img",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/boot-images/vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "f2b2755216c5a1f064b3267fcd42182a6957369de15bcb754650b56fb49f98f9",
+      "partition": "vbmeta_system"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/recovery.img",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/boot-images/recovery.img",
+      "bytes": 104857600,
+      "sha256": "4b66cca647e21929870dfcc38c5915e35c004016bbe815bb91a87239230d649f",
+      "partition": "recovery"
+    },
+    {
+      "source": "/mnt/e/6/\u73a9\u673a\u8d44\u6e90/XiaomiPad6SPro12.4\u5237\u673a\u8d44\u6e90/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/boot.img",
+      "cached": "/root/sheng-lineage/firmware-dump/hardware/boot-images/boot.img",
+      "bytes": 100663296,
+      "sha256": "4156a2369f78bc5df61b6a521b07a508dedf20d5e63c207d30986ae37df3eaea",
+      "partition": "boot"
+    }
+  ],
+  "module_files": 640,
+  "unique_module_names": 419,
+  "module_stages": {
+    "vendor_boot": 336,
+    "vendor_dlkm": 304,
+    "system_dlkm": 0
+  },
+  "partition_inventory_entries": 5241,
+  "inventory": "/root/sheng-lineage/firmware-dump/hardware/stock-hardware-inventory.json",
+  "inventory_sha256": "a03e46b43e18ccf66d568f02b7ace6ce1d680b8eb0d38e3d85fb22e70f8f0298"
+}

@@ -1,0 +1,64 @@
+{
+  "files": [
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "1fb562d742ac2921a95c0ad54d8761e3a4ece1334cdbfcdc54c25170e0941d3f"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "aac43d3bb4a7b1a2db34ac7f29b0bd2feba5407401e54bcd4e50222ba2dcf1fa"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/system-audio-offload-r1",
+  "base_files": {
+    "vendor": {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "c7b454eca8ef011c5ff3dc74003f2aff7f515df7667c85de4f29ec6f561ce5c4"
+    },
+    "odm": {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "380aac5b18d5573a8389847553ffcdfdbbf8422413548daddd3389f5bcc76b6d"
+    },
+    "vbmeta": {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "95a9e99881f48a558da3180f1c2528cd926e30f710ea9e0192d70c39a8b90df9"
+    }
+  },
+  "changed_files": [
+    "build.prop",
+    "etc/audio/sku_kalama/audio_policy_configuration.xml",
+    "lib64/libar-pal.so"
+  ],
+  "unchanged_partition_sizes": true,
+  "readback_content_and_ownership_verified": true,
+  "avb_signatures_verified": true,
+  "all_original_chain_descriptors_preserved": true,
+  "unchanged_odm_sha256": "380aac5b18d5573a8389847553ffcdfdbbf8422413548daddd3389f5bcc76b6d",
+  "speaker_offload_enabled_by_policy": true,
+  "tested_pal_sha256": "c20ed5ddeb7b87d22e8a317f4ab5cae5bb41dc34b1f7ade84dfb0756752bf3de",
+  "dolby_enabled": false,
+  "hardware_boot_tested": true,
+  "six_speaker_playback_after_reboot": true,
+  "boot_evidence": "reports/device/system-bringup-r2-20261106-193529",
+  "persistent_runtime_verified": true,
+  "stereo_channel_isolation_after_reboot_user_confirmed": true,
+  "pre_reboot_stereo_mp3_six_speakers_user_confirmed": true,
+  "pre_reboot_mono_mp3_both_sides_user_confirmed": true,
+  "pre_reboot_stereo_aac_both_sides_user_confirmed": true,
+  "pre_reboot_mono_mp3_two_replays_and_pause_resume_completed": true,
+  "untested": [
+    "other_codec_profiles",
+    "long_term_playback",
+    "Dolby"
+  ]
+}

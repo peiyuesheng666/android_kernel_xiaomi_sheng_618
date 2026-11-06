@@ -1,0 +1,52 @@
+{
+  "init_boot": {
+    "path": "/root/sheng-lineage/ota-boot-audit/init_boot.img",
+    "sha256": "c0b93bed6f6fcbd2f77cb79f0c43a9baac23c097f3c8413fcd345069b400ad7e",
+    "bytes": 8388608
+  },
+  "recovery": {
+    "path": "/root/sheng-lineage/ota-boot-audit/recovery.img",
+    "sha256": "3bf15116b23e516e5dd35866d62945a27e6f17e050d1c5b8320722185c2f2ea0",
+    "bytes": 104857600
+  },
+  "vendor_boot": {
+    "path": "/root/sheng-lineage/ota-boot-audit/vendor_boot.img",
+    "sha256": "6cfc89bac563d15af78065b592ac8a22d5794826a8cae9be41e033977700fd4a",
+    "bytes": 100663296
+  },
+  "system_ext": {
+    "path": "/root/sheng-lineage/ota-boot-audit/system_ext.img",
+    "sha256": "07ec9ef890e1134f394f39aad003684aaa3343e2c7c3d99a47b9cee0eaac87e6",
+    "bytes": 572813312
+  },
+  "vbmeta_system": {
+    "path": "/root/sheng-lineage/ota-boot-audit/vbmeta_system.img",
+    "sha256": "aa51e32938367b97c8a75fff4748038ee688265225819d1d6d69b77918a21068",
+    "bytes": 4096
+  },
+  "product": {
+    "path": "/root/sheng-lineage/ota-boot-audit/product.img",
+    "sha256": "943933c299688f3b769567ef0d554512614e3cb70c9ce7242083e34d935b9cee",
+    "bytes": 2489184256
+  },
+  "system": {
+    "path": "/root/sheng-lineage/ota-boot-audit/system.img",
+    "sha256": "f89b07d973531ceea3d2d3a695754065382947b401393d382862f3b44a03aea4",
+    "bytes": 1005133824
+  },
+  "odm": {
+    "path": "/root/sheng-lineage/ota-boot-audit/odm.img",
+    "sha256": "90f0defe062c4a793b76d11de8a25f180b2fd2af15a86f1b8e96e231de501e90",
+    "bytes": 1141067776
+  },
+  "vbmeta": {
+    "path": "/root/sheng-lineage/ota-boot-audit/vbmeta.img",
+    "sha256": "e393bc8785ac1a8de9ed5757a60173a32cef4ae374c58c5ab9258dc14ea19668",
+    "bytes": 8192
+  },
+  "vendor": {
+    "path": "/root/sheng-lineage/ota-boot-audit/vendor.img",
+    "sha256": "6bac85ce3832ec394790ef615f1399b9bdad1807d2b33cd329eb8a27d4d88936",
+    "bytes": 303517696
+  }
+}

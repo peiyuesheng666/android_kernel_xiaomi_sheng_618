@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "7762d270cee1aad7d24d7d4589df8005c8bc77f49d29994e15d90a4904a54bd8"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "6aaa327d19de9704c9b0aec8cf9bf02e5c33febf9d0cd03c3ffd795ee1043d5c"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/system-audio-pcm-r1",
+  "base_files": {
+    "vendor": {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "a4f8d6aca18835ac05f589261b848cae672fbb5d071b84afffd4e8bf5f3b1052"
+    },
+    "odm": {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "380aac5b18d5573a8389847553ffcdfdbbf8422413548daddd3389f5bcc76b6d"
+    },
+    "vbmeta": {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "4f1f552165c28bf9216b6ee1238e40c121237607526fca67b4c3b7b819657e1d"
+    }
+  },
+  "changed_files": [
+    "build.prop",
+    "etc/audio/sku_kalama/audio_effects.xml",
+    "etc/audio_effects.xml",
+    "lib64/libar-pal.so"
+  ],
+  "unchanged_partition_sizes": true,
+  "readback_content_and_ownership_verified": true,
+  "avb_signatures_verified": true,
+  "all_original_chain_descriptors_preserved": true,
+  "unchanged_odm_sha256": "380aac5b18d5573a8389847553ffcdfdbbf8422413548daddd3389f5bcc76b6d",
+  "hardware_boot_tested": false,
+  "six_speaker_playback_after_reboot": false
+}

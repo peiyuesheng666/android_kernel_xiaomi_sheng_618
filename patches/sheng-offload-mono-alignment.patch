@@ -1,0 +1,18 @@
+--- a/session/src/PayloadBuilder.cpp
++++ b/session/src/PayloadBuilder.cpp
+@@ -640,10 +640,13 @@
+     static_assert(sizeof(apm_module_param_data_t) == 16, "APM header ABI");
+     static_assert(sizeof(param_id_chmixer_coeff_t) == 4, "mixer table header ABI");
+     static_assert(sizeof(chmixer_coeff_t) == 4, "mixer channel header ABI");
+-    const size_t payloadSize = sizeof(apm_module_param_data_t) +
+-            sizeof(param_id_chmixer_coeff_t) + sizeof(chmixer_coeff_t) +
++    // SPF validates every coefficient table at 4-byte alignment. Include
++    // that padding in param_size, separately from the outer 8-byte APM padding.
++    const size_t tableBytes = sizeof(chmixer_coeff_t) +
+             sizeof(uint16_t) * (outputChannels + inputChannels +
+                                outputChannels * inputChannels);
++    const size_t payloadSize = sizeof(apm_module_param_data_t) +
++            sizeof(param_id_chmixer_coeff_t) + ((tableBytes + 3) & ~size_t(3));
+     const size_t padBytes = PAL_PADDING_8BYTE_ALIGN(payloadSize);
+     *payload = nullptr;
+     *size = 0;

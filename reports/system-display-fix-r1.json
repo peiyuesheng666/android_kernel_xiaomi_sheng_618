@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "f0cf462d4ffc4193fa2c6f426ec4635d19d7553cdc13ecfaa770630ed2ad84d1"
+    },
+    {
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "f0a9d448f68ee32a09e3597750089e4c8334f23b4cc42a977ee72768fdd76ed5"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/system-display-fix/20261106T002109813418Z",
+  "base_matches_installed_ota": true,
+  "changed_files": [
+    "etc/build.prop",
+    "overlay/FrameworkResOverlaySheng.apk"
+  ],
+  "default_refresh_rate": 60,
+  "default_peak_refresh_rate": 60,
+  "disable_cwb_idle_fallback": true,
+  "partition_size_unchanged": 1141067776,
+  "readback_content_and_ownership_verified": true,
+  "overlay_only_two_values_changed": true,
+  "avb_image_verified": true,
+  "vbmeta_other_roots_unchanged": true,
+  "vbmeta_flags_preserved": 3,
+  "hardware_boot_tested": false,
+  "vbmeta_all_original_chain_descriptors_preserved": true,
+  "vbmeta_signature_verified": true,
+  "hardware_current_state": "Initial vbmeta omitted vbmeta_system chain; tablet is stopped at red AVB page without USB. Corrected vbmeta is prepared; background repair waits for the verified device endpoint.",
+  "original_vbmeta_flash_sha256": "23722bc5a71639521cf40af28af48b1c25f2b86bb018883cedc481042ed56b32"
+}

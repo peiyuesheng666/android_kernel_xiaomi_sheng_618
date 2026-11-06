@@ -1,0 +1,10 @@
+{
+  "aarch64_static_binary": "/root/sheng-lineage/recovery-r3-tools/serial-init-r7",
+  "transport": "actual QEMU executable and Linux PTY",
+  "bytes_verified": 494667,
+  "sha256": "b69549ba83d173bcfaa421eb965bb2fb4db5f364530301993ca06e3fcb9a0ddc",
+  "ignored_other_command": true,
+  "go_handshake_verified": true,
+  "no_device_modules_or_mounts_executed": true,
+  "usb_hardware_tested": false
+}

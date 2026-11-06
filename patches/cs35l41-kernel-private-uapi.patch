@@ -1,0 +1,19 @@
+--- a/kernel/xiaomi/sm8550-modules/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h
++++ b/kernel/xiaomi/sm8550-modules/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h
+@@ -12,6 +12,9 @@
+ 
+ #ifndef __CS35L41_H
+ #define __CS35L41_H
++
++/* Platform data and driver state are kernel-only, not a userspace ABI. */
++#ifdef __KERNEL__
+ 
+ struct cs35l41_classh_cfg {
+ 	bool classh_bst_override;
+@@ -147,4 +150,6 @@
+ 				struct cs35l41_platform_data *pdata);
+ int cs35l41_remove(struct cs35l41_private *cs35l41);
+ 
++#endif /* __KERNEL__ */
++
+ #endif /* __CS35L41_H */
