@@ -16,6 +16,12 @@ static void inspect(const AcdbBlob *blob) {
         if (header->size > blob->buf_size - offset - sizeof(*header)) break;
         const uint32_t *data = (const void *)(header + 1);
         printf("APM miid=%x param=%x bytes=%u\n", header->miid, header->parameter, header->size);
+        if (header->miid == 0x401d || header->miid == 0x4174 || header->miid == 0x4615) {
+            printf("STOCK_MODULE miid=%x param=%x words=", header->miid, header->parameter);
+            for (uint32_t i = 0; i < header->size / 4 && i < 64; ++i)
+                printf("%s%08x", i ? "," : "", data[i]);
+            puts("");
+        }
         if (header->parameter == 0x08001004 && header->size >= 4) {
             uint32_t count = data[0];
             if (count <= (header->size - 4) / 16) {

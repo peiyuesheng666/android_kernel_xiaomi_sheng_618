@@ -82,3 +82,10 @@ sets both pre-DAP converters to stereo and the post-processing speaker-swap
 converter to quad with the verified physical speaker mapping. It is limited
 to sheng stereo PCM on the speaker TDM backend. DSP format readback and
 live audibility validation are required before adopting this configuration.
+
+With both pre-DAP stages actually stereo, the user verified immediate changes
+from the switch and EQ during continuous playback. This isolates the failing
+quad-input configuration; it does not validate a final quad processing setup.
+The final configuration must preserve the stock four-channel speaker output.
+The ACDB probe also prints bounded calibration values for the converters and
+DAP to distinguish stock formats from PAL's runtime overrides.
