@@ -107,6 +107,7 @@ public final class AtmosApplication extends Application {
         worker.post(() -> {
             try {
                 StockDms.resetProfile(effect, profile);
+                StockDms.setParameter(effect, profile, StockDms.GAINS, new int[20]);
                 SharedPreferences.Editor edit = preferences.edit();
                 for (int parameter : PARAMETERS) edit.remove(key(profile, parameter));
                 edit.apply();
@@ -125,7 +126,12 @@ public final class AtmosApplication extends Application {
     private void restoreParameters(int profile) {
         for (int parameter : PARAMETERS) {
             String saved = preferences.getString(key(profile, parameter), null);
-            if (saved == null) continue;
+            if (saved == null) {
+                // Start unsaved EQ profiles flat without replacing user presets.
+                if (parameter == StockDms.GAINS)
+                    StockDms.setParameter(effect, profile, parameter, new int[20]);
+                continue;
+            }
             String[] parts = saved.split(",");
             int[] values = new int[parts.length];
             for (int i = 0; i < values.length; i++) values[i] = Integer.parseInt(parts[i]);

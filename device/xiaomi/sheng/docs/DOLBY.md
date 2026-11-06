@@ -89,3 +89,7 @@ quad-input configuration; it does not validate a final quad processing setup.
 The final configuration must preserve the stock four-channel speaker output.
 The ACDB probe also prints bounded calibration values for the converters and
 DAP to distinguish stock formats from PAL's runtime overrides.
+
+Unsaved profiles and an explicit profile reset use a flat 20-band EQ (0 dB).
+Existing per-profile saved bands are restored unchanged. This changes EQ
+defaults only, without altering pregain or factory speaker protection.
