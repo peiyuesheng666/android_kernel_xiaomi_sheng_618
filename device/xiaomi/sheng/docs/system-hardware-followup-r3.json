@@ -35,5 +35,15 @@
     60
   ],
   "first_commit_and_reboot_verified": false,
-  "runtime_verified": false
+  "runtime_verified": false,
+  "flash_completed": true,
+  "flashed_serial": "ca10ede3",
+  "flashed_slot": "b",
+  "sys_boot_completed": true,
+  "sensor_hal_init_system_uid_verified": true,
+  "display_first_boot_failed": "White then black with backlight; off/on cycle restored visible system.",
+  "temporary_sensor_process_absent": true,
+  "selinux_enforcing": true,
+  "dolby_preferences_unchanged": true,
+  "flash_evidence": "reports/device/hardware-r3-flash.log"
 }

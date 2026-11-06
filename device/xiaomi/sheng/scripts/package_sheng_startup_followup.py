@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Build the r3 startup delta over the verified r2 vendor/AVB images.
+"""Build a startup delta over the verified r2 vendor/AVB images.
 
 Normal ROM builds install these sources through the device's build rules.
 This local development helper preserves every other installed partition.
 """
 from datetime import datetime, timezone
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import os
@@ -22,7 +23,11 @@ rom = Path('/root/sheng-lineage/lineage-24.0')
 product = rom/'out/target/product/sheng'
 host = rom/'out/host/linux-x86/bin'
 base = workspace/'artifacts/system-hardware-followup-sheng-r2'
-destination = workspace/'artifacts/system-hardware-followup-sheng-r3'
+parser = argparse.ArgumentParser()
+parser.add_argument('--revision', type=int, default=3)
+args = parser.parse_args()
+assert args.revision >= 3
+destination = workspace/f'artifacts/system-hardware-followup-sheng-r{args.revision}'
 assert not destination.exists(), 'Never overwrite a built/flashed revision.'
 build = Path('/root/sheng-lineage/hardware-followup')/datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
 build.mkdir(parents=True)
@@ -168,9 +173,11 @@ report = dict(files=files, work_dir=str(build), base_revision='system-hardware-f
     changed_vendor_files=sorted(changed), compiled_module_inputs={k: sha(v) for k, v in changes.items()},
     partition_sizes_unchanged=True, signatures_verified=True, readback_verified=True,
     all_vendor_inode_metadata_preserved=True, other_avb_descriptors_and_chain_preserved=True,
-    single_canonical_sensor_init_verified=True, built_in_display_supported_hz=[60],
+    single_canonical_sensor_init_verified=True,
+    built_in_display_supported_hz=([60] if args.revision == 3 else [60, 120]),
+    framework_default_and_peak_hz=60,
     first_commit_and_reboot_verified=False, runtime_verified=False)
 (destination/'build-result.json').write_text(json.dumps(report, indent=2)+'\n')
 (destination/'SHA256SUMS').write_text(''.join(f['sha256']+'  '+f['name']+'\n' for f in files))
-(device/'docs/system-hardware-followup-r3.json').write_text(json.dumps(report, indent=2)+'\n')
+(device/f'docs/system-hardware-followup-r{args.revision}.json').write_text(json.dumps(report, indent=2)+'\n')
 print(json.dumps(report, indent=2))

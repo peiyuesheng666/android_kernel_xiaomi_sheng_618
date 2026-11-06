@@ -16,14 +16,21 @@ byte-identical to the freshly fetched upstream commit.
 r2 boot exposed 144 Hz before framework refresh-rate overlays took effect.
 At that mode SDM exhausted composition strategies and returned invalid present
 fences; temporarily selecting the original 60 Hz config restored the display.
-The device-owned composer now selects the native-resolution 60 Hz SDM config
-before publishing a single supported built-in mode, retaining its original ID
-and raw-config mapping. It rejects unadvertised mode switches and leaves
-external displays unchanged. This is a safe bring-up restriction: high refresh
-rates remain unverified and are not presented as fixed. Its first DRM commit,
-boot and suspend/resume still require a rebuilt-image test.
+The r3 experiment selected the 60 Hz SDM config before the first commit.
+System boot and sensor init succeeded, but the panel turned white/black until
+an off/on cycle. This did not pass the display test. The stock kernel reports
+continuous splash enabled, and Qualcomm's HWC requires the DRM preferred mode
+for the first commit.
 
-`scripts/package_sheng_startup_followup.py` produces r3 from the verified r2
+The correction retains the actual preferred boot mode (120 Hz on sheng) along
+with native-resolution 60 Hz, preserving original IDs and the raw-config map.
+It lets the normal HWC path defer the framework's 60 Hz request until after
+the first commit. The 144 Hz mode is excluded, unadvertised switches are
+rejected, and external displays are unchanged. The framework default and peak
+remain 60 Hz. High-refresh support and this corrected cold boot still require
+hardware testing.
+
+`scripts/package_sheng_startup_followup.py` produces startup revisions from the verified r2
 vendor and vbmeta bases. It packages only the compiled composer and both sensor
 init configuration files, verifies every file and inode after EROFS readback,
 and changes only vendor's AVB descriptor. ODM and system_ext remain at r2.
