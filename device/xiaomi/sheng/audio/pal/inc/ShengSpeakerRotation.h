@@ -12,10 +12,10 @@ inline void shengSpeakerPermutation(int degrees, uint8_t outputToInput[4]) {
         {0, 2, 1, 3},  // reverse landscape
         {2, 3, 0, 1},  // portrait, charging port downward
     };
-    // This tablet's physical speaker frame is 90 degrees counterclockwise
-    // from the display's reported frame, as verified by the rotation test.
+    // Absolute calibration: display rotation zero with the USB port on the
+    // right uses [RB, FR, LB, FL]. Derive every other posture from that frame.
     const unsigned index = degrees >= 0 && degrees <= 270 && degrees % 90 == 0
-            ? static_cast<unsigned>((degrees + 270) % 360 / 90) : 3;
+            ? static_cast<unsigned>(degrees / 90) : 0;
     for (unsigned output = 0; output < 4; ++output)
         outputToInput[output] = permutations[index][output];
 }

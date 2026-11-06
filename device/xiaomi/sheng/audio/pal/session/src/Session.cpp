@@ -793,8 +793,8 @@ int Session::handleDeviceRotation(Stream *s, pal_speaker_rotation_type rotation_
                     format.numChannel = 4;
                     format.ch_info = &channelInfo;
                     builder->payloadMFCConfig(&alsaParamData, &alsaPayloadSize, miid, &format);
-                    PAL_INFO(LOG_TAG, "sheng quad output rotation=%d miid=%x map=%u,%u,%u,%u",
-                             degrees, miid, channelInfo.ch_map[0], channelInfo.ch_map[1],
+                    PAL_INFO(LOG_TAG, "sheng quad output rotation=%d stream=%d session=%d miid=%x map=%u,%u,%u,%u",
+                             degrees, sAttr.type, device, miid, channelInfo.ch_map[0], channelInfo.ch_map[1],
                              channelInfo.ch_map[2], channelInfo.ch_map[3]);
                 } else {
                     builder->payloadMFCMixerCoeff((uint8_t **)&alsaParamData,
@@ -1147,6 +1147,44 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
         PAL_ERR(LOG_TAG, "getModuleInstanceId failed");
         if (sAttr.direction == (PAL_AUDIO_INPUT | PAL_AUDIO_OUTPUT))
             status = 0;
+    }
+
+    // Apply the physical order when EVERY speaker graph is configured,
+    // including raw/UI streams and reconnections. Do not rely solely on the
+    // phone's limited list of stream types in its startup rotation branch.
+    if (!strcmp(shengDevice, "sheng") &&
+        property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false) &&
+        dAttr.id == PAL_DEVICE_OUT_SPEAKER && dAttr.config.ch_info.channels == 4 &&
+        sAttr.direction == PAL_AUDIO_OUTPUT && !strcmp(intf, "TDM-LPAIF-RX-SECONDARY")) {
+        uint32_t speakerMiid = 0;
+        int mapStatus = SessionAlsaUtils::getModuleInstanceId(mixer, pcmDevIds.at(0),
+                intf, TAG_MFC_SPEAKER_SWAP, &speakerMiid);
+        if (!mapStatus) {
+            auto rotation = rm->getCurrentRotationType();
+            int degrees = rotation >= PAL_SPEAKER_ROTATION_SHENG_0 &&
+                    rotation <= PAL_SPEAKER_ROTATION_SHENG_270
+                    ? (rotation - PAL_SPEAKER_ROTATION_SHENG_0) * 90
+                    : (rotation == PAL_SPEAKER_ROTATION_RL ? 270 : 0);
+            uint8_t order[4];
+            shengSpeakerPermutation(degrees, order);
+            struct pal_channel_info channelInfo = {};
+            channelInfo.channels = 4;
+            const uint8_t logicalChannels[] = {1, 2, 8, 9};
+            for (unsigned output = 0; output < 4; ++output)
+                channelInfo.ch_map[output] = logicalChannels[order[output]];
+            mfcData.bitWidth = dAttr.config.bit_width;
+            mfcData.sampleRate = dAttr.config.sample_rate;
+            mfcData.numChannel = 4;
+            mfcData.ch_info = &channelInfo;
+            builder->payloadMFCConfig(&payload, &payloadSize, speakerMiid, &mfcData);
+            if (!payload || !payloadSize) { status = -ENOMEM; goto exit; }
+            status = updateCustomPayload(payload, payloadSize);
+            freeCustomPayload(&payload, &payloadSize);
+            if (status) goto exit;
+            PAL_INFO(LOG_TAG, "sheng speaker graph rotation=%d stream=%d session=%d miid=%x map=%u,%u,%u,%u",
+                     degrees, sAttr.type, pcmDevIds.at(0), speakerMiid,
+                     channelInfo.ch_map[0], channelInfo.ch_map[1], channelInfo.ch_map[2], channelInfo.ch_map[3]);
+        }
     }
 
 exit:

@@ -64,6 +64,14 @@ The counterclockwise frame correction compiled in seven PAL tasks; the host
 four-angle channel-integrity check passed. The final fresh-fetch audit in
 `upstream-dolby-rotation-audit.json` passed for all 13 public repositories with
 clean status across 1,243 manifest projects.
+The subsequent absolute-pose calibration pinned USB-right landscape to display
+rotation 0. `[9,2,8,1]` again produced low-left/high-right in that fixed posture;
+the trial 90-degree offset instead gave low-below/high-above. The map now uses
+this USB-right baseline directly. Every newly configured speaker graph receives
+the same order, including raw/UI streams and reconnections, and active quad
+speaker streams are not limited to the upstream phone stream-type list. The
+new baseline/lifecycle candidate is pending a physical retest.
+The absolute-baseline/lifecycle candidate compiled successfully in eight PAL tasks.
 
 The host impulse-routing check passes for four angles. The candidate's full
 hardware build passed after adding the explicit property-interface header to

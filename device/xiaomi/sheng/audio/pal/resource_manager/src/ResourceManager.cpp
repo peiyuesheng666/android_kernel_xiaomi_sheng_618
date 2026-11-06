@@ -10448,7 +10448,9 @@ int ResourceManager::handleDeviceRotationChange (pal_param_device_rotation_t
                  * 2. PCM offload
                  * 3. Compressed
                  */
-                if ((PAL_STREAM_DEEP_BUFFER == streamType) ||
+                if ((dattr.config.ch_info.channels == 4 &&
+                     property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false)) ||
+                    (PAL_STREAM_DEEP_BUFFER == streamType) ||
                     (PAL_STREAM_COMPRESSED == streamType) ||
                     (PAL_STREAM_PCM_OFFLOAD == streamType) ||
                     (PAL_STREAM_ULTRA_LOW_LATENCY == streamType) ||
