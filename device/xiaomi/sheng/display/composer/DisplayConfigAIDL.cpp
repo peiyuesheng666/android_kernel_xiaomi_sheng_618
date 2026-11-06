@@ -280,7 +280,7 @@ ScopedAStatus DisplayConfigAIDL::setIdleTimeout(int value) {
 }
 
 ScopedAStatus DisplayConfigAIDL::getHDRCapabilities(DisplayType dpy, HDRCapsParams* caps) {
-  int error = -EINVAL;
+  [[maybe_unused]] int error = -EINVAL;
 
   do {
     int disp_id = MapDisplayType(dpy);
@@ -428,7 +428,7 @@ ScopedAStatus DisplayConfigAIDL::setLayerAsMask(int dispId, long layerId) {
 ScopedAStatus DisplayConfigAIDL::getDebugProperty(const std::string& propName,
                                                   std::string* value) {
   std::string vendor_prop_name = DISP_PROP_PREFIX;
-  int error = -EINVAL;
+  [[maybe_unused]] int error = -EINVAL;
   char val[64] = {};
 
   vendor_prop_name += propName.c_str();

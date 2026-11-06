@@ -298,7 +298,6 @@ void HWCToneMapper::DumpToneMapOutput(ToneMapSession *session, shared_ptr<Fence>
     return;
   }
 
-  size_t result = 0;
   char dump_file_name[PATH_MAX];
   uint32_t width, height, size = 0;
   buffer_allocator_->GetWidth((void *)target_buffer, width);
@@ -314,7 +313,7 @@ void HWCToneMapper::DumpToneMapOutput(ToneMapSession *session, shared_ptr<Fence>
     FILE* fp = fopen(dump_file_name, "w+");
     if (fp) {
       DLOGI("base addr = %p", base_ptr);
-      result = fwrite(base_ptr, size, 1, fp);
+      (void)fwrite(base_ptr, size, 1, fp);
       fclose(fp);
     }
   }
