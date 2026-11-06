@@ -15,5 +15,6 @@ byte-identical to the freshly fetched upstream commit.
 
 The observed one-to-two-second backlight interval during recovery/Android
 startup remains a separate issue. This migration preserves the existing boot
-fix; it does not claim to eliminate that interval. The device-module rebuild
-and flashed-image regression test are pending.
+fix; it does not claim to eliminate that interval. The device modules compiled
+successfully and the images were flashed to slot b on 2026-11-06. Boot and
+hardware regression checks remain pending while ADB is unavailable after reboot.

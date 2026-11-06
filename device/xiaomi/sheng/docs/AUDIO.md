@@ -18,4 +18,6 @@ export and C90 checks remain enabled.
 Previously tested device behavior includes six-speaker PCM, mono/stereo MP3
 and AAC offload, left/right channel isolation, volume, pause/resume and reboot.
 Rebuilding these fixes as device-owned modules is a separate validation step.
-The current migration build and flashed-image retest are pending.
+The device-owned migration modules compiled successfully and the validated
+images were flashed to slot b on 2026-11-06. Boot and hardware regression
+checks remain pending while ADB is unavailable after reboot.
