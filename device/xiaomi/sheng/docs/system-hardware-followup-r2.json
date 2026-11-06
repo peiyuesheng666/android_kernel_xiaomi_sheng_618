@@ -1,0 +1,121 @@
+{
+  "files": [
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "ad30430f551ddef2f762e0800bcca97f389be6a97f5f69f737c186736d02adf5"
+    },
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "9f8cbc7ee5603773a1d7d0b603027d921e5d06a95e4f3fa8fbcf91fe636367ab"
+    },
+    {
+      "partition": "system_ext",
+      "name": "system_ext.img",
+      "bytes": 469995788,
+      "sha256": "6fc35a1aaf69450f9540ae4d297b2b643dfef9801eeda98ba2bf4bb334a47916"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "a81f46817a109441ec8e5a6495b2d953ee00dc28799b65c0ecf61e20755f2400"
+    },
+    {
+      "partition": "vbmeta_system",
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "56a22ad46eb3eaeb39bfcefa144c63b2a531a975d77ff6513beca4cd6dc450a7"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/hardware-followup/20261106T151319132950Z",
+  "changed_vendor_files": [
+    "bin/hw/android.hardware.sensors-service.sheng-multihal",
+    "bin/hw/android.hardware.sensors-service.xiaomi-multihal",
+    "bin/hw/vendor.qti.hardware.display.allocator-service",
+    "bin/hw/vendor.qti.hardware.display.allocator-service-sheng",
+    "bin/hw/vendor.qti.hardware.display.composer-service",
+    "bin/hw/vendor.qti.hardware.display.composer-service-sheng",
+    "bin/hw/vendor.qti.hardware.vibrator.service",
+    "etc/displayconfig/display_id_4630947038039379843.xml",
+    "etc/init/android.hardware.sensors-service.sheng-multihal.rc",
+    "etc/init/android.hardware.sensors-service.xiaomi-multihal.rc",
+    "etc/init/vendor.qti.hardware.display.allocator-service-sheng.rc",
+    "etc/init/vendor.qti.hardware.display.allocator-service.rc",
+    "etc/init/vendor.qti.hardware.display.composer-service-sheng.rc",
+    "etc/init/vendor.qti.hardware.display.composer-service.rc",
+    "etc/init/vendor.qti.hardware.vibrator.service.rc",
+    "etc/selinux/vendor_file_contexts",
+    "etc/vintf/manifest/vendor.qti.hardware.display.allocator-service-sheng.xml",
+    "etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml",
+    "etc/vintf/manifest/vendor.qti.hardware.vibrator.service.xml",
+    "lib64/hw/libshgdolby_foundation.so",
+    "lib64/hw/vibrator.default.so",
+    "lib64/libar-pal.so",
+    "lib64/libdlbdsservice.so",
+    "lib64/soundfx/libhwdap.so"
+  ],
+  "changed_system_ext_files": [
+    "priv-app/ShengDolby/ShengDolby.apk"
+  ],
+  "removed_fake_vibrator_files": [
+    "bin/hw/vendor.qti.hardware.vibrator.service",
+    "etc/init/vendor.qti.hardware.vibrator.service.rc",
+    "etc/vintf/manifest/vendor.qti.hardware.vibrator.service.xml",
+    "lib64/hw/vibrator.default.so"
+  ],
+  "removed_superseded_service_files": [
+    "bin/hw/android.hardware.sensors-service.xiaomi-multihal",
+    "bin/hw/vendor.qti.hardware.display.allocator-service",
+    "bin/hw/vendor.qti.hardware.display.composer-service",
+    "etc/init/android.hardware.sensors-service.xiaomi-multihal.rc",
+    "etc/init/vendor.qti.hardware.display.allocator-service.rc",
+    "etc/init/vendor.qti.hardware.display.composer-service.rc",
+    "etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml"
+  ],
+  "changed_odm_files": [
+    "etc/selinux/precompiled_sepolicy",
+    "overlay/FrameworkResOverlaySheng.apk"
+  ],
+  "partition_sizes_unchanged": true,
+  "signatures_verified": true,
+  "other_avb_descriptors_and_chain_preserved": true,
+  "readback_verified": true,
+  "unrelated_vendor_metadata_unchanged": true,
+  "unrelated_odm_metadata_unchanged": true,
+  "renamed_service_metadata_preserved": true,
+  "native_device_pal_input_verified": true,
+  "compiled_precompiled_policy_included": true,
+  "platform_policy_ids_matched_base": true,
+  "compiled_module_inputs": {
+    "lib64/libar-pal.so": "a7f3c2d24ac8bd40989a70890b4a247886fc854432714e0ed7d452f5ea513f11",
+    "lib64/hw/libshgdolby_foundation.so": "97a7b4b29feb486a2f2cfd62ea289563129fee2a6be8ab9b6750a3f0ba2ea3c9",
+    "lib64/libdlbdsservice.so": "8ebcb388211456a1650a2b1574fa75b8dbce1bbbd2d54e7a917238d936775441",
+    "lib64/soundfx/libhwdap.so": "6574b00b37c369a52323902b2a7cee8d433240cfa026d0930f90e08d8d49fd87",
+    "bin/hw/android.hardware.sensors-service.sheng-multihal": "e707c1113a2d1ee8c66a2ba5c256cd31e5b5b9d9674ffbab4c6c06789842e197",
+    "bin/hw/vendor.qti.hardware.display.composer-service-sheng": "91b561afcdb433cb4f15bb69a3de72c9d34c195c4df5c600e52078736c46441b",
+    "bin/hw/vendor.qti.hardware.display.allocator-service-sheng": "e33c964317348267dfa2e66487ff223edce2cdf7d718fd39a655bcc56c0ba31f",
+    "etc/init/android.hardware.sensors-service.sheng-multihal.rc": "1a5cecf37e14bfb9d5793302b33a36f24a6326b68c9a7c80a42f735f84982753",
+    "etc/init/vendor.qti.hardware.display.composer-service-sheng.rc": "6d9d89132d47aab4c2c5a37c56a77317932371013f0bd1af54ae93cdb4e2c288",
+    "etc/init/vendor.qti.hardware.display.allocator-service-sheng.rc": "448deecf303ae3f1eb8b0fba11537545b80bf6c5f624e9c47a54676f93ad0803",
+    "etc/vintf/manifest/vendor.qti.hardware.display.allocator-service-sheng.xml": "b430129a21445f809e7feacb665cab1ab116b858d615a7fd7d884c5bd3c2d524",
+    "etc/selinux/vendor_file_contexts": "793a34ab11ef9ac27ab6d1e7b600fccc6475944097d3633b26ab537e5bd92e69",
+    "etc/selinux/vendor_sepolicy.cil": "3212b7455cf18360625c4a12d6d4325d777fa10f3b4431b59aaf2e0ee1c53779",
+    "etc/displayconfig/display_id_4630947038039379843.xml": "265bcb6a3d00c9bfbf6d676306514ffadbe3e3efddeb238bca82f53a7f28d4be"
+  },
+  "compiled_odm_inputs": {
+    "overlay/FrameworkResOverlaySheng.apk": "631d1de16c28580b9bf99073ba91800464a33fe6f19c6625b9a728799bfb7200",
+    "etc/selinux/precompiled_sepolicy": "a38b6edde67db6db580c73946339ec7c8d8f2e47a4c941661c30aeccbe9a08eb",
+    "etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256": "152105f88754b281b2400f2ad367095d8e9e38dceaed41532ef7ed811842a3f9",
+    "etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256": "0a2371f03e40b4a5aeeaac8a8a806ce9fe62c4d944e99a4c18c58314c6d7272d",
+    "etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256": "01972f9ecc09950d7bddd58881c7194bccb16c695f47756777334ff85bc16d1a"
+  },
+  "compiled_system_ext_apk_sha256": "01c37b0a99c72b91a704a7e189d2bdd870a0dba0c37a95fe8fd6724de775cbdc",
+  "dolby_apk_signing_certificates_preserved": [
+    "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8"
+  ],
+  "hardware_boot_tested": false
+}

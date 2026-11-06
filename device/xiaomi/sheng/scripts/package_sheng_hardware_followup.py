@@ -26,7 +26,8 @@ destination = workspace/'artifacts/system-hardware-followup-sheng-r2'
 assert not destination.exists(), 'Never overwrite a built/flashed revision.'
 build = Path('/root/sheng-lineage/hardware-followup')/datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
 build.mkdir(parents=True)
-environment = dict(os.environ, PATH=str(host)+':'+os.environ['PATH'])
+environment = dict(os.environ, PATH=str(host)+':'+os.environ['PATH'],
+                   LANG='C.UTF-8', LC_ALL='C.UTF-8')
 
 def sha(path):
     digest = hashlib.sha256()
@@ -65,6 +66,15 @@ run([host/'fsck.erofs', '-d0', '--extract='+str(vendor), '--preserve', audio_bas
     stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 before_vendor = contents(vendor)
 before_metadata = vendor_metadata(vendor)
+renamed_services = {
+    'bin/hw/android.hardware.sensors-service.sheng-multihal': 'bin/hw/android.hardware.sensors-service.xiaomi-multihal',
+    'bin/hw/vendor.qti.hardware.display.composer-service-sheng': 'bin/hw/vendor.qti.hardware.display.composer-service',
+    'bin/hw/vendor.qti.hardware.display.allocator-service-sheng': 'bin/hw/vendor.qti.hardware.display.allocator-service',
+    'etc/init/android.hardware.sensors-service.sheng-multihal.rc': 'etc/init/android.hardware.sensors-service.xiaomi-multihal.rc',
+    'etc/init/vendor.qti.hardware.display.composer-service-sheng.rc': 'etc/init/vendor.qti.hardware.display.composer-service.rc',
+    'etc/init/vendor.qti.hardware.display.allocator-service-sheng.rc': 'etc/init/vendor.qti.hardware.display.allocator-service.rc',
+    'etc/vintf/manifest/vendor.qti.hardware.display.allocator-service-sheng.xml': 'etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml',
+}
 changes = {
     relative: product/'vendor'/relative for relative in (
         'lib64/libar-pal.so',
@@ -83,6 +93,10 @@ changes = {
     )
 }
 changes['etc/displayconfig/display_id_4630947038039379843.xml'] = device/'configs/displayconfig/display_id_4630947038039379843.xml'
+# The preferred installation must contain this build's native device module.
+native_pal = list((rom/'out/soong/.intermediates/device/xiaomi/sheng/audio/pal/libar-pal-sheng').glob('android_vendor_*_shared/libar-pal.so'))
+assert len(native_pal) == 1, native_pal
+assert sha(native_pal[0]) == sha(changes['lib64/libar-pal.so'])
 expected_libs = {
     'libshgdolby_foundation.so':'97a7b4b29feb486a2f2cfd62ea289563129fee2a6be8ab9b6750a3f0ba2ea3c9',
     'libdlbdsservice.so':'8ebcb388211456a1650a2b1574fa75b8dbce1bbbd2d54e7a917238d936775441',
@@ -105,45 +119,44 @@ removed_fake_vibrator = [
     'etc/vintf/manifest/vendor.qti.hardware.vibrator.service.xml',
     'lib64/hw/vibrator.default.so',
 ]
-removed = removed_fake_vibrator + [
-    'bin/hw/android.hardware.sensors-service.xiaomi-multihal',
-    'bin/hw/vendor.qti.hardware.display.composer-service',
-    'bin/hw/vendor.qti.hardware.display.allocator-service',
-    'etc/init/android.hardware.sensors-service.xiaomi-multihal.rc',
-    'etc/init/vendor.qti.hardware.display.composer-service.rc',
-    'etc/init/vendor.qti.hardware.display.allocator-service.rc',
-    'etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml',
-]
+removed = removed_fake_vibrator + list(renamed_services.values())
 for relative in removed:
     assert (vendor/relative).is_file(), relative
     (vendor/relative).unlink()
 fc_line = r'/(vendor|system/vendor)/lib64/hw/libshgdolby_foundation\.so    u:object_r:vendor_file:s0'
 vendor_fc = vendor/'etc/selinux/vendor_file_contexts'
-assert fc_line in vendor_fc.read_text()
+assert any(line.split() == fc_line.split() for line in vendor_fc.read_text().splitlines())
 after_vendor = contents(vendor)
 vendor_changed = {key for key in before_vendor.keys() | after_vendor.keys()
                   if before_vendor.get(key) != after_vendor.get(key)}
 expected_vendor_changes = {key for key in changes if before_vendor.get(key) != after_vendor.get(key)} | set(removed)
 assert vendor_changed == expected_vendor_changes, vendor_changed
 
-# Compile the identical packaging contexts with one precise new-library rule.
-# Other HAL labels, including graphics, remain unchanged.
+# Use this build's merged packaging contexts, including the new service names.
 combined = rom/'out/soong/.intermediates/system/sepolicy/file_contexts.concat.tmp/android_common/gen/file_contexts.concat.tmp'
 fc = build/'file_contexts'
 fc.write_text(combined.read_text())
-assert fc_line in fc.read_text()
+assert any(line.split() == fc_line.split() for line in fc.read_text().splitlines())
 run([host/'sefcontext_compile', '-o', build/'file_contexts.bin', fc])
 vendor_config = product/'obj/PACKAGING/target_files_intermediates/lineage_sheng-target_files/META/vendor_filesystem_config.txt'
 config = build/'vendor_filesystem_config.txt'
-config.write_text(vendor_config.read_text().rstrip()+'\n'+
-    'vendor/etc/displayconfig 0 0 755 capabilities=0x0\n'+
-    'vendor/etc/displayconfig/display_id_4630947038039379843.xml 0 0 644 capabilities=0x0\n'+
-    'vendor/lib64/hw/libshgdolby_foundation.so 0 0 644 capabilities=0x0\n')
-with config.open('a') as stream:
-    for relative in changes:
-        if relative.startswith(('bin/', 'etc/init/', 'etc/vintf/')):
-            mode = '755' if relative.startswith('bin/') else '644'
-            stream.write('vendor/'+relative+' 0 0 '+mode+' capabilities=0x0\n')
+config_entries = {}
+for line in vendor_config.read_text().splitlines():
+    if line.strip():
+        key = line.split()[0]
+        assert key not in config_entries, key
+        config_entries[key] = line
+for relative, previous in renamed_services.items():
+    # Keep the original root:shell ownership, modes and capabilities of HALs.
+    old_fields = config_entries['vendor/'+previous].split()
+    config_entries['vendor/'+relative] = ' '.join(['vendor/'+relative]+old_fields[1:])
+for line in (
+    'vendor/etc/displayconfig 0 0 755 capabilities=0x0',
+    'vendor/etc/displayconfig/display_id_4630947038039379843.xml 0 0 644 capabilities=0x0',
+    'vendor/lib64/hw/libshgdolby_foundation.so 0 0 644 capabilities=0x0',
+):
+    config_entries[line.split()[0]] = line
+config.write_text('\n'.join(config_entries[key] for key in sorted(config_entries))+'\n')
 
 def build_image(partition, stage, size, fs_config=None, selinux_fc=None):
     packaging = product/'obj/PACKAGING'/(partition+'_intermediates')
@@ -176,7 +189,9 @@ original_inode_metadata = erofs_metadata(audio_base/'vendor.img')
 new_inode_metadata = erofs_metadata(new_vendor)
 inode_metadata_changed = {key for key in original_inode_metadata.keys() & new_inode_metadata.keys()
                           if original_inode_metadata[key] != new_inode_metadata[key]}
-assert inode_metadata_changed <= {'/'+key for key in vendor_changed}, inode_metadata_changed
+assert not inode_metadata_changed, inode_metadata_changed
+for relative, previous in renamed_services.items():
+    assert new_inode_metadata['/'+relative] == original_inode_metadata['/'+previous], relative
 foundation_label = bytes.fromhex(new_inode_metadata['/lib64/hw/libshgdolby_foundation.so']['xattrs']['6:selinux'])
 assert foundation_label.rstrip(b'\0') == b'u:object_r:vendor_file:s0'
 
@@ -189,6 +204,16 @@ run(['debugfs', '-R', 'rdump / '+str(system_ext), raw_base], stdout=subprocess.D
 before_system = contents(system_ext)
 apk = product/'system_ext/priv-app/ShengDolby/ShengDolby.apk'
 apk_path = 'priv-app/ShengDolby/ShengDolby.apk'
+def apk_certificates(path):
+    result = run([rom/'prebuilts/jdk/jdk21/linux-x86/bin/java', '-jar',
+                  rom/'prebuilts/sdk/tools/linux/lib/apksigner.jar',
+                  'verify', '--print-certs', path], cwd=rom, capture_output=True, text=True)
+    digests = [line.split(':', 1)[1].strip() for line in result.stdout.splitlines()
+               if 'certificate SHA-256 digest:' in line]
+    assert digests, path
+    return sorted(digests)
+apk_signing_certificates = apk_certificates(apk)
+assert apk_signing_certificates == apk_certificates(system_ext/apk_path)
 shutil.copyfile(apk, system_ext/apk_path)
 (system_ext/apk_path).chmod(0o644)
 after_system = contents(system_ext)
@@ -212,12 +237,22 @@ run([host/'fsck.erofs', '-d0', '--extract='+str(odm), '--preserve', odm_image],
     stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 before_odm = contents(odm)
 overlay = 'overlay/FrameworkResOverlaySheng.apk'
-shutil.copyfile(product/'odm'/overlay, odm/overlay)
-(odm/overlay).chmod(0o644)
+odm_changes = {overlay: product/'odm'/overlay,
+               'etc/selinux/precompiled_sepolicy': product/'odm/etc/selinux/precompiled_sepolicy'}
+for component in ('plat', 'system_ext', 'product'):
+    relative = 'etc/selinux/precompiled_sepolicy.'+component+'_sepolicy_and_mapping.sha256'
+    source = product/'odm'/relative
+    # The installed public policy inputs must accept this newly compiled policy.
+    assert (odm/relative).read_bytes() == source.read_bytes(), relative
+    odm_changes[relative] = source
+for relative, source in odm_changes.items():
+    shutil.copyfile(source, odm/relative)
+    (odm/relative).chmod(0o644)
 after_odm = contents(odm)
 odm_changed = {key for key in before_odm.keys() | after_odm.keys()
                if before_odm.get(key) != after_odm.get(key)}
-assert odm_changed == {overlay}
+expected_odm_changes = {key for key in odm_changes if before_odm.get(key) != after_odm.get(key)}
+assert odm_changed == expected_odm_changes, odm_changed
 new_odm = build_image('odm', odm, odm_image.stat().st_size)
 assert new_odm.stat().st_size == odm_image.stat().st_size
 odm_readback = build/'odm-readback'
@@ -227,7 +262,7 @@ assert contents(odm_readback) == after_odm
 original_odm_metadata, new_odm_metadata = erofs_metadata(odm_image), erofs_metadata(new_odm)
 odm_metadata_changed = {key for key in original_odm_metadata.keys() & new_odm_metadata.keys()
     if original_odm_metadata[key] != new_odm_metadata[key]}
-assert odm_metadata_changed <= {'/'+overlay}, odm_metadata_changed
+assert not odm_metadata_changed, odm_metadata_changed
 
 sys.path.insert(0, str(rom/'external/avb'))
 import avbtool
@@ -275,7 +310,12 @@ report = dict(files=files, work_dir=str(build), changed_vendor_files=sorted(vend
     changed_odm_files=sorted(odm_changed), partition_sizes_unchanged=True, signatures_verified=True,
     other_avb_descriptors_and_chain_preserved=True, readback_verified=True,
     unrelated_vendor_metadata_unchanged=True, unrelated_odm_metadata_unchanged=True,
+    renamed_service_metadata_preserved=True, native_device_pal_input_verified=True,
+    compiled_precompiled_policy_included=True, platform_policy_ids_matched_base=True,
     compiled_module_inputs={key: sha(value) for key, value in changes.items()},
+    compiled_odm_inputs={key: sha(value) for key, value in odm_changes.items()},
+    compiled_system_ext_apk_sha256=sha(apk),
+    dolby_apk_signing_certificates_preserved=apk_signing_certificates,
     hardware_boot_tested=False)
 (destination/'build-result.json').write_text(json.dumps(report, indent=2)+'\n')
 (destination/'SHA256SUMS').write_text(''.join(item['sha256']+'  '+item['name']+'\n' for item in files))
