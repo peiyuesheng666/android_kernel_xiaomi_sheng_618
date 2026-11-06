@@ -753,6 +753,12 @@ int Session::handleDeviceRotation(Stream *s, pal_speaker_rotation_type rotation_
                    (4 == dAttr.config.ch_info.channels &&
                     property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false))) &&
                   (strcmp(dAttr.custom_config.custom_key, "mspp") != 0)) {
+                const bool shengQuadSpeaker = dAttr.config.ch_info.channels == 4 &&
+                        property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false) &&
+                        rxAifBackEnds[i].second == "TDM-LPAIF-RX-SECONDARY";
+                // The stock speaker-swap MFC feeds another MFC which restores
+                // the fixed endpoint order. Rotate only that final stage.
+                mfc_tag = shengQuadSpeaker ? SHENG_FINAL_SPEAKER_MFC_TAG : TAG_MFC_SPEAKER_SWAP;
                  /* Get DevicePP MFC MIID and configure to match to device config */
                  /* This has to be done after sending all mixer controls and
                   * before connect
@@ -769,8 +775,6 @@ int Session::handleDeviceRotation(Stream *s, pal_speaker_rotation_type rotation_
                 PAL_DBG(LOG_TAG, "miid : %x id = %d, data %s, dev id = %d\n", miid,
                     device, rxAifBackEnds[i].second.data(), dAttr.id);
 
-                const bool shengQuadSpeaker = dAttr.config.ch_info.channels == 4 &&
-                        property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false);
                 if (rm->activeGroupDevConfig && !shengQuadSpeaker) {
                     if (rm->activeGroupDevConfig->devpp_mfc_cfg.channels)
                         dAttr.config.ch_info.channels =rm->activeGroupDevConfig->devpp_mfc_cfg.channels;
@@ -784,7 +788,7 @@ int Session::handleDeviceRotation(Stream *s, pal_speaker_rotation_type rotation_
                     shengSpeakerPermutation(degrees, order);
                     struct pal_channel_info channelInfo = {};
                     channelInfo.channels = 4;
-                    const uint8_t logicalChannels[] = {1, 2, 8, 9}; // FL, FR, LB, RB
+                    const uint8_t logicalChannels[] = {1, 2, 4, 5};
                     for (unsigned output = 0; output < 4; ++output)
                         channelInfo.ch_map[output] = logicalChannels[order[output]];
                     struct sessionToPayloadParam format = {};
@@ -793,7 +797,7 @@ int Session::handleDeviceRotation(Stream *s, pal_speaker_rotation_type rotation_
                     format.numChannel = 4;
                     format.ch_info = &channelInfo;
                     builder->payloadMFCConfig(&alsaParamData, &alsaPayloadSize, miid, &format);
-                    PAL_INFO(LOG_TAG, "sheng quad output rotation=%d stream=%d session=%d miid=%x map=%u,%u,%u,%u",
+                    PAL_INFO(LOG_TAG, "sheng final quad output rotation=%d stream=%d session=%d miid=%x map=%u,%u,%u,%u",
                              degrees, sAttr.type, device, miid, channelInfo.ch_map[0], channelInfo.ch_map[1],
                              channelInfo.ch_map[2], channelInfo.ch_map[3]);
                 } else {
@@ -1158,7 +1162,7 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
         sAttr.direction == PAL_AUDIO_OUTPUT && !strcmp(intf, "TDM-LPAIF-RX-SECONDARY")) {
         uint32_t speakerMiid = 0;
         int mapStatus = SessionAlsaUtils::getModuleInstanceId(mixer, pcmDevIds.at(0),
-                intf, TAG_MFC_SPEAKER_SWAP, &speakerMiid);
+                intf, SHENG_FINAL_SPEAKER_MFC_TAG, &speakerMiid);
         if (!mapStatus) {
             auto rotation = rm->getCurrentRotationType();
             int degrees = rotation >= PAL_SPEAKER_ROTATION_SHENG_0 &&
@@ -1169,7 +1173,7 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
             shengSpeakerPermutation(degrees, order);
             struct pal_channel_info channelInfo = {};
             channelInfo.channels = 4;
-            const uint8_t logicalChannels[] = {1, 2, 8, 9};
+            const uint8_t logicalChannels[] = {1, 2, 4, 5};
             for (unsigned output = 0; output < 4; ++output)
                 channelInfo.ch_map[output] = logicalChannels[order[output]];
             mfcData.bitWidth = dAttr.config.bit_width;
@@ -1181,7 +1185,7 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
             status = updateCustomPayload(payload, payloadSize);
             freeCustomPayload(&payload, &payloadSize);
             if (status) goto exit;
-            PAL_INFO(LOG_TAG, "sheng speaker graph rotation=%d stream=%d session=%d miid=%x map=%u,%u,%u,%u",
+            PAL_INFO(LOG_TAG, "sheng final speaker graph rotation=%d stream=%d session=%d miid=%x map=%u,%u,%u,%u",
                      degrees, sAttr.type, pcmDevIds.at(0), speakerMiid,
                      channelInfo.ch_map[0], channelInfo.ch_map[1], channelInfo.ch_map[2], channelInfo.ch_map[3]);
         }

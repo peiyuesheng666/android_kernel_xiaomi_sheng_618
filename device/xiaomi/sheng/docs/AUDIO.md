@@ -27,59 +27,37 @@ remains under investigation; audibility of that effect is a separate check.
 
 ## Four-angle speaker rotation candidate (2026-11-07)
 
-The user identified fixed portrait channel placement when the display was in
-landscape. The upstream phone HAL collapses 0/90/180 into LR and only sends
-RL for 270; upstream PAL skips rotation for devices with four channels.
-`audio/rotation` adds a small primary HAL adapter selected by
-`ro.hardware.audio.primary=sheng`. It delegates all audio callbacks to the
-unchanged compiled `audio.primary.kalama` and forwards the complete display
-angle to the device-owned PAL instead of the phone's two-state request.
-Other parameter keys still reach the original HAL.
+The phone HAL collapses three display angles into one speaker state, and its
+PAL skips quad rotation. `audio/rotation`, selected by
+`ro.hardware.audio.primary=sheng`, delegates to the unchanged upstream
+`audio.primary.kalama` and forwards all four display angles to device-owned
+PAL. Device-only enum values 0x100..0x103 retain the original LR/RL ABI.
 
-The post-DAP MFC output media format uses four unique channel IDs ordered for
-the tablet's physical TDM backend at every angle. This preserves each native
-Dolby channel; it does not reduce Dolby to stereo or copy channels after it.
-Plain PCM and compressed
-paths use the same logical quad order. Rotation is applied to active streams,
-new streams, route reconnections and pause/resume. Existing LR/RL enum values
-are retained, with device-only values 0x100..0x103 added for the four angles.
-The channel probe accepts `on|off` and 1..8 rounds; each round plays left then
-right for five seconds, followed by a ten-second combined segment. This gives
-the physical rotation check time to finish before the test stops.
-Speaker-swap coefficient requests did not change audible placement, including
-the separate native/bypass table experiment. Direct MFC output-format channel
-ordering changed portrait placement to landscape. DSP readback confirmed the
-four unique IDs, and the user verified low tone left/high tone right at display
-rotation zero with `[9,2,8,1]`. The working output-format path replaces the
-unsuccessful four-channel coefficient experiments; generic stereo behavior
-remains as upstream. `ShengSpeakerFormatProbe.c` is the bounded active-MFC
-diagnostic used to establish this ordering. The final format-based candidate
-compiled in eight PAL tasks. Its other angles and Dolby-on behavior are pending.
-The full physical rotation test then identified a 90-degree display/speaker
-frame offset: landscape and portrait placement were interchanged. The user
-specified a counterclockwise correction. The speaker-map lookup now subtracts
-90 degrees from the reported display rotation; this changes audio only and
-still requires the next physical retest.
-The counterclockwise frame correction compiled in seven PAL tasks; the host
-four-angle channel-integrity check passed. The final fresh-fetch audit in
-`upstream-dolby-rotation-audit.json` passed for all 13 public repositories with
-clean status across 1,243 manifest projects.
-The subsequent absolute-pose calibration pinned USB-right landscape to display
-rotation 0. `[9,2,8,1]` again produced low-left/high-right in that fixed posture;
-the trial 90-degree offset instead gave low-below/high-above. The map now uses
-this USB-right baseline directly. Every newly configured speaker graph receives
-the same order, including raw/UI streams and reconnections, and active quad
-speaker streams are not limited to the upstream phone stream-type list. The
-new baseline/lifecycle candidate is pending a physical retest.
-The absolute-baseline/lifecycle candidate compiled successfully in eight PAL tasks.
+The factory path has an MFC tagged `TAG_MFC_SPEAKER_SWAP` (MIID 0x4174),
+additional processing, then a final MFC (MIID 0x4474). The final MFC is exposed
+under stock tag 0xc000003d, despite that tag's generic MSIIR name. Its module
+ID is 0x07001015 and its normal output IDs are 1/2/4/5. Reordering 0x4174
+alone left audible placement fixed. Reordering 0x4474 to [5,2,4,1] produced
+low-left/high-right with the USB port on the right and display rotation 0.
+The user confirmed that bounded live test on 2026-11-07.
 
-The host impulse-routing check passes for four angles. The candidate's full
-hardware build passed after adding the explicit property-interface header to
-SessionAlsaUtils (85 remaining tasks, 1:33). Fresh-fetch public source checks
-also passed. Physical channel/dynamic rotation checks are pending. The preceding
-clean native-quad batch compiled successfully in 266 tasks, with fresh-fetch
-upstream verification passing for all 13 audited public repositories and clean
-status across 1,243 manifest projects. The installed image is still r4.
+The candidate now applies the four unique output IDs at the final MFC for
+active rotations, new speaker streams and route reconnections. The earlier
+MFC retains its normal format. Dolby keeps stereo source input and native
+quad output; the rotation stage permutes four distinct channels at unity gain.
+Other devices retain the upstream stereo-swap behavior. Automatic four-pose,
+Dolby-on, offload and restart validation of this candidate remains pending.
+
+`ShengSpeakerFormatProbe.c` can target the earlier or final stock MFC.
+`ShengSpeakerMatrixProbe.c` tests coefficient tables without changing saved
+Dolby settings. Those matrix experiments did not change audible placement
+and are not used by the production candidate. The channel playback probe
+accepts `on|off` and 1..8 rounds and does not alter saved mode or EQ.
+
+The preceding complete hardware build and fresh-fetch public source audit
+passed for 13 audited repositories and 1,243 clean manifest projects. The
+installed permanent image remains r4; newer rotation work is temporarily
+loaded and requires successful device validation before packaging.
 
 `scripts/package_sheng_dolby_followup.py` prepares an optional r5-or-later
 development image over the exact installed r4 vendor/AVB and r2 ODM/system_ext
