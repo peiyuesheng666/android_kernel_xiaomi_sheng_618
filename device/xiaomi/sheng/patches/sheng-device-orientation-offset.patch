@@ -1,0 +1,29 @@
+diff --git a/aidl/sensors/HalProxyCallback.cpp b/aidl/sensors/HalProxyCallback.cpp
+index 8e8a95a..3c702eb 100644
+--- a/aidl/sensors/HalProxyCallback.cpp
++++ b/aidl/sensors/HalProxyCallback.cpp
+@@ -17,6 +17,7 @@
+ #include "HalProxyCallback.h"
+ 
+ #include <cinttypes>
++#include <android-base/properties.h>
+ 
+ namespace android {
+ namespace hardware {
+@@ -74,6 +75,16 @@ std::vector<V2_1::Event> HalProxyCallbackBase::processEvents(const std::vector<V
+         }
+         const V2_1::SensorInfo& sensor = mCallback->getSensorInfo(event.sensorHandle);
+ 
++        // sheng's stock device-orientation algorithm uses portrait zero,
++        // while its built-in display uses landscape zero. Adjust only this
++        // discrete rotation event; do not rewrite calibrated motion samples.
++        static const bool landscape_orientation =
++                ::android::base::GetProperty("ro.product.vendor.device", "") == "sheng";
++        if (landscape_orientation && sensor.type == V2_1::SensorType::DEVICE_ORIENTATION &&
++            event.u.scalar >= 0 && event.u.scalar <= 3) {
++            event.u.scalar = (static_cast<int>(event.u.scalar) + 3) % 4;
++        }
++
+         if (sensor.type == V2_1::SensorType::PICK_UP_GESTURE && event.u.scalar != 1) {
+             continue;
+         }
