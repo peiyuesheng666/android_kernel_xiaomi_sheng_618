@@ -1,0 +1,11 @@
+cc_library_shared {
+    name: "audio.primary.sheng",
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    srcs: ["ShengAudioRotation.cpp"],
+    header_libs: ["libhardware_headers", "libaudio_system_headers", "libarpal-sheng-headers"],
+    shared_libs: ["libar-pal", "libcutils", "libdl", "liblog"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+    required: ["audio.primary.kalama"],
+}

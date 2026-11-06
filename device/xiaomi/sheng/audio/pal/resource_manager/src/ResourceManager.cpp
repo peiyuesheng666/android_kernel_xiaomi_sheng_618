@@ -10429,7 +10429,9 @@ int ResourceManager::handleDeviceRotationChange (pal_param_device_rotation_t
         PAL_INFO(LOG_TAG, "Device Got %d with channel %d",deviceId,
                                                  dattr.config.ch_info.channels);
         if ((PAL_DEVICE_OUT_SPEAKER == deviceId) &&
-            (2 == dattr.config.ch_info.channels)) {
+            ((2 == dattr.config.ch_info.channels) ||
+             (4 == dattr.config.ch_info.channels &&
+              property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false)))) {
 
             PAL_INFO(LOG_TAG, "Device is Stereo Speaker");
             std::vector <Stream *> activeStreams;
@@ -10552,7 +10554,15 @@ int ResourceManager::SetOrientationCal(pal_param_device_rotation_t
     std::vector<Stream*> activestreams;
     int status = 0;
     PAL_INFO(LOG_TAG, "Device Rotation Changed %d", rotation_type.rotation_type);
-    rm->mOrientation = rotation_type.rotation_type == PAL_SPEAKER_ROTATION_LR ? ORIENTATION_0 : ORIENTATION_270;
+    if (rotation_type.rotation_type >= PAL_SPEAKER_ROTATION_SHENG_0 &&
+        rotation_type.rotation_type <= PAL_SPEAKER_ROTATION_SHENG_270) {
+        static const uint32_t orientations[] = {
+            ORIENTATION_0, ORIENTATION_90, ORIENTATION_180, ORIENTATION_270,
+        };
+        rm->mOrientation = orientations[rotation_type.rotation_type - PAL_SPEAKER_ROTATION_SHENG_0];
+    } else {
+        rm->mOrientation = rotation_type.rotation_type == PAL_SPEAKER_ROTATION_LR ? ORIENTATION_0 : ORIENTATION_270;
+    }
 
     /**Get the active device list and check if speaker is present.
      */

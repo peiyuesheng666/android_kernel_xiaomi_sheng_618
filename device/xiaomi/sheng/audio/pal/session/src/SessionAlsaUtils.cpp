@@ -2283,15 +2283,16 @@ int SessionAlsaUtils::connectSessionDevice(Session* sess, Stream* streamHandle, 
 
                 if (strcmp(dAttr.custom_config.custom_key, "mspp") &&
                     dAttr.id == PAL_DEVICE_OUT_SPEAKER &&
-                    dAttr.config.ch_info.channels == 2 &&
+                    (dAttr.config.ch_info.channels == 2 ||
+                     (dAttr.config.ch_info.channels == 4 &&
+                      property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false))) &&
                     ((sAttr.type == PAL_STREAM_LOW_LATENCY) ||
                     (sAttr.type == PAL_STREAM_ULTRA_LOW_LATENCY) ||
                     (sAttr.type == PAL_STREAM_PCM_OFFLOAD) ||
                     (sAttr.type == PAL_STREAM_DEEP_BUFFER) ||
                     (sAttr.type == PAL_STREAM_COMPRESSED))) {
                     pal_param_device_rotation_t rotation;
-                    rotation.rotation_type = rm->mOrientation == ORIENTATION_270 ?
-                                            PAL_SPEAKER_ROTATION_RL : PAL_SPEAKER_ROTATION_LR;
+                    rotation.rotation_type = rm->getCurrentRotationType();
                     status = sess->setParameters(streamHandle, 0, PAL_PARAM_ID_DEVICE_ROTATION, &rotation);
                     if (status != 0) {
                         PAL_ERR(LOG_TAG,"handleDeviceRotation failed");

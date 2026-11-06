@@ -55,6 +55,7 @@ PRODUCT_PACKAGES += \
     audioadsprpcd \
     android.hardware.audio.service \
     audio.primary.kalama \
+    audio.primary.sheng \
     sound_trigger.primary.kalama \
     libagm_compress_plugin \
     libagm_mixer_plugin \

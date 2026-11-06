@@ -1665,8 +1665,7 @@ int SessionAlsaCompress::start(Stream * s)
             }
         } else {
             pal_param_device_rotation_t rotation;
-            rotation.rotation_type = rm->mOrientation == ORIENTATION_270 ?
-                                    PAL_SPEAKER_ROTATION_RL : PAL_SPEAKER_ROTATION_LR;
+            rotation.rotation_type = rm->getCurrentRotationType();
             status = handleDeviceRotation(s, rotation.rotation_type, compressDevIds.at(0), mixer,
                                           builder, rxAifBackEnds);
             if (status != 0) {

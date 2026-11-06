@@ -748,7 +748,9 @@ int Session::handleDeviceRotation(Stream *s, pal_speaker_rotation_type rotation_
              }
 
              if ((PAL_DEVICE_OUT_SPEAKER == dAttr.id) &&
-                  (2 == dAttr.config.ch_info.channels) &&
+                  ((2 == dAttr.config.ch_info.channels) ||
+                   (4 == dAttr.config.ch_info.channels &&
+                    property_get_bool("vendor.audio.sheng.stereo_quad_coeff", false))) &&
                   (strcmp(dAttr.custom_config.custom_key, "mspp") != 0)) {
                  /* Get DevicePP MFC MIID and configure to match to device config */
                  /* This has to be done after sending all mixer controls and
@@ -774,6 +776,10 @@ int Session::handleDeviceRotation(Stream *s, pal_speaker_rotation_type rotation_
                                             &alsaPayloadSize, miid,
                                             dAttr.config.ch_info.channels,
                                             rotation_type);
+
+                if (dAttr.config.ch_info.channels == 4)
+                    PAL_INFO(LOG_TAG, "sheng quad rotation=%d miid=%x payload=%zu",
+                             rotation_type, miid, alsaPayloadSize);
 
                 if (alsaPayloadSize) {
                     status = updateCustomPayload(alsaParamData, alsaPayloadSize);

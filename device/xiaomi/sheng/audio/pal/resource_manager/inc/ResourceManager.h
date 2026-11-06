@@ -507,7 +507,7 @@ protected:
     bool use_lpi_;
     bool current_concurrent_state_;
     bool is_ICL_config_;
-    pal_speaker_rotation_type rotation_type_;
+    pal_speaker_rotation_type rotation_type_ = PAL_SPEAKER_ROTATION_LR;
     bool isDeviceSwitch = false;
     static std::mutex mResourceManagerMutex;
     static std::mutex mGraphMutex;

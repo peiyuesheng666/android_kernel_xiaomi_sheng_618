@@ -1087,9 +1087,14 @@ typedef enum {
                                * is at angle 0, 90 or 180 degree.
                                */
 
-    PAL_SPEAKER_ROTATION_RL   /* This will be set if device is rotated by 270
+    PAL_SPEAKER_ROTATION_RL,  /* This will be set if device is rotated by 270
                                * degree
                                */
+    // Device-owned extension; preserve the existing LR/RL ABI values.
+    PAL_SPEAKER_ROTATION_SHENG_0 = 0x100,
+    PAL_SPEAKER_ROTATION_SHENG_90,
+    PAL_SPEAKER_ROTATION_SHENG_180,
+    PAL_SPEAKER_ROTATION_SHENG_270,
 } pal_speaker_rotation_type;
 
 /* Payload For ID: PAL_PARAM_ID_DEVICE_ROTATION

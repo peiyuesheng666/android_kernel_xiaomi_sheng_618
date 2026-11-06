@@ -996,8 +996,7 @@ int32_t StreamCompress::resume_l()
 
     if (mStreamAttr->direction == PAL_AUDIO_OUTPUT) {
         pal_param_device_rotation_t rotation;
-        rotation.rotation_type = rm->mOrientation == ORIENTATION_270 ?
-                                PAL_SPEAKER_ROTATION_RL : PAL_SPEAKER_ROTATION_LR;
+        rotation.rotation_type = rm->getCurrentRotationType();
         status = session->setParameters(this, 0, PAL_PARAM_ID_DEVICE_ROTATION, &rotation);
         if (0 != status) {
             PAL_ERR(LOG_TAG, "session setParameters for rotation failed with status %d",

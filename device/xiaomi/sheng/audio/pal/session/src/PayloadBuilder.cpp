@@ -68,6 +68,7 @@
 #define LOG_TAG "PAL: PayloadBuilder"
 #include "ResourceManager.h"
 #include "PayloadBuilder.h"
+#include "ShengSpeakerRotation.h"
 #include "SessionGsl.h"
 #include "StreamSoundTrigger.h"
 #include "spr_api.h"
@@ -290,7 +291,16 @@ void PayloadBuilder::populateChannelMixerCoeff(T pcmChannel, uint8_t numChannel,
     for (int i = 0; i < numCoeff; i++)
         pcmChannel[i] = 0x0000;
 
-    if (rotationType == PAL_SPEAKER_ROTATION_RL) {
+    if (numChannel == 4) {
+        int degrees = rotationType >= PAL_SPEAKER_ROTATION_SHENG_0 &&
+                rotationType <= PAL_SPEAKER_ROTATION_SHENG_270
+                ? (rotationType - PAL_SPEAKER_ROTATION_SHENG_0) * 90
+                : (rotationType == PAL_SPEAKER_ROTATION_RL ? 270 : 0);
+        uint8_t map[4];
+        shengSpeakerPermutation(degrees, map);
+        for (int output = 0; output < 4; ++output)
+            pcmChannel[output * 4 + map[output]] = 0x4000;
+    } else if (rotationType == PAL_SPEAKER_ROTATION_RL) {
         // Swap the channel data
         pcmChannel[1] = 0x4000;
         pcmChannel[2] = 0x4000;
@@ -564,8 +574,9 @@ void PayloadBuilder::payloadMFCMixerCoeff(uint8_t** payload, size_t* size,
     uint16_t* pcmChannel = NULL;
     int numChannels = numCh;
 
-    // Only Stereo Speaker swap is supported
-    if (numChannels != 2)
+    *payload = nullptr;
+    *size = 0;
+    if (numChannels != 2 && numChannels != 4)
         return;
 
     PAL_DBG(LOG_TAG, "Enter");
@@ -574,7 +585,7 @@ void PayloadBuilder::payloadMFCMixerCoeff(uint8_t** payload, size_t* size,
                   sizeof(chmixer_coeff_t) // Only 1 table is being send currently
                   + sizeof(uint16_t) * (numChannels)
                   + sizeof(uint16_t) * (numChannels)
-                  + sizeof(uint16_t) * (numChannels*2);
+                  + sizeof(uint16_t) * (numChannels*numChannels);
     padBytes = PAL_PADDING_8BYTE_ALIGN(payloadSize);
     payloadInfo = (uint8_t*) calloc(1, payloadSize + padBytes);
     if (!payloadInfo) {
@@ -669,12 +680,11 @@ void PayloadBuilder::payloadShengStereoQuadCoeff(uint8_t** payload, size_t* size
     channels += outputChannels;
     populateChannelMap(channels, inputChannels); // FL, FR
     channels += inputChannels;
-    // SPF coefficients have OUTPUT rows and INPUT columns. On sheng the
-    // physical left speakers use TDM slots 0/1 and right speakers use 2/3.
-    // Keep both slots on each physical side on the same stereo input.
-    // Verified with isolated left/right PCM tones; Q14 unity adds no gain.
-    constexpr uint16_t coefficients[] = {0x4000, 0, 0x4000, 0,
-                                        0, 0x4000, 0, 0x4000};
+    // Keep logical FL/FR/LB/RB until the post-DAP speaker mixer. Both the
+    // native Dolby graph and this plain PCM graph then use the same rotation
+    // permutation. SPF coefficients have OUTPUT rows and INPUT columns.
+    constexpr uint16_t coefficients[] = {0x4000, 0, 0, 0x4000,
+                                        0x4000, 0, 0, 0x4000};
     if (inputChannels == 1) {
         // A decoded mono center channel feeds every physical speaker slot.
         for (uint16_t i = 0; i < outputChannels; ++i)

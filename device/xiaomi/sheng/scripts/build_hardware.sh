@@ -51,6 +51,7 @@ if [[ -f "$builder" ]]; then
     trap restore_builder EXIT
 fi
 m -j"$(nproc)" \
+    audio.primary.sheng \
     libar-pal \
     android.hardware.sensors-service.sheng-multihal \
     vendor.qti.hardware.display.composer-service-sheng \
