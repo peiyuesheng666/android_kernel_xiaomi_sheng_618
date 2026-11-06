@@ -85,6 +85,7 @@ changes = {
         'bin/hw/vendor.qti.hardware.display.composer-service-sheng',
         'bin/hw/vendor.qti.hardware.display.allocator-service-sheng',
         'etc/init/android.hardware.sensors-service.sheng-multihal.rc',
+        'etc/init/init.sm8550.rc',
         'etc/init/vendor.qti.hardware.display.composer-service-sheng.rc',
         'etc/init/vendor.qti.hardware.display.allocator-service-sheng.rc',
         'etc/vintf/manifest/vendor.qti.hardware.display.allocator-service-sheng.xml',

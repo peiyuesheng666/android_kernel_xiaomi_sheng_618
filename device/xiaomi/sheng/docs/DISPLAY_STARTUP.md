@@ -23,6 +23,11 @@ external displays unchanged. This is a safe bring-up restriction: high refresh
 rates remain unverified and are not presented as fixed. Its first DRM commit,
 boot and suspend/resume still require a rebuilt-image test.
 
+`scripts/package_sheng_startup_followup.py` produces r3 from the verified r2
+vendor and vbmeta bases. It packages only the compiled composer and both sensor
+init configuration files, verifies every file and inode after EROFS readback,
+and changes only vendor's AVB descriptor. ODM and system_ext remain at r2.
+
 The observed one-to-two-second backlight interval during recovery/Android
 startup remains a separate issue. This migration preserves the existing boot
 fix; it does not claim to eliminate that interval. The device modules compiled
