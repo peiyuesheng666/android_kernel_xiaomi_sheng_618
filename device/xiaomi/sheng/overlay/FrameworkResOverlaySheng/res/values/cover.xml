@@ -1,0 +1,4 @@
+<resources>
+    <!-- sheng reports SW_LID through xiaomi-hall; use it for cover sleep. -->
+    <bool name="config_lidControlsSleep">true</bool>
+</resources>
