@@ -33,6 +33,24 @@ public final class ShengDmsStateProbe {
         }
     }
     public static void main(String[] args) throws Exception {
+        if (args.length == 2 && "tuning-select".equals(args[0])) {
+            Object request = PARCEL.getConstructor().newInstance();
+            Object reply = PARCEL.getConstructor().newInstance();
+            try {
+                java.util.ArrayList<Byte> name = new java.util.ArrayList<>();
+                for (byte value : (args[1] + '\0').getBytes("UTF-8")) name.add(value);
+                PARCEL.getMethod("writeInterfaceToken", String.class).invoke(request, DMS);
+                PARCEL.getMethod("writeInt32", int.class).invoke(request, 0);
+                PARCEL.getMethod("writeInt8Vector", java.util.ArrayList.class).invoke(request, name);
+                // Verified from the stock BpHwDms: port, byte vector, transaction 14.
+                TRANSACT.invoke(BINDER, 14, request, reply, 0);
+                PARCEL.getMethod("verifySuccess").invoke(reply);
+                System.out.println("SPEAKER_TUNING_SELECTED=" + args[1]);
+            } finally {
+                PARCEL.getMethod("releaseTemporaryStorage").invoke(request);
+                PARCEL.getMethod("release").invoke(reply);
+            }
+        }
         if (args.length > 0 && "profile-reset".equals(args[0])) {
             Object request = PARCEL.getConstructor().newInstance();
             Object reply = PARCEL.getConstructor().newInstance();
