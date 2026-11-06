@@ -51,15 +51,28 @@ It uses SPF's actual header order (module, parameter, size, error), bounds the
 tag list and responses, and can query either DAP or an explicitly selected MFC.
 The deep-buffer speaker graph has DAP module 0x100108db; both PSPD and device
 PP MFCs currently output four channels, whereas DMS reports a stereo stream.
-A temporary experiment fed DAP stereo and moved quad expansion to the device
-PP MFC. DSP format queries confirmed the change, but the user still heard no
-live effect while all speakers worked. The experiment was reverted; it is
-not part of the product configuration.
+A temporary experiment made PSPD stereo and kept the device PP MFC quad.
+The user still heard no live effect while all speakers worked. Inspecting
+the actual stock topology later showed that both converters precede DAP,
+so that experiment did not establish stereo input to DAP. It was reverted.
 
 The stock media volume listener has EFFECT_FLAG_NO_PROCESS, which the upstream
 AudioFlinger supports. It is restored in the music postprocess chain to feed
 playback activity and volume to PregainSynchronizer without touching PCM.
 The arm64 pregain handler has the same old AHandler layout as DAP (its looper
 pointer is at offset 96). Both pregain and listener now use the device-private
-foundation; their stock dumps and public foundation stay unchanged. Live
-audibility validation is pending.
+foundation; their stock dumps and public foundation stay unchanged. The
+listener was created, enabled and received media volume on the live track.
+The user still heard no effect while all six speakers worked.
+
+Temporary XML binds must use `vendor_configs_file`, matching the original
+file. Labeling them `vendor_file` prevents AudioPolicyEffects from reading
+the music chain, even when the vendor effects service can load its libraries.
+
+`ShengAcdbGraphProbe.c` queries the original calibration in an independent
+process, using only GET commands. The stock topology is serial:
+PSPD MFC 0x40b6 -> mixer -> device PP MFC 0x401d -> DAP 0x4615 ->
+speaker processing -> speaker-swap MFC 0x4174 -> hardware endpoint.
+Build it with `SHENG_PROBE_SOURCE=ShengAcdbGraphProbe.c` and
+`SHENG_PROBE_OUTPUT=sheng-acdb-graph-probe` using the AGM probe build script.
+This confirms connections in calibration, not actual processing audibility.
