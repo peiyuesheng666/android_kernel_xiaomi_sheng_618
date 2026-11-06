@@ -76,3 +76,9 @@ speaker processing -> speaker-swap MFC 0x4174 -> hardware endpoint.
 Build it with `SHENG_PROBE_SOURCE=ShengAcdbGraphProbe.c` and
 `SHENG_PROBE_OUTPUT=sheng-acdb-graph-probe` using the AGM probe build script.
 This confirms connections in calibration, not actual processing audibility.
+
+The default-off diagnostic `vendor.audio.sheng.dap_stereo_stage` explicitly
+sets both pre-DAP converters to stereo and the post-processing speaker-swap
+converter to quad with the verified physical speaker mapping. It is limited
+to sheng stereo PCM on the speaker TDM backend. DSP format readback and
+live audibility validation are required before adopting this configuration.

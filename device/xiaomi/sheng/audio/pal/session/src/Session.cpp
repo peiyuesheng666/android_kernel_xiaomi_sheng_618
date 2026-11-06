@@ -898,6 +898,13 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
     PayloadBuilder* builder = new PayloadBuilder();
     uint32_t miid = 0;
     bool devicePPMFCSet =  true;
+    char shengDevice[PROPERTY_VALUE_MAX] = {};
+    property_get("ro.product.vendor.device", shengDevice, "");
+    const bool dapStereoStage = !strcmp(shengDevice, "sheng") &&
+            property_get_bool("vendor.audio.sheng.dap_stereo_stage", false) &&
+            dAttr.id == PAL_DEVICE_OUT_SPEAKER && !strcmp(intf, "TDM-LPAIF-RX-SECONDARY") &&
+            sAttr.direction == PAL_AUDIO_OUTPUT && isPalPCMFormat(sAttr.out_media_config.aud_fmt_id) &&
+            sAttr.out_media_config.ch_info.channels == 2 && dAttr.config.ch_info.channels == 4;
 
     // clear any cached custom payload
     freeCustomPayload();
@@ -950,6 +957,40 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
     } else if (rm->isDeviceMuxConfigEnabled && (dAttr.id == PAL_DEVICE_OUT_SPEAKER ||
               dAttr.id == PAL_DEVICE_OUT_HANDSET)) {
         setSlotMask(rm, sAttr, dAttr, pcmDevIds);
+    }
+
+    // Diagnostic only: stock topology places device PP MFC immediately before
+    // DAP and speaker-swap MFC after the speaker processing. Both must be
+    // configured explicitly; changing PSPD alone cannot make DAP stereo.
+    if (dapStereoStage) {
+        status = SessionAlsaUtils::getModuleInstanceId(mixer, pcmDevIds.at(0), intf,
+                TAG_DEVICE_PP_MFC, &miid);
+        if (status) goto exit;
+        mfcData.bitWidth = dAttr.config.bit_width;
+        mfcData.sampleRate = dAttr.config.sample_rate;
+        mfcData.numChannel = 2;
+        mfcData.ch_info = nullptr;
+        builder->payloadMFCConfig(&payload, &payloadSize, miid, &mfcData);
+        if (!payload || !payloadSize) { status = -ENOMEM; goto exit; }
+        status = updateCustomPayload(payload, payloadSize);
+        freeCustomPayload(&payload, &payloadSize);
+        if (status) goto exit;
+        PAL_INFO(LOG_TAG, "sheng DAP stereo stage: pre-DAP MFC miid=%x channels=2", miid);
+        status = SessionAlsaUtils::getModuleInstanceId(mixer, pcmDevIds.at(0), intf,
+                TAG_MFC_SPEAKER_SWAP, &miid);
+        if (status) goto exit;
+        mfcData.numChannel = 4;
+        builder->payloadMFCConfig(&payload, &payloadSize, miid, &mfcData);
+        if (!payload || !payloadSize) { status = -ENOMEM; goto exit; }
+        status = updateCustomPayload(payload, payloadSize);
+        freeCustomPayload(&payload, &payloadSize);
+        if (status) goto exit;
+        builder->payloadShengStereoQuadCoeff(&payload, &payloadSize, miid, 2);
+        if (!payload || !payloadSize) { status = -ENOMEM; goto exit; }
+        status = updateCustomPayload(payload, payloadSize);
+        freeCustomPayload(&payload, &payloadSize);
+        if (status) goto exit;
+        PAL_INFO(LOG_TAG, "sheng DAP stereo stage: post-processing MFC miid=%x channels=4", miid);
     }
 
     /* Prepare stream MFC payload */
@@ -1023,6 +1064,8 @@ int Session::configureMFC(const std::shared_ptr<ResourceManager>& rm, struct pal
             dAttr.id == PAL_DEVICE_OUT_AUX_DIGITAL_1 ||
             dAttr.id == PAL_DEVICE_OUT_HDMI)
             mfcData.ch_info = &dAttr.config.ch_info;
+
+        if (dapStereoStage) mfcData.numChannel = 2;
 
         builder->payloadMFCConfig((uint8_t **)&payload, &payloadSize, miid, &mfcData);
         if (!payloadSize) {
