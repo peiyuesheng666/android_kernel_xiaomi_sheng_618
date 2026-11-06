@@ -42,12 +42,14 @@ public final class ShengDolbyChannelProbe {
         android.media.audiofx.AudioEffect effect = new android.media.audiofx.AudioEffect(
                 java.util.UUID.fromString("ec7178ec-e5e1-4432-a3f4-4657e6795210"),
                 java.util.UUID.fromString("9d4921da-8225-4f29-aefa-39537a04bcaa"), 30, 0);
-        byte[] disable = java.nio.ByteBuffer.allocate(12).order(java.nio.ByteOrder.LITTLE_ENDIAN)
-                .putInt(0).putInt(0).putInt(0).array();
-        int status = effect.setParameter(5, disable);
-        if (status != 0 || effect.setEnabled(false) != 0)
-            throw new IllegalStateException("Could not disable Dolby for physical channel test");
-        System.out.println("Dolby disabled for channel isolation; app preferences untouched");
+        boolean enabled = args.length > 0 && "on".equals(args[0]);
+        byte[] command = java.nio.ByteBuffer.allocate(12).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+                .putInt(0).putInt(0).putInt(enabled ? 1 : 0).array();
+        int status = effect.setParameter(5, command);
+        if (status != 0 || effect.setEnabled(enabled) != 0)
+            throw new IllegalStateException("Could not set Dolby for physical channel test");
+        System.out.println("Dolby " + (enabled ? "enabled" : "disabled")
+                + " for channel comparison; app preferences untouched");
         AudioTrack track = new AudioTrack(AudioManager.STREAM_MUSIC, RATE,
                 AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
                 bytes, AudioTrack.MODE_STREAM);
