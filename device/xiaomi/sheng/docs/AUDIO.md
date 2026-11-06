@@ -55,6 +55,15 @@ unsuccessful four-channel coefficient experiments; generic stereo behavior
 remains as upstream. `ShengSpeakerFormatProbe.c` is the bounded active-MFC
 diagnostic used to establish this ordering. The final format-based candidate
 compiled in eight PAL tasks. Its other angles and Dolby-on behavior are pending.
+The full physical rotation test then identified a 90-degree display/speaker
+frame offset: landscape and portrait placement were interchanged. The user
+specified a counterclockwise correction. The speaker-map lookup now subtracts
+90 degrees from the reported display rotation; this changes audio only and
+still requires the next physical retest.
+The counterclockwise frame correction compiled in seven PAL tasks; the host
+four-angle channel-integrity check passed. The final fresh-fetch audit in
+`upstream-dolby-rotation-audit.json` passed for all 13 public repositories with
+clean status across 1,243 manifest projects.
 
 The host impulse-routing check passes for four angles. The candidate's full
 hardware build passed after adding the explicit property-interface header to
