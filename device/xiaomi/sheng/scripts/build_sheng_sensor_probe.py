@@ -12,9 +12,10 @@ sdk = rom/'prebuilts/sdk/current/public/android.jar'
 framework = rom/'out/soong/.intermediates/frameworks/base/framework-minus-apex/android_common/combined/framework.jar'
 env = dict(os.environ, LANG='C.UTF-8', LC_ALL='C.UTF-8')
 subprocess.run([str(java/'javac'), '-cp', str(framework)+':'+str(sdk), '-d', str(output),
-                str(device/'scripts/ShengSensorProbe.java')], env=env, check=True)
+                str(device/'scripts'/os.environ.get('SHENG_PROBE_SOURCE', 'ShengSensorProbe.java'))], env=env, check=True)
 subprocess.run([str(java/'java'), '-cp', str(rom/'out/host/linux-x86/framework/d8.jar'),
                 'com.android.tools.r8.D8', '--lib', str(sdk), '--min-api', '35',
                 '--output', str(output), *map(str, output.glob('*.class'))], env=env, check=True)
-subprocess.run([str(java/'jar'), 'cf', str(workspace/'artifacts/audio-diagnostics-sheng/sheng-sensor-probe.jar'),
+subprocess.run([str(java/'jar'), 'cf', str(workspace/'artifacts/audio-diagnostics-sheng'/
+                os.environ.get('SHENG_PROBE_OUTPUT', 'sheng-sensor-probe.jar')),
                 '-C', str(output), 'classes.dex'], env=env, check=True)
