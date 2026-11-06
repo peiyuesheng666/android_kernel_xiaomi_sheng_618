@@ -1587,7 +1587,7 @@ void SpeakerProtection::startSpkrXmaxTmaxLogging()
 /*
  * CPS related custom payload
  */
-void SpeakerProtection::updateCpsCustomPayload(int miid, uint32_t phy_add[3], int wsa2_flag)
+void SpeakerProtection::updateCpsCustomPayload(int miid, uint32_t phy_add[], int wsa2_flag)
 {
     PayloadBuilder* builder = new PayloadBuilder();
     uint8_t* payload = NULL;
@@ -3329,7 +3329,7 @@ void SpeakerFeedback::updateVIcustomPayload()
     else
         tempCH = numSpeaker;
 
-    for (int ch = numSpeaker; ch != 0; ch >> CHANNELS_2) {
+    for (int ch = numSpeaker; ch != 0; ch >>= CHANNELS_2) {
         if (ch == CHANNELS_4)
             tagid = MODULE_VI2;
         else{
