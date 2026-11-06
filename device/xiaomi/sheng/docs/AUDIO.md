@@ -19,5 +19,7 @@ Previously tested device behavior includes six-speaker PCM, mono/stereo MP3
 and AAC offload, left/right channel isolation, volume, pause/resume and reboot.
 Rebuilding these fixes as device-owned modules is a separate validation step.
 The device-owned migration modules compiled successfully and the validated
-images were flashed to slot b on 2026-11-06. Boot and hardware regression
-checks remain pending while ADB is unavailable after reboot.
+images were flashed to slot b on 2026-11-06. The r4 startup followup passed
+boot on 2026-11-07; the user confirmed six speakers at normal volume and the
+installed PAL hash matched the compiled device module. Live Dolby control
+remains under investigation; audibility of that effect is a separate check.

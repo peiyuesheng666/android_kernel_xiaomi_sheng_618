@@ -9,8 +9,9 @@ It declares the AIDL interface and preserves the stock audio ultrasound socket,
 system UID, groups and scheduling options. The obsolete rootdir override was
 removed after r2 boot logs showed init trying to execute the deleted Xiaomi
 binary. Starting the sheng HAL temporarily unblocked sensorservice and allowed
-system_server to complete boot. The RC correction still needs an incremental
-build and a reboot test without that temporary process.
+system_server to complete boot. The r4 reboot verified the canonical service
+started by init with system UID and hal_sensors_default domain, without a
+temporary process. Boot completed with SELinux Enforcing.
 
 The built-in display configuration selects the measured front ALS and CCT
 sensor names and initializes Android 17 auto-brightness debounce: 4 seconds
@@ -22,5 +23,6 @@ panel-color calibration is complete.
 
 The framework RRO enables `config_lidControlsSleep`. The user's cover test
 confirmed close-to-sleep and open-to-wake after enabling lid behavior. The
-device-owned sensor module, permanent DDC and RRO still need a rebuilt-image
-retest.
+device-owned sensor module, permanent DDC and RRO passed the r4 rebuilt-image
+retest: touch/rotation remained correct, two cover close/open cycles worked,
+and auto-brightness was stable and responded to a flashlight after reboot.

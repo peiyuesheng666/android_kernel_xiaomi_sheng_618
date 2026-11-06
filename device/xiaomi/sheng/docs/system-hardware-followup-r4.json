@@ -36,6 +36,24 @@
     120
   ],
   "framework_default_and_peak_hz": 60,
-  "first_commit_and_reboot_verified": false,
-  "runtime_verified": false
+  "first_commit_and_reboot_verified": true,
+  "runtime_verified": false,
+  "flash_completed": true,
+  "flashed_serial": "ca10ede3",
+  "flashed_slot": "b",
+  "sys_boot_completed": true,
+  "visible_desktop_without_power_cycle_user_confirmed": true,
+  "sensor_hal_init_system_uid_verified": true,
+  "temporary_sensor_process_absent": true,
+  "surfaceflinger_mode_override_absent": true,
+  "selinux_enforcing": true,
+  "installed_vendor_and_vbmeta_hashes_match": true,
+  "cover_close_open_two_cycles_user_confirmed": true,
+  "touch_and_rotation_user_confirmed": true,
+  "als_auto_brightness_user_confirmed": true,
+  "settings_dolby_page_and_six_speakers_user_confirmed": true,
+  "dolby_live_effects_verified": false,
+  "dolby_live_effects_issue": "User reports no audible toggle/profile/EQ change; continued as a device-tree live-routing fix.",
+  "built_in_vibrator_ids": [],
+  "flash_evidence": "reports/device/hardware-r4-flash.log"
 }

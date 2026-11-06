@@ -27,8 +27,10 @@ with native-resolution 60 Hz, preserving original IDs and the raw-config map.
 It lets the normal HWC path defer the framework's 60 Hz request until after
 the first commit. The 144 Hz mode is excluded, unadvertised switches are
 rejected, and external displays are unchanged. The framework default and peak
-remain 60 Hz. High-refresh support and this corrected cold boot still require
-hardware testing.
+remain 60 Hz. The r4 reboot passed: the user saw a normal desktop without an
+extra off/on cycle, and two cover close/open cycles displayed normally. The
+active mode was 60 Hz, with no SurfaceFlinger backdoor override. High-refresh
+support beyond this preferred-mode handoff remains a separate task.
 
 `scripts/package_sheng_startup_followup.py` produces startup revisions from the verified r2
 vendor and vbmeta bases. It packages only the compiled composer and both sensor
@@ -37,6 +39,6 @@ and changes only vendor's AVB descriptor. ODM and system_ext remain at r2.
 
 The observed one-to-two-second backlight interval during recovery/Android
 startup remains a separate issue. This migration preserves the existing boot
-fix; it does not claim to eliminate that interval. The device modules compiled
-successfully and the images were flashed to slot b on 2026-11-06. Boot and
-hardware regression checks remain pending while ADB is unavailable after reboot.
+fix; it does not claim to eliminate that interval. The r4 startup delta was
+flashed to slot b and boot-verified on 2026-11-07; both installed image hashes
+matched the packaged images. Dolby live-control validation is tracked separately.
