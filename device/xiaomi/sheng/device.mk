@@ -143,6 +143,9 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator-service-sheng \
     vendor.qti.hardware.display.composer-service-sheng
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/displayconfig/display_id_4630947038039379843.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630947038039379843.xml
+
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm-service.clearkey

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Load the Android 17 display-config path so auto-brightness debounce is
+    initialized. Keep the existing framework backlight curve and panel mapping;
+    measured panel nits/primaries are not available yet.
+-->
+<displayConfiguration>
+    <name>sheng built-in display</name>
+    <autoBrightness enabled="true">
+        <brighteningLightDebounceMillis>4000</brighteningLightDebounceMillis>
+        <darkeningLightDebounceMillis>8000</darkeningLightDebounceMillis>
+    </autoBrightness>
+    <lightSensor>
+        <type>android.sensor.light</type>
+        <name>stk_stk3bcx Ambient Light Sensor Non-wakeup</name>
+    </lightSensor>
+    <colorSensor>
+        <type>xiaomi.sensor.front_cct</type>
+        <name>stk_stk3bcx front CCT Cct Sensor Non-wakeup</name>
+    </colorSensor>
+    <ambientBrightnessChangeThresholds>
+        <brighteningThresholds><minimum>2.0</minimum></brighteningThresholds>
+        <darkeningThresholds><minimum>2.0</minimum></darkeningThresholds>
+    </ambientBrightnessChangeThresholds>
+    <ambientBrightnessChangeThresholdsIdle>
+        <brighteningThresholds><minimum>2.0</minimum></brighteningThresholds>
+        <darkeningThresholds><minimum>2.0</minimum></darkeningThresholds>
+    </ambientBrightnessChangeThresholdsIdle>
+</displayConfiguration>
