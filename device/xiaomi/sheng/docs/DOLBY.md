@@ -77,16 +77,12 @@ Build it with `SHENG_PROBE_SOURCE=ShengAcdbGraphProbe.c` and
 `SHENG_PROBE_OUTPUT=sheng-acdb-graph-probe` using the AGM probe build script.
 This confirms connections in calibration, not actual processing audibility.
 
-The default-off diagnostic `vendor.audio.sheng.dap_stereo_stage` explicitly
-sets both pre-DAP converters to stereo and the post-processing speaker-swap
-converter to quad with the verified physical speaker mapping. It is limited
-to sheng stereo PCM on the speaker TDM backend. DSP format readback and
-live audibility validation are required before adopting this configuration.
-
-With both pre-DAP stages actually stereo, the user verified immediate changes
-from the switch and EQ during continuous playback. This isolates the failing
-quad-input configuration; it does not validate a final quad processing setup.
-The final configuration must preserve the stock four-channel speaker output.
+The stereo-stage diagnostic isolated an unsupported input configuration:
+expanding the source before DAP removed audible live processing. It has been
+replaced by `vendor.audio.sheng.dap_native_quad`: the decoder supplies stereo
+to DAP, which itself renders four outputs for the four-channel speaker backend.
+Plain graphs without DAP retain the separately verified six-speaker mappings.
+There is no stereo-to-quad copying matrix added after DAP in the final code.
 The ACDB probe also prints bounded calibration values for the converters and
 DAP to distinguish stock formats from PAL's runtime overrides.
 
@@ -94,18 +90,15 @@ Unsaved profiles and an explicit profile reset use a flat 20-band EQ (0 dB).
 Existing per-profile saved bands are restored unchanged. This changes EQ
 defaults only, without altering pregain or factory speaker protection.
 
-The native database contains OEM quad tunings, but its selected speaker device
-was `default_internal_speaker`; live CSMO readback still specified two outputs.
-The device Settings app selects the existing portrait/landscape OEM tuning via
-verified DMS 2.0 transactions 13/14 and checks selection. Profile/EQ preferences
-are untouched. Runtime quad format and audibility remain required validation.
-
-The exact platform-signed Settings package has its own system_ext app domain
-and is a client of the sheng DMS HAL. Ordinary platform apps retain their
-existing service restrictions. This is required for the verified tuning API;
-the initial live app test was blocked by a platform_app hwservice find denial.
-
 Stock odm/etc/build.prop declares `ro.vendor.audio.adsp.spatial=true`, absent
 from the port. In libhwdap this property initializes dolbyMultiChannelEnabled;
 its false branch builds a stereo CSMO even with the OEM quad tuning selected.
-The device ODM properties now retain the stock flag. Live validation is pending.
+The device ODM properties now retain the stock flag. Live CSMO readback changed
+from two outputs to four, and the user verified immediate switch/EQ changes
+with all six speakers sounding. The manual tuning-selection and channel-count
+probes did not fix quad input and remain diagnostics only. The direct-HIDL app
+experiment and its additional policy were removed; normal effect controls use
+the existing protected AudioEffect bridge.
+
+The cleaned build, PCM/offload channel isolation and restart persistence still
+require validation before packaging or flashing a permanent revision.
