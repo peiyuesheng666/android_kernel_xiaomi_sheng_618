@@ -515,6 +515,7 @@ class HWCDisplay : public DisplayEventHandler {
   void MarkLayersForGPUBypass(void);
   void MarkLayersForClientComposition(void);
   void UpdateConfigs();
+  int ConfigureSafeBuiltInMode();
   virtual void ApplyScanAdjustment(hwc_rect_t *display_frame);
   bool IsLayerUpdating(HWCLayer *layer);
   uint32_t SanitizeRefreshRate(uint32_t req_refresh_rate);

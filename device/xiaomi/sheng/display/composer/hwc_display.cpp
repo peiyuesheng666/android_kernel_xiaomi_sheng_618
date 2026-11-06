@@ -527,6 +527,10 @@ int HWCDisplay::Init() {
 
   UpdateConfigs();
 
+  if (ConfigureSafeBuiltInMode() != 0) {
+    return -EINVAL;
+  }
+
   int enable_gpu_tonemapper = 0;
   HWCDebugHandler::Get()->GetProperty(ENABLE_GPU_TONEMAPPER_PROP, &enable_gpu_tonemapper);
   // Disable instantiating HWCTonemapper when GPU tonemapping is not used.
@@ -537,6 +541,9 @@ int HWCDisplay::Init() {
   display_intf_->GetQsyncFps(&qsync_fps_);
 
   display_intf_->GetRefreshRateRange(&min_refresh_rate_, &max_refresh_rate_);
+  if (type_ == kBuiltIn) {
+    min_refresh_rate_ = max_refresh_rate_ = 60;
+  }
   current_refresh_rate_ = max_refresh_rate_;
 
   GetUnderScanConfig();
@@ -586,6 +593,46 @@ void HWCDisplay::UpdateConfigs() {
   // Update num config count.
   num_configs_ = UINT32(variable_config_map_.size());
   DLOGI("num_configs = %d", num_configs_);
+}
+
+int HWCDisplay::ConfigureSafeBuiltInMode() {
+  if (type_ != kBuiltIn) {
+    return 0;
+  }
+
+  hwc2_config_t active_config = 0;
+  if (GetActiveConfig(&active_config) != HWC2::Error::None ||
+      variable_config_map_.find(active_config) == variable_config_map_.end()) {
+    DLOGE("Cannot determine the built-in display's initial config");
+    return -EINVAL;
+  }
+  const auto active_info = variable_config_map_.at(active_config);
+  auto safe_config = std::find_if(variable_config_map_.begin(), variable_config_map_.end(),
+      [&active_info](const auto &config) {
+        return config.second.fps == 60 &&
+               config.second.x_pixels == active_info.x_pixels &&
+               config.second.y_pixels == active_info.y_pixels;
+      });
+  if (safe_config == variable_config_map_.end()) {
+    DLOGE("No native-resolution 60 Hz built-in config");
+    return -EINVAL;
+  }
+
+  // Select the real SDM config before publishing it. Merely filtering HWC's
+  // config list would leave SurfaceFlinger with an unadvertised active mode.
+  // Keep the original IDs and SDM-to-HWC map; the safe mode is not config zero.
+  const auto config = *safe_config;
+  if (SetActiveDisplayConfig(config.first) != 0 ||
+      GetActiveConfig(&active_config) != HWC2::Error::None || active_config != config.first) {
+    DLOGE("Failed to activate the safe built-in config %u", config.first);
+    return -EINVAL;
+  }
+  variable_config_map_.clear();
+  variable_config_map_.insert(config);
+  num_configs_ = 1;
+  active_refresh_rate_ = config.second.fps;
+  DLOGI("Built-in display limited to verified 60 Hz config %u", config.first);
+  return 0;
 }
 
 int HWCDisplay::Deinit() {
@@ -2465,6 +2512,9 @@ int HWCDisplay::HandleSecureSession(const std::bitset<kSecureMax> &secure_sessio
 }
 
 int HWCDisplay::SetActiveDisplayConfig(uint32_t config) {
+  if (type_ == kBuiltIn && variable_config_map_.find(config) == variable_config_map_.end()) {
+    return -EINVAL;
+  }
   uint32_t current_config = 0;
   display_intf_->GetActiveConfig(&current_config);
   if (config == current_config) {
@@ -2765,6 +2815,9 @@ int32_t HWCDisplay::GetDisplayConfigGroup(DisplayConfigGroupInfo variable_config
 }
 
 bool HWCDisplay::IsModeSwitchAllowed(uint32_t config) {
+  if (variable_config_map_.find(config) == variable_config_map_.end()) {
+    return false;
+  }
   DisplayError error = kErrorNone;
   uint32_t allowed_mode_switch = 0;
 

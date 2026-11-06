@@ -13,6 +13,16 @@ The implementation sources and their upstream notices are under `display/`.
 and the two changed service entry points. The public display repository is
 byte-identical to the freshly fetched upstream commit.
 
+r2 boot exposed 144 Hz before framework refresh-rate overlays took effect.
+At that mode SDM exhausted composition strategies and returned invalid present
+fences; temporarily selecting the original 60 Hz config restored the display.
+The device-owned composer now selects the native-resolution 60 Hz SDM config
+before publishing a single supported built-in mode, retaining its original ID
+and raw-config mapping. It rejects unadvertised mode switches and leaves
+external displays unchanged. This is a safe bring-up restriction: high refresh
+rates remain unverified and are not presented as fixed. Its first DRM commit,
+boot and suspend/resume still require a rebuilt-image test.
+
 The observed one-to-two-second backlight interval during recovery/Android
 startup remains a separate issue. This migration preserves the existing boot
 fix; it does not claim to eliminate that interval. The device modules compiled
