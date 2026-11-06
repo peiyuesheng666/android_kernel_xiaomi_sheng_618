@@ -10206,7 +10206,7 @@ exit_no_unlock:
 
 
 int ResourceManager::setParameter(uint32_t param_id, void *param_payload,
-                                  size_t payload_size __unused,
+                                  size_t payload_size,
                                   pal_device_id_t pal_device_id,
                                   pal_stream_type_t pal_stream_type)
 {
@@ -10218,6 +10218,23 @@ int ResourceManager::setParameter(uint32_t param_id, void *param_payload,
         case PAL_PARAM_ID_UIEFFECT:
         {
             bool match = false;
+            bool speaker_dap = false;
+            bool applied = false;
+            // Stock DMS tries legacy ULL/compressed/deep-buffer stream IDs.
+            // Its final deep-buffer request must also reach sheng's generic
+            // and low-latency speaker playback, which share the DAP device PP.
+            // Keep every other device, effect tag and stream request exact.
+            if (pal_device_id == PAL_DEVICE_OUT_SPEAKER &&
+                    pal_stream_type == PAL_STREAM_DEEP_BUFFER && param_payload &&
+                    payload_size >= sizeof(pal_param_payload) + sizeof(effect_pal_payload_t)) {
+                const auto *payload = static_cast<const pal_param_payload *>(param_payload);
+                if (payload->payload_size >= sizeof(effect_pal_payload_t) &&
+                        payload->payload_size <= payload_size - sizeof(pal_param_payload)) {
+                    const auto *effect = reinterpret_cast<const effect_pal_payload_t *>(payload->payload);
+                    speaker_dap = effect->tag == 0xC00000DB &&
+                            effect->payloadSize <= payload->payload_size - sizeof(effect_pal_payload_t);
+                }
+            }
             lockActiveStream();
             std::list<Stream*>::iterator sIter;
             for(sIter = mActiveStreams.begin(); sIter != mActiveStreams.end();
@@ -10225,6 +10242,17 @@ int ResourceManager::setParameter(uint32_t param_id, void *param_payload,
                 if ((*sIter) != NULL) {
                     match = (*sIter)->checkStreamMatch(pal_device_id,
                                                        pal_stream_type);
+                    if (speaker_dap && !match) {
+                        pal_stream_attributes attributes = {};
+                        (*sIter)->getStreamAttributes(&attributes);
+                        const auto type = attributes.type;
+                        const bool media = type == PAL_STREAM_LOW_LATENCY ||
+                                type == PAL_STREAM_DEEP_BUFFER || type == PAL_STREAM_COMPRESSED ||
+                                type == PAL_STREAM_GENERIC || type == PAL_STREAM_ULTRA_LOW_LATENCY ||
+                                type == PAL_STREAM_SPATIAL_AUDIO;
+                        match = attributes.direction == PAL_AUDIO_OUTPUT && media &&
+                                (*sIter)->checkStreamMatch(pal_device_id, PAL_STREAM_GENERIC);
+                    }
                     if (property_get_bool("vendor.audio.sheng.dolby_trace", false)) {
                         pal_stream_attributes attributes = {};
                         (*sIter)->getStreamAttributes(&attributes);
@@ -10236,6 +10264,7 @@ int ResourceManager::setParameter(uint32_t param_id, void *param_payload,
                             continue;
                         unlockActiveStream();
                         status = (*sIter)->setEffectParameters(param_payload);
+                        applied |= status == 0;
                         lockActiveStream();
                         decreaseStreamUserCounter(*sIter);
                         if (status) {
@@ -10248,6 +10277,9 @@ int ResourceManager::setParameter(uint32_t param_id, void *param_payload,
                 }
             }
             unlockActiveStream();
+            if (speaker_dap && applied) {
+                status = 0;
+            }
         }
         break;
         default:

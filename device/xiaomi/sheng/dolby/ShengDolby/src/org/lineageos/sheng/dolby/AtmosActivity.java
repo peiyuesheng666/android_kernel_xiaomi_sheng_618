@@ -152,6 +152,7 @@ public final class AtmosActivity extends Activity {
         amount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar bar, int progress, boolean user) {
                 amountValue.setText(getString(R.string.strength_percent, Math.round(progress * 100f / 16)));
+                if (user && !updating) controller.setParameter(StockDms.DIALOG_AMOUNT, progress);
             }
             public void onStartTrackingTouch(SeekBar bar) { dragging = true; }
             public void onStopTrackingTouch(SeekBar bar) { dragging = false; controller.setParameter(StockDms.DIALOG_AMOUNT, bar.getProgress()); }
@@ -169,6 +170,11 @@ public final class AtmosActivity extends Activity {
             bands[i].setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 public void onProgressChanged(SeekBar bar, int progress, boolean user) {
                     bandValues[band].setText(String.format(Locale.getDefault(), "%+d dB", progress - 6));
+                    if (user && !updating) {
+                        int[] values = controller.getState().gains.clone();
+                        for (int n = band * 4; n < band * 4 + 4; n++) values[n] = (progress - 6) * 64;
+                        controller.setParameter(StockDms.GAINS, values);
+                    }
                 }
                 public void onStartTrackingTouch(SeekBar bar) { dragging = true; }
                 public void onStopTrackingTouch(SeekBar bar) {

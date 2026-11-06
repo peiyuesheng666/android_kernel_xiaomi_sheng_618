@@ -11,6 +11,8 @@ import android.os.ServiceManager;
 import android.util.Log;
 import java.util.Arrays;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 /** Serializes controls and retains the native effect while its page is closed. */
 public final class AtmosApplication extends Application {
@@ -37,6 +39,7 @@ public final class AtmosApplication extends Application {
     private AudioEffect effect;
     private IBinder audioServer;
     private long version;
+    private final ConcurrentHashMap<String, AtomicLong> parameterVersions = new ConcurrentHashMap<>();
     private final Runnable reconcile = this::applyEffect;
     private final IBinder.DeathRecipient serverDeath = () -> worker.post(() -> {
         audioServer = null;
@@ -73,7 +76,11 @@ public final class AtmosApplication extends Application {
     public void setParameter(int parameter, int... values) {
         final int profile = state.profile;
         final int[] data = values.clone();
+        final AtomicLong generation = parameterVersions.computeIfAbsent(key(profile, parameter),
+                unused -> new AtomicLong());
+        final long sequence = generation.incrementAndGet();
         worker.post(() -> {
+            if (generation.get() != sequence) return;
             try {
                 if (effect == null || !effect.hasControl()) throw new IllegalStateException("No DAP control");
                 StockDms.setParameter(effect, profile, parameter, data);
@@ -81,6 +88,7 @@ public final class AtmosApplication extends Application {
                     StockDms.setParameter(effect, profile, StockDms.GEQ, 1);
                 }
                 worker.postDelayed(() -> {
+                    if (generation.get() != sequence) return;
                     try {
                         if (!Arrays.equals(data, StockDms.getParameter(effect, profile, parameter)))
                             throw new IllegalStateException("Parameter readback mismatch: " + parameter);

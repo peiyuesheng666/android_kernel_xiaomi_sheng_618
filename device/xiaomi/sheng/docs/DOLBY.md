@@ -22,4 +22,15 @@ The r4 image boots normally; the user verified the Settings entry and six
 speakers. However, toggles, modes and EQ had no audible effect. DMS accepted
 the profile, but the native driver logged failed realtime DAP updates and
 PAL returned -EINVAL. Device-owned PAL tracing is being used to compare the
-requested and active stream routes. Real-time processing is not yet verified.
+requested and active stream routes.
+
+The trace showed stock DMS trying stream IDs 18/3/2 for the speaker DAP tag
+0xC00000DB, missing generic (8) and low-latency (1) playback. The device PAL now
+routes the final deep-buffer DAP request to compatible speaker media streams,
+with payload bounds checks and success only when a DSP write succeeds. Other
+devices, tags, raw/call/record/haptics streams retain their original matching.
+
+EQ and dialog-strength sliders now send changes while dragging. Per-profile
+parameter generations discard superseded writes/readbacks, so rapid gestures
+do not falsely report a mismatch against a newer value. Saved custom values
+and the stock processing profiles are retained. Live A/B testing is pending.
