@@ -55,5 +55,6 @@ m -j"$(nproc)" \
     android.hardware.sensors-service.sheng-multihal \
     vendor.qti.hardware.display.composer-service-sheng \
     vendor.qti.hardware.display.allocator-service-sheng \
-    libshgdolby_foundation libdlbdsservice libhwdap \
+    libshgdolby_foundation libdlbdsservice libhwdap libdlbpreg libdlbvol \
+    out/target/product/sheng/vendor/build.prop out/target/product/sheng/odm/etc/build.prop \
     ShengDolby FrameworkResOverlaySheng vendor_file_contexts selinux_policy file_contexts.bin
