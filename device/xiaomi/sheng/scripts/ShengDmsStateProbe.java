@@ -38,7 +38,7 @@ public final class ShengDmsStateProbe {
             Object reply = PARCEL.getConstructor().newInstance();
             try {
                 java.util.ArrayList<Byte> name = new java.util.ArrayList<>();
-                for (byte value : (args[1] + '\0').getBytes("UTF-8")) name.add(value);
+                for (byte value : args[1].getBytes("UTF-8")) name.add(value);
                 PARCEL.getMethod("writeInterfaceToken", String.class).invoke(request, DMS);
                 PARCEL.getMethod("writeInt32", int.class).invoke(request, 0);
                 PARCEL.getMethod("writeInt8Vector", java.util.ArrayList.class).invoke(request, name);
