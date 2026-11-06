@@ -300,6 +300,7 @@ int Session::getEffectParameters(Stream *s __unused, effect_pal_payload_t *effec
     int status = 0;
     size_t dataSize = 0;
     uint8_t *ptr = NULL;
+    apm_module_param_data_t *response = nullptr;
 
     uint8_t *payloadData = NULL;
     size_t payloadSize = 0;
@@ -329,6 +330,10 @@ int Session::getEffectParameters(Stream *s __unused, effect_pal_payload_t *effec
     builder.payloadQuery(&payloadData, &payloadSize,
                             miid, effectCustomPayload->paramId,
                             effectPayload->payloadSize - sizeof(uint32_t));
+    if (!payloadData) {
+        status = -ENOMEM;
+        goto exit;
+    }
     status = mixer_ctl_set_array(ctl, payloadData, payloadSize);
     if (0 != status) {
         PAL_ERR(LOG_TAG, "Set custom config failed, status = %d", status);
@@ -341,14 +346,24 @@ int Session::getEffectParameters(Stream *s __unused, effect_pal_payload_t *effec
         goto exit;
     }
 
-    ptr = (uint8_t *)payloadData + sizeof(struct apm_module_param_data_t);
     dataSize = effectPayload->payloadSize - sizeof(uint32_t);
+    response = reinterpret_cast<apm_module_param_data_t *>(payloadData);
+    if (response->error_code || response->module_instance_id != miid ||
+            response->param_id != effectCustomPayload->paramId ||
+            response->param_size != dataSize) {
+        PAL_ERR(LOG_TAG, "DSP query param=%x miid=%x error=%u returned=%u expected=%zu",
+                effectCustomPayload->paramId, miid, response->error_code,
+                response->param_size, dataSize);
+        status = -EIO;
+        goto exit;
+    }
+    ptr = (uint8_t *)payloadData + sizeof(struct apm_module_param_data_t);
     ar_mem_cpy(effectCustomPayload->data, dataSize, ptr, dataSize);
 
 exit:
     ctl = NULL;
     if (payloadData)
-        free(payloadData);
+        delete[] payloadData;
     PAL_ERR(LOG_TAG, "Exit. status %d", status);
     return status;
 }
@@ -473,6 +488,49 @@ int Session::setEffectParametersNonTKV(Stream *s __unused, effect_pal_payload_t 
             payloadData,
             payloadSize);
     PAL_INFO(LOG_TAG, "mixer set param status = %d\n", status);
+
+    // DAP's paramId=0 is a legacy bundle, not a queryable DSP parameter.
+    // Inspect its individual APM records after the normal write so a mixer
+    // success is not mistaken for a DSP acknowledgement of all the records.
+    if (status == 0 && effectPayload->tag == 0xC00000DB &&
+            property_get_bool("vendor.audio.sheng.dolby_trace", false)) {
+        size_t offset = 0;
+        while (offset + sizeof(apm_module_param_data_t) <= payloadSize) {
+            const auto *record = reinterpret_cast<const apm_module_param_data_t *>(payloadData + offset);
+            const size_t recordSize = PAL_ALIGN_8BYTE(sizeof(*record) + record->param_size);
+            if (recordSize > payloadSize - offset || record->param_size > 4096) break;
+            std::vector<uint8_t> query(sizeof(effect_pal_payload_t) + sizeof(uint32_t) + record->param_size);
+            auto *effect = reinterpret_cast<effect_pal_payload_t *>(query.data());
+            effect->isTKV = PARAM_NONTKV;
+            effect->tag = effectPayload->tag;
+            effect->payloadSize = sizeof(uint32_t) + record->param_size;
+            auto *custom = reinterpret_cast<pal_effect_custom_payload_t *>(effect->payload);
+            custom->paramId = record->param_id;
+            const int result = getEffectParameters(nullptr, effect);
+            const auto *expected = payloadData + offset + sizeof(*record);
+            const bool equal = result == 0 && memcmp(custom->data, expected, record->param_size) == 0;
+            uint32_t value = 0, wanted = 0;
+            if (record->param_size >= sizeof(value)) {
+                memcpy(&value, custom->data, sizeof(value));
+                memcpy(&wanted, expected, sizeof(wanted));
+            }
+            PAL_INFO(LOG_TAG, "DAP record param=%x miid=%x bytes=%u result=%d matches=%d value=%u expected=%u",
+                    record->param_id, miid, record->param_size, result, equal, value, wanted);
+            offset += recordSize;
+        }
+        for (uint32_t id : {0x10904u, 0x10748u, 0x10743u, 0x10738u}) {
+            std::vector<uint8_t> query(sizeof(effect_pal_payload_t) + 2 * sizeof(uint32_t));
+            auto *effect = reinterpret_cast<effect_pal_payload_t *>(query.data());
+            effect->isTKV = PARAM_NONTKV;
+            effect->tag = effectPayload->tag;
+            effect->payloadSize = 2 * sizeof(uint32_t);
+            auto *custom = reinterpret_cast<pal_effect_custom_payload_t *>(effect->payload);
+            custom->paramId = id;
+            const int result = getEffectParameters(nullptr, effect);
+            PAL_INFO(LOG_TAG, "DAP active state param=%x miid=%x result=%d value=%u",
+                    id, miid, result, custom->data[0]);
+        }
+    }
 
 exit:
     if (payloadData) {

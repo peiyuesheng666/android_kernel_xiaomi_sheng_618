@@ -39,5 +39,19 @@ DSP readback diagnostics distinguish DMS's stored values from the actual
 active module. The PAL query copies only the returned data length, excluding
 the parameter ID, to avoid the original four-byte overread/overwrite.
 Enable values 0 and 1 were read back from the DSP correctly. The user still
-reported no audible change, so the trace now checks the complete parameter
-bundles as well; a successful control write is not an audibility claim.
+reported no audible change. Bundle parameter ID zero is not queryable: the
+trace now checks its individual APM records, validates the DSP response header
+and error code, and uses the matching allocation/deallocation operation.
+Active GEBS, GEON, IEON, DEON and enable values have been read back correctly;
+the user still reported no audible effect while changing EQ during playback.
+A successful control write is not an audibility claim.
+
+`scripts/ShengAgmDapProbe.c` makes read-only queries of a selected live graph.
+It uses SPF's actual header order (module, parameter, size, error), bounds the
+tag list and responses, and can query either DAP or an explicitly selected MFC.
+The deep-buffer speaker graph has DAP module 0x100108db; both PSPD and device
+PP MFCs currently output four channels, whereas DMS reports a stereo stream.
+A temporary experiment fed DAP stereo and moved quad expansion to the device
+PP MFC. DSP format queries confirmed the change, but the user still heard no
+live effect while all speakers worked. The experiment was reverted; it is
+not part of the product configuration.
