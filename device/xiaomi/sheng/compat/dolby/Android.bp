@@ -18,3 +18,13 @@ filegroup {
     name: "sheng_dolby_effect_compat",
     srcs: ["libhwdap.so"],
 }
+
+filegroup {
+    name: "sheng_dolby_pregain_compat",
+    srcs: ["libdlbpreg.so"],
+}
+
+filegroup {
+    name: "sheng_dolby_volume_compat",
+    srcs: ["libdlbvol.so"],
+}

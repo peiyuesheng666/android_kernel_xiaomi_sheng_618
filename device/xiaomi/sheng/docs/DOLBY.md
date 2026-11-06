@@ -55,3 +55,11 @@ A temporary experiment fed DAP stereo and moved quad expansion to the device
 PP MFC. DSP format queries confirmed the change, but the user still heard no
 live effect while all speakers worked. The experiment was reverted; it is
 not part of the product configuration.
+
+The stock media volume listener has EFFECT_FLAG_NO_PROCESS, which the upstream
+AudioFlinger supports. It is restored in the music postprocess chain to feed
+playback activity and volume to PregainSynchronizer without touching PCM.
+The arm64 pregain handler has the same old AHandler layout as DAP (its looper
+pointer is at offset 96). Both pregain and listener now use the device-private
+foundation; their stock dumps and public foundation stay unchanged. Live
+audibility validation is pending.

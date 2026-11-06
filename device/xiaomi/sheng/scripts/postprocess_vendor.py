@@ -15,6 +15,8 @@ def postprocess_vendor(vendor: Path):
     for name, source, replacement in (
         ('libdlbdsservice', 'proprietary/vendor/lib64/libdlbdsservice.so', ':sheng_dolby_dms_compat'),
         ('libhwdap', 'proprietary/vendor/lib64/soundfx/libhwdap.so', ':sheng_dolby_effect_compat'),
+        ('libdlbpreg', 'proprietary/vendor/lib64/libdlbpreg.so', ':sheng_dolby_pregain_compat'),
+        ('libdlbvol', 'proprietary/vendor/lib64/soundfx/libdlbvol.so', ':sheng_dolby_volume_compat'),
     ):
         start = text.index('    name: "'+name+'",')
         end = text.index('\n}\n', start)+3

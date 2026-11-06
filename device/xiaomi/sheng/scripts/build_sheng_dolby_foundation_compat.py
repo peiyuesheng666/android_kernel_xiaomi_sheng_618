@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Isolate foundation symbols and its pre-delivery-status AHandler ABI for Dolby.
 
-The two stock EventHandlers put their ALooper pointer at offset 96, where
+The stock DAP and pregain handlers put their ALooper pointer at offset 96, where
 modern AHandler puts a mutex. Never change the system/vendor foundation used
 by other components. Inputs are read-only; all outputs are diagnostic copies.
 """
@@ -142,7 +142,9 @@ binary.write(out/name)
 outputs = [{'name': name, 'sha256': sha(out/name), 'renamed_symbols': len(rename)}]
 for relative, expected in (
     ('libdlbdsservice.so', 'ed5c4bd93b0fd3e97f8076c6d07ae2e7ca4ea15156b06d5d3e9788a6ebd57324'),
-    ('soundfx/libhwdap.so', '2c8d8451a76fdcb53845b5368a7d46f5d699530d44aa499edfe64ceb76f11fe7')):
+    ('soundfx/libhwdap.so', '2c8d8451a76fdcb53845b5368a7d46f5d699530d44aa499edfe64ceb76f11fe7'),
+    ('libdlbpreg.so', 'aececf10f6bd1daa1abcd07a7e85da273c602339ffcd9e1aa29a4bf52e0d115c'),
+    ('soundfx/libdlbvol.so', '477f7cdfd6b0c9cc45521bd3e67f17baebb6240b844a82bdf31cec8aee93ecb9')):
     original = stock / relative
     assert sha(original) == expected
     client = Elf(original)
