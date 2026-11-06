@@ -17,7 +17,8 @@ export USE_CCACHE=1 CCACHE_EXEC=/usr/bin/ccache
 export CCACHE_DIR=/root/sheng-lineage/ccache CCACHE_COMPRESS=true
 export SOONG_ALLOW_MISSING_DEPENDENCIES=false
 export SOONG_NINJA=ninja
-export NINJA_HIGHMEM_NUM_JOBS=$(nproc)
+# The 20 GiB host cannot run many 4 GiB Java tools at once without swap thrashing.
+export NINJA_HIGHMEM_NUM_JOBS=2
 "$CCACHE_EXEC" --max-size=10G >/dev/null
 # Finish the generated compiler's bootstrap before wrapping it. The temporary
 # wrapper must not be replaced by a pending Ninja copy/link action.
@@ -38,6 +39,8 @@ if [[ -f "$builder" ]]; then
     mv -- "$builder" "$real_builder"
     printf '#!/bin/sh\nexport GOMEMLIMIT=12GiB GOGC=40\nexec "%s" "$@"\n' "$real_builder" > "$builder"
     chmod 755 "$builder"
+    # Do not invalidate an unchanged build graph just for the memory wrapper.
+    touch -r "$real_builder" "$builder"
     restore_builder() {
         if head -c 2 "$builder" | grep -q '#!'; then
             mv -f -- "$real_builder" "$builder"
@@ -53,4 +56,4 @@ m -j"$(nproc)" \
     vendor.qti.hardware.display.composer-service-sheng \
     vendor.qti.hardware.display.allocator-service-sheng \
     libshgdolby_foundation libdlbdsservice libhwdap \
-    ShengDolby FrameworkResOverlaySheng vendor_file_contexts selinux_policy
+    ShengDolby FrameworkResOverlaySheng vendor_file_contexts selinux_policy file_contexts.bin

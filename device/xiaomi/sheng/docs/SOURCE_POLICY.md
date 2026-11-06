@@ -26,7 +26,8 @@ changes and untracked sources, and scans all repo-managed projects for changes.
 It never changes a checkout or replaces the manifest's kernel/BSP versions with
 unrelated branch tips. A network/fetch failure is a failure, not a clean result.
 
-The local hardware-build helper uses the provisioned 80 GiB swap, 24 jobs,
+The local hardware-build helper uses the provisioned 80 GiB swap, 24 jobs
+with two concurrent high-memory jobs,
 compressed 10 GiB ccache and standard Ninja. On the 20 GiB WSL host it temporarily
 wraps the generated Soong executable to set Go's 12 GiB memory limit and restores
 that executable on exit. This is build-environment handling under `out/`, not
