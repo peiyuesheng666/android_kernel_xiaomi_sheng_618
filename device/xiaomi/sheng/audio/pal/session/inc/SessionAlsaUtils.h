@@ -39,7 +39,16 @@
 #include "PayloadBuilder.h"
 
 #include <tinyalsa/asoundlib.h>
+// Exported kernel UAPI declares byte-swap helpers that PAL may not use.
+// Keep the exception inside that header; PAL retains its normal -Werror checks.
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
 #include <sound/asound.h>
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 
 class Stream;
