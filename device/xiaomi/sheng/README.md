@@ -3,6 +3,16 @@
 Standalone LineageOS 24.0 device configuration for model **24018RPACC**.
 The device codename is **sheng**; its board/firmware identifier is **N81A**.
 
+All new board fixes are maintained in this device tree. Public source must
+match the manifest-pinned upstream revision before building; see
+[`docs/SOURCE_POLICY.md`](docs/SOURCE_POLICY.md). On 2026-11-06, fresh upstream
+fetches and physical byte/type checks passed for 176,270 files across 13
+previously affected public repositories; all 1,243 repo-managed projects had
+clean Git status. The exact receipt is
+[`docs/upstream-source-audit.json`](docs/upstream-source-audit.json).
+Device-owned replacement modules are being compiled; this source audit is
+not a claim that the new images have passed hardware testing.
+
 ## Work records and commits
 
 After completing each change, debugging task or documentation task, update the
