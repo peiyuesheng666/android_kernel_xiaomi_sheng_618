@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "934b8f64331b9985b1c229c485916ede8575880fcb43cbe765aa1a11d6e3b8de"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "9de664a0271086cdc45aef649469d7a89fcccc245fa76533aa4cacb99ff4b042"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/hardware-followup/20261106T210911092855Z",
+  "base_revision": "system-hardware-followup-sheng-r2",
+  "changed_vendor_files": [
+    "bin/hw/vendor.qti.hardware.display.composer-service-sheng",
+    "etc/init/android.hardware.sensors-service.sheng-multihal.rc",
+    "etc/init/init.sm8550.rc"
+  ],
+  "compiled_module_inputs": {
+    "bin/hw/vendor.qti.hardware.display.composer-service-sheng": "e608e0636a9cd548a87777a4185506f2f8de3d05f5c16bf62c66dd2574b13d28",
+    "etc/init/android.hardware.sensors-service.sheng-multihal.rc": "c0e3c43fe40be58a26e46aaae76fdc23059ec2a8d25165cb4e249403d40ddb1f",
+    "etc/init/init.sm8550.rc": "c3360fc227cf5dac03c02472c262adede0d49c4d7dc2079c5076c6acba08299a"
+  },
+  "partition_sizes_unchanged": true,
+  "signatures_verified": true,
+  "readback_verified": true,
+  "all_vendor_inode_metadata_preserved": true,
+  "other_avb_descriptors_and_chain_preserved": true,
+  "single_canonical_sensor_init_verified": true,
+  "built_in_display_supported_hz": [
+    60
+  ],
+  "first_commit_and_reboot_verified": false,
+  "runtime_verified": false
+}
