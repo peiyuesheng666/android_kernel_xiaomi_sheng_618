@@ -1939,20 +1939,21 @@ int32_t SoundTriggerEngineGsl::UpdateConfLevels(
         }
     } else {
         /* Update recognition mode considering all streams */
-        if (wakeup_config_.mode != recognition_mode)
+        if (wakeup_config_.mode != recognition_mode) {
             wakeup_config_.mode |= recognition_mode;
-            wakeup_config_.custom_payload_size = 0;
-            wakeup_config_.num_active_models = eng_sm_info_->GetConfLevelsSize();
-            wakeup_config_.reserved = 0;
-            for (int i = 0; i < wakeup_config_.num_active_models; i++) {
+        }
+        wakeup_config_.custom_payload_size = 0;
+        wakeup_config_.num_active_models = eng_sm_info_->GetConfLevelsSize();
+        wakeup_config_.reserved = 0;
+        for (int i = 0; i < wakeup_config_.num_active_models; i++) {
             wakeup_config_.confidence_levels[i] = eng_sm_info_->
                                                         GetConfLevels()[i];
             wakeup_config_.keyword_user_enables[i] =
                 (wakeup_config_.confidence_levels[i] == 100) ? 0 : 1;
             PAL_DBG(LOG_TAG, "cf levels[%d] = %d", i,
                     wakeup_config_.confidence_levels[i]);
-            }
         }
+    }
 
 exit:
     PAL_DBG(LOG_TAG, "Exit, status %d", status);

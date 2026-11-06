@@ -2187,7 +2187,7 @@ bool ResourceManager::getEcRefStatus(pal_stream_type_t tx_streamtype,pal_stream_
 
 void ResourceManager::getDeviceInfo(pal_device_id_t deviceId, pal_stream_type_t type, std::string key, struct pal_device_info *devinfo)
 {
-    bool found = false;
+    [[maybe_unused]] bool found = false;
 
     for (int32_t i = 0; i < deviceInfo.size(); i++) {
         if (deviceId == deviceInfo[i].deviceId) {
@@ -5770,7 +5770,7 @@ int ResourceManager::checkAndGetDeviceConfig(struct pal_device *device, bool* bl
         return ret;
     }
     //TODO:check if device config is supported
-    bool dev_supported = false;
+    [[maybe_unused]] bool dev_supported = false;
     *blsUpdated = false;
     uint16_t channels = device->config.ch_info.channels;
     uint32_t samplerate = device->config.sample_rate;
@@ -7304,7 +7304,6 @@ int ResourceManager::findActiveStreamsNotInDisconnectList(
         streamsSkippingSwitch.push_back({(*sIter), dAttr.id});
     }
 
-done:
     mActiveStreamMutex.unlock();
     return ret;
 }
@@ -11928,7 +11927,7 @@ void ResourceManager::setGaplessMode(const XML_Char **attr)
 void ResourceManager::startTag(void *userdata, const XML_Char *tag_name,
                                const XML_Char **attr)
 {
-    stream_supported_type type;
+    [[maybe_unused]] stream_supported_type type;
     struct xml_userdata *data = (struct xml_userdata *)userdata;
     static std::shared_ptr<SoundTriggerPlatformInfo> st_info = nullptr;
 

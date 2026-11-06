@@ -1486,7 +1486,7 @@ int SessionAlsaUtils::open(Stream * streamHandle, std::shared_ptr<ResourceManage
     uint32_t streamPropId[] = {0x08000010, 1, 0x1}; /** gsl_subgraph_platform_driver_props.xml */
     uint32_t devicePropId[] = {0x08000010, 2, 0x2, 0x5};
     uint32_t streamDevicePropId[] = {0x08000010, 1, 0x3}; /** gsl_subgraph_platform_driver_props.xml */
-    uint32_t i, rxDevNum, txDevNum;
+    uint32_t i, rxDevNum;
     struct pal_device_info devinfo = {};
     struct vsid_info vsidinfo = {};
     sidetone_mode_t sidetoneMode = SIDETONE_OFF;
@@ -1727,8 +1727,6 @@ int SessionAlsaUtils::open(Stream * streamHandle, std::shared_ptr<ResourceManage
     else
         rxDevNum = 1;
 
-    txDevNum = !rxDevNum;
-
     /** set TX mixer controls */
     mixer_ctl_set_enum_by_string(txFeMixerCtrls[FE_CONTROL], "ZERO");
     if (streamTxMetaData.size)
@@ -1898,7 +1896,7 @@ int SessionAlsaUtils::close(Stream * streamHandle, std::shared_ptr<ResourceManag
     uint32_t streamPropId[] = {0x08000010, 1, 0x1}; /** gsl_subgraph_platform_driver_props.xml */
     uint32_t devicePropId[] = {0x08000010, 2, 0x2, 0x5};
     uint32_t streamDevicePropId[] = {0x08000010, 1, 0x3}; /** gsl_subgraph_platform_driver_props.xml */
-    uint32_t i, rxDevNum, txDevNum;
+    uint32_t i, rxDevNum;
 
     status = streamHandle->getStreamAttributes(&sAttr);
     if(0 != status) {
@@ -1992,8 +1990,6 @@ int SessionAlsaUtils::close(Stream * streamHandle, std::shared_ptr<ResourceManag
         rxDevNum = 0;
     else
         rxDevNum = 1;
-
-    txDevNum = !rxDevNum;
 
     if (sAttr.type != PAL_STREAM_VOICE_CALL) {
         txFeMixerCtrls[FE_LOOPBACK] = getFeMixerControl(mixerHandle, txFeName.str(), FE_LOOPBACK);
@@ -2243,7 +2239,6 @@ int SessionAlsaUtils::connectSessionDevice(Session* sess, Stream* streamHandle, 
 {
     struct mixer_ctl *connectCtrl;
     struct mixer *mixerHandle = nullptr;
-    bool is_compress = false;
     int status = 0;
     std::ostringstream connectCtrlName;
     struct pal_stream_attributes sAttr;
@@ -2268,7 +2263,6 @@ int SessionAlsaUtils::connectSessionDevice(Session* sess, Stream* streamHandle, 
     switch (streamType) {
         case PAL_STREAM_COMPRESSED:
             connectCtrlName << COMPRESS_SND_DEV_NAME_PREFIX << pcmDevIds.at(0) << " connect";
-            is_compress = true;
             break;
         case PAL_STREAM_VOICE_CALL:
             if (sAttr.info.voice_call_info.VSID == VOICEMMODE1 ||
@@ -2526,7 +2520,6 @@ int SessionAlsaUtils::setupSessionDevice(Stream* streamHandle, pal_stream_type_t
     struct mixer *mixerHandle = nullptr;
     uint32_t devicePropId[] = {0x08000010, 2, 0x2, 0x5};
     uint32_t streamDevicePropId[] = {0x08000010, 1, 0x3}; /** gsl_subgraph_platform_driver_props.xml */
-    bool is_compress = false;
     struct pal_stream_attributes sAttr;
     int sub = 1;
     struct pal_device_info devinfo = {};
@@ -2660,7 +2653,6 @@ int SessionAlsaUtils::setupSessionDevice(Stream* streamHandle, pal_stream_type_t
             cntrlName << COMPRESS_SND_DEV_NAME_PREFIX << pcmDevIds.at(0) << " control";
             aifMdName << aifBackEndsToConnect[0].second.data() << " metadata";
             feMdName << COMPRESS_SND_DEV_NAME_PREFIX << pcmDevIds.at(0) << " metadata";
-            is_compress = true;
             break;
         case PAL_STREAM_VOICE_CALL:
             status = streamHandle->getStreamAttributes(&sAttr);

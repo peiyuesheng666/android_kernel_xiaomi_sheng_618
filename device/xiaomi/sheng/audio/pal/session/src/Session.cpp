@@ -526,7 +526,6 @@ int Session::rwACDBParameters(void *payload, uint32_t sampleRate,
     uint32_t miid = 0;
     char const *control = "setParamTagACDB";
     struct mixer_ctl *ctl = NULL;
-    pal_effect_custom_payload_t *effectCustomPayload = nullptr;
     PayloadBuilder builder;
     pal_param_payload *paramPayload = nullptr;
     agm_acdb_param *effectACDBPayload = nullptr;
@@ -548,9 +547,6 @@ int Session::rwACDBParameters(void *payload, uint32_t sampleRate,
         status = -EINVAL;
         goto exit;
     }
-
-    effectCustomPayload =
-        (pal_effect_custom_payload_t *)(effectACDBPayload->blob);
 
     status = builder.payloadACDBParam(&payloadData, &payloadSize,
                             (uint8_t *)effectACDBPayload,

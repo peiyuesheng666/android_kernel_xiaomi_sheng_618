@@ -102,7 +102,7 @@ private:
     uint64_t cbCookie;
     pal_device_id_t ecRefDevId;
     uint32_t svaMiid;
-    bool multichVolumeSet = false;
+    [[maybe_unused]] bool multichVolumeSet = false;
     static std::mutex pcmLpmRefCntMtx;
     static int pcmLpmRefCnt;
 public:
