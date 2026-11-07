@@ -50,12 +50,16 @@ if [[ -f "$builder" ]]; then
     }
     trap restore_builder EXIT
 fi
-m -j"$(nproc)" \
-    audio.primary.sheng \
-    libar-pal \
-    android.hardware.sensors-service.sheng-multihal \
-    vendor.qti.hardware.display.composer-service-sheng \
-    vendor.qti.hardware.display.allocator-service-sheng \
-    libshgdolby_foundation libdlbdsservice libhwdap libdlbpreg libdlbvol \
-    out/target/product/sheng/vendor/build.prop out/target/product/sheng/odm/etc/build.prop \
+targets=(
+    audio.primary.sheng libar-pal
+    android.hardware.sensors-service.sheng-multihal
+    vendor.qti.hardware.display.composer-service-sheng
+    vendor.qti.hardware.display.allocator-service-sheng libsdmdal
+    libshgdolby_foundation libdlbdsservice libhwdap libdlbpreg libdlbvol
+    out/target/product/sheng/vendor/build.prop out/target/product/sheng/odm/etc/build.prop
     ShengDolby FrameworkResOverlaySheng vendor_file_contexts selinux_policy file_contexts.bin
+)
+if [[ $# -gt 0 ]]; then
+    targets=("$@")
+fi
+m -j"${SHENG_BUILD_JOBS:-$(nproc)}" "${targets[@]}"
