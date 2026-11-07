@@ -1,5 +1,12 @@
 # Display color and ambient white balance
 
+This is the initial pre-r13 investigation. r13 subsequently restored the color
+plugins and sRGB/P3 enumeration. The user confirmed there is no visible color
+cast but reported ineffective adjustments. The r14 hardware ABI and ambient
+white-balance candidates, native XYZ evidence and current compile/acceptance
+status are tracked in [LIVEDISPLAY.md](LIVEDISPLAY.md); the historical disabled
+state below must not be read as the latest source configuration.
+
 The current device exposes only Native color mode. The stock Snapdragon Color
 manager is mapped into the composer, but its QDCM and Xiaomi STC plugins are not:
 the installed vendor lacks `/vendor/etc/snapdragon_color_libs_config.xml`.

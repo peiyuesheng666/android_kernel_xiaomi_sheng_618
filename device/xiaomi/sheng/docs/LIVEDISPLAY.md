@@ -69,8 +69,8 @@ pointer, brightness, the complete copied regions and unchanged input bytes.
 
 ## Validation status
 
-Source changes are pending Android overlay compilation and image/reboot
-acceptance. The r13 acceptance record remains an immutable account of r13;
+The final r14 changes passed Android compilation; image/reboot and physical
+acceptance remain pending. The r13 acceptance record remains an immutable account of r13;
 it must not be used to claim these follow-up changes are installed.
 
 ## LiveDisplay, Night Light and automatic color temperature
@@ -122,8 +122,9 @@ reference results for another ROM, not acceptance of this Lineage candidate.
 ## Build and packaging checkpoints
 
 The initial two-overlay compilation completed successfully in 12:22. Subsequent
-user label refinements and the hardware-only SDM ABI change are included in a
-second targeted build; that build and hardware acceptance remain pending.
+user label refinements, ambient white balance and the hardware-only SDM ABI
+change passed a second targeted build in 15:11. ELF checking and preferred
+device-core installation passed; image/reboot and hardware acceptance remain pending.
 Both build entries perform the required fresh upstream audit. The ABI host test
 passed with address and undefined-behavior sanitizers. The unchanged filesystem
 helpers passed 12 cases; Linux publication passed 7 with 5 Windows-only skips.
@@ -133,7 +134,7 @@ Native Android clang record-layout checking confirmed the guarded 0x260 DDR
 offset, 0x268 resource size and 0x550 PP version offset. It also found two
 inherited discarded all_of results rejected by the current libc++ headers;
 the device snapshot replaces those deletion-only calls with explicit cleanup
-loops. The public source remains unchanged; full Android compilation is pending.
+loops. The public source remains unchanged; the complete targeted Android build passed.
 
 `tools/package_sheng_livedisplay.py --freeze-only` freezes the scoped outputs;
 `--validate-only` rechecks them without creating images. Normal invocation

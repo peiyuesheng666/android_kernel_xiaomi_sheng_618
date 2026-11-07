@@ -1,0 +1,31 @@
+{
+  "revision": 14,
+  "recorded_utc": "2026-11-07T07:39:32.147753+00:00",
+  "compiled": true,
+  "elapsed": "15:11",
+  "compiled_inputs": {
+    "odm/overlay/FrameworkResOverlaySheng.apk": {
+      "bytes": 20710,
+      "sha256": "1a56a828d071d7b590e6d75b24da88486df731495184f68f29cd1c5a6c7744e0"
+    },
+    "odm/overlay/SettingsResOverlaySheng.apk": {
+      "bytes": 12447,
+      "sha256": "63098bc83994096a2bf179d151a0799309cbf110076eee3248d2a96ef3d07a66"
+    },
+    "vendor/lib64/libsdmcore.so": {
+      "bytes": 433088,
+      "sha256": "552309ea0473fff355e23d4679cba73f8b6ff179a183b7ccb912d7081c3a4593"
+    }
+  },
+  "device_core_preferred_install_verified": true,
+  "hardware_boot_tested": false,
+  "physical_color_response_verified": false,
+  "camera_or_screenshot_used": false,
+  "gpu_fallback": false,
+  "fresh_prebuild_public_sources_passed": true,
+  "fresh_postbuild_public_sources_passed": true,
+  "project_count": 1243,
+  "host_abi_sanitizer_test_passed": true,
+  "source_static_layout_assertions_passed": true,
+  "builder_restored": true
+}
