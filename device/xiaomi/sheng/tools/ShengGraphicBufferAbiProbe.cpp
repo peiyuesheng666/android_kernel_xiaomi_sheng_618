@@ -9,7 +9,7 @@
 #include <dlfcn.h>
 #include <new>
 
-int main() {
+int main(int argc, char** argv) {
     using android::GraphicBuffer;
     constexpr size_t guard = 64, legacySize = 256;
     const size_t currentSize = sizeof(GraphicBuffer);
@@ -46,5 +46,24 @@ int main() {
                 mode == 0 ? "default" : "null-handle-wrap");
     }
     std::printf("writes_past_legacy_allocation=%zu no_camera_hal_loaded=true\n", changedTail);
+    if (argc == 2) {
+        // Optional device-owned candidate gralloc helper; this does not load
+        // camera.xiaomi or open a camera device. It allocates offscreen memory.
+        void* client = dlopen(argv[1], RTLD_NOW | RTLD_LOCAL);
+        if (!client) { std::fprintf(stderr, "dlopen: %s\n", dlerror()); return 5; }
+        auto allocate = reinterpret_cast<android::sp<GraphicBuffer> (*)(uint32_t, uint32_t,
+                int, uint64_t)>(dlsym(client, "_Z21allocateGraphicBufferjjim"));
+        if (!allocate) return 6;
+        for (int iteration = 0; iteration < 100; ++iteration) {
+            auto buffer = allocate(16, 16, android::PIXEL_FORMAT_RGBA_8888,
+                    GraphicBuffer::USAGE_SW_READ_OFTEN | GraphicBuffer::USAGE_SW_WRITE_OFTEN);
+            if (!buffer || buffer->initCheck() != 0 || buffer->getWidth() != 16
+                    || buffer->getHeight() != 16 || buffer->handle == nullptr) return 7;
+        }
+        dlclose(client);
+        std::puts("candidate_gralloc_client_allocation_release_cycles=100 offscreen_only=true");
+    } else if (argc != 1) {
+        return 8;
+    }
     return 0;
 }

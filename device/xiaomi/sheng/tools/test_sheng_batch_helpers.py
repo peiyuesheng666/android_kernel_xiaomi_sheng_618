@@ -203,6 +203,10 @@ class BatchTests(unittest.TestCase):
         self.assertEqual(helpers.sha(base), baseline_hash)
         self.assertEqual(helpers.complete_metadata(image)[1], original_uuid)
         self.assertEqual(set(report['changed_files']), set(entries))
+        self.assertEqual(report['baseline_entries']['etc/config.xml'],
+                         ('file', hashlib.sha256(b'old config').hexdigest()))
+        self.assertIsNone(report['baseline_entries']['firmware/new/config.xml'])
+        self.assertIsNone(report['baseline_entries'][alias])
         self.assertEqual((work / 'vendor-readback/etc/keep').read_bytes(), b'unchanged' * 3000)
         self.assertEqual(descriptor.partition_name, 'vendor')
         self.assertEqual(os.readlink(work / 'vendor-readback' / alias), raw)

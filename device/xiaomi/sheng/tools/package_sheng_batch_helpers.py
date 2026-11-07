@@ -314,7 +314,8 @@ def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_cer
     assert old_uuid == new_uuid
     validate_inputs(partition, entries, allow_symlinks=True)
     return image, descriptor, dict(changed_files=sorted(changed), metadata_preserved=True,
-                                  erofs_uuid=old_uuid, apk_certificates=signer_digests, created_symlinks=aliases)
+                                  erofs_uuid=old_uuid, apk_certificates=signer_digests, created_symlinks=aliases,
+                                  baseline_entries={p: before.get(p) for p in sources})
 
 
 def inode_number(image, name):
