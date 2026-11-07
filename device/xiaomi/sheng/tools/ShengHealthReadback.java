@@ -14,6 +14,14 @@ public final class ShengHealthReadback {
         int status = battery.getProperty(BatteryManager.BATTERY_PROPERTY_STATE_OF_HEALTH, soh);
         System.out.println("battery_soh_status=" + status);
         System.out.println("battery_soh_percent=" + soh.getLong());
+        BatteryProperty manufacturing = new BatteryProperty();
+        System.out.println("battery_manufacturing_status=" + battery.getProperty(
+                BatteryManager.BATTERY_PROPERTY_MANUFACTURING_DATE, manufacturing));
+        System.out.println("battery_manufacturing_epoch_seconds=" + manufacturing.getLong());
+        BatteryProperty firstUsage = new BatteryProperty();
+        System.out.println("battery_first_usage_status=" + battery.getProperty(
+                BatteryManager.BATTERY_PROPERTY_FIRST_USAGE_DATE, firstUsage));
+        System.out.println("battery_first_usage_epoch_seconds=" + firstUsage.getLong());
         IStorageManager storage = IStorageManager.Stub.asInterface(ServiceManager.getService("mount"));
         if (storage == null) throw new IllegalStateException("No storage service");
         System.out.println("storage_remaining_lifetime_percent=" + storage.getInternalStorageRemainingLifetime());
