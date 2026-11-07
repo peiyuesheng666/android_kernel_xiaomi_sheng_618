@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: Apache-2.0
+license {
+    name: "sheng_metoknlp_proprietary_license",
+    visibility: [":__subpackages__"],
+    license_kinds: ["legacy_proprietary"],
+    license_text: ["NOTICE"],
+}
+
+android_app_import {
+    name: "ShengMetokNLP",
+    licenses: ["sheng_metoknlp_proprietary_license"],
+    apk: "proprietary/MetokNLP.apk",
+    system_ext_specific: true,
+    privileged: true,
+    presigned: true,
+    preprocessed: true,
+    // The stock APK has page-aligned, uncompressed JNI libraries, but its dex
+    // is compressed. Keep the Xiaomi v3 signature instead of rewriting dex.
+    // This product uses UncompressPrivAppDex=true; the exception is validated.
+    skip_preprocessed_apk_checks: true,
+    dex_preopt: { enabled: false },
+    uses_libs: ["com.android.location.provider"],
+    required: ["privapp-permissions-sheng-location"],
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-sheng-location",
+    src: "permissions/privapp-permissions-sheng-location.xml",
+    filename_from_src: true,
+    sub_dir: "permissions",
+    system_ext_specific: true,
+}

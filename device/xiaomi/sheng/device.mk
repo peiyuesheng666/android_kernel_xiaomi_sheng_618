@@ -239,6 +239,13 @@ PRODUCT_PACKAGES += \
     libnetfilter_conntrack \
     libnfnetlink
 
+# Stock Wi-Fi network location provider and device-owned configuration.
+# Keep the standard fused provider and runtime provider discovery unchanged.
+PRODUCT_PACKAGES += \
+    ShengMetokNLP \
+    privapp-permissions-sheng-location \
+    ShengLocationOverlay
+
 # Overlay
 PRODUCT_PACKAGES += \
     FrameworkResOverlaySheng \

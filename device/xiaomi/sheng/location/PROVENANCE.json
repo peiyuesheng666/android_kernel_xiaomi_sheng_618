@@ -1,0 +1,53 @@
+{
+  "firmware": "sheng OS3.0.303.0.WNXCNXM_16.0",
+  "partition_relative_path": "product/priv-app/MetokNLP/MetokNLP.apk",
+  "package": "com.xiaomi.metoknlp",
+  "version_code": 16017,
+  "version_name": "16.2025.12.01",
+  "min_sdk": 26,
+  "target_sdk": 33,
+  "apk_bytes": 1576033,
+  "apk_sha256": "846c84ea6468d3e3e6e71496ec3ac0fb91760ced00427e7c062e5da01384e8d3",
+  "signer_certificate_sha256": "c9009d01ebf9f5d0302bc71b2fe9aa9a47a432bba17308a3111b75d7b2149025",
+  "original_signature_preserved": true,
+  "signing_scheme": "APK signature v3",
+  "required_java_library": "com.android.location.provider",
+  "classes_dex_compressed": true,
+  "jni_libraries": [
+    {
+      "name": "lib/arm64-v8a/libapssdk.so",
+      "bytes": 216072,
+      "sha256": "5b5a21495316fbd20ee04b5a0b515b2912cf3ef98e594a703f4a6ca2b84190c2",
+      "stored": true,
+      "apk_offset": 16384,
+      "needed": ["liblog.so", "libstdc++.so", "libc.so", "libm.so", "libdl.so"]
+    },
+    {
+      "name": "lib/arm64-v8a/libmievent.so",
+      "bytes": 4440,
+      "sha256": "d404076edc917984b6af87c5013c0e428f5acd9cf3fa18211e1124937ee24d3f",
+      "stored": true,
+      "apk_offset": 245760,
+      "needed": ["liblog.so", "libm.so", "libdl.so", "libc.so"]
+    },
+    {
+      "name": "lib/arm64-v8a/libmiui_apssdk.so",
+      "bytes": 55456,
+      "sha256": "4f8d80089a3bf70b7c0b8fea7e6647e2b740736b210fa04cc5a94d60a18a2918",
+      "stored": true,
+      "apk_offset": 262144,
+      "needed": ["liblog.so", "libstdc++.so", "libm.so", "libc.so", "libdl.so"]
+    },
+    {
+      "name": "lib/arm64-v8a/libnlocSDK7d.so",
+      "bytes": 281408,
+      "sha256": "c11cf4729458175212cfeca5557092c66844f3d6e332258373645a70915b3e48",
+      "stored": true,
+      "apk_offset": 327680,
+      "needed": ["liblog.so", "libz.so", "libc.so", "libm.so", "libdl.so"]
+    }
+  ],
+  "static_verification_only": true,
+  "built": false,
+  "runtime_verified": false
+}

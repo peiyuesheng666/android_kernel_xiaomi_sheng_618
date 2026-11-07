@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <!-- DefaultPermissionGrantPolicy grants requested location permissions to
+         extra packages without SYSTEM_FIXED. The user's grants stay revocable.
+         Keep the AOSP fused provider list and provider discovery unchanged. -->
+    <string-array name="config_locationExtraPackageNames" translatable="false">
+        <item>com.xiaomi.metoknlp</item>
+    </string-array>
+</resources>

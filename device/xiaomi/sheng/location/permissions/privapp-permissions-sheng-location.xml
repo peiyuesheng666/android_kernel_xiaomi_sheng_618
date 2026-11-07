@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<permissions>
+    <privapp-permissions package="com.xiaomi.metoknlp">
+        <permission name="android.permission.INSTALL_LOCATION_PROVIDER" />
+        <permission name="android.permission.LOCAL_MAC_ADDRESS" />
+        <permission name="android.permission.LOCATION_HARDWARE" />
+
+        <!-- The stock manifest asks for these phone/user/diagnostic privileges.
+             Explicit denial avoids privileged-permission enforcement failures
+             without granting them to the tablet's network provider. -->
+        <deny-permission name="android.permission.INTERACT_ACROSS_USERS" />
+        <deny-permission name="android.permission.MODIFY_PHONE_STATE" />
+        <deny-permission name="android.permission.MANAGE_USERS" />
+        <deny-permission name="android.permission.BATTERY_STATS" />
+        <deny-permission name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    </privapp-permissions>
+</permissions>
