@@ -1,5 +1,6 @@
-# Display the marketing name while partition model IDs retain PRODUCT_MODEL.
-ro.product.model=Xiaomi Pad 6S Pro 12.4
+# Keep app-visible hardware identity separate from the marketing name.
+ro.product.model=24018RPACC
+ro.product.marketname=Xiaomi Pad 6S Pro 12.4
 
 # CameraX
 ro.camerax.extensions.enabled=true

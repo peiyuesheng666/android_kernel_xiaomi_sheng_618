@@ -42,13 +42,15 @@ this investigation; preserve the user's no-capture instruction.
 
 ## About-device marketing name
 
-The requested display name is `Xiaomi Pad 6S Pro 12.4`; retain hardware model
-`24018RPACC`. Settings displays Build.MODEL, while PRODUCT_MARKETNAME is not
-consumed by the pinned Settings/build implementation. The minimal device-only
-path is an explicit `ro.product.model` in the already wired system.prop,
-leaving PRODUCT_MODEL and partition-scoped model/attestation values unchanged.
-This change still needs building, installed-property readback and Settings
-verification; it is not included in the display-only r6 images.
+The required marketing name is `Xiaomi Pad 6S Pro 12.4` in
+`ro.product.marketname`; the global `ro.product.model` and partition-scoped
+hardware models must remain `24018RPACC`. PRODUCT_MARKETNAME alone does not
+emit the required runtime property in this build. The earlier r7 global model
+override was incorrect: the user reports that some applications no longer
+recognize the tablet. r20 explicitly sets both properties in system.prop.
+Compiled property output and fresh upstream audits pass; installed readback
+and affected-application acceptance remain pending. Settings displaying
+Build.MODEL does not justify replacing the app-visible hardware model.
 
 ## Automatic screen timeout
 

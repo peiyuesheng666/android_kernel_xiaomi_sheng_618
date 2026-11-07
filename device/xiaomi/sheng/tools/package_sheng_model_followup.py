@@ -90,16 +90,24 @@ def main():
     parser.add_argument('--prepare-only', action='store_true',
                         help='Validate/read inputs without packaging or modifying an image')
     parser.add_argument('--revision', type=int, default=7)
+    parser.add_argument('--restore-hardware-model', action='store_true',
+                        help='r20: restore the numeric model and set marketname separately')
     parser.add_argument('--workspace', type=Path, default=WORKSPACE,
                         help='Artifact workspace when running the synced WSL source copy')
     args = parser.parse_args()
-    assert args.revision >= 7
+    assert args.revision == (20 if args.restore_hardware_model else 7)
+    expected_raw_sha = ('0551a74f4f995793665a485d10caacffb22ccd8fdaffb78d7811d17c658b3ac1'
+                        if args.restore_hardware_model else EXPECTED_RAW_SHA)
+    expected_vbmeta_sha = ('666176dacf6756e069e1779d27275a0a6c8e1a4d7ba7648f40d0327aa940d44d'
+                           if args.restore_hardware_model else EXPECTED_VBMETA_SHA)
+    target_model = b'24018RPACC' if args.restore_hardware_model else TARGET_MODEL
     baseline = args.raw_base.resolve()
     assert baseline.is_file() and baseline.stat().st_size == EXPECTED_RAW_BYTES
-    assert sha(baseline) == EXPECTED_RAW_SHA, 'Raw base does not match installed system_b'
+    assert sha(baseline) == expected_raw_sha, 'Raw base does not match installed system_b'
     workspace = args.workspace.resolve()
-    base_vbmeta = workspace / 'artifacts/system-hardware-followup-sheng-r5/vbmeta_system.img'
-    assert sha(base_vbmeta) == EXPECTED_VBMETA_SHA
+    parent_revision = 19 if args.restore_hardware_model else 5
+    base_vbmeta = workspace / f'artifacts/system-hardware-followup-sheng-r{parent_revision}/vbmeta_system.img'
+    assert sha(base_vbmeta) == expected_vbmeta_sha
     destination = workspace / f'artifacts/system-hardware-followup-sheng-r{args.revision}'
     assert not destination.exists(), 'Never overwrite a built/flashed revision'
 
@@ -166,8 +174,10 @@ def main():
             raw_data.extend(source.read(block_size))
     assert bytes(raw_data[:old_size]) == original, 'File block order does not match build.prop dump'
     assert model_values(original).get(b'ro.product.system.model') == b'24018RPACC'
-    prerequisites = dict(raw_base=str(baseline), raw_base_sha256=EXPECTED_RAW_SHA,
-                         vbmeta_system_base_sha256=EXPECTED_VBMETA_SHA,
+    if args.restore_hardware_model:
+        assert model_values(original).get(b'ro.product.model') == b'Xiaomi Pad 6S Pro 12.4'
+    prerequisites = dict(raw_base=str(baseline), raw_base_sha256=expected_raw_sha,
+                         vbmeta_system_base_sha256=expected_vbmeta_sha,
                          baseline_descriptor_matches_installed_chain=True,
                          system_build_prop_inode=int(stat_match[1]),
                          system_build_prop_mode=stat_match[2],
@@ -182,9 +192,9 @@ def main():
 
     compiled_prop = PRODUCT / 'system/build.prop'
     compiled = compiled_prop.read_bytes()
-    assert model_values(compiled) == {b'ro.product.model': TARGET_MODEL,
+    assert model_values(compiled) == {b'ro.product.model': target_model,
                                       b'ro.product.system.model': b'24018RPACC'}, 'Compiled model properties not ready'
-    replacement = b'ro.product.model=' + TARGET_MODEL
+    replacement = b'ro.product.model=' + target_model
     lines = original.splitlines(keepends=True)
     matches = [index for index, line in enumerate(lines) if line.startswith(b'ro.product.model=')]
     assert len(matches) <= 1
@@ -204,6 +214,15 @@ def main():
         reverted = list(lines)
         del reverted[index]
         assert b''.join(reverted) == original
+    if args.restore_hardware_model:
+        marketing = b'ro.product.marketname=Xiaomi Pad 6S Pro 12.4\n'
+        assert compiled.splitlines().count(marketing.rstrip()) == 1
+        assert not any(line.startswith(b'ro.product.marketname=') for line in lines)
+        lines.insert(index + 1, marketing)
+        reverted = list(lines)
+        del reverted[index + 1]
+        reverted[index] = old_line
+        assert b''.join(reverted) == original
     updated = b''.join(lines)
     assert updated != original and model_values(updated) == model_values(compiled)
     assert len(updated) <= len(raw_data), 'Model-only update must retain existing allocated blocks'
@@ -212,7 +231,7 @@ def main():
 
     image = work / 'system.img'
     shutil.copyfile(baseline, image)
-    assert sha(image) == EXPECTED_RAW_SHA
+    assert sha(image) == expected_raw_sha
     run([HOST / 'avbtool', 'erase_footer', '--image', image], capture_output=True)
     assert image.stat().st_size == system_descriptor.image_size
     inode_after = bytearray(inode_before)
@@ -311,20 +330,17 @@ def main():
             stream.seek(image_offset + 256 + header.authentication_data_block_size + header.public_key_offset)
             return stream.read(header.public_key_size)
     assert public_key(base_vbmeta, old_chain_header) == public_key(vbmeta, new_chain_header)
-    assert sha(baseline) == EXPECTED_RAW_SHA and sha(base_vbmeta) == EXPECTED_VBMETA_SHA
+    assert sha(baseline) == expected_raw_sha and sha(base_vbmeta) == expected_vbmeta_sha
     # Recheck filesystem bytes after AVB recreation, which must only append data.
     assert changed_blocks(baseline, image, system_descriptor.image_size, block_size) == differences
 
-    destination.mkdir()
-    files = []
-    for partition, source in (('system', image), ('vbmeta_system', vbmeta)):
-        output = destination / (partition + '.img')
-        shutil.copyfile(source, output)
-        assert sha(output) == sha(source)
-        files.append(dict(partition=partition, name=output.name, bytes=output.stat().st_size, sha256=sha(output)))
-    report = dict(prerequisites, files=files, compiled_build_prop=str(compiled_prop),
+    outputs = dict(system=image, vbmeta_system=vbmeta)
+    report = dict(prerequisites, revision=args.revision, compiled_build_prop=str(compiled_prop),
                   compiled_build_prop_sha256=sha(compiled_prop), changed_system_files=[PROP_PATH],
-                  changed_property='ro.product.model', model=TARGET_MODEL.decode(),
+                  changed_property='ro.product.model', model=target_model.decode(),
+                  changed_properties=(['ro.product.model', 'ro.product.marketname']
+                                      if args.restore_hardware_model else ['ro.product.model']),
+                  marketname=('Xiaomi Pad 6S Pro 12.4' if args.restore_hardware_model else None),
                   original_build_prop_sha256=sha(original_prop), updated_build_prop_sha256=sha(updated_prop),
                   updated_build_prop_bytes=len(updated), filesystem_changed_blocks=differences,
                   changed_inode_fields=['i_size_lo'],
@@ -338,8 +354,8 @@ def main():
                   system_hashtree_verified=True, signatures_verified=True,
                   only_system_avb_descriptor_changed=True, other_avb_descriptors_and_header_preserved=True,
                   vendor_odm_and_vbmeta_untouched=True, runtime_verified=False)
-    (destination / 'build-result.json').write_text(json.dumps(report, indent=2) + '\n')
-    (destination / 'SHA256SUMS').write_text(''.join(f['sha256'] + '  ' + f['name'] + '\n' for f in files))
+    from package_sheng_batch_helpers import publish_batch
+    publish_batch(destination, outputs, report)
     print(json.dumps(report, indent=2))
 
 
