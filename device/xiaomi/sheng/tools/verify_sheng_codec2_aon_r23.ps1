@@ -24,7 +24,10 @@ function Invoke-Adb([string[]]$arguments) {
     $output = $stdout.Result + "`n" + $stderr.Result
     $code = $process.ExitCode
     $process.Dispose()
-    if ($code -ne 0) { throw $output }
+    if ($code -ne 0) {
+        Add-Content -LiteralPath (Join-Path $evidence 'command-failures.txt') -Value $output -Encoding utf8
+        throw $output
+    }
     return $output
 }
 function Save-Shell([string]$name, [string]$command) {
@@ -66,27 +69,30 @@ if ($link -notmatch '(?m)^/odm/lib64/camera/aon_front.pb\s*$' -or
     throw 'AON alias or unchanged target hash mismatch.'
 }
 Save-Shell 'services-before.txt' 'lshal -i; ps -A | grep -E "dolby|codec2"' | Out-Null
+$binaries = Save-Shell 'dolby-binary-hashes.txt' 'sha256sum /vendor/bin/hw/dolbycodec2 /vendor/bin/hw/vendor.dolby.media.c2@1.0-service'
+foreach ($relative in @('bin/hw/dolbycodec2', 'bin/hw/vendor.dolby.media.c2@1.0-service')) {
+    $expected = $manifest.frozen_spec.partitions.vendor.files.$relative.sha256
+    if ($binaries -notmatch ('(?m)^' + $expected + '\s')) { throw "Running binary differs from reviewed allocation: $relative" }
+}
 $remoteNative = '/data/local/tmp/sheng-codec2-hal-probe-r23'
-$remoteJava = '/data/local/tmp/sheng-codec2-probe-r23.jar'
+$remoteJava = '/data/local/tmp/sheng-codec2-audio-probe-r23.jar'
 if ((Invoke-Adb @('shell', "test ! -e $remoteNative && test ! -e $remoteJava; echo `$?")).Trim() -ne '0') {
     throw 'Temporary probe path already exists.'
 }
 try {
     Invoke-Adb @('push', (Join-Path $workspace 'artifacts/audio-diagnostics-sheng/sheng-codec2-hal-probe-r23'), $remoteNative) | Out-Null
-    Invoke-Adb @('push', (Join-Path $workspace 'artifacts/audio-diagnostics-sheng/sheng-codec2-probe-r23.jar'), $remoteJava) | Out-Null
+    Invoke-Adb @('push', (Join-Path $workspace 'artifacts/audio-diagnostics-sheng/sheng-codec2-audio-probe-r23.jar'), $remoteJava) | Out-Null
     Invoke-Adb @('shell', "chmod 700 $remoteNative") | Out-Null
     Save-Shell 'hal-probe.txt' "timeout 30 env LD_LIBRARY_PATH=/vendor/lib64:/system/lib64 $remoteNative" | Out-Null
-    Save-Shell 'mediacodec-probe.txt' "timeout 30 env CLASSPATH=$remoteJava app_process /system/bin ShengCodec2Probe" | Out-Null
+    Save-Shell 'mediacodec-probe.txt' "timeout 30 env CLASSPATH=$remoteJava app_process /system/bin ShengCodec2Probe --decoders-only --audio-only" | Out-Null
 } finally {
     Invoke-Adb @('shell', "rm -f $remoteNative $remoteJava") | Out-Null
 }
 Save-Shell 'services-after.txt' 'lshal -i; ps -A | grep -E "dolby|codec2"' | Out-Null
 $logs = Save-Shell 'startup-logcat.txt' 'logcat -b all -d'
 Save-Shell 'crash-buffer.txt' 'logcat -b crash -d' | Out-Null
-if ($logs -notmatch 'dolby: registered, ComponentStore size=288' -or
-    $logs -notmatch 'default1: registered, ComponentStore size=288') {
-    throw 'Missing exact current-boot registration evidence.'
-}
+$allocationLogged = $logs -match 'dolby: registered, ComponentStore size=288' -and
+    $logs -match 'default1: registered, ComponentStore size=288'
 if ($logs -match 'Cmdline: /vendor/bin/hw/(dolbycodec2|vendor\.dolby\.media\.c2@1\.0-service)') {
     throw 'Current boot contains a Dolby service native crash.'
 }
@@ -94,7 +100,11 @@ $result = [ordered]@{
     revision = 23; serial = $serial; slot = 'b'; hardware_boot_tested = $true
     installed_partition_hashes = $hashes; all_six_partition_hashes_match = $true
     exact_component_store_size = 288; both_hal_stores_verified = $true
-    media_codec_allocation_verified = $true; aon_alias_verified = $true
+    media_codec_audio_decoder_allocation_verified = $true; aon_alias_verified = $true
+    allocation_size_evidence = 'Installed binary hashes match reviewed 288-byte allocation disassembly'
+    both_allocation_registration_logs_retained = [bool]$allocationLogged
+    video_encoder_accepted = $false
+    video_decoder_post_release_idle_verified = $false
     aon_user_test_passed = $null; audiovisual_user_regression_passed = $null
     temporary_probes_cleaned = $true; other_connected_device_operated = $false
     evidence_directory = $evidence

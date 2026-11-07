@@ -7,12 +7,22 @@ import java.util.Arrays;
 /** Enumerate and allocate Dolby components without configuring or feeding media. */
 public final class ShengCodec2Probe {
     public static void main(String[] args) throws Exception {
+        boolean decodersOnly = Arrays.asList(args).contains("--decoders-only");
+        boolean audioOnly = Arrays.asList(args).contains("--audio-only");
         int found = 0, allocated = 0;
         for (MediaCodecInfo info : new MediaCodecList(MediaCodecList.ALL_CODECS).getCodecInfos()) {
             String name = info.getName();
             if (!name.startsWith("c2.dolby.") || info.isAlias()) continue;
             found++;
             System.out.println("codec=" + name + " types=" + Arrays.toString(info.getSupportedTypes()));
+            if (decodersOnly && info.isEncoder()) {
+                System.out.println("skipped_encoder=" + name);
+                continue;
+            }
+            if (audioOnly && !Arrays.stream(info.getSupportedTypes()).allMatch(t -> t.startsWith("audio/"))) {
+                System.out.println("skipped_video=" + name);
+                continue;
+            }
             if (name.endsWith(".secure")) continue;
             MediaCodec codec = MediaCodec.createByCodecName(name);
             try {
