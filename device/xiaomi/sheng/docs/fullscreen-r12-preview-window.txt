@@ -1,0 +1,6 @@
+    topResumedActivity=ActivityRecord{50822335 u0 com.ss.android.ugc.aweme/.splash.SplashActivity t16}
+    * Hist  #0: ActivityRecord{50822335 u0 com.ss.android.ugc.aweme/.splash.SplashActivity t16}
+      mActivityComponent=com.ss.android.ugc.aweme/.main.MainActivity
+      CurrentConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw813dp w1219dp h746dp 400dpi xlrg compactNeeded hdr land night finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 3048, 2032) mAppBounds=Rect(0, 0 - 3048, 1952) mMaxBounds=Rect(0, 0 - 3048, 2032) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} as.2 s.3 fontWeightAdjustment=0}
+      mVisibleRequested=true mVisible=true mClientVisible=true reportedDrawn=true reportedVisible=true
+      isLetterboxRunning=false

@@ -250,6 +250,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/location/sysconfig/sheng-location.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/sysconfig/sheng-location.xml \
     $(LOCAL_PATH)/location/permissions/default-permissions-sheng-location.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/default-permissions/default-permissions-sheng-location.xml
 
+# Large-screen window compatibility (upstream DeviceConfig bootstrap).
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/device-config-defaults:$(TARGET_COPY_OUT_SYSTEM)/etc/device-config-defaults
+
 # Overlay
 PRODUCT_PACKAGES += \
     FrameworkResOverlaySheng \
