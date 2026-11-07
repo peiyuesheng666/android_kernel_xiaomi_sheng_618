@@ -1,0 +1,15 @@
+{
+  "upstream_commit": "2f16bfe2c784623a324350cd19dae7f6066e2cfb",
+  "xml_sources": {
+    "my_device_info": {
+      "source": "packages/apps/Settings/res/xml/my_device_info.xml",
+      "sha256": "94766e631888e15a3ac1445e3a7edc259a2f81de5b4c8ff5a9ebf9c1e11bdb37"
+    },
+    "hardware_info": {
+      "source": "packages/apps/Settings/res/xml/hardware_info.xml",
+      "sha256": "7a64269cfbd3c0a2fb086ef10e08299daa02eb0e32d0c35d3c0afe4732af426d"
+    }
+  },
+  "behavior": "Add a marketing-name preference to both about and hardware screens; retain numeric model and label it Model number. Public Settings code unchanged.",
+  "runtime_verified": false
+}

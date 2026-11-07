@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sheng_model_name">Model name</string>
+    <string name="sheng_marketname" translatable="false">Xiaomi Pad 6S Pro 12.4</string>
+    <string name="model_info">Model number</string>
+</resources>
