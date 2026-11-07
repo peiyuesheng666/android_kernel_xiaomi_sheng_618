@@ -37,7 +37,7 @@ if [[ -f "$real_builder" ]]; then
 fi
 if [[ -f "$builder" ]]; then
     mv -- "$builder" "$real_builder"
-    printf '#!/bin/sh\nexport GOMEMLIMIT=12GiB GOGC=40\nexec "%s" "$@"\n' "$real_builder" > "$builder"
+    printf '#!/bin/sh\nexport GOMEMLIMIT=12GiB GOGC=40 GOMAXPROCS=4\nexec "%s" "$@"\n' "$real_builder" > "$builder"
     chmod 755 "$builder"
     # Do not invalidate an unchanged build graph just for the memory wrapper.
     touch -r "$real_builder" "$builder"
@@ -54,7 +54,7 @@ targets=(
     audio.primary.sheng libar-pal
     android.hardware.sensors-service.sheng-multihal
     vendor.qti.hardware.display.composer-service-sheng
-    vendor.qti.hardware.display.allocator-service-sheng libsdmdal
+    vendor.qti.hardware.display.allocator-service-sheng libsdmdal libsdedrm
     libshgdolby_foundation libdlbdsservice libhwdap libdlbpreg libdlbvol
     out/target/product/sheng/vendor/build.prop out/target/product/sheng/odm/etc/build.prop
     ShengDolby FrameworkResOverlaySheng vendor_file_contexts selinux_policy file_contexts.bin

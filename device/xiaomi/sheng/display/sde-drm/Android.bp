@@ -1,0 +1,40 @@
+// Retain the public DRM API while parsing sheng's stock submode pixel clocks.
+cc_library_shared {
+    name: "libsdedrm-sheng",
+    stem: "libsdedrm",
+    installable: false,
+    compile_multilib: "64",
+    defaults: ["qtidisplay_defaults"],
+    sanitize: { integer_overflow: true },
+    vendor: true,
+    header_libs: [
+        "display_headers", "qti_kernel_headers", "qti_display_kernel_headers",
+        "device_kernel_headers",
+    ],
+    local_include_dirs: ["../dal/include"],
+    cflags: [
+        "-fno-operator-names", "-Wno-format", "-Wno-unused-parameter",
+        "-DLOG_TAG=\"SDE_DRM\"",
+    ],
+    shared_libs: ["libdrm", "libdrmutils", "libdisplaydebug"],
+    srcs: [
+        "drm_manager.cpp", "drm_connector.cpp", "drm_encoder.cpp", "drm_crtc.cpp",
+        "drm_plane.cpp", "drm_atomic_req.cpp", "drm_utils.cpp", "drm_pp_manager.cpp",
+        "drm_property.cpp", "drm_dpps_mgr_imp.cpp", "drm_panel_feature_mgr.cpp",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libsdedrm-sheng-install",
+    source_module_name: "libsdedrm",
+    stem: "libsdedrm",
+    prefer: true,
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":libsdedrm-sheng"],
+    strip: { none: true },
+    shared_libs: [
+        "libdrm", "libdrmutils", "libdisplaydebug", "liblog", "libcutils", "libutils",
+        "libc++", "libc", "libm", "libdl",
+    ],
+}

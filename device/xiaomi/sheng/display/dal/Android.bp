@@ -37,6 +37,7 @@ cc_prebuilt_library_shared {
     strip: { none: true },
     shared_libs: [
         "libdisplaydebug", "libsdmutils", "libdrm", "libdrmutils", "libsdedrm",
+        "liblog", "libcutils", "libutils",
         "libc++", "libc", "libm", "libdl",
     ],
 }

@@ -67,9 +67,12 @@ original_metadata = metadata(base/'vendor.img')
 changes = {relative: product/'vendor'/relative for relative in (
     'bin/hw/vendor.qti.hardware.display.composer-service-sheng',
     'lib64/libsdmdal.so',
+    'lib64/libsdedrm.so',
 )}
 preferred = list((rom/'out/soong/.intermediates/device/xiaomi/sheng/display/dal/libsdmdal-sheng').glob('android_vendor_*_shared/libsdmdal.so'))
 assert len(preferred) == 1 and sha(preferred[0]) == sha(changes['lib64/libsdmdal.so'])
+preferred_drm = list((rom/'out/soong/.intermediates/device/xiaomi/sheng/display/sde-drm/libsdedrm-sheng').glob('android_vendor_*_shared/libsdedrm.so'))
+assert len(preferred_drm) == 1 and sha(preferred_drm[0]) == sha(changes['lib64/libsdedrm.so'])
 for relative, source in changes.items():
     target = vendor/relative
     assert target.is_file() and source.is_file(), relative
