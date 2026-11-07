@@ -7,8 +7,12 @@ though the stock gauge exposes /sys/class/qcom-battery/soh=93. Both fg1_soh
 and fg2_soh also report 93. The aggregate SOH is authoritative for this
 device; no capacity-ratio estimate or synthetic sysfs value is used.
 
-The device-owned health executable retains the QTI binary stem, service RC,
-IHealth/default version5 manifest and charger suspend behavior. Its main.cpp
+The device-owned health executable has a distinct .sheng filename and init RC.
+It uses init override to replace vendor.health-default and vendor.charger,
+retaining the original QTI module's IHealth/default version5 manifest and
+charger suspend behavior. Keeping the QTI module supplies its original manifest
+without duplicate declarations; its normal init services are replaced before
+class startup. Its main.cpp
 is based on the unmodified pinned QTI source (SHA256
 fc0e48a388eef1a60217d20191d9cd65667accda4a3b00c04b3a514dc7821a88)
 and adds the stock SOH path before BatteryMonitor initialization. The ordinary

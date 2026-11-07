@@ -58,3 +58,4 @@
 /vendor/bin/hw/android\.hardware\.sensors-service\.sheng-multihal u:object_r:hal_sensors_default_exec:s0
 /vendor/bin/hw/vendor\.qti\.hardware\.display\.allocator-service-sheng u:object_r:hal_graphics_allocator_default_exec:s0
 /vendor/bin/hw/vendor\.qti\.hardware\.display\.composer-service-sheng u:object_r:hal_graphics_composer_default_exec:s0
+/vendor/bin/hw/android\.hardware\.health-service\.sheng u:object_r:hal_health_default_exec:s0

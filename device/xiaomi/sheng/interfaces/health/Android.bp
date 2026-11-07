@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause-Clear
-// Retain the QTI installed identities while owning the sheng configuration.
+// Use the retained QTI module's VINTF declaration and replace its init services.
 cc_binary {
     name: "android.hardware.health-service.sheng",
-    stem: "android.hardware.health-service.qti",
     relative_install_path: "hw",
     vendor: true,
     defaults: ["libhealth_aidl_impl_user"],
@@ -14,7 +13,5 @@ cc_binary {
         "system/core/healthd/include_charger",
     ],
     cflags: ["-Wall", "-Werror"],
-    init_rc: ["android.hardware.health-service.qti.rc"],
-    vintf_fragments: ["android.hardware.health-service.qti.xml"],
-    overrides: ["charger"],
+    init_rc: ["android.hardware.health-service.sheng.rc"],
 }
