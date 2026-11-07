@@ -1,0 +1,27 @@
+{
+  "revision": 24,
+  "date_local": "2026-11-08T01:13:22.5029877+08:00",
+  "serial": "ca10ede3",
+  "slot": "b",
+  "flash_commands_completed": true,
+  "reboot_command_completed": true,
+  "adb_reconnected": false,
+  "hardware_boot_success": null,
+  "installed_partition_hashes_verified": false,
+  "runtime_verified": false,
+  "power_button_animation_user_passed": null,
+  "video_stream_decode_verified": false,
+  "expected_image_sha256": {
+    "system_ext": "dec8a7e4dc8adc931ab6998d204a4f21b058b16af28a8615ef17fe8bf25811cc",
+    "vbmeta": "883ba3ee6d22460c8a14f5a0eb04aabb4544d1d48d2386de52715b16ca7a9493",
+    "vbmeta_system": "644b62ff23dbf89775a5870b517d36a74fa13e9cefaa0d24a97ef5c9dea5014f",
+    "vendor": "4aa0518217ad9521d044b7408348039eb88457fa855bc3544cb499fea0299026"
+  },
+  "packaging_manifest_sha256": "bd97b0d1e085cbd73eb135e3e132d29b485a17860d27e8790e23d98d38afec03",
+  "flash_log": "reports/device/batch-r24-20261108-010337/flash-and-reboot.txt",
+  "flash_log_sha256": "9a76046a36fab64c581165ec0123b3640f273c1a648c5c32bf561138607d3094",
+  "agent_executed_adb_root": false,
+  "agent_started_camera_or_attention": false,
+  "other_connected_device_operated": false,
+  "note": "Target ADB and targeted fastboot endpoint have not returned after the authorized reboot. Cause is unknown; no boot or runtime pass is inferred. Continue offline fixes while waiting for the target connection."
+}
