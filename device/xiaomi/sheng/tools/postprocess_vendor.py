@@ -45,9 +45,14 @@ def postprocess_vendor(vendor: Path):
             section = section.replace('"' + source + '"', '"' + replacement + '"')
         else:
             assert section.count('"' + replacement + '"') == 1
-        if '"libcodec2_hal_common"' not in section:
-            assert section.count('shared_libs: [') == 1
-            section = section.replace('shared_libs: [', 'shared_libs: [\n                "libcodec2_hal_common",')
+        # The platform Codec2 defaults export these dependencies to the source
+        # binary. Preserve ELF dependency checks in the prebuilt installer too.
+        for dependency in ('libcodec2_hal_common', 'server_configurable_flags',
+                           'libaconfig_storage_read_api_cc'):
+            if '"' + dependency + '"' not in section:
+                assert section.count('shared_libs: [') == 1
+                section = section.replace('shared_libs: [',
+                    'shared_libs: [\n                "' + dependency + '",')
         text = text[:start] + section + text[end:]
     bp.write_text(text)
 
