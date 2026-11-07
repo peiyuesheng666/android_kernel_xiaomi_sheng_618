@@ -1,0 +1,40 @@
+{
+  "revision": 20,
+  "date": "2026-11-07",
+  "boot_completed": true,
+  "slot": "b",
+  "six_installed_partition_hashes_match": true,
+  "partition_sha256": {
+    "system": "0f9c8ad6341faae4abaa9c080614d6d879aa62e85e36383086bb0333adfb4dce",
+    "odm": "405d4004558bf5caea30874f301780d2a180c2da0ecc1ba143f7bdaa3ac1dfcf",
+    "system_ext": "9663016b59a90b30cb573dd45785f01ef1ef0ccefad6572279051cdec92a220a",
+    "vbmeta": "d31c33d7a479cb621e7b25e97afaf5636de3eea64e0c75a294420f313ffe9ba5",
+    "vbmeta_system": "bb396433319e6d1f77cb24f6f223b08de107d6e266838bc156c81acf526374e8",
+    "vendor": "140df691149b4b731caf2dca730de4403b6cf45bb1e7a004a1dbc228b1d4c8b5"
+  },
+  "model_properties": {
+    "ro.product.model": "24018RPACC",
+    "ro.product.odm.model": "24018RPACC",
+    "ro.product.product.model": "24018RPACC",
+    "ro.product.system_dlkm.model": "24018RPACC",
+    "ro.product.system_ext.model": "24018RPACC",
+    "ro.product.system.model": "24018RPACC",
+    "ro.product.vendor_dlkm.model": "24018RPACC",
+    "ro.product.vendor.model": "24018RPACC"
+  },
+  "marketname": "Xiaomi Pad 6S Pro 12.4",
+  "characteristics": "tablet",
+  "standard_battery_soh_percent": 93,
+  "stock_gauge_soh_percent": 93,
+  "health_process_executable": "/vendor/bin/hw/android.hardware.health-service.sheng",
+  "affected_application_recognition_user_accepted": false,
+  "picture_and_touch_r20_user_accepted": null,
+  "attention_detection_user_accepted": false,
+  "attention_status": "r19 user gaze test failed; no attention changes or agent-triggered test in r20",
+  "raw_evidence": "reports/device/r20-runtime",
+  "flash_evidence": "reports/device/model-r20-20261107-190751",
+  "source_commit": "0302a89",
+  "packaging_commit": "58127bd",
+  "settings_marketing_name_user_accepted": false,
+  "usb_disconnect_user_reported": true
+}

@@ -48,8 +48,8 @@ hardware models must remain `24018RPACC`. PRODUCT_MARKETNAME alone does not
 emit the required runtime property in this build. The earlier r7 global model
 override was incorrect: the user reports that some applications no longer
 recognize the tablet. r20 explicitly sets both properties in system.prop.
-Compiled property output and fresh upstream audits pass; installed readback
-and affected-application acceptance remain pending. Settings displaying
+Compiled output, fresh upstream audits and r20 installed property/partition
+readback pass; the user still reports affected-application failures. Settings displaying
 Build.MODEL does not justify replacing the app-visible hardware model.
 
 ## Automatic screen timeout
