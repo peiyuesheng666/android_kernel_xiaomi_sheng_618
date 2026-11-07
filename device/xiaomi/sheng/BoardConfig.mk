@@ -219,6 +219,7 @@ BOARD_KERNEL_CMDLINE += video=vfb:640x400,bpp=32,memsize=3072000 disable_dma32=o
 ENABLE_VENDOR_RIL_SERVICE := false
 VENDOR_SECURITY_PATCH := 2026-02-01
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/system_ext/private
 TARGET_VENDOR_PROP := $(DEVICE_PATH)/properties/vendor.prop
 TARGET_ODM_PROP := $(DEVICE_PATH)/properties/odm.prop
 TARGET_SYSTEM_PROP := $(DEVICE_PATH)/properties/system.prop

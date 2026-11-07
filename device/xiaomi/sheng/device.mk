@@ -457,4 +457,4 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     sheng-tablet-compat \
     sheng-tablet-compat-init \
-    sheng-tablet-bootclasspath
+    sheng-derive-classpath

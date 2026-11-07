@@ -1,0 +1,2 @@
+# The device adapter executes the official generator inside the same domain.
+allow derive_classpath derive_classpath_exec:file execute_no_trans;

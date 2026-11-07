@@ -1,0 +1,2 @@
+# The adapter has exactly the standard classpath generator's domain and access.
+/system_ext/bin/sheng-derive-classpath u:object_r:derive_classpath_exec:s0

@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
-# Preserve the standard service, user, output and APEX ordering. Select the
-# board-generated fragment with one extra form-factor compatibility jar.
-service derive_classpath /apex/com.android.sdkext/bin/derive_classpath --bootclasspath-fragment=/system_ext/etc/sheng/bootclasspath.pb
+# The device adapter runs the official generator, then appends the compatibility
+# jar after every original BOOTCLASSPATH component. Keep boot-image inputs intact.
+service derive_classpath /system_ext/bin/sheng-derive-classpath
     override
     user system
     group system reserved_disk

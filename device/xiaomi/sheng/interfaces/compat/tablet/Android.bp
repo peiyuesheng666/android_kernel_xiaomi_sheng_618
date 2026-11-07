@@ -16,3 +16,17 @@ prebuilt_etc {
     sub_dir: "init",
     system_ext_specific: true,
 }
+
+cc_binary {
+    name: "sheng-derive-classpath",
+    srcs: ["derive_classpath.cpp"],
+    shared_libs: ["libbase", "liblog"],
+    cflags: ["-Wall", "-Werror"],
+    system_ext_specific: true,
+}
+
+cc_test_host {
+    name: "sheng-classpath-test",
+    srcs: ["classpath_exports_test.cpp"],
+    cflags: ["-Wall", "-Werror"],
+}
