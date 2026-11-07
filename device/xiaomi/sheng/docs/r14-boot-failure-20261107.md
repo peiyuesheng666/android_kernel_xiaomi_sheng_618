@@ -37,3 +37,27 @@ preserved as failed evidence. The pending color and ambient features are not
 marked repaired. Before another device trial, exercise real containers,
 iteration and destruction in the ABI tests and review actual stock-library
 consumption, including self-referential map sentinels.
+
+## Follow-up candidate (not yet hardware accepted)
+
+Disassembly of RegisterDisplay at 0x3aa20-0x3aaac shows the failed map traversal:
+it compares nodes against the passed object's own end sentinel. A raw relocated
+map header still refers to the original end sentinel. After the last element,
+that old sentinel can be misread as a tree node and its map size (3 here) as a
+pointer. Merely keeping the source object alive does not make the copied header
+valid.
+
+The next candidate owns a genuine PPHWAttributes C++ deep copy. It keeps the
+resource prefix at that copy's constructed address, compacts only the suffix
+in place for the stock call, then restores the native suffix and removed bytes
+before C++ destruction. Copy and move of the temporary adapter are forbidden.
+The real maps consequently retain matching sentinel addresses; its panel vector
+owns an independent allocation and is restored before destruction.
+
+The replacement sanitizer test constructs maps with 0, 1, 3 and 100 entries,
+including nested vectors, iterates them to the actual end sentinel, verifies
+independent node/vector ownership, exercises the compacted panel-vector view,
+checks all nine feature versions/pointer/brightness, and then lets both copies
+be destroyed. Address/undefined-behavior sanitizers pass. This is stronger host
+coverage, but still does not establish acceptance by the actual stock library.
+The failed r14 images/spec remain immutable and must not be reused as a fix.

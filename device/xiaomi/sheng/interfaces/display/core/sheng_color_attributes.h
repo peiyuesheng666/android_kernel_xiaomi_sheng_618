@@ -10,21 +10,42 @@ namespace sheng {
 
 // Stock libsdm-color.so was built before the trailing HWResourceInfo DDR
 // version field. Its PPHWAttributes suffix begins at 0x260, not 0x268.
-// This is a borrowed ABI view: the copied vector/map pointers remain owned
-// by the live source object; the byte buffer must never run their destructors.
-struct alignas(8) StockColorAttributes {
+// Own a real deep copy before compacting the scalar/layout suffix in place.
+// A raw borrowed map copy is invalid: its nodes still point at the original
+// object's end sentinel. Keeping this copy's prefix at its constructed address
+// preserves that sentinel. Restore the native layout before C++ destruction.
+template <typename NativeAttributes>
+class StockColorAttributes {
+ public:
   static constexpr size_t kResourceBytes = 0x260;
   static constexpr size_t kRemovedBytes = 8;
   static constexpr size_t kSourceBytes = 0x588;
   static constexpr size_t kStockBytes = kSourceBytes - kRemovedBytes;
-  std::array<unsigned char, kStockBytes> bytes{};
-
-  explicit StockColorAttributes(const void *source) {
-    const auto *data = static_cast<const unsigned char *>(source);
-    std::memcpy(bytes.data(), data, kResourceBytes);
-    std::memcpy(bytes.data() + kResourceBytes,
-                data + kResourceBytes + kRemovedBytes, kStockBytes - kResourceBytes);
+  explicit StockColorAttributes(const NativeAttributes &source) : storage_(source) {
+    static_assert(sizeof(NativeAttributes) == kSourceBytes);
+    auto *data = reinterpret_cast<unsigned char *>(&storage_);
+    std::memcpy(removed_.data(), data + kResourceBytes, kRemovedBytes);
+    std::memmove(data + kResourceBytes, data + kResourceBytes + kRemovedBytes,
+                 kStockBytes - kResourceBytes);
   }
+
+  ~StockColorAttributes() {
+    auto *data = reinterpret_cast<unsigned char *>(&storage_);
+    std::memmove(data + kResourceBytes + kRemovedBytes, data + kResourceBytes,
+                 kStockBytes - kResourceBytes);
+    std::memcpy(data + kResourceBytes, removed_.data(), kRemovedBytes);
+  }
+
+  StockColorAttributes(const StockColorAttributes &) = delete;
+  StockColorAttributes &operator=(const StockColorAttributes &) = delete;
+  StockColorAttributes(StockColorAttributes &&) = delete;
+  StockColorAttributes &operator=(StockColorAttributes &&) = delete;
+
+  const NativeAttributes &get() const { return storage_; }
+
+ private:
+  NativeAttributes storage_;
+  std::array<unsigned char, kRemovedBytes> removed_{};
 };
 
 }  // namespace sheng

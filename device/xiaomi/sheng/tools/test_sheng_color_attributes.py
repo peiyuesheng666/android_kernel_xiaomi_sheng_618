@@ -10,36 +10,64 @@ CORE = Path(__file__).resolve().parents[1] / 'interfaces/display/core'
 
 
 class ColorAttributesABI(unittest.TestCase):
-    def test_borrowed_layout(self):
+    def test_owned_containers_and_restored_destruction(self):
         fixture = r'''
 #include "sheng_color_attributes.h"
 #include <cassert>
 #include <cstdint>
+#include <map>
+#include <vector>
+using Formats = std::map<int, std::vector<int>>;
+struct Native {
+  std::array<unsigned char, 0xf0> prefix{};
+  Formats formats;
+  std::array<unsigned char, 0x260 - 0xf0 - sizeof(Formats)> resource_tail{};
+  uint64_t removed = 0xdecafbad12345678ULL;
+  std::vector<uint64_t> bitclocks;
+  std::array<unsigned char, 0x588 - 0x268 - sizeof(bitclocks)> suffix{};
+};
+static_assert(sizeof(Native) == 0x588);
 int main() {
-  alignas(8) std::array<unsigned char, 0x588> source;
-  for (size_t i = 0; i < source.size(); ++i) source[i] = (i * 37 + i / 256) & 255;
+ for (int count : {0, 1, 3, 100}) {
+  Native source;
+  for (int i = 0; i < count; ++i) source.formats[i] = {i, i + 1, i + 2};
+  source.bitclocks = {400000, 600000, 800000};
   const std::array<uint32_t, 9> versions = {19,17,5,5,11,7,21,18,16};
-  std::memcpy(source.data() + 0x550, versions.data(), sizeof(versions));
+  auto *source_data = reinterpret_cast<unsigned char *>(&source);
+  std::memcpy(source_data + 0x550, versions.data(), sizeof(versions));
   const uint64_t borrowed_pointer = 0x1234567887654321ULL;
-  std::memcpy(source.data() + 0x578, &borrowed_pointer, sizeof(borrowed_pointer));
+  std::memcpy(source_data + 0x578, &borrowed_pointer, sizeof(borrowed_pointer));
   const uint32_t maximum_brightness = 4095;
-  std::memcpy(source.data() + 0x580, &maximum_brightness, sizeof(maximum_brightness));
-  const auto before = source;
+  std::memcpy(source_data + 0x580, &maximum_brightness, sizeof(maximum_brightness));
   {
-    sheng::StockColorAttributes stock(source.data());
-    static_assert(sizeof(stock) == 0x580 && alignof(decltype(stock)) == 8);
-    assert(std::memcmp(stock.bytes.data(), source.data(), 0x260) == 0);
-    assert(std::memcmp(stock.bytes.data() + 0x260, source.data() + 0x268, 0x320) == 0);
-    assert(std::memcmp(stock.bytes.data() + 0x548, versions.data(), sizeof(versions)) == 0);
+    sheng::StockColorAttributes<Native> stock(source);
+    const auto *data = reinterpret_cast<const unsigned char *>(&stock.get());
+    const auto &formats = stock.get().formats;
+    assert(&formats != &source.formats && formats == source.formats);
+    assert((formats.begin() == formats.end()) == (count == 0));
+    int seen = 0;
+    for (const auto &entry : formats) {
+      assert(entry.first == seen && entry.second == source.formats.at(seen));
+      assert(&entry != &*source.formats.find(seen));
+      ++seen;
+    }
+    assert(seen == count);
+    const auto &stock_bitclocks = *reinterpret_cast<const std::vector<uint64_t> *>(data + 0x260);
+    assert(stock_bitclocks == source.bitclocks);
+    assert(stock_bitclocks.data() != source.bitclocks.data());
+    assert(std::memcmp(data + 0x548, versions.data(), sizeof(versions)) == 0);
     uint32_t dither = 0, brightness = 0;
     uint64_t pointer = 0;
-    std::memcpy(&dither, stock.bytes.data() + 0x55c, sizeof(dither));
-    std::memcpy(&pointer, stock.bytes.data() + 0x570, sizeof(pointer));
-    std::memcpy(&brightness, stock.bytes.data() + 0x578, sizeof(brightness));
+    std::memcpy(&dither, data + 0x55c, sizeof(dither));
+    std::memcpy(&pointer, data + 0x570, sizeof(pointer));
+    std::memcpy(&brightness, data + 0x578, sizeof(brightness));
     assert(dither == 7 && pointer == borrowed_pointer && brightness == 4095);
   }
-  // No source bytes or pointed-to objects are destroyed by the borrowed view.
-  assert(source == before);
+  // Both copies were iterated and only the view's own allocations were freed.
+  assert(source.formats.size() == static_cast<size_t>(count));
+  assert(source.bitclocks == std::vector<uint64_t>({400000, 600000, 800000}));
+  assert(source.removed == 0xdecafbad12345678ULL);
+ }
 }
 '''
         with tempfile.TemporaryDirectory(prefix='sheng-color-abi-') as directory:

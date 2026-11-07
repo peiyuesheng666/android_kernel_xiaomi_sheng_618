@@ -271,13 +271,12 @@ ColorManagerProxy *ColorManagerProxy::CreateColorManagerProxy(DisplayType type,
     static_assert(offsetof(HWResourceInfo, ddr_version) == 0x260);
     static_assert(sizeof(HWResourceInfo) == 0x268);
     static_assert(offsetof(PPHWAttributes, version) == 0x550);
-    static_assert(sizeof(PPHWAttributes) == sheng::StockColorAttributes::kSourceBytes);
-    const sheng::StockColorAttributes stock_attributes(&hw_attr);
-    const auto &stock_hw_attr =
-        *reinterpret_cast<const PPHWAttributes *>(stock_attributes.bytes.data());
+    using StockAttributes = sheng::StockColorAttributes<PPHWAttributes>;
+    static_assert(sizeof(PPHWAttributes) == StockAttributes::kSourceBytes);
+    const StockAttributes stock_attributes(hw_attr);
     // Instantiate the unchanged stock color implementation with its exact ABI.
     error = create_intf_(COLOR_VERSION_TAG, color_manager_proxy->display_id_,
-                         color_manager_proxy->device_type_, stock_hw_attr,
+                         color_manager_proxy->device_type_, stock_attributes.get(),
                          &color_manager_proxy->color_intf_);
     if (error != kErrorNone) {
       DLOGW("Unable to instantiate concrete ColorInterface from %s", COLORMGR_LIBRARY_NAME);
