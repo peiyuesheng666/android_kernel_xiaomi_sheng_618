@@ -1,0 +1,52 @@
+{
+  "build_passed": true,
+  "resource_link_probe_passed": true,
+  "classpath_schema_test_passed": true,
+  "official_derive_classpath_passed": true,
+  "base_fragment_bytes": 822,
+  "merged_fragment_bytes": 924,
+  "reviewed_sha256": {
+    "odm": {
+      "overlay/SettingsResOverlaySheng.apk": "0086aaabfeca6a47f2afe6558c081764ee5ab0d706c5e4bc36d24172c8f5f348"
+    },
+    "vendor": {
+      "lib64/libsdmdal.so": "b7939e54599dffe9e56fc56eb08ad6b468b44af9d45447d1dbc3717fa6fe0c67"
+    },
+    "system_ext": {
+      "framework/sheng-tablet-compat.jar": "dffbb179a7694af74f57793e382d30bcaa9ff24357a42ef327e1f4a2bed7f6a8",
+      "etc/init/sheng-tablet-compat.rc": "839619d1c9b54c6cf039ae17c2bb6abd9fb471720338c3de3b488fc054a9545e",
+      "etc/sheng/bootclasspath.pb": "4c3e437881e6343a979f23f52202fb3d78522f1bea8ad6bd91b1b23c76604122"
+    }
+  },
+  "source_sha256": {
+    "device.mk": "c12e58ebae812de6cb4581ba7648c83c396825b162b8701b37a1f7b7b5a080db",
+    "interfaces/compat/tablet/Android.bp": "dae6503401c3c6d1484b3f29d47648a7cf2c264290b1e0ec57565c079f0d15bd",
+    "interfaces/compat/tablet/Android.mk": "d49dd6cbc06cf43fa1f728d64ccca3fe878c3b2d23109ace5cc1ec06e42daa24",
+    "interfaces/compat/tablet/merge_classpath.py": "b14fd62da10ea03855f9b18f937f2d247fe6f28316a55651c7ca361c14d18cc2",
+    "interfaces/compat/tablet/sheng-tablet-compat.rc": "839619d1c9b54c6cf039ae17c2bb6abd9fb471720338c3de3b488fc054a9545e",
+    "interfaces/compat/tablet/src/miui/os/Build.java": "97645312d2a7223e6f4214629621074c82d032dc914e9db0ced39741e65f90e9",
+    "interfaces/display/dal/hw_device_drm.cpp": "e818051d1e2487820a47d4a2f40069a3808d3f6804d7a0844f280526c230d2bf",
+    "overlay/SettingsResOverlaySheng/Android.bp": "21fbb855d6bf1fb3f91b123f43f519be75801d309038366892629fa6a1403579",
+    "overlay/SettingsResOverlaySheng/res/values-zh/identity.xml": "c2018b9d360c8784f8c8441f192e285825ececf840828a1cf1284cda79652544",
+    "overlay/SettingsResOverlaySheng/res/values/identity.xml": "23481efe3014dd530c5a7a39ab0caca346302811322eb1d9900d31bcc24d8fab",
+    "overlay/SettingsResOverlaySheng/res/xml/hardware_info.xml": "5fe97127f672f7da663205acdfed47808766c4964f1e1716a210de931575eca3",
+    "overlay/SettingsResOverlaySheng/res/xml/my_device_info.xml": "a33cd847e0e23650085068c27c06768419b3fc47433f25003d21fa517c3b2294"
+  },
+  "build_log": "/root/sheng-lineage/logs/build-r21-validated-20261107.txt",
+  "build_log_sha256": "171e442d46e8c9e6ef88b4e5ec97aacc173e93caa3aa53e65398c08bd86db4d1",
+  "exports": {
+    "base": {
+      "BOOTCLASSPATH": "/system/framework/framework.jar:/system/framework/framework-graphics.jar:/system/framework/framework-location.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-ondeviceintelligence-platform.jar:/apex/com.android.i18n/javalib/core-icu4j.jar",
+      "DEX2OATBOOTCLASSPATH": "/system/framework/framework.jar:/system/framework/framework-graphics.jar:/system/framework/framework-location.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-ondeviceintelligence-platform.jar:/apex/com.android.i18n/javalib/core-icu4j.jar",
+      "SYSTEMSERVERCLASSPATH": "",
+      "STANDALONE_SYSTEMSERVER_JARS": ""
+    },
+    "merged": {
+      "BOOTCLASSPATH": "/system/framework/framework.jar:/system/framework/framework-graphics.jar:/system/framework/framework-location.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-ondeviceintelligence-platform.jar:/apex/com.android.i18n/javalib/core-icu4j.jar:/system_ext/framework/sheng-tablet-compat.jar",
+      "DEX2OATBOOTCLASSPATH": "/system/framework/framework.jar:/system/framework/framework-graphics.jar:/system/framework/framework-location.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-ondeviceintelligence-platform.jar:/apex/com.android.i18n/javalib/core-icu4j.jar:/system_ext/framework/sheng-tablet-compat.jar",
+      "SYSTEMSERVERCLASSPATH": "",
+      "STANDALONE_SYSTEMSERVER_JARS": ""
+    }
+  },
+  "runtime_verified": false
+}
