@@ -1,0 +1,68 @@
+{
+  "files": [
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "47c65508aabc01e14d8aaf0befd38339e74c317a4df7c4d3c1c04bf98ce972a5"
+    },
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "9735c4f6aa8dcc1f3b327b54ebc47f16b4c697e26095f7530d4671dfda3aac4d"
+    },
+    {
+      "partition": "system_ext",
+      "name": "system_ext.img",
+      "bytes": 469995788,
+      "sha256": "ecfe2fb32bc2e7b2651787c4cbefe27c553da0b66cdfb3284ea735c3e884d348"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "948bbcaecbea5d3e8af8fb986f4ab97c5f95c117b15b9cb7a9fa1123a761a5dc"
+    },
+    {
+      "partition": "vbmeta_system",
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "cbc5326ebc2529cb108ff0673357c3fd6f3b44096ed42dbd00e0a7742833f06b"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/hardware-followup/20261107T000005341281Z",
+  "changed_files": {
+    "vendor": [
+      "build.prop",
+      "etc/audio/sku_kalama/audio_effects.xml",
+      "etc/audio_effects.xml",
+      "lib64/hw/audio.primary.sheng.so",
+      "lib64/libar-pal.so",
+      "lib64/libdlbpreg.so",
+      "lib64/soundfx/libdlbvol.so"
+    ],
+    "odm": [
+      "etc/build.prop"
+    ],
+    "system_ext": [
+      "priv-app/ShengDolby/ShengDolby.apk"
+    ]
+  },
+  "verified_base_sha256": {
+    "vendor": "0982fd68ff6cfc40e11ef338a62b9468e415236a7e31692740af3acd5ee6cece",
+    "vbmeta": "5ceb8b1e2f9fadda1935f7d8bc1c5410eddc64f839b73a972a0b99c3248fd3ff",
+    "odm": "9f8cbc7ee5603773a1d7d0b603027d921e5d06a95e4f3fa8fbcf91fe636367ab",
+    "system_ext": "6fc35a1aaf69450f9540ae4d297b2b643dfef9801eeda98ba2bf4bb334a47916",
+    "vbmeta_system": "56a22ad46eb3eaeb39bfcefa144c63b2a531a975d77ff6513beca4cd6dc450a7"
+  },
+  "readback_verified": true,
+  "signatures_verified": true,
+  "partition_sizes_unchanged": true,
+  "existing_erofs_inode_metadata_unchanged": true,
+  "unrelated_avb_descriptors_preserved": true,
+  "apk_certificate_preserved": true,
+  "installed_public_policy_ids_matched": true,
+  "native_device_pal_input_verified": true,
+  "hardware_boot_tested": false
+}
