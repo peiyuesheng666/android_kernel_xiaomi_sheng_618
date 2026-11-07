@@ -1,0 +1,37 @@
+{
+  "revision": 19,
+  "phase": "AON initial build; combined Health build pending",
+  "initial_build_passed": true,
+  "selinux_policy_and_context_tests_passed": true,
+  "prebuild_and_fresh_postbuild_audits_passed": true,
+  "resource_review": {
+    "changed_resources": {
+      "bool/config_adaptive_sleep_available": {
+        "old": null,
+        "new": [
+          "      () true"
+        ]
+      },
+      "string/config_defaultAttentionService": {
+        "old": null,
+        "new": [
+          "      () \"com.xiaomi.aon/com.xiaomi.aon.AonAttentionService\""
+        ]
+      }
+    },
+    "all_prior_resources_unchanged": true,
+    "stock_dex_unchanged": true
+  },
+  "aon_apk": {
+    "apk_sha256": "3f5adb243442c3a5d4c88fbe35a61243f205624754d1a441a6ede27caf744625",
+    "apk_bytes": 127199,
+    "dex_sha256": "98fd4791cb87e96c42f935a45228daa7cf36ad80c4e86edc6b488c7671d195b8",
+    "stock_dex_unchanged": true,
+    "certificates": [
+      "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8"
+    ],
+    "framework_resource_diff": "reports/device/r19-runtime/aon-framework-resource-diff.txt"
+  },
+  "flashed": false,
+  "attention_detection_tested": false
+}
