@@ -1,0 +1,23 @@
+{
+  "revision": 14,
+  "serial": "ca10ede3",
+  "slot": "b",
+  "flash_completed_utc": "2026-11-07T07:45:18.9353654Z",
+  "partitions": [
+    "odm",
+    "vendor",
+    "vbmeta"
+  ],
+  "all_three_flash_commands_passed": true,
+  "reboot_acknowledged": true,
+  "installed_baselines_verified_before_flash": true,
+  "slot_changed": false,
+  "data_erased": false,
+  "postboot_hashes_verified": false,
+  "boot_completed_verified": false,
+  "physical_color_response_verified": false,
+  "camera_or_screenshot_used": false,
+  "log": "reports/device/batch-r14-20261107-154413/flash-and-reboot.txt",
+  "log_sha256": "5dafccebfb2d6e41bd53312d5bf85adfe01bf6e4b9587e01cdbd89d542112273",
+  "pending": "Awaiting boot/AVB state confirmation and ADB return"
+}
