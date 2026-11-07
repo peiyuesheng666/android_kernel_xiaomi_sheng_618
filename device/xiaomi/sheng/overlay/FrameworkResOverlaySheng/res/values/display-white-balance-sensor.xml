@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <!-- Legacy DisplayWhiteBalanceFactory matches the sensor string type.
+         Android 17's display-config path already binds this front CCT sensor.
+         Availability and calibrated white-balance parameters are not enabled here. -->
+    <string name="config_displayWhiteBalanceColorTemperatureSensorName" translatable="false">xiaomi.sensor.front_cct</string>
+</resources>

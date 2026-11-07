@@ -1,0 +1,5 @@
+REGISTER true stk_stk3bcx front CCT Cct Sensor Non-wakeup type=33171088
+ACCURACY stk_stk3bcx front CCT Cct Sensor Non-wakeup=3
+SAMPLE elapsedMs=391 ageMs=7 type=33171088 wake=false name=stk_stk3bcx front CCT Cct Sensor Non-wakeup timestamp=6965508070570 values=[6382.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+COMPLETE counts={33171088:false=1}
+RANGE 33171088:false=[6382.0, 6382.0]

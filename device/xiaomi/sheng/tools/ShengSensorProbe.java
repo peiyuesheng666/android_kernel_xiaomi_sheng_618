@@ -17,6 +17,7 @@ public final class ShengSensorProbe {
         SensorManager manager = context.getSystemService(SensorManager.class);
         Handler handler = new Handler(Looper.getMainLooper());
         int durationMs = args.length > 0 ? Math.min(180000, Math.max(5000, Integer.parseInt(args[0]))) : 25000;
+        boolean frontCctOnly = args.length > 1 && "--front-cct-only".equals(args[1]);
         HashMap<String, Integer> counts = new HashMap<>();
         HashMap<String, float[]> ranges = new HashMap<>();
         long started = android.os.SystemClock.elapsedRealtime();
@@ -43,8 +44,14 @@ public final class ShengSensorProbe {
         };
         for (Sensor sensor : manager.getSensorList(Sensor.TYPE_ALL)) {
             int type = sensor.getType();
-            if (type == 5 || type == 33171001 || type == 33171007 || type == 33171055
-                    || type == 33171085 || type == 33171088 || type == 33171089) {
+            boolean selected = type == 5 || type == 33171001 || type == 33171007 || type == 33171055
+                    || type == 33171085 || type == 33171088 || type == 33171089;
+            if (frontCctOnly) {
+                selected = type == 33171088 && !sensor.isWakeUpSensor()
+                        && "xiaomi.sensor.front_cct".equals(sensor.getStringType())
+                        && "stk_stk3bcx front CCT Cct Sensor Non-wakeup".equals(sensor.getName());
+            }
+            if (selected) {
                 boolean registered = manager.registerListener(listener, sensor, 200000, handler);
                 System.out.println("REGISTER " + registered + " " + sensor.getName() + " type=" + type);
             }

@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "created_utc": "2026-11-07T06:06:39.193823+00:00",
+  "status": "device_tree_candidate_runtime_color_validation_pending",
+  "source_release": "OS3.0.303.0.WNXCNXM Android 16",
+  "configurations": [
+    {
+      "source": "/root/sheng-lineage/firmware-dump/partitions/vendor/etc/snapdragon_color_libs_config.xml",
+      "device_tree_file": "configs/display/color/snapdragon_color_libs_config.xml",
+      "install_path": "/vendor/etc/snapdragon_color_libs_config.xml",
+      "bytes": 1831,
+      "sha256": "dd41f581cbd151bfbfe92f1db1ee80ebc12ed8c21851790d770d30fb3e0c4dea",
+      "source_bytes_preserved": true
+    },
+    {
+      "source": "/root/sheng-lineage/firmware-dump/partitions/vendor/etc/df_default.xml",
+      "device_tree_file": "configs/display/color/df_default.xml",
+      "install_path": "/vendor/etc/df_default.xml",
+      "bytes": 65768,
+      "sha256": "f87d9367f7ca2a118bf512944619aaae8bc262fc2dcd629a895b2b3f0b9a74dc",
+      "source_bytes_preserved": true
+    }
+  ],
+  "new_required_module": "sheng_display_feature_default_config",
+  "install_rule_conflict_check": {
+    "generated_vendor_makefile_only_installs_odm_df_default": true,
+    "old_vendor_product_output_df_default_missing": true,
+    "new_vendor_prebuilt_unique": true
+  },
+  "runtime_before": {
+    "snapdragon_color_xml_installed": false,
+    "vendor_df_default_installed": false,
+    "odm_df_default_installed": true,
+    "manager_loaded": true,
+    "qdcm_plugin_loaded": false,
+    "mi_stc_plugin_loaded": false,
+    "supported_color_modes": [
+      0
+    ],
+    "color_display_white_balance": "Not available",
+    "cct_listener_enabled": false
+  },
+  "runtime_hashes": {
+    "libsnapdragoncolor-manager.so": "ae59101f5352e4179625ae319140f0b7ee29d81e74c7612da42090d9f7e3e243",
+    "libsnapdragoncolor-qdcm.so": "e2cbe561de60793ef4016f1a0a6ce7b47279f89f72f158e441287770fa89db35",
+    "libmi-stc-HW-modulate.so": "081a3c189a3be90e07fee724c90db8b62e8d2baa5939d66e2d4f1208712d003f",
+    "libmiXmlParser.so": "d67a72b6be7d8046d6be26a088dba44c881bb11bcabb34d95d6c39a6a956e0b5",
+    "panel_qdcm_json": "5eff4bb9342cf499c7bc313ded7dea5eae70977068fdb9aa0029a98ffe193b70"
+  },
+  "extension_dependencies_present": [
+    "libtinyxml2_1.so",
+    "libmiXmlParser.so",
+    "libeyecare.so",
+    "libqservice.so",
+    "libstagefright_foundation.so",
+    "libxml2.so",
+    "libhidltransport.so",
+    "libhidlbase.so"
+  ],
+  "effective_permissions": {
+    "panel_info_label": "vendor_sysfs_displayfeature",
+    "existing_composer_sysfs_type_read_allow": true,
+    "existing_persist_display_allow": true,
+    "new_selinux_rules": [],
+    "existing_vndservices": [
+      "display.mistcservice",
+      "miclstcservice"
+    ]
+  },
+  "legacy_dwb_binding": {
+    "resource": "config_displayWhiteBalanceColorTemperatureSensorName",
+    "value": "xiaomi.sensor.front_cct",
+    "ddc_binding_already_matches": true,
+    "feature_availability_or_enablement_changed": false
+  },
+  "front_cct_probe": {
+    "jar_sha256": "22d766f4ce09c8e964d8e6ae761fbedbfdc120c1200bd3d1f77f7fd7ac4e2c0f",
+    "duration_ms": 15000,
+    "only_sensor_name": "stk_stk3bcx front CCT Cct Sensor Non-wakeup",
+    "string_type": "xiaomi.sensor.front_cct",
+    "type": 33171088,
+    "wakeup": false,
+    "event_count": 1,
+    "kelvin_range": [
+      6382.0,
+      6382.0
+    ],
+    "accuracy": 3,
+    "event_age_ms": 7,
+    "zero_or_nonfinite_first_value_observed": false,
+    "normal_exit": true,
+    "log": "docs/front-cct-sample-20261107.txt"
+  },
+  "white_balance_limits": [
+    "No measured/native primaries and active-mode nominal white have been validated.",
+    "Stock TrueTone2 is a two-dimensional lux/CCT map, not a standard DWB one-dimensional spline.",
+    "Stock white-point channel gains are not XYZ coordinates.",
+    "No HAL invalid-CCT filter was added because this sample did not reproduce invalid data.",
+    "No color-accuracy, white-balance, mode enumeration or plugin-init runtime pass is claimed."
+  ],
+  "tests": {
+    "source_config_byte_hash_match": true,
+    "xml_parse": true,
+    "legacy_resource_exact_sensor_type": true,
+    "front_cct_probe_javac": true,
+    "front_cct_probe_d8_and_bounded_runtime": true
+  },
+  "device_operations": [
+    "read-only ADB diagnostics",
+    "separately authorized 15-second single non-wakeup front-CCT subscription"
+  ],
+  "not_performed": [
+    "camera/AON activation",
+    "screenshots",
+    "display-mode or power-node writes",
+    "composer restart",
+    "Android image compilation",
+    "flash"
+  ]
+}
