@@ -1,0 +1,50 @@
+{
+  "revision": 18,
+  "frozen_spec_sha256": "e20d765c2b4b6f44388155ec8071a0d1e8204bb93f07d2329104ab84538e10ab",
+  "files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "ecc21d624a0b5c5f31552001d62d815c73d5762dc5a041af4361bce91d2e5bb5"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "1d6b64b741611cfab318794aa29d4a50fe4e3cde6b18c1131e310f27bd20dada"
+    }
+  ],
+  "baseline_sha256": {
+    "odm": "2d8146ff348984037eef80922f6e9d26f5beefd582cf387c9f5985c9140cb946",
+    "vendor": "de2ca07b44743f201bd911c11e54ce60134463c3f4e83589b6413c537e7d02de",
+    "vbmeta": "32d99a8d9f1b996086569e04e41d682a5aeab08c4eaf85640de8cab8bb69056d",
+    "system": "0551a74f4f995793665a485d10caacffb22ccd8fdaffb78d7811d17c658b3ac1",
+    "vbmeta_system": "a947be896074811b496f42cf3759def63f808518869f56ed6c67c608622cd165",
+    "system_ext": "7a4e2a739f9cbc3a9713113e40f8a181dde34875c1ef0abee5e53411de58c573"
+  },
+  "partition_reports": {
+    "odm": {
+      "changed_files": [
+        "overlay/FrameworkResOverlaySheng.apk",
+        "overlay/SettingsResOverlaySheng.apk"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "0aa7b969-4e53-581b-b90a-26e09cf8d195",
+      "apk_certificates": {
+        "overlay/FrameworkResOverlaySheng.apk": [
+          "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc"
+        ],
+        "overlay/SettingsResOverlaySheng.apk": [
+          "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc"
+        ]
+      },
+      "created_symlinks": {}
+    }
+  },
+  "exact_baselines_verified": true,
+  "all_filesystem_stages_verified": true,
+  "vbmeta_parent_verified": true,
+  "source_commit": "2b91bcfb08a62d8d0380ea886cb67e19b00eeb02",
+  "hardware_boot_tested": false
+}

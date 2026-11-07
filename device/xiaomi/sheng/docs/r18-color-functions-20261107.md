@@ -43,3 +43,14 @@ and display_white_balance_enabled remains absent/default true.
 Evidence: workspace logs/r17-retained-framework-resources.txt,
 logs/r18-framework-resources.txt, logs/r18-settings-resources.txt, and
 reports/device/r18-runtime/before-flash-settings.txt.
+
+## Exclusive r18 publication
+
+Full filesystem readback confirms the changed-file set is exactly the two ODM
+RROs. Permission/SELinux/UUID, APK certificates, unchanged baseline chain hashes,
+and AVB parent descriptor/key checks passed. The ODM hashtree descriptor is the
+only parent vbmeta descriptor change. Images were published to an exclusive r18
+directory without replacing prior versions. Frozen spec SHA256 is
+ e20d765c2b4b6f44388155ec8071a0d1e8204bb93f07d2329104ab84538e10ab.
+Image hashes and scope evidence are in packaging-r18-20261107.json.
+Runtime acceptance is separate and pending at publication.
