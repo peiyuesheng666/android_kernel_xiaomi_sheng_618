@@ -53,6 +53,44 @@ The wider status-bar height changes app insets as expected.
 
 ## Boundaries and validation
 
+### r11 physical-orientation mapping
+
+The r10 visual test passed, but a targeted SystemUI cache dump exposed a
+remaining 5px mismatch: the panel's natural orientation is landscape, while
+upstream `RotationUtils.getResourcesForRotation` synthesizes portrait for
+rotations 0/2 and landscape for 1/3. It changes only `orientation`, retaining
+the original configuration's width, height and smallest-width dp. Consequently
+the stock portrait qualifier was selected for a live landscape status bar.
+
+r11 preserves both original base values and adds six tablet width/height
+configurations. Width minima 800/1000/1250dp select 45px; height minima
+800/1000/1250dp select 40px. Resource matching evaluates these minima before
+orientation and chooses the matching pair with the smallest total remaining
+width/height delta. For a physical landscape configuration, a higher width
+threshold matches than any height threshold; portrait behaves conversely.
+The same rule therefore works when the helper replaces only orientation.
+
+At 400dpi, physical 1219x813dp selects width 1000dp and 45px, while 813x1219dp
+selects height 1000dp and 40px. The normal-context navigation and floating
+rotation-button consumers retain the same stock values, so no source or layout
+copy is needed. Pixel units and the external-display fallback are unchanged.
+
+The six thresholds cover integer densities 261 through 541dpi for this panel,
+including the stock Settings choices 280/320/360/400/466/532dpi. At 600dpi the
+panel's smallest width is below 600dp, so both the original portrait override
+and these tablet-only thresholds stop matching; the original 45px default
+remains. Settings uses a minimum scale of 70%, maximum 150% and approximately
+9% intervals. Manual densities below 261dpi have not been generalized by this
+mapping. The resource-priority boundary was checked with floor, round and ceil
+dp conversions; candidate-resource and live-layout results are recorded in
+the r11 validation record.
+
+These rules correct the **live** layout after configuration changes. The
+provider can also cache projected rotations using the current configuration's
+width/height; those projected cache entries are not used as evidence of the
+final layout in another physical orientation. Verify the matching current
+rotation after actually rotating the tablet.
+
 The stock/current display-cutout paths are empty. No camera hole, simulated
 cutout or camera-protection path is added. The shared stock framework overlay
 also contains a 1080x2400 display shape; that shape is not the 3048x2032 sheng

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Match physical window dimensions independently of synthesized orientation.
+     See docs/OVERLAY_GEOMETRY.md for stock values and matching boundaries. -->
+<resources>
+    <dimen name="rounded_corner_content_padding">40px</dimen>
+</resources>
