@@ -25,6 +25,17 @@
     "stock_submode_pixel_clock_offset": 40,
     "changes": ["DRMSubModeInfo LP64 layout", "PopulateDisplayAttributes pixel clock"]
   },
+  "display_core": {
+    "upstream": "hardware/qcom-caf/sm8550/display",
+    "revision": "d679d895cd1e35d088b67bfd19d9141c76da5207",
+    "source_directory": "sdm/libs/core",
+    "device_directory": "interfaces/display/core",
+    "changes": ["borrowed stock PPHWAttributes ABI view at CreateColorInterface", "device module identity and preferred installation"],
+    "source_hw_resource_bytes_lp64": 616,
+    "stock_hw_resource_bytes_lp64": 608,
+    "source_pp_version_offset_lp64": 1360,
+    "stock_pp_version_offset_lp64": 1352
+  },
   "display_sde_drm": {
     "upstream": "hardware/qcom-caf/sm8550/display",
     "revision": "d679d895cd1e35d088b67bfd19d9141c76da5207",

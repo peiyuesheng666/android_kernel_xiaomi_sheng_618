@@ -1,0 +1,76 @@
+cc_library_shared {
+    name: "libsdmcore-sheng",
+    stem: "libsdmcore",
+    installable: false,
+    compile_multilib: "64",
+    defaults: ["qtidisplay_defaults"],
+    sanitize: {
+        integer_overflow: true,
+    },
+    vendor: true,
+    header_libs: [
+        "display_headers",
+        "qti_kernel_headers",
+        "qti_display_kernel_headers",
+        "device_kernel_headers",
+    ],
+    cflags: [
+        "-fno-operator-names",
+        "-Wno-invalid-offsetof",
+        "-Wno-format",
+        "-Wno-unused-parameter",
+        "-DLOG_TAG=\"SDM\"",
+    ] + select(soong_config_variable("qtidisplay", "pxlw_vendor_namespace"), {
+        any @ value: [
+            "-DPXLW_IRIS",
+        ],
+        default: [],
+    }),
+    shared_libs: [
+        "libdl",
+        "libdisplaydebug",
+        "libsdmutils",
+        "libdrm",
+        "libdrmutils",
+        "libsdedrm",
+        "libsdmdal",
+    ]+ select(soong_config_variable("qtidisplay", "pxlw_vendor_namespace"), {
+        any @ value: [
+            "//" + value + ":libpwirisfeature",
+        ],
+        default: [],
+    }),
+
+    srcs: [
+        "core_interface.cpp",
+        "core_impl.cpp",
+        "display_base.cpp",
+        "display_builtin.cpp",
+        "display_pluggable.cpp",
+        "display_virtual.cpp",
+        "display_null.cpp",
+        "noise_plugin_intf_impl.cpp",
+        "comp_manager.cpp",
+        "strategy.cpp",
+        "resource_default.cpp",
+        "color_manager.cpp",
+        "hw_info_default.cpp",
+    ],
+
+}
+
+cc_prebuilt_library_shared {
+    name: "libsdmcore-sheng-install",
+    source_module_name: "libsdmcore",
+    stem: "libsdmcore",
+    prefer: true,
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":libsdmcore-sheng"],
+    strip: { none: true },
+    shared_libs: [
+        "libdl", "libdisplaydebug", "libsdmutils", "libdrm", "libdrmutils",
+        "libsdedrm", "libsdmdal", "liblog", "libcutils", "libutils",
+        "libc++", "libc", "libm",
+    ],
+}
