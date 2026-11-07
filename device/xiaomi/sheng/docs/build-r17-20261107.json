@@ -1,0 +1,31 @@
+{
+  "revision": 17,
+  "recorded_utc": "2026-11-07T09:10:46.138583+00:00",
+  "build_passed": true,
+  "elapsed": "01:32",
+  "project_count": 1243,
+  "fresh_prebuild_public_sources_passed": true,
+  "fresh_postbuild_public_sources_passed": true,
+  "compiled_inputs": {
+    "odm/overlay/SettingsResOverlaySheng.apk": {
+      "bytes": 12447,
+      "sha256": "83600de78c26df4221e44d70df5ab866c756d34fee68f9623512aa17aa95f71f"
+    }
+  },
+  "option_names_zh": [
+    "自适应",
+    "鲜艳",
+    "生动"
+  ],
+  "option_values": [
+    0,
+    2,
+    1
+  ],
+  "scope": [
+    "odm/overlay/SettingsResOverlaySheng.apk"
+  ],
+  "persistent_boot_tested": false,
+  "gpu_fallback": false,
+  "camera_or_screenshot_used": false
+}
