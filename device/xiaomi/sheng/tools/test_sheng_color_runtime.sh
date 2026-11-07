@@ -7,6 +7,10 @@ state=/data/local/tmp/sheng-color-owned-20261107/state.txt
 service=vendor.qti.hardware.display.composer
 baseline=5f7226abc1ef594fb7e15e89bbf54ee835d49001cefad777182ae8b7a229cb03
 expected=${1:?Expected candidate SHA256 required}
+duration=${2:-90}
+[ "${#duration}" -le 3 ]
+case "$duration" in ''|*[!0-9]*) exit 1;; esac
+[ "$duration" -ge 30 ] && [ "$duration" -le 300 ]
 [ "${#expected}" -eq 64 ]
 case "$expected" in *[!0-9a-f]*) exit 1;; esac
 [ "$(id -u)" = 0 ]
@@ -48,12 +52,12 @@ mounted=1
 mount_id=$(awk -v path="$target" '$5 == path {print $1}' /proc/1/mountinfo)
 [ -n "$mount_id" ]
 [ "$(nsenter -t 1 -m -- sha256sum "$target" | cut -d ' ' -f 1)" = "$expected" ]
-echo "START old_pid=$old_pid candidate=$expected mount=$mount_id" > "$state"
+echo "START old_pid=$old_pid candidate=$expected mount=$mount_id duration=$duration" > "$state"
 setprop ctl.restart "$service"
 new_pid=
 stable=0
 i=0
-while [ "$i" -lt 90 ]; do
+while [ "$i" -lt "$duration" ]; do
     sleep 1
     i=$((i + 1))
     pid=$(pidof vendor.qti.hardware.display.composer-service-sheng || true)

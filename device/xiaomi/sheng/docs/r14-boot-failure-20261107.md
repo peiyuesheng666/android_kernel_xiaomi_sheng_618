@@ -67,7 +67,10 @@ Before any new image, the explicit runtime helper tests only a temporary bind
 of that one library over the running r13 file. It refuses an existing target
 mount, requires the exact baseline/candidate hashes and keeps the on-disk image
 unchanged. It watches the new composer PID, restores the verified original
-library on early process death, and always restores it after at most 90 seconds.
+library on early process death, and restores it when the bounded trial ends.
+The default remains 90 seconds; an explicit duration of 30-300 seconds is
+accepted for a longer observation window and recorded in the state file.
+Malformed or out-of-range durations are rejected before any device mutation.
 Only its own recorded mount ID can be removed; a busy mount may be detached
 lazily before restarting composer with the original file. No SELinux disabling,
 data erase, camera use or forced GPU composition is part of this trial.
