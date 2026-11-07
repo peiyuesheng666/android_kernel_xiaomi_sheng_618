@@ -14,8 +14,11 @@ SurfaceFlinger treats the vendor range as vendor render intents, which this
 composer does not advertise. Its actual HWC color spaces are Native (0),
 sRGB (7) and Display P3 (9); those numbers are not settings mode identifiers.
 
-Both overlays now agree on standard modes 0/1/2 and use Settings' existing
-localized names. Every mode maps to composition color space 0, clearing a
+The framework advertises standard modes 0/1/2. The Settings overlay removes
+both custom arrays so the picker inherits Settings' own localized names and
+values and filters them by that framework list. This also avoids unresolved
+references to target-only strings when the standalone RRO links. Every
+mode maps to composition color space 0, clearing a
 previous forced gamut while retaining SurfaceFlinger's content-aware selection.
 No invented sRGB-D65/vendor modes or Automatic render intent are advertised.
 
