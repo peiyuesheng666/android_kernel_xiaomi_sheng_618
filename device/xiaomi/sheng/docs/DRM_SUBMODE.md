@@ -11,17 +11,20 @@ Stock `libsdmdal.so`'s `HWDeviceDRM::PopulateDisplayAttributes` uses a 48-byte
 value in `HWDisplayAttributes::clock_khz`. The manifest CAF header omits this
 field (40-byte stride) and CAF DAL uses `drmModeModeInfo::clock` instead.
 Stock sheng has a burst video panel with separate timing and submode clocks.
-Both ABI and clock selection must match the unchanged stock `libsdedrm.so`.
+Both the producer and consumer must carry the stock pixel clock field.
 
 `display/dal` retains the CAF sources and notices at the revision recorded in
 `SOURCE_BASELINES.json`. Only the local DRM header and pixel clock assignment
-are adapted. A static assertion requires the stock LP64 size. Missing stock
+are adapted. Device-owned `display/sde-drm` also retains the CAF sources and
+public DRM API, adding parsing of the kernel's `pixel_clk_khz=` mode property.
+Exact submode-prefix matching prevents `preferred_submode_idx=` from creating
+a spurious submode. A static assertion requires the stock LP64 size. Missing stock
 clock data returns an error instead of bypassing resource limits. Public CAF
 sources remain unchanged. The preferred device-compiled `libsdmdal` follows
-the same source/prebuilt selection pattern as device PAL; normal product
+and `libsdedrm` follow the same source/prebuilt selection pattern as device PAL; normal product
 builds install it without a patch runner.
 
 Runtime testing is pending. Composer's native-mode gate remains opt-in until
 native timings, switching, sleep/wake, and reboot have been verified.
-The refresh packager uses verified r5 as its base, changes composer and DAL
+The refresh packager uses verified r5 as its base, changes composer, DAL, and DRM
 only, and preserves r5 audio, sensors, inode metadata, and other AVB descriptors.

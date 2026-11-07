@@ -25,6 +25,13 @@
     "stock_submode_pixel_clock_offset": 40,
     "changes": ["DRMSubModeInfo LP64 layout", "PopulateDisplayAttributes pixel clock"]
   },
+  "display_sde_drm": {
+    "upstream": "hardware/qcom-caf/sm8550/display",
+    "revision": "d679d895cd1e35d088b67bfd19d9141c76da5207",
+    "source_directory": "sde-drm",
+    "device_directory": "display/sde-drm",
+    "changes": ["pixel_clk_khz mode property", "exact submode prefix matching"]
+  },
   "gsl": {
     "upstream": "hardware/qcom-caf/sm8550/audio/graphservices",
     "revision": "1d2e82222dbc35b9b2cff966281cd2b7a26d081a",

@@ -810,12 +810,12 @@ void DRMConnector::ParseModeProperties(uint64_t blob_id, DRMConnectorInfo *info)
       mode_item = &info->modes.at(index++);
       submode_item = NULL;
       submode_index = 0;
-    } else if (line.find(submode_string) != string::npos) {
+    } else if (line.find(submode_string) == 0) {
       string submode_idx(line, submode_string.length());
       DRMSubModeInfo submode = {};
       mode_item->sub_modes.push_back(submode);
       submode_item = &mode_item->sub_modes.at(submode_index++);
-    } else if (line.find(preferred_submode_string) != string::npos) {
+    } else if (line.find(preferred_submode_string) == 0) {
       mode_item->curr_submode_index =
                  std::stoi(string(line, preferred_submode_string.length()));
     } else if (line.find(topology) != string::npos) {
