@@ -99,26 +99,35 @@ def sibling_symlink_target(relative, link):
     return str(PurePosixPath(relative).parent / link)
 
 
+def installed_symlink_target(partition, relative, link):
+    # The stock sheng AON alias is the only supported cross-partition link.
+    if (partition, relative, link) == (
+            'vendor', 'lib64/camera/aon_front.pb', '/odm/lib64/camera/aon_front.pb'):
+        return 'odm', 'lib64/camera/aon_front.pb'
+    return partition, sibling_symlink_target(relative, link)
+
+
 def validate_inputs(partition, entries, allow_symlinks=False):
     result = {}
     for relative, entry in entries.items():
         relative_path(relative)
         source = PRODUCT / partition / relative
         assert entry['source'] == str(source), 'Sources must be exact installed build outputs'
-        assert source.resolve().is_relative_to((PRODUCT / partition).resolve()), source
+        assert source.parent.resolve().is_relative_to((PRODUCT / partition).resolve()), source
         if entry.get('kind', 'file') == 'symlink':
             assert allow_symlinks and partition in ('odm', 'vendor') and source.is_symlink(), source
             raw = os.readlink(source)
-            target_relative = sibling_symlink_target(relative, raw)
+            target_partition, target_relative = installed_symlink_target(partition, relative, raw)
             assert raw == entry['link_target']
             data = raw.encode('utf-8')
             assert len(data) == entry['bytes'] and hashlib.sha256(data).hexdigest() == entry['sha256'], source
-            target = PRODUCT / partition / target_relative
+            target = PRODUCT / target_partition / target_relative
             assert target.is_file() and not target.is_symlink()
-            assert target.resolve().is_relative_to((PRODUCT / partition).resolve())
+            assert target.resolve().is_relative_to((PRODUCT / target_partition).resolve())
             assert sha(target) == entry['target_sha256'], target
             assert not entry.get('device_source'), 'Generated aliases are frozen through their build entry and DT inputs'
         else:
+            assert source.resolve().is_relative_to((PRODUCT / partition).resolve()), source
             assert entry.get('kind', 'file') == 'file' and source.is_file() and not source.is_symlink(), source
             assert source.stat().st_size == entry['bytes'] and sha(source) == entry['sha256'], source
         if entry.get('device_source'):
@@ -173,10 +182,13 @@ def new_metadata(value, directory=False, nlink=1, symlink=False):
                 nlink=nlink, xattrs={'6:selinux': (value['selinux'] + '\0').encode().hex()})
 
 
-def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_certificates=None):
+def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_certificates=None,
+                external_symlink_targets=None):
     """Update only declared paths; preserve original EROFS metadata and UUID."""
     sources = validate_inputs(partition, entries, allow_symlinks=True)
     new_apk_certificates = new_apk_certificates or {}
+    external_symlink_targets = external_symlink_targets or {}
+    used_external_targets = set()
     new_apks = set()
     root = work / f'{partition}-tree'
     assert not root.exists() and not (work / f'{partition}.img').exists()
@@ -196,10 +208,15 @@ def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_cer
         if entries[relative].get('kind') == 'symlink':
             assert not os.path.lexists(target), 'Existing aliases must never be replaced'
             raw = entries[relative]['link_target']
-            target_relative = sibling_symlink_target(relative, raw)
-            assert before.get(target_relative) == ('file', entries[relative]['target_sha256']), \
-                'Alias target must be an unchanged baseline blob matching the compiled target'
-            assert target_relative not in sources, 'Alias target may not be updated in the same stage'
+            target_partition, target_relative = installed_symlink_target(partition, relative, raw)
+            if target_partition == partition:
+                assert before.get(target_relative) == ('file', entries[relative]['target_sha256']), \
+                    'Alias target must be an unchanged baseline blob matching the compiled target'
+                assert target_relative not in sources, 'Alias target may not be updated in the same stage'
+            else:
+                assert external_symlink_targets.get(raw) == entries[relative]['target_sha256'], \
+                    'Cross-partition alias requires a separately verified baseline target'
+                used_external_targets.add(raw)
             target.symlink_to(raw)
             new_nodes.add(relative)
             aliases[relative] = dict(link_target=raw, target_sha256=entries[relative]['target_sha256'])
@@ -223,6 +240,7 @@ def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_cer
             signer_digests[relative] = certs
         shutil.copyfile(source, target)
     assert new_apks == set(new_apk_certificates), 'Unused or missing new APK signing reference'
+    assert used_external_targets == set(external_symlink_targets), 'Unused cross-partition target'
     assert new_nodes == set(nodes), f'New node metadata must be explicit: {sorted(new_nodes)}'
     for relative in sorted(new_nodes):
         target = root / relative

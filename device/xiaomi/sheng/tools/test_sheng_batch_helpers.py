@@ -133,12 +133,28 @@ class BatchTests(unittest.TestCase):
                     selinux='u:object_r:vendor_file:s0')
         nodes = {p: dict(meta, mode=0o755) for p in ('firmware', 'firmware/new')}
         nodes['firmware/new/config.xml'] = meta
+        # The AON alias resolves within the installed Android filesystem; the
+        # host's /odm must never be followed while validating or extracting it.
+        alias = 'lib64/camera/aon_front.pb'
+        raw = '/odm/' + alias
+        blob = self.build / 'odm' / alias
+        blob.parent.mkdir(parents=True)
+        blob.write_bytes(b'unchanged stock sensor protobuf')
+        link = self.build / 'vendor' / alias
+        link.parent.mkdir(parents=True)
+        link.symlink_to(raw)
+        entries[alias] = dict(kind='symlink', source=str(link), bytes=len(raw),
+                             sha256=hashlib.sha256(raw.encode()).hexdigest(),
+                             link_target=raw, target_sha256=helpers.sha(blob))
+        nodes.update({p: dict(meta, mode=0o755) for p in ('lib64', 'lib64/camera')})
+        nodes[alias] = dict(meta, mode=0o777)
         work = self.root / 'erofs-stage'
         work.mkdir()
         with patch.object(helpers, 'ROM', fake_rom):
             try:
                 image, descriptor, report = helpers.stage_erofs(
-                    'vendor', base, entries, nodes, work, self.avb, self.avbtool)
+                    'vendor', base, entries, nodes, work, self.avb, self.avbtool,
+                    external_symlink_targets={raw: helpers.sha(blob)})
             except Exception:
                 log = work / 'vendor-build.log'
                 if log.exists():
@@ -153,6 +169,21 @@ class BatchTests(unittest.TestCase):
         self.assertEqual(set(report['changed_files']), set(entries))
         self.assertEqual((work / 'vendor-readback/etc/keep').read_bytes(), b'unchanged' * 3000)
         self.assertEqual(descriptor.partition_name, 'vendor')
+        self.assertEqual(os.readlink(work / 'vendor-readback' / alias), raw)
+        self.assertEqual(helpers.complete_metadata(image)[0]['/' + alias]['type'], stat.S_IFLNK)
+
+    def test_cross_partition_alias_is_exactly_scoped(self):
+        self.assertEqual(helpers.installed_symlink_target(
+            'vendor', 'lib64/camera/aon_front.pb', '/odm/lib64/camera/aon_front.pb'),
+            ('odm', 'lib64/camera/aon_front.pb'))
+        for partition, relative, raw in (
+            ('odm', 'lib64/camera/aon_front.pb', '/odm/lib64/camera/aon_front.pb'),
+            ('vendor', 'lib64/camera/other.pb', '/odm/lib64/camera/aon_front.pb'),
+            ('vendor', 'lib64/camera/aon_front.pb', '/odm/lib64/camera/other.pb'),
+            ('vendor', 'lib64/camera/aon_front.pb', '../../odm/aon_front.pb'),
+        ):
+            with self.assertRaises(AssertionError):
+                helpers.installed_symlink_target(partition, relative, raw)
 
     def test_system_prefix_addition(self):
         tree = self.root / 'system-tree'

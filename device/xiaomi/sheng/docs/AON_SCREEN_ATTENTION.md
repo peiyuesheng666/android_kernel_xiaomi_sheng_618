@@ -129,8 +129,14 @@ does not exist. A device-owned install_symlink restores the exact stock path
 and target, without changing protobuf contents, firmware or sensor registry.
 The target SHA256 remains b0d920c16e4968173cf8f4f90c1056e959b9aad1c2651a76cca17ee19dac46d6.
 
-This is a confirmed packaging omission and a candidate for the native sensor
-init failure, not proof of its cause. Current r22 text logs still show firmware
+The ADSP consumer confirms this is a required lookup path: adsp.b33 contains
+`/vendor/lib64/camera/%s.pb`. That 33684-byte segment is byte-identical between
+the offline stock input and the currently loaded firmware, SHA256
+af4f8ddda37c51ed1aa103b83e30b9579404db2331f21d66d3cf6ad074de958a.
+The pathname omission is therefore directly relevant to the firmware lookup,
+not inferred from an unrelated warning. Existing r22 logs still show firmware
 init error1. Acceptance requires the installed link and target hash, a new boot
 trace without that pipeline failure, and the user's physical attention test.
 No camera/provider restart or attention request is issued for investigation.
+Raw string evidence: reports/device/r23-investigation/aon-firmware-strings.txt;
+live/stock segment identity: reports/device/r20-runtime/aon-adsp-file-comparison.json.
