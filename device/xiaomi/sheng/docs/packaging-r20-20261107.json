@@ -1,0 +1,73 @@
+{
+  "raw_base": "/mnt/e/XiaomiPad6SProPort6.18-artifacts/system-hardware-followup-sheng-r13/system.img",
+  "raw_base_sha256": "0551a74f4f995793665a485d10caacffb22ccd8fdaffb78d7811d17c658b3ac1",
+  "vbmeta_system_base_sha256": "666176dacf6756e069e1779d27275a0a6c8e1a4d7ba7648f40d0327aa940d44d",
+  "baseline_descriptor_matches_installed_chain": true,
+  "system_build_prop_inode": 667,
+  "system_build_prop_mode": "0600",
+  "system_build_prop_blocks": [
+    77323,
+    77324
+  ],
+  "system_build_prop_inode_byte_offset": 186880,
+  "original_build_prop_bytes": 6401,
+  "original_model_properties": {
+    "ro.product.system.model": "24018RPACC",
+    "ro.product.model": "Xiaomi Pad 6S Pro 12.4"
+  },
+  "work_dir": "/root/sheng-lineage/hardware-followup/20261107T110619071279Z-model",
+  "revision": 20,
+  "compiled_build_prop": "/root/sheng-lineage/lineage-24.0/out/target/product/sheng/system/build.prop",
+  "compiled_build_prop_sha256": "a401d6ce240ccd0f914c4dd78be0858569a1ca3583c006c8560dc1f3a59f0d0c",
+  "changed_system_files": [
+    "/system/build.prop"
+  ],
+  "changed_property": "ro.product.model",
+  "model": "24018RPACC",
+  "changed_properties": [
+    "ro.product.model",
+    "ro.product.marketname"
+  ],
+  "marketname": "Xiaomi Pad 6S Pro 12.4",
+  "original_build_prop_sha256": "ec7d51707ad0495eee7de745ed3b2d8d38cc2adea2429a72b429c33a66d5cfae",
+  "updated_build_prop_sha256": "ed5cda91baf6b3676d9cffc48c253027d03209bde998dede54e7811e5fa2b842",
+  "updated_build_prop_bytes": 6434,
+  "filesystem_changed_blocks": [
+    45,
+    77323,
+    77324
+  ],
+  "changed_inode_fields": [
+    "i_size_lo"
+  ],
+  "original_inode_sha256": "2447c315b8dac71fca0271b111afa874a25f2c9f3c7a313f10b06aa03de33063",
+  "updated_inode_sha256": "221ca3147173285c70bb33400d03329c2beba60b11288a9cb76982169a3f1032",
+  "build_prop_inode_number_preserved": true,
+  "build_prop_allocated_blocks_preserved": true,
+  "build_prop_mode_owner_group_times_and_all_xattrs_preserved": true,
+  "all_other_files_and_inode_bytes_preserved": true,
+  "exact_system_base_verified": true,
+  "filesystem_readback_verified": true,
+  "readonly_e2fsck_passed": true,
+  "partition_sizes_unchanged": true,
+  "system_hashtree_verified": true,
+  "signatures_verified": true,
+  "only_system_avb_descriptor_changed": true,
+  "other_avb_descriptors_and_header_preserved": true,
+  "vendor_odm_and_vbmeta_untouched": true,
+  "runtime_verified": false,
+  "files": [
+    {
+      "partition": "system",
+      "name": "system.img",
+      "bytes": 1005133824,
+      "sha256": "0f9c8ad6341faae4abaa9c080614d6d879aa62e85e36383086bb0333adfb4dce"
+    },
+    {
+      "partition": "vbmeta_system",
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "bb396433319e6d1f77cb24f6f223b08de107d6e266838bc156c81acf526374e8"
+    }
+  ]
+}
