@@ -76,7 +76,7 @@ module identities are retained when source directories move.
 
 ## Current validation
 
-The installed baseline is r17. The user confirmed normal picture/touch, no
+The installed baseline is r18. The user confirmed normal picture/touch, no
 brief yellow flash on wake/password entry with ambient white balance enabled,
 and smooth Night Light activation. RGB and Night Light hardware color effects
 were accepted on r15. Lift-to-wake is user-confirmed working; AON's existing
@@ -84,6 +84,6 @@ Screen attention switch is unavailable until an attention service is integrated.
 Details and remaining items are in [docs/HARDWARE_STATUS.md](docs/HARDWARE_STATUS.md).
 
 The final color request keeps 自适应/生动/鲜艳 visible order and swaps the latter
-two functions; r18 is being prepared. Source/build/package milestones remain
+two functions; r18 passed the user check and 鲜艳 selection reads actual mode1. Source/build/package milestones remain
 separate from device acceptance. Keyboard and double-tap touch candidates stay
 paused and unregistered in the current product.

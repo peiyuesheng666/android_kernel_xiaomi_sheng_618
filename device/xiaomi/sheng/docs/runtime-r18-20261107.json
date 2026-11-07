@@ -34,6 +34,12 @@
   "white_balance_user_setting": "absent/default true",
   "night_light_user_setting": 0,
   "gpu_fallback": false,
-  "user_menu_function_acceptance": "pending",
-  "raw_evidence": "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/reports/device/r18-runtime"
+  "user_menu_function_acceptance": "passed",
+  "raw_evidence": "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/reports/device/r18-runtime",
+  "user_report": "Visible order unchanged, latter effects exchanged; 鲜艳 selected for readback.",
+  "selected_xianyan_saved_mode": 1,
+  "selected_xianyan_color_display_mode": 1,
+  "ordinary_display_touch_baseline_acceptance": "passed_r17",
+  "white_balance_wake_acceptance": "passed_r17",
+  "night_light_transition_acceptance": "passed_r17"
 }

@@ -70,3 +70,19 @@ SurfaceFlinger reports device composition and usesClientComposition=false.
 A final physical menu/function check is pending; prior accepted yellow-flash
 and Night Light fixes remain the baseline. Evidence: runtime-r18-20261107.json
 and workspace reports/device/r18-runtime.
+
+## Final physical menu/function acceptance
+
+The user confirmed the visible order is correct and the last two effects have
+exchanged, and left 鲜艳 selected for verification. Direct ADB readback gives
+saved display_color_mode=1 and color_display Color mode:1, proving 鲜艳 now
+selects the prior 生动/Boosted function. 生动 maps to mode2 in the installed
+menu and the user accepted its exchanged effect. No further setting write was
+performed; the user may now return to a usual mode. The bounded read-only
+selection probe completed; no diagnostic process remains running.
+
+The current accepted batch is r18. The two yellow regressions were accepted
+on r17 with DWB enabled; r18's complete Framework resource comparison preserves
+all DWB parameters. Lift-to-wake remains user-confirmed working. AON availability
+remains pending service integration, using the standard Screen attention entry.
+Raw final check: reports/device/r18-runtime/final-selected-xianyan.txt.
