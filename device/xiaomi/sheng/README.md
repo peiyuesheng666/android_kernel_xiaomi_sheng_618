@@ -76,9 +76,13 @@ module identities are retained when source directories move.
 
 ## Current validation
 
-The installed baseline is r20: all six partition hashes match after boot,
-model is 24018RPACC, marketname is Xiaomi Pad 6S Pro 12.4 and characteristics
-remain tablet. Battery SOH still reads 93%. The user reports that affected-app recognition still fails. r19 battery SOH and normal picture/touch were accepted.
+The current installed batch and partition readback are recorded in
+[docs/HARDWARE_STATUS.md](docs/HARDWARE_STATUS.md). The r21 source separates
+marketing name from numeric model in Settings, corrects the stock panel's
+physical-DPI units, and adds a device-owned tablet compatibility class.
+Build, packaging, runtime readback and application acceptance are recorded
+separately in the r21 reports. r19 battery SOH 93% and normal picture/touch
+were accepted by the user.
 Earlier the user confirmed normal picture/touch, no
 brief yellow flash on wake/password entry with ambient white balance enabled,
 and smooth Night Light activation. RGB and Night Light hardware color effects

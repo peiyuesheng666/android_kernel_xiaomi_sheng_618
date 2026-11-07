@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.lineageos.sheng.tabletprobe">
+    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="34"/>
+    <application android:label="Sheng tablet probe" android:hasCode="true"/>
+    <instrumentation android:name="org.lineageos.sheng.tabletprobe.TabletProbe" android:targetPackage="org.lineageos.sheng.tabletprobe"/>
+</manifest>

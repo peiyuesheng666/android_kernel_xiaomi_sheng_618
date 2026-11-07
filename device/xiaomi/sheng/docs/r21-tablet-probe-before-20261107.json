@@ -1,0 +1,17 @@
+{
+  "batch": "r20",
+  "probe_uid": 10133,
+  "target_sdk": 34,
+  "brand": "Xiaomi",
+  "model": "24018RPACC",
+  "characteristics": "tablet",
+  "smallest_width_dp": 813,
+  "screen_size": 4,
+  "xdpi": 29.414,
+  "ydpi": 29.425,
+  "miui_class_present": false,
+  "douyin_xiaomi_predicate": false,
+  "probe_apk_sha256": "d99f6160a6798768461179ef5c36bff7a1e46bee83aaa1eefc1205942ec482fb",
+  "raw": "reports/device/r20-runtime/tablet-probe-before.txt",
+  "capture_or_activity": false
+}
