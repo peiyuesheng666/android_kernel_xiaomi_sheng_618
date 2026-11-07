@@ -1,0 +1,98 @@
+{
+  "revision": 22,
+  "build_passed": true,
+  "resource_link_probe_passed": true,
+  "classpath_adapter_tests_passed": true,
+  "public_source_audit_passed": true,
+  "reviewed_sha256": {
+    "odm": {
+      "overlay/SettingsResOverlaySheng.apk": "4d177d9405d5157dd750abbd07362560b49db30b116581233c9f4ad1564368f5",
+      "overlay/SettingsProviderResOverlaySheng.apk": "46d3fe5ad6453460e5fa34fe643ae7f122c608474aa007ac2b31523d2e097e49",
+      "etc/selinux/precompiled_sepolicy": "ccb422e37de241d4da50eb1ae8890cf1fe3fe895677658932b861d2de7e6471b",
+      "etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256": "2e0578bc6da25eca9830c81fa13c33fae83415db397988279bd702df9cad61ef"
+    },
+    "system_ext": {
+      "framework/sheng-tablet-compat.jar": "dffbb179a7694af74f57793e382d30bcaa9ff24357a42ef327e1f4a2bed7f6a8",
+      "etc/init/sheng-tablet-compat.rc": "8bd507bee4e31ee94e51461a18c05b7170af3c1aa5642529faee4682693bbe29",
+      "bin/sheng-derive-classpath": "c065404e1c988d656e357e2cbd0146068b0f2781acd18af3fa9747aca0608aa7",
+      "etc/selinux/system_ext_file_contexts": "f825d7482f04dbb986fdf51c6b7d060658eda03d37381c8c2f7c2ad6c7350933",
+      "etc/selinux/system_ext_sepolicy.cil": "f88866b6eec25e3967927a04cd19bb760450802f8a29e5fc75c59e1151617f92",
+      "etc/selinux/system_ext_sepolicy_and_mapping.sha256": "2e0578bc6da25eca9830c81fa13c33fae83415db397988279bd702df9cad61ef"
+    }
+  },
+  "source_sha256": {
+    "BoardConfig.mk": "28ff4b58f9662bb132f243ab6f1e99a87eb62a2aca6702ea6abc1caf28ccfc41",
+    "device.mk": "cf92b2baaae7741c2e919a42c4f5107976d41fc73d7cba2a6edb46b73fb47fcb",
+    "interfaces/compat/tablet/Android.bp": "7a88a331c060f978039cd0710ce327885e343ace11b41ebc11821a0c0bd84fa5",
+    "interfaces/compat/tablet/__pycache__/merge_classpath.cpython-310.pyc": "684dca2acbe90f189931471c38647f980976b8a23cfa24436342fa833389984f",
+    "interfaces/compat/tablet/classpath_exports.h": "224aaf792f32cfab1dcc66108c0ee7cb03b2711dc807398613063cce6c15264c",
+    "interfaces/compat/tablet/classpath_exports_test.cpp": "d39661dbefec3ed75d22b9464f931c8c7de1edc91ab941d5e103e0abbff2a9d1",
+    "interfaces/compat/tablet/derive_classpath.cpp": "623991b492f18a60a23c18b9e62c0aa145618e799194ebab50a9d6b27437c9c7",
+    "interfaces/compat/tablet/sheng-tablet-compat.rc": "8bd507bee4e31ee94e51461a18c05b7170af3c1aa5642529faee4682693bbe29",
+    "interfaces/compat/tablet/src/miui/os/Build.java": "97645312d2a7223e6f4214629621074c82d032dc914e9db0ced39741e65f90e9",
+    "overlay/SettingsProviderResOverlaySheng/Android.bp": "8cef34847bd0f7b815f7c21891f8ba9c593d135b22071b3477c6da5c5374c3c8",
+    "overlay/SettingsProviderResOverlaySheng/AndroidManifest.xml": "a3f4113d5587ef6154ca9e214deb29af711ba766e813546f97395c4b50e85a3a",
+    "overlay/SettingsProviderResOverlaySheng/res/xml/overlays.xml": "387f3ba998aed9006a5608dae822ffd699d6429ed00340c8b1b166e5205cad23",
+    "overlay/SettingsResOverlaySheng/Android.bp": "c9bb21c4ba7b641f0f52d7abc75ac9265e7e7abfc7923cb8d1fbe27258c229a3",
+    "overlay/SettingsResOverlaySheng/AndroidManifest.xml": "6878933b35932e1753bd98a56741b987774ae006a03f27da674ab62be74dbc00",
+    "overlay/SettingsResOverlaySheng/res/values-zh/strings.xml": "f20f1c578a1d06d288a5b97be6578c844a43703cac919cfb84394ac130a84c14",
+    "overlay/SettingsResOverlaySheng/res/values/config.xml": "ad39d384c5709da0080a2988d887bda6b72e996eeed6daf70943c3ac8d8e3943",
+    "overlay/SettingsResOverlaySheng/res/values/lineage.xml": "011c0e82d76883755c625e4a4bd28c05314cd249aa7e5bd9c82b8712d0240c70",
+    "overlay/SettingsResOverlaySheng/res/xml-zh/hardware_info.xml": "687cfa78b2da0f95b2ff5ecb6044eca36085f0a5dce680e6af2bf906c2bf7eff",
+    "overlay/SettingsResOverlaySheng/res/xml-zh/my_device_info.xml": "5919e520e6723d37c23cdc4fd1864e849dcf3320ab810fd3a1e07e6f79525836",
+    "overlay/SettingsResOverlaySheng/res/xml/hardware_info.xml": "de9cbaf3be2db884126d0ebb1a607f136e113b3ac1e26dfb210d960c26a2a6fa",
+    "overlay/SettingsResOverlaySheng/res/xml/my_device_info.xml": "4a1558f1be43f06650516df6342e416927ba8ab28023b35d8d2811145c6c0290",
+    "sepolicy/system_ext/private/derive_classpath.te": "3acc54c399630a35e4ab3e150a1be38fa9e9a96426fc8eabb28f0a50d612bec5",
+    "sepolicy/system_ext/private/file_contexts": "5aba3c3f040803a30176e2e4566dd6c6fc250dc8576b8bab60e3ab119b3e830e",
+    "tools/audit_upstream_sources.py": "6771679328d3542c6340e6208bf100e014b964c9686619d99f06da31676bfb21",
+    "tools/tablet_probe/AndroidManifest.xml": "e4ea19a0c36da62679df4d6006f62af48affb3d1314c2ea45451054bba6d3560",
+    "tools/tablet_probe/ResourceProbe.java": "48d77474a32ab7130e844b319c79565008a7f7018e3dd077973ca1093cf672dd",
+    "tools/tablet_probe/TabletProbe.java": "ced0684f7ad07fc1c779461f88565d51f50cba8b598c11f90015361f2d359ec6",
+    "tools/tablet_probe/build_probe.py": "d190dbae6dc68fde5ca87f2e41a5249379d888866efb7438602924474af581d5"
+  },
+  "build_log": "/root/sheng-lineage/logs/build-r22-final-20261107.txt",
+  "build_log_sha256": "349e01194d4d54453b5408823f772fe0276748be8fb395f04fae91af83498049",
+  "upstream_audit_sha256": "a608fb9cf4bc7706fa187a7cb58a926bbc94a2b9459e1f72fcd19cfca696b301",
+  "final_resource_review": {
+    "SettingsResOverlaySheng": {
+      "sha256": "4d177d9405d5157dd750abbd07362560b49db30b116581233c9f4ad1564368f5",
+      "resource_tests": [
+        "en/my_device_info: controllers=10, name and number labels valid\nen/hardware_info: controllers=4, name and number labels valid\n",
+        "zh_CN/my_device_info: controllers=10, name and number labels valid\nzh_CN/hardware_info: controllers=4, name and number labels valid\n"
+      ],
+      "certificate": "Signer #1 certificate DN: EMAILADDRESS=android@android.com, CN=Android, OU=Android, O=Android, L=Mountain View, ST=California, C=US\nSigner #1 certificate SHA-256 digest: a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc\nSigner #1 certificate SHA-1 digest: 61ed377e85d386a8dfee6b864bd85b0bfaa5af81\nSigner #1 certificate MD5 digest: e89b158e4bcf988ebd09eb83f5378e87\n"
+    },
+    "SettingsProviderResOverlaySheng": {
+      "sha256": "46d3fe5ad6453460e5fa34fe643ae7f122c608474aa007ac2b31523d2e097e49",
+      "resource_tests": [
+        "default_device_name_locale_cases=272\n"
+      ],
+      "certificate": "Signer #1 certificate DN: EMAILADDRESS=android@android.com, CN=Android, OU=Android, O=Android, L=Mountain View, ST=California, C=US\nSigner #1 certificate SHA-256 digest: a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc\nSigner #1 certificate SHA-1 digest: 61ed377e85d386a8dfee6b864bd85b0bfaa5af81\nSigner #1 certificate MD5 digest: e89b158e4bcf988ebd09eb83f5378e87\n"
+    }
+  },
+  "policy_changes": {
+    "/system_ext/etc/selinux/system_ext_sepolicy_and_mapping.sha256": {
+      "before": "0a2371f03e40b4a5aeeaac8a8a806ce9fe62c4d944e99a4c18c58314c6d7272d",
+      "after": "2e0578bc6da25eca9830c81fa13c33fae83415db397988279bd702df9cad61ef"
+    },
+    "/system_ext/etc/selinux/system_ext_sepolicy.cil": {
+      "before": "404cd29235d99641f2288ce3e30698f9ea35ea559e5d95101ab4fb27dcd238ec",
+      "after": "f88866b6eec25e3967927a04cd19bb760450802f8a29e5fc75c59e1151617f92"
+    },
+    "/system_ext/etc/selinux/system_ext_file_contexts": {
+      "before": "72a441a61b108d35abe74568ab2b72d8679a644493b3fbbbad1338d1a75af574",
+      "after": "f825d7482f04dbb986fdf51c6b7d060658eda03d37381c8c2f7c2ad6c7350933"
+    },
+    "/odm/etc/selinux/precompiled_sepolicy": {
+      "before": "8317106950e7f99da8dd80691b028771c57d441752ae6ff58e6648739ce99374",
+      "after": "ccb422e37de241d4da50eb1ae8890cf1fe3fe895677658932b861d2de7e6471b"
+    },
+    "/odm/etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256": {
+      "before": "0a2371f03e40b4a5aeeaac8a8a806ce9fe62c4d944e99a4c18c58314c6d7272d",
+      "after": "2e0578bc6da25eca9830c81fa13c33fae83415db397988279bd702df9cad61ef"
+    }
+  },
+  "host_classpath_tests": "Running main() from external/googletest/googletest/src/gtest_main.cc\n[==========] Running 2 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 2 tests from ShengClasspath\n[ RUN      ] ShengClasspath.KeepsAllPlatformAndApexComponentsAsPrefix\n[       OK ] ShengClasspath.KeepsAllPlatformAndApexComponentsAsPrefix (0 ms)\n[ RUN      ] ShengClasspath.RejectsAmbiguousOrMalformedExports\n[       OK ] ShengClasspath.RejectsAmbiguousOrMalformedExports (0 ms)\n[----------] 2 tests from ShengClasspath (0 ms total)\n\n[----------] Global test environment tear-down\n[==========] 2 tests from 1 test suite ran. (0 ms total)\n[  PASSED  ] 2 tests.\n",
+  "hardware_boot_tested": false,
+  "runtime_verified": false
+}
