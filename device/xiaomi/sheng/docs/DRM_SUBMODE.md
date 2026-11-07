@@ -45,3 +45,22 @@ submode clocks are required only for DSI; DP and virtual displays retain their
 standard timing clock. No class layout or virtual-function signatures changed.
 The corrected DAL rebuilt successfully and was loaded at native 60 Hz; the
 kernel reports an active CRTC and normal device composition after wake.
+
+`scripts/ShengDrmModeProbe.c` queries only DRM resource, connector, property,
+and property-blob ioctls, using a read-only descriptor. It does not acquire
+DRM master, set modes, access framebuffer pixels, or capture images. Its static
+ARM64 build passed `-Wall -Wextra -Werror`. The live mode-properties blob
+contains nonzero stock submode clocks for all seven native timings:
+
+| Rate (Hz) | Submode clock (kHz) | DRM timing clock (kHz) |
+| --- | --- | --- |
+| 120 | 396694 | 932655 |
+| 144 | 396906 | 1040058 |
+| 90 | 396826 | 798797 |
+| 60 | 396694 | 932655 |
+| 50 | 396826 | 798716 |
+| 48 | 396826 | 798748 |
+| 30 | 396826 | 798797 |
+
+Raw output is stored locally in
+`reports/device/native-refresh-kernel-mode-properties.txt`; it is not an image.
