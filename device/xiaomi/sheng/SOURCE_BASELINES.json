@@ -14,6 +14,17 @@
     "revision": "d679d895cd1e35d088b67bfd19d9141c76da5207",
     "patch_sha256": "81ea03de6d583cc795809cdf7fdb38cc9a65605c55664ab66eb5fbe390f5c545"
   },
+  "display_dal": {
+    "upstream": "hardware/qcom-caf/sm8550/display",
+    "revision": "d679d895cd1e35d088b67bfd19d9141c76da5207",
+    "source_directory": "sdm/libs/dal",
+    "device_directory": "display/dal",
+    "header_source": "libdrmutils/drm_interface.h",
+    "stock_dal_sha256": "bf509c5f550abfa3e5bd981d4d6a1a1322057c4e8e76b55f394e6ac43b755263",
+    "stock_submode_size_lp64": 48,
+    "stock_submode_pixel_clock_offset": 40,
+    "changes": ["DRMSubModeInfo LP64 layout", "PopulateDisplayAttributes pixel clock"]
+  },
   "gsl": {
     "upstream": "hardware/qcom-caf/sm8550/audio/graphservices",
     "revision": "1d2e82222dbc35b9b2cff966281cd2b7a26d081a",
