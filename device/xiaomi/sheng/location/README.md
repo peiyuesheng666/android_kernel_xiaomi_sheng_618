@@ -68,8 +68,11 @@ denials on this Wi-Fi-only tablet before the integration is declared working.
 `ShengLocationOverlay` adds MetokNLP only to
 `config_locationExtraPackageNames`. Android's existing default permission
 policy grants requested fine, coarse and background location permissions to
-extra packages without `SYSTEM_FIXED`, so the user can revoke them. No separate
-default-permissions XML is needed. This avoids the broader, fixed grants from
+extra packages without `SYSTEM_FIXED`, so the user can revoke them. The r9
+default-permissions XML also declares the three requested location grants with
+`fixed=false`, retaining prior user decisions when the default policy runs.
+On an existing user, adding a new system app does not itself rerun that policy;
+the r8 first-install test applied those three grants once. This avoids fixed grants from
 adding MetokNLP to `config_locationProviderPackageNames`.
 
 The AOSP fused provider list and automatic network/geocoder service discovery
@@ -94,9 +97,19 @@ does not print coordinates, SSIDs, MAC addresses or location extras, install a
 mock provider, or enable location settings. It must be run only as the
 authorized verification step; adding the source does not request a location.
 
-This integration has been statically checked for source identity, APK signature,
-JNI dependencies/storage and permission XML syntax. It has not yet been built,
-flashed, started or used to request a fix. Remaining checks include provider
-discovery, privileged-denial behavior, actual backend connectivity/current-fix
-delivery, permission revocation and location-off behavior. MIUI-only extension
-paths and the proprietary service's backend may still require adaptation.
+r8 was compiled, flashed and booted. The original geocoder constructor was
+blocked by ART's non-SDK policy, repeatedly terminating the shared process.
+Temporary isolation of that component and the three runtime grants yielded a
+real network fix with age 9 ms, accuracy 45 m and mock=false. This does not mark
+the unmodified r8 integration as successful. See the device's
+`docs/network-location-r8-validation.json`.
+
+r9 adds `system_ext/etc/sysconfig/sheng-location.xml` for the original system
+provider package's non-SDK interface access. It changes neither the platform
+source nor global hidden-API policy, preserves the Xiaomi signature, and adds no
+unrelated runtime/privileged grants. The geocoder's Binder methods, transaction
+order and request getter signatures match the current platform; actual calls
+and reboot behavior still require validation. This provider serves all clients
+using Android's standard network-location API; client apps need no package
+allowlist. The temporary disabled geocoder component must be reset to its default
+after installing the persisted repair.

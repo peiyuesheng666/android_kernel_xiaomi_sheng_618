@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Add device-built location modules to the verified installed r7 AVB chain.
+"""Add device-built location configuration to the verified installed r8 chain.
 
-This development delta helper modifies copies of the r5 system_ext image only.
+This development delta helper modifies copies of the r8 system_ext image only.
 Normal builds install the same modules through device.mk. Inputs and public
 source are read-only; nothing is flashed by this script.
 """
@@ -21,9 +21,9 @@ import sys
 from package_sheng_model_followup import sha, run, parse_image, ROM, HOST, PRODUCT
 
 DEVICE = Path(__file__).resolve().parents[1]
-RAW_SHA = 'b8436caaaa5cb1738c053afb3a77a4ea6135aeb1a07b774148ce17e3b16c60e9'
+RAW_SHA = '9c93c87fbfb987980303408f91e776a03c3db30183a7f99d2c50ed51125ec117'
 RAW_BYTES = 572813312
-CHAIN_SHA = '5990b5c9fae89018ff9efb38ab338c48fc7c635f34fa95216a9f5a2c69fb212b'
+CHAIN_SHA = 'b47236ecae53c69bd27027ea6ae1af5e72e582134d0a30933aa9426ac7f59692'
 SOURCES = {
     'priv-app/ShengMetokNLP/ShengMetokNLP.apk':
         PRODUCT / 'system_ext/priv-app/ShengMetokNLP/ShengMetokNLP.apk',
@@ -31,6 +31,10 @@ SOURCES = {
         PRODUCT / 'system_ext/etc/permissions/privapp-permissions-sheng-location.xml',
     'overlay/ShengLocationOverlay.apk':
         PRODUCT / 'system_ext/overlay/ShengLocationOverlay.apk',
+    'etc/sysconfig/sheng-location.xml':
+        PRODUCT / 'system_ext/etc/sysconfig/sheng-location.xml',
+    'etc/default-permissions/default-permissions-sheng-location.xml':
+        PRODUCT / 'system_ext/etc/default-permissions/default-permissions-sheng-location.xml',
 }
 
 
@@ -105,14 +109,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--raw-base', type=Path, required=True)
     parser.add_argument('--workspace', type=Path, required=True)
-    parser.add_argument('--revision', type=int, default=8)
+    parser.add_argument('--revision', type=int, default=9)
     args = parser.parse_args()
     baseline, workspace = args.raw_base.resolve(), args.workspace.resolve()
     assert baseline.stat().st_size == RAW_BYTES and sha(baseline) == RAW_SHA
-    chain = workspace / 'artifacts/system-hardware-followup-sheng-r7/vbmeta_system.img'
+    chain = workspace / 'artifacts/system-hardware-followup-sheng-r8/vbmeta_system.img'
     assert sha(chain) == CHAIN_SHA, 'Must inherit r7 model-name system descriptor'
     destination = workspace / f'artifacts/system-hardware-followup-sheng-r{args.revision}'
-    assert args.revision >= 8 and not destination.exists(), 'Never overwrite a release'
+    assert args.revision >= 9 and not destination.exists(), 'Never overwrite a release'
     for source in SOURCES.values():
         assert source.is_file(), source
     work = Path('/root/sheng-lineage/hardware-followup') / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ-location')
@@ -143,7 +147,12 @@ def main():
     before_root.mkdir()
     debugfs(baseline, f'rdump / {before_root}')
     before_files = files(before_root)
-    assert not set(SOURCES) & before_files.keys(), 'Location module already installed'
+    for relative, source in SOURCES.items():
+        if relative in before_files:
+            assert before_files[relative] == ('file', sha(source)), 'Existing module must stay unchanged'
+    new_sources = {relative: source for relative, source in SOURCES.items() if relative not in before_files}
+    assert set(new_sources) == {'etc/sysconfig/sheng-location.xml',
+                               'etc/default-permissions/default-permissions-sheng-location.xml'}
     old_inodes = allocated_inodes(baseline)
     assert all(struct.unpack_from('<I', inode, 104)[0] == 0 for inode in old_inodes.values()), 'External xattrs unsupported'
     image = work / 'system_ext.img'
@@ -153,7 +162,7 @@ def main():
     context.write_bytes(b'u:object_r:system_file:s0\0')
     added = []
     created = set()
-    for relative, source in SOURCES.items():
+    for relative, source in new_sources.items():
         current = before_root
         for parent in Path(relative).parts[:-1]:
             current = current / parent
@@ -190,7 +199,7 @@ def main():
     after_root.mkdir()
     debugfs(image, f'rdump / {after_root}')
     after_files = files(after_root)
-    assert {k for k in before_files.keys() | after_files.keys() if before_files.get(k) != after_files.get(k)} == set(SOURCES)
+    assert {k for k in before_files.keys() | after_files.keys() if before_files.get(k) != after_files.get(k)} == set(new_sources)
     for relative, source in SOURCES.items():
         assert sha(after_root / relative) == sha(source)
         labels = debugfs(image, f'ea_list /{relative}')
@@ -259,7 +268,7 @@ def main():
         outputs.append(dict(partition=partition, name=target.name, bytes=target.stat().st_size, sha256=sha(target)))
     report = dict(revision=args.revision, files=outputs, work_dir=str(work),
                   raw_base_sha256=RAW_SHA, raw_base_bytes=RAW_BYTES, vbmeta_system_base_sha256=CHAIN_SHA,
-                  changed_system_ext_files=sorted(SOURCES), compiled_inputs={r: sha(p) for r, p in SOURCES.items()},
+                  changed_system_ext_files=sorted(new_sources), compiled_inputs={r: sha(p) for r, p in SOURCES.items()},
                   changed_existing_directory_inodes=directories, new_directories=sorted(created),
                   exact_installed_base_verified=True, filesystem_readback_verified=True,
                   readonly_e2fsck_passed=True, existing_file_inode_metadata_preserved=True,

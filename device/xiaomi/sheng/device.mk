@@ -246,6 +246,10 @@ PRODUCT_PACKAGES += \
     privapp-permissions-sheng-location \
     ShengLocationOverlay
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/location/sysconfig/sheng-location.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/sysconfig/sheng-location.xml \
+    $(LOCAL_PATH)/location/permissions/default-permissions-sheng-location.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/default-permissions/default-permissions-sheng-location.xml
+
 # Overlay
 PRODUCT_PACKAGES += \
     FrameworkResOverlaySheng \

@@ -1,5 +1,5 @@
-param([int]$Revision = 8)
-# Flash only the compiled location delta over the installed r7 chain.
+param([int]$Revision = 9)
+# Flash only the compiled location configuration over the installed r8 chain.
 $ErrorActionPreference = 'Stop'
 $workspace = (Resolve-Path (Join-Path $PSScriptRoot '../../../..')).Path
 $adbPath = Join-Path $workspace 'tools/platform-tools/adb.exe'
@@ -7,7 +7,7 @@ $fastbootPath = Join-Path $workspace 'tools/platform-tools/fastboot.exe'
 $serial = 'ca10ede3'
 $imageDirectory = Join-Path $workspace "artifacts/system-hardware-followup-sheng-r$Revision"
 $manifest = Get-Content -LiteralPath (Join-Path $imageDirectory 'build-result.json') -Raw | ConvertFrom-Json
-if ($Revision -lt 8 -or $manifest.revision -ne $Revision) { throw 'Location followups start at r8.' }
+if ($Revision -lt 9 -or $manifest.revision -ne $Revision) { throw 'This location configuration delta starts at r9.' }
 $checks = @(
     'exact_installed_base_verified', 'filesystem_readback_verified', 'readonly_e2fsck_passed',
     'existing_file_inode_metadata_preserved',
@@ -21,17 +21,16 @@ foreach ($check in $checks) {
     if ($manifest.$check -ne $true) { throw "Image verification missing: $check" }
 }
 $expectedFiles = @(
-    'etc/permissions/privapp-permissions-sheng-location.xml',
-    'overlay/ShengLocationOverlay.apk',
-    'priv-app/ShengMetokNLP/ShengMetokNLP.apk'
+    'etc/sysconfig/sheng-location.xml',
+    'etc/default-permissions/default-permissions-sheng-location.xml'
 )
 if ((($manifest.changed_system_ext_files | Sort-Object) -join ',') -ne (($expectedFiles | Sort-Object) -join ',')) {
     throw 'Unexpected location image scope.'
 }
-$expectedExt = 'b8436caaaa5cb1738c053afb3a77a4ea6135aeb1a07b774148ce17e3b16c60e9'
-$expectedChain = '5990b5c9fae89018ff9efb38ab338c48fc7c635f34fa95216a9f5a2c69fb212b'
+$expectedExt = '9c93c87fbfb987980303408f91e776a03c3db30183a7f99d2c50ed51125ec117'
+$expectedChain = 'b47236ecae53c69bd27027ea6ae1af5e72e582134d0a30933aa9426ac7f59692'
 if ($manifest.raw_base_sha256 -ne $expectedExt -or $manifest.raw_base_bytes -ne 572813312 -or
-        $manifest.vbmeta_system_base_sha256 -ne $expectedChain) { throw 'Unexpected r7 baseline.' }
+        $manifest.vbmeta_system_base_sha256 -ne $expectedChain) { throw 'Unexpected r8 baseline.' }
 $partitions = @('system_ext', 'vbmeta_system')
 if (@($manifest.files).Count -ne 2 -or
         (($manifest.files.partition | Sort-Object) -join ',') -ne (($partitions | Sort-Object) -join ',')) {

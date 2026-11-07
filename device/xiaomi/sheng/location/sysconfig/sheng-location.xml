@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<config>
+    <!-- Original Xiaomi-signed system provider uses the platform geocoder
+         Binder interface. Exempt this package without changing global policy
+         or granting unrelated privileged permissions. -->
+    <hidden-api-whitelisted-app package="com.xiaomi.metoknlp" />
+</config>

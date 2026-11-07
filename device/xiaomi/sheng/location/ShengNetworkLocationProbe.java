@@ -6,6 +6,9 @@ import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.os.Process;
+import android.system.Os;
+import android.system.ErrnoException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /** One bounded real network-provider request; never prints position identifiers. */
@@ -17,6 +20,18 @@ public final class ShengNetworkLocationProbe {
         } catch (NumberFormatException ignored) {
             System.out.println("ERROR invalid_duration");
             return;
+        }
+        // The system context attributes this bounded request to package android.
+        // Align its UID before creating the context instead of using root with
+        // a package name owned by UID 1000, which AppOps correctly rejects.
+        if (Process.myUid() == 0) {
+            try {
+                Os.setgid(Process.SYSTEM_UID);
+                Os.setuid(Process.SYSTEM_UID);
+            } catch (ErrnoException failure) {
+                System.out.println("ERROR system_identity_unavailable");
+                System.exit(4);
+            }
         }
         Looper.prepareMainLooper();
         Context context = ActivityThread.systemMain().getSystemContext();
