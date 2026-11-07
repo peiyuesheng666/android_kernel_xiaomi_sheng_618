@@ -170,8 +170,8 @@ def main():
         added.append(name)
     # Set deterministic metadata on new nodes only; existing nodes are untouched.
     for name in sorted(created | set(added)):
-        for field, value in (('uid', '0'), ('gid', '0'), ('atime', '1230768000'),
-                             ('mtime', '1230768000'), ('ctime', '1230768000'), ('crtime', '1230768000')):
+        for field, value in (('uid', '0'), ('gid', '0'), ('atime', '@1230768000'),
+                             ('mtime', '@1230768000'), ('ctime', '@1230768000'), ('crtime', '@1230768000')):
             debugfs(image, f'set_inode_field {name} {field} {value}', write=True)
     fsck = run(['e2fsck', '-fn', image], capture_output=True, text=True)
     (work / 'e2fsck-readonly.txt').write_text(fsck.stdout + fsck.stderr)
