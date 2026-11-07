@@ -42,3 +42,11 @@ install_symlink {
     installed_location: "lib64/hw/fingerprint.fpc.default.so",
     symlink_target: "fingerprint.fpc.so",
 }
+
+// Restore the stock vendor-facing alias to the unchanged ODM sensor protobuf.
+install_symlink {
+    name: "sheng_aon_front_vendor_symlink",
+    vendor: true,
+    installed_location: "lib64/camera/aon_front.pb",
+    symlink_target: "/odm/lib64/camera/aon_front.pb",
+}

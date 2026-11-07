@@ -126,6 +126,9 @@ PRODUCT_PACKAGES += \
 # Camera
 $(call soong_config_set_bool,camera,override_format_from_reserved,true)
 
+PRODUCT_PACKAGES += \
+    sheng_aon_front_vendor_symlink
+
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.concurrent.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.concurrent.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \

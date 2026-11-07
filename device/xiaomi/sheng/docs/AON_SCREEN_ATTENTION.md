@@ -119,3 +119,18 @@ disappearance as a manual unplug/reboot and later suspected a loose cable.
 The subsequent short disconnect during this comparison was caused by the
 agent's adb root command restarting adbd, not an observed spontaneous failure.
 Future adb root commands must be announced before execution.
+
+## r23 preparation: missing stock vendor sensor alias
+
+The offline stock vendor/lib64/camera/aon_front.pb is an absolute symlink to
+/odm/lib64/camera/aon_front.pb. The original extraction list keeps both ODM
+protobuf copies but omits this vendor symlink. The installed r22 vendor path
+does not exist. A device-owned install_symlink restores the exact stock path
+and target, without changing protobuf contents, firmware or sensor registry.
+The target SHA256 remains b0d920c16e4968173cf8f4f90c1056e959b9aad1c2651a76cca17ee19dac46d6.
+
+This is a confirmed packaging omission and a candidate for the native sensor
+init failure, not proof of its cause. Current r22 text logs still show firmware
+init error1. Acceptance requires the installed link and target hash, a new boot
+trace without that pipeline failure, and the user's physical attention test.
+No camera/provider restart or attention request is issued for investigation.
