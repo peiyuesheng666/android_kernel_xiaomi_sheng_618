@@ -1,0 +1,58 @@
+{
+  "firmware": "sheng OS3.0.303.0.WNXCNXM_16.0",
+  "date": "2026-11-07",
+  "read_only_firmware_inputs": true,
+  "stock_apks": [
+    {
+      "path": "product/overlay/DevicesAndroidOverlay.apk",
+      "sha256": "750ad6552a3098738e8610832d8dfbd4b448b3db55eabaaadf413b05c6604778",
+      "package": "com.miui.systemui.overlay.devices.android",
+      "target": "android",
+      "static": true,
+      "priority": 1000,
+      "used_resources": {
+        "rounded_corner_radius": "66px",
+        "rounded_corner_radius_top": "66px",
+        "rounded_corner_radius_bottom": "66px",
+        "status_bar_height_default": "86px",
+        "status_bar_height_portrait": "86px"
+      }
+    },
+    {
+      "path": "product/overlay/DevicesOverlay.apk",
+      "sha256": "0a9b21b8230cc2ed8a39f7be7fd87a6039c434812107273ef1c536c3d48ee319",
+      "package": "com.miui.systemui.devices.overlay",
+      "target": "com.android.systemui",
+      "static": true,
+      "priority": 1,
+      "used_resources": {
+        "rounded_corner_content_padding": {"default": "45px", "sw600dp-port": "40px"},
+        "status_bar_padding_top": "12px"
+      }
+    },
+    {
+      "path": "system_ext/priv-app/MiuiSystemUI/MiuiSystemUI.apk",
+      "sha256": "2b01007ab39626d41369623fd3ad99ceee2b161e7386bb7ec644c40208d67caf",
+      "package": "com.android.systemui",
+      "used_resources": {
+        "status_bar_padding_start": {"default": "4px", "land": "8dp"},
+        "status_bar_padding_end": {"default": "4px", "land": "8dp", "sw600dp": "8dp"},
+        "status_bar_clock_starting_padding": "4dp",
+        "status_bar_clock_end_padding": "0dp",
+        "status_bar_left_clock_starting_padding": "0dp",
+        "status_bar_left_clock_end_padding": "2sp",
+        "ongoing_appops_dot_min_padding": "0dp"
+      }
+    }
+  ],
+  "framework_landscape_height": "Stock framework resource references the 86px portrait height; no more-specific tablet height override was found.",
+  "upstream_mapping": {
+    "clock_initial_padding": "4dp/0dp, matched to the stock configuration-reload pair",
+    "external_display_fallback": "Retain upstream 20dp independently of the internal-display 0dp privacy minimum",
+    "systemui_content_padding": "SystemUI-owned resource; framework content padding is not replaced"
+  },
+  "stock_cutout_path_empty": true,
+  "shared_1080x2400_shape_imported": false,
+  "hardware_validation_pending": true,
+  "notes": "This is verified stock resource mapping into the upstream layout, not a pixel-identical port of MIUI private status-bar containers."
+}
