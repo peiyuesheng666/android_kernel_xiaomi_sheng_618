@@ -61,3 +61,13 @@ checks all nine feature versions/pointer/brightness, and then lets both copies
 be destroyed. Address/undefined-behavior sanitizers pass. This is stronger host
 coverage, but still does not establish acceptance by the actual stock library.
 The failed r14 images/spec remain immutable and must not be reused as a fix.
+
+The owned-copy candidate compiled and passed the native ELF checks in 01:38.
+Before any new image, the explicit runtime helper tests only a temporary bind
+of that one library over the running r13 file. It refuses an existing target
+mount, requires the exact baseline/candidate hashes and keeps the on-disk image
+unchanged. It watches the new composer PID, restores the verified original
+library on early process death, and always restores it after at most 90 seconds.
+Only its own recorded mount ID can be removed; a busy mount may be detached
+lazily before restarting composer with the original file. No SELinux disabling,
+data erase, camera use or forced GPU composition is part of this trial.
