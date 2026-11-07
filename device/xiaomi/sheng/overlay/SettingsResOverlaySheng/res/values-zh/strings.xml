@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <resources>
-    <string name="sheng_color_mode_original">专业原色</string>
+    <string name="sheng_color_mode_original">自适应</string>
     <string name="sheng_color_mode_vivid">生动</string>
     <string name="sheng_color_mode_saturated">鲜艳</string>
 </resources>

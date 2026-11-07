@@ -1,5 +1,13 @@
 # LiveDisplay and display color controls
 
+2026-11-07 label follow-up: the user requests 自适应 / 鲜艳 / 生动. The first
+label replaces 专业原色 and the last two choices change order together with
+their values. The Settings list is [0,2,1], preserving each mode's behavior
+and saved numeric setting. 自适应 labels the existing managed/content-aware
+mode 0; ambient color adaptation still uses the separate 显示屏白平衡 switch.
+This device-only Settings RRO change is built/published after the r16 sensor
+and neutral-white batch, whose frozen artifacts remain unchanged.
+
 Latest acceptance: r14 failed composer initialization and was reverted to the
 verified r13 images. The user confirmed normal picture/touch after recovery.
 The corrected owning adapter subsequently passed a bounded temporary hardware
