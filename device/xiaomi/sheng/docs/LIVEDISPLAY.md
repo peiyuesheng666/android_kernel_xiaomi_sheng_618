@@ -128,6 +128,11 @@ passed with address and undefined-behavior sanitizers. The unchanged filesystem
 helpers passed 12 cases; Linux publication passed 7 with 5 Windows-only skips.
 The copied upstream core files retain their original whitespace, including six
 files with an extra trailing blank line; modifications use clean whitespace.
+Native Android clang record-layout checking confirmed the guarded 0x260 DDR
+offset, 0x268 resource size and 0x550 PP version offset. It also found two
+inherited discarded all_of results rejected by the current libc++ headers;
+the device snapshot replaces those deletion-only calls with explicit cleanup
+loops. The public source remains unchanged; full Android compilation is pending.
 
 `tools/package_sheng_livedisplay.py --freeze-only` freezes the scoped outputs;
 `--validate-only` rechecks them without creating images. Normal invocation
