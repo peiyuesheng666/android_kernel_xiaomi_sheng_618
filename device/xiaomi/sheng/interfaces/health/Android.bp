@@ -16,5 +16,5 @@ cc_binary {
     cflags: ["-Wall", "-Werror"],
     init_rc: ["android.hardware.health-service.qti.rc"],
     vintf_fragments: ["android.hardware.health-service.qti.xml"],
-    overrides: ["android.hardware.health-service.qti", "charger"],
+    overrides: ["charger"],
 }
