@@ -17,10 +17,18 @@
         <item>0.9505</item><item>1.0</item><item>1.0891</item>
     </string-array>
     <string-array name="config_displayWhiteBalanceDisplayNominalWhite" translatable="false">
-        <item>0.9505</item><item>1.0</item><item>1.0891</item>
+        <!-- Algorithmic neutral anchor from this framework's cctToXyz(6500).
+             Native primaries above still use the verified sRGB/D65 contract.
+             Anchor adaptation at identity so disabling DWB does not jump
+             from a Planckian 6500-K Bradford matrix to the D65 identity. -->
+        <item>0.968583405</item><item>1.0</item><item>1.12105489</item>
     </string-array>
     <integer name="config_displayWhiteBalanceDisplayNominalWhiteCct">6500</integer>
     <integer name="config_displayWhiteBalanceColorTemperatureDefault">6500</integer>
+    <!-- Match Night Light's 3000-ms activation fade; the previous 1000-ms
+         DWB exit finished midway through it. Keep gradual warming in ambient
+         mode at the upstream 40000-ms decrease duration. -->
+    <integer name="config_displayWhiteBalanceTransitionTimeIncrease">3000</integer>
     <!-- Exact bounds and low-light white from this panel's stock TrueTone2.
          Standard DWB retains its own filter/Bradford algorithm; the stock 2D
          Lux/CCT table is not misrepresented as a one-dimensional LUT. -->
