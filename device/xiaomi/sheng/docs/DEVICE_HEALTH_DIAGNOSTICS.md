@@ -28,3 +28,25 @@ No invented replacement percentage or public-source modification is made.
 
 Raw evidence lives in workspace reports/device/r19-runtime:
 health-hal-and-ufs.txt, gauge-state-of-health.txt, health-nodes-and-mount.txt.
+
+## Manufacturing and first-use dates
+
+The stock SecurityCenterPad utility B7.m.e/m passes manufacturing_date and
+first_usage_date to miui.util.IMiCharge.getMiChargePath. Stock MiCharge HIDL
+method47 reads a named sysfs value; its native fallback appends the requested
+name to the battery/class root. Neither date exists under qcom-battery,
+power_supply/battery or power_supply/bms on this device. The stock kernel
+module's exported attribute inventory also contains no corresponding date.
+The standard Health HAL reports both dates as zero. Existing fuel-gauge SOH
+does not contain an original first-use date. No reliable serial-date decoder
+or independent retained historical date was found, so both dates remain
+unknown. Do not substitute ROM installation or first boot for battery history.
+
+Evidence: battery-date-node-inventory.txt, battery-date-exact-paths.txt,
+stock-battery-date-strings.json, stock-battery-date-calls.txt and
+stock-battery-date-utility.txt. The framework/native disassembly review is
+retained in /root/sheng-lineage/battery-date-review-20261107.
+
+The read-only ShengHealthReadback utility calls the same standard properties
+used by DeviceDiagnostics. Before r19 it reports SOH status0/value0 and
+storage remaining lifetime100, confirming both data paths directly.
