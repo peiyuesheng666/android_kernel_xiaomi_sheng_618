@@ -10,8 +10,10 @@ Make installation collisions. No normal build patches a public repository.
 The `seventeen` piano tree is an organizational reference, at revision
 `3f10fc25273b42d18d0bd533551a0a5c3dda0094`. Its board values and firmware are
 not sheng inputs. The sheng tree uses `aidl/sensors`, `configs/`,
-`interfaces/{audio,display,compat,location}`, `dolby/`, `overlay/`, `rootdir/`,
-`sepolicy/`, `tools/` and `docs/` for its own components.
+`interfaces/{audio,display,compat,location,kernel}`, `dolby/`, `overlay/`,
+`properties/`, `rootdir/`, `sepolicy/`, `tools/` and `docs/` for its own components.
+Recovery sources live in `rootdir/recovery/`. Unintegrated input and SystemUI
+candidates stay under `interfaces/` without product registration.
 
 Before building, run the following from an existing ROM checkout:
 
@@ -36,7 +38,7 @@ a platform source patch or an installed device component. Regular ROM builds
 can use the ordinary LineageOS build commands on a sufficiently provisioned host.
 
 `SOURCE_BASELINES.json` records the upstream inputs of device-owned source
-snapshots. `patches/` holds historical diffs for review and provenance only;
+snapshots. `docs/source-patches/` holds historical diffs for review and provenance only;
 they are not build steps. The extraction hook changes only the generated
 `vendor/xiaomi/sheng/Android.bp` to export this tree's GSL headers and reference
 its compatible Dolby filegroups.

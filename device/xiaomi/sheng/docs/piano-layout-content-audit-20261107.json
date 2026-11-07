@@ -1,6 +1,6 @@
 {
   "base_commit": "40f2a0ac74a9ec2270c5bde2dea332e457625d2b",
-  "created_utc": "2026-11-07T05:35:48.070602+00:00",
+  "created_utc": "2026-11-07T05:44:48.994552+00:00",
   "scope": "tracked device-tree blobs present in base commit; no runtime operations; no source or upstream writes",
   "move_mapping": {
     "audio/": "interfaces/audio/",
@@ -24,8 +24,8 @@
     "scripts/": 35
   },
   "result_counts": {
-    "byte-identical": 443,
-    "allowed-path-only": 8
+    "byte-identical": 442,
+    "allowed-path-only": 9
   },
   "binary_and_source_counts": {
     "native_java_hal_header_total": 306,
@@ -43,7 +43,8 @@
     "tools/package_sheng_dolby_followup.py",
     "tools/package_sheng_hardware_followup.py",
     "tools/package_sheng_refresh_followup.py",
-    "tools/package_sheng_location_followup.py"
+    "tools/package_sheng_location_followup.py",
+    "tools/build_sheng_sensor_probe.py"
   ],
   "tracked_json_count": 39,
   "tracked_json_differences": [
@@ -3120,8 +3121,9 @@
       "old": "scripts/build_sheng_sensor_probe.py",
       "new": "tools/build_sheng_sensor_probe.py",
       "sha256_before": "b45c565c78d40caa0c758e4fe6d65f05633c1bfcfbd1616cc8caaed49761bfcd",
-      "sha256_after": "b45c565c78d40caa0c758e4fe6d65f05633c1bfcfbd1616cc8caaed49761bfcd",
-      "result": "byte-identical"
+      "sha256_after": "1d78fb42dd55474dfcf1ae8f6fbe9817f01f14e45c6ae0deb4a3a58d295799c3",
+      "result": "allowed-path-only",
+      "diff": "--- scripts/build_sheng_sensor_probe.py\n+++ tools/build_sheng_sensor_probe.py\n@@ -12,7 +12,7 @@\n framework = rom/'out/soong/.intermediates/frameworks/base/framework-minus-apex/android_common/combined/framework.jar'\n env = dict(os.environ, LANG='C.UTF-8', LC_ALL='C.UTF-8')\n subprocess.run([str(java/'javac'), '-cp', str(framework)+':'+str(sdk), '-d', str(output),\n-                str(device/'scripts'/os.environ.get('SHENG_PROBE_SOURCE', 'ShengSensorProbe.java'))], env=env, check=True)\n+                str(device/'tools'/os.environ.get('SHENG_PROBE_SOURCE', 'ShengSensorProbe.java'))], env=env, check=True)\n subprocess.run([str(java/'java'), '-cp', str(rom/'out/host/linux-x86/framework/d8.jar'),\n                 'com.android.tools.r8.D8', '--lib', str(sdk), '--min-api', '35',\n                 '--output', str(output), *map(str, output.glob('*.class'))], env=env, check=True)"
     },
     {
       "old": "scripts/cleanup_packaging_staging.py",

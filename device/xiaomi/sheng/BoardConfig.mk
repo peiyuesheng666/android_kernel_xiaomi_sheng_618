@@ -84,7 +84,7 @@ BOARD_KERNEL_IMAGE_NAME := Image
 # Kernel (modules)
 TARGET_KERNEL_EXT_MODULE_ROOT := kernel/xiaomi/sm8550-modules
 # Stock BSP selected by module-plan.json; the kernel core stays LineageOS.
-TARGET_KERNEL_EXT_MODULES := ../../../device/xiaomi/sheng/kernel/stock-modules
+TARGET_KERNEL_EXT_MODULES := ../../../device/xiaomi/sheng/interfaces/kernel/stock-modules
 SYSTEM_KERNEL_MODULES := zsmalloc.ko zram.ko
 BOARD_SYSTEM_KERNEL_MODULES_LOAD := zsmalloc.ko zram.ko
 
@@ -205,7 +205,7 @@ TARGET_KERNEL_CONFIG_EXT := $(DEVICE_PATH)/configs/kernel/sheng.config
 TARGET_KERNEL_ADDITIONAL_FLAGS += USERCFLAGS=-D_POSIX_C_SOURCE=200809L
 # Header-only BSP snapshot keeps kernel declarations out of the userspace ABI.
 # The normal headers_install and C90 header tests remain enabled.
-TARGET_KERNEL_ADDITIONAL_FLAGS += ext-mod-dir=../../../device/xiaomi/sheng/kernel/uapi
+TARGET_KERNEL_ADDITIONAL_FLAGS += ext-mod-dir=../../../device/xiaomi/sheng/interfaces/kernel/uapi
 TARGET_AUTO_COLLECT_KERNEL_MODULE_DEPS := false
 
 

@@ -36,7 +36,7 @@ repositories. The first kernel is 5.15; the 6.12 port is a later task.
 
 For the initial source-kernel build candidate, the kernel core is built from the official
 LineageOS 5.15 source. The vendor BSP uses the supplied firmware's complete
-417-module set, pinned by SHA256 in `kernel/stock-modules/module-plan.json`.
+417-module set, pinned by SHA256 in `interfaces/kernel/stock-modules/module-plan.json`.
 ZRAM and zsmalloc are built from the current kernel source. Mixing the smaller
 stock-only set with generic phone BSP modules was rejected by real CRC checks.
 The staging guard validates every effective module before selecting the package
@@ -53,23 +53,22 @@ implementation files.
 
 The layout follows the [piano seventeen tree](https://github.com/xiaomi-pad-8-pro-development/android_device_xiaomi_piano/tree/seventeen),
 fresh-fetched at commit `3f10fc25273b42d18d0bd533551a0a5c3dda0094`.
-Its implementation files are not imported. sheng-specific adapters and development
-tools are grouped below while the normal Android product entry points stay at the root.
+Its implementation files are not imported. The tree has exactly ten top-level
+directories. Board adapters and development tools are grouped below while the
+normal Android product entry points stay at the root.
 
 | Directory | Contents |
 | --- | --- |
 | `aidl/` | Device AIDL services and declared interfaces. |
 | `configs/` | Audio, display, input, sensor and VINTF configuration; display files use `configs/display/`. |
 | `dolby/` | Dolby settings application. |
-| `interfaces/` | Board-owned audio, display, compatibility and location adapters. |
-| `interfaces/input/` | Keyboard and touch candidates; physical testing is currently paused. |
+| `docs/` | Current status, validation evidence and historical derivation diffs in `source-patches/`. |
+| `interfaces/` | Board-owned audio, display, compatibility, location and kernel adapters. Input and SystemUI candidates remain unintegrated. |
 | `overlay/` | Framework, SystemUI and ROM resource overlays. |
 | `properties/` | Partition-specific properties. |
-| `rootdir/` | Init, fstab and their build modules. |
+| `rootdir/` | Init, fstab and their build modules; standalone Recovery sources in `recovery/`. |
 | `sepolicy/` | Integrated board policy. Candidate input policy stays with its feature until integration. |
-| `kernel/`, `recovery/` | This board's kernel/module and Recovery configuration. |
-| `tools/` | Source audits, build helpers, development packaging and diagnostic probes. |
-| `docs/`, `patches/` | Current status, validation evidence and device-source derivation records. |
+| `tools/` | Source audits, build helpers, development packaging and diagnostic probes; local caches stay in `cache/` and are ignored by Git. |
 
 Root `Android.bp` keeps the namespace and firmware symlinks. Compatibility and
 init modules live with their source directories. Production install paths and

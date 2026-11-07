@@ -1,0 +1,570 @@
+{
+  "schema": 1,
+  "created_utc": "2026-11-07T05:48:32.564262+00:00",
+  "baseline_commit": "942a03e7df9d0ac36ec19f8c7e8803c2b7e3e167",
+  "before_receipt_file": "docs/piano-layout-ten-directories-before-20261107.json",
+  "before_receipt_sha256": "639a4964eb1cbf5a302d78202d13c532e52c98e99f57adf616c9f3ca7d13cea4",
+  "scope": "Read-only content/path audit. No compilation, device operations, source writes or commits. This JSON is the only new audit output.",
+  "moves": {
+    "kernel": "interfaces/kernel",
+    "recovery": "rootdir/recovery",
+    "patches": "docs/source-patches",
+    "systemui": "interfaces/systemui",
+    "__pycache__": "tools/cache/python-root"
+  },
+  "receipt_file_count": 49,
+  "group_counts": {
+    "kernel": 33,
+    "recovery": 7,
+    "patches": 5,
+    "systemui": 3,
+    "__pycache__": 1
+  },
+  "tracked_git_baseline_count": 44,
+  "untracked_receipt_baseline_files": [
+    "kernel/stock-modules/__pycache__/stage.cpython-310.pyc",
+    "systemui/src/com/android/systemui/keyguard/WakefulnessLifecycle.java",
+    "systemui/src/com/android/systemui/sheng/ShengPowerButtonGeometry.java",
+    "systemui/src/com/android/systemui/statusbar/PowerButtonReveal.kt",
+    "__pycache__/extract-files.cpython-312.pyc"
+  ],
+  "result_counts": {
+    "allowed-relative-depth-only": 1,
+    "byte-identical": 48
+  },
+  "missing_files": [],
+  "unexpected_changes": [],
+  "boardconfig_only_expected_two_source_path_changes": true,
+  "stock_module_directory_resolves_to_same_sibling": true,
+  "resolved_stock_module_directory": "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/device/xiaomi/sheng-kernel/stock-modules",
+  "kbuild_count": 12,
+  "kbuild_header_reference_count": 25,
+  "missing_kbuild_references": [],
+  "recovery_depth_analysis": "C, init and shell files use installed absolute paths; no __file__/parent depth dependency. Source move requires only consumers to use rootdir/recovery.",
+  "stage_py_depth_analysis": "All source and output paths are supplied by CLI arguments; no __file__/parents dependency.",
+  "top_level_directories": [
+    "aidl",
+    "configs",
+    "docs",
+    "dolby",
+    "interfaces",
+    "overlay",
+    "properties",
+    "rootdir",
+    "sepolicy",
+    "tools"
+  ],
+  "external_workspace_helper_old_path_references": [
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/verify_stock_bsp_guard.py:17:plan = work / 'device/xiaomi/sheng/kernel/stock-modules/module-plan.json'",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/verify_module_guard.py:14:stage = work / 'device/xiaomi/sheng/kernel/stock-modules/stage.py'",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/prepare_stock_bsp.py:20:(device / 'kernel/stock-modules/module-plan.json').write_text(json.dumps(plan, indent=2) + '\\n')",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/prepare_stock_bsp.py:104:(device / 'kernel/stock-modules/module-plan.json').write_text(json.dumps(plan, indent=2) + '\\n')",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/prepare_stock_bsp.py:111:    replacement = (marker + '\\nTARGET_KERNEL_EXT_MODULES := ../../../device/xiaomi/sheng/kernel/stock-modules\\n'",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/prepare_stock_bsp.py:116:    text = text.replace('TARGET_KERNEL_EXT_MODULES += ../../../device/xiaomi/sheng/kernel/stock-modules\\n', '')",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/prepare_sheng_stock.py:61:    spec = importlib.util.spec_from_file_location('sheng_abi', DEVICE / 'kernel/stock-modules/stage.py')",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/preflight_sheng.py:102:    spec = importlib.util.spec_from_file_location('sheng_module_abi', DEVICE / 'kernel/stock-modules/stage.py')",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/patch_recovery_touch_delay.py:26:    spec = importlib.util.spec_from_file_location('touch_module_abi', workspace / 'device/xiaomi/sheng/kernel/stock-modules/stage.py')",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/package_recovery_r8.py:33:configuration = work / 'device/xiaomi/sheng/recovery'",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/package_recovery_r8.py:108:spec = importlib.util.spec_from_file_location('sheng_abi', work / 'device/xiaomi/sheng/kernel/stock-modules/stage.py')",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/package_qti_recovery.py:21:config = json.loads((work / 'device/xiaomi/sheng/recovery/standalone.json').read_text())",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/cache_stock_hardware.py:70:    spec = importlib.util.spec_from_file_location('sheng_abi', WORK / 'device/xiaomi/sheng/kernel/stock-modules/stage.py')",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/build_standalone_recovery.py:20:configuration = work / 'device/xiaomi/sheng/recovery'",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/build_standalone_recovery.py:81:plan = json.loads((work / 'device/xiaomi/sheng/kernel/stock-modules/module-plan.json').read_text())",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/build_serial_recovery.py:124:     '-o', binary, work / 'device/xiaomi/sheng/recovery/serial_init.c'])",
+    "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/scripts/audit_stock_module_closure.py:16:spec = importlib.util.spec_from_file_location('sheng_module', work / 'device/xiaomi/sheng/kernel/stock-modules/stage.py')"
+  ],
+  "external_reference_note": "These workspace/scripts helpers are outside the moved device-tree content scope. Their old path references were reported to root; none was executed or changed by this audit.",
+  "files": [
+    {
+      "old": "kernel/stock-modules/Makefile",
+      "new": "interfaces/kernel/stock-modules/Makefile",
+      "tracked_in_git_baseline": true,
+      "size_before": 362,
+      "sha256_before": "87c37dc06887b695599773acde10f2891b1de32894b6896f552d259e694c04fc",
+      "size_after": 368,
+      "sha256_after": "9251a4bfb6026858150b370ec952d9516cadc8938d1a25aedd4a05a41a36db9e",
+      "result": "allowed-relative-depth-only",
+      "diff": "--- kernel/stock-modules/Makefile\n+++ interfaces/kernel/stock-modules/Makefile\n@@ -1,7 +1,7 @@\n # SPDX-License-Identifier: Apache-2.0\n .PHONY: all modules modules_install\n all modules:\n-\t@test -d \"$(CURDIR)/../../../sheng-kernel/stock-modules\"\n+\t@test -d \"$(CURDIR)/../../../../sheng-kernel/stock-modules\"\n \n modules_install:\n-\tpython3 $(CURDIR)/stage.py --kernel-out \"$(O)\" --install-root \"$(INSTALL_MOD_PATH)\" --stock-dir \"$(abspath $(CURDIR)/../../../sheng-kernel/stock-modules)\" --module-plan \"$(CURDIR)/module-plan.json\"\n+\tpython3 $(CURDIR)/stage.py --kernel-out \"$(O)\" --install-root \"$(INSTALL_MOD_PATH)\" --stock-dir \"$(abspath $(CURDIR)/../../../../sheng-kernel/stock-modules)\" --module-plan \"$(CURDIR)/module-plan.json\""
+    },
+    {
+      "old": "kernel/stock-modules/module-plan.json",
+      "new": "interfaces/kernel/stock-modules/module-plan.json",
+      "tracked_in_git_baseline": true,
+      "size_before": 48420,
+      "sha256_before": "1fe62f90a8b9914627d83ab57be60d344bf6384b3d761f0c5307d4e7f300bb99",
+      "size_after": 48420,
+      "sha256_after": "1fe62f90a8b9914627d83ab57be60d344bf6384b3d761f0c5307d4e7f300bb99",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/stock-modules/stage.py",
+      "new": "interfaces/kernel/stock-modules/stage.py",
+      "tracked_in_git_baseline": true,
+      "size_before": 9045,
+      "sha256_before": "53383619510eef534dd9b9a06518e2bed9c1d7cbc5cfece52954feb59a1f962d",
+      "size_after": 9045,
+      "sha256_after": "53383619510eef534dd9b9a06518e2bed9c1d7cbc5cfece52954feb59a1f962d",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/stock-modules/__pycache__/stage.cpython-310.pyc",
+      "new": "interfaces/kernel/stock-modules/__pycache__/stage.cpython-310.pyc",
+      "tracked_in_git_baseline": false,
+      "size_before": 8239,
+      "sha256_before": "ddc233dd3cbd3201f875363b86e432a3451d8a8fe6149b36cdefb8b2a2c6b54b",
+      "size_after": 8239,
+      "sha256_after": "ddc233dd3cbd3201f875363b86e432a3451d8a8fe6149b36cdefb8b2a2c6b54b",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/nxp/opensource/driver/include/uapi/Kbuild",
+      "new": "interfaces/kernel/uapi/nxp/opensource/driver/include/uapi/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 168,
+      "sha256_before": "439cd816f9323509ff8464aca78bdb57c951459a96ed30853cda4b1c5c32a6d7",
+      "size_after": 168,
+      "sha256_after": "439cd816f9323509ff8464aca78bdb57c951459a96ed30853cda4b1c5c32a6d7",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/nxp/opensource/driver/include/uapi/linux/Kbuild",
+      "new": "interfaces/kernel/uapi/nxp/opensource/driver/include/uapi/linux/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 166,
+      "sha256_before": "79ccc954e5cbf8315d9935b613fe9ee17ec234ceef56f2e1053ccee2dae405e7",
+      "size_after": 166,
+      "sha256_after": "79ccc954e5cbf8315d9935b613fe9ee17ec234ceef56f2e1053ccee2dae405e7",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/nxp/opensource/driver/include/uapi/linux/nfc/Kbuild",
+      "new": "interfaces/kernel/uapi/nxp/opensource/driver/include/uapi/linux/nfc/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 87,
+      "sha256_before": "dc2656ccb7348c2f201bf0af98cb00736526e74b20dc2d609ed9052ec11c5c79",
+      "size_after": 87,
+      "sha256_after": "dc2656ccb7348c2f201bf0af98cb00736526e74b20dc2d609ed9052ec11c5c79",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/nxp/opensource/driver/include/uapi/linux/nfc/nfcinfo.h",
+      "new": "interfaces/kernel/uapi/nxp/opensource/driver/include/uapi/linux/nfc/nfcinfo.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 508,
+      "sha256_before": "40063e5a7e741fe57779912f87c48b233a0cb031d99342671b06e45fe78e425b",
+      "size_after": 508,
+      "sha256_after": "40063e5a7e741fe57779912f87c48b233a0cb031d99342671b06e45fe78e425b",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 168,
+      "sha256_before": "c60c0a99f9e74c0528fd50c82e3ada14cb06485b1ae8e4e740783157803fe4ff",
+      "size_after": 168,
+      "sha256_after": "c60c0a99f9e74c0528fd50c82e3ada14cb06485b1ae8e4e740783157803fe4ff",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 187,
+      "sha256_before": "9e56362e4fe9a1adef1df47627adf67bd8e662b0fcb4c83f25668c010dd3ce58",
+      "size_after": 187,
+      "sha256_after": "9e56362e4fe9a1adef1df47627adf67bd8e662b0fcb4c83f25668c010dd3ce58",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/linux/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/linux/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 89,
+      "sha256_before": "0524e69d3d68bcb27993fc2f43bad9029b54c551e7c1df080270e701d885acb6",
+      "size_after": 89,
+      "sha256_after": "0524e69d3d68bcb27993fc2f43bad9029b54c551e7c1df080270e701d885acb6",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/linux/msm_audio.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/linux/msm_audio.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 13964,
+      "sha256_before": "952f61c2e0457a40c77e3db88daa314179c0cfa16109683e7b0781b1b8a6b1f3",
+      "size_after": 13964,
+      "sha256_after": "952f61c2e0457a40c77e3db88daa314179c0cfa16109683e7b0781b1b8a6b1f3",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_compressed_formats.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_compressed_formats.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 2048,
+      "sha256_before": "d39f454d0d29a3df3da1386cc1e0fec8791df46280eeb9e907fe2c236462603f",
+      "size_after": 2048,
+      "sha256_after": "d39f454d0d29a3df3da1386cc1e0fec8791df46280eeb9e907fe2c236462603f",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_effects.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_effects.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 10870,
+      "sha256_before": "19d543ca81e8fd53af9e847ae1f02ef0d532ffbbf96b5d28ec46fc53455e73ef",
+      "size_after": 10870,
+      "sha256_after": "19d543ca81e8fd53af9e847ae1f02ef0d532ffbbf96b5d28ec46fc53455e73ef",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_slimslave.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_slimslave.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 404,
+      "sha256_before": "76d07745b9a11315dd619a70ddd93b34a3dc2353cd907ce912b14280e32b8375",
+      "size_after": 404,
+      "sha256_after": "76d07745b9a11315dd619a70ddd93b34a3dc2353cd907ce912b14280e32b8375",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 3629,
+      "sha256_before": "62b166e31ad0cde0ecfcdcf1d1a84f1a415e0202dca39f01c767f24307582c31",
+      "size_after": 3629,
+      "sha256_after": "62b166e31ad0cde0ecfcdcf1d1a84f1a415e0202dca39f01c767f24307582c31",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/devdep_params.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/devdep_params.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 2377,
+      "sha256_before": "b958798735adc0959c0e6f9ce147ae70ea70da484cc910f1fe5331e4d5bbb3c2",
+      "size_after": 2377,
+      "sha256_after": "b958798735adc0959c0e6f9ce147ae70ea70da484cc910f1fe5331e4d5bbb3c2",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 297,
+      "sha256_before": "4b3c53440caa663b081badbe4289b4e2b1e965c9e25ec46da0d2d2469f5a4a72",
+      "size_after": 297,
+      "sha256_after": "4b3c53440caa663b081badbe4289b4e2b1e965c9e25ec46da0d2d2469f5a4a72",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/lsm_params.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/lsm_params.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 9842,
+      "sha256_before": "4774f00e020f713c405b4eb4f420c531816c94caa0397070ee122ab9eaab050d",
+      "size_after": 9842,
+      "sha256_after": "4774f00e020f713c405b4eb4f420c531816c94caa0397070ee122ab9eaab050d",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/msmcal-hwdep.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/msmcal-hwdep.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 833,
+      "sha256_before": "700f463fc58a200997812c5fcefde61b3b34c434e6b7026be259e1f7c0b8a3b3",
+      "size_after": 833,
+      "sha256_after": "700f463fc58a200997812c5fcefde61b3b34c434e6b7026be259e1f7c0b8a3b3",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/voice_params.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/voice_params.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 220,
+      "sha256_before": "72ec5c96a23528130929e7486c1579e8c87f62dc8b158ab88d0611fca03e8c03",
+      "size_after": 220,
+      "sha256_after": "72ec5c96a23528130929e7486c1579e8c87f62dc8b158ab88d0611fca03e8c03",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/wcd-dsp-glink.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/wcd-dsp-glink.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 1528,
+      "sha256_before": "4498e8028d974f75fc324214a62d20e68e22664d7f8b5f546109cdfbbc8392a6",
+      "size_after": 1528,
+      "sha256_after": "4498e8028d974f75fc324214a62d20e68e22664d7f8b5f546109cdfbbc8392a6",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 170,
+      "sha256_before": "fb21af7172e98ea30f90d2eaa9333725d8dd5da8ab0e968561806f4e7ca4b40a",
+      "size_after": 170,
+      "sha256_after": "fb21af7172e98ea30f90d2eaa9333725d8dd5da8ab0e968561806f4e7ca4b40a",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 119,
+      "sha256_before": "6f6fb5946c2e34662c0a0b76f51c3448f4e86d040f353e03b0620c3827b0ddf8",
+      "size_after": 119,
+      "sha256_after": "6f6fb5946c2e34662c0a0b76f51c3448f4e86d040f353e03b0620c3827b0ddf8",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 134,
+      "sha256_before": "fb76f35b3a6afc0b452301315e4c49eac9e5e4706009e059f1a0bd43e0959a32",
+      "size_after": 134,
+      "sha256_after": "fb76f35b3a6afc0b452301315e4c49eac9e5e4706009e059f1a0bd43e0959a32",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/mi_disp.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/mi_disp.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 21545,
+      "sha256_before": "b876e25702c2b2e3d9f7537a310fe93a090e7e53f6f5304aa3d07629813bfea0",
+      "size_after": 21545,
+      "sha256_after": "b876e25702c2b2e3d9f7537a310fe93a090e7e53f6f5304aa3d07629813bfea0",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/msm_drm_pp.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/msm_drm_pp.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 19554,
+      "sha256_before": "6d1204b0bd198b2fca3c66d5a56dbea8667396b09320b625714a945809e688d1",
+      "size_after": 19554,
+      "sha256_after": "6d1204b0bd198b2fca3c66d5a56dbea8667396b09320b625714a945809e688d1",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/sde_drm.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/sde_drm.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 30370,
+      "sha256_before": "9e2e2113f9775ba30b31ff9eed595c2627e661c6b59a039640ee028df22ee743",
+      "size_after": 30370,
+      "sha256_after": "9e2e2113f9775ba30b31ff9eed595c2627e661c6b59a039640ee028df22ee743",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/hdcp/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/hdcp/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 97,
+      "sha256_before": "c4eda5d6c78c615205c02d8da56c0cd7f0e43633eccc8866ec382b91fa2936ed",
+      "size_after": 97,
+      "sha256_after": "c4eda5d6c78c615205c02d8da56c0cd7f0e43633eccc8866ec382b91fa2936ed",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/hdcp/msm_hdmi_hdcp_mgr.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/hdcp/msm_hdmi_hdcp_mgr.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 1028,
+      "sha256_before": "6b4f86098e86193b720c9f8c984d43b3b8e5f8d56fa2c42a6a62858b3535e75a",
+      "size_after": 1028,
+      "sha256_after": "6b4f86098e86193b720c9f8c984d43b3b8e5f8d56fa2c42a6a62858b3535e75a",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/Kbuild",
+      "tracked_in_git_baseline": true,
+      "size_before": 123,
+      "sha256_before": "2829db2e237df4414d1a5cb78fb5676d5cfe64ed66e9e09db48b922590b4d440",
+      "size_after": 123,
+      "sha256_after": "2829db2e237df4414d1a5cb78fb5676d5cfe64ed66e9e09db48b922590b4d440",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/mmm_color_fmt.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/mmm_color_fmt.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 53639,
+      "sha256_before": "a1db1007b18cfbc511c01df2e4a70d716a3cbf81f508b93868ddaa4207c6be8e",
+      "size_after": 53639,
+      "sha256_after": "a1db1007b18cfbc511c01df2e4a70d716a3cbf81f508b93868ddaa4207c6be8e",
+      "result": "byte-identical"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/msm_sde_rotator.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/msm_sde_rotator.h",
+      "tracked_in_git_baseline": true,
+      "size_before": 7198,
+      "sha256_before": "89999df2c996ac8161367e2f45ea2cd4c3b5a8a7c4becc189b366c60060e8579",
+      "size_after": 7198,
+      "sha256_after": "89999df2c996ac8161367e2f45ea2cd4c3b5a8a7c4becc189b366c60060e8579",
+      "result": "byte-identical"
+    },
+    {
+      "old": "recovery/drm_dpms_cycle.c",
+      "new": "rootdir/recovery/drm_dpms_cycle.c",
+      "tracked_in_git_baseline": true,
+      "size_before": 3587,
+      "sha256_before": "0a9d22670dedab1a73f15676b7b9f94e91655ef1987f4c4448067b56e116ad44",
+      "size_after": 3587,
+      "sha256_after": "0a9d22670dedab1a73f15676b7b9f94e91655ef1987f4c4448067b56e116ad44",
+      "result": "byte-identical"
+    },
+    {
+      "old": "recovery/drm_probe.c",
+      "new": "rootdir/recovery/drm_probe.c",
+      "tracked_in_git_baseline": true,
+      "size_before": 6421,
+      "sha256_before": "c93260c1d047e2bf837a787881fb8f2b4d4e7c7b403716654cf9a342a39b2624",
+      "size_after": 6421,
+      "sha256_after": "c93260c1d047e2bf837a787881fb8f2b4d4e7c7b403716654cf9a342a39b2624",
+      "result": "byte-identical"
+    },
+    {
+      "old": "recovery/hardware.sh",
+      "new": "rootdir/recovery/hardware.sh",
+      "tracked_in_git_baseline": true,
+      "size_before": 814,
+      "sha256_before": "736abfe84cdc3e08e2b7e6287a79117edccd4c644f8c60b5e2deff862af186a8",
+      "size_after": 814,
+      "sha256_after": "736abfe84cdc3e08e2b7e6287a79117edccd4c644f8c60b5e2deff862af186a8",
+      "result": "byte-identical"
+    },
+    {
+      "old": "recovery/init.recovery.sheng.rc",
+      "new": "rootdir/recovery/init.recovery.sheng.rc",
+      "tracked_in_git_baseline": true,
+      "size_before": 1733,
+      "sha256_before": "3f0a893fa921b99fb70feda2e763aa232b17b0e55f575a2eab4ee0d6800c637b",
+      "size_after": 1733,
+      "sha256_after": "3f0a893fa921b99fb70feda2e763aa232b17b0e55f575a2eab4ee0d6800c637b",
+      "result": "byte-identical"
+    },
+    {
+      "old": "recovery/serial_init.c",
+      "new": "rootdir/recovery/serial_init.c",
+      "tracked_in_git_baseline": true,
+      "size_before": 17966,
+      "sha256_before": "24cdf7a8e04c77902f2381bfa237808d2b2128f126745d49dec6cb40e325d8ee",
+      "size_after": 17966,
+      "sha256_after": "24cdf7a8e04c77902f2381bfa237808d2b2128f126745d49dec6cb40e325d8ee",
+      "result": "byte-identical"
+    },
+    {
+      "old": "recovery/standalone.json",
+      "new": "rootdir/recovery/standalone.json",
+      "tracked_in_git_baseline": true,
+      "size_before": 992,
+      "sha256_before": "d0761db8bb072c9300edff30123936e900b63d17c4393206818cbec5a6d41694",
+      "size_after": 992,
+      "sha256_after": "d0761db8bb072c9300edff30123936e900b63d17c4393206818cbec5a6d41694",
+      "result": "byte-identical"
+    },
+    {
+      "old": "recovery/touch.sh",
+      "new": "rootdir/recovery/touch.sh",
+      "tracked_in_git_baseline": true,
+      "size_before": 661,
+      "sha256_before": "5526b212e04a32830dca2c0de2d24a6295d849d09d56dab874f569d57e4c0003",
+      "size_after": 661,
+      "sha256_after": "5526b212e04a32830dca2c0de2d24a6295d849d09d56dab874f569d57e4c0003",
+      "result": "byte-identical"
+    },
+    {
+      "old": "patches/sheng-cs35l41-userspace-header.patch",
+      "new": "docs/source-patches/sheng-cs35l41-userspace-header.patch",
+      "tracked_in_git_baseline": true,
+      "size_before": 779,
+      "sha256_before": "e64050216ec87bddef7b37a7c8c9d596f215d2620d8e161bcf9c9bad48e1465e",
+      "size_after": 779,
+      "sha256_after": "e64050216ec87bddef7b37a7c8c9d596f215d2620d8e161bcf9c9bad48e1465e",
+      "result": "byte-identical"
+    },
+    {
+      "old": "patches/sheng-device-orientation-offset.patch",
+      "new": "docs/source-patches/sheng-device-orientation-offset.patch",
+      "tracked_in_git_baseline": true,
+      "size_before": 1283,
+      "sha256_before": "9000a43d1ad27b3e26b51746dbb3f0df40e9fa79e52e8f181ce10b7e956037fc",
+      "size_after": 1283,
+      "sha256_after": "9000a43d1ad27b3e26b51746dbb3f0df40e9fa79e52e8f181ce10b7e956037fc",
+      "result": "byte-identical"
+    },
+    {
+      "old": "patches/sheng-display-kgsl-startup.patch",
+      "new": "docs/source-patches/sheng-display-kgsl-startup.patch",
+      "tracked_in_git_baseline": true,
+      "size_before": 2083,
+      "sha256_before": "81ea03de6d583cc795809cdf7fdb38cc9a65605c55664ab66eb5fbe390f5c545",
+      "size_after": 2083,
+      "sha256_after": "81ea03de6d583cc795809cdf7fdb38cc9a65605c55664ab66eb5fbe390f5c545",
+      "result": "byte-identical"
+    },
+    {
+      "old": "patches/sheng-gsl-headers.patch",
+      "new": "docs/source-patches/sheng-gsl-headers.patch",
+      "tracked_in_git_baseline": true,
+      "size_before": 476,
+      "sha256_before": "2e70f2a6183d4f616c8dd56c08d75b0d43652cffa802f313cba93d22a88f74cb",
+      "size_after": 476,
+      "sha256_after": "2e70f2a6183d4f616c8dd56c08d75b0d43652cffa802f313cba93d22a88f74cb",
+      "result": "byte-identical"
+    },
+    {
+      "old": "patches/sheng-speaker-offload.patch",
+      "new": "docs/source-patches/sheng-speaker-offload.patch",
+      "tracked_in_git_baseline": true,
+      "size_before": 11360,
+      "sha256_before": "58b49d024bf2fa320eb6e2d4396c6e3f5cd6e2cdbfb6f221b12b32deb2454154",
+      "size_after": 11360,
+      "sha256_after": "58b49d024bf2fa320eb6e2d4396c6e3f5cd6e2cdbfb6f221b12b32deb2454154",
+      "result": "byte-identical"
+    },
+    {
+      "old": "systemui/src/com/android/systemui/keyguard/WakefulnessLifecycle.java",
+      "new": "interfaces/systemui/src/com/android/systemui/keyguard/WakefulnessLifecycle.java",
+      "tracked_in_git_baseline": false,
+      "size_before": 8561,
+      "sha256_before": "30fdea22cb68167e9bdae415ffa0b1be6513e5ac68767a42ca4435567449b651",
+      "size_after": 8561,
+      "sha256_after": "30fdea22cb68167e9bdae415ffa0b1be6513e5ac68767a42ca4435567449b651",
+      "result": "byte-identical"
+    },
+    {
+      "old": "systemui/src/com/android/systemui/sheng/ShengPowerButtonGeometry.java",
+      "new": "interfaces/systemui/src/com/android/systemui/sheng/ShengPowerButtonGeometry.java",
+      "tracked_in_git_baseline": false,
+      "size_before": 3251,
+      "sha256_before": "c7f2a1bf0c323993d623f79050baff2765ada77cdf719dd2afcf1b09a76a1c2d",
+      "size_after": 3251,
+      "sha256_after": "c7f2a1bf0c323993d623f79050baff2765ada77cdf719dd2afcf1b09a76a1c2d",
+      "result": "byte-identical"
+    },
+    {
+      "old": "systemui/src/com/android/systemui/statusbar/PowerButtonReveal.kt",
+      "new": "interfaces/systemui/src/com/android/systemui/statusbar/PowerButtonReveal.kt",
+      "tracked_in_git_baseline": false,
+      "size_before": 2549,
+      "sha256_before": "265ba692cf7ce40a874aef9d6c6f7cedb8c9170b4584c3ea36fd93296570a286",
+      "size_after": 2549,
+      "sha256_after": "265ba692cf7ce40a874aef9d6c6f7cedb8c9170b4584c3ea36fd93296570a286",
+      "result": "byte-identical"
+    },
+    {
+      "old": "__pycache__/extract-files.cpython-312.pyc",
+      "new": "tools/cache/python-root/extract-files.cpython-312.pyc",
+      "tracked_in_git_baseline": false,
+      "size_before": 6539,
+      "sha256_before": "85681484fe04038e3d07d9bdc00a195218eaee813cfacf058e42b0918ca9ad22",
+      "size_after": 6539,
+      "sha256_after": "85681484fe04038e3d07d9bdc00a195218eaee813cfacf058e42b0918ca9ad22",
+      "result": "byte-identical"
+    }
+  ]
+}

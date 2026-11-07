@@ -1,0 +1,307 @@
+{
+  "schema": 1,
+  "baseline_commit": "942a03e",
+  "moves": {
+    "kernel": "interfaces/kernel",
+    "recovery": "rootdir/recovery",
+    "patches": "docs/source-patches",
+    "systemui": "interfaces/systemui",
+    "__pycache__": "tools/cache/python-root"
+  },
+  "files": [
+    {
+      "old": "kernel/stock-modules/Makefile",
+      "new": "interfaces/kernel/stock-modules/Makefile",
+      "size": 362,
+      "sha256": "87c37dc06887b695599773acde10f2891b1de32894b6896f552d259e694c04fc"
+    },
+    {
+      "old": "kernel/stock-modules/module-plan.json",
+      "new": "interfaces/kernel/stock-modules/module-plan.json",
+      "size": 48420,
+      "sha256": "1fe62f90a8b9914627d83ab57be60d344bf6384b3d761f0c5307d4e7f300bb99"
+    },
+    {
+      "old": "kernel/stock-modules/stage.py",
+      "new": "interfaces/kernel/stock-modules/stage.py",
+      "size": 9045,
+      "sha256": "53383619510eef534dd9b9a06518e2bed9c1d7cbc5cfece52954feb59a1f962d"
+    },
+    {
+      "old": "kernel/stock-modules/__pycache__/stage.cpython-310.pyc",
+      "new": "interfaces/kernel/stock-modules/__pycache__/stage.cpython-310.pyc",
+      "size": 8239,
+      "sha256": "ddc233dd3cbd3201f875363b86e432a3451d8a8fe6149b36cdefb8b2a2c6b54b"
+    },
+    {
+      "old": "kernel/uapi/nxp/opensource/driver/include/uapi/Kbuild",
+      "new": "interfaces/kernel/uapi/nxp/opensource/driver/include/uapi/Kbuild",
+      "size": 168,
+      "sha256": "439cd816f9323509ff8464aca78bdb57c951459a96ed30853cda4b1c5c32a6d7"
+    },
+    {
+      "old": "kernel/uapi/nxp/opensource/driver/include/uapi/linux/Kbuild",
+      "new": "interfaces/kernel/uapi/nxp/opensource/driver/include/uapi/linux/Kbuild",
+      "size": 166,
+      "sha256": "79ccc954e5cbf8315d9935b613fe9ee17ec234ceef56f2e1053ccee2dae405e7"
+    },
+    {
+      "old": "kernel/uapi/nxp/opensource/driver/include/uapi/linux/nfc/Kbuild",
+      "new": "interfaces/kernel/uapi/nxp/opensource/driver/include/uapi/linux/nfc/Kbuild",
+      "size": 87,
+      "sha256": "dc2656ccb7348c2f201bf0af98cb00736526e74b20dc2d609ed9052ec11c5c79"
+    },
+    {
+      "old": "kernel/uapi/nxp/opensource/driver/include/uapi/linux/nfc/nfcinfo.h",
+      "new": "interfaces/kernel/uapi/nxp/opensource/driver/include/uapi/linux/nfc/nfcinfo.h",
+      "size": 508,
+      "sha256": "40063e5a7e741fe57779912f87c48b233a0cb031d99342671b06e45fe78e425b"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/Kbuild",
+      "size": 168,
+      "sha256": "c60c0a99f9e74c0528fd50c82e3ada14cb06485b1ae8e4e740783157803fe4ff"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/Kbuild",
+      "size": 187,
+      "sha256": "9e56362e4fe9a1adef1df47627adf67bd8e662b0fcb4c83f25668c010dd3ce58"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/linux/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/linux/Kbuild",
+      "size": 89,
+      "sha256": "0524e69d3d68bcb27993fc2f43bad9029b54c551e7c1df080270e701d885acb6"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/linux/msm_audio.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/linux/msm_audio.h",
+      "size": 13964,
+      "sha256": "952f61c2e0457a40c77e3db88daa314179c0cfa16109683e7b0781b1b8a6b1f3"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_compressed_formats.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_compressed_formats.h",
+      "size": 2048,
+      "sha256": "d39f454d0d29a3df3da1386cc1e0fec8791df46280eeb9e907fe2c236462603f"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_effects.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_effects.h",
+      "size": 10870,
+      "sha256": "19d543ca81e8fd53af9e847ae1f02ef0d532ffbbf96b5d28ec46fc53455e73ef"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_slimslave.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/audio_slimslave.h",
+      "size": 404,
+      "sha256": "76d07745b9a11315dd619a70ddd93b34a3dc2353cd907ce912b14280e32b8375"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/cs35l41.h",
+      "size": 3629,
+      "sha256": "62b166e31ad0cde0ecfcdcf1d1a84f1a415e0202dca39f01c767f24307582c31"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/devdep_params.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/devdep_params.h",
+      "size": 2377,
+      "sha256": "b958798735adc0959c0e6f9ce147ae70ea70da484cc910f1fe5331e4d5bbb3c2"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/Kbuild",
+      "size": 297,
+      "sha256": "4b3c53440caa663b081badbe4289b4e2b1e965c9e25ec46da0d2d2469f5a4a72"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/lsm_params.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/lsm_params.h",
+      "size": 9842,
+      "sha256": "4774f00e020f713c405b4eb4f420c531816c94caa0397070ee122ab9eaab050d"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/msmcal-hwdep.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/msmcal-hwdep.h",
+      "size": 833,
+      "sha256": "700f463fc58a200997812c5fcefde61b3b34c434e6b7026be259e1f7c0b8a3b3"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/voice_params.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/voice_params.h",
+      "size": 220,
+      "sha256": "72ec5c96a23528130929e7486c1579e8c87f62dc8b158ab88d0611fca03e8c03"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/wcd-dsp-glink.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/audio-kernel/include/uapi/audio/sound/wcd-dsp-glink.h",
+      "size": 1528,
+      "sha256": "4498e8028d974f75fc324214a62d20e68e22664d7f8b5f546109cdfbbc8392a6"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/Kbuild",
+      "size": 170,
+      "sha256": "fb21af7172e98ea30f90d2eaa9333725d8dd5da8ab0e968561806f4e7ca4b40a"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/Kbuild",
+      "size": 119,
+      "sha256": "6f6fb5946c2e34662c0a0b76f51c3448f4e86d040f353e03b0620c3827b0ddf8"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/Kbuild",
+      "size": 134,
+      "sha256": "fb76f35b3a6afc0b452301315e4c49eac9e5e4706009e059f1a0bd43e0959a32"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/mi_disp.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/mi_disp.h",
+      "size": 21545,
+      "sha256": "b876e25702c2b2e3d9f7537a310fe93a090e7e53f6f5304aa3d07629813bfea0"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/msm_drm_pp.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/msm_drm_pp.h",
+      "size": 19554,
+      "sha256": "6d1204b0bd198b2fca3c66d5a56dbea8667396b09320b625714a945809e688d1"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/sde_drm.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/drm/sde_drm.h",
+      "size": 30370,
+      "sha256": "9e2e2113f9775ba30b31ff9eed595c2627e661c6b59a039640ee028df22ee743"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/hdcp/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/hdcp/Kbuild",
+      "size": 97,
+      "sha256": "c4eda5d6c78c615205c02d8da56c0cd7f0e43633eccc8866ec382b91fa2936ed"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/hdcp/msm_hdmi_hdcp_mgr.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/hdcp/msm_hdmi_hdcp_mgr.h",
+      "size": 1028,
+      "sha256": "6b4f86098e86193b720c9f8c984d43b3b8e5f8d56fa2c42a6a62858b3535e75a"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/Kbuild",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/Kbuild",
+      "size": 123,
+      "sha256": "2829db2e237df4414d1a5cb78fb5676d5cfe64ed66e9e09db48b922590b4d440"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/mmm_color_fmt.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/mmm_color_fmt.h",
+      "size": 53639,
+      "sha256": "a1db1007b18cfbc511c01df2e4a70d716a3cbf81f508b93868ddaa4207c6be8e"
+    },
+    {
+      "old": "kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/msm_sde_rotator.h",
+      "new": "interfaces/kernel/uapi/qcom/opensource/display-drivers/include/uapi/display/media/msm_sde_rotator.h",
+      "size": 7198,
+      "sha256": "89999df2c996ac8161367e2f45ea2cd4c3b5a8a7c4becc189b366c60060e8579"
+    },
+    {
+      "old": "recovery/drm_dpms_cycle.c",
+      "new": "rootdir/recovery/drm_dpms_cycle.c",
+      "size": 3587,
+      "sha256": "0a9d22670dedab1a73f15676b7b9f94e91655ef1987f4c4448067b56e116ad44"
+    },
+    {
+      "old": "recovery/drm_probe.c",
+      "new": "rootdir/recovery/drm_probe.c",
+      "size": 6421,
+      "sha256": "c93260c1d047e2bf837a787881fb8f2b4d4e7c7b403716654cf9a342a39b2624"
+    },
+    {
+      "old": "recovery/hardware.sh",
+      "new": "rootdir/recovery/hardware.sh",
+      "size": 814,
+      "sha256": "736abfe84cdc3e08e2b7e6287a79117edccd4c644f8c60b5e2deff862af186a8"
+    },
+    {
+      "old": "recovery/init.recovery.sheng.rc",
+      "new": "rootdir/recovery/init.recovery.sheng.rc",
+      "size": 1733,
+      "sha256": "3f0a893fa921b99fb70feda2e763aa232b17b0e55f575a2eab4ee0d6800c637b"
+    },
+    {
+      "old": "recovery/serial_init.c",
+      "new": "rootdir/recovery/serial_init.c",
+      "size": 17966,
+      "sha256": "24cdf7a8e04c77902f2381bfa237808d2b2128f126745d49dec6cb40e325d8ee"
+    },
+    {
+      "old": "recovery/standalone.json",
+      "new": "rootdir/recovery/standalone.json",
+      "size": 992,
+      "sha256": "d0761db8bb072c9300edff30123936e900b63d17c4393206818cbec5a6d41694"
+    },
+    {
+      "old": "recovery/touch.sh",
+      "new": "rootdir/recovery/touch.sh",
+      "size": 661,
+      "sha256": "5526b212e04a32830dca2c0de2d24a6295d849d09d56dab874f569d57e4c0003"
+    },
+    {
+      "old": "patches/sheng-cs35l41-userspace-header.patch",
+      "new": "docs/source-patches/sheng-cs35l41-userspace-header.patch",
+      "size": 779,
+      "sha256": "e64050216ec87bddef7b37a7c8c9d596f215d2620d8e161bcf9c9bad48e1465e"
+    },
+    {
+      "old": "patches/sheng-device-orientation-offset.patch",
+      "new": "docs/source-patches/sheng-device-orientation-offset.patch",
+      "size": 1283,
+      "sha256": "9000a43d1ad27b3e26b51746dbb3f0df40e9fa79e52e8f181ce10b7e956037fc"
+    },
+    {
+      "old": "patches/sheng-display-kgsl-startup.patch",
+      "new": "docs/source-patches/sheng-display-kgsl-startup.patch",
+      "size": 2083,
+      "sha256": "81ea03de6d583cc795809cdf7fdb38cc9a65605c55664ab66eb5fbe390f5c545"
+    },
+    {
+      "old": "patches/sheng-gsl-headers.patch",
+      "new": "docs/source-patches/sheng-gsl-headers.patch",
+      "size": 476,
+      "sha256": "2e70f2a6183d4f616c8dd56c08d75b0d43652cffa802f313cba93d22a88f74cb"
+    },
+    {
+      "old": "patches/sheng-speaker-offload.patch",
+      "new": "docs/source-patches/sheng-speaker-offload.patch",
+      "size": 11360,
+      "sha256": "58b49d024bf2fa320eb6e2d4396c6e3f5cd6e2cdbfb6f221b12b32deb2454154"
+    },
+    {
+      "old": "systemui/src/com/android/systemui/keyguard/WakefulnessLifecycle.java",
+      "new": "interfaces/systemui/src/com/android/systemui/keyguard/WakefulnessLifecycle.java",
+      "size": 8561,
+      "sha256": "30fdea22cb68167e9bdae415ffa0b1be6513e5ac68767a42ca4435567449b651"
+    },
+    {
+      "old": "systemui/src/com/android/systemui/sheng/ShengPowerButtonGeometry.java",
+      "new": "interfaces/systemui/src/com/android/systemui/sheng/ShengPowerButtonGeometry.java",
+      "size": 3251,
+      "sha256": "c7f2a1bf0c323993d623f79050baff2765ada77cdf719dd2afcf1b09a76a1c2d"
+    },
+    {
+      "old": "systemui/src/com/android/systemui/statusbar/PowerButtonReveal.kt",
+      "new": "interfaces/systemui/src/com/android/systemui/statusbar/PowerButtonReveal.kt",
+      "size": 2549,
+      "sha256": "265ba692cf7ce40a874aef9d6c6f7cedb8c9170b4584c3ea36fd93296570a286"
+    },
+    {
+      "old": "__pycache__/extract-files.cpython-312.pyc",
+      "new": "tools/cache/python-root/extract-files.cpython-312.pyc",
+      "size": 6539,
+      "sha256": "85681484fe04038e3d07d9bdc00a195218eaee813cfacf058e42b0918ca9ad22"
+    }
+  ]
+}

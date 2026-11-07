@@ -12,7 +12,7 @@ is that freshly compiled source module. This disables the public source's
 installation rule and replaces its link dependencies before Make packaging.
 The public PAL repository remains at its unmodified upstream revision. Matching
 GSL API headers live in `audio/gsl` and are attached during vendor extraction.
-The kernel's normal UAPI export uses `kernel/uapi`, a header-only BSP snapshot;
+The kernel's normal UAPI export uses `interfaces/kernel/uapi`, a header-only BSP snapshot;
 only the Cirrus kernel-private declarations are guarded from userspace. Header
 export and C90 checks remain enabled.
 

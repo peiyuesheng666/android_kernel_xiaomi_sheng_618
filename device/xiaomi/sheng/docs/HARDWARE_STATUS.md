@@ -62,7 +62,7 @@
 
 | 项目 | 当前证据与边界 |
 | --- | --- |
-| 对照 piano seventeen 的目录整理 | 适配代码收拢到 interfaces，显示配置归入 configs/display，开发工具归入 tools；原有 55 个模块保留原语义，153 项源路径和 23 个拷贝源可达。 |
+| 对照 piano seventeen 的目录整理 | 顶层收拢为十个目录：aidl、configs、docs、dolby、interfaces、overlay、properties、rootdir、sepolicy、tools。内核归入 interfaces/kernel，Recovery 归入 rootdir/recovery，历史补丁归入 docs/source-patches；构建入口保留在根目录。 |
 | 移动文件完整性 | 451 个旧 tracked 文件全部找到；源码、头文件、已有 .so 和 APK 内容保持，工具与构建文件仅更新路径。 |
 | 通用全屏 | r12 已编译，临时测试收到 sw813dp/横屏全宽且无 letterbox；正式刷入和重启后的配置引导尚待验证。 |
 | 原厂色彩注册配置 | 缺少的 snapdragon_color_libs_config.xml 已按原厂字节恢复并接入产品，调色库加载和实际颜色需后续设备验证。 |
@@ -71,6 +71,11 @@
 
 目录审查发现的 init 模块覆盖和两处工具路径遗漏已修正。
 输入候选及其策略留在接口目录，当前产品不安装这些未验证模块。
+第二阶段移动前已记录 49 个文件的大小和 SHA256，包含未跟踪的
+SystemUI 候选和缓存；移动后核对内容，并更新内核模块的相对路径。
+设备树内的标准构建入口随目录更新，workspace 外的历史 bring-up
+工具未迁移，也没有执行；它们不能作为当前设备树的构建入口。
+本次整理不改变已刷入的 r11，也不代表新批次已完成编译或实机验证。
 
 本机原厂及当前挖孔路径为空，用户所指“挖孔偏”已明确为四角圆角遮罩。
 来源与适配映射见 OVERLAY_GEOMETRY.md 和 stock-overlay-geometry-provenance.json。

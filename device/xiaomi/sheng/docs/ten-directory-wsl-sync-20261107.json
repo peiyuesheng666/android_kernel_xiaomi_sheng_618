@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "verified_utc": "2026-11-07T05:50:37.6758774Z",
+  "scope": "Device-tree-only layout synchronization; no public source edits, Android build, packaging, flash or device operations",
+  "source": "C:/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/device/xiaomi/sheng",
+  "target": "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng",
+  "backup": {
+    "path": "/root/sheng-lineage/layout-backups/20261107-ten-directories/sheng-before-sync.tar.gz",
+    "sha256": "f87e773abaccf110b8eb9d7a6e758e609f5b38aad68b8e8776984b4125c3a4a9",
+    "complete_pre_sync_tree": true
+  },
+  "top_level_directories": [
+    "aidl",
+    "configs",
+    "docs",
+    "dolby",
+    "interfaces",
+    "overlay",
+    "properties",
+    "rootdir",
+    "sepolicy",
+    "tools"
+  ],
+  "local_cache_excluded": true,
+  "unfinished_tools_excluded": [
+    "tools/package_sheng_batch_followup.py",
+    "tools/package_sheng_batch_helpers.py",
+    "tools/test_sheng_batch_helpers.py",
+    "tools/test_sheng_batch_publication_fixture.py"
+  ],
+  "previous_compiler_caches_preserved_in": [
+    "tools/cache/python-previous-build",
+    "tools/cache/kernel-previous-build",
+    "tools/cache/scripts-previous-build",
+    "tools/cache/batch-publication-fixture-local-snapshot.py"
+  ],
+  "module_path_checks": {
+    "make_all_passed": true,
+    "modules_install_dry_run_passed": true,
+    "resolved_stock_dir": "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng-kernel/stock-modules",
+    "no_modules_installed": true
+  },
+  "powershell_syntax": {
+    "passed": true,
+    "files": 6
+  },
+  "byte_comparison": {
+    "passed": true,
+    "selected_source_and_target_file_count": 747,
+    "file_sets_equal": true,
+    "all_selected_files_sha256_equal": true,
+    "windows_top_level_directory_count": 10,
+    "wsl_top_level_directory_count": 10
+  },
+  "python_ast": {
+    "passed": true,
+    "files": 19,
+    "no_bytecode_written": true
+  },
+  "bash_syntax": {
+    "passed": true,
+    "scope": "device tools/*.sh"
+  }
+}
