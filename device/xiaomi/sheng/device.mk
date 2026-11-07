@@ -452,6 +452,8 @@ PRODUCT_COPY_FILES += \
 # read-only stock extraction during bring-up; see docs/BRINGUP.md.
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/idc/NVTCapacitivePenM80p.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/NVTCapacitivePenM80p.idc \
+    $(LOCAL_PATH)/configs/idc/NVTCapacitivePenP81c.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/NVTCapacitivePenP81c.idc \
     $(LOCAL_PATH)/configs/idc/NVTCapacitiveTouchScreen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/NVTCapacitiveTouchScreen.idc \
     $(LOCAL_PATH)/configs/touch/sheng-touch-report:$(TARGET_COPY_OUT_VENDOR)/bin/sheng-touch-report \
     $(LOCAL_PATH)/rootdir/etc/vendor.qti.camera.provider-service_64.rc:$(TARGET_COPY_OUT_ODM)/etc/init/vendor.qti.camera.provider-service_64.rc
