@@ -2,6 +2,9 @@
 
 Latest acceptance: r14 failed composer initialization and was reverted to the
 verified r13 images. The user confirmed normal picture/touch after recovery.
+The corrected owning adapter subsequently passed a bounded temporary hardware
+trial: RGB blue=0.6 produced a real PCC blob and the user confirmed visible
+yellowing. This is runtime candidate evidence, not a persistent installation.
 See [r14-boot-failure-20261107.md](r14-boot-failure-20261107.md). The byte-only
 adapter's passing host test did not validate real container traversal/lifetime;
 its raw borrowed-pointer approach is rejected. Candidate descriptions below
@@ -188,4 +191,8 @@ GETPROPBLOB. It prints CRTC activity/color property values and raw PCC words;
 it never maps or reads pixels, acquires DRM master, sets a property or modesets.
 Counts, allocation sizes, blob sizes and retries are bounded. Compile validation
 uses the existing cross compiler with -static -O2 -Wall -Wextra -Werror and
-external/libdrm/include/drm. Actual device readback remains pending boot.
+external/libdrm/include/drm. Actual device readback on recovered r13 succeeds
+after clearing unused GETRESOURCES framebuffer/connector/encoder counts before
+the second ioctl. No pointers for those unused arrays are supplied. The
+baseline has zero PCC and gamut blobs; the corrected library trial produces
+nonzero blobs.

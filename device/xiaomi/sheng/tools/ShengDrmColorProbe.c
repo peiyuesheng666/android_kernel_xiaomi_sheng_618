@@ -94,6 +94,9 @@ int main(void) {
         uint32_t *crtcs = calloc(capacity ? capacity : 1, sizeof(*crtcs));
         if (!crtcs) break;
         resources.crtc_id_ptr = pointer(crtcs);
+        resources.count_fbs = 0;
+        resources.count_connectors = 0;
+        resources.count_encoders = 0;
         if (query(fd, DRM_IOCTL_MODE_GETRESOURCES, &resources) < 0) { free(crtcs); break; }
         if (resources.count_crtcs > capacity) { free(crtcs); continue; }
         status = resources.count_crtcs == 0;
