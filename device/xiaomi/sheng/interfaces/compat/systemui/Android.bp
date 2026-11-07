@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: Apache-2.0
+java_library {
+    name: "sheng-systemui-power-helper",
+    srcs: ["src/**/*.java"],
+    libs: ["SystemUI-core", "SystemUI-res", "PlatformAnimationLib"],
+    compile_dex: true,
+    installable: false,
+}
+
+java_binary_host {
+    name: "sheng-systemui-power-patcher",
+    srcs: ["host/*.java"],
+    main_class: "ShengSystemUiPowerPatcher",
+    static_libs: ["smali-dexlib2"],
+}
+
+java_genrule {
+    name: "sheng-systemui-power-apk",
+    srcs: [":SystemUI", ":sheng-systemui-power-helper"],
+    tools: ["sheng-systemui-power-patcher"],
+    out: ["ShengSystemUI-unsigned.apk"],
+    cmd: "$(location sheng-systemui-power-patcher) $(location :SystemUI) " +
+         "$(location :sheng-systemui-power-helper) $(out)",
+}
+
+// Transform the built APK, then use the normal platform signing/install rules.
+// Upstream SystemUI source and resource bytes remain untouched.
+android_app_import {
+    name: "ShengSystemUI",
+    apk: ":sheng-systemui-power-apk",
+    filename: "SystemUI.apk",
+    overrides: ["SystemUI"],
+    certificate: "platform",
+    privileged: true,
+    system_ext_specific: true,
+    dex_preopt: { enabled: false },
+    required: ["privapp_whitelist_com.android.systemui"],
+}

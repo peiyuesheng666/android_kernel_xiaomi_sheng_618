@@ -263,6 +263,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/device-config-defaults:$(TARGET_COPY_OUT_SYSTEM)/etc/device-config-defaults
 
 # Overlay
+# Device-owned APK output transform for the naturally landscape left-edge button.
+PRODUCT_PACKAGES += ShengSystemUI
+
 PRODUCT_PACKAGES += \
     FrameworkResOverlaySheng \
     SystemUIResOverlaySheng \
