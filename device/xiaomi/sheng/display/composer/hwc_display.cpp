@@ -550,7 +550,9 @@ int HWCDisplay::Init() {
       }
     }
   }
-  current_refresh_rate_ = max_refresh_rate_;
+  // The advertised maximum is a capability, not the preferred boot timing.
+  // Initial layer votes must match the mode completing the first commit.
+  current_refresh_rate_ = type_ == kBuiltIn ? active_refresh_rate_ : max_refresh_rate_;
 
   GetUnderScanConfig();
 
