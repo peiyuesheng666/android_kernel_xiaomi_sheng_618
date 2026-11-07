@@ -38,6 +38,16 @@ property remains active for this boot to prevent the observed failure; the
 compiled product must supply it after reboot. No zygote, display service or
 device restart was performed for the test.
 
-The next batch must verify the generated vendor properties, install the
-configuration and confirm compiler selection after reboot. Full application
-startup and the separate fingerprint/camera issues remain independent tests.
+## r13 reboot acceptance, 2026-11-07
+
+The permanent vendor properties and runtime readback are both
+`ro.zygote=zygote64` and `dalvik.vm.dex2oat64.enabled=true`; the ABI is
+`arm64-v8a`. No temporary property was set for this acceptance. Both commands
+above were run once with a 30-second bound and returned `Success`, exit zero.
+artd PID 6301 logged `/apex/com.android.art/bin/dex2oat64` with the corresponding
+APK paths and returned code zero for each: Settings at 06:44:45.719 UTC and
+ShengDolby at 06:44:46.006 UTC.
+
+Evidence is indexed by `runtime-r13-20261107.json` and retained in the workspace
+`reports/device/r13-runtime/art-*`. This verifies these two compilation paths;
+full application startup and other application crashes remain independent tests.

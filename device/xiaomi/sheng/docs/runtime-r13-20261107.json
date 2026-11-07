@@ -1,0 +1,337 @@
+{
+  "revision": 13,
+  "recorded_utc": "2026-11-07T06:49:15.1991476Z",
+  "serial": "ca10ede3",
+  "slot": "b",
+  "frozen_spec_sha256": "a36df0eea6d9dae4ffe559506580e46b010b8056315c043fd61d028a5693cc54",
+  "android_device_source_commit": "72aa29b",
+  "post_seal_tool_fix_commit": "daea2f8",
+  "public_source_checks": {
+    "fresh_fetched_known_repositories": 13,
+    "repo_projects": 1243,
+    "postbuild": true,
+    "prebuild": true
+  },
+  "top_level_directory_count": 10,
+  "all_five_installed_image_hashes_match": true,
+  "boot_completed": true,
+  "user_confirmed_normal_picture": true,
+  "user_confirmed_normal_touch": true,
+  "user_confirmed_six_speakers_normal": true,
+  "fingerprint": {
+    "observed_successful_authentications": 6,
+    "data_label": "u:object_r:vendor_fingerprint_data_file:s0",
+    "alias": "fingerprint.fpc.default.so -> fingerprint.fpc.so",
+    "original_blob_sha256": "4388432669c5fe1cc52ebd5a343d190724a2417f60352a804b43b0900939bcbd",
+    "hal_deaths": 0,
+    "vendor": "fpc",
+    "user_confirmed_enrollment": true,
+    "long_standby_unlock_endurance_verified": false,
+    "service_pid": 2411,
+    "framework_enrolled_count": 1
+  },
+  "art": {
+    "status": "passed_scoped_verification",
+    "runtime_properties": {
+      "ro.zygote": "zygote64",
+      "dalvik.vm.dex2oat64.enabled": "true",
+      "ro.product.cpu.abilist": "arm64-v8a"
+    },
+    "permanent_vendor_build_prop_entries_verified": true,
+    "zygote_running": true,
+    "zygote_secondary_present": false,
+    "properties_evidence": "art-properties-20261107T063939Z.txt",
+    "packages": [
+      {
+        "package": "com.android.settings",
+        "apk": "/system_ext/priv-app/Settings/Settings.apk",
+        "filter": "verify",
+        "forced": true,
+        "command_exit_code": 0,
+        "compiler": "/apex/com.android.art/bin/dex2oat64",
+        "compiler_exit_code": 0,
+        "device_log_start": "06:44:45.425",
+        "device_log_return": "06:44:45.719",
+        "command_evidence": "art-compile-settings-20261107T064436Z.txt",
+        "compiler_log": "art-dex2oat-settings-20261107T064436Z.txt"
+      },
+      {
+        "package": "org.lineageos.sheng.dolby",
+        "apk": "/system_ext/priv-app/ShengDolby/ShengDolby.apk",
+        "filter": "verify",
+        "forced": true,
+        "command_exit_code": 0,
+        "compiler": "/apex/com.android.art/bin/dex2oat64",
+        "compiler_exit_code": 0,
+        "device_log_start": "06:44:45.926",
+        "device_log_return": "06:44:46.006",
+        "command_evidence": "art-compile-dolby-20261107T064436Z.txt",
+        "compiler_log": "art-dex2oat-dolby-20261107T064436Z.txt"
+      }
+    ],
+    "limitations": [
+      "Tests verify ART compilation for Settings and ShengDolby only; application UI and all third-party apps were not launched or tested.",
+      "This is arm64-only userspace; the verification does not exercise 32-bit applications."
+    ],
+    "runtime_configuration_changes": []
+  },
+  "fullscreen": {
+    "status": "bootstrap_verified_existing_window_observed",
+    "orientation_key": true,
+    "bootstrap_namespace": "DeviceConfigBootstrapValues",
+    "bootstrap_processed_values": true,
+    "defaults_file": "window_manager:ignore_activity_orientation_request=enabled\n",
+    "config_evidence": "fullscreen-config-20261107T063939Z.txt",
+    "window_evidence": "fullscreen-windows-20261107T063939Z.txt",
+    "activity_evidence": "fullscreen-activities-20261107T063939Z.txt",
+    "display_evidence": "fullscreen-display-20261107T063939Z.txt",
+    "observations": {
+      "display_bounds": [
+        0,
+        0,
+        3048,
+        2032
+      ],
+      "global_windowing_mode": "fullscreen",
+      "focused_app": "com.android.settings",
+      "focused_activity": "com.android.settings.password.ConfirmLockPassword$InternalActivity",
+      "settings_root_task_id": 27,
+      "settings_root_task_mode": "fullscreen",
+      "settings_embedded_fragments_mode": "multi-window",
+      "observed_settings_activities_letterboxed": false
+    },
+    "limitations": [
+      "No third-party or portrait-only application was opened for this read-only acceptance; the global bootstrap result does not prove that every app now fills the screen.",
+      "Settings uses adjacent embedded task fragments inside a fullscreen root task; those fragment bounds are not evidence of application letterboxing."
+    ],
+    "runtime_configuration_changes": [],
+    "ui_launched": false
+  },
+  "display": {
+    "user_color_feedback": "暂时看不出区别",
+    "standard_dwb_enabled": false,
+    "original_config_hashes_match": true,
+    "color_accuracy_verified": false,
+    "supported_color_modes": [
+      "Native",
+      "sRGB",
+      "Display P3"
+    ],
+    "actual_hwc_color_mode": "sRGB",
+    "independent_readonly_evidence": "display-summary.json",
+    "awake_refresh": {
+      "htotal": 3286,
+      "active_144_verified": true,
+      "vtotal": 2198,
+      "active": 1,
+      "evidence": "display-root-awake-drm.txt",
+      "clock_khz": 1040058,
+      "root_action": "input keyevent KEYCODE_WAKEUP",
+      "enable": 1,
+      "calculated_hz": 143.9999401879759,
+      "crtc": "crtc-0",
+      "display_modes_changed": false
+    },
+    "manager_qdcm_mistc_mapped": true
+  },
+  "no_data_erase_or_slot_change": true,
+  "no_temporary_runtime_fix_properties": true,
+  "camera_aon_or_screenshot_used": false,
+  "keyboard_touch_candidates_installed": false,
+  "evidence_directory": "reports/device/r13-runtime",
+  "evidence": [
+    {
+      "bytes": 554,
+      "sha256": "f8062cbcd31b97e0443c7f33579c48f3d94712a737425fcc73755a5aa0eb4245",
+      "name": "art-compile-dolby-20261107T064436Z.txt"
+    },
+    {
+      "bytes": 544,
+      "sha256": "50d73f72fe0b080d1d639f29ceebc312c1c0415c66ce6f60a881ed180dd8332d",
+      "name": "art-compile-settings-20261107T064436Z.txt"
+    },
+    {
+      "bytes": 9271,
+      "sha256": "228ecfa8a1678640d85d9b31e86f8abe2981127798b34fde965db248dd5005fd",
+      "name": "art-dex2oat-dolby-20261107T064436Z.txt"
+    },
+    {
+      "bytes": 5142,
+      "sha256": "cb29f524cf30385b8d7c2d15b6ce791774972e1bd64dfc9b9c21892b73b120d8",
+      "name": "art-dex2oat-settings-20261107T064436Z.txt"
+    },
+    {
+      "bytes": 15158,
+      "sha256": "5aa551ff38c30bbcf3b361c15b76652fcbe04be4f09c13f6c26adfe826957f77",
+      "name": "art-properties-20261107T063939Z.txt"
+    },
+    {
+      "bytes": 1692,
+      "sha256": "6f670ea56b3cbb8f2f944a5c9d64f17b6b40a901d09744b4f0d7ba570329ef99",
+      "name": "art-summary.json"
+    },
+    {
+      "bytes": 317,
+      "sha256": "711a3a02c02926c96829c19cb74a6b55f845a2d09e643184df039cad6c94b672",
+      "name": "display-boot.txt"
+    },
+    {
+      "bytes": 1110,
+      "sha256": "1c14b4be4b9efd0771a379e53f1f980692b02e2564ef4580c145e4fa6329e006",
+      "name": "display-color-service.txt"
+    },
+    {
+      "bytes": 19,
+      "sha256": "3c43ac22d4c2e5b751d9c32abb3b71f112f66e07eaf7a0fcc0e01a212b234a40",
+      "name": "display-composer-log.txt"
+    },
+    {
+      "bytes": 3205,
+      "sha256": "576cb38e9ad46e7bb802ee58393c1564ec199e0248741c5b9c7d476b2c5a7591",
+      "name": "display-composer-maps.txt"
+    },
+    {
+      "bytes": 595,
+      "sha256": "10df73beabcbf59e1a9aee01ebe846b9ebb667f421cfb4580b779413891b042a",
+      "name": "display-config-hashes.txt"
+    },
+    {
+      "bytes": 6130,
+      "sha256": "d2ccaa1cbea8fbf2e9bd8fe1086fd368d5d0e78e39f3a65e437b95b884aa6e0e",
+      "name": "display-drm-state.txt"
+    },
+    {
+      "bytes": 960,
+      "sha256": "ffaea161dc8af3f26fa554e84a2dc7e32a34111983c1256eca69b5efe72e2ab1",
+      "name": "display-modes.txt"
+    },
+    {
+      "bytes": 2794,
+      "sha256": "bcee42ada433466f5f8c3324461cbe59d897dce4a4295ff4fe7a05c3e2e7b22a",
+      "name": "display-plan.json"
+    },
+    {
+      "bytes": 1482,
+      "sha256": "0c58d7250d9ac3eb061b16da5e3c00d2fd416c808bcce49c2f6688f6bb6eb3ac",
+      "name": "display-root-awake-drm.txt"
+    },
+    {
+      "bytes": 3957,
+      "sha256": "5a043aa01bea420635e56971e7a80c31ed11798b152b740458baff5338105dfb",
+      "name": "display-summary.json"
+    },
+    {
+      "bytes": 32258,
+      "sha256": "809dba07d4c68ca37399a09643e656b673099bcaae7161340ae312a031749ea1",
+      "name": "fingerprint-boot-log.txt"
+    },
+    {
+      "bytes": 785,
+      "sha256": "471e2098e3188f5047bbd32274dec648e8c35ca11dd839f09642cd7c90d01643",
+      "name": "fingerprint-dumpsys-before-enrollment.txt"
+    },
+    {
+      "bytes": 2977,
+      "sha256": "f22287d9b5501af9daa545939c08c484f7fc0882d8647766816d07f96ee3967f",
+      "name": "fingerprint-dumpsys-followup.txt"
+    },
+    {
+      "bytes": 91935,
+      "sha256": "05c5c91de3a385f59ef031cab179c06ff99a81c6bcf39a8c5e66368d0cc58661",
+      "name": "fingerprint-hal-log.txt"
+    },
+    {
+      "bytes": 262,
+      "sha256": "b2aba0248832cb7a456905359c03de517c2617fc934dd42cb4dfb195e41091f9",
+      "name": "fingerprint-identity.txt"
+    },
+    {
+      "bytes": 50516,
+      "sha256": "7ccffd37d4a75ece775765f715845b6670bdc1c9051d0d9994d336140af117d5",
+      "name": "fullscreen-activities-20261107T063939Z.txt"
+    },
+    {
+      "bytes": 903,
+      "sha256": "123484613a8d7eaa1df03c83f839ed8eea1d52383c0cb7117903a2c11836a9a7",
+      "name": "fullscreen-config-20261107T063939Z.txt"
+    },
+    {
+      "bytes": 60284,
+      "sha256": "842400b1e482d8d34b760465c270082e42db2cfb97fbb19f9ec32df1ae3629a0",
+      "name": "fullscreen-display-20261107T063939Z.txt"
+    },
+    {
+      "bytes": 1404,
+      "sha256": "f05f0b01ce8bce526b11dd7953af87ef5c9062bdaebafd2584996af3a02ca528",
+      "name": "fullscreen-summary.json"
+    },
+    {
+      "bytes": 57914,
+      "sha256": "4beda86df8fcc058c6e3b23ab4edb8d6f9b4d18fdd4fab211fedac7f1e7e9fe4",
+      "name": "fullscreen-windows-20261107T063939Z.txt"
+    },
+    {
+      "bytes": 417,
+      "sha256": "09f0e06fd4b79a6affe7d788793ccc9599d7eb0c29be31dc302510aefd5a1822",
+      "name": "installed-partition-sha256.txt"
+    },
+    {
+      "bytes": 66030,
+      "sha256": "bbd995344ee886ff12fb215c5cc95dd362a180298961f04494a65826623f8e8e",
+      "name": "packaging-odm-build.log"
+    },
+    {
+      "bytes": 2383,
+      "sha256": "31a0b11ef0eb264b4615fc8dce24f946b68218ba5f7f25cedcb7464d7993bb74",
+      "name": "packaging-original-publication-failure.log"
+    },
+    {
+      "bytes": 288,
+      "sha256": "84533517f63229f8059d77b9193848b53f7e9a1d910bacbe76dadd219bb61cc4",
+      "name": "packaging-system-e2fsck.log"
+    },
+    {
+      "bytes": 82558,
+      "sha256": "cb0def841c6699feb143005c45e6d6c487db1c290d738685d8e0d3e3d651c8e1",
+      "name": "packaging-vendor-build.log"
+    }
+  ],
+  "limitations": [
+    "第三方应用未在 r13 验收时启动，通用策略生效不能等同于所有应用原生平板布局。",
+    "色彩插件和模式已恢复，用户暂时看不出颜色区别，准确校准与环境色自适应仍待验。",
+    "ART 验证限于 Settings 与 ShengDolby 编译，不代表全部应用闪退问题修好。",
+    "历史封存清单中的 boot_tested=false 是封存时状态；实际刷测结果以本记录为准。"
+  ],
+  "staging_cleanup": {
+    "revision": 13,
+    "deleted_stage": "/root/sheng-lineage/hardware-followup/20261107T063028469315Z-batch-r13",
+    "allocated_bytes_released": 8523251712,
+    "artifact_images_verified_before_cleanup": true,
+    "installed_images_verified_before_cleanup": true,
+    "logs_retained": [
+      {
+        "name": "packaging-odm-build.log",
+        "bytes": 66030,
+        "sha256": "bbd995344ee886ff12fb215c5cc95dd362a180298961f04494a65826623f8e8e"
+      },
+      {
+        "name": "packaging-vendor-build.log",
+        "bytes": 82558,
+        "sha256": "cb0def841c6699feb143005c45e6d6c487db1c290d738685d8e0d3e3d651c8e1"
+      },
+      {
+        "name": "packaging-system-e2fsck.log",
+        "bytes": 288,
+        "sha256": "84533517f63229f8059d77b9193848b53f7e9a1d910bacbe76dadd219bb61cc4"
+      },
+      {
+        "name": "packaging-original-publication-failure.log",
+        "bytes": 2383,
+        "sha256": "31a0b11ef0eb264b4615fc8dce24f946b68218ba5f7f25cedcb7464d7993bb74"
+      }
+    ],
+    "source_dumps_and_baseline_images_retained": true,
+    "scope": "Only this batch staging directory; final images remain in artifacts",
+    "recorded_utc": "2026-11-07T14:50:16.315305+08:00"
+  }
+}

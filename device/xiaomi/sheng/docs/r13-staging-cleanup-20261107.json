@@ -1,0 +1,32 @@
+{
+  "revision": 13,
+  "deleted_stage": "/root/sheng-lineage/hardware-followup/20261107T063028469315Z-batch-r13",
+  "allocated_bytes_released": 8523251712,
+  "artifact_images_verified_before_cleanup": true,
+  "installed_images_verified_before_cleanup": true,
+  "logs_retained": [
+    {
+      "name": "packaging-odm-build.log",
+      "bytes": 66030,
+      "sha256": "bbd995344ee886ff12fb215c5cc95dd362a180298961f04494a65826623f8e8e"
+    },
+    {
+      "name": "packaging-vendor-build.log",
+      "bytes": 82558,
+      "sha256": "cb0def841c6699feb143005c45e6d6c487db1c290d738685d8e0d3e3d651c8e1"
+    },
+    {
+      "name": "packaging-system-e2fsck.log",
+      "bytes": 288,
+      "sha256": "84533517f63229f8059d77b9193848b53f7e9a1d910bacbe76dadd219bb61cc4"
+    },
+    {
+      "name": "packaging-original-publication-failure.log",
+      "bytes": 2383,
+      "sha256": "31a0b11ef0eb264b4615fc8dce24f946b68218ba5f7f25cedcb7464d7993bb74"
+    }
+  ],
+  "source_dumps_and_baseline_images_retained": true,
+  "scope": "Only this batch staging directory; final images remain in artifacts",
+  "recorded_utc": "2026-11-07T06:50:16.315305+00:00"
+}

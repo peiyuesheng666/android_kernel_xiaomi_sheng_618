@@ -1,9 +1,28 @@
 # FPC fingerprint HAL discovery candidate
 
-Status: the device-tree candidate is implemented. Compilation, image installation,
-reboot verification and fingerprint enrollment remain pending. No service was
-restarted, no HAL was loaded manually and no enrollment UI was opened during this
-investigation.
+Status: implemented in the device tree, compiled and flashed in system r13.
+Reboot verification, user enrollment and successful framework authentication
+passed on 2026-11-07. No HAL was loaded manually. Initial investigation evidence
+below describes the preceding r11 failure; current results are recorded separately.
+
+## r13 acceptance
+
+The installed alias is a relative symlink to the unchanged stock blob; the hash
+below matches. `/data/vendor/fpc` has its stock `vendor_fingerprint_data_file`
+label, mode 0770 and system:system ownership. The service PID 2411 reports
+`persist.vendor.sys.fp.vendor=fpc`. The boot user session and enumeration completed
+successfully, with zero HAL deaths.
+
+The user confirmed entering and completing enrollment. Framework readback then
+reported one enrolled fingerprint, six successful authentications and zero HAL
+deaths. Enrollment and recognition are passed within this scope. Explicit
+long-duration screen-off unlock and suspend/resume endurance remain follow-up
+tests. The stock QSEECOMPAT logger still emits `invalid fd:0`; successful capture
+and authentication do not establish this log as a blocking error.
+
+Evidence is indexed by `runtime-r13-20261107.json` and retained in the workspace
+`reports/device/r13-runtime/fingerprint-*`. No biometric images or template data
+were extracted.
 
 ## Observed failure
 
