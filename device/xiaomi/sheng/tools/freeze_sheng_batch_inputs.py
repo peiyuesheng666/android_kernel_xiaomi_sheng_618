@@ -86,7 +86,8 @@ class CompiledContexts:
             value = ctypes.string_at(context).decode('ascii')
         finally:
             self.lib.freecon(context)
-        assert re.fullmatch(r'u:object_r:[A-Za-z0-9_]+:s0', value), value
+        # Compiled Qualcomm policy includes valid names such as vendor_diag-router_exec.
+        assert re.fullmatch(r'u:object_r:[A-Za-z0-9_.-]+:s0', value), value
         return value
 
     def __enter__(self):

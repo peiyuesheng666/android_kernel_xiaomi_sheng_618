@@ -166,7 +166,7 @@ def new_metadata(value, directory=False, nlink=1, symlink=False):
     assert set(value) == {'uid', 'gid', 'mode', 'mtime_ns', 'selinux'}, value
     assert value['uid'] >= 0 and value['gid'] >= 0 and 0 <= value['mode'] <= 0o7777
     assert value['mtime_ns'] >= 0 and value['mtime_ns'] % 1_000_000_000 == 0
-    assert re.fullmatch(r'u:object_r:[A-Za-z0-9_]+:s0', value['selinux'])
+    assert re.fullmatch(r'u:object_r:[A-Za-z0-9_.-]+:s0', value['selinux'])
     return dict(uid=value['uid'], gid=value['gid'], mode=value['mode'],
                 mtime_ns=value['mtime_ns'], type=stat.S_IFDIR if directory else stat.S_IFLNK if symlink else stat.S_IFREG,
                 nlink=nlink, xattrs={'6:selinux': (value['selinux'] + '\0').encode().hex()})

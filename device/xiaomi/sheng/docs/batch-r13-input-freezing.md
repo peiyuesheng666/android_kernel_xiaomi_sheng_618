@@ -17,3 +17,7 @@ same compiled context bytes used by the packer, looked up through libselinux;
 existing EROFS inode labels must remain unchanged. The system delta adds only
 `etc/device-config-defaults`. A temporary specification must pass `load_spec`
 before the final JSON is published atomically without replacement.
+
+The native lookup accepts the type names supported by compiled policy,
+including the stock Qualcomm `vendor_diag-router_exec` label. Restricting type
+names to underscores would incorrectly reject this valid existing inode.
