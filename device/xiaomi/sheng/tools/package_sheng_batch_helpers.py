@@ -173,9 +173,11 @@ def new_metadata(value, directory=False, nlink=1, symlink=False):
                 nlink=nlink, xattrs={'6:selinux': (value['selinux'] + '\0').encode().hex()})
 
 
-def stage_erofs(partition, base, entries, nodes, work, avb, avbtool):
+def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_certificates=None):
     """Update only declared paths; preserve original EROFS metadata and UUID."""
     sources = validate_inputs(partition, entries, allow_symlinks=True)
+    new_apk_certificates = new_apk_certificates or {}
+    new_apks = set()
     root = work / f'{partition}-tree'
     assert not root.exists() and not (work / f'{partition}.img').exists()
     run([HOST / 'fsck.erofs', '-d0', '--extract=' + str(root), '--preserve', base],
@@ -209,10 +211,18 @@ def stage_erofs(partition, base, entries, nodes, work, avb, avbtool):
             new_nodes.add(relative)
         if relative.endswith('.apk'):
             certs = certificates(source)
-            assert target.is_file(), 'New EROFS APK requires a separately pinned signing reference'
-            assert certificates(target) == certs
+            if target.is_file():
+                assert certificates(target) == certs
+            else:
+                signing_reference = new_apk_certificates.get(relative)
+                assert signing_reference and all(
+                    re.fullmatch(r'[0-9a-f]{64}', digest) for digest in signing_reference
+                ), 'New EROFS APK requires a separately pinned signing reference'
+                assert certs == signing_reference, relative
+                new_apks.add(relative)
             signer_digests[relative] = certs
         shutil.copyfile(source, target)
+    assert new_apks == set(new_apk_certificates), 'Unused or missing new APK signing reference'
     assert new_nodes == set(nodes), f'New node metadata must be explicit: {sorted(new_nodes)}'
     for relative in sorted(new_nodes):
         target = root / relative
