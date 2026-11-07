@@ -33,3 +33,14 @@ pickup code or settings change is made. AON inspection found the existing
 屏幕感知 switch in Screen timeout, but config_adaptive_sleep_available=false,
 no default attention service and no installed Xiaomi AON APK; availability
 requires later integration. No camera or attention detection was started.
+
+## Exclusive r17 publication
+
+The new r17 batch passed full readback, file permission/SELinux/UUID checks,
+APK certificate verification and AVB descriptor/key verification. The changed
+file set is exactly overlay/SettingsResOverlaySheng.apk in ODM. The single ODM
+hashtree descriptor is the only vbmeta descriptor change. Vendor and the other
+four chain images remain their verified r16 baselines. The frozen spec digest
+is 24126bade96752a2854e6672a5c6a9d54fa30ec9bedf60ddb37e5b2db57e4867.
+Published hashes are in packaging-r17-20261107.json. Existing r16 output/spec
+are unchanged. Runtime/user acceptance remain separate.
