@@ -1,0 +1,32 @@
+{
+  "revision": 15,
+  "recorded_utc": "2026-11-07T08:27:18.433044+00:00",
+  "source_commit": "8c5cb29c5f9520b61de54511702e9898f4555639",
+  "compiled_inputs": {
+    "odm/overlay/FrameworkResOverlaySheng.apk": {
+      "bytes": 20710,
+      "sha256": "1a56a828d071d7b590e6d75b24da88486df731495184f68f29cd1c5a6c7744e0"
+    },
+    "odm/overlay/SettingsResOverlaySheng.apk": {
+      "bytes": 12447,
+      "sha256": "63098bc83994096a2bf179d151a0799309cbf110076eee3248d2a96ef3d07a66"
+    },
+    "vendor/lib64/libsdmcore.so": {
+      "bytes": 433088,
+      "sha256": "d3908ae8be949614ad63a0b884927bb390df6e9327771a5ae0905c212c0fa303"
+    }
+  },
+  "integration_build_passed": true,
+  "integration_elapsed": "01:35",
+  "incremental_action": "ninja: no work to do; corrected library and overlays were already compiled",
+  "first_attempt": "Rejected unknown module target libsdmcore-sheng-install; retry used installed file path",
+  "fresh_prebuild_public_sources_passed": true,
+  "fresh_postbuild_public_sources_passed": true,
+  "project_count": 1243,
+  "builder_restored": true,
+  "host_abi_sanitizer_test_passed": true,
+  "failed_r14_inputs_rejected_even_if_relabelled_r15": true,
+  "gpu_fallback": false,
+  "camera_or_screenshot_used": false,
+  "persistent_boot_tested": false
+}
