@@ -11,5 +11,12 @@
     }
   },
   "behavior": "Add a marketing-name preference to both about and hardware screens; retain numeric model and label it Model number. Public Settings code unchanged.",
+  "resource_link_configuration": "Use the RRO default platform SDK resources with resource_libs Settings. core_platform omits Android resource libraries and current omits the Lineage resource dependency; neither is suitable for this private-resource XML overlay.",
+  "resource_link_probe": {
+    "passed": true,
+    "report": "/root/sheng-lineage/douyin-review-r21/settings-platform-link-probe.json",
+    "unsigned_probe_sha256": "ba3e87931d16e31299be1b9755503ac5100bcab0f0b2f695f08d49b29b9b3c6f",
+    "note": "AAPT2 links the generated overlay resources against unchanged framework-res, org.lineageos.platform-res and Settings package resources. Formal build and runtime remain pending."
+  },
   "runtime_verified": false
 }

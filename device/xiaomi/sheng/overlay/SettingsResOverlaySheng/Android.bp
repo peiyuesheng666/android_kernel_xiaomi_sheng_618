@@ -7,6 +7,5 @@
 runtime_resource_overlay {
     name: "SettingsResOverlaySheng",
     resource_libs: ["Settings"],
-    sdk_version: "core_platform",
     device_specific: true,
 }
