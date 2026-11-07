@@ -58,6 +58,40 @@ class BatchTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('do not use -O', result.stderr)
 
+    def test_installed_source_mapping_is_explicit_and_confined(self):
+        logical = 'priv-app/Old/config.dat'
+        installed = 'priv-app/Replacement/config.dat'
+        source = self.build / 'system_ext' / installed
+        source.parent.mkdir(parents=True)
+        source.write_bytes(b'reviewed replacement')
+        entries = {logical: dict(source=str(source), bytes=source.stat().st_size,
+                                 sha256=helpers.sha(source), kind='file')}
+        with self.assertRaises(AssertionError):
+            helpers.validate_inputs('system_ext', entries)
+        self.assertEqual(helpers.validate_inputs('system_ext', entries,
+            installed_sources={logical: installed}), {logical: source})
+        for alias in ('../vendor/replacement', '/tmp/replacement', 'a/../replacement'):
+            with self.assertRaises(AssertionError):
+                helpers.validate_inputs('system_ext', entries, installed_sources={logical: alias})
+        with self.assertRaises(AssertionError):
+            helpers.validate_inputs('system_ext', entries,
+                installed_sources={logical: installed, 'unused.dat': 'other.dat'})
+        source.write_bytes(b'unreviewed replacement')
+        with self.assertRaises(AssertionError):
+            helpers.validate_inputs('system_ext', entries, installed_sources={logical: installed})
+
+    def test_installed_source_mapping_rejects_symlink_escape(self):
+        source = self.build / 'system_ext/renamed/config.dat'
+        source.parent.mkdir(parents=True)
+        outside = self.root / 'outside.dat'
+        outside.write_bytes(b'outside')
+        source.symlink_to(outside)
+        entries = {'etc/config.dat': dict(source=str(source), bytes=7,
+                                         sha256=helpers.sha(outside), kind='file')}
+        with self.assertRaises(AssertionError):
+            helpers.validate_inputs('system_ext', entries,
+                installed_sources={'etc/config.dat': 'renamed/config.dat'})
+
     def test_ext4_add_and_replace_preserves_metadata(self):
         tree = self.root / 'fs-tree'
         (tree / 'etc').mkdir(parents=True)
@@ -72,9 +106,10 @@ class BatchTests(unittest.TestCase):
         before_number = helpers.inode_number(base, '/etc/policy.cil')
         before_inode = helpers.ext4_snapshot(base)['inodes'][before_number]
         entries = {}
+        installed_sources = {'etc/policy.cil': 'renamed-module/policy.cil'}
         for relative, content in (('etc/policy.cil', b'new policy' * 9000),
                                   ('priv-app/NewApp/config.xml', b'<fixture/>')):
-            source = self.build / 'system_ext' / relative
+            source = self.build / 'system_ext' / installed_sources.get(relative, relative)
             source.parent.mkdir(parents=True, exist_ok=True)
             source.write_bytes(content)
             entries[relative] = dict(source=str(source), bytes=len(content), sha256=helpers.sha(source))
@@ -84,7 +119,8 @@ class BatchTests(unittest.TestCase):
         work = self.root / 'stage'
         work.mkdir()
         image, descriptor, report = helpers.stage_ext4(
-            'system_ext', base, entries, nodes, work, self.avb, self.avbtool, [])
+            'system_ext', base, entries, nodes, work, self.avb, self.avbtool, [],
+            installed_sources=installed_sources)
         self.assertEqual(helpers.sha(base), baseline_hash)
         self.assertEqual(set(report['changed_files']), set(entries))
         self.assertEqual((work / 'system_ext-after/etc/keep').read_bytes(), (tree / 'etc/keep').read_bytes())

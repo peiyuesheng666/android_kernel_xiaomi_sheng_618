@@ -26,6 +26,7 @@ OWNED_PUBLIC_REPOS = [
     'vendor/qcom/opensource/healthd-ext',
     'build/soong', 'lineage-sdk',
     'packages/modules/common', 'packages/modules/SdkExtensions', 'art',
+    'external/google-smali',
 ]
 
 def run(repo, *args, check=True):

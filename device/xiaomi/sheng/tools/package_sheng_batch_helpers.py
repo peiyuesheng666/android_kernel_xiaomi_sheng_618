@@ -107,14 +107,22 @@ def installed_symlink_target(partition, relative, link):
     return partition, sibling_symlink_target(relative, link)
 
 
-def validate_inputs(partition, entries, allow_symlinks=False):
+def validate_inputs(partition, entries, allow_symlinks=False, installed_sources=None):
+    # A renamed replacement module may have a new installed build directory
+    # while a scoped development update retains the existing on-device path.
+    # Both sides must be explicit relative paths within the same partition.
+    installed_sources = installed_sources or {}
+    assert set(installed_sources) <= set(entries), 'Unused installed-source mapping'
+    assert len(set(installed_sources.values())) == len(installed_sources), 'Duplicate mapped source'
     result = {}
     for relative, entry in entries.items():
         relative_path(relative)
-        source = PRODUCT / partition / relative
+        installed = relative_path(installed_sources.get(relative, relative))
+        source = PRODUCT / partition / installed
         assert entry['source'] == str(source), 'Sources must be exact installed build outputs'
         assert source.parent.resolve().is_relative_to((PRODUCT / partition).resolve()), source
         if entry.get('kind', 'file') == 'symlink':
+            assert relative not in installed_sources, 'Symlink inputs cannot be remapped'
             assert allow_symlinks and partition in ('odm', 'vendor') and source.is_symlink(), source
             raw = os.readlink(source)
             target_partition, target_relative = installed_symlink_target(partition, relative, raw)
@@ -321,9 +329,10 @@ def inode_offset(snapshot, number):
     return snapshot['groups'][group][2] * snapshot['block_size'] + index * 256
 
 
-def stage_ext4(partition, base, entries, nodes, work, avb, avbtool, platform_certificate):
+def stage_ext4(partition, base, entries, nodes, work, avb, avbtool, platform_certificate,
+               installed_sources=None):
     """Add declared nodes or replace single-link files, retaining unrelated inode bytes."""
-    sources = validate_inputs(partition, entries)
+    sources = validate_inputs(partition, entries, installed_sources=installed_sources)
     prefix = 'system/' if partition == 'system' else ''
     paths = {p: prefix + p for p in sources}
     before_root = work / f'{partition}-before'
@@ -452,7 +461,7 @@ def stage_ext4(partition, base, entries, nodes, work, avb, avbtool, platform_cer
             assert descriptor is tree
     run(args, capture_output=True)
     descriptor = verify_seal(avb, avbtool, base, image, partition, fixed_payload=True)
-    validate_inputs(partition, entries)
+    validate_inputs(partition, entries, installed_sources=installed_sources)
     return image, descriptor, dict(changed_files=sorted(changed_paths), metadata_preserved=True,
                                   created_nodes=sorted(created), replaced_files=sorted(replaced),
                                   filesystem_changed_blocks=changed_blocks(base, image, tree.image_size, tree.data_block_size))
