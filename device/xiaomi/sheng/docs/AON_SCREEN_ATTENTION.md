@@ -74,3 +74,23 @@ The request reaches AonAttentionService and AONFaceEnpu; listener registration
 and QSEE FD subscription acknowledge success, but no detection callback arrives
 before cancellation. This is not an accepted attention implementation. No
 agent-initiated detection or image capture was used; logs are from user testing.
+
+## r20 native initialization failure narrowed down
+
+Reading the existing CamX offline text log reveals a failure before any Java
+attention check: QSEEAONControl registers successfully, but the firmware's
+ProcessAONCamInitAck returns `Init failed error: 1`. SendAONCamInit fails for
+`aon_front`, AONNodePostPipelineCreate fails, and AONPipeline finalization and
+StreamOn fail. The subsequent signal35 stack is the provider's diagnostic
+dump. This supports investigating native sensor/firmware initialization rather
+than treating successful listener registration as functional detection. The
+specific cause of firmware error1 remains unproven.
+
+The firmware still reports basic/pro FD algorithm modes, and the later
+FD-algorithm subscription can succeed despite the failed image pipeline.
+Both installed aon_front.pb copies are 8983 bytes with SHA256
+`b0d920c16e4968173cf8f4f90c1056e959b9aad1c2651a76cca17ee19dac46d6`.
+The existing qsh_camera sensor registry is present. These checks do not prove
+successful sensor initialization. No runtime restart, capture or detection
+request was issued. Raw text evidence: reports/device/r20-runtime/
+aon-native-offline.txt and aon-sensor-registry.txt.
