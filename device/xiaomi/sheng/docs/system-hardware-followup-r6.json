@@ -39,6 +39,23 @@
     144
   ],
   "framework_default_and_peak_hz": 60,
-  "first_commit_and_reboot_verified": false,
-  "runtime_verified": false
+  "first_commit_and_reboot_verified": true,
+  "runtime_verified": true,
+  "validation": {
+    "date": "2026-11-07",
+    "boot_completed": true,
+    "boot_animation_stopped": true,
+    "visual_and_touch_user_confirmed": true,
+    "native_144_hz_after_reboot": true,
+    "sleep_wake_144_hz_user_confirmed": true,
+    "no_runtime_vendor_file_binds": true,
+    "installed_vendor_sha256": "c663a57f003d3cd0791ec2a7b50ad36ed1e1d1d96c0b4b414adc5b3bc63ef038",
+    "installed_vbmeta_first_8192_bytes_sha256": "488757df791a7cdf9387e2b81b30fbddb2210a6a0ccdf338048dc8f0c75e33af",
+    "actual_vbmeta_partition_bytes": 131072,
+    "restored_min_refresh_hz": 60,
+    "selected_peak_refresh_hz": 144,
+    "initial_framework_screen_enabled_after_ms": 52328,
+    "remaining_boot_issue": "Startup delay; known fingerprint HAL crash remains outside the display-only delta.",
+    "evidence_directory": "reports/device/refresh-r6-20261107-090333"
+  }
 }

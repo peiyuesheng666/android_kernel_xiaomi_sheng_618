@@ -27,8 +27,9 @@ builds install it without a patch runner.
 Composer's native-mode gate originally remained opt-in during diagnostics.
 With the corrected stock clock ABI, it now defaults on for native-resolution
 60/90/120/144 Hz; the property still allows disabling it for rollback.
-Native switching and 144 Hz sleep/wake passed kernel/HWC checks. Visual
-confirmation and reboot verification of the packaged revision remain pending.
+Native switching and 144 Hz sleep/wake passed kernel/HWC checks. The user
+confirmed normal output/touch before flashing and after the r6 reboot,
+including a physical power-button sleep/wake test at real 144 Hz.
 The refresh packager uses verified r5 as its base, changes composer, DAL, and DRM
 only, and preserves r5 audio, sensors, inode metadata, and other AVB descriptors.
 
@@ -78,4 +79,15 @@ Visual output and touch still require user confirmation.
 Revision r6 changes only the composer and the two compatible display libraries
 over r5. Its preferred inputs, image signatures, EROFS file readback, every
 vendor inode's metadata, and unchanged non-vendor AVB descriptors passed.
-The r6 image has not yet been flashed or boot-verified.
+The r6 delta was flashed to slot b and boot-verified on 2026-11-07. The installed
+vendor hash and the first 8192 bytes of vbmeta match the packaged images;
+vbmeta's physical partition is larger than the image. There are no temporary
+vendor file binds after reboot, and the stock-clock libraries match compiled
+device-owned outputs. The peak is set to 144 Hz with a 60 Hz lower bound.
+
+The initial report of a second-screen stall occurred while framework startup
+was completing: AMS became ready at 51938 ms and enabled the screen at 52328 ms.
+FallbackHome logged that the user was not unlocked. Boot completion and stopped
+bootanimation were subsequently confirmed, and the user reported a normal
+lockscreen/desktop. The known fingerprint HAL crash and general startup latency
+remain separate followups; this display delta does not claim to fix them.
