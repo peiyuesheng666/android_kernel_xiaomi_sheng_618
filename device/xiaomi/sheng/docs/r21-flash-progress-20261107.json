@@ -1,0 +1,36 @@
+{
+  "revision": 21,
+  "recorded_at": "2026-11-07T20:39:33+08:00",
+  "serial": "ca10ede3",
+  "slot": "b",
+  "package_receipt": "docs/package-r21-settings-tablet-20261107.json",
+  "flash_log": "reports/device/batch-r21-20261107-203207/flash-and-reboot.txt",
+  "flash_log_sha256": "ac51ca3f34819ef0f294ab1e8cdba51748c417aa121caf584fedd3baf9f0b226",
+  "flash_transport_success": true,
+  "flashed_partitions": [
+    "system_ext_b",
+    "odm_b",
+    "vendor_b",
+    "vbmeta_system_b",
+    "vbmeta_b"
+  ],
+  "reboot_command_success": true,
+  "expected_image_sha256": {
+    "odm": "474e3ceab0be4a75847adce0f0dc44f2793274f7b74587501522cfd6ccb9ffa5",
+    "system_ext": "a84b79a184d2ec877b650f33a08fe3c91a4154d5b98b35d503ffdfe808fda8eb",
+    "vbmeta": "e1fa13fa8e27976ea2748f0f52714647b8e275ab1f9130388dab1705525a9fb0",
+    "vbmeta_system": "0ff1a343eea804a4358c34dca8a9178fb6e34a0c480d7200df465f76d0510276",
+    "vendor": "210bf6f64bc865a8f6834e5b4b1d6fdd965139fec2cef2fda56b9fe978d5fd27"
+  },
+  "connection_evidence": "reports/device/r21-runtime/connection-after-flash.json",
+  "connection_evidence_sha256": "368b6cfd4056d992b7c7ebef129f2a0913c71dbc1282e2fd1208f8f533ed0378",
+  "device_online_at_observation": false,
+  "boot_completed_verified": false,
+  "installed_partition_readback_verified": false,
+  "tablet_probe_verified": false,
+  "settings_rows_user_accepted": false,
+  "douyin_user_accepted": false,
+  "runtime_verified": false,
+  "aon_status": "Unresolved: native AON camera-init acknowledgement error 1; not counted as fixed.",
+  "next_step": "Await already-requested physical startup status; once ADB returns verify boot, installed hashes, classpath, normal-app probe, Settings and Douyin. Announce any adb root before execution."
+}

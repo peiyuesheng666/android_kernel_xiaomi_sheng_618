@@ -52,6 +52,16 @@ Compiled output, fresh upstream audits and r20 installed property/partition
 readback pass; the user still reports affected-application failures. Settings displaying
 Build.MODEL does not justify replacing the app-visible hardware model.
 
+r21 adds separate marketing-name and numeric-model rows through the device
+Settings overlay, plus the user-selected tablet compatibility class and the
+panel physical-DPI unit correction. Unified build and packaging passed; all
+five images were written to slot b and fastboot reboot returned OKAY. At
+20:39 +08:00 neither ADB nor fastboot listed the device. Boot state, installed
+readback, Settings rows and Douyin behavior remain unverified. The existing
+startup-state question is pending; no cause is inferred from the missing USB
+enumeration. See r21-flash-progress-20261107.json for the flash-log hash and
+separate acceptance flags.
+
 ## Automatic screen timeout
 
 The initial readback was 600000 ms (ten minutes), with charging-stay-awake
