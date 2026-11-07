@@ -153,7 +153,9 @@ PRODUCT_COPY_FILES += \
 # Dolby
 PRODUCT_PACKAGES += \
     ShengDolby \
-    libshgdolby_foundation
+    libshgdolby_foundation \
+    sheng-dolbycodec2 \
+    sheng-vendor.dolby.media.c2@1.0-service
 
 # DRM
 PRODUCT_PACKAGES += \
