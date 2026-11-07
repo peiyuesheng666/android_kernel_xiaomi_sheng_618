@@ -11,7 +11,7 @@ cc_library_shared {
         "display_headers", "qti_kernel_headers", "qti_display_kernel_headers",
         "device_kernel_headers",
     ],
-    local_include_dirs: ["../dal/include"],
+    include_dirs: ["device/xiaomi/sheng/display/dal/include"],
     cflags: [
         "-fno-operator-names", "-Wno-format", "-Wno-unused-parameter",
         "-DLOG_TAG=\"SDE_DRM\"",
