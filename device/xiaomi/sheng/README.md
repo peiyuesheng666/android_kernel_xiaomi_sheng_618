@@ -76,20 +76,32 @@ module identities are retained when source directories move.
 
 ## Current validation
 
-The current installed batch and partition readback are recorded in
-[docs/HARDWARE_STATUS.md](docs/HARDWARE_STATUS.md). The r21 source separates
-marketing name from numeric model in Settings, corrects the stock panel's
-physical-DPI units, and adds a device-owned tablet compatibility class.
-Build, packaging, runtime readback and application acceptance are recorded
-separately in the r21 reports. r19 battery SOH 93% and normal picture/touch
-were accepted by the user.
+The latest accepted runtime baseline is r23, as recorded in
+[docs/HARDWARE_STATUS.md](docs/HARDWARE_STATUS.md). The user confirmed r22's
+Douyin tablet adaptation and separate marketing-name row in Settings; the
+numeric model remains 24018RPACC. The provider's factory-default name resources
+passed 272 locale cases, without performing a factory reset. Battery SOH 93%
+and normal picture/touch were accepted by the user.
 Earlier the user confirmed normal picture/touch, no
 brief yellow flash on wake/password entry with ambient white balance enabled,
 and smooth Night Light activation. RGB and Night Light hardware color effects
 were accepted on r15. Lift-to-wake is user-confirmed working. AON's existing
-Screen attention switch is available with r19, but the user's gaze test still
-times out; attention detection remains unresolved.
+Screen attention failed the r19 gaze test; r23 restored its stock configuration
+link and the user subsequently confirmed that AON works. Ordinary video and
+speaker output were also confirmed after r23.
 Details and remaining items are in [docs/HARDWARE_STATUS.md](docs/HARDWARE_STATUS.md).
+
+r24 images were written to ca10ede3's b slot and reboot was requested, but ADB
+has not returned and the current boot state is unknown. r25's two independent
+camera and Dolby GraphicBuffer allocation repairs passed the formal build,
+binary review and local image validation; r25 has not been flashed. The later
+stylus direction configs passed the platform parser, but a complete new product
+build was interrupted by host C-drive pressure and they are not installed.
+The compiled offscreen Dolby Vision regression is prepared for execution only
+after r25 installation and basic runtime checks. See
+[docs/offline-validation-20261108.json](docs/offline-validation-20261108.json)
+for exact evidence hashes and validation boundaries. Local r25 image and pinned
+decode-fixture validation were rerun successfully after that record was committed.
 
 The final color request keeps 自适应/生动/鲜艳 visible order and swaps the latter
 two functions; r18 passed the user check and 鲜艳 selection reads actual mode1. Source/build/package milestones remain
