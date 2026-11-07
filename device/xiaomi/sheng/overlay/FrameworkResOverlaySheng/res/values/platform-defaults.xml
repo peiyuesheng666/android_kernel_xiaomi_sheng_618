@@ -3,10 +3,12 @@
      SPDX-License-Identifier: Apache-2.0
      Adapted platform resource defaults; source recorded in reports/standalone-migration.json. -->
 <resources>
+  <!-- Keep the visible Adaptive / Vivid / Saturated order while swapping
+       the latter choices to the opposite existing framework behaviors. -->
   <integer-array name="config_availableColorModes">
     <item>0</item>
-    <item>1</item>
     <item>2</item>
+    <item>1</item>
   </integer-array>
   <!-- ColorDisplayManager modes, not stock Xiaomi vendor render intents.
        Clear any previous forced composition gamut and let SurfaceFlinger

@@ -1,12 +1,19 @@
 # LiveDisplay and display color controls
 
-2026-11-07 label follow-up: the user requests 自适应 / 鲜艳 / 生动. The first
-label replaces 专业原色 and the last two choices change order together with
-their values. The Settings list is [0,2,1], preserving each mode's behavior
-and saved numeric setting. 自适应 labels the existing managed/content-aware
-mode 0; ambient color adaptation still uses the separate 显示屏白平衡 switch.
-This device-only Settings RRO change is built/published after the r16 sensor
-and neutral-white batch, whose frozen artifacts remain unchanged.
+2026-11-07 final user clarification: keep the visible list 自适应 / 生动 / 鲜艳,
+and exchange the last two choices' actual functions. Mode 0 remains Adaptive;
+生动 selects framework Saturated (2), 鲜艳 selects framework Boosted (1).
+Both config_availableColorModes (which determines screen order) and the
+Settings label/value mapping now use [0,2,1], with names Adaptive/Vivid/Saturated.
+The earlier r17 only reordered the Settings name/value table; it still rendered
+0,1,2 from the Framework list and did not exchange behavior. It is rejected for
+this request. Public Settings code remains unmodified. This is an r18 candidate.
+
+r17 user acceptance: repeated wake/password entry no longer briefly yellows
+with 显示屏白平衡 enabled and Night Light disabled. Enabling Night Light is
+reported smooth; ordinary picture and touch remain normal. Ambient adaptation
+uses the existing independent switch. The forced-warm diagnostic's small PCC
+reversals remain a documented limitation, not an all-condition monotonic claim.
 
 Latest acceptance: r14 failed composer initialization and was reverted to the
 verified r13 images. The user confirmed normal picture/touch after recovery.

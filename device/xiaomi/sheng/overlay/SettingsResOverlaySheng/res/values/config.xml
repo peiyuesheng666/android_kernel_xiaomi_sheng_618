@@ -63,8 +63,8 @@
     <string name="sheng_color_mode_saturated">Saturated</string>
     <string-array name="config_color_mode_options_strings" translatable="false">
         <item>@string/sheng_color_mode_original</item>
-        <item>@string/sheng_color_mode_saturated</item>
         <item>@string/sheng_color_mode_vivid</item>
+        <item>@string/sheng_color_mode_saturated</item>
     </string-array>
     <integer-array name="config_color_mode_options_values" translatable="false">
         <item>0</item>

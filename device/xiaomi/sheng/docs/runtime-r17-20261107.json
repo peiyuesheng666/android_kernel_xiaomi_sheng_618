@@ -26,8 +26,9 @@
   "gpu_fallback": false,
   "lift_to_wake_user_accepted": true,
   "screen_attention_available": false,
-  "user_white_balance_wake_acceptance": "pending",
-  "user_night_transition_acceptance": "pending",
-  "user_color_labels_acceptance": "pending",
-  "raw_evidence": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/reports/device/r17-runtime"
+  "user_white_balance_wake_acceptance": "passed",
+  "user_night_transition_acceptance": "passed",
+  "user_color_labels_acceptance": "rejected_function_swap_missing",
+  "raw_evidence": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/reports/device/r17-runtime",
+  "user_picture_touch_acceptance": "passed"
 }

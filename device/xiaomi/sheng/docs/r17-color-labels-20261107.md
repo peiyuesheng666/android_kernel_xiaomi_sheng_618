@@ -60,3 +60,13 @@ default is true, and the CCT override is -1 after reboot. Night Light was left
 at its saved disabled state for physical regression testing. Three user checks
 are pending: repeated wake/password entry, Night Light transition, and visible
 labels plus ordinary picture/touch. Do not mark them accepted before feedback.
+
+## User acceptance and corrected color requirement
+
+The user confirmed no recurrent wake/password yellow flash, smooth Night Light
+activation, and normal picture/touch. These physical checks pass in the user's
+test conditions. Color naming/function exchange is rejected: despite the
+Settings table 0,2,1, the screen uses Framework config_availableColorModes 0,1,2
+for order and still showed 自适应/生动/鲜艳 with unchanged functions. The final
+request is to keep that visible order and exchange the last two functions.
+r18 will correct both the available-mode order and label/value mapping.
