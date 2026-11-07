@@ -25,5 +25,13 @@
   "mono_mp3_compressed_offload_completed": true,
   "stereo_aac_compressed_offload_completed": true,
   "temporary_bind_validation": true,
-  "permanent_reboot_validation": false
+  "permanent_reboot_validation": true,
+  "permanent_revision": 5,
+  "permanent_slot": "b",
+  "permanent_primary_hal": "sheng",
+  "permanent_pal_sha256_matches": true,
+  "permanent_temporary_bind_mounts_present": false,
+  "permanent_selinux": "Enforcing",
+  "permanent_user_confirmed_all_four_poses_and_six_speakers": true,
+  "permanent_user_confirmed_display_and_immediate_dolby_controls": true
 }

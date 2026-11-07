@@ -54,7 +54,11 @@ retained immediate switch/mode/EQ control. Mono MP3 and stereo AAC both used
 compressed offload and completed after the scripted two-second pause/resume.
 The validated PAL SHA-256 is
 `cbb24166fde6042d1bdfb60a3ae362aa5d0f8559390bff0ac61bd8364c998e1e`.
-Permanent packaging and reboot validation remain pending.
+Revision 5 was packaged, flashed to slot b and rebooted successfully. The
+installed PAL hash matches the validated build, `audio.primary.sheng` is loaded
+from vendor, SELinux is enforcing and no temporary bind mounts remain. The
+user confirmed normal display, six speakers, immediate Dolby controls and
+correct left/right placement at all four poses after reboot.
 
 `ShengSpeakerFormatProbe.c` can target the earlier or final stock MFC.
 `ShengSpeakerMatrixProbe.c` tests coefficient tables without changing saved
@@ -64,8 +68,8 @@ accepts `on|off` and 1..8 rounds and does not alter saved mode or EQ.
 
 The preceding complete hardware build and fresh-fetch public source audit
 passed for 13 audited repositories and 1,243 clean manifest projects. The
-installed permanent image remains r4; newer rotation work is temporarily
-loaded and requires successful device validation before packaging.
+installed permanent image is now r5. The final rotation and native Dolby
+changes are included in that verified image.
 
 `scripts/package_sheng_dolby_followup.py` prepares an optional r5-or-later
 development image over the exact installed r4 vendor/AVB and r2 ODM/system_ext
@@ -74,5 +78,5 @@ rotation adapter, Dolby clients, effect configuration, app and required
 hardware properties. It verifies base hashes, preferred PAL input, APK signer,
 partition sizes, image contents, existing EROFS metadata, installed public
 policy input IDs, signatures and unrelated AVB descriptors. Syntax and base
-hash checks pass; packaging and reboot validation remain pending. Ordinary
-rebuilds use the device's product modules and need no delta packager.
+hash checks, image readback, signatures and reboot validation passed for r5.
+Ordinary rebuilds use the device's product modules and need no delta packager.

@@ -64,5 +64,6 @@
   "apk_certificate_preserved": true,
   "installed_public_policy_ids_matched": true,
   "native_device_pal_input_verified": true,
-  "hardware_boot_tested": false
+  "hardware_boot_tested": true,
+  "hardware_boot_validation": "audio-final-mfc-live-validation.json"
 }
