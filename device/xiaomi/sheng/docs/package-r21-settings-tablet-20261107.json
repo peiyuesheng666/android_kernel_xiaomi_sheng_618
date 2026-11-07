@@ -1,0 +1,57 @@
+{
+  "revision": 21,
+  "artifact_directory": "artifacts/system-hardware-followup-sheng-r21",
+  "manifest_sha256": "f5eafedf7b0ec6d0a2829834b74e41a81dc7ec4e173ae833a31a05e400ebc27c",
+  "spec_sha256": "dfd8139b2f017b58ba076d278e1d462c2ef154c8b274fcad1e8f7f350ae4edbf",
+  "files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "474e3ceab0be4a75847adce0f0dc44f2793274f7b74587501522cfd6ccb9ffa5"
+    },
+    {
+      "partition": "system_ext",
+      "name": "system_ext.img",
+      "bytes": 572813312,
+      "sha256": "a84b79a184d2ec877b650f33a08fe3c91a4154d5b98b35d503ffdfe808fda8eb"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "e1fa13fa8e27976ea2748f0f52714647b8e275ab1f9130388dab1705525a9fb0"
+    },
+    {
+      "partition": "vbmeta_system",
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "0ff1a343eea804a4358c34dca8a9178fb6e34a0c480d7200df465f76d0510276"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "210bf6f64bc865a8f6834e5b4b1d6fdd965139fec2cef2fda56b9fe978d5fd27"
+    }
+  ],
+  "checks": {
+    "exact_baselines_verified": true,
+    "all_filesystem_stages_verified": true,
+    "both_parent_chains_verified": true
+  },
+  "scope": {
+    "odm": [
+      "overlay/SettingsResOverlaySheng.apk"
+    ],
+    "vendor": [
+      "lib64/libsdmdal.so"
+    ],
+    "system_ext": [
+      "etc/init/sheng-tablet-compat.rc",
+      "etc/sheng/bootclasspath.pb",
+      "framework/sheng-tablet-compat.jar"
+    ]
+  },
+  "runtime_verified": false
+}
