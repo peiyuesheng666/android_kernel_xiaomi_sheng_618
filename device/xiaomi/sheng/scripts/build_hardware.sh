@@ -37,7 +37,10 @@ if [[ -f "$real_builder" ]]; then
 fi
 if [[ -f "$builder" ]]; then
     mv -- "$builder" "$real_builder"
-    printf '#!/bin/sh\nexport GOMEMLIMIT=12GiB GOGC=40 GOMAXPROCS=4\nexec "%s" "$@"\n' "$real_builder" > "$builder"
+    # Blueprint resets GOMAXPROCS to NumCPU; affinity must constrain NumCPU
+    # before Go starts to bound concurrent analysis allocations on this host.
+    build_cpus=$(python3 -c 'import os; print(",".join(map(str, sorted(os.sched_getaffinity(0))[:4])))')
+    printf '#!/bin/sh\nexport GOMEMLIMIT=12GiB GOGC=40\nexec /usr/bin/taskset -c "%s" "%s" "$@"\n' "$build_cpus" "$real_builder" > "$builder"
     chmod 755 "$builder"
     # Do not invalidate an unchanged build graph just for the memory wrapper.
     touch -r "$real_builder" "$builder"
