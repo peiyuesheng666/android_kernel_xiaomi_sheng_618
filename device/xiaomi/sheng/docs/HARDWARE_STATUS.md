@@ -1,61 +1,98 @@
-# sheng hardware status and repair order
+# Xiaomi Pad 6S Pro 12.4（sheng）完整适配清单
 
-Updated 2026-11-07 after the r9 network-provider reboot test. All fixes stay in this device tree;
-public source is verified against freshly fetched manifest-pinned upstream.
-Each logical fix gets a commit, and each batch is compiled, flashed and tested
-before moving to the next hardware path. Source changes and static checks alone
-are not listed as successful hardware tests.
+更新：2026-11-07。当前已刷测基线为 r9；r10 圆角和状态栏 overlay
+已编译，正在完成打包校验。只有重启后通过实机验证的项目列为完成。
 
-## Fixed and verified
+## 实施规则与总目标
 
-| Item | Evidence and boundary |
+- 所有实现只放在 device/xiaomi/sheng，公共源码保持 manifest 固定上游版本。
+- 编译前重新获取上游并核验；每项修复单独 commit。
+- 当前批次完成编译、刷入和实测后，再推进下一批。
+- 硬件配置和设备模块通用，各 ROM 产品入口独立，逐个验证跨 ROM 编译。
+- 原有 bug、此前要求新增的功能全部保留。
+- 对照 [小米平板 8 Pro 开发组织](https://github.com/xiaomi-pad-8-pro-development)
+  的新增功能范围为：小米笔记、小米手写笔、小米键盘。
+- 临时加载、源码实现和编译成功分别记录，不等同于持久修复通过。
+- 遵守用户要求，不截图、拍照或自行开启相机/AON 摄像头。
+
+## 已修复并实机验证
+
+| 项目 | 结果与验证范围 |
 | --- | --- |
-| Tablet UI layout | User confirmed normal full-screen tablet layout. |
-| Touch and auto-rotation | User confirmed correct touch and orientation; r6 touch/display still work. |
-| Six speakers and volume | Six positions audible; volume/mute worked; r5 reboot verified. |
-| PCM and compressed offload | Mono/stereo MP3 and stereo AAC playback, pause/resume and volume verified. |
-| Dolby and EQ | Real-time switch, modes and EQ verified with six speakers; native four-channel output. |
-| Rotating speaker channels | User verified correct left/right in all four orientations, including after r5 reboot. |
-| Dolby defaults/text | Unsaved/reset EQ is 0 dB; Chinese mode is 人声; source is already in the tree. |
-| Automatic brightness | User confirmed stable output and response to light after the persisted repair. |
-| Cover/Hall sleep/wake | User confirmed close-to-sleep/open-to-wake twice after r4. |
-| Front light | User confirmed off after removing keyboard/button-backlight activation. |
-| Native refresh | Corrected stock submode clocks; native 60/90/120/144 switching checked, and r6 144 Hz touch/display/power-cycle user-verified. |
-| Built-in vibration capability | Fake HAL/declaration removed; r6 VibratorManager reports vibratorIds=[]; external devices are not removed. |
-| About-device name | r7 Settings name Xiaomi Pad 6S Pro 12.4, display and touch user-verified; scoped hardware model remains 24018RPACC. |
-| System network location and geocoder | r9 original MetokNLP provider returned a fresh non-mock network fix and one result for each forward/reverse geocoder request after reboot; user confirmed the repeated service-crash dialog no longer appears. Client apps use the standard Android interfaces. |
-| Recovery basic interaction | Source kernel, touch orientation, ADB and misc access verified in r13. |
+| 基础平板布局 | 设置等系统页面恢复平板全屏布局；不代表所有第三方应用已全屏。 |
+| 触摸方向 | 手指移动方向正常，r6/r7 重启后画面与触摸正常。触摸延迟和采样率另列待修。 |
+| 自动旋转方向 | 修正 90° 错位，用户确认屏幕姿态正常。 |
+| 六扬声器与媒体音量 | 六处正常出声，静音、音量变化正常，r5 重启后通过。 |
+| 普通 PCM 与压缩卸载 | 单/双声道 MP3、双声道 AAC、暂停恢复和音量已测试。 |
+| 杜比实时开关、模式和均衡器 | 播放中即时生效，六扬声器正常，r5 重启后验证。跨应用播放路径另列待修。 |
+| 原生四通道输出与方向声道 | 杜比输出及硬件后级四通道；横屏、反横屏、正反竖屏左右声道均正确。 |
+| 杜比设置入口和默认值 | 设置可进入调音页；均衡器未保存/重置默认 0 dB；“语音”改为“人声”。 |
+| 自动亮度/环境光调节 | 用户确认固定光照下稳定，照光和撤光能正常调节。环境色温自适应另列待加。 |
+| 保护盖霍尔休眠唤醒 | 合盖息屏、开盖亮屏，r4 重启后连续两次正常。 |
+| 前方呼吸灯/按键背光 | 屏幕点亮时不再持续亮灯，用户已确认。 |
+| 原生刷新率 | 60/90/120/144 Hz 切换已检查；r6 重启后实际 144 Hz 和息屏唤醒、触摸通过。 |
+| 去除虚假内置振动能力 | 本机没有马达，移除虚假 HAL/声明；r6 vibratorIds=[]。 |
+| 关于平板名称 | 显示 Xiaomi Pad 6S Pro 12.4，硬件型号编号保留 24018RPACC；r7 实测通过。 |
+| 系统网络定位与地理编码 | r9 重启后真实 network 定位和正/反地理编码通过，用户确认崩溃弹窗不再出现；使用 Android 标准接口。 |
+| Recovery 基础交互 | Recovery r13 内核、触摸方向、ADB、misc 访问已验证；其入场黑屏间隔另列待修。 |
 
-## Confirmed working, without claiming a new hardware repair
+## 已确认正常，未归因为新增修复
 
-| Item | Evidence |
+| 项目 | 已有证据 |
 | --- | --- |
-| Fast charging | User tested the original charger and confirmed normal charging. Computer USB was not a valid fast-charge test. |
-| Automatic screen timeout | At the current 15-second setting, PowerManager records timeout sleep and DRM becomes inactive. The earlier setting was ten minutes; charging-stay-awake was configured but mStayOn was false in that snapshot. |
-| Gaode app location | User reports Gaode could locate before the system network-provider integration; the app's own SDK path is separate from the standard system provider. |
+| 原装快充 | 用户使用原装充电器确认正常；电脑 USB 供电不用于判断快充。 |
+| 自动息屏 | 当前 15 秒设置下记录到超时休眠，显示硬件停止工作；此前设置为十分钟。AON 注视不息屏另列待加。 |
+| 高德自身定位 | 用户确认接入系统定位服务前高德也能定位；其 SDK 路径与系统 network provider 分开记录。 |
+| 系统 Logo 到第二屏的黑屏间隔 | 用户报告已改善；不将这项观察归因于网络定位改动。Recovery 过渡仍待修。 |
 
-## Remaining work, with simple changes first
+## 当前批次：r10 官方圆角与状态栏 overlay
 
-| Order | Item | Current state |
+| 项目 | 进度与验收要求 |
+| --- | --- |
+| 四角圆角遮罩 | 已按原厂资源实现 66px；编译通过，待刷测遮罩贴合。 |
+| 状态栏高度与顶部留白 | 原厂高度 86px、顶部留白 12px 一起接入；待刷测遮挡和布局。 |
+| 时间与电池边距 | 接入原厂横竖屏内容留白和 padding，处理隐私点单侧预留；待实机确认两侧协调。 |
+| 转屏后的时钟位置 | 初始布局与重载 padding 映射一致，待实机确认无跳动。 |
+| 打包与上游核验 | 公共源码核验通过；只更换两个 ODM overlay 和对应 AVB 描述，打包元数据检查尚未完成。 |
+
+本机原厂及当前挖孔路径为空，用户所指“挖孔偏”已明确为四角圆角遮罩。
+来源与适配映射见 OVERLAY_GEOMETRY.md 和 stock-overlay-geometry-provenance.json。
+
+## 待修 bug 与待加功能
+
+| 分组 | 项目 | 当前状态与验收方向 |
 | --- | --- | --- |
-| Configuration/service integration | NFC/NTAG5 | Tablet uses a passive interconnection tag; stock ntag5_tool/init/policy are missing. Do not advertise unsupported reader/payment NFC. I2C behavior still needs testing. |
-| Component adaptation | Power-button position | Physical button is upper-left; SystemUI's reveal origin is hardcoded on the other edge. No valid RRO side switch exists. Needs device-owned implementation, not a false dimension-only fix. |
-| Application compatibility | Full-screen app layouts | User reports Douyin and some other apps open as a small centered region. Distinguish windowing/letterbox policy from the app's own tablet UI; device-only adaptation and per-app validation remain pending. |
-| Audio application coverage | Dolby across audio/video apps | Prior tests cover the music player and diagnostic streams. User reports no proper Dolby effect in some audio/video apps; check their actual output/effect paths and real-time controls before claiming broad app coverage. |
-| Calibration/service integration | Screen colors and ambient color | Front CCT returns data and is selected; white-balance/TrueTone is not yet enabled and verified. Check primaries, low-light zero samples and stock calibration. |
-| Display geometry | Rounded corners and status-bar insets | User clarified the offset is the four corner masks, with the clock too close to the left edge and the battery too far from the right edge. Stock/current cutout paths are empty; restore only verified stock corner/inset resources through device overlays and validate the result. |
-| Service/backend integration | AON screen attention | Stock MiAONService supports the standard attention interface; APK/VINTF/policy/permissions and camera/QSEE backend still need integration and testing. |
-| Driver/HAL integration | Camera | Severe unknown-error report remains; preserve the user's no-capture instruction. |
-| Driver/HAL integration | Fingerprint | Enrollment unavailable; existing fingerprint service null-pointer crash remains. |
-| Biometric/service integration | Face recognition | User reports face recognition unavailable; camera, service/backend and enrollment have not yet been validated. |
-| Input integration | Keyboard detach/attach | Still reports connected after detaching. |
-| Input integration | Stylus | Not yet usable. |
-| Audio/Bluetooth integration | LHDC v5 | Not yet verified working. |
-| Touch/power integration | Double-tap wake | Still pending. |
-| Touch integration | Touch latency and sampling-rate boost | User reports delayed touch and no effect from the higher sampling-rate option; verify actual controller report rate and mode changes separately from touch orientation. |
-| Pointer/display integration | Mouse pointer smoothness | User reports low apparent pointer frame rate; distinguish mouse report timing, cursor composition and actual display refresh before choosing a device-only fix. |
-| Startup | Recovery backlight-only interval | User reports r8 system Logo-to-animation transition no longer has the black gap; Recovery still does. This observation is not attributed to the network-only delta. r6 also had about 52 seconds of framework startup before unlock. |
-| Validation | Other sensors | Only individually tested sensors are considered working; remaining sensor tests are pending. |
+| 系统/应用布局 | 第三方应用通用全屏 | 抖音等固定竖屏应用居中缩小；已定位上游兼容窗口策略，通用设备配置和实测待完成。 |
+| 系统界面 | 电源键动画位置 | 实体键在左上角，动画识别在另一侧；设备自有实现尚未接入构建、刷测。 |
+| 音频应用覆盖 | 所有音视频应用的杜比调用 | 现有通过测试主要覆盖播放器和诊断流；逐条检查第三方应用输出/音效路径，确认开关、模式、EQ 实时生效。 |
+| 显示校准 | 屏幕色彩 | 用户报告颜色不正确；需核对原厂色彩模式、色域和校准数据并实测。 |
+| 新增显示功能 | 环境色彩自适应 | 用户要求增加原厂功能；前方 CCT 有数据，白平衡/色温自适应尚未接入验证。 |
+| 新增注意力功能 | AON 注视时不息屏 | 用户要求增加；原厂 MiAONService 标准注意力接口、权限、策略和后台依赖待适配。 |
+| 相机 | 启动后的严重未知错误 | 尚未完全修好；继续检查服务、分配和依赖，遵守不自行拍摄要求。 |
+| 指纹 | 无法进入录入页面 | 指纹服务空指针崩溃仍存在，录入与识别待修。 |
+| 人脸 | 人脸识别/录入 | 用户报告不可用；相机、服务和录入依赖待核验。 |
+| 小米键盘 | 拆装识别 | 拆下后仍显示键盘已连接；应实时识别连接/移除，恢复正常平板行为。 |
+| 小米键盘 | 完整键盘功能适配 | 对照参考树中对应功能，检查输入、相关系统入口和配套服务；仅拆装识别修好不算全部完成。 |
+| 小米手写笔 | 手写笔适配 | 当前不可用；输入、配对及对应系统/应用集成待实现和实测。 |
+| 小米笔记 | 原厂笔记应用适配 | 新增目标；对照参考仓库确认应用来源、依赖、设备树集成和与手写笔/键盘协作。 |
+| 蓝牙音频 | LHDC v5 | 当前不能用，编解码服务及实际协商/播放待修。 |
+| 触摸/电源 | 双击亮屏 | 用户报告无效，控制器唤醒模式和事件路径待修。 |
+| 触摸性能 | 触摸延迟 | 方向已正常，响应延迟仍待测量和修复。 |
+| 触摸性能 | 提高触控采样率选项 | 用户报告开关无效果；需验证实际控制器报告率与模式切换。 |
+| 鼠标 | 光标滑动帧率 | 用户报告不顺滑；检查鼠标报告、硬件光标合成和实际刷新率。 |
+| 互联 | NFC/NTAG5 | 本机为被动互联标签，原厂初始化/工具/策略未完整接入；回读、接口与互联行为待验证。 |
+| Recovery 启动 | 亮背光但短暂黑屏 | 用户报告入场仍有黑屏间隔，待单独修复。 |
+| 系统启动 | 启动延迟/第二屏停留 | r6 曾记录较长框架启动延迟；r9 能正常进入系统，持续检查实际启动时序。 |
+| 传感器 | 其余传感器 | 仅把已单独验证的功能列为通过，未测试传感器继续逐项检查。 |
+| 构建复用 | 一个设备树支持多个类原生 ROM | 分离通用硬件配置与 ROM 产品入口，清理 ROM 专属构建耦合，逐个编译核验；目前只有 LineageOS 目标已构建实测。 |
 
-The user's inventory request does not cancel these remaining fixes. Complete
-and verify the simple batch first, then work through the harder items one at a time.
+## 推进顺序与完成条件
+
+1. 完成 r10 圆角/状态栏打包、刷入、重启和横竖屏实测。
+2. 先处理通用全屏等较简单配置，再检查跨应用音频、输入与校准问题。
+3. 逐项推进相机、指纹、人脸、手写笔、键盘、LHDC 等服务/HAL/驱动适配。
+4. 新增环境色自适应、AON、小米笔记，并验证与已修功能的协作。
+5. 持续核验跨 ROM 产品入口和构建依赖，保存每个实际通过的 ROM/版本结果。
+
+每项完成必须有设备树提交、构建结果、实际刷入及验证记录。
+新增反馈和功能要求会补入本清单，原有项目不会因优先级调整而删除。
