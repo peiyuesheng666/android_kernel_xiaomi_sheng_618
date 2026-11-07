@@ -1,0 +1,45 @@
+{
+  "revision": 25,
+  "serial": "ca10ede3",
+  "slot": "b",
+  "build_review_sha256": "4eb495ac77d2fcd33cfc86fd2271f6642f6c190d3f84e93efed82fafa601be9d",
+  "spec_sha256": "acf15d15a01999f3859a759501da8bab18b07fd99fbfcbf399ed913f50752b7f",
+  "manifest_sha256": "d2fb80197aa240404e238ac7c3e66a9e87b349e24fb811b3db55d8ab6cae3c94",
+  "images": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "933b205abe8bd856c62044a21e166097c288fadb56c18dd4c51099f104964ed7"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "844a09d6781156bbc1a63fbe8f20abb12b4cb8cf713b4e1e434826d2063815a3"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "1033f2d63390dab9101d2fd97963d2a9f85cbcb872b71fb3f002c5b840fd29d3"
+    }
+  ],
+  "exact_baselines_verified": true,
+  "all_filesystem_stages_verified": true,
+  "both_changed_child_descriptors_verified": true,
+  "local_flash_validation_passed": true,
+  "flashed": false,
+  "hardware_boot_tested": false,
+  "runtime_verified": false,
+  "graphicbuffer_client_probe_run": false,
+  "camera_preview_verified": false,
+  "video_stream_verified": false,
+  "adb_connected": false,
+  "target_pnp_vid_pid": "05C6:F000",
+  "target_storage_has_readable_media": false,
+  "boot_state": "unknown",
+  "agent_executed_adb_root": false,
+  "agent_started_camera_or_attention": false,
+  "other_device_operated": false
+}

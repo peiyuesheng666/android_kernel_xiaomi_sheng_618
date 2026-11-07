@@ -1,4 +1,4 @@
-# r25 相机与视频 GraphicBuffer 分配兼容（构建审查通过）
+# r25 相机与视频 GraphicBuffer 分配兼容（已封装，未刷入）
 
 r24 的四个镜像已写入 ca10ede3 的 b 槽并重启；目标连接尚未恢复，
 因此 r24 启动、动画及视频服务回归仍未验收。本批未刷入。
@@ -45,10 +45,24 @@ vidhance 的七个同类分配也保留旧大小。
 - 封装 helper 的 15 项检查通过，新增基线文件哈希记录及断言。
 - 封装仅替换 ODM 四库、vendor 三库，并更新 vbmeta 中这两个子描述符；
   核对原库哈希、未改的 libui/libgui、AON 目标和链接，保留所有节点元数据。
-  r24 SystemUI 和 vbmeta_system 保持；正式构建首次通过，镜像待封装。
+  r24 SystemUI 和 vbmeta_system 保持；正式构建首次通过，三镜像已封装，
+  本地刷机脚本的完整校验通过。发布前修正工具中冻结清单哈希变量被覆盖的
+  问题；失败尝试的清单与审查保留为 attempt1，未发布或刷入失败尝试。
 - 刷机脚本先核验六个实机 r24 基线；验证脚本不执行 adb root，不调用
   attention，不开相机，不擦数据或切槽。人工观感与预览明确留空。
 
 证据：workspace reports/device/r24-investigation/camera-*、
 graphicbuffer-abi-probe-r25.txt、graphicbuffer-reviewed-allocation-sites.json，
 以及 reports/device/r25-investigation。未将任何离线成功列为实机相机已修复。
+
+## 连接状态与后续回归
+
+ca10ede3 在 Windows 中呈现 USB\\VID_05C6&PID_F000 的空存储端点，
+ADB 不可用。原厂 init.qcom.usb.rc 将这一 VID/PID 用于 mass_storage；
+未发现可读诊断介质。这个端点本身不能证明 Android 启动通过、充电模式
+或启动失败，原因待有日志后确认。未修改 USB、重启 adbd 或操作另一台设备。
+
+封装产物位于 workspace artifacts/system-hardware-followup-sheng-r25；
+准确镜像哈希见 packaged-r25-graphicbuffer-20261108.json。连接恢复后先完成
+r24 六分区核对与运行回归，再刷 r25 并运行专用自动验证脚本。相机预览、
+真实视频流、DRM 与动画观感继续保留未验证状态。
