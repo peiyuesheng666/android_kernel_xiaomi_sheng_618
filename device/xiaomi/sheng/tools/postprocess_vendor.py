@@ -30,6 +30,25 @@ def postprocess_vendor(vendor: Path):
             text = text[:start]+section+text[end:]
         else:
             assert '"'+replacement+'"' in section and '"libshgdolby_foundation"' in section
+    # Keep one installer per original binary path. Source mains compile as
+    # non-installable modules; the generated vendor prebuilts consume their ELF
+    # outputs, preserving original init/module identities without Make conflicts.
+    for name, replacement in (
+        ('dolbycodec2', ':sheng-dolbycodec2'),
+        ('vendor.dolby.media.c2@1.0-service', ':sheng-vendor.dolby.media.c2@1.0-service'),
+    ):
+        source = 'proprietary/vendor/bin/hw/' + name
+        start = text.index('    name: "' + name + '",')
+        end = text.index('\n}\n', start) + 3
+        section = text[start:end]
+        if '"' + source + '"' in section:
+            section = section.replace('"' + source + '"', '"' + replacement + '"')
+        else:
+            assert section.count('"' + replacement + '"') == 1
+        if '"libcodec2_hal_common"' not in section:
+            assert section.count('shared_libs: [') == 1
+            section = section.replace('shared_libs: [', 'shared_libs: [\n                "libcodec2_hal_common",')
+        text = text[:start] + section + text[end:]
     bp.write_text(text)
 
 if __name__ == '__main__':

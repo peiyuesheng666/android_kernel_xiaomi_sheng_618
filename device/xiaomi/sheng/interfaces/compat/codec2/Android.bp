@@ -2,6 +2,7 @@
 cc_defaults {
     name: "sheng-dolby-codec2-service-defaults",
     vendor: true,
+    installable: false,
     compile_multilib: "64",
     relative_install_path: "hw",
     defaults: ["libcodec2-hidl-defaults@1.0"],
@@ -13,7 +14,6 @@ cc_defaults {
 cc_binary {
     name: "sheng-dolbycodec2",
     stem: "dolbycodec2",
-    overrides: ["dolbycodec2"],
     defaults: ["sheng-dolby-codec2-service-defaults"],
     shared_libs: ["c2.dolby.store"],
     cflags: ["-DSHENG_CODEC2_INSTANCE=\"dolby\""],
@@ -22,7 +22,6 @@ cc_binary {
 cc_binary {
     name: "sheng-vendor.dolby.media.c2@1.0-service",
     stem: "vendor.dolby.media.c2@1.0-service",
-    overrides: ["vendor.dolby.media.c2@1.0-service"],
     defaults: ["sheng-dolby-codec2-service-defaults"],
     shared_libs: ["libcodec2_store_dolby"],
     cflags: ["-DSHENG_CODEC2_INSTANCE=\"default1\""],
