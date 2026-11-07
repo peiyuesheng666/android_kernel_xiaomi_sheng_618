@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- sheng OS3.0.303.0.WNXCNXM DevicesAndroidOverlay geometry.
+     Use physical pixels as in the stock resources; see docs/OVERLAY_GEOMETRY.md. -->
+<resources>
+    <dimen name="rounded_corner_radius">66px</dimen>
+    <dimen name="rounded_corner_radius_top">66px</dimen>
+    <dimen name="rounded_corner_radius_bottom">66px</dimen>
+    <dimen name="status_bar_height_default">86px</dimen>
+    <dimen name="status_bar_height_portrait">86px</dimen>
+    <dimen name="status_bar_height_landscape">86px</dimen>
+</resources>
