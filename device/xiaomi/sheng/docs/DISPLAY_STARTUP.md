@@ -32,6 +32,16 @@ extra off/on cycle, and two cover close/open cycles displayed normally. The
 active mode was 60 Hz, with no SurfaceFlinger backdoor override. High-refresh
 support beyond this preferred-mode handoff remains a separate task.
 
+After the r5 audio followup, DRM state confirmed the panel actually operating
+at native 120 Hz. A framework 60 Hz request changed DRM to the native 60 Hz
+timing, and returning to 120 Hz retained that timing after an off/on cycle.
+The connector advertises 120/144/90/60/50/48/30 Hz. A device-owned diagnostic
+switch, `vendor.display.sheng.native_modes`, exposes only native-resolution
+60/90/120/144 configs and derives the HWC maximum from that advertised set.
+Its default is false, preserving the verified boot/60 pair. It retains the
+preferred first-commit handoff and raw config IDs. Enabling it requires a
+composer restart. Native 90/144 Hz operation and sleep/wake remain unverified.
+
 `scripts/package_sheng_startup_followup.py` produces startup revisions from the verified r2
 vendor and vbmeta bases. It packages only the compiled composer and both sensor
 init configuration files, verifies every file and inode after EROFS readback,

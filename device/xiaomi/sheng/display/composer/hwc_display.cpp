@@ -544,6 +544,11 @@ int HWCDisplay::Init() {
   if (type_ == kBuiltIn) {
     min_refresh_rate_ = 60;
     max_refresh_rate_ = active_refresh_rate_;
+    if (property_get_bool("vendor.display.sheng.native_modes", false)) {
+      for (const auto &config : variable_config_map_) {
+        max_refresh_rate_ = std::max(max_refresh_rate_, config.second.fps);
+      }
+    }
   }
   current_refresh_rate_ = max_refresh_rate_;
 
@@ -623,15 +628,32 @@ int HWCDisplay::ConfigureSafeBuiltInMode() {
   // Keep that real active config advertised alongside 60 Hz. The normal HWC
   // SetActiveConfig path defers the framework's 60 Hz request until after the
   // first commit; switching SDM here breaks the bootloader-to-panel handoff.
-  // Retain raw IDs and their mapping, and exclude the failing 144 Hz mode.
+  // Retain raw IDs and their mapping. The default remains the verified r4
+  // boot/60 Hz pair; opt in to native-rate diagnostics only after boot.
   if (active_info.fps > 120 || active_info.fps < 60) {
     DLOGE("Unexpected built-in boot mode %u Hz", active_info.fps);
     return -EINVAL;
   }
-  const auto config = *safe_config;
-  variable_config_map_.clear();
-  variable_config_map_.insert(config);
-  variable_config_map_.emplace(active_config, active_info);
+  if (property_get_bool("vendor.display.sheng.native_modes", false)) {
+    for (auto config = variable_config_map_.begin(); config != variable_config_map_.end();) {
+      const auto &info = config->second;
+      const bool native_size = info.x_pixels == active_info.x_pixels &&
+                               info.y_pixels == active_info.y_pixels;
+      const bool supported_rate = info.fps == 60 || info.fps == 90 ||
+                                  info.fps == 120 || info.fps == 144;
+      if (!native_size || !supported_rate) {
+        config = variable_config_map_.erase(config);
+      } else {
+        DLOGI("Sheng native config %u: %u Hz", config->first, info.fps);
+        ++config;
+      }
+    }
+  } else {
+    const auto config = *safe_config;
+    variable_config_map_.clear();
+    variable_config_map_.insert(config);
+    variable_config_map_.emplace(active_config, active_info);
+  }
   num_configs_ = UINT32(variable_config_map_.size());
   active_refresh_rate_ = active_info.fps;
   DLOGI("Built-in display keeps boot config %u (%u Hz) and safe config %u (60 Hz)",
