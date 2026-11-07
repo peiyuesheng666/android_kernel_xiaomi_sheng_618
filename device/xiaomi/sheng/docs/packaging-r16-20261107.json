@@ -1,0 +1,63 @@
+{
+  "revision": 16,
+  "frozen_spec_sha256": "200d672ee4f6baa73ca25cf3b803e45ce1b8537d59d274e1c2b8a0b55514ec0c",
+  "source_commit": "9b2a040dbe0d8b4b51790c1c9462134dae45b6d8",
+  "files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "de7f436b7a6ee7cf4ac6e6bd8573e36dd0e855a24fb0e981d1c9b001af3191c2"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "a31fa81b932e9e2ae645de6c2cd476c6449f6553a3692812ef5390b05812f1e3"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "de2ca07b44743f201bd911c11e54ce60134463c3f4e83589b6413c537e7d02de"
+    }
+  ],
+  "baseline_sha256": {
+    "odm": "34f43bd4c28e56da32536e78ce400cfeeb549640d03282556ddc41d999637bf5",
+    "vendor": "5fe250a2be26a15b45a2e843121b1001323c5faa4cbd1dc42ef06c2f5a76875f",
+    "vbmeta": "d13bd3783dc9d3d10c3b3c16cfca78bead132ed22a36ac7d97870f1371ef8b57",
+    "system": "0551a74f4f995793665a485d10caacffb22ccd8fdaffb78d7811d17c658b3ac1",
+    "vbmeta_system": "a947be896074811b496f42cf3759def63f808518869f56ed6c67c608622cd165",
+    "system_ext": "7a4e2a739f9cbc3a9713113e40f8a181dde34875c1ef0abee5e53411de58c573"
+  },
+  "partition_reports": {
+    "odm": {
+      "changed_files": [
+        "overlay/FrameworkResOverlaySheng.apk"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "0aa7b969-4e53-581b-b90a-26e09cf8d195",
+      "apk_certificates": {
+        "overlay/FrameworkResOverlaySheng.apk": [
+          "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc"
+        ]
+      },
+      "created_symlinks": {}
+    },
+    "vendor": {
+      "changed_files": [
+        "bin/hw/android.hardware.sensors-service.sheng-multihal"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "e0bc7ea7-6ad2-53bd-8343-db3cd56b720c",
+      "apk_certificates": {},
+      "created_symlinks": {}
+    }
+  },
+  "work_dir": "/root/sheng-lineage/hardware-followup/20261107T085222429633Z-livedisplay-r16",
+  "exact_baselines_verified": true,
+  "all_filesystem_stages_verified": true,
+  "vbmeta_parent_verified": true,
+  "hardware_boot_tested": false,
+  "runtime_verified": false
+}

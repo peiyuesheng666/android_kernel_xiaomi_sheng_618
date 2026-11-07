@@ -46,3 +46,12 @@ build inputs, preserve filesystem metadata and require an exclusive new output
 directory. Scope is one Framework APK and one sensor executable, plus vbmeta.
 Python compile and PowerShell parsing passed. The shared filesystem/publication
 helpers are unchanged from the completed r15 tests.
+
+The exclusive r16 image directory was published after exact baseline/source
+hash rechecks, full filesystem readback, permission/SELinux/UUID verification,
+APK certificate validation and AVB descriptor/key verification. Changed-file
+sets match exactly the one overlay and one executable; the two replaced
+hashtree descriptors are the only vbmeta changes. The frozen spec digest is
+200d672ee4f6baa73ca25cf3b803e45ce1b8537d59d274e1c2b8a0b55514ec0c.
+Published image identities are recorded in packaging-r16-20261107.json.
+Boot and user-visible regression acceptance remain pending at publication.
