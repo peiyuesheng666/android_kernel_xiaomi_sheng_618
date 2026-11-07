@@ -57,7 +57,19 @@
     <!-- Max network scan search time in seconds -->
     <integer name="config_network_scan_helper_max_search_time_sec">254</integer>
 
-    <!-- Use Settings' own localized standard color-mode names and values.
-         Its picker filters those defaults by the framework's supported modes. -->
+    <!-- User-facing names for the three supported framework color modes. -->
+    <string name="sheng_color_mode_original">Original color (Pro)</string>
+    <string name="sheng_color_mode_vivid">Vivid</string>
+    <string name="sheng_color_mode_saturated">Saturated</string>
+    <string-array name="config_color_mode_options_strings" translatable="false">
+        <item>@string/sheng_color_mode_original</item>
+        <item>@string/sheng_color_mode_vivid</item>
+        <item>@string/sheng_color_mode_saturated</item>
+    </string-array>
+    <integer-array name="config_color_mode_options_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
 
 </resources>
