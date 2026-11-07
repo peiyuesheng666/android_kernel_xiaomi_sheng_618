@@ -23,3 +23,9 @@ idmap in an isolated process on ca10ede3 reads 10 and 4 controllers in the two
 pages, both Chinese labels, the marketing name, and the original Chinese color
 labels. Final compiled APK validation and actual page startup remain required.
 The temporary resources do not replace the installed overlay.
+
+## Final acceptance
+
+The final compiled artifacts and r22 runtime checks passed. See
+r22-runtime-20261107.md for ordinary-UID results, user confirmation and the
+precise default-name validation scope.

@@ -13,3 +13,9 @@ cases; all returned the marketing name. Final installed resources will also be
 checked from an ordinary application UID. No factory reset, data erasure or
 replacement of an existing user-edited device name is part of this validation.
 Build.MODEL remains 24018RPACC; ro.product.marketname remains the marketing name.
+
+## Final acceptance
+
+The final compiled artifacts and r22 runtime checks passed. See
+r22-runtime-20261107.md for ordinary-UID results, user confirmation and the
+precise default-name validation scope.
