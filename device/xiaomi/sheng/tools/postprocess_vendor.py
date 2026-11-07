@@ -32,6 +32,24 @@ def postprocess_vendor(vendor: Path):
             text = text[:start]+section+text[end:]
         else:
             assert '"'+replacement+'"' in section and '"libshgdolby_foundation"' in section
+    # Resize only the reviewed GraphicBuffer allocations in the generated
+    # library outputs. The original module identities/dependencies stay intact.
+    for name, source, replacement in (
+        ('camera.xiaomi', 'odm/lib64/hw/camera.xiaomi.so', ':sheng_gb_camera_compat'),
+        ('libcom.xiaomi.grallocutils', 'odm/lib64/libcom.xiaomi.grallocutils.so', ':sheng_gb_grallocutils_compat'),
+        ('libcom.xiaomi.mawutils', 'odm/lib64/libcom.xiaomi.mawutils.so', ':sheng_gb_mawutils_compat'),
+        ('libmis_plugin_vidhance', 'odm/lib64/libmis_plugin_vidhance.so', ':sheng_gb_vidhance_compat'),
+    ):
+        start = text.index('    name: "' + name + '",')
+        end = text.index('\n}\n', start) + 3
+        section = text[start:end]
+        original = '"proprietary/' + source + '"'
+        if original in section:
+            assert section.count(original) == 1
+            section = section.replace(original, '"' + replacement + '"')
+            text = text[:start] + section + text[end:]
+        else:
+            assert section.count('"' + replacement + '"') == 1
     # Keep one installer per original binary path. Source mains compile as
     # non-installable modules; the generated vendor prebuilts consume their ELF
     # outputs, preserving original init/module identities without Make conflicts.

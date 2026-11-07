@@ -1,0 +1,62 @@
+// SPDX-License-Identifier: Apache-2.0
+python_binary_host {
+    name: "sheng-graphicbuffer-patcher",
+    main: "patch.py",
+    srcs: ["patch.py"],
+}
+
+cc_library_static {
+    name: "sheng-graphicbuffer-layout",
+    vendor: true,
+    compile_multilib: "64",
+    installable: false,
+    srcs: ["layout.cpp"],
+    shared_libs: ["libui"],
+    lto: { never: true },
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_genrule {
+    name: "sheng_gb_camera_compat",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":sheng-graphicbuffer-layout", "stock/camera.xiaomi.so"],
+    tools: ["sheng-graphicbuffer-patcher"],
+    out: ["camera.xiaomi.so"],
+    cmd: "$(location sheng-graphicbuffer-patcher) --layout $(location :sheng-graphicbuffer-layout) " +
+         "--input $(location stock/camera.xiaomi.so) --name camera.xiaomi.so --output $(out)",
+}
+
+cc_genrule {
+    name: "sheng_gb_grallocutils_compat",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":sheng-graphicbuffer-layout", "stock/libcom.xiaomi.grallocutils.so"],
+    tools: ["sheng-graphicbuffer-patcher"],
+    out: ["libcom.xiaomi.grallocutils.so"],
+    cmd: "$(location sheng-graphicbuffer-patcher) --layout $(location :sheng-graphicbuffer-layout) " +
+         "--input $(location stock/libcom.xiaomi.grallocutils.so) --name libcom.xiaomi.grallocutils.so --output $(out)",
+}
+
+cc_genrule {
+    name: "sheng_gb_mawutils_compat",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":sheng-graphicbuffer-layout", "stock/libcom.xiaomi.mawutils.so"],
+    tools: ["sheng-graphicbuffer-patcher"],
+    out: ["libcom.xiaomi.mawutils.so"],
+    cmd: "$(location sheng-graphicbuffer-patcher) --layout $(location :sheng-graphicbuffer-layout) " +
+         "--input $(location stock/libcom.xiaomi.mawutils.so) --name libcom.xiaomi.mawutils.so --output $(out)",
+}
+
+cc_genrule {
+    name: "sheng_gb_vidhance_compat",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":sheng-graphicbuffer-layout", "stock/libmis_plugin_vidhance.so"],
+    tools: ["sheng-graphicbuffer-patcher"],
+    out: ["libmis_plugin_vidhance.so"],
+    cmd: "$(location sheng-graphicbuffer-patcher) --layout $(location :sheng-graphicbuffer-layout) " +
+         "--input $(location stock/libmis_plugin_vidhance.so) --name libmis_plugin_vidhance.so --output $(out)",
+}
+
