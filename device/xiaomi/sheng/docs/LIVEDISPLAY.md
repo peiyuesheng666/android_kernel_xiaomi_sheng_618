@@ -171,3 +171,14 @@ still apply: DWB is inactive during Night Light, in unmanaged Saturated mode and
 accessibility transforms are active. The managed Original/Vivid modes must be
 used for its acceptance. This newly enabled path still needs real sensor,
 matrix, hardware-composition, off/on and user-visible acceptance on r14.
+
+## Read-only hardware color probe
+
+After sealing the r14 batch, tools/ShengDrmColorProbe.c was added solely as a
+diagnostic, outside that batch's immutable inputs. It opens /dev/dri/card0 with
+O_RDONLY and issues only GETRESOURCES, OBJ_GETPROPERTIES, GETPROPERTY and
+GETPROPBLOB. It prints CRTC activity/color property values and raw PCC words;
+it never maps or reads pixels, acquires DRM master, sets a property or modesets.
+Counts, allocation sizes, blob sizes and retries are bounded. Compile validation
+uses the existing cross compiler with -static -O2 -Wall -Wextra -Werror and
+external/libdrm/include/drm. Actual device readback remains pending boot.
