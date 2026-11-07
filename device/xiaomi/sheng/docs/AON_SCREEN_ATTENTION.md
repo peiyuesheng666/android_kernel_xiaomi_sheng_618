@@ -64,3 +64,13 @@ dex_preopt.enabled=false. The source APK is byte-identical to stock (131486
 bytes, SHA256 recorded above). Existing vendor inputs and the device GSL/Dolby
 postprocessing remain preserved. The proprietary source and generated recipe
 are generated inputs; implementation stays in this device tree.
+
+## r19 installed result: function still failing
+
+All six partitions match after boot. The standard attention service, native
+AON Binder, installed component and CAMERA permission are present. The user
+can enable the existing switch but reports that the screen still times out.
+The request reaches AonAttentionService and AONFaceEnpu; listener registration
+and QSEE FD subscription acknowledge success, but no detection callback arrives
+before cancellation. This is not an accepted attention implementation. No
+agent-initiated detection or image capture was used; logs are from user testing.

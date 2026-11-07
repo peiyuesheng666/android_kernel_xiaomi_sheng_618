@@ -66,3 +66,11 @@ The new AArch64 executable is 238832 bytes, SHA256
 Its twelve DT_NEEDED libraries match the retained QTI service. The embedded
 SOH path, compiled file label, QTI/ Sheng init override and retained policy
 cache markers were checked. Runtime and physical UI acceptance are still pending.
+
+## r19 device acceptance
+
+r19 booted with all six installed partition hashes matching. The running
+Sheng health process returns SOH=93 through the same standard battery property
+used by DeviceDiagnostics. The user confirmed 93% in the diagnostics page and
+normal picture/touch. Manufacturing and first-use dates remain zero/unknown;
+storage retains its original 100% bin mapping. See runtime-r19-20261107.json.
