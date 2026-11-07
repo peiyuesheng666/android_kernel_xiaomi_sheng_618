@@ -13,7 +13,7 @@ Add `ShengMetokNLP` and `ShengLocationOverlay` to the device product's
 | --- | --- |
 | `ShengMetokNLP` | `system_ext/priv-app/ShengMetokNLP/ShengMetokNLP.apk` |
 | `privapp-permissions-sheng-location` | `system_ext/etc/permissions/privapp-permissions-sheng-location.xml` |
-| `ShengLocationOverlay` | `system_ext/overlay/ShengLocationOverlay/ShengLocationOverlay.apk` |
+| `ShengLocationOverlay` | `system_ext/overlay/ShengLocationOverlay.apk` |
 
 The APK declares the existing `com.android.location.provider` shared Java
 library. Its four ARM64 JNI libraries remain inside the signed APK, are stored

@@ -22,7 +22,7 @@ foreach ($check in $checks) {
 }
 $expectedFiles = @(
     'etc/permissions/privapp-permissions-sheng-location.xml',
-    'overlay/ShengLocationOverlay/ShengLocationOverlay.apk',
+    'overlay/ShengLocationOverlay.apk',
     'priv-app/ShengMetokNLP/ShengMetokNLP.apk'
 )
 if ((($manifest.changed_system_ext_files | Sort-Object) -join ',') -ne (($expectedFiles | Sort-Object) -join ',')) {

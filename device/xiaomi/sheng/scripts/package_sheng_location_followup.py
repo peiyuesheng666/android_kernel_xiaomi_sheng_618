@@ -29,8 +29,8 @@ SOURCES = {
         PRODUCT / 'system_ext/priv-app/ShengMetokNLP/ShengMetokNLP.apk',
     'etc/permissions/privapp-permissions-sheng-location.xml':
         PRODUCT / 'system_ext/etc/permissions/privapp-permissions-sheng-location.xml',
-    'overlay/ShengLocationOverlay/ShengLocationOverlay.apk':
-        PRODUCT / 'system_ext/overlay/ShengLocationOverlay/ShengLocationOverlay.apk',
+    'overlay/ShengLocationOverlay.apk':
+        PRODUCT / 'system_ext/overlay/ShengLocationOverlay.apk',
 }
 
 
@@ -125,7 +125,7 @@ def main():
     assert sha(system) == '50cb7ebad3703ca03734f566aa6ea1f462675f4b361c968849b913b33e932089'
     framework_apk = work / 'framework-res.apk'
     debugfs(system, f'dump /system/framework/framework-res.apk {framework_apk}')
-    assert certificates(SOURCES['overlay/ShengLocationOverlay/ShengLocationOverlay.apk']) == certificates(framework_apk)
+    assert certificates(SOURCES['overlay/ShengLocationOverlay.apk']) == certificates(framework_apk)
     sys.path.insert(0, str(ROM / 'external/avb'))
     import avbtool
     avb = avbtool.Avb()
