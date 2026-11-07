@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
+import re
 import shlex
 import shutil
 import stat
@@ -18,11 +19,16 @@ import sys
 import uuid
 
 from audit_erofs_metadata import metadata
-from package_sheng_model_followup import sha, run, parse_image, ROM, HOST, PRODUCT
+from package_sheng_location_followup import allocated_inodes, debugfs
+from package_sheng_model_followup import sha, run, parse_image, changed_blocks, ROM, HOST, PRODUCT
 
 DEVICE = Path(__file__).resolve().parents[1]
 ODM_BYTES = 1141067776
 VBMETA_BYTES = 8192
+SYSTEM_BYTES = 1005133824
+VBMETA_SYSTEM_BYTES = 4096
+SYSTEM_DEFAULTS_PATH = '/system/etc/device-config-defaults'
+SYSTEM_DEFAULTS_BYTES = b'window_manager:ignore_activity_orientation_request=enabled\n'
 BASELINES = {
     10: {
         'odm_release': 'r5',
@@ -37,6 +43,14 @@ BASELINES = {
         'vbmeta_release': 'r10',
         'vbmeta_sha256': '5e3c933a430680a1b150607580c2f711166992b6c0fb9520a8c5ecc6edf0f312',
         'overlays': ('SystemUIResOverlaySheng',),
+    },
+    12: {
+        'odm_release': 'r11',
+        'odm_sha256': 'd947ae93faad87bcb26da93afe245d6528e04f2b698ca4116257d29262ff5aac',
+        'vbmeta_release': 'r11',
+        'vbmeta_sha256': '43412dea1eebb58489cd8acfec9368123af94090d3b2665aab225abc61f17e78',
+        'overlays': ('FrameworkResOverlaySheng',),
+        'add_system_defaults': True,
     },
 }
 INHERITED = {
@@ -119,6 +133,256 @@ def public_key(path, footer, header):
         key = stream.read(header.public_key_size)
     assert len(key) == header.public_key_size
     return key
+
+
+def replace_chain_hashtree(avb, avbtool, chain, image_descriptor, target, algorithm):
+    """Sign one changed descriptor while preserving the installed parent chain."""
+    footer, header, old_chain, _ = parse_image(avb, avbtool, chain)
+    assert header.algorithm_type == avbtool.ALGORITHMS[algorithm].algorithm_type
+    assert header.public_key_metadata_size == 0
+    selected = [d for d in old_chain if isinstance(d, avbtool.AvbHashtreeDescriptor)
+                and d.partition_name == image_descriptor.partition_name]
+    assert len(selected) == 1 and selected[0].encode() != image_descriptor.encode()
+    descriptors = [image_descriptor if d is selected[0] else d for d in old_chain]
+    key_bits = {'SHA256_RSA2048': 2048, 'SHA256_RSA4096': 4096}[algorithm]
+    blob = avb._generate_vbmeta_blob(algorithm_name=algorithm,
+        key_path=str(ROM / f'external/avb/test/data/testkey_rsa{key_bits}.pem'),
+        public_key_metadata_path=None, descriptors=descriptors, chain_partitions_use_ab=None,
+        chain_partitions_do_not_use_ab=None, rollback_index=header.rollback_index, flags=header.flags,
+        rollback_index_location=header.rollback_index_location, props=None, props_from_file=None,
+        kernel_cmdlines=None, setup_rootfs_from_kernel=None, ht_desc_to_setup=None,
+        include_descriptors_from_image=None, signing_helper=None, signing_helper_with_files=None,
+        release_string=header.release_string, append_to_release_string=None,
+        required_libavb_version_minor=header.required_libavb_version_minor)
+    assert len(blob) <= chain.stat().st_size
+    target.write_bytes(blob + b'\0' * (chain.stat().st_size - len(blob)))
+    new_footer, new_header, new_chain, _ = parse_image(avb, avbtool, target)
+    assert avbtool.verify_vbmeta_signature(new_header, blob)
+    assert public_key(chain, footer, header) == public_key(target, new_footer, new_header)
+    for field in ('flags', 'rollback_index', 'rollback_index_location', 'algorithm_type',
+                  'required_libavb_version_major', 'required_libavb_version_minor', 'release_string'):
+        assert getattr(new_header, field) == getattr(header, field), field
+    assert len(old_chain) == len(new_chain)
+    changed = [(a, b) for a, b in zip(old_chain, new_chain) if a.encode() != b.encode()]
+    assert len(changed) == 1 and changed[0][0] is selected[0]
+    assert changed[0][1].encode() == image_descriptor.encode()
+
+
+def ext4_snapshot(image):
+    """Read existing inodes, external xattrs and every sparse-super copy."""
+    inodes = allocated_inodes(image)
+    with Path(image).open('rb') as stream:
+        def read(offset, amount):
+            stream.seek(offset)
+            value = stream.read(amount)
+            assert len(value) == amount
+            return value
+        sb = read(1024, 1024)
+        assert struct.unpack_from('<I', sb, 92)[0] & 4 == 0, 'Journal allocation is outside this delta'
+        assert struct.unpack_from('<I', sb, 96)[0] & (0x10 | 0x80) == 0, 'meta_bg/64bit unsupported'
+        assert struct.unpack_from('<I', sb, 100)[0] & 0x400 == 0, 'metadata_csum unsupported'
+        block = 1024 << struct.unpack_from('<I', sb, 24)[0]
+        count = struct.unpack_from('<I', sb, 4)[0]
+        per_group = struct.unpack_from('<I', sb, 32)[0]
+        inodes_per_group = struct.unpack_from('<I', sb, 40)[0]
+        group_count = (count + per_group - 1) // per_group
+        assert block == 4096 and struct.unpack_from('<I', sb, 20)[0] == 0
+        descriptor_data = read(block, group_count * 32)
+        groups = [struct.unpack_from('<III', descriptor_data, group * 32)
+                  for group in range(group_count)]
+        sparse = bool(struct.unpack_from('<I', sb, 100)[0] & 1)
+        def power(number, base):
+            while number > 1 and number % base == 0:
+                number //= base
+            return number == 1
+        supers = {1024: sb}
+        for group in range(1, group_count):
+            if not sparse or group == 1 or any(power(group, base) for base in (3, 5, 7)):
+                offset = group * per_group * block
+                backup = read(offset, 1024)
+                assert struct.unpack_from('<H', backup, 56)[0] == 0xEF53
+                supers[offset] = backup
+        external = {}
+        for inode in inodes.values():
+            assert struct.unpack_from('<H', inode, 118)[0] == 0, 'High external-xattr address unsupported'
+            acl = struct.unpack_from('<I', inode, 104)[0]
+            if acl:
+                external[acl] = read(acl * block, block)
+                assert struct.unpack_from('<I', external[acl])[0] == 0xEA020000
+    descriptor_blocks = (group_count * 32 + block - 1) // block
+    metadata_blocks = {offset // block for offset in supers}
+    for super_block in list(metadata_blocks):
+        metadata_blocks.update(range(super_block + 1, super_block + 1 + descriptor_blocks))
+    return dict(inodes=inodes, external_xattrs=external, supers=supers, block_size=block,
+                groups=groups, inodes_per_group=inodes_per_group, blocks_per_group=per_group,
+                allocation_metadata_blocks=metadata_blocks)
+
+
+def preserve_ext4_super_metadata(image, before):
+    """Retain allocation counters, restoring only offline write accounting/time."""
+    current = ext4_snapshot(image)
+    assert current['supers'].keys() == before['supers'].keys()
+    with Path(image).open('r+b') as stream:
+        for offset, old in before['supers'].items():
+            new = current['supers'][offset]
+            # debugfs legitimately updates free counters and write accounting.
+            # Every other byte must already match the original superblock copy.
+            masked = bytearray(new)
+            for start, end in ((12, 20), (48, 52), (376, 384)):
+                masked[start:end] = old[start:end]
+            assert masked == old, f'Unrelated ext4 superblock metadata changed: {offset}'
+            assert struct.unpack_from('<I', new, 12)[0] + 1 == struct.unpack_from('<I', old, 12)[0]
+            assert struct.unpack_from('<I', new, 16)[0] + 1 == struct.unpack_from('<I', old, 16)[0]
+            for start, end in ((48, 52), (376, 384)):
+                stream.seek(offset + start)
+                stream.write(old[start:end])
+    final = ext4_snapshot(image)
+    for offset, old in before['supers'].items():
+        expected = bytearray(old)
+        expected[12:20] = current['supers'][offset][12:20]
+        assert final['supers'][offset] == expected
+    return final
+
+
+def add_system_defaults(workspace, work, avb, avbtool):
+    """Add one compiled file without rebuilding or altering existing ext4 nodes."""
+    system_release, system_sha = INHERITED['system']
+    chain_release, chain_sha = INHERITED['vbmeta_system']
+    base = workspace / f'artifacts/system-hardware-followup-sheng-{system_release}/system.img'
+    chain = workspace / f'artifacts/system-hardware-followup-sheng-{chain_release}/vbmeta_system.img'
+    assert base.stat().st_size == SYSTEM_BYTES and sha(base) == system_sha
+    assert chain.stat().st_size == VBMETA_SYSTEM_BYTES and sha(chain) == chain_sha
+    source = PRODUCT / 'system/etc/device-config-defaults'
+    tree_source = DEVICE / 'configs/device-config-defaults'
+    assert source.read_bytes() == tree_source.read_bytes() == SYSTEM_DEFAULTS_BYTES
+    assert not re.search(r'\s', str(source)), 'debugfs source path must have no whitespace'
+    footer, old_header, descriptors, _ = parse_image(avb, avbtool, base)
+    _, chain_header, chain_descriptors, _ = parse_image(avb, avbtool, chain)
+    selected = [d for d in descriptors if isinstance(d, avbtool.AvbHashtreeDescriptor)
+                and d.partition_name == 'system']
+    old_chain_system = [d for d in chain_descriptors if isinstance(d, avbtool.AvbHashtreeDescriptor)
+                        and d.partition_name == 'system']
+    assert len(selected) == len(old_chain_system) == 1
+    tree = selected[0]
+    assert tree.encode() == old_chain_system[0].encode()
+    assert footer and footer.original_image_size == tree.image_size
+    assert old_header.algorithm_type == 0 and old_header.public_key_metadata_size == 0
+    assert chain_header.algorithm_type == avbtool.ALGORITHMS['SHA256_RSA2048'].algorithm_type
+    assert tree.data_block_size == tree.hash_block_size == 4096 and tree.fec_num_roots == 2 and tree.flags == 0
+    old = ext4_snapshot(base)
+    assert len(old['external_xattrs']) == 2, 'The pinned base has two existing external xattr blocks'
+    before_root = work / 'system-before'
+    before_root.mkdir()
+    debugfs(base, f'rdump / {before_root}')
+    before_files = contents(before_root)
+    assert 'system/etc/device-config-defaults' not in before_files
+    parent = debugfs(base, 'stat /system/etc')
+    assert 'Type: directory' in parent and 'Size: 4096' in parent
+    image = work / 'system.img'
+    shutil.copyfile(base, image)
+    run([HOST / 'avbtool', 'erase_footer', '--image', image], capture_output=True)
+    assert image.stat().st_size == tree.image_size
+    label = work / 'system-file-context'
+    label.write_bytes(b'u:object_r:system_file:s0\0')
+    commands = [f"set_current_time @{struct.unpack_from('<I', old['supers'][1024], 48)[0]}",
+                f'write {source} {SYSTEM_DEFAULTS_PATH}',
+                f'set_inode_field {SYSTEM_DEFAULTS_PATH} mode 0100644',
+                f'ea_set -f {label} {SYSTEM_DEFAULTS_PATH} security.selinux']
+    for field, value in (('uid', '0'), ('gid', '0'), ('atime', '@1230768000'),
+                         ('mtime', '@1230768000'), ('ctime', '@1230768000'), ('crtime', '@1230768000')):
+        commands.append(f'set_inode_field {SYSTEM_DEFAULTS_PATH} {field} {value}')
+    command_file = work / 'add-system-defaults.debugfs'
+    command_file.write_text('\n'.join(commands) + '\n')
+    result = run(['debugfs', '-w', '-f', command_file, image], capture_output=True, text=True)
+    (work / 'add-system-defaults.log').write_text(result.stdout + result.stderr)
+    assert not any(message in result.stderr.lower() for message in
+                   ('not found', 'not open', 'already exists', 'could not', 'usage:',
+                    'no free', 'not enough', 'unknown request', 'command not found'))
+    after = preserve_ext4_super_metadata(image, old)
+    assert old['inodes'].keys() <= after['inodes'].keys()
+    assert all(after['inodes'][number] == inode for number, inode in old['inodes'].items()), 'Existing system inode bytes changed'
+    assert after['external_xattrs'] == old['external_xattrs'], 'Existing external xattrs or reference counts changed'
+    stat_result = debugfs(image, f'stat {SYSTEM_DEFAULTS_PATH}')
+    number = int(re.search(r'Inode:\s*(\d+)', stat_result)[1])
+    assert after['inodes'].keys() - old['inodes'].keys() == {number}
+    inode = after['inodes'][number]
+    assert struct.unpack_from('<H', inode, 0)[0] == 0o100644
+    assert all(struct.unpack_from('<H', inode, offset)[0] == 0 for offset in (2, 24, 120, 122))
+    assert struct.unpack_from('<I', inode, 4)[0] == len(SYSTEM_DEFAULTS_BYTES)
+    assert struct.unpack_from('<I', inode, 104)[0] == 0, 'New SELinux label must remain inline'
+    for offset in (8, 12, 16, 144):
+        assert struct.unpack_from('<I', inode, offset)[0] == 1230768000
+    assert struct.unpack_from('<H', inode, 128)[0] == 32, 'Expected 32-byte extra inode fields'
+    assert struct.unpack_from('<H', inode, 130)[0] == 0, 'No metadata checksum is enabled'
+    for offset in (132, 136, 140, 148):
+        assert struct.unpack_from('<I', inode, offset)[0] == 0
+    actual_label = work / 'system-new-file-label'
+    debugfs(image, f'ea_get -f {actual_label} {SYSTEM_DEFAULTS_PATH} security.selinux')
+    assert actual_label.read_bytes() == label.read_bytes()
+    fsck = run(['e2fsck', '-fn', image], capture_output=True, text=True)
+    (work / 'system-e2fsck-readonly.txt').write_text(fsck.stdout + fsck.stderr)
+    after_root = work / 'system-after'
+    after_root.mkdir()
+    debugfs(image, f'rdump / {after_root}')
+    after_files = contents(after_root)
+    assert {p for p in before_files.keys() | after_files.keys() if before_files.get(p) != after_files.get(p)} == {'system/etc/device-config-defaults'}
+    assert (after_root / 'system/etc/device-config-defaults').read_bytes() == SYSTEM_DEFAULTS_BYTES
+    fs_changes = changed_blocks(base, image, tree.image_size, tree.data_block_size)
+    new_data_blocks = list(map(int, debugfs(image, f'blocks {SYSTEM_DEFAULTS_PATH}').split()))
+    parent_blocks = list(map(int, debugfs(base, 'blocks /system/etc').split()))
+    assert len(new_data_blocks) == len(parent_blocks) == 1, 'Exactly one file block and one existing directory block'
+    inode_group, inode_index = divmod(number - 1, old['inodes_per_group'])
+    _, inode_bitmap, inode_table = old['groups'][inode_group]
+    permitted_blocks = old['allocation_metadata_blocks'] | set(parent_blocks) | set(new_data_blocks)
+    permitted_blocks |= {inode_bitmap, inode_table + inode_index * 256 // old['block_size']}
+    for data_block in new_data_blocks:
+        data_group = data_block // old['blocks_per_group']
+        permitted_blocks.add(old['groups'][data_group][0])
+    assert set(fs_changes) <= permitted_blocks, 'Unrelated ext4 filesystem block changed'
+    command = [HOST / 'avbtool', 'add_hashtree_footer', '--image', image,
+               '--partition_size', SYSTEM_BYTES, '--partition_name', 'system',
+               '--hash_algorithm', tree.hash_algorithm, '--salt', tree.salt.hex(),
+               '--block_size', tree.data_block_size, '--fec_num_roots', tree.fec_num_roots,
+               '--algorithm', 'NONE', '--rollback_index', old_header.rollback_index,
+               '--rollback_index_location', old_header.rollback_index_location, '--flags', old_header.flags]
+    for descriptor in descriptors:
+        if isinstance(descriptor, avbtool.AvbPropertyDescriptor):
+            command += ['--prop', descriptor.key + ':' + descriptor.value.decode('utf-8')]
+        else:
+            assert descriptor is tree
+    run(command, capture_output=True)
+    assert image.stat().st_size == SYSTEM_BYTES
+    run([HOST / 'avbtool', 'verify_image', '--image', image], capture_output=True)
+    _, new_header, new_descriptors, _ = parse_image(avb, avbtool, image)
+    replacement = [d for d in new_descriptors if isinstance(d, avbtool.AvbHashtreeDescriptor)
+                   and d.partition_name == 'system']
+    assert len(replacement) == 1 and replacement[0].root_digest != tree.root_digest
+    for field in ('flags', 'rollback_index', 'rollback_index_location', 'algorithm_type',
+                  'required_libavb_version_major', 'required_libavb_version_minor', 'release_string'):
+        assert getattr(new_header, field) == getattr(old_header, field), field
+    for field in ('dm_verity_version', 'image_size', 'tree_offset', 'tree_size', 'data_block_size',
+                  'hash_block_size', 'fec_num_roots', 'fec_offset', 'fec_size', 'hash_algorithm', 'salt', 'flags'):
+        assert getattr(replacement[0], field) == getattr(tree, field), field
+    assert [d.encode() for d in new_descriptors if not isinstance(d, avbtool.AvbHashtreeDescriptor)] == [
+        d.encode() for d in descriptors if not isinstance(d, avbtool.AvbHashtreeDescriptor)]
+    vbmeta_system = work / 'vbmeta_system.img'
+    replace_chain_hashtree(avb, avbtool, chain, replacement[0], vbmeta_system, 'SHA256_RSA2048')
+    assert changed_blocks(base, image, tree.image_size, tree.data_block_size) == fs_changes
+    assert sha(base) == system_sha and sha(chain) == chain_sha
+    report = dict(system_base_sha256=system_sha, system_base_bytes=SYSTEM_BYTES,
+        vbmeta_system_base_sha256=chain_sha, vbmeta_system_base_bytes=VBMETA_SYSTEM_BYTES,
+        changed_system_files=['etc/device-config-defaults'],
+        system_compiled_inputs={'etc/device-config-defaults': sha(source)},
+        system_new_inode_number=number, system_external_xattr_block_numbers=sorted(old['external_xattrs']),
+        system_filesystem_changed_blocks=fs_changes,
+        system_permitted_filesystem_changed_blocks=sorted(permitted_blocks),
+        system_filesystem_changed_blocks_within_scope=True,
+        all_existing_system_inode_bytes_preserved=True, system_external_xattr_blocks_preserved=True,
+        system_superblock_metadata_preserved=True, system_new_file_metadata_verified=True,
+        system_filesystem_readback_verified=True, readonly_e2fsck_passed=True,
+        system_hashtree_verified=True, only_system_avb_descriptor_changed=True,
+        system_avb_public_key_preserved=True, system_avb_headers_and_properties_preserved=True)
+    return [('system', image), ('vbmeta_system', vbmeta_system)], report
 
 
 def main():
@@ -235,34 +499,18 @@ def main():
     for old, new in zip(embedded_before, embedded_after):
         if not isinstance(old, avbtool.AvbHashtreeDescriptor):
             assert old.encode() == new.encode(), 'Embedded AVB property changed'
-    descriptors = [updated[0] if isinstance(d, avbtool.AvbHashtreeDescriptor) and d.partition_name == 'odm'
-                   else d for d in old_chain]
-    blob = avb._generate_vbmeta_blob(algorithm_name='SHA256_RSA4096',
-        key_path=str(ROM / 'external/avb/test/data/testkey_rsa4096.pem'),
-        public_key_metadata_path=None, descriptors=descriptors, chain_partitions_use_ab=None,
-        chain_partitions_do_not_use_ab=None, rollback_index=header.rollback_index, flags=header.flags,
-        rollback_index_location=header.rollback_index_location, props=None, props_from_file=None,
-        kernel_cmdlines=None, setup_rootfs_from_kernel=None, ht_desc_to_setup=None,
-        include_descriptors_from_image=None, signing_helper=None, signing_helper_with_files=None,
-        release_string=header.release_string, append_to_release_string=None,
-        required_libavb_version_minor=header.required_libavb_version_minor)
-    assert len(blob) <= VBMETA_BYTES
     vbmeta = work / 'vbmeta.img'
-    vbmeta.write_bytes(blob + b'\0' * (VBMETA_BYTES - len(blob)))
-    new_footer, new_header, new_chain, _ = parse_image(avb, avbtool, vbmeta)
-    assert avbtool.verify_vbmeta_signature(new_header, blob)
-    assert public_key(chain, chain_footer, header) == public_key(vbmeta, new_footer, new_header)
-    for field in ('flags', 'rollback_index', 'rollback_index_location', 'algorithm_type',
-                  'required_libavb_version_major', 'required_libavb_version_minor', 'release_string'):
-        assert getattr(new_header, field) == getattr(header, field), field
-    assert len(old_chain) == len(new_chain)
-    changed_descriptors = [(a, b) for a, b in zip(old_chain, new_chain) if a.encode() != b.encode()]
-    assert len(changed_descriptors) == 1
-    assert isinstance(changed_descriptors[0][0], avbtool.AvbHashtreeDescriptor)
-    assert changed_descriptors[0][0].partition_name == 'odm'
+    replace_chain_hashtree(avb, avbtool, chain, updated[0], vbmeta, 'SHA256_RSA4096')
+    outputs = [('odm', image), ('vbmeta', vbmeta)]
+    system_report = {}
+    if baseline.get('add_system_defaults'):
+        system_outputs, system_report = add_system_defaults(workspace, work, avb, avbtool)
+        outputs = system_outputs + outputs
+    # No release output is published until both filesystem/AVB stages pass.
+    assert sha(base) == odm_sha and sha(chain) == vbmeta_sha
     destination.mkdir()
     files = []
-    for partition, path in (('odm', image), ('vbmeta', vbmeta)):
+    for partition, path in outputs:
         target = destination / (partition + '.img')
         shutil.copyfile(path, target)
         assert sha(target) == sha(path)
@@ -279,6 +527,7 @@ def main():
         only_odm_avb_descriptor_changed=True, embedded_avb_properties_preserved=True,
         overlay_certificates_preserved=True, existing_avb_public_key_preserved=True,
         r9_location_chain_preserved=True, hardware_boot_tested=False, runtime_verified=False)
+    report.update(system_report)
     rendered = json.dumps(report, indent=2) + '\n'
     (destination / 'build-result.json').write_text(rendered)
     (destination / 'SHA256SUMS').write_text(''.join(f['sha256'] + '  ' + f['name'] + '\n' for f in files))

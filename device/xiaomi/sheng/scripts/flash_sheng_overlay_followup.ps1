@@ -1,5 +1,5 @@
 param([int]$Revision = 11)
-# Flash only the selected revision's scoped ODM overlays and AVB descriptor.
+# Flash only the selected revision's verified overlay/configuration partitions.
 $ErrorActionPreference = 'Stop'
 $workspace = (Resolve-Path (Join-Path $PSScriptRoot '../../../..')).Path
 $adbPath = Join-Path $workspace 'tools/platform-tools/adb.exe'
@@ -16,6 +16,11 @@ $baselines = @{
         VbmetaSha = '5e3c933a430680a1b150607580c2f711166992b6c0fb9520a8c5ecc6edf0f312'
         ChangedFiles = @('overlay/SystemUIResOverlaySheng.apk')
     }
+    12 = @{
+        OdmSha = 'd947ae93faad87bcb26da93afe245d6528e04f2b698ca4116257d29262ff5aac'
+        VbmetaSha = '43412dea1eebb58489cd8acfec9368123af94090d3b2665aab225abc61f17e78'
+        ChangedFiles = @('overlay/FrameworkResOverlaySheng.apk')
+    }
 }
 if (-not $baselines.ContainsKey($Revision)) { throw 'No verified baseline for this revision.' }
 $baseline = $baselines[$Revision]
@@ -30,6 +35,16 @@ $checks = @(
     'embedded_avb_properties_preserved', 'overlay_certificates_preserved',
     'existing_avb_public_key_preserved', 'r9_location_chain_preserved'
 )
+if ($Revision -eq 12) {
+    $checks += @(
+        'all_existing_system_inode_bytes_preserved', 'system_external_xattr_blocks_preserved',
+        'system_superblock_metadata_preserved', 'system_new_file_metadata_verified',
+        'system_filesystem_readback_verified', 'readonly_e2fsck_passed',
+        'system_filesystem_changed_blocks_within_scope',
+        'system_hashtree_verified', 'only_system_avb_descriptor_changed',
+        'system_avb_public_key_preserved', 'system_avb_headers_and_properties_preserved'
+    )
+}
 foreach ($check in $checks) {
     if ($manifest.$check -ne $true) { throw "Image verification missing: $check" }
 }
@@ -49,15 +64,33 @@ if ($manifest.raw_base_sha256 -ne $expectedOdm -or $manifest.raw_base_bytes -ne 
         $manifest.inherited_image_sha256.vbmeta_system -ne $expectedChain -or
         $manifest.inherited_image_sha256.system -ne $expectedSystem -or
         $manifest.inherited_image_sha256.vendor -ne $expectedVendor) { throw 'Unexpected installed baseline.' }
-$partitions = @('odm', 'vbmeta')
-if (@($manifest.files).Count -ne 2 -or
+if ($Revision -eq 12) {
+    if ($manifest.system_base_sha256 -ne $expectedSystem -or
+            $manifest.system_base_bytes -ne 1005133824 -or
+            $manifest.vbmeta_system_base_sha256 -ne $expectedChain -or
+            $manifest.vbmeta_system_base_bytes -ne 4096) { throw 'Unexpected r12 system baseline.' }
+    if (@($manifest.changed_system_files).Count -ne 1 -or
+            $manifest.changed_system_files[0] -ne 'etc/device-config-defaults') {
+        throw 'Unexpected system image scope.'
+    }
+    $partitions = @('system', 'vbmeta_system', 'odm', 'vbmeta')
+} else {
+    $partitions = @('odm', 'vbmeta')
+}
+$partitionSizes = @{
+    system = 1005133824
+    vbmeta_system = 4096
+    odm = 1141067776
+    vbmeta = 8192
+}
+if (@($manifest.files).Count -ne $partitions.Count -or
         (($manifest.files.partition | Sort-Object) -join ',') -ne (($partitions | Sort-Object) -join ',')) {
     throw 'Unexpected flash partitions.'
 }
 foreach ($file in $manifest.files) {
     if ($file.name -ne ($file.partition + '.img') -or
-            ($file.partition -eq 'odm' -and $file.bytes -ne 1141067776) -or
-            ($file.partition -eq 'vbmeta' -and $file.bytes -ne 8192)) { throw 'Unexpected image size/identity.' }
+            $file.bytes -ne $partitionSizes[$file.partition] -or
+            $file.sha256 -notmatch '^[0-9a-fA-F]{64}$') { throw 'Unexpected image size/identity.' }
     $path = Join-Path $imageDirectory $file.name
     if ((Get-Item -LiteralPath $path).Length -ne $file.bytes -or
             (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() -ne $file.sha256) {
@@ -155,4 +188,4 @@ foreach ($partition in $partitions) {
             (Join-Path $imageDirectory ($partition + '.img'))) | Write-Output
 }
 Invoke-SerialTool $fastbootPath @('reboot') | Write-Output
-Write-Output "Overlay flash complete; boot and visual-layout verification pending. Evidence: $evidenceDirectory"
+Write-Output "Scoped overlay/configuration flash complete; boot and runtime verification pending. Evidence: $evidenceDirectory"
