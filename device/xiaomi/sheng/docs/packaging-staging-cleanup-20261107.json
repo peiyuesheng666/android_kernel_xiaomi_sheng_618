@@ -1,0 +1,79 @@
+{
+  "date_utc": "2026-11-07T04:26:21.687816+00:00",
+  "root": "/root/sheng-lineage/hardware-followup",
+  "cutoff_exclusive": "20261107T040000000000Z",
+  "delete_requested": true,
+  "directories": [
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261106T130341836304Z",
+      "allocated_bytes": 1341419520
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261106T130702289304Z",
+      "allocated_bytes": 3672731648
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261106T151157150999Z",
+      "allocated_bytes": 2271985664
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261106T151319132950Z",
+      "allocated_bytes": 8015298560
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261106T210911092855Z",
+      "allocated_bytes": 1341235200
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261106T211410391756Z",
+      "allocated_bytes": 1341239296
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T000005341281Z",
+      "allocated_bytes": 8015433728
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T010200392114Z",
+      "allocated_bytes": 1341362176
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T012038729719Z-model",
+      "allocated_bytes": 8192
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T012823810130Z-model",
+      "allocated_bytes": 8192
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T012854281077Z-model",
+      "allocated_bytes": 1004920832
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T015722028586Z-location",
+      "allocated_bytes": 1052610560
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T015814323716Z-location",
+      "allocated_bytes": 1523822592
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T022821213489Z-location",
+      "allocated_bytes": 1525432320
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T031519729768Z-overlay",
+      "allocated_bytes": 5482999808
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T031927257680Z-overlay",
+      "allocated_bytes": 4345577472
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-followup/20261107T035959333664Z-overlay",
+      "allocated_bytes": 4345573376
+    }
+  ],
+  "allocated_bytes_total": 46621659136,
+  "small_log_archive": "/root/sheng-lineage/logs/staging-cleanup-20261107T042621Z",
+  "deleted": true
+}

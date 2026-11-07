@@ -1,0 +1,1468 @@
+{
+  "date": "2026-11-07T12:38:56+08:00",
+  "original_path": "C:\\Users\\Dev裴月笙\\Desktop\\XiaomiPad6SProPort6.18\\artifacts",
+  "destination": "E:\\XiaomiPad6SProPort6.18-artifacts",
+  "copied_bytes": 17840941148.0,
+  "verified_files": [
+    {
+      "path": "6.12.96-4k-android16-7-sheng-ack-baseline-baseline.tar.gz",
+      "bytes": 42474883,
+      "sha256": "747ac0a6efe4736961f728bb4b0d5a2c18e01a15fc2f839d6d28de3ab1cd5ea0"
+    },
+    {
+      "path": "6.12.96-4k-android16-7-sheng-ack-baseline-baseline.tar.gz.sha256",
+      "bytes": 124,
+      "sha256": "f490baedc9fbca75de4b81d520ee9173be458a84a116121a79fa2eac961b7e64"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\audio_effects_without_dlb_listener.xml",
+      "bytes": 9763,
+      "sha256": "5efcafd5314bdaaa1b5ee1e9d963f65a77822e28b16365b3347a39d677120749"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\audio_policy_offload_test.xml",
+      "bytes": 30773,
+      "sha256": "f4c3c89ba48313484548c4e3fca9a74a76c2126f390d4dd4f513d83db82fc6be"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\audio.primary.sheng.so",
+      "bytes": 52320,
+      "sha256": "b263527151ab9022ce0753796113a6b3c658a223cc88afa5c0f9aedae7077e44"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\dax-runtime-stereo-working.db",
+      "bytes": 86016,
+      "sha256": "eb96d3a221a30f75665d7199f9961bf79754180bf1c2063f6055576591c3c40a"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-before-quad.so",
+      "bytes": 3276240,
+      "sha256": "3ca4a2266245107a333a11fd449e9989929f20dc81fea8bf4bfadb267eab7186"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-dolby-active-state.so",
+      "bytes": 3276272,
+      "sha256": "a0020da2b20ed9fc8e2a8ef3994e169a2fa84282f2a5b5a1aaa85076007417d8"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-dolby-full-readback.so",
+      "bytes": 3276264,
+      "sha256": "0d6224427c488eb4378eb88aadec9e78c19e61bd44db8c2ff673912296bd06b6"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-dolby-live.so",
+      "bytes": 3276264,
+      "sha256": "5cb2c28e2287dee1ff6391ad16c6fd6059b0e0dbe4737a4abf0b841d9bb6f254"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-dolby-readback.so",
+      "bytes": 3276264,
+      "sha256": "14d106b1db1fa33c066651ac472526abb3b27a35478a66750600f8cbb7763e46"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-dolby-record-readback.so",
+      "bytes": 3276272,
+      "sha256": "c88e0ed84e1af31795c4370824c2df1f8e8505862bdac3e6e76beeed04dde8df"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-dolby-stereo-input.so",
+      "bytes": 3276280,
+      "sha256": "8bedbaeecf06d1994e65e75132cc780d714ea840517be60f435ec84e91c0f6e5"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-dolby-trace.so",
+      "bytes": 3276248,
+      "sha256": "b9325035aa51f800ad08904a2852e98e2cfae20d00de70f73750077104dbfba1"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-native-quad.so",
+      "bytes": 3276264,
+      "sha256": "319e7270a59635eb6764ba112c4846275cb3e5f27eed865365e322a8cb24ad67"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-real-dap-stereo-stage.so",
+      "bytes": 3276272,
+      "sha256": "74f6ef8c82afbb5c7b86761719f00e65e17653c0cf7b47fe29f6373c9839db1e"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-device-record-clean.so",
+      "bytes": 3276272,
+      "sha256": "a0020da2b20ed9fc8e2a8ef3994e169a2fa84282f2a5b5a1aaa85076007417d8"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-dolby-gef-trace.so",
+      "bytes": 3276288,
+      "sha256": "4ef088b465829d8c25d5991fb75ffa0e6e1eb434b44a87055e65a2ce52731bbb"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-final-speaker-mfc-portrait.so",
+      "bytes": 3276264,
+      "sha256": "cbb24166fde6042d1bdfb60a3ae362aa5d0f8559390bff0ac61bd8364c998e1e"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-final-speaker-mfc.so",
+      "bytes": 3276264,
+      "sha256": "66163b3a2488999c1c3702f259f4899dde7d048efb7f4b884a7f6da8833d83d6"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-offload-master-unity.so",
+      "bytes": 3276288,
+      "sha256": "d44700379ac19265cd15db231c050b2e6ef0dcc2c0a6214ecee8352565d50482"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-offload-mono-aligned.so",
+      "bytes": 3276288,
+      "sha256": "30fe55ed4c400c53179af927c2813de1d0e44239b6c5bbf0670ac69c858bb354"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-offload-mono-quad.so",
+      "bytes": 3276288,
+      "sha256": "6a1a15998eea6966ff478931d12e8692990e3da3757625a6323fad889f4a4cec"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-offload-mono-stereo-output.so",
+      "bytes": 3276264,
+      "sha256": "04a34bff772e12ce16c8db18d4cfe8b9a449fac17d323103c8706d2b33a58e59"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-offload-quad-coeff.so",
+      "bytes": 3276248,
+      "sha256": "5824a690de0ab647a12bb0eab665c925ef5a0f9ef2885cb1e79b99da37a9b91f"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-offload-release.so",
+      "bytes": 3276264,
+      "sha256": "c20ed5ddeb7b87d22e8a317f4ab5cae5bb41dc34b1f7ade84dfb0756752bf3de"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-pcm-quad-coeff.so",
+      "bytes": 3276272,
+      "sha256": "bea27cd5c33d0610b516f53dba9cbb1997bc59aedc243fc808087e78a554cf4b"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-quad-rotation-formats.so",
+      "bytes": 3276264,
+      "sha256": "dd9bf2ba4980776ea503b80433e524cce2c670d946e80a7d398683ad7ec538b1"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-quad-rotation-lifecycle.so",
+      "bytes": 3276264,
+      "sha256": "909429e6e01b7b857b105d416d9b8599e88d29ff85a07786385c353cdbbeb448"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-quad-rotation-minus90.so",
+      "bytes": 3276264,
+      "sha256": "7330f53c83a6197cb3340fd30083ad094191c04e7146f99212a927f76df21088"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-quad-rotation-output.so",
+      "bytes": 3276264,
+      "sha256": "94a1b34c0987d4a6746a463f6e5abbccccdc832ca139f3f2c324facb906003d3"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-quad-rotation.so",
+      "bytes": 3276272,
+      "sha256": "11ecf91fac1f8469cd5df66a3b87dfa5c624afa25b32ce57941d60ae1641d811"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\libar-pal-quad-test.so",
+      "bytes": 3276256,
+      "sha256": "469ad4896cb700d4d92d3fa3549e7f740305511527e706294af1415e129cd1c4"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\SHA256SUMS",
+      "bytes": 165,
+      "sha256": "a5fc56b31f76ddc805da25d0b811cbf9847620b9bd853d2881758019c25c4760"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-aac-stereo-probe.m4a",
+      "bytes": 714161,
+      "sha256": "be462b0c86ce3b8ccf021e7177e558115b837be2126d3e58494249ef996715f7"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-aac-stereo-regression.m4a",
+      "bytes": 174482,
+      "sha256": "1c9fa84aa952598718faf6b3b1362f8ea5ba4efdfcd7f68e3f55c5f01162899c"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-acdb-graph-probe",
+      "bytes": 13888,
+      "sha256": "30bd023a1f990fa61175963979dc6306a6d6f3e0e18e2d3df8df0b231cf0351c"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-agm-dap-active-probe",
+      "bytes": 12224,
+      "sha256": "4c6ede0e4eff5d9ee1807747716b49cfe561698e930a462043b7e2a7836271ec"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-agm-dap-probe",
+      "bytes": 11400,
+      "sha256": "c8b853d3715d966795a30e2148e1a31d9211814d7647f79d6e29b25fd4c6dbc3"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-agm-gain-probe",
+      "bytes": 12232,
+      "sha256": "c2907463e20b2e0838c7fb36d85d48506e9ce3d80ef826f19ba86b023a1c669e"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-audio-rotation-probe.jar",
+      "bytes": 1686,
+      "sha256": "dbc215af4340f057db79bb9588b574929df6b054bc3e788ce846f7c41d09cc4c"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-dms-state-probe.jar",
+      "bytes": 6056,
+      "sha256": "1e47bfa6ea2182910dc8a41906ff2c50ab1e363f5373110d0302a7fe26b249ab"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-dolby-channel-probe.jar",
+      "bytes": 3276,
+      "sha256": "d08c7ec01af8ab712d4a0769eb85b82155e364c8b7e137f0dac37d2a2b00f6d8"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-geocoder-probe.jar",
+      "bytes": 6031,
+      "sha256": "838b05d464a2337323140dbf9206670715d0c300b7399d55bcb013ff53d63cd1"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-mp3-mono-probe.mp3",
+      "bytes": 721023,
+      "sha256": "0a0f2541df7079d46ddbc6ca066da522b7430cb6da194ccf6ef9c810257cab48"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-mp3-mono-regression.mp3",
+      "bytes": 384984,
+      "sha256": "a38e7126475c2e12f63b737cf2d032ff4e023089d18ecb53c6912f40dcbb2d9f"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-mp3-stereo-isolation.mp3",
+      "bytes": 1729768,
+      "sha256": "a2bc4a53281a168b2576e55df0cd58563bfddf56b1182cb2fb1e881751b8e5dd"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-network-location-probe.jar",
+      "bytes": 3832,
+      "sha256": "402d75785d65ade9fa54455910bea26620792e946464d4484c89d725d6d8b4dc"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-offload-media-probe.jar",
+      "bytes": 4188,
+      "sha256": "82b6d99b091a3c3d085b805e5604fa4a9812fbaf5f31a6e578b3da3b49232759"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-sensor-probe.jar",
+      "bytes": 4015,
+      "sha256": "a60a3249b7c7fcf9bcda01bb9d442ded9cdaede5a30f49904c5d87a7f002ef06"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-speaker-format-probe",
+      "bytes": 11688,
+      "sha256": "e607512c881a14aab41313807b0461f24d6543110e5ae793a3b093155fa4cf50"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-speaker-matrix-probe",
+      "bytes": 12928,
+      "sha256": "9ea407dc5f82dc3f674caa932a9f59c40b66e0fc6195971cc5e46510f4136101"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\sheng-stereo-probe.jar",
+      "bytes": 2462,
+      "sha256": "5624981d5673992bdcd161555956fbf5b71ce966d6486d3a917ab06193e1ed4e"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\ShengDolby-device-live.apk",
+      "bytes": 65835,
+      "sha256": "458a6cfffb38b2cc231469af68e9b9c0f72f4c4df65e7170e36061ac46d00fa7"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\ShengDolby-lifecycle.apk",
+      "bytes": 24990,
+      "sha256": "9226e3c1e4bac5ed333dfd9b9fad970b8edffd37345702cfef2bdef3f0ef66d4"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\ShengDolby-native-quad-clean.apk",
+      "bytes": 65835,
+      "sha256": "47c2383e9f90cf92666aa78f0f56986b9601c65196aedae0857c18cc92fd3adc"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\ShengDolby-offload-r1.apk",
+      "bytes": 20703,
+      "sha256": "4877af12dda5c09ba03bb5b808770ae5aa34da1ac1312d78a91080efa3405f7c"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\ShengDolby-settings-r2.apk",
+      "bytes": 53738,
+      "sha256": "f6ffc2325bfc38e39f9b10efc376d25dc9f230e5602deaef775525e4203428ea"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\tinymix",
+      "bytes": 18352,
+      "sha256": "1eff7fc0fa957570760573fcf1c69f73503efe379c04798abb7553bb51beda55"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\dolby-compat\\build-result.json",
+      "bytes": 1373,
+      "sha256": "a28b7c52df3fb53a989ec9b40e09cb2af7407823bda0b4ae28f83384866a63bf"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\dolby-compat\\libdlbdsservice.so",
+      "bytes": 463240,
+      "sha256": "8ebcb388211456a1650a2b1574fa75b8dbce1bbbd2d54e7a917238d936775441"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\dolby-compat\\libdlbpreg.so",
+      "bytes": 24208,
+      "sha256": "cb8daa179c62583db86cfcab4564691b232c781a9d6de7a9b0f1ae6df5e9d418"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\dolby-compat\\libdlbvol.so",
+      "bytes": 15264,
+      "sha256": "2bf25ae56fc5d92948d28b5ae5105adc6bae1f142ddaac4927ca4da3f8c80a15"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\dolby-compat\\libhwdap.so",
+      "bytes": 181012,
+      "sha256": "6574b00b37c369a52323902b2a7cee8d433240cfa026d0930f90e08d8d49fd87"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\dolby-compat\\libshgdolby_foundation.so",
+      "bytes": 252816,
+      "sha256": "97a7b4b29feb486a2f2cfd62ea289563129fee2a6be8ab9b6750a3f0ba2ea3c9"
+    },
+    {
+      "path": "audio-diagnostics-sheng\\dolby-compat\\libstagefright_foundation_sheng_dolby.so",
+      "bytes": 288616,
+      "sha256": "0cdac15c226dcd0ea2cc47a7c4bae0091004fa35422bb0f3e64b1a98cfdfab0d"
+    },
+    {
+      "path": "boot-debug-sheng-lineage-24.0-r1\\build-result.json",
+      "bytes": 1042,
+      "sha256": "f8508e57300e7be9ba3b909954c573578c48109781d60f63cfd82194a0492e69"
+    },
+    {
+      "path": "boot-debug-sheng-lineage-24.0-r1\\lineage-24.0-sheng-init_boot-debug-r1.img",
+      "bytes": 8388608,
+      "sha256": "2c48a30e99b71b1bbd3dc6366c7afa190a242230418928f68aa5563bce620a8f"
+    },
+    {
+      "path": "boot-debug-sheng-lineage-24.0-r1\\SHA256SUMS",
+      "bytes": 108,
+      "sha256": "8f91fb474be8bff15f016f43d8a9f88c4b8e87061561f84b8fd4dd411ae586c5"
+    },
+    {
+      "path": "camera-graphicbuffer-sheng-r1\\build-result.json",
+      "bytes": 1573,
+      "sha256": "8641975ec623ee38cc70b1d11b42f5650cc2e8291696194265c5f4b076f12b97"
+    },
+    {
+      "path": "camera-graphicbuffer-sheng-r1\\camera.xiaomi.so",
+      "bytes": 1764768,
+      "sha256": "a6e6a4bad9717aed9e95f2d98b8465b20ee9e07bbedc92c75560eb9ed56543f2"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\boot.img",
+      "bytes": 100663296,
+      "sha256": "7325be6aecbab7e8bfffc41c10cb2ba93b6704e911c3cb6b50952e1dfefe645a"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\build-result.json",
+      "bytes": 20698,
+      "sha256": "2d68cdcd16ae164e3dbd302dec0790c3c8fe3a5f735d41449635c2ab4e41ae17"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\dtbo.img",
+      "bytes": 16777216,
+      "sha256": "4ab8ac751db0786c2546eaf8c5a65d89d7c2e9308e46c186ad0dece4db431101"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\init_boot.img",
+      "bytes": 8388608,
+      "sha256": "509a157bb3249a0ed4cd68f4aa064d4de6464c0abd271a24504456478899341c"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\lineage-24.0-20261105-UNOFFICIAL-sheng.zip",
+      "bytes": 1883238740,
+      "sha256": "76184f072b0b8c9a5144533a2ceb181ff664c8dacdc62a56f68ddf139f907ad9"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\README.txt",
+      "bytes": 1722,
+      "sha256": "db20d209bf80d609e509523cc3265729bd5b80689ce66c77e8fa90f0ae783e04"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\recovery.img",
+      "bytes": 104857600,
+      "sha256": "dd7d8757db7325252f9cf9ded453a9c3f81000cf328ae6ac3c56e48ba5cef281"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\SHA256SUMS",
+      "bytes": 1077,
+      "sha256": "c815085b68bc89749fda6a492a6d18229d751d37f5e410e260ba75a9af21d2ac"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\sheng-build-configuration.tar.gz",
+      "bytes": 237841,
+      "sha256": "f9ec52aaf4c9c847e66d95c6efc63ce70bf876c33ac1d5070d4e8902db51f905"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\source-manifest.xml",
+      "bytes": 305206,
+      "sha256": "adeff634980cf77f6387f6721b6f6df0559faf07893572eb39637d62b2335a5a"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\vbmeta_system.img",
+      "bytes": 65536,
+      "sha256": "6ad25352b1bf85f0333d37febcf759ec7e6edd7c183e874bdb8528ab2c31a744"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\vbmeta.img",
+      "bytes": 65536,
+      "sha256": "c1a05868431ca3ce3bf67298c260eb2580df743487e4839ccab28aef1cd8fc99"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\vendor_boot.img",
+      "bytes": 100663296,
+      "sha256": "bd2f6d0ec504fda7d851046e756e3bdedc18c6c2931e31aafab599ff1d325c56"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\source-patches\\cs35l41-kernel-private-uapi.patch",
+      "bytes": 588,
+      "sha256": "2ec2a3435979f9dd4005d28c8bf5fffab2cab7559fbf963c025ba77752e8f5fe"
+    },
+    {
+      "path": "lineage-24.0-20261105-UNOFFICIAL-sheng\\source-patches\\gsl-prebuilt-header-provider.patch",
+      "bytes": 471,
+      "sha256": "3f23c059c95e864084f54f107a6cc205bbd334be06b6b6a08b5e9f5d94525992"
+    },
+    {
+      "path": "overlay-diagnostics-sheng\\overlay-r11-candidate-20261107-115956\\candidate.apk",
+      "bytes": 8351,
+      "sha256": "bce2b6b8f14673f116ca896a0c4669560e6688441d6538d1d4f33620ab6165a8"
+    },
+    {
+      "path": "overlay-diagnostics-sheng\\overlay-r11-candidate-20261107-115956\\padding-probe.jar",
+      "bytes": 3559,
+      "sha256": "50f4585820cfb063620a04d3a358e2b84fa0f3e08b390fd0aba2f3ca4b037956"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r10-native-source-raw\\lineage-24.0-sheng-recovery-r10-native-source-raw.img",
+      "bytes": 104857600,
+      "sha256": "8d8423a600ad15c1c131a7628aec804300ad520fa02255d6975d69a6b961b117"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r10-native-source-raw\\README.txt",
+      "bytes": 1653,
+      "sha256": "6d507f5556000c93389782c923c108056d39c65128d5b284c91cc64143a8777b"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r10-native-source-raw\\recovery-build-result.json",
+      "bytes": 46713,
+      "sha256": "8ec5bd86250b73e104d752f12d9ff344e14ffab16b40b17622406fc45e702be5"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r10-native-source-raw\\recovery-source-configuration.tar.gz",
+      "bytes": 18602,
+      "sha256": "d8f4e59ee093090d8d9d3be73e59e6c27602341237a7f64725a7f2c02c75db50"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r10-native-source-raw\\SHA256SUMS",
+      "bytes": 393,
+      "sha256": "531de35838e011da2d553a089539ffbe0caf05e272c41183d9bf4eb1739cf3d9"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r11-native-source-touch\\lineage-24.0-sheng-recovery-r11-native-source-touch.img",
+      "bytes": 104857600,
+      "sha256": "5c20a00540ca0a75bd9bbb4ad0756d96225382abe197aafb49b48ced438aca44"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r11-native-source-touch\\recovery-build-result.json",
+      "bytes": 47260,
+      "sha256": "8657ee02c8947935e50f579372b58c7996816c10264fbc7a55a5ccee44cb7af3"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r11-native-source-touch\\recovery-source-configuration.tar.gz",
+      "bytes": 18808,
+      "sha256": "ab52cdf6d1b1378678bd2a712976e0b28d9a5f9d4a224860ebd803ce94497bc2"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r11-native-source-touch\\SHA256SUMS",
+      "bytes": 318,
+      "sha256": "83faa9177a96716e1b8508f42d77faaeee0395b4f4df9737f85d24a2c54324b7"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r12-native-source-touch-rotation\\lineage-24.0-sheng-recovery-r12-native-source-touch-rotation.img",
+      "bytes": 104857600,
+      "sha256": "62049d914a2711e0022aa04670812f3f152c58c9e61082fe7e7de62852d78350"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r12-native-source-touch-rotation\\recovery-build-result.json",
+      "bytes": 47505,
+      "sha256": "45be07774937aa664fa9fcbf7053e2e4cc6736e32cd2e1285657d7551daa1615"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r12-native-source-touch-rotation\\recovery-source-configuration.tar.gz",
+      "bytes": 19011,
+      "sha256": "e82cb03fca693af9e1539c0dee8279636e2374463d34c7d4fd62c2b182b5e466"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r12-native-source-touch-rotation\\SHA256SUMS",
+      "bytes": 327,
+      "sha256": "cab4d29881dc3b186a4eff08b23f464ef80cf768a7651597ea0d52d65329202e"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r13-native-source-fast-touch\\lineage-24.0-sheng-recovery-r13-native-source-fast-touch.img",
+      "bytes": 104857600,
+      "sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r13-native-source-fast-touch\\recovery-build-result.json",
+      "bytes": 48298,
+      "sha256": "6950377b3cd6c4381d758e658c7dc406c643a14a53d33883d4a94bc58a433726"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r13-native-source-fast-touch\\recovery-source-configuration.tar.gz",
+      "bytes": 20766,
+      "sha256": "06587b98e4018e64d67f6867c04ade896ac8d50b1a4b08ba16e70d2385745f4a"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r13-native-source-fast-touch\\SHA256SUMS",
+      "bytes": 323,
+      "sha256": "f87869ba6687f735651d6ad84646c35d9f26ffa2a844ce9c16f6e3520152d83c"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r2\\lineage-24.0-sheng-recovery-r2.img",
+      "bytes": 104857600,
+      "sha256": "43c65078ab22ce7465298b488841e741913d975f38e118fbd36701138840f3b4"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r2\\README.txt",
+      "bytes": 1885,
+      "sha256": "110c162b6bfcdc47edddccd5ef74769393033d94d3b747d757602c3b9e59a079"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r2\\recovery-build-result.json",
+      "bytes": 45007,
+      "sha256": "853bd61061d78665eb05a5cd43ac0cc38f6b061f1ef06f7e4bb02d511a8aa17e"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r2\\recovery-r2-source.tar.gz",
+      "bytes": 8835,
+      "sha256": "de0c90ffccb6fc8a773f0ac54fd3b57c2d5199e5c4a026ce7ab4cb584dd299cb"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r2\\SHA256SUMS",
+      "bytes": 194,
+      "sha256": "d809ec075b74f5296b459cd7c5c64ec9ff6e396c6aec3cefd8e5066419e81b2b"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r3-serial\\lineage-24.0-sheng-recovery-r3-serial.img",
+      "bytes": 104857600,
+      "sha256": "4367acd06b61b6d3699134865b622220411a81e9167ee40c95e867d3ce57f90a"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r3-serial\\README.txt",
+      "bytes": 2249,
+      "sha256": "57d63d71422e5ebac94201bfc7a815d7082539d8b018085d24d3a60a6b0c9d6f"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r3-serial\\recovery-r3-source.tar.gz",
+      "bytes": 11929,
+      "sha256": "21749900bfb30be3253cf25788cf23c60691c4e417934777eade25b3a0be174b"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r3-serial\\serial-build-result.json",
+      "bytes": 5035,
+      "sha256": "5c43bdadbd5d50a5a55dda80ea8eadac23c8ff029f5144f23770b65edcdcac35"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r3-serial\\SHA256SUMS",
+      "bytes": 201,
+      "sha256": "ca49c5332db55b9c6a4c0f22054e664dda92d63e750892ed7eada788233441de"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r3-serial\\start-capture.cmd",
+      "bytes": 115,
+      "sha256": "6ce89646a960fe971726375c9a966d0b686739c0e158d60c244d3770f447f16a"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r4-serial\\lineage-24.0-sheng-recovery-r4-serial.img",
+      "bytes": 104857600,
+      "sha256": "f7387c1d24826cf86e64f6db35372cee752c09834362c8f48f88dd7b50cc76d9"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r4-serial\\README.txt",
+      "bytes": 1892,
+      "sha256": "95f24699bd6ac78c361905ff2018562012e8f487ed9dbd513a53c525e73f79cd"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r4-serial\\recovery-r4-source.tar.gz",
+      "bytes": 12889,
+      "sha256": "84fcaf08f1b3dd7e55642f75e6696c9862334c4359d43f1292c11203a6ba5537"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r4-serial\\serial-build-result.json",
+      "bytes": 5035,
+      "sha256": "64ee7193c0cd609c9bd7d0861e347bcd103a7fc7e688e9baad241adc30299096"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r4-serial\\SHA256SUMS",
+      "bytes": 201,
+      "sha256": "2d15cc5db6a11205e7dbf9b80d181f813e6fa4922536cd7938c819cf6b396d70"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r5-adb\\lineage-24.0-sheng-recovery-r5-adb.img",
+      "bytes": 104857600,
+      "sha256": "9f25b8e681a84f34460432ca312efccbb87b597410ace08a32b14fa1b1bad3b5"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r5-adb\\serial-build-result.json",
+      "bytes": 5439,
+      "sha256": "54b2dcfd9fb9f84dfe82900f7d91c06d1d116130f58845c061dd2332e3c1f656"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r5-adb\\SHA256SUMS",
+      "bytes": 105,
+      "sha256": "67ed4524ad951dd2cd4a3af8cc9e3bfba0c281a416bd6d34395141d9e5dc3744"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r6-qti\\lineage-24.0-sheng-recovery-r6-qti.img",
+      "bytes": 104857600,
+      "sha256": "14b129e555f29ae87a09f6432fb7341bdd410aab796fe331b46838a92678eafc"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r6-qti\\recovery-build-result.json",
+      "bytes": 5488,
+      "sha256": "2ff9f24d82d9e6d8f415ed646889998f743746e3c474d5ded757a1e346a18a64"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r6-qti\\SHA256SUMS",
+      "bytes": 105,
+      "sha256": "10db8f11e49688d3e396026cf349dd7ec48e83a5ce72977fe098c7412d912229"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r7-qti-handoff\\lineage-24.0-sheng-recovery-r7-qti-handoff.img",
+      "bytes": 104857600,
+      "sha256": "e07872b95e60455ba9129dca56538eca4dc019597aecfcfec12ee69e8b45f4ef"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r7-qti-handoff\\recovery-build-result.json",
+      "bytes": 5849,
+      "sha256": "f39c18732b1def1a50457cfcb086b970892a9cfbe5f7481f5eb4e27a277751b8"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r7-qti-handoff\\SHA256SUMS",
+      "bytes": 113,
+      "sha256": "04712932633fe889aac4c06577a6b82028f05657bd64e9766a6b674817882128"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r8-source-touch\\lineage-24.0-sheng-recovery-r8-source-touch.img",
+      "bytes": 104857600,
+      "sha256": "f73a8167305dff80843632ff5d2f167f101af5af69dc974e99a8a0e9d0c0ecb9"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r8-source-touch\\recovery-build-result.json",
+      "bytes": 45288,
+      "sha256": "b7df395eb0408fc7f37c36a144476189dcadd5bca0e2f2c4ef1ce64713df33e1"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r8-source-touch\\recovery-source-configuration.tar.gz",
+      "bytes": 17623,
+      "sha256": "d17708601e271a072ebd4dca127fbd5cf5beba87ea1f2482aa93934cbf3c3165"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r8-source-touch\\SHA256SUMS",
+      "bytes": 310,
+      "sha256": "93f9729c8c2514f5198e8522549a46a54444620beed45894aeb2a1086b5f4432"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r9-native-source-touch\\lineage-24.0-sheng-recovery-r9-native-source-touch.img",
+      "bytes": 104857600,
+      "sha256": "5ab6ec2a9f6b94a86790f97b642c3e98f812e682216747c659efed8144f1cdf8"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r9-native-source-touch\\recovery-build-result.json",
+      "bytes": 45509,
+      "sha256": "6208368dd8c5d91b775ecbe9fb147d55a7039f6743fd4066bf4e0f7fb025a764"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r9-native-source-touch\\recovery-source-configuration.tar.gz",
+      "bytes": 17977,
+      "sha256": "26ff85cfa21d2b72e87444fe29cd1b4bdafbc58cb6d46953ad918ab16e04d60f"
+    },
+    {
+      "path": "recovery-sheng-lineage-24.0-r9-native-source-touch\\SHA256SUMS",
+      "bytes": 317,
+      "sha256": "68be87ccf97e62d289aa4cac19c3304c8bc0b9e5a2269c0aea92cd6e5defa01a"
+    },
+    {
+      "path": "sheng-native-refresh-test\\composer",
+      "bytes": 662288,
+      "sha256": "77aad19f59efafb33292bfe72e711ee9a5ad2fd4f8d8aa33c9150490ec8369b6"
+    },
+    {
+      "path": "sheng-native-refresh-test\\composer-submode",
+      "bytes": 662280,
+      "sha256": "9e63ad5832faa6a90362865643f92e8cc5e24cb95d81341041fcc6690f8b9caa"
+    },
+    {
+      "path": "sheng-native-refresh-test\\libsdedrm.so",
+      "bytes": 350768,
+      "sha256": "522eb9ca49f7fdbfd6dcf72c01cfba16b6f7ba449cace26e113ed5417639849b"
+    },
+    {
+      "path": "sheng-native-refresh-test\\libsdmdal.so",
+      "bytes": 267256,
+      "sha256": "3017b4b489c6921e79056cffeff5cc0c745973d72c18f58cfd6e2be98128759f"
+    },
+    {
+      "path": "sheng-native-refresh-test\\sheng-drm-mode-probe",
+      "bytes": 650832,
+      "sha256": "cc6910f6c9b3ccfc22a6d88574aaa5a8c3dca325f2b36dcebd9119d370220d31"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-cabcmovieon-command",
+      "bytes": 18,
+      "sha256": "1c872a6472d540a51a9dc4b5c8993bf30d14eea1acb4c532e718333d387f0dfb"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-cabcmovieon-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-cabcoff-command",
+      "bytes": 18,
+      "sha256": "be089d89ad92212f9097d31c287dd3be027a1beb0e0233a279f1c0b230f28571"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-cabcoff-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-cabcstillon-command",
+      "bytes": 18,
+      "sha256": "0f233c69bf64920333a9ee227ec3d9e235893e10a92e41c345c033d191859c3e"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-cabcstillon-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-cabcuion-command",
+      "bytes": 18,
+      "sha256": "385f6bc35ae078d5d259bd798183a085e31ac968a75b863692792574d22b4438"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-cabcuion-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-dimmingon-command",
+      "bytes": 36,
+      "sha256": "033004721277c848c63abfb68d01e5781b4e321e75c336605aca8062e3a98e28"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-dimmingon-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-disable-insert-black-command",
+      "bytes": 18,
+      "sha256": "3cc33b8276ad19fe67eacba3c6ca82de78cb1601e42c0e943ddd0ddfecd6ab1a"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-disable-insert-black-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-dispparam-pen-clear-command",
+      "bytes": 27,
+      "sha256": "612f8635e8a214e3ad71001ffdd1702f863e3c18fd27f227a6d913e7c497ac9a"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-dispparam-pen-clear-command-state",
+      "bytes": 12,
+      "sha256": "fe74fb6104e6a0346110ac902492bb760008e8ecea9aa82f84d5bfa680fd427c"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-insert-black-screen-command",
+      "bytes": 18,
+      "sha256": "36abed403a6df6b83b201ae7b197cd85df1bb557352bbfc3d14128337d5e65c5"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-insert-black-screen-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-max-luminance-read-command",
+      "bytes": 8,
+      "sha256": "7cd5f8d52f11baa60d19c5dfdd7fec49f5bc6ffa2a77bf85fc515d272a9049a1"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-max-luminance-read-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-max-luminance-write-command",
+      "bytes": 9,
+      "sha256": "f1b449932106480807960f6b04300b2ccaab9c37046530180325177fdd52a9a1"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-max-luminance-write-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-supported-fps-list",
+      "bytes": 4,
+      "sha256": "514dbe30be13c58300858acaab2a7c900d0ff0c385b175ea1c9a0a7eb8991db9"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-xy-coordinate-command",
+      "bytes": 17,
+      "sha256": "f222b10019b218771823304e15104d996e30b274e36662bd8ae062de85e61c84"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\mi,mdss-dsi-xy-coordinate-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\name",
+      "bytes": 7,
+      "sha256": "7d8ce6b6604063b722afce649fe090ce6044370077e2dcda5400b97e436cd090"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,compression-mode",
+      "bytes": 4,
+      "sha256": "51356f7effbdebd2fb56be7eb9bbe86966f7ca30c496e84c471c793ff3ef7078"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,default-topology-index",
+      "bytes": 4,
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,display-topology",
+      "bytes": 12,
+      "sha256": "3ef24e8c801ac4e2d7c23d9c68083d7ab7c4c6b4db1ab41e94ee173a26ff0701"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsc-bit-per-component",
+      "bytes": 4,
+      "sha256": "17eb70034b5b71092521d184c5e7b069d47de657e51aef2be11a00c115036943"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsc-bit-per-pixel",
+      "bytes": 4,
+      "sha256": "17eb70034b5b71092521d184c5e7b069d47de657e51aef2be11a00c115036943"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsc-block-prediction-enable",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsc-scr-version",
+      "bytes": 4,
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsc-slice-height",
+      "bytes": 4,
+      "sha256": "5085cb99dbe1e374ccd321e5b58182d2c42cf4840c68cfab17b0618a8285e7d6"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsc-slice-per-pkt",
+      "bytes": 4,
+      "sha256": "433ebf5bc03dffa38536673207a21281612cef5faa9bc7a4d5b9be2fdb12cf1a"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsc-slice-width",
+      "bytes": 4,
+      "sha256": "e3bdc24613ff1c80d0ecc7d7184d01097950763a2f3547a815bd6a13d48f8a85"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsc-version",
+      "bytes": 4,
+      "sha256": "8e00d1c0c8ffe94540e534e256d4589be3e3865dc0559a732697aef38a364e83"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-displayoff-command",
+      "bytes": 9,
+      "sha256": "54ea23b39cd13a3fab318a694430ab3ad7dbd52552dffcafdbf31c76e9ed8007"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-displayoff-command-state",
+      "bytes": 12,
+      "sha256": "fe74fb6104e6a0346110ac902492bb760008e8ecea9aa82f84d5bfa680fd427c"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-displayon-command",
+      "bytes": 9,
+      "sha256": "2f6bf724d60b20c8d564bd6fda0d7639d427de19ad669a426dffc1f77cda2d09"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-displayon-command-state",
+      "bytes": 12,
+      "sha256": "fe74fb6104e6a0346110ac902492bb760008e8ecea9aa82f84d5bfa680fd427c"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-h-back-porch",
+      "bytes": 4,
+      "sha256": "daceee899cdb68711b2b16b1708d684b193062163a2ef8ca80e5a3f002212822"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-h-front-porch",
+      "bytes": 4,
+      "sha256": "719b774d7d3b2ebd5e2ce1cde4f59a2ebb8f1f7069daa0baecc564a83abd5bc6"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-h-left-border",
+      "bytes": 4,
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-h-pulse-width",
+      "bytes": 4,
+      "sha256": "433ebf5bc03dffa38536673207a21281612cef5faa9bc7a4d5b9be2fdb12cf1a"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-h-right-border",
+      "bytes": 4,
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-h-sync-skew",
+      "bytes": 4,
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-off-command",
+      "bytes": 45,
+      "sha256": "27e68b2abafd6648d05b8b47fb7bade3f0c86a6d63fa9ac07290ac4d979950de"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-off-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-on-command",
+      "bytes": 877,
+      "sha256": "abe6c86dc7fb89b07a235163753b1b25be3c451b9deda34aeff874208270231b"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-on-command-state",
+      "bytes": 12,
+      "sha256": "0faa364c59f9fe1d6b8508ecbb61299369c36a65e4998c3dd3a9f0ff04eea1a4"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-panel-clockrate",
+      "bytes": 4,
+      "sha256": "22c89184c58f824d010e681b926ee8406cb4dcba54f559bf02bd1742dd9ff7b2"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-panel-framerate",
+      "bytes": 4,
+      "sha256": "514dbe30be13c58300858acaab2a7c900d0ff0c385b175ea1c9a0a7eb8991db9"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-panel-height",
+      "bytes": 4,
+      "sha256": "93f41ef553439e9dba1693f4fcf7103773dcbb10f7f2d449797f258add9458cb"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-panel-phy-timings",
+      "bytes": 14,
+      "sha256": "ad79573226cf9bc8288e8a8609b62497a0de4705e58af3f7aa731e48eeafa2a1"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-panel-width",
+      "bytes": 4,
+      "sha256": "042ee98afa2ddbffe7a3aac1ecabed5a988796d3a4b667dacb6feeae9ea5019d"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-timing-switch-video-command",
+      "bytes": 27,
+      "sha256": "218396d1180033155761bbfe3290b162b363baa553b0880a4419dc04e04f8ec2"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-timing-switch-video-command-state",
+      "bytes": 12,
+      "sha256": "fe74fb6104e6a0346110ac902492bb760008e8ecea9aa82f84d5bfa680fd427c"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-v-back-porch",
+      "bytes": 4,
+      "sha256": "8f784a056143fe39c950668743001b1ac86f805fe5664325bc4aa14d06ca3175"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-v-bottom-border",
+      "bytes": 4,
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-v-front-porch",
+      "bytes": 4,
+      "sha256": "c1c3c8fdf22e3a4adef796c8fdaf739d7d3b222f995891eb8f495ca71fb932a8"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-v-pulse-width",
+      "bytes": 4,
+      "sha256": "433ebf5bc03dffa38536673207a21281612cef5faa9bc7a4d5b9be2fdb12cf1a"
+    },
+    {
+      "path": "sheng-native-refresh-test\\dt144\\qcom,mdss-dsi-v-top-border",
+      "bytes": 4,
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "path": "system-audio-offload-sheng-r1\\build-result.json",
+      "bytes": 2154,
+      "sha256": "364fb2e00e512a8b5dc28f98828d278ddffaaabf943b1c490b46a91a21652b75"
+    },
+    {
+      "path": "system-audio-offload-sheng-r1\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "aac43d3bb4a7b1a2db34ac7f29b0bd2feba5407401e54bcd4e50222ba2dcf1fa"
+    },
+    {
+      "path": "system-audio-offload-sheng-r1\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "1fb562d742ac2921a95c0ad54d8761e3a4ece1334cdbfcdc54c25170e0941d3f"
+    },
+    {
+      "path": "system-audio-pcm-sheng-r1\\build-result.json",
+      "bytes": 1498,
+      "sha256": "2e4b74e8c798544670d25a2ebffda0fac300343205c4376c01b415eeb00dcc0f"
+    },
+    {
+      "path": "system-audio-pcm-sheng-r1\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "6aaa327d19de9704c9b0aec8cf9bf02e5c33febf9d0cd03c3ffd795ee1043d5c"
+    },
+    {
+      "path": "system-audio-pcm-sheng-r1\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "7762d270cee1aad7d24d7d4589df8005c8bc77f49d29994e15d90a4904a54bd8"
+    },
+    {
+      "path": "system-audio-pcm-sheng-r2\\build-result.json",
+      "bytes": 1649,
+      "sha256": "ff9d0fc25030f396bf1695e91b63855dda1dc8f09b4c0102469119c62407f99b"
+    },
+    {
+      "path": "system-audio-pcm-sheng-r2\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "95a9e99881f48a558da3180f1c2528cd926e30f710ea9e0192d70c39a8b90df9"
+    },
+    {
+      "path": "system-audio-pcm-sheng-r2\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "c7b454eca8ef011c5ff3dc74003f2aff7f515df7667c85de4f29ec6f561ce5c4"
+    },
+    {
+      "path": "system-boot-fix-sheng-lineage-24.0-r1\\build-result.json",
+      "bytes": 1008,
+      "sha256": "341c6d57f04ebff4b3b2d295920f7c9a1e1ddefc8ce7f947d7c662a241f6e632"
+    },
+    {
+      "path": "system-boot-fix-sheng-lineage-24.0-r1\\SHA256SUMS",
+      "bytes": 165,
+      "sha256": "7eb8e5316546dd73f090ef87a99bffd7c90f9f641ff1d67fd4b4f9633f09db3c"
+    },
+    {
+      "path": "system-boot-fix-sheng-lineage-24.0-r1\\system_ext.img",
+      "bytes": 469950732,
+      "sha256": "4135580582cd64cd75fc59eb4a4e547c8340174ee5703b3b1cab887d5f93a4a4"
+    },
+    {
+      "path": "system-boot-fix-sheng-lineage-24.0-r1\\vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "de2ef601ac755772662dd9b8496bb78190af4f4ab8760c4f4fe078fc04cf5fa7"
+    },
+    {
+      "path": "system-bringup-sheng-r2\\build-result-camera-groups-verified.json",
+      "bytes": 1480,
+      "sha256": "2ab7935cb73aa90d6f731cc4850d56df62a3ad3a8421189751ae4c177eff2dca"
+    },
+    {
+      "path": "system-bringup-sheng-r2\\build-result.json",
+      "bytes": 1480,
+      "sha256": "f56d5a46ab3b937fe3a7b85a0238f5219c59abef81b80db3a6cd2cd68630652a"
+    },
+    {
+      "path": "system-bringup-sheng-r2\\odm.img",
+      "bytes": 1141067776,
+      "sha256": "380aac5b18d5573a8389847553ffcdfdbbf8422413548daddd3389f5bcc76b6d"
+    },
+    {
+      "path": "system-bringup-sheng-r2\\vbmeta-before-dolby-policy.img",
+      "bytes": 8192,
+      "sha256": "a539a64ffe56d7848da642a25cb4ba734caeccff5fa3994b4f93fc28464d9110"
+    },
+    {
+      "path": "system-bringup-sheng-r2\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "4f1f552165c28bf9216b6ee1238e40c121237607526fca67b4c3b7b819657e1d"
+    },
+    {
+      "path": "system-bringup-sheng-r2\\vendor-before-dolby-policy.img",
+      "bytes": 303517696,
+      "sha256": "95770b6f592268d2ab172301f8f9a7bae650b879d72e21415bbef5a2045b97ef"
+    },
+    {
+      "path": "system-bringup-sheng-r2\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "a4f8d6aca18835ac05f589261b848cae672fbb5d071b84afffd4e8bf5f3b1052"
+    },
+    {
+      "path": "system-display-fix-sheng-lineage-24.0-r1\\build-result.json",
+      "bytes": 1335,
+      "sha256": "9dce795ebb9de42c1a0b5482a149a09dcbb38d9594887600c3226b54248de88f"
+    },
+    {
+      "path": "system-display-fix-sheng-lineage-24.0-r1\\odm.img",
+      "bytes": 1141067776,
+      "sha256": "f0cf462d4ffc4193fa2c6f426ec4635d19d7553cdc13ecfaa770630ed2ad84d1"
+    },
+    {
+      "path": "system-display-fix-sheng-lineage-24.0-r1\\SHA256SUMS",
+      "bytes": 153,
+      "sha256": "a186cd5c6942a0c7b8105e734b33c7bf7728ec8d4ee386f73d2af67cbfe6b2a8"
+    },
+    {
+      "path": "system-display-fix-sheng-lineage-24.0-r1\\vbmeta-chain-fixed.img",
+      "bytes": 8192,
+      "sha256": "f0a9d448f68ee32a09e3597750089e4c8334f23b4cc42a977ee72768fdd76ed5"
+    },
+    {
+      "path": "system-display-fix-sheng-lineage-24.0-r1\\vbmeta-chain-fixed.json",
+      "bytes": 437,
+      "sha256": "481a37dab0f19e5bbea7ff125576e1d4d2adc61f4bd386d10a2425f3fbb3faff"
+    },
+    {
+      "path": "system-display-fix-sheng-lineage-24.0-r1\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "f0a9d448f68ee32a09e3597750089e4c8334f23b4cc42a977ee72768fdd76ed5"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r1\\build-result.json",
+      "bytes": 1866,
+      "sha256": "c40025ed3227267664385946038a1a9eeef04215aa2581e566e2640bb8851d6b"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r1\\SHA256SUMS",
+      "bytes": 319,
+      "sha256": "ccdaf4edabc02aeb0d0255e52ae3037957d79a505b0324840de622e7a9af6b0e"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r1\\system_ext.img",
+      "bytes": 469979404,
+      "sha256": "ba3e8146564e864495739acf8c6d8af2192f525cf841f892cee1d980c29cd66d"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r1\\vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "47574c9f6ed516f5b59258a1506a2de73bf3c52d075c43dc8f82d2e540cf127c"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r1\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "0451e38f7b058317d0a1d6c8bb23222242b8092ee25ed7b2247e2d3d3e10bd27"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r1\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "000a58d1553e1c443c3259421a6d59543b3affe766fd486fcda6e913d3a3eee7"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r10\\build-result.json",
+      "bytes": 2291,
+      "sha256": "2ff9320e268172ef963a0563ff60101b196897d88c84eccd7378ddb45d5a544b"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r10\\odm.img",
+      "bytes": 1141067776,
+      "sha256": "35ceeb371eedb76f4d268ae5a65387f2353150e6b86a84366039821aa69b4d0c"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r10\\SHA256SUMS",
+      "bytes": 151,
+      "sha256": "b8cfabaa77667947d1a33a367477b7f856d87e8d10d391b83519dc5c6443e572"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r10\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "5e3c933a430680a1b150607580c2f711166992b6c0fb9520a8c5ecc6edf0f312"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r11\\build-result.json",
+      "bytes": 2009,
+      "sha256": "0172349d8a556523c3ecccb9863babc296ada87436eac9ff78a5d770223e6300"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r11\\odm.img",
+      "bytes": 1141067776,
+      "sha256": "d947ae93faad87bcb26da93afe245d6528e04f2b698ca4116257d29262ff5aac"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r11\\SHA256SUMS",
+      "bytes": 151,
+      "sha256": "9fd17c3408eeb045d5ad122a64801a03b9d45c578359f52ab44f15230a8decf4"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r11\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "43412dea1eebb58489cd8acfec9368123af94090d3b2665aab225abc61f17e78"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r2\\build-result.json",
+      "bytes": 6757,
+      "sha256": "c241de3cfd01d54ed209fa571d1455c6e5274a3570be3fc8ed71e16bf364d854"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r2\\odm.img",
+      "bytes": 1141067776,
+      "sha256": "9f8cbc7ee5603773a1d7d0b603027d921e5d06a95e4f3fa8fbcf91fe636367ab"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r2\\SHA256SUMS",
+      "bytes": 393,
+      "sha256": "307e80cff4c314cfe2704cd1c9fcac9dca2e6d08f3970838c5c1f8fe12a52ae1"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r2\\system_ext.img",
+      "bytes": 469995788,
+      "sha256": "6fc35a1aaf69450f9540ae4d297b2b643dfef9801eeda98ba2bf4bb334a47916"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r2\\vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "56a22ad46eb3eaeb39bfcefa144c63b2a531a975d77ff6513beca4cd6dc450a7"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r2\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "a81f46817a109441ec8e5a6495b2d953ee00dc28799b65c0ecf61e20755f2400"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r2\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "ad30430f551ddef2f762e0800bcca97f389be6a97f5f69f737c186736d02adf5"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r3\\build-result.json",
+      "bytes": 1472,
+      "sha256": "88f6546a7d0a99b38448a589c875d2288905c3fd83872a215ca6ef9e1115c604"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r3\\SHA256SUMS",
+      "bytes": 154,
+      "sha256": "821ce924d4444680aaaea91bffc6292237b6fd8fc10cffbfd768648000829a1f"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r3\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "9de664a0271086cdc45aef649469d7a89fcccc245fa76533aa4cacb99ff4b042"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r3\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "934b8f64331b9985b1c229c485916ede8575880fcb43cbe765aa1a11d6e3b8de"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r4\\build-result.json",
+      "bytes": 1520,
+      "sha256": "50f84540c095da5508c7052986d7664eeca04018ceaed02b91619c8409917ca1"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r4\\SHA256SUMS",
+      "bytes": 154,
+      "sha256": "e2f54d658213d5ee24c9330626b4dde03225045972a0e95bc9298389ac30a41b"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r4\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "5ceb8b1e2f9fadda1935f7d8bc1c5410eddc64f839b73a972a0b99c3248fd3ff"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r4\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "0982fd68ff6cfc40e11ef338a62b9468e415236a7e31692740af3acd5ee6cece"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r5\\build-result.json",
+      "bytes": 2199,
+      "sha256": "f3ec5606b93115a214789ded7572fb19fdac4ae1d6b937b0c3acf2c3795cfe13"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r5\\odm.img",
+      "bytes": 1141067776,
+      "sha256": "9735c4f6aa8dcc1f3b327b54ebc47f16b4c697e26095f7530d4671dfda3aac4d"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r5\\SHA256SUMS",
+      "bytes": 393,
+      "sha256": "24a6b7622af296f2883aa1cf48685b3c779495e801e2295739137b693a27c7a3"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r5\\system_ext.img",
+      "bytes": 469995788,
+      "sha256": "ecfe2fb32bc2e7b2651787c4cbefe27c553da0b66cdfb3284ea735c3e884d348"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r5\\vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "cbc5326ebc2529cb108ff0673357c3fd6f3b44096ed42dbd00e0a7742833f06b"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r5\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "948bbcaecbea5d3e8af8fb986f4ab97c5f95c117b15b9cb7a9fa1123a761a5dc"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r5\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "47c65508aabc01e14d8aaf0befd38339e74c317a4df7c4d3c1c04bf98ce972a5"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r6\\build-result.json",
+      "bytes": 1496,
+      "sha256": "b707ecce01128b1ed12087860ceb926e4a1928ddff3aa1f52308722eca53827c"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r6\\SHA256SUMS",
+      "bytes": 154,
+      "sha256": "d11ca86509d9b26f1e51b32781c9469c2ba78478977b6d2fa960b669dfa5c666"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r6\\vbmeta.img",
+      "bytes": 8192,
+      "sha256": "488757df791a7cdf9387e2b81b30fbddb2210a6a0ccdf338048dc8f0c75e33af"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r6\\vendor.img",
+      "bytes": 303517696,
+      "sha256": "c663a57f003d3cd0791ec2a7b50ad36ed1e1d1d96c0b4b414adc5b3bc63ef038"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r7\\build-result.json",
+      "bytes": 2560,
+      "sha256": "87cf86830b1ff67bfc8353cf32a1c89bebbd18aab95e3d473ec38cdba25dcdb1"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r7\\SHA256SUMS",
+      "bytes": 161,
+      "sha256": "34bfce08cfa95245ce15f7b8bc008b0a432020a7aa90b481664574c7f547b92a"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r7\\system.img",
+      "bytes": 1005133824,
+      "sha256": "50cb7ebad3703ca03734f566aa6ea1f462675f4b361c968849b913b33e932089"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r7\\vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "5990b5c9fae89018ff9efb38ab338c48fc7c635f34fa95216a9f5a2c69fb212b"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r8\\build-result.json",
+      "bytes": 2133,
+      "sha256": "297935aa83a92bbaac2e9aa3da2de62e4b484c9de781727854a4f73120c47fcd"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r8\\SHA256SUMS",
+      "bytes": 165,
+      "sha256": "9ea93c03360b62d88cb6816390f2381d95dec250ffc139b4eed83c08594def6b"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r8\\system_ext.img",
+      "bytes": 572813312,
+      "sha256": "9c93c87fbfb987980303408f91e776a03c3db30183a7f99d2c50ed51125ec117"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r8\\vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "b47236ecae53c69bd27027ea6ae1af5e72e582134d0a30933aa9426ac7f59692"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r9\\build-result.json",
+      "bytes": 2271,
+      "sha256": "35dad38c79e7d0690dc14993097bd88fd86869480a280ffa94564ee0121577bf"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r9\\SHA256SUMS",
+      "bytes": 165,
+      "sha256": "8c7b67f9ee60ecf04b8199aace63402c8bbeb3fa419761f78f2ffdc6680314d1"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r9\\system_ext.img",
+      "bytes": 572813312,
+      "sha256": "7a4e2a739f9cbc3a9713113e40f8a181dde34875c1ef0abee5e53411de58c573"
+    },
+    {
+      "path": "system-hardware-followup-sheng-r9\\vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "c0a925d91b33750a09eea0b99beeb759a37c47ac8736112c802a8adbf68eb0f8"
+    },
+    {
+      "path": "system-services-sheng-r2\\android.hardware.sensors-service.xiaomi-multihal",
+      "bytes": 137232,
+      "sha256": "e6c5af11aee05b9486d9c278b48289cd3c3e9ef2602fe3e2d6ff31318f6d81fc"
+    },
+    {
+      "path": "system-services-sheng-r2\\FrameworkResOverlaySheng.apk",
+      "bytes": 20710,
+      "sha256": "3523dca60b80c8762e24493e5e42c2a5764eae8b8fe71e98b3d4194aedb09da4"
+    },
+    {
+      "path": "system-services-sheng-r2\\mixer_paths_sheng.xml",
+      "bytes": 68218,
+      "sha256": "65a59dff9e0c7c1d76a200ea4018a156ba14daaf0f9cf3678beaeb45b444b478"
+    },
+    {
+      "path": "system-services-sheng-r2\\overlay-resources.txt",
+      "bytes": 10195,
+      "sha256": "26d7553eed543e1fa72e1a15abdd256a2426dc11e51ce12708aca9d76e084982"
+    },
+    {
+      "path": "system-services-sheng-r2\\six-speaker-config.json",
+      "bytes": 283,
+      "sha256": "b42093da1fe362d2f49de0613ee1858a208918cb36d8a34846015d13f9083178"
+    },
+    {
+      "path": "system-services-sheng-r2\\vendor.qti.hardware.display.allocator-service",
+      "bytes": 52312,
+      "sha256": "9399669989261aaf8a641f0341567f6726cd4e085a3fc5f66182847b406d9baa"
+    },
+    {
+      "path": "system-services-sheng-r2\\vendor.qti.hardware.display.composer-service",
+      "bytes": 662240,
+      "sha256": "3ce8fd1b4df16b3e3d9b69751b91f1ef466e0526d701dcd3c37177b0431c5ce9"
+    },
+    {
+      "path": "system-touch-runtime-sheng-r1\\build-result.json",
+      "bytes": 467,
+      "sha256": "ffa8ef820c56b066b2161747259b33a44597ee097535e14c06abf61a5d25dc45"
+    },
+    {
+      "path": "system-touch-runtime-sheng-r1\\touch_report",
+      "bytes": 743472,
+      "sha256": "22a3662e8e9f834a3c96895d795d0cfbb64f18087a14930fd2de0c17b888ffe4"
+    }
+  ],
+  "all_hashes_verified": true,
+  "wsl_original_path_verified": true,
+  "original_path_preserved_by_junction": true,
+  "redundant_c_drive_copy_deleted": true,
+  "c_drive_free_bytes_after": 33717411840
+}
