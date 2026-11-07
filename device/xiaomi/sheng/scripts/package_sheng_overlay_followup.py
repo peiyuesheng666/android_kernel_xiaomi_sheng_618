@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Package two device-built ODM overlays over the verified r9 installation.
+"""Package explicitly scoped device-built overlays over verified installations.
 
 Only development image copies are changed. Normal builds install these same
 device_specific overlays through device.mk; public source remains read-only.
@@ -21,17 +21,30 @@ from audit_erofs_metadata import metadata
 from package_sheng_model_followup import sha, run, parse_image, ROM, HOST, PRODUCT
 
 DEVICE = Path(__file__).resolve().parents[1]
-ODM_SHA = '9735c4f6aa8dcc1f3b327b54ebc47f16b4c697e26095f7530d4671dfda3aac4d'
 ODM_BYTES = 1141067776
-VBMETA_SHA = '488757df791a7cdf9387e2b81b30fbddb2210a6a0ccdf338048dc8f0c75e33af'
 VBMETA_BYTES = 8192
+BASELINES = {
+    10: {
+        'odm_release': 'r5',
+        'odm_sha256': '9735c4f6aa8dcc1f3b327b54ebc47f16b4c697e26095f7530d4671dfda3aac4d',
+        'vbmeta_release': 'r6',
+        'vbmeta_sha256': '488757df791a7cdf9387e2b81b30fbddb2210a6a0ccdf338048dc8f0c75e33af',
+        'overlays': ('FrameworkResOverlaySheng', 'SystemUIResOverlaySheng'),
+    },
+    11: {
+        'odm_release': 'r10',
+        'odm_sha256': '35ceeb371eedb76f4d268ae5a65387f2353150e6b86a84366039821aa69b4d0c',
+        'vbmeta_release': 'r10',
+        'vbmeta_sha256': '5e3c933a430680a1b150607580c2f711166992b6c0fb9520a8c5ecc6edf0f312',
+        'overlays': ('SystemUIResOverlaySheng',),
+    },
+}
 INHERITED = {
     'system_ext': ('r9', '7a4e2a739f9cbc3a9713113e40f8a181dde34875c1ef0abee5e53411de58c573'),
     'vbmeta_system': ('r9', 'c0a925d91b33750a09eea0b99beeb759a37c47ac8736112c802a8adbf68eb0f8'),
     'system': ('r7', '50cb7ebad3703ca03734f566aa6ea1f462675f4b361c968849b913b33e932089'),
     'vendor': ('r6', 'c663a57f003d3cd0791ec2a7b50ad36ed1e1d1d96c0b4b414adc5b3bc63ef038'),
 }
-OVERLAYS = ('FrameworkResOverlaySheng', 'SystemUIResOverlaySheng')
 
 
 def contents(root):
@@ -111,20 +124,22 @@ def public_key(path, footer, header):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--workspace', type=Path, required=True)
-    parser.add_argument('--revision', type=int, default=10)
+    parser.add_argument('--revision', type=int, choices=sorted(BASELINES), default=11)
     args = parser.parse_args()
     workspace = args.workspace.resolve()
-    assert args.revision == 10, 'This helper is pinned to the r9 -> r10 baseline'
-    base = workspace / 'artifacts/system-hardware-followup-sheng-r5/odm.img'
-    chain = workspace / 'artifacts/system-hardware-followup-sheng-r6/vbmeta.img'
-    assert base.stat().st_size == ODM_BYTES and sha(base) == ODM_SHA
-    assert chain.stat().st_size == VBMETA_BYTES and sha(chain) == VBMETA_SHA
+    assert args.revision in BASELINES, 'No verified baseline for this revision'
+    baseline = BASELINES[args.revision]
+    odm_sha, vbmeta_sha = baseline['odm_sha256'], baseline['vbmeta_sha256']
+    base = workspace / f"artifacts/system-hardware-followup-sheng-{baseline['odm_release']}/odm.img"
+    chain = workspace / f"artifacts/system-hardware-followup-sheng-{baseline['vbmeta_release']}/vbmeta.img"
+    assert base.stat().st_size == ODM_BYTES and sha(base) == odm_sha
+    assert chain.stat().st_size == VBMETA_BYTES and sha(chain) == vbmeta_sha
     for partition, (release, digest) in INHERITED.items():
         path = workspace / f'artifacts/system-hardware-followup-sheng-{release}/{partition}.img'
         assert sha(path) == digest, f'Inherited {partition} image mismatch'
     destination = workspace / f'artifacts/system-hardware-followup-sheng-r{args.revision}'
     assert not destination.exists(), 'Never overwrite a built/flashed revision'
-    changes = {f'overlay/{name}.apk': PRODUCT / f'odm/overlay/{name}.apk' for name in OVERLAYS}
+    changes = {f'overlay/{name}.apk': PRODUCT / f'odm/overlay/{name}.apk' for name in baseline['overlays']}
     for source in changes.values():
         assert source.is_file(), source
     work = Path('/root/sheng-lineage/hardware-followup') / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ-overlay')
@@ -253,7 +268,7 @@ def main():
         assert sha(target) == sha(path)
         files.append(dict(partition=partition, name=target.name, bytes=path.stat().st_size, sha256=sha(path)))
     report = dict(revision=args.revision, files=files, work_dir=str(work),
-        raw_base_sha256=ODM_SHA, raw_base_bytes=ODM_BYTES, vbmeta_base_sha256=VBMETA_SHA,
+        raw_base_sha256=odm_sha, raw_base_bytes=ODM_BYTES, vbmeta_base_sha256=vbmeta_sha,
         inherited_image_sha256={key: value[1] for key, value in INHERITED.items()},
         changed_odm_files=sorted(changed), compiled_inputs={key: sha(value) for key, value in changes.items()},
         overlay_signer_certificate_sha256=signer_digests,

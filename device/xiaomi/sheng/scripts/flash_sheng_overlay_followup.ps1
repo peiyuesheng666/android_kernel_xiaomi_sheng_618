@@ -1,13 +1,27 @@
-param([int]$Revision = 10)
-# Flash only the two compiled ODM overlays and their AVB descriptor over r9.
+param([int]$Revision = 11)
+# Flash only the selected revision's scoped ODM overlays and AVB descriptor.
 $ErrorActionPreference = 'Stop'
 $workspace = (Resolve-Path (Join-Path $PSScriptRoot '../../../..')).Path
 $adbPath = Join-Path $workspace 'tools/platform-tools/adb.exe'
 $fastbootPath = Join-Path $workspace 'tools/platform-tools/fastboot.exe'
 $serial = 'ca10ede3'
+$baselines = @{
+    10 = @{
+        OdmSha = '9735c4f6aa8dcc1f3b327b54ebc47f16b4c697e26095f7530d4671dfda3aac4d'
+        VbmetaSha = '488757df791a7cdf9387e2b81b30fbddb2210a6a0ccdf338048dc8f0c75e33af'
+        ChangedFiles = @('overlay/FrameworkResOverlaySheng.apk', 'overlay/SystemUIResOverlaySheng.apk')
+    }
+    11 = @{
+        OdmSha = '35ceeb371eedb76f4d268ae5a65387f2353150e6b86a84366039821aa69b4d0c'
+        VbmetaSha = '5e3c933a430680a1b150607580c2f711166992b6c0fb9520a8c5ecc6edf0f312'
+        ChangedFiles = @('overlay/SystemUIResOverlaySheng.apk')
+    }
+}
+if (-not $baselines.ContainsKey($Revision)) { throw 'No verified baseline for this revision.' }
+$baseline = $baselines[$Revision]
 $imageDirectory = Join-Path $workspace "artifacts/system-hardware-followup-sheng-r$Revision"
 $manifest = Get-Content -LiteralPath (Join-Path $imageDirectory 'build-result.json') -Raw | ConvertFrom-Json
-if ($Revision -ne 10 -or $manifest.revision -ne $Revision) { throw 'This overlay delta is pinned to r9 -> r10.' }
+if ($manifest.revision -ne $Revision) { throw 'Overlay manifest revision mismatch.' }
 $checks = @(
     'exact_installed_base_verified', 'filesystem_readback_verified',
     'all_odm_inode_metadata_preserved', 'erofs_uuid_preserved',
@@ -19,12 +33,12 @@ $checks = @(
 foreach ($check in $checks) {
     if ($manifest.$check -ne $true) { throw "Image verification missing: $check" }
 }
-$expectedFiles = @('overlay/FrameworkResOverlaySheng.apk', 'overlay/SystemUIResOverlaySheng.apk')
+$expectedFiles = $baseline.ChangedFiles
 if ((($manifest.changed_odm_files | Sort-Object) -join ',') -ne (($expectedFiles | Sort-Object) -join ',')) {
     throw 'Unexpected ODM image scope.'
 }
-$expectedOdm = '9735c4f6aa8dcc1f3b327b54ebc47f16b4c697e26095f7530d4671dfda3aac4d'
-$expectedVbmeta = '488757df791a7cdf9387e2b81b30fbddb2210a6a0ccdf338048dc8f0c75e33af'
+$expectedOdm = $baseline.OdmSha
+$expectedVbmeta = $baseline.VbmetaSha
 $expectedExt = '7a4e2a739f9cbc3a9713113e40f8a181dde34875c1ef0abee5e53411de58c573'
 $expectedChain = 'c0a925d91b33750a09eea0b99beeb759a37c47ac8736112c802a8adbf68eb0f8'
 $expectedSystem = '50cb7ebad3703ca03734f566aa6ea1f462675f4b361c968849b913b33e932089'
