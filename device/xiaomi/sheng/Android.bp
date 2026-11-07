@@ -34,3 +34,11 @@ install_symlink {
     installed_location: "firmware/wlan/qca_cld/kiwi_v2/WCNSS_qcom_cfg.ini",
     symlink_target: "/vendor/etc/wifi/kiwi_v2/WCNSS_qcom_cfg.ini",
 }
+
+// libhardware looks up fingerprint.fpc.<variant>.so, then .default.so.
+install_symlink {
+    name: "sheng_fingerprint_fpc_default_symlink",
+    device_specific: true,
+    installed_location: "lib64/hw/fingerprint.fpc.default.so",
+    symlink_target: "fingerprint.fpc.so",
+}
