@@ -24,8 +24,11 @@ sources remain unchanged. The preferred device-compiled `libsdmdal` follows
 and `libsdedrm` follow the same source/prebuilt selection pattern as device PAL; normal product
 builds install it without a patch runner.
 
-Runtime testing is pending. Composer's native-mode gate remains opt-in until
-native timings, switching, sleep/wake, and reboot have been verified.
+Composer's native-mode gate originally remained opt-in during diagnostics.
+With the corrected stock clock ABI, it now defaults on for native-resolution
+60/90/120/144 Hz; the property still allows disabling it for rollback.
+Native switching and 144 Hz sleep/wake passed kernel/HWC checks. Visual
+confirmation and reboot verification of the packaged revision remain pending.
 The refresh packager uses verified r5 as its base, changes composer, DAL, and DRM
 only, and preserves r5 audio, sensors, inode metadata, and other AVB descriptors.
 
@@ -64,3 +67,15 @@ contains nonzero stock submode clocks for all seven native timings:
 
 Raw output is stored locally in
 `reports/device/native-refresh-kernel-mode-properties.txt`; it is not an image.
+
+The temporary build reached real native 60, 90, 120, and 144 Hz, verified in
+DRM CRTC state and SurfaceFlinger. At 144 Hz, the display entered inactive
+state on sleep and became active again at the same timing on wake, with device
+composition and no observed resource-limit errors. A separate idle period
+ended in `mLastSleepReason=timeout` at the user's current 15-second timeout.
+Visual output and touch still require user confirmation.
+
+Revision r6 changes only the composer and the two compatible display libraries
+over r5. Its preferred inputs, image signatures, EROFS file readback, every
+vendor inode's metadata, and unchanged non-vendor AVB descriptors passed.
+The r6 image has not yet been flashed or boot-verified.

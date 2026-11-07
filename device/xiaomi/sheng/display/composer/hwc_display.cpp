@@ -544,7 +544,7 @@ int HWCDisplay::Init() {
   if (type_ == kBuiltIn) {
     min_refresh_rate_ = 60;
     max_refresh_rate_ = active_refresh_rate_;
-    if (property_get_bool("vendor.display.sheng.native_modes", false)) {
+    if (property_get_bool("vendor.display.sheng.native_modes", true)) {
       for (const auto &config : variable_config_map_) {
         max_refresh_rate_ = std::max(max_refresh_rate_, config.second.fps);
       }
@@ -637,7 +637,7 @@ int HWCDisplay::ConfigureSafeBuiltInMode() {
     DLOGE("Unexpected built-in boot mode %u Hz", active_info.fps);
     return -EINVAL;
   }
-  if (property_get_bool("vendor.display.sheng.native_modes", false)) {
+  if (property_get_bool("vendor.display.sheng.native_modes", true)) {
     for (auto config = variable_config_map_.begin(); config != variable_config_map_.end();) {
       const auto &info = config->second;
       const bool native_size = info.x_pixels == active_info.x_pixels &&

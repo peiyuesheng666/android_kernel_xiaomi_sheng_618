@@ -1,0 +1,44 @@
+{
+  "files": [
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "c663a57f003d3cd0791ec2a7b50ad36ed1e1d1d96c0b4b414adc5b3bc63ef038"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "488757df791a7cdf9387e2b81b30fbddb2210a6a0ccdf338048dc8f0c75e33af"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/hardware-followup/20261107T010200392114Z",
+  "base_revision": "system-hardware-followup-sheng-r5",
+  "changed_vendor_files": [
+    "bin/hw/vendor.qti.hardware.display.composer-service-sheng",
+    "lib64/libsdedrm.so",
+    "lib64/libsdmdal.so"
+  ],
+  "compiled_module_inputs": {
+    "bin/hw/vendor.qti.hardware.display.composer-service-sheng": "c36d45c40d360b34be37ee5b50639722940f68d7b6838d9f5f80febdeeaa4082",
+    "lib64/libsdmdal.so": "3017b4b489c6921e79056cffeff5cc0c745973d72c18f58cfd6e2be98128759f",
+    "lib64/libsdedrm.so": "522eb9ca49f7fdbfd6dcf72c01cfba16b6f7ba449cace26e113ed5417639849b"
+  },
+  "partition_sizes_unchanged": true,
+  "signatures_verified": true,
+  "readback_verified": true,
+  "all_vendor_inode_metadata_preserved": true,
+  "other_avb_descriptors_and_chain_preserved": true,
+  "unchanged_r5_audio_and_sensor_files_verified": true,
+  "native_device_dal_input_verified": true,
+  "built_in_display_supported_hz": [
+    60,
+    90,
+    120,
+    144
+  ],
+  "framework_default_and_peak_hz": 60,
+  "first_commit_and_reboot_verified": false,
+  "runtime_verified": false
+}
