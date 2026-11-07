@@ -4,6 +4,7 @@ import ctypes
 import errno
 import hashlib
 import json
+import ntpath
 import os
 from pathlib import Path, PurePosixPath
 import re
@@ -475,7 +476,11 @@ def windows_directory_move(stage, destination):
     assert executable, 'Windows PowerShell is required for atomic publication on drvfs'
     script = Path(__file__).resolve().with_name('publish_sheng_batch_windows.ps1')
     assert script.is_file() and not script.is_symlink()
-    request = dict(source=windows_path(stage), destination=windows_path(destination))
+    # wslpath follows a Junction for the existing stage but may retain the lexical
+    # drive for an absent destination. Map their existing common parent once.
+    parent = windows_path(stage.parent)
+    request = dict(source=ntpath.join(parent, stage.name),
+                   destination=ntpath.join(parent, destination.name))
     # Paths are data on stdin; no shell, interpolation, Move-Item, or overwrite flags.
     result = run([executable, '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass',
                   '-File', windows_path(script)], input=json.dumps(request).encode('utf-8'),

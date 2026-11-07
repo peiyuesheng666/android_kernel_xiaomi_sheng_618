@@ -3,6 +3,7 @@
 import argparse
 import errno
 import json
+import ntpath
 import os
 from pathlib import Path
 import subprocess
@@ -16,6 +17,7 @@ import package_sheng_batch_helpers as helpers
 
 PARENT = None
 WINDOWS_MOUNT = False
+JUNCTION_TARGET_PARENT = None
 
 
 class PublicationTests(unittest.TestCase):
@@ -58,8 +60,9 @@ catch {
 }
 finally { [IO.Directory]::Delete($Target) }
 """)
-        request = dict(root=helpers.windows_path(self.root), link=helpers.windows_path(link),
-                       target=helpers.windows_path(self.root / (link.name + '-missing-target')))
+        native_root = helpers.windows_path(self.root)
+        request = dict(root=native_root, link=ntpath.join(native_root, link.name),
+                       target=ntpath.join(native_root, link.name + '-missing-target'))
         try:
             helpers.run([helpers.shutil.which('powershell.exe'), '-NoProfile', '-NonInteractive',
                          '-ExecutionPolicy', 'Bypass', '-File', helpers.windows_path(fixture)],
@@ -209,7 +212,9 @@ try {
     [Console]::Out.WriteLine((@{rejected=$true; win32_error=($_.Exception.HResult -band 65535)} | ConvertTo-Json -Compress))
 }
 """)
-        request = dict(source=helpers.windows_path(self.stage), destination=helpers.windows_path(self.destination))
+        native_root = helpers.windows_path(self.root)
+        request = dict(source=ntpath.join(native_root, self.stage.name),
+                       destination=ntpath.join(native_root, self.destination.name))
         result = helpers.run([helpers.shutil.which('powershell.exe'), '-NoProfile', '-NonInteractive',
                               '-ExecutionPolicy', 'Bypass', '-File', helpers.windows_path(primitive)],
                              input=json.dumps(request).encode(), capture_output=True)
@@ -218,6 +223,99 @@ try {
         self.assertIn(response['win32_error'], (80, 183))
         self.assertEqual(list(self.destination.iterdir()), [])
         self.assertEqual((self.stage / 'sentinel').read_bytes(), b'source')
+
+    def test_lexical_junction_parent_publishes_as_one_native_parent(self):
+        if not WINDOWS_MOUNT or JUNCTION_TARGET_PARENT is None:
+            self.skipTest('Requires a dedicated native Junction target parent')
+        target_temp = tempfile.TemporaryDirectory(prefix='.sheng-junction-target-fixture-',
+                                                   dir=JUNCTION_TARGET_PARENT)
+        target = Path(target_temp.name)
+        link = self.root / 'fixture-parent-junction'
+        request = dict(source_root=helpers.windows_path(self.root),
+                       target_parent=helpers.windows_path(JUNCTION_TARGET_PARENT),
+                       link=ntpath.join(helpers.windows_path(self.root), link.name),
+                       target=helpers.windows_path(target))
+        validation = """$ErrorActionPreference = 'Stop'
+$Reader = New-Object IO.StreamReader([Console]::OpenStandardInput(), [Text.Encoding]::UTF8)
+$Request = $Reader.ReadToEnd() | ConvertFrom-Json
+$Reader.Dispose()
+$SourceRoot = [IO.Path]::GetFullPath($Request.source_root)
+$TargetParent = [IO.Path]::GetFullPath($Request.target_parent)
+$Link = [IO.Path]::GetFullPath($Request.link)
+$Target = [IO.Path]::GetFullPath($Request.target)
+if ([IO.Path]::GetDirectoryName($Link) -ne $SourceRoot -or [IO.Path]::GetFileName($Link) -ne 'fixture-parent-junction' -or
+    [IO.Path]::GetDirectoryName($Target) -ne $TargetParent -or
+    -not [IO.Path]::GetFileName($Target).StartsWith('.sheng-junction-target-fixture-') -or
+    -not [IO.Directory]::Exists($SourceRoot) -or -not [IO.Directory]::Exists($Target) -or
+    ([IO.File]::GetAttributes($SourceRoot) -band [IO.FileAttributes]::ReparsePoint) -ne 0 -or
+    ([IO.File]::GetAttributes($Target) -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+    throw 'Fixture paths must be allocated ordinary temporary directories and one direct child link'
+}
+"""
+        def invoke(name, body):
+            fixture = self.root / name
+            fixture.write_text(validation + body)
+            return helpers.run([helpers.shutil.which('powershell.exe'), '-NoProfile', '-NonInteractive',
+                                '-ExecutionPolicy', 'Bypass', '-File', helpers.windows_path(fixture)],
+                               input=json.dumps(request).encode(), capture_output=True)
+
+        resolved_check = """$Item = Get-Item -LiteralPath $Link -Force
+if ($Item.LinkType -ne 'Junction' -or ($Item.Attributes -band [IO.FileAttributes]::ReparsePoint) -eq 0) {
+    throw 'Fixture link is not a Junction'
+}
+$ResolvedTarget = [IO.Path]::GetFullPath(@($Item.Target)[0])
+if (-not [string]::Equals($ResolvedTarget, $Target, [StringComparison]::OrdinalIgnoreCase)) {
+    throw 'Refuse a Junction whose resolved target differs from the allocated fixture'
+}
+"""
+        try:
+            invoke('create-parent-junction.ps1', """foreach ($Entry in [IO.Directory]::EnumerateFileSystemEntries($SourceRoot)) {
+    if ([IO.Path]::GetFileName($Entry) -eq [IO.Path]::GetFileName($Link)) { throw 'Fixture link already exists' }
+}
+New-Item -ItemType Junction -Path $Link -Target $Target | Out-Null
+""" + resolved_check)
+            self.assertEqual(link.resolve(strict=True), target.resolve(strict=True))
+            destination = link / 'published'
+            observations = []
+            native = helpers.windows_directory_move
+
+            def observe_old_mapping(stage, final):
+                old_source, old_final = helpers.windows_path(stage), helpers.windows_path(final)
+                observations.append((old_source, old_final))
+                self.assertNotEqual(ntpath.dirname(old_source).lower(), ntpath.dirname(old_final).lower())
+                native(stage, final)
+
+            with patch.object(helpers, 'windows_directory_move', side_effect=observe_old_mapping):
+                helpers.publish_batch(destination, self.outputs, {'junction_fixture': True})
+            self.assertEqual(len(observations), 1)
+            for partition, source in self.outputs.items():
+                self.assertEqual((target / 'published' / (partition + '.img')).read_bytes(), source.read_bytes())
+                self.assertEqual((destination / (partition + '.img')).read_bytes(), source.read_bytes())
+            self.assertFalse(os.path.lexists(link / '.published-publishing'))
+            with self.assertRaises(AssertionError):
+                helpers.publish_batch(destination, self.outputs, {'junction_fixture': True})
+
+            race_destination = link / 'race-published'
+            def competing_destination(stage, final):
+                final.mkdir()
+                (final / 'sentinel').write_bytes(b'preserved')
+                raise OSError(errno.EINVAL, 'Injected Junction target race before fallback')
+            with patch.object(helpers, 'linux_rename_noreplace', side_effect=competing_destination):
+                with self.assertRaises(subprocess.CalledProcessError):
+                    helpers.publish_batch(race_destination, self.outputs, {'junction_fixture': True})
+            self.assertEqual(sorted(p.name for p in race_destination.iterdir()), ['sentinel'])
+            self.assertEqual((race_destination / 'sentinel').read_bytes(), b'preserved')
+        finally:
+            if os.path.lexists(link):
+                invoke('remove-parent-junction.ps1', resolved_check + """[IO.Directory]::Delete($Link)
+if ([IO.Directory]::Exists($Link) -or -not [IO.Directory]::Exists($Target)) {
+    throw 'Fixture cleanup must remove only the Junction and retain its target'
+}
+""")
+            self.assertFalse(os.path.lexists(link))
+            assert target.resolve().parent == JUNCTION_TARGET_PARENT.resolve()
+            assert target.name.startswith('.sheng-junction-target-fixture-')
+            target_temp.cleanup()
 
     def test_destination_race_is_rejected_by_renameat2(self):
         digest = helpers.sha
@@ -245,8 +343,11 @@ try {
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--parent', type=Path, required=True)
+    parser.add_argument('--junction-target-parent', type=Path)
     args = parser.parse_args()
-    PARENT = args.parent.resolve(strict=True)
+    PARENT = args.parent.absolute()
+    if args.junction_target_parent:
+        JUNCTION_TARGET_PARENT = args.junction_target_parent.resolve(strict=True)
     assert PARENT.is_dir()
     mount = subprocess.run(['findmnt', '-T', str(PARENT), '-o', 'TARGET,SOURCE,FSTYPE,OPTIONS'],
                            check=True, capture_output=True, text=True)
