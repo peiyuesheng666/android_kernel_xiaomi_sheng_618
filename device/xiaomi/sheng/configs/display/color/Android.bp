@@ -1,0 +1,7 @@
+// SPDX-License-Identifier: Apache-2.0
+prebuilt_etc {
+    name: "sheng_snapdragon_color_libs_config",
+    src: "snapdragon_color_libs_config.xml",
+    filename: "snapdragon_color_libs_config.xml",
+    vendor: true,
+}

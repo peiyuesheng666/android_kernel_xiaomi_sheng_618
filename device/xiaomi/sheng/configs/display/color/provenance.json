@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-07",
+  "status": "candidate_requires_runtime_validation",
+  "source_release": "OS3.0.303.0.WNXCNXM Android 16",
+  "source_file": "/root/sheng-lineage/firmware-dump/partitions/vendor/etc/snapdragon_color_libs_config.xml",
+  "source_bytes": 1831,
+  "source_sha256": "dd41f581cbd151bfbfe92f1db1ee80ebc12ed8c21851790d770d30fb3e0c4dea",
+  "source_bytes_preserved": true,
+  "module": "sheng_snapdragon_color_libs_config",
+  "install_path": "/vendor/etc/snapdragon_color_libs_config.xml",
+  "registered_libraries": [
+    {"name": "libsnapdragoncolor-qdcm.so", "processing_order": 1},
+    {"name": "libmi-stc-HW-modulate.so", "processing_order": 2}
+  ],
+  "before": {
+    "configuration_file_installed": false,
+    "composer_supported_color_modes": [0],
+    "surfaceflinger_display_color_setting": "Managed",
+    "surfaceflinger_device_supports_wide_color": true,
+    "hwc_wide_color_gamut": false,
+    "composer_manager_library_loaded": true,
+    "composer_registered_libraries_loaded": false,
+    "vendor_mount": "erofs,ro"
+  },
+  "existing_panel_calibration": {
+    "path": "/odm/etc/display/qdcm_calib_data_xiaomi_n81a_36_02_0a_vid_mode_duledsi_dsc_panel.json",
+    "sha256": "5eff4bb9342cf499c7bc313ded7dea5eae70977068fdb9aa0029a98ffe193b70",
+    "stock_blob_and_installed_hashes_match": true,
+    "standard_modes": ["standard_native", "standard_P3", "standard_sRGB", "standard_hdr"],
+    "standard_white_point_kelvin": 6500
+  },
+  "existing_library_hashes": {
+    "/vendor/lib64/libsnapdragoncolor-qdcm.so": "e2cbe561de60793ef4016f1a0a6ce7b47279f89f72f158e441287770fa89db35",
+    "/vendor/lib64/libmi-stc-HW-modulate.so": "081a3c189a3be90e07fee724c90db8b62e8d2baa5939d66e2d4f1208712d003f"
+  },
+  "validation_limits": [
+    "No runtime configuration injection or service restart was performed.",
+    "Mode enumeration and visible color accuracy must be verified after integration.",
+    "This change does not validate ambient color-temperature adaptation."
+  ]
+}

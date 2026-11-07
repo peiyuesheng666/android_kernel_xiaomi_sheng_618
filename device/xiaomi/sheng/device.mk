@@ -139,6 +139,9 @@ PRODUCT_COPY_FILES += \
 
 # Display
 PRODUCT_PACKAGES += \
+    sheng_snapdragon_color_libs_config
+
+PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
     vendor.qti.hardware.display.demura-service \
     vendor.qti.hardware.display.allocator-service-sheng \
