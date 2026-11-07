@@ -8,6 +8,17 @@
   "source_bytes_preserved": true,
   "module": "sheng_snapdragon_color_libs_config",
   "install_path": "/vendor/etc/snapdragon_color_libs_config.xml",
+  "required_default_configuration": {
+    "module": "sheng_display_feature_default_config",
+    "source_file": "/root/sheng-lineage/firmware-dump/partitions/vendor/etc/df_default.xml",
+    "source_bytes": 65768,
+    "source_sha256": "f87d9367f7ca2a118bf512944619aaae8bc262fc2dcd629a895b2b3f0b9a74dc",
+    "source_bytes_preserved": true,
+    "install_path": "/vendor/etc/df_default.xml",
+    "consumer": "libmiXmlParser.so: vendor/etc/df_default.xml",
+    "generated_vendor_rule_installs_only_odm_copy": true,
+    "new_vendor_install_path_conflict": false
+  },
   "registered_libraries": [
     {"name": "libsnapdragoncolor-qdcm.so", "processing_order": 1},
     {"name": "libmi-stc-HW-modulate.so", "processing_order": 2}

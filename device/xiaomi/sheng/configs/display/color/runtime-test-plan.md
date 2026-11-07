@@ -7,8 +7,9 @@ Do not mask all of `/vendor/etc` with a temporary directory: its existing
 submounts and file labels must remain valid.
 
 The preferred coordinated test is to build this small prebuilt module and
-include `/vendor/etc/snapdragon_color_libs_config.xml` in the next candidate
-vendor image derived from the current r6 baseline. Rollback is the unchanged
+include `/vendor/etc/snapdragon_color_libs_config.xml` and its required
+`/vendor/etc/df_default.xml` in the next candidate vendor image derived from
+the current r6 baseline. Rollback is the unchanged
 r6 `vendor.img`, together with the existing boot/vbmeta flash procedure. No
 display refresh setting or composer source change is part of this candidate.
 
