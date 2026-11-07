@@ -26,3 +26,8 @@ the r5 Dolby app are outside this delta.
 
 The compiled property and packaged images passed checks. Flash and postboot
 Settings/property validation are pending.
+
+The flash guard reads system/vendor dynamic partitions through
+`/dev/block/mapper`, verified on the running device, and physical AVB partitions
+through `/dev/block/by-name`. Disconnected USB inventory is checked before any
+blocking serial command during the Fastbootd transition.

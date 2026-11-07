@@ -83,9 +83,9 @@ if ($product.Trim() -ne 'sheng' -or $slot.Trim() -ne '_b') { throw 'Device or ac
 if ($uid.Trim() -ne '0') { throw 'Root ADB is required for the installed-image hash checks.' }
 # Verify both the current model base and the r6 graphics/audio baseline before
 # any reboot. Only the two images listed above are ever sent to Fastboot.
-Assert-LiveHash 'r6 vendor_b' 'sha256sum /dev/block/by-name/vendor_b' $expectedR6Vendor
+Assert-LiveHash 'r6 vendor_b' 'sha256sum /dev/block/mapper/vendor_b' $expectedR6Vendor
 Assert-LiveHash 'r6 vbmeta_b prefix' 'dd if=/dev/block/by-name/vbmeta_b bs=8192 count=1 2>/dev/null | sha256sum' $expectedR6Vbmeta
-Assert-LiveHash 'system_b' 'sha256sum /dev/block/by-name/system_b' $expectedSystemBase
+Assert-LiveHash 'system_b' 'sha256sum /dev/block/mapper/system_b' $expectedSystemBase
 Assert-LiveHash 'vbmeta_system_b prefix' 'dd if=/dev/block/by-name/vbmeta_system_b bs=4096 count=1 2>/dev/null | sha256sum' $expectedVbmetaSystemBase
 Invoke-SerialTool $adbPath @('shell', 'getprop ro.product.model; getprop ro.product.system.model') |
     Set-Content -LiteralPath (Join-Path $evidenceDirectory 'before-model-properties.txt') -Encoding UTF8
