@@ -1,0 +1,188 @@
+{
+  "upstream_revision": "d679d895cd1e35d088b67bfd19d9141c76da5207",
+  "files": [
+    {
+      "name": "Android.bp",
+      "upstream_sha256": "93421ec4fcfb6834e3e49c8a21f97a5fec56c6ff61820e307c47757dce8ac653",
+      "device_sha256": "3e73b269513f78c44fb2668ef920888c4eadcb074a288a384144f85abc1374fc",
+      "unchanged": false
+    },
+    {
+      "name": "color_manager.cpp",
+      "upstream_sha256": "eebf9ec72d6ef477fd8efd6e668dc690cd1d580d2526dca45ead846fdd369166",
+      "device_sha256": "52a48c20ae2077330af913458c8a0eae711345f6003a84612ce41a58e17257c5",
+      "unchanged": false
+    },
+    {
+      "name": "color_manager.h",
+      "upstream_sha256": "a0a0cb12b918a01c87d059be96f65447db0ab20642b9e7467a5f97835d8dec63",
+      "device_sha256": "a0a0cb12b918a01c87d059be96f65447db0ab20642b9e7467a5f97835d8dec63",
+      "unchanged": true
+    },
+    {
+      "name": "comp_manager.cpp",
+      "upstream_sha256": "c1ee28977f5f4c8306839bcc5130280cd607a9417d4454f43d60ea2c59a1626f",
+      "device_sha256": "c1ee28977f5f4c8306839bcc5130280cd607a9417d4454f43d60ea2c59a1626f",
+      "unchanged": true
+    },
+    {
+      "name": "comp_manager.h",
+      "upstream_sha256": "6b2f9b6fa4873df82d82729a8f0c9665b8d17d72ab84d26c58479b3e479e2cae",
+      "device_sha256": "6b2f9b6fa4873df82d82729a8f0c9665b8d17d72ab84d26c58479b3e479e2cae",
+      "unchanged": true
+    },
+    {
+      "name": "core_impl.cpp",
+      "upstream_sha256": "da3b8383d11c93641e8529bd40c8206db095d40927558ee8c78b993c635a3a83",
+      "device_sha256": "da3b8383d11c93641e8529bd40c8206db095d40927558ee8c78b993c635a3a83",
+      "unchanged": true
+    },
+    {
+      "name": "core_impl.h",
+      "upstream_sha256": "9dc12d4a51cc15bcefd48360a9e8dde81c972ddc49e357af13e39875e2840d53",
+      "device_sha256": "9dc12d4a51cc15bcefd48360a9e8dde81c972ddc49e357af13e39875e2840d53",
+      "unchanged": true
+    },
+    {
+      "name": "core_interface.cpp",
+      "upstream_sha256": "c388bba8efbc600d121841342dfd635517b590f26327035058efb94ad07a1f9e",
+      "device_sha256": "c388bba8efbc600d121841342dfd635517b590f26327035058efb94ad07a1f9e",
+      "unchanged": true
+    },
+    {
+      "name": "display_base.cpp",
+      "upstream_sha256": "7c0b50925641b3997c6d7ea03b1d78b72a30d5319ab41a2466116c359ba76fca",
+      "device_sha256": "7c0b50925641b3997c6d7ea03b1d78b72a30d5319ab41a2466116c359ba76fca",
+      "unchanged": true
+    },
+    {
+      "name": "display_base.h",
+      "upstream_sha256": "1b278c515f5a14628cc0f1e431a8d463e83d19ed762f09d7fd49b8e610fdc4f4",
+      "device_sha256": "1b278c515f5a14628cc0f1e431a8d463e83d19ed762f09d7fd49b8e610fdc4f4",
+      "unchanged": true
+    },
+    {
+      "name": "display_builtin.cpp",
+      "upstream_sha256": "10b8ce35dbe8a9553e295b8f083eae54c42588a58443d49a9dee39187248f6ac",
+      "device_sha256": "10b8ce35dbe8a9553e295b8f083eae54c42588a58443d49a9dee39187248f6ac",
+      "unchanged": true
+    },
+    {
+      "name": "display_builtin.h",
+      "upstream_sha256": "e4b5764d2a0ede144a70245bd3d8567f9e4004089949bf1a7023a928857a9811",
+      "device_sha256": "e4b5764d2a0ede144a70245bd3d8567f9e4004089949bf1a7023a928857a9811",
+      "unchanged": true
+    },
+    {
+      "name": "display_null.cpp",
+      "upstream_sha256": "d7315ab4cbbabbe172f9da9f61870a5ddf22492d572914118f165980cdd20829",
+      "device_sha256": "d7315ab4cbbabbe172f9da9f61870a5ddf22492d572914118f165980cdd20829",
+      "unchanged": true
+    },
+    {
+      "name": "display_null.h",
+      "upstream_sha256": "a40e0b47ba21b407a9418b86212d348d15435cd58cb3c540ce7b5062b0451f88",
+      "device_sha256": "a40e0b47ba21b407a9418b86212d348d15435cd58cb3c540ce7b5062b0451f88",
+      "unchanged": true
+    },
+    {
+      "name": "display_pluggable.cpp",
+      "upstream_sha256": "2dbca7c892fc8b9bd782dfa1cb2ee86dd49a3211760c3f00a52947d08ee83ee5",
+      "device_sha256": "2dbca7c892fc8b9bd782dfa1cb2ee86dd49a3211760c3f00a52947d08ee83ee5",
+      "unchanged": true
+    },
+    {
+      "name": "display_pluggable.h",
+      "upstream_sha256": "6928be007529356d48d97312ba334da673770cf9d4ee1df887ecf03b757b3c98",
+      "device_sha256": "6928be007529356d48d97312ba334da673770cf9d4ee1df887ecf03b757b3c98",
+      "unchanged": true
+    },
+    {
+      "name": "display_virtual.cpp",
+      "upstream_sha256": "e1569f60bc2ab74f64537dd51ac20d3cf98bc427c0749b9eee823cc95677f080",
+      "device_sha256": "e1569f60bc2ab74f64537dd51ac20d3cf98bc427c0749b9eee823cc95677f080",
+      "unchanged": true
+    },
+    {
+      "name": "display_virtual.h",
+      "upstream_sha256": "81fb60b9cf1291ea7562e351dc5fa951d06904f257f31e6399b5d75d1c31029f",
+      "device_sha256": "81fb60b9cf1291ea7562e351dc5fa951d06904f257f31e6399b5d75d1c31029f",
+      "unchanged": true
+    },
+    {
+      "name": "hw_info_default.cpp",
+      "upstream_sha256": "c8d2409961bfdb1bf331f734f608330292f90264f6ecdd0da7ca05097f4adb99",
+      "device_sha256": "c8d2409961bfdb1bf331f734f608330292f90264f6ecdd0da7ca05097f4adb99",
+      "unchanged": true
+    },
+    {
+      "name": "hw_info_default.h",
+      "upstream_sha256": "2c7b2f855b04f85206a6baedb76bb2d6674cb02a1f6f88578ab7879410cdeeeb",
+      "device_sha256": "2c7b2f855b04f85206a6baedb76bb2d6674cb02a1f6f88578ab7879410cdeeeb",
+      "unchanged": true
+    },
+    {
+      "name": "noise_plugin_intf_impl.cpp",
+      "upstream_sha256": "125b85a547911ff2c946c4cde76a0954a8b083dd4695d661fafe216f5c3aa612",
+      "device_sha256": "125b85a547911ff2c946c4cde76a0954a8b083dd4695d661fafe216f5c3aa612",
+      "unchanged": true
+    },
+    {
+      "name": "noise_plugin_intf_impl.h",
+      "upstream_sha256": "37c304d55fb9c528373d3ef76c51db28161ff203ed705b1792bb2694b618045d",
+      "device_sha256": "37c304d55fb9c528373d3ef76c51db28161ff203ed705b1792bb2694b618045d",
+      "unchanged": true
+    },
+    {
+      "name": "resource_default.cpp",
+      "upstream_sha256": "286a7e4aed6784e6508ac6649b88c8f8c32865c15a78a7fb03a4dee267c1b0e7",
+      "device_sha256": "286a7e4aed6784e6508ac6649b88c8f8c32865c15a78a7fb03a4dee267c1b0e7",
+      "unchanged": true
+    },
+    {
+      "name": "resource_default.h",
+      "upstream_sha256": "bec4592e7436e1a80579dde6ee3b9f2296770d18bb540b489ee198d9ece7cd20",
+      "device_sha256": "bec4592e7436e1a80579dde6ee3b9f2296770d18bb540b489ee198d9ece7cd20",
+      "unchanged": true
+    },
+    {
+      "name": "strategy.cpp",
+      "upstream_sha256": "b682c0b5ad99aca1bdca7717d3cadfaff32f87f7ae1f957c7de64e71be908f98",
+      "device_sha256": "b682c0b5ad99aca1bdca7717d3cadfaff32f87f7ae1f957c7de64e71be908f98",
+      "unchanged": true
+    },
+    {
+      "name": "strategy.h",
+      "upstream_sha256": "d50af74b794e6d45b81466920280223e997543025d870a35fe8143eed39fe804",
+      "device_sha256": "d50af74b794e6d45b81466920280223e997543025d870a35fe8143eed39fe804",
+      "unchanged": true
+    }
+  ],
+  "stock_color_sha256": "11604ce7c8981862e21cfbfec8daede7111c5c022cde0e5b97a654af929e4f9d",
+  "fresh_public_audit_passed": true,
+  "repo_project_count": 1243,
+  "composer_gpu_fallback_installed": false,
+  "native_primaries": {
+    "red": [
+      0.4123,
+      0.2126,
+      0.0193
+    ],
+    "green": [
+      0.3576,
+      0.7152,
+      0.1192
+    ],
+    "blue": [
+      0.1805,
+      0.0722,
+      0.9506
+    ],
+    "white": [
+      0.9505,
+      1,
+      1.0891
+    ]
+  },
+  "hardware_validation_pending": true
+}

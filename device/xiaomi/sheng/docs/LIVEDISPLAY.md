@@ -73,7 +73,7 @@ Source changes are pending Android overlay compilation and image/reboot
 acceptance. The r13 acceptance record remains an immutable account of r13;
 it must not be used to claim these follow-up changes are installed.
 
-## LiveDisplay automatic color temperature
+## LiveDisplay, Night Light and automatic color temperature
 
 The running r13 service has only capabilities 13 (RGB adjustment) and 18
 (reading enhancement), and no temperature modes. The upstream
@@ -82,18 +82,20 @@ device already exposes the accelerated RGB calibration path. Android's default
 config_nightDisplayAvailable=true therefore suppresses LiveDisplay temperature
 control by design.
 
-The device framework overlay now selects LiveDisplay by setting that resource
-false. The standard Night Light entry is replaced by LiveDisplay's day, night
-and automatic temperature controls; existing Lineage settings are retained.
-No service fork, new HAL, settings polling, boot-time settings write or private
-Xiaomi display service is added. The existing SDK default mode and temperatures
-are left unchanged. LiveDisplay Automatic follows twilight/sunrise/sunset, not
-the front CCT sensor. Sensor-based standard DisplayWhiteBalance is configured
-separately below. This change does not claim stock TrueTone behavior.
+After the user explicitly reported the existing Night Light failure and
+provided the sensor-based ColorOS reference, the initial LiveDisplay twilight
+selection was superseded before installation. The final overlay retains
+config_nightDisplayAvailable=true, preserving Night Light and its schedule.
+LiveDisplay continues to provide RGB/reading controls. Its separate twilight
+modes remain intentionally suppressed by the unmodified upstream service.
+Actual environmental adaptation uses standard DisplayWhiteBalance below.
+This preserves the requested existing night control and does not mislabel a
+sunset schedule as sensor adaptation. No service fork, new HAL, polling,
+boot-time setting write or private Xiaomi display service is added.
 
 Compile FrameworkResOverlaySheng and SettingsResOverlaySheng together. After
-installation/reboot verify resource lookup, new LiveDisplay mode capabilities,
-day/night temperature changes and the final compositor matrix, then restore
+installation/reboot verify resource lookup, LiveDisplay RGB/reading controls,
+Night Light temperature changes and the final compositor matrix, then restore
 the user's chosen settings. Verify that screen-off/on, RGB controls and color
 mode changes still work. Visible panel response requires user acceptance.
 
@@ -162,9 +164,9 @@ and suspend sensor listening when the primary display is off. The panel's 2D
 stock table is not copied into an incompatible 1D resource; this is standard
 Android ambient adaptation, not a claim of identical stock TrueTone2 mapping.
 
-The existing standard DWB toggle controls real ambient adaptation; LiveDisplay
-Automatic controls the independent twilight schedule. Framework restrictions
-still apply: DWB is inactive in unmanaged Saturated mode and while conflicting
+The existing standard DWB toggle controls real ambient adaptation; Night Light
+controls the independent manual/night schedule. Framework restrictions
+still apply: DWB is inactive during Night Light, in unmanaged Saturated mode and while conflicting
 accessibility transforms are active. The managed Original/Vivid modes must be
 used for its acceptance. This newly enabled path still needs real sensor,
 matrix, hardware-composition, off/on and user-visible acceptance on r14.
