@@ -117,3 +117,22 @@ or installed. Its record describes adapting ColorOS' CCT consumer to Xiaomi's
 33171089 streaming sensor, with Kelvin at index 0 and lux at index 1. It also
 records user-visible changes with stock SDM and forced GPU disabled. Those are
 reference results for another ROM, not acceptance of this Lineage candidate.
+
+## Build and packaging checkpoints
+
+The initial two-overlay compilation completed successfully in 12:22. Subsequent
+user label refinements and the hardware-only SDM ABI change are included in a
+second targeted build; that build and hardware acceptance remain pending.
+Both build entries perform the required fresh upstream audit. The ABI host test
+passed with address and undefined-behavior sanitizers. The unchanged filesystem
+helpers passed 12 cases; Linux publication passed 7 with 5 Windows-only skips.
+The copied upstream core files retain their original whitespace, including six
+files with an extra trailing blank line; modifications use clean whitespace.
+
+`tools/package_sheng_livedisplay.py --freeze-only` freezes the scoped outputs;
+`--validate-only` rechecks them without creating images. Normal invocation
+publishes the complete three-image batch only after metadata/readback and AVB
+checks. `tools/flash_sheng_livedisplay.ps1` defaults to native local verification;
+explicit `-Flash` additionally checks all six installed hashes, serial, model,
+slot b and fastbootd identity before writing ODM, vendor and their vbmeta parent.
+The USB runner and time limits are reused from the reviewed r13 flash tool.
