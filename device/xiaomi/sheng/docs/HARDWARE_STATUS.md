@@ -31,24 +31,28 @@ are not listed as successful hardware tests.
 | --- | --- |
 | Fast charging | User tested the original charger and confirmed normal charging. Computer USB was not a valid fast-charge test. |
 | Automatic screen timeout | At the current 15-second setting, PowerManager records timeout sleep and DRM becomes inactive. The earlier setting was ten minutes; charging-stay-awake was configured but mStayOn was false in that snapshot. |
+| Gaode app location | User reports Gaode could locate before the system network-provider integration; the app's own SDK path is separate from the standard system provider. |
 
 ## Remaining work, with simple changes first
 
 | Order | Item | Current state |
 | --- | --- | --- |
 | Configuration/service integration | NFC/NTAG5 | Tablet uses a passive interconnection tag; stock ntag5_tool/init/policy are missing. Do not advertise unsupported reader/payment NFC. I2C behavior still needs testing. |
-| Configuration/service integration | Network location | No network provider is currently bound. Stock MetokNLP has compatible dependency candidates; app/permissions/provider setup and actual location testing remain pending. |
+| Configuration/service integration | Network location | r8 provider discovered but geocoder non-SDK access caused repeated process crashes. After temporary component isolation and first-install runtime grants, a real network fix was returned (45 m, non-mock). r9 device-only configuration and reboot validation remain pending. |
 | Component adaptation | Power-button position | Physical button is upper-left; SystemUI's reveal origin is hardcoded on the other edge. No valid RRO side switch exists. Needs device-owned implementation, not a false dimension-only fix. |
+| Application compatibility | Full-screen app layouts | User reports Douyin and some other apps open as a small centered region. Distinguish windowing/letterbox policy from the app's own tablet UI; device-only adaptation and per-app validation remain pending. |
+| Audio application coverage | Dolby across audio/video apps | Prior tests cover the music player and diagnostic streams. User reports no proper Dolby effect in some audio/video apps; check their actual output/effect paths and real-time controls before claiming broad app coverage. |
 | Calibration/service integration | Screen colors and ambient color | Front CCT returns data and is selected; white-balance/TrueTone is not yet enabled and verified. Check primaries, low-light zero samples and stock calibration. |
 | Service/backend integration | AON screen attention | Stock MiAONService supports the standard attention interface; APK/VINTF/policy/permissions and camera/QSEE backend still need integration and testing. |
 | Driver/HAL integration | Camera | Severe unknown-error report remains; preserve the user's no-capture instruction. |
 | Driver/HAL integration | Fingerprint | Enrollment unavailable; existing fingerprint service null-pointer crash remains. |
+| Biometric/service integration | Face recognition | User reports face recognition unavailable; camera, service/backend and enrollment have not yet been validated. |
 | Input integration | Keyboard detach/attach | Still reports connected after detaching. |
 | Input integration | Stylus | Not yet usable. |
 | Audio/Bluetooth integration | LHDC v5 | Not yet verified working. |
 | Touch/power integration | Double-tap wake | Still pending. |
 | Touch integration | Touch latency and sampling-rate boost | User reports delayed touch and no effect from the higher sampling-rate option; verify actual controller report rate and mode changes separately from touch orientation. |
-| Startup | Short backlight-only interval | Recovery/system still show roughly one-to-two seconds of backlight before an image. r6 also had about 52 seconds of framework startup before unlock. |
+| Startup | Recovery backlight-only interval | User reports r8 system Logo-to-animation transition no longer has the black gap; Recovery still does. This observation is not attributed to the network-only delta. r6 also had about 52 seconds of framework startup before unlock. |
 | Validation | Other sensors | Only individually tested sensors are considered working; remaining sensor tests are pending. |
 
 The user's inventory request does not cancel these remaining fixes. Complete

@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-07",
+  "release": "r8",
+  "evidence_directory": "reports/device/location-r8-20261107-095857",
+  "boot_user_confirmed": true,
+  "display_user_confirmed": true,
+  "initial_runtime_passed": false,
+  "initial_failure": "MetokGeocodeService invoked a blocked non-SDK IGeocodeProvider.Stub constructor and repeatedly terminated the shared provider process.",
+  "provider_discovered": true,
+  "temporary_isolation": "Only MetokGeocodeService disabled through PackageManager; the location provider was retained.",
+  "one_time_runtime_grants": [
+    "android.permission.ACCESS_COARSE_LOCATION",
+    "android.permission.ACCESS_FINE_LOCATION",
+    "android.permission.ACCESS_BACKGROUND_LOCATION"
+  ],
+  "temporary_network_test": {
+    "provider_connected": true,
+    "provider": "network",
+    "fix_age_ms": 9,
+    "accuracy_m": 45.0,
+    "mock": false,
+    "request_elapsed_ms": 214,
+    "coordinates_recorded": false,
+    "passed": true
+  },
+  "persistent_repair_validation_pending": true,
+  "next_release": "r9"
+}

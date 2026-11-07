@@ -1,0 +1,55 @@
+{
+  "revision": 8,
+  "files": [
+    {
+      "partition": "system_ext",
+      "name": "system_ext.img",
+      "bytes": 572813312,
+      "sha256": "9c93c87fbfb987980303408f91e776a03c3db30183a7f99d2c50ed51125ec117"
+    },
+    {
+      "partition": "vbmeta_system",
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "b47236ecae53c69bd27027ea6ae1af5e72e582134d0a30933aa9426ac7f59692"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/hardware-followup/20261107T015814323716Z-location",
+  "raw_base_sha256": "b8436caaaa5cb1738c053afb3a77a4ea6135aeb1a07b774148ce17e3b16c60e9",
+  "raw_base_bytes": 572813312,
+  "vbmeta_system_base_sha256": "5990b5c9fae89018ff9efb38ab338c48fc7c635f34fa95216a9f5a2c69fb212b",
+  "changed_system_ext_files": [
+    "etc/permissions/privapp-permissions-sheng-location.xml",
+    "overlay/ShengLocationOverlay.apk",
+    "priv-app/ShengMetokNLP/ShengMetokNLP.apk"
+  ],
+  "compiled_inputs": {
+    "priv-app/ShengMetokNLP/ShengMetokNLP.apk": "846c84ea6468d3e3e6e71496ec3ac0fb91760ced00427e7c062e5da01384e8d3",
+    "etc/permissions/privapp-permissions-sheng-location.xml": "6faad848d1b52b85848398bde01d730e364b5232a3971fb8cc776afe774b8296",
+    "overlay/ShengLocationOverlay.apk": "0c860a9809f244211e032abd746197e55530daf4ac499f54f5873ca1394e12b6"
+  },
+  "changed_existing_directory_inodes": [
+    2,
+    2445
+  ],
+  "new_directories": [
+    "/overlay",
+    "/priv-app/ShengMetokNLP"
+  ],
+  "exact_installed_base_verified": true,
+  "filesystem_readback_verified": true,
+  "readonly_e2fsck_passed": true,
+  "existing_file_inode_metadata_preserved": true,
+  "existing_directory_permissions_owners_times_and_xattrs_preserved": true,
+  "unrelated_files_preserved": true,
+  "partition_sizes_unchanged": true,
+  "system_ext_hashtree_verified": true,
+  "signatures_verified": true,
+  "only_system_ext_avb_descriptor_changed": true,
+  "r7_model_descriptor_preserved": true,
+  "original_metok_apk_and_certificate_preserved": true,
+  "overlay_certificate_matches_framework": true,
+  "existing_avb_public_key_preserved": true,
+  "new_file_and_directory_metadata_verified": true,
+  "hardware_boot_tested": false
+}
