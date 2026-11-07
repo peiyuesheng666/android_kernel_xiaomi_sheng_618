@@ -1,5 +1,12 @@
 # LiveDisplay and display color controls
 
+Latest acceptance: r14 failed composer initialization and was reverted to the
+verified r13 images. The user confirmed normal picture/touch after recovery.
+See [r14-boot-failure-20261107.md](r14-boot-failure-20261107.md). The byte-only
+adapter's passing host test did not validate real container traversal/lifetime;
+its raw borrowed-pointer approach is rejected. Candidate descriptions below
+are development history, not claims that these features passed on hardware.
+
 2026-11-07 follow-up to r13. The user clarified that the panel has no visible
 color cast. The remaining complaint concerns ineffective color options/sliders
 and the automatic mode in the LiveDisplay page. Sensor-based TrueTone and
