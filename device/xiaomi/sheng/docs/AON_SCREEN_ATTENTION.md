@@ -94,3 +94,28 @@ The existing qsh_camera sensor registry is present. These checks do not prove
 successful sensor initialization. No runtime restart, capture or detection
 request was issued. Raw text evidence: reports/device/r20-runtime/
 aon-native-offline.txt and aon-sensor-registry.txt.
+
+## r21 preparation: firmware comparison, no firmware changes
+
+Read-only comparison against the OS3.0.303.0.WNXCNXM input found 44 of 64
+mounted ADSP-related files identical and 20 different. Both builds advertise
+ADSP.HT.5.8-01106.6-KAILUA-1; the source OEM identifier is
+pangu-build-bp-143180-svtcc-fhv62-g606g, while the live image identifies as
+pangu-build-bp-155631-8xlmw-k2p5b-5663z. Timestamps and whole-partition hashes
+alone were not used to establish this result. The compared DSP filesystem
+contains 79 files; 78 match, with only adsp/sns_tppe.so differing.
+
+These differences do not establish the cause of QSEE camera-init error1.
+No firmware partition, sensor registry, camera provider or attention setting
+was changed. The existing user choice remains adaptive_sleep=1 and timeout
+15000 ms. No attention request, camera launch or image capture was initiated.
+Raw file comparisons and version evidence are under workspace
+reports/device/r20-runtime/aon-{adsp,dsp}-file-comparison.json and
+aon-firmware-version.txt; the loaded OEM version was independently read from
+the live adsp.b08 segment.
+
+USB investigation is paused at the user's request. The user identified one
+disappearance as a manual unplug/reboot and later suspected a loose cable.
+The subsequent short disconnect during this comparison was caused by the
+agent's adb root command restarting adbd, not an observed spontaneous failure.
+Future adb root commands must be announced before execution.
