@@ -1,0 +1,43 @@
+{
+  "revision": 16,
+  "recorded_utc": "2026-11-07T08:51:00.508164+00:00",
+  "compiled_inputs": {
+    "odm/overlay/FrameworkResOverlaySheng.apk": {
+      "bytes": 20710,
+      "sha256": "7ac73d535677d7ce33a846c06cb252d09605ebebc5d653a6e6a4382aa3f22292"
+    },
+    "vendor/bin/hw/android.hardware.sensors-service.sheng-multihal": {
+      "bytes": 137232,
+      "sha256": "20739ca0b279d8570d081a549788db5e5d44fa2a84e330eb58317cd4c99a19ec"
+    }
+  },
+  "build_passed": true,
+  "elapsed": "01:45",
+  "fresh_prebuild_public_sources_passed": true,
+  "fresh_postbuild_public_sources_passed": true,
+  "project_count": 1243,
+  "sensor_needed_libraries_unchanged": [
+    "android.hardware.sensors@2.0-ScopedWakelock.so",
+    "android.hardware.sensors@2.0.so",
+    "android.hardware.sensors@2.1.so",
+    "android.hardware.sensors-V3-ndk.so",
+    "libbase.so",
+    "libcutils.so",
+    "libfmq.so",
+    "liblog.so",
+    "libpower.so",
+    "libutils.so",
+    "libbinder_ndk.so",
+    "libhidlbase.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+  ],
+  "neutral_math_on_unmodified_framework_passed": true,
+  "invalid_front_cct_sanitizers_passed": true,
+  "builder_restored": true,
+  "persistent_boot_tested": false,
+  "gpu_fallback": false,
+  "camera_or_screenshot_used": false
+}

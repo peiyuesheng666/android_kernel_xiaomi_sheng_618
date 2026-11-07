@@ -30,3 +30,19 @@ service, plus the corresponding vbmeta parent, over verified r15. The working
 color-core library and Settings RRO remain at their accepted r15 versions.
 Build/publication/physical acceptance are separate milestones, recorded after
 they complete. Pure math does not establish hardware acceptance.
+
+## Build and packaging checks
+
+The sensor service and Framework RRO compiled successfully in 01:45. Installed
+APK resources contain the matched neutral XYZ and 3000-ms increase duration.
+The sensor ELF's DT_NEEDED list equals the installed r15 service's list. Before
+and after the build, 13 fixed upstream revisions were freshly fetched and all
+1,243 project statuses were clean; the temporary Soong builder was restored.
+Details are in build-r16-20261107.json and the two r16 upstream-audit reports.
+
+Separate r16 packaging/flash tools keep r15 inputs and outputs unchanged. They
+pin all six baseline hashes and the new sensor-service hash, freeze source and
+build inputs, preserve filesystem metadata and require an exclusive new output
+directory. Scope is one Framework APK and one sensor executable, plus vbmeta.
+Python compile and PowerShell parsing passed. The shared filesystem/publication
+helpers are unchanged from the completed r15 tests.
