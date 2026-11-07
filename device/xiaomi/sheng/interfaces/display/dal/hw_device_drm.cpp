@@ -834,8 +834,21 @@ DisplayError HWDeviceDRM::PopulateDisplayAttributes(uint32_t index) {
     DLOGW("Driver doesn't report panel physical width and height - defaulting to 320dpi");
   }
 
-  display_attributes_[index].x_dpi = (FLOAT(mode.hdisplay) * 25.4f) / FLOAT(mm_width);
-  display_attributes_[index].y_dpi = (FLOAT(mode.vdisplay) * 25.4f) / FLOAT(mm_height);
+  // Sheng's stock N81A panel DT stores 263.2 x 175.4 mm in tenths of a
+  // millimetre. DRM passes these values through as 2632 x 1754 mm. Correct
+  // only that known panel tuple; keep fractional millimetres for physical DPI.
+  float physical_width_mm = FLOAT(mm_width);
+  float physical_height_mm = FLOAT(mm_height);
+  if (connector_info_.type == DRM_MODE_CONNECTOR_DSI &&
+      mode.hdisplay == 3048 && mode.vdisplay == 2032 &&
+      mm_width == 2632 && mm_height == 1754) {
+    physical_width_mm /= 10.0f;
+    physical_height_mm /= 10.0f;
+    DLOGI("Sheng panel physical dimensions: %.1f x %.1f mm",
+          physical_width_mm, physical_height_mm);
+  }
+  display_attributes_[index].x_dpi = (FLOAT(mode.hdisplay) * 25.4f) / physical_width_mm;
+  display_attributes_[index].y_dpi = (FLOAT(mode.vdisplay) * 25.4f) / physical_height_mm;
   SetTopology(topology, &display_attributes_[index].topology);
   SetTopologySplit(display_attributes_[index].topology,
                    &display_attributes_[index].topology_num_split);
