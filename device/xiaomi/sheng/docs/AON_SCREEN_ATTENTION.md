@@ -49,3 +49,18 @@ signing/permission checks, immutable packaging, reboot and physical attention
 acceptance are distinct steps. No checkAttention/startAttention/AON trigger,
 camera launch, screenshot or image capture is used by the agent. After the
 service is installed and ready, the user controls physical switch testing.
+
+## Android 17 component resolution and extraction
+
+The pinned PackageManagerService.getPackageFromComponentString requires a
+flattened component, not a bare package. config_defaultAttentionService is
+therefore com.xiaomi.aon/com.xiaomi.aon.AonAttentionService; PackageManager then
+extracts and validates the installed system package. AttentionManager resolves
+its standard intent and BIND_ATTENTION_SERVICE protection without running checks.
+
+Section-limited extraction with --no-cleanup succeeded. The generated vendor
+module is MiAONService, system_ext_specific=true, certificate=platform,
+dex_preopt.enabled=false. The source APK is byte-identical to stock (131486
+bytes, SHA256 recorded above). Existing vendor inputs and the device GSL/Dolby
+postprocessing remain preserved. The proprietary source and generated recipe
+are generated inputs; implementation stays in this device tree.

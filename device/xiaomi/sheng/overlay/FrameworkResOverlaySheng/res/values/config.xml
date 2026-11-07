@@ -13,5 +13,5 @@
     <!-- Use the stock sheng AttentionService with the existing Screen attention UI.
          Adaptive sleep remains the framework's default OFF until the user enables it. -->
     <bool name="config_adaptive_sleep_available">true</bool>
-    <string name="config_defaultAttentionService" translatable="false">com.xiaomi.aon</string>
+    <string name="config_defaultAttentionService" translatable="false">com.xiaomi.aon/com.xiaomi.aon.AonAttentionService</string>
 </resources>
