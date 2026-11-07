@@ -1,0 +1,37 @@
+{
+  "revision": 18,
+  "recorded_utc": "2026-11-07T09:23:02.205606+00:00",
+  "build_passed": true,
+  "elapsed": "01:35",
+  "fresh_prebuild_public_sources_passed": true,
+  "fresh_postbuild_public_sources_passed": true,
+  "project_count": 1243,
+  "visible_labels_zh": [
+    "自适应",
+    "生动",
+    "鲜艳"
+  ],
+  "available_framework_modes": [
+    0,
+    2,
+    1
+  ],
+  "label_to_mode": {
+    "自适应": 0,
+    "生动": 2,
+    "鲜艳": 1
+  },
+  "compiled_inputs": {
+    "odm/overlay/SettingsResOverlaySheng.apk": {
+      "bytes": 12447,
+      "sha256": "88f3dd0c16055beac57314839eb3625cee2e4db27a6c748a51d8abb36325d853"
+    },
+    "odm/overlay/FrameworkResOverlaySheng.apk": {
+      "bytes": 20710,
+      "sha256": "5147ea05ae96f7692a1affe4167dcf9aad4a3c33559317ed274ce76f084ee189"
+    }
+  },
+  "gpu_fallback": false,
+  "white_balance_parameters_changed": false,
+  "hardware_boot_tested": false
+}
