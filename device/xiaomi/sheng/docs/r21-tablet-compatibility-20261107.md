@@ -33,9 +33,21 @@ device/xiaomi/sheng. The generated base fragment was compared byte-for-byte
 with the installed r20 fragment (822 bytes). Android's official protobuf
 converter decoded the merged result and verified that every original entry
 was retained, followed by exactly the two intended additions. Duplicate
-addition is rejected. Build and runtime acceptance are still pending.
+addition is rejected. The final unified build, official converter and host
+derive_classpath export comparison passed; runtime acceptance remains pending.
 
 The generated protobuf is staged under the module's generated/ directory.
 BUILD_PREBUILT owns the separate built-module copy target; assigning both
 rules the same output caused a Kati duplicate-command failure during the
 first unified attempt. Only the device Android.mk was corrected.
+
+The compatibility source uses Java reflection to read the real Android
+SystemProperties getter, avoiding a compile-time dependency on framework API
+stubs that core_platform intentionally excludes. Missing or inaccessible
+properties return IS_TABLET=false. No property value is invented.
+
+A complete field/method-ID scan of the installed Douyin APK's DEX files found
+no direct miui.os.Build field or method references. Eleven DEX files contain
+the reflective class-name string. This narrows direct linkage risk but does
+not replace actual application regression testing. Raw index:
+reports/device/r20-runtime/douyin-miui-build-reference-audit.json.
