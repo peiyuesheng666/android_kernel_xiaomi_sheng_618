@@ -34,3 +34,8 @@ with the installed r20 fragment (822 bytes). Android's official protobuf
 converter decoded the merged result and verified that every original entry
 was retained, followed by exactly the two intended additions. Duplicate
 addition is rejected. Build and runtime acceptance are still pending.
+
+The generated protobuf is staged under the module's generated/ directory.
+BUILD_PREBUILT owns the separate built-module copy target; assigning both
+rules the same output caused a Kati duplicate-command failure during the
+first unified attempt. Only the device Android.mk was corrected.
