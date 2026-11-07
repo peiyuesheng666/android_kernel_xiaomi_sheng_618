@@ -1,6 +1,6 @@
 # sheng hardware status and repair order
 
-Updated 2026-11-07 after the r7 reboot test. All fixes stay in this device tree;
+Updated 2026-11-07 after the r9 network-provider reboot test. All fixes stay in this device tree;
 public source is verified against freshly fetched manifest-pinned upstream.
 Each logical fix gets a commit, and each batch is compiled, flashed and tested
 before moving to the next hardware path. Source changes and static checks alone
@@ -23,6 +23,7 @@ are not listed as successful hardware tests.
 | Native refresh | Corrected stock submode clocks; native 60/90/120/144 switching checked, and r6 144 Hz touch/display/power-cycle user-verified. |
 | Built-in vibration capability | Fake HAL/declaration removed; r6 VibratorManager reports vibratorIds=[]; external devices are not removed. |
 | About-device name | r7 Settings name Xiaomi Pad 6S Pro 12.4, display and touch user-verified; scoped hardware model remains 24018RPACC. |
+| System network location and geocoder | r9 original MetokNLP provider returned a fresh non-mock network fix and one result for each forward/reverse geocoder request after reboot; user confirmed the repeated service-crash dialog no longer appears. Client apps use the standard Android interfaces. |
 | Recovery basic interaction | Source kernel, touch orientation, ADB and misc access verified in r13. |
 
 ## Confirmed working, without claiming a new hardware repair
@@ -38,11 +39,11 @@ are not listed as successful hardware tests.
 | Order | Item | Current state |
 | --- | --- | --- |
 | Configuration/service integration | NFC/NTAG5 | Tablet uses a passive interconnection tag; stock ntag5_tool/init/policy are missing. Do not advertise unsupported reader/payment NFC. I2C behavior still needs testing. |
-| Configuration/service integration | Network location | r8 provider discovered but geocoder non-SDK access caused repeated process crashes. After temporary component isolation and first-install runtime grants, a real network fix was returned (45 m, non-mock). r9 device-only configuration and reboot validation remain pending. |
 | Component adaptation | Power-button position | Physical button is upper-left; SystemUI's reveal origin is hardcoded on the other edge. No valid RRO side switch exists. Needs device-owned implementation, not a false dimension-only fix. |
 | Application compatibility | Full-screen app layouts | User reports Douyin and some other apps open as a small centered region. Distinguish windowing/letterbox policy from the app's own tablet UI; device-only adaptation and per-app validation remain pending. |
 | Audio application coverage | Dolby across audio/video apps | Prior tests cover the music player and diagnostic streams. User reports no proper Dolby effect in some audio/video apps; check their actual output/effect paths and real-time controls before claiming broad app coverage. |
 | Calibration/service integration | Screen colors and ambient color | Front CCT returns data and is selected; white-balance/TrueTone is not yet enabled and verified. Check primaries, low-light zero samples and stock calibration. |
+| Display geometry | Rounded corners and status-bar insets | User clarified the offset is the four corner masks, with the clock too close to the left edge and the battery too far from the right edge. Stock/current cutout paths are empty; restore only verified stock corner/inset resources through device overlays and validate the result. |
 | Service/backend integration | AON screen attention | Stock MiAONService supports the standard attention interface; APK/VINTF/policy/permissions and camera/QSEE backend still need integration and testing. |
 | Driver/HAL integration | Camera | Severe unknown-error report remains; preserve the user's no-capture instruction. |
 | Driver/HAL integration | Fingerprint | Enrollment unavailable; existing fingerprint service null-pointer crash remains. |
@@ -52,6 +53,7 @@ are not listed as successful hardware tests.
 | Audio/Bluetooth integration | LHDC v5 | Not yet verified working. |
 | Touch/power integration | Double-tap wake | Still pending. |
 | Touch integration | Touch latency and sampling-rate boost | User reports delayed touch and no effect from the higher sampling-rate option; verify actual controller report rate and mode changes separately from touch orientation. |
+| Pointer/display integration | Mouse pointer smoothness | User reports low apparent pointer frame rate; distinguish mouse report timing, cursor composition and actual display refresh before choosing a device-only fix. |
 | Startup | Recovery backlight-only interval | User reports r8 system Logo-to-animation transition no longer has the black gap; Recovery still does. This observation is not attributed to the network-only delta. r6 also had about 52 seconds of framework startup before unlock. |
 | Validation | Other sensors | Only individually tested sensors are considered working; remaining sensor tests are pending. |
 

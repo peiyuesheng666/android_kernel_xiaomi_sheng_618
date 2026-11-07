@@ -1,0 +1,53 @@
+{
+  "revision": 9,
+  "files": [
+    {
+      "partition": "system_ext",
+      "name": "system_ext.img",
+      "bytes": 572813312,
+      "sha256": "7a4e2a739f9cbc3a9713113e40f8a181dde34875c1ef0abee5e53411de58c573"
+    },
+    {
+      "partition": "vbmeta_system",
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "c0a925d91b33750a09eea0b99beeb759a37c47ac8736112c802a8adbf68eb0f8"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/hardware-followup/20261107T022821213489Z-location",
+  "raw_base_sha256": "9c93c87fbfb987980303408f91e776a03c3db30183a7f99d2c50ed51125ec117",
+  "raw_base_bytes": 572813312,
+  "vbmeta_system_base_sha256": "b47236ecae53c69bd27027ea6ae1af5e72e582134d0a30933aa9426ac7f59692",
+  "changed_system_ext_files": [
+    "etc/default-permissions/default-permissions-sheng-location.xml",
+    "etc/sysconfig/sheng-location.xml"
+  ],
+  "compiled_inputs": {
+    "priv-app/ShengMetokNLP/ShengMetokNLP.apk": "846c84ea6468d3e3e6e71496ec3ac0fb91760ced00427e7c062e5da01384e8d3",
+    "etc/permissions/privapp-permissions-sheng-location.xml": "6faad848d1b52b85848398bde01d730e364b5232a3971fb8cc776afe774b8296",
+    "overlay/ShengLocationOverlay.apk": "0c860a9809f244211e032abd746197e55530daf4ac499f54f5873ca1394e12b6",
+    "etc/sysconfig/sheng-location.xml": "7f5ac9b1e498e65dde5cd17ec2ceb3969488ac7cb245541209005b4dd40dd184",
+    "etc/default-permissions/default-permissions-sheng-location.xml": "439e88c9b62fc8eb840de6a8f64d3d86a0af4372fb46c145cd086d3d7d57be44"
+  },
+  "changed_existing_directory_inodes": [],
+  "new_directories": [],
+  "exact_installed_base_verified": true,
+  "filesystem_readback_verified": true,
+  "readonly_e2fsck_passed": true,
+  "existing_file_inode_metadata_preserved": true,
+  "existing_directory_permissions_owners_times_and_xattrs_preserved": true,
+  "unrelated_files_preserved": true,
+  "partition_sizes_unchanged": true,
+  "system_ext_hashtree_verified": true,
+  "signatures_verified": true,
+  "only_system_ext_avb_descriptor_changed": true,
+  "r7_model_descriptor_preserved": true,
+  "original_metok_apk_and_certificate_preserved": true,
+  "overlay_certificate_matches_framework": true,
+  "existing_avb_public_key_preserved": true,
+  "new_file_and_directory_metadata_verified": true,
+  "hardware_boot_tested": true,
+  "runtime_validation": "network-location-r9-validation.json",
+  "standard_network_and_geocoder_verified": true,
+  "post_reboot_crash_popup_absent_user_confirmed": true
+}

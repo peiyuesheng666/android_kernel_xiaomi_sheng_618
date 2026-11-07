@@ -62,8 +62,8 @@ phone modification, user management, diagnostic and privileged phone-state
 permissions; explicit deny entries prevent privileged-permission enforcement
 errors without granting these privileges. Its signature-only
 `INTERACT_ACROSS_USERS_FULL` request is not granted with the original Xiaomi
-certificate. Runtime validation must confirm the provider tolerates these
-denials on this Wi-Fi-only tablet before the integration is declared working.
+certificate. r9 standard network and geocoder calls completed with these
+denials on this Wi-Fi-only tablet.
 
 `ShengLocationOverlay` adds MetokNLP only to
 `config_locationExtraPackageNames`. Android's existing default permission
@@ -72,8 +72,10 @@ extra packages without `SYSTEM_FIXED`, so the user can revoke them. The r9
 default-permissions XML also declares the three requested location grants with
 `fixed=false`, retaining prior user decisions when the default policy runs.
 On an existing user, adding a new system app does not itself rerun that policy;
-the r8 first-install test applied those three grants once. This avoids fixed grants from
-adding MetokNLP to `config_locationProviderPackageNames`.
+the r8 first-install test applied those three grants once. r9 retained those
+existing grants; a fresh-user default-permission installation was not separately
+tested. This avoids fixed grants from adding MetokNLP to
+`config_locationProviderPackageNames`.
 
 The AOSP fused provider list and automatic network/geocoder service discovery
 remain unchanged. The network service advertises the standard v2/v3 network
@@ -108,8 +110,23 @@ r9 adds `system_ext/etc/sysconfig/sheng-location.xml` for the original system
 provider package's non-SDK interface access. It changes neither the platform
 source nor global hidden-API policy, preserves the Xiaomi signature, and adds no
 unrelated runtime/privileged grants. The geocoder's Binder methods, transaction
-order and request getter signatures match the current platform; actual calls
-and reboot behavior still require validation. This provider serves all clients
-using Android's standard network-location API; client apps need no package
-allowlist. The temporary disabled geocoder component must be reset to its default
-after installing the persisted repair.
+order and request getter signatures match the current platform. The temporary
+disabled geocoder component was reset to its default. An additional reboot
+allowed the framework to discover it and create its standard geocoder proxy.
+
+The persisted r9 integration was compiled, flashed and boot-tested. The bounded
+standard network request returned a non-mock fix with age 7 ms and accuracy
+34 m; reverse and forward geocoder calls each returned one result. The user
+confirmed that the repeated network-location crash popup no longer appeared
+after reboot. The global `hidden_api_policy` remained unset, and the signed
+system provider received only its package-specific non-SDK access. Installed
+image hashes and the 144 Hz display mode were also checked. See
+`docs/network-location-r9-validation.json` for the validation boundaries and
+`docs/upstream-location-r9-build-audit.json` for the fresh upstream audit.
+
+This provider serves clients using Android's standard network-location and
+geocoder APIs; client apps need no package allowlist. The tests establish those
+interfaces, rather than individual testing of every application. The diagnostic
+records no coordinates, addresses, SSIDs or MAC addresses. Turning location off
+and revoking permissions remain normal platform controls; their behavior was
+not separately retested in this batch.

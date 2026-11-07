@@ -47,7 +47,9 @@
       "needed": ["liblog.so", "libz.so", "libc.so", "libm.so", "libdl.so"]
     }
   ],
-  "static_verification_only": true,
-  "built": false,
-  "runtime_verified": false
+  "static_verification_only": false,
+  "built": true,
+  "runtime_verified": true,
+  "verified_release": "r9",
+  "runtime_validation": "../docs/network-location-r9-validation.json"
 }

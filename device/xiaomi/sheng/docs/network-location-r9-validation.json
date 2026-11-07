@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-07",
+  "release": "r9",
+  "evidence_directory": "reports/device/location-r9-20261107-103304",
+  "artifact_directory": "artifacts/system-hardware-followup-sheng-r9",
+  "upstream_audit": "upstream-location-r9-build-audit.json",
+  "compiled": true,
+  "flashed": true,
+  "hardware_boot_tested": true,
+  "boot_completed": true,
+  "installed_image_hashes_verified": true,
+  "public_platform_sources_unchanged": true,
+  "original_metok_apk_and_certificate_preserved": true,
+  "global_hidden_api_policy": null,
+  "provider_hidden_api_enforcement_policy": 0,
+  "geocoder_component_state": "PackageManager default state restored; no temporary disabled-component override remains.",
+  "post_restore_reboot_completed": true,
+  "post_restore_reboot_reason": "The framework creates the geocoder proxy at boot. Restoring the previously isolated component required another reboot before testing standard geocoder calls.",
+  "standard_network_test": {
+    "provider": "network",
+    "fix_age_ms": 7,
+    "accuracy_m": 34.0,
+    "mock": false,
+    "passed": true
+  },
+  "standard_geocoder_test": {
+    "reverse_result_count": 1,
+    "forward_result_count": 1,
+    "passed": true
+  },
+  "diagnostic_result_source": "Successful bounded app_process diagnostics after restoring the component and rebooting, recorded in the task's tool output.",
+  "probe_sources": [
+    "location/ShengNetworkLocationProbe.java",
+    "location/ShengGeocoderProbe.java"
+  ],
+  "diagnostic_deadline_ms": 60000,
+  "coordinates_addresses_ssids_or_macs_recorded": false,
+  "user_post_reboot_crash_popup": false,
+  "user_confirmation": "不再出现",
+  "user_confirmed_question": "这次重启后，网络位置服务屡次停止运行的弹窗还会出现吗？",
+  "active_display_refresh_hz": 144,
+  "temporary_geocoder_isolation_removed": true,
+  "global_hidden_api_policy_modified": false,
+  "client_app_allowlist_required": false,
+  "runtime_permission_context": "The r8 first-install investigation granted fine, coarse and background location once. r9 preserves those existing grants; its default-permissions XML uses fixed=false.",
+  "prior_failure_record": "network-location-r8-validation.json",
+  "evidence_limitations": [
+    "provider-policy-checks.txt contains an unsupported get-component-enabled-setting CLI attempt. It is not evidence of a successful component-state query.",
+    "A fresh-user default-permission installation and permission-revocation behavior were not separately tested in this batch.",
+    "The standard network and geocoder interfaces were tested; this does not claim every location client application was individually tested."
+  ],
+  "persistent_repair_validation_passed": true
+}
