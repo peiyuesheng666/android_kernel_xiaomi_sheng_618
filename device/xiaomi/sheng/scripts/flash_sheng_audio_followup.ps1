@@ -14,7 +14,7 @@ foreach ($check in @('readback_verified', 'signatures_verified', 'partition_size
     if ($manifest.$check -ne $true) { throw "Missing image verification: $check" }
 }
 $partitions = @('vendor', 'odm', 'system_ext', 'vbmeta', 'vbmeta_system')
-if (($manifest.files.partition | Sort-Object) -join ',' -ne ($partitions | Sort-Object) -join ',') {
+if ((($manifest.files.partition | Sort-Object) -join ',') -ne (($partitions | Sort-Object) -join ',')) {
     throw 'Unexpected partition set.'
 }
 foreach ($file in $manifest.files) {
@@ -47,8 +47,13 @@ $ready = $false
 do {
     Start-Sleep -Seconds 3
     try {
-        $userspace = Invoke-SerialTool $fastbootPath @('getvar', 'is-userspace')
-        $ready = $userspace -match '(?m)^is-userspace:\s*yes\s*$'
+        # Inventory returns immediately even when the serial is disconnected;
+        # do not let getvar block indefinitely waiting for the USB transition.
+        $devices = Invoke-SerialTool $fastbootPath @('devices')
+        if ($devices -match '(?m)^ca10ede3\s+fastboot(?:\s|$)') {
+            $userspace = Invoke-SerialTool $fastbootPath @('getvar', 'is-userspace')
+            $ready = $userspace -match '(?m)^is-userspace:\s*yes\s*$'
+        }
     } catch { $ready = $false }
 } until ($ready -or (Get-Date) -gt $deadline)
 if (-not $ready) { throw 'Fastbootd did not become ready.' }
