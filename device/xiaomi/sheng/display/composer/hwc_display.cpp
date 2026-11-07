@@ -623,6 +623,7 @@ int HWCDisplay::ConfigureSafeBuiltInMode() {
     DLOGE("No native-resolution 60 Hz built-in config");
     return -EINVAL;
   }
+  const hwc2_config_t safe_config_id = safe_config->first;
 
   // Continuous splash requires the DRM preferred mode on the first commit.
   // Keep that real active config advertised alongside 60 Hz. The normal HWC
@@ -657,7 +658,7 @@ int HWCDisplay::ConfigureSafeBuiltInMode() {
   num_configs_ = UINT32(variable_config_map_.size());
   active_refresh_rate_ = active_info.fps;
   DLOGI("Built-in display keeps boot config %u (%u Hz) and safe config %u (60 Hz)",
-        active_config, active_info.fps, config.first);
+        active_config, active_info.fps, safe_config_id);
   return 0;
 }
 
