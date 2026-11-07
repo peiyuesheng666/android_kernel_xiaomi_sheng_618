@@ -26,3 +26,15 @@ cc_binary {
     shared_libs: ["libcodec2_store_dolby"],
     cflags: ["-DSHENG_CODEC2_INSTANCE=\"default1\""],
 }
+
+// Stock video handlers use the pre-delivery-status AHandler layout. Keep the
+// generated vendor installer identities and isolate only their foundation ABI.
+filegroup {
+    name: "sheng_dolby_video_decoder_compat",
+    srcs: ["video/c2.dolby.hevc.dec.so"],
+}
+
+filegroup {
+    name: "sheng_dolby_video_secure_decoder_compat",
+    srcs: ["video/c2.dolby.hevc.sec.dec.so"],
+}

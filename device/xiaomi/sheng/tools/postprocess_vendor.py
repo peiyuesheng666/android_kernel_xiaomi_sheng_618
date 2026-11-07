@@ -17,6 +17,8 @@ def postprocess_vendor(vendor: Path):
         ('libhwdap', 'proprietary/vendor/lib64/soundfx/libhwdap.so', ':sheng_dolby_effect_compat'),
         ('libdlbpreg', 'proprietary/vendor/lib64/libdlbpreg.so', ':sheng_dolby_pregain_compat'),
         ('libdlbvol', 'proprietary/vendor/lib64/soundfx/libdlbvol.so', ':sheng_dolby_volume_compat'),
+        ('c2.dolby.hevc.dec', 'proprietary/vendor/lib64/c2.dolby.hevc.dec.so', ':sheng_dolby_video_decoder_compat'),
+        ('c2.dolby.hevc.sec.dec', 'proprietary/vendor/lib64/c2.dolby.hevc.sec.dec.so', ':sheng_dolby_video_secure_decoder_compat'),
     ):
         start = text.index('    name: "'+name+'",')
         end = text.index('\n}\n', start)+3
