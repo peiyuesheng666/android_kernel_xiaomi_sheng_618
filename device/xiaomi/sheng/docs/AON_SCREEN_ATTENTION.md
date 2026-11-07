@@ -140,3 +140,19 @@ trace without that pipeline failure, and the user's physical attention test.
 No camera/provider restart or attention request is issued for investigation.
 Raw string evidence: reports/device/r23-investigation/aon-firmware-strings.txt;
 live/stock segment identity: reports/device/r20-runtime/aon-adsp-file-comparison.json.
+
+## r23 runtime acceptance
+
+r23 vendor and its vbmeta parent were flashed to ca10ede3 slot b. All six
+partition hashes matched their reviewed images; system, system_ext, ODM and
+vbmeta_system remained at the accepted baselines. The installed alias points
+to the exact stock ODM protobuf and both resolved hashes are unchanged.
+
+The new boot's existing CamX text trace shows QSEEAONSensorInit success and
+QSEEAONServiceCallback Event Received: 0 during the user's test. The previous
+Init failed error: 1, AONPipeline finalization and StreamOn failures are absent
+from that trace. The user explicitly confirmed "aon好了". This is now accepted,
+with adaptive_sleep=1 and screen_off_timeout=15000 preserved. No agent camera
+launch, capture, provider restart or attention request was used. Evidence:
+reports/device/r23-runtime-20261107-232657/aon-native-current.txt and the r23
+runtime review. USB/root transitions were announced before execution.
