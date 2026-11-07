@@ -9,7 +9,7 @@ for swap in /root/sheng-612/lineage-build.swap /root/sheng-lineage/lineage-extra
         swapon --priority 0 "$swap"
     fi
 done
-python3 device/xiaomi/sheng/scripts/audit_upstream_sources.py --fetch \
+python3 device/xiaomi/sheng/tools/audit_upstream_sources.py --fetch \
     --output /root/sheng-lineage/logs/prebuild-upstream-source-audit.json
 source build/envsetup.sh
 lunch lineage_sheng-cp2a-userdebug

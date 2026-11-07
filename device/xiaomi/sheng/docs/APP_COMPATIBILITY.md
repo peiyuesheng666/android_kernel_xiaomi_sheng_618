@@ -32,6 +32,12 @@ r12 临时验证中，固定竖屏应用的居中窗口从
 ## 重启验收
 
 临时验证后删除测试 DeviceConfig key，恢复原始 null 状态；刷入前确认
-一次性引导标记仍为 null。正式镜像启动后检查引导文件、标记和窗口策略，
+一次性引导命名空间仍为空（parser 检查其中任意 key，不仅是标记值）。
+正式镜像启动后检查引导文件、标记和窗口策略，
 重新打开样本应用并检查实际窗口，再由用户确认显示和交互。
 编译、刷写和重启验收结果另记，临时成功不作为持久修复通过。
+
+当前上游依据为 `DeviceConfigBootstrapValues.java` 第 34、71–116 行，
+框架 bool 定义为 `core/res/res/values/config.xml` 第 6756、6759 行。
+此版本的 framework-res 没有 overlayable 定义，ODM 预装策略允许现有 RRO
+覆盖这两项；其他 ROM 仍需检查自身 overlayable 和 idmap 策略。

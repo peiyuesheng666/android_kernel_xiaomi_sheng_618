@@ -46,9 +46,9 @@ skip flag. The original signature must still remain intact.
 The extractor is repeatable and refuses an unexpected APK or library hash:
 
 ```sh
-python3 device/xiaomi/sheng/location/extract_metoknlp.py \
+python3 device/xiaomi/sheng/interfaces/location/extract_metoknlp.py \
     --source-dump /root/sheng-lineage/firmware-dump/partitions
-python3 device/xiaomi/sheng/location/extract_metoknlp.py --check
+python3 device/xiaomi/sheng/interfaces/location/extract_metoknlp.py --check
 ```
 
 It reads firmware inputs and writes only this directory's proprietary APK. It

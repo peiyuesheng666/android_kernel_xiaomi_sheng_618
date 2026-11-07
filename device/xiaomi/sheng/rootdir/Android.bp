@@ -131,3 +131,19 @@ sh_binary {
     src: "bin/vendor_modprobe.sh",
     vendor: true,
 }
+
+// SPDX-License-Identifier: Apache-2.0
+prebuilt_etc {
+    name: "init.sheng.rc",
+    src: "etc/init.sheng.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "fstab.sheng",
+    filename: "fstab.qcom",
+    src: "etc/fstab.qcom",
+    vendor: true,
+    vendor_ramdisk_available: true,
+}

@@ -1,0 +1,7 @@
+// SPDX-License-Identifier: Apache-2.0
+cc_library_shared {
+    name: "libsheng_audio_log_compat",
+    vendor: true,
+    srcs: ["AudioLogLevel.c"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}

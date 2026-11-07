@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/xiaomi-pad-8-pro-development/android_device_xiaomi_piano",
+  "branch": "seventeen",
+  "commit": "3f10fc25273b42d18d0bd533551a0a5c3dda0094",
+  "fresh_fetch_verified": true,
+  "reference_directories": [
+    ".github",
+    "aidl",
+    "configs",
+    "docs",
+    "dolby",
+    "interfaces",
+    "overlay",
+    "properties",
+    "rootdir",
+    "sepolicy"
+  ],
+  "copied_implementation_files": [],
+  "adaptation": "Keep the standard piano layout; group sheng-owned adapters under interfaces, display configuration under configs/display and development helpers under tools."
+}

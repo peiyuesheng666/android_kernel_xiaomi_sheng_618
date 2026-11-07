@@ -127,7 +127,7 @@ for partition in ('vendor', 'odm'):
         )}
         for relative in ('etc/audio/sku_kalama/audio_effects.xml', 'etc/audio_effects.xml'):
             sources[relative] = device/'configs/audio/sku_kalama/audio_effects.xml'
-        preferred = list((rom/'out/soong/.intermediates/device/xiaomi/sheng/audio/pal/libar-pal-sheng').glob('android_vendor_*_shared/libar-pal.so'))
+        preferred = list((rom/'out/soong/.intermediates/device/xiaomi/sheng/interfaces/audio/pal/libar-pal-sheng').glob('android_vendor_*_shared/libar-pal.so'))
         assert len(preferred) == 1 and sha(preferred[0]) == sha(sources['lib64/libar-pal.so'])
         assert (stage/'lib64/hw/audio.primary.kalama.so').is_file()
         update_properties(stage/'build.prop', product/'vendor/build.prop', {

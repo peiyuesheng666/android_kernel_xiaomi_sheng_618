@@ -121,7 +121,7 @@ def main():
         assert source.is_file(), source
     work = Path('/root/sheng-lineage/hardware-followup') / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ-location')
     work.mkdir(parents=True)
-    stock_apk = DEVICE / 'location/proprietary/MetokNLP.apk'
+    stock_apk = DEVICE / 'interfaces/location/proprietary/MetokNLP.apk'
     assert sha(stock_apk) == '846c84ea6468d3e3e6e71496ec3ac0fb91760ced00427e7c062e5da01384e8d3'
     assert sha(SOURCES['priv-app/ShengMetokNLP/ShengMetokNLP.apk']) == sha(stock_apk)
     assert certificates(stock_apk) == ['c9009d01ebf9f5d0302bc71b2fe9aa9a47a432bba17308a3111b75d7b2149025']

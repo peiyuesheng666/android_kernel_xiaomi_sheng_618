@@ -18,7 +18,7 @@
     "upstream": "hardware/qcom-caf/sm8550/display",
     "revision": "d679d895cd1e35d088b67bfd19d9141c76da5207",
     "source_directory": "sdm/libs/dal",
-    "device_directory": "display/dal",
+    "device_directory": "interfaces/display/dal",
     "header_source": "libdrmutils/drm_interface.h",
     "stock_dal_sha256": "bf509c5f550abfa3e5bd981d4d6a1a1322057c4e8e76b55f394e6ac43b755263",
     "stock_submode_size_lp64": 48,
@@ -29,7 +29,7 @@
     "upstream": "hardware/qcom-caf/sm8550/display",
     "revision": "d679d895cd1e35d088b67bfd19d9141c76da5207",
     "source_directory": "sde-drm",
-    "device_directory": "display/sde-drm",
+    "device_directory": "interfaces/display/sde-drm",
     "changes": ["pixel_clk_khz mode property", "exact submode prefix matching"]
   },
   "gsl": {

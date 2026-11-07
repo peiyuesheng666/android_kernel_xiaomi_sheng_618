@@ -1,0 +1,2130 @@
+{
+  "generated_utc": "2026-11-07T05:38:19.951923+00:00",
+  "base": "40f2a0ac74a9ec2270c5bde2dea332e457625d2b",
+  "scope": "read-only source/build-reference review; no Android build or device test",
+  "old_module_count": 55,
+  "current_module_count": 64,
+  "missing_modules": [],
+  "added_modules": [
+    "ShengKeyboardPresence",
+    "ShengTouch",
+    "init.sheng-keyboard-presence.rc",
+    "libsheng_touch_control",
+    "libsheng_touch_jni",
+    "privapp-permissions-com.xiaomi.sheng.touch.xml",
+    "sheng-touchctl",
+    "sheng_snapdragon_color_libs_config",
+    "sheng_touch_control_test"
+  ],
+  "duplicate_modules": [],
+  "semantic_changed_modules": [],
+  "preserved_modules": [
+    {
+      "name": "FrameworkResOverlaySheng",
+      "old_file": "device/xiaomi/sheng/overlay/FrameworkResOverlaySheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/overlay/FrameworkResOverlaySheng/Android.bp",
+      "type": "runtime_resource_overlay"
+    },
+    {
+      "name": "LineageResOverlaySheng",
+      "old_file": "device/xiaomi/sheng/overlay/LineageResOverlaySheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/overlay/LineageResOverlaySheng/Android.bp",
+      "type": "runtime_resource_overlay"
+    },
+    {
+      "name": "SettingsResOverlaySheng",
+      "old_file": "device/xiaomi/sheng/overlay/SettingsResOverlaySheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/overlay/SettingsResOverlaySheng/Android.bp",
+      "type": "runtime_resource_overlay"
+    },
+    {
+      "name": "ShengDolby",
+      "old_file": "device/xiaomi/sheng/dolby/ShengDolby/Android.bp",
+      "new_file": "device/xiaomi/sheng/dolby/ShengDolby/Android.bp",
+      "type": "android_app"
+    },
+    {
+      "name": "ShengLocationOverlay",
+      "old_file": "device/xiaomi/sheng/location/overlay/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/location/overlay/Android.bp",
+      "type": "runtime_resource_overlay"
+    },
+    {
+      "name": "ShengMetokNLP",
+      "old_file": "device/xiaomi/sheng/location/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/location/Android.bp",
+      "type": "android_app_import"
+    },
+    {
+      "name": "SystemUIResOverlaySheng",
+      "old_file": "device/xiaomi/sheng/overlay/SystemUIResOverlaySheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/overlay/SystemUIResOverlaySheng/Android.bp",
+      "type": "runtime_resource_overlay"
+    },
+    {
+      "name": "WifiResOverlaySheng",
+      "old_file": "device/xiaomi/sheng/overlay/WifiResOverlaySheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/overlay/WifiResOverlaySheng/Android.bp",
+      "type": "runtime_resource_overlay"
+    },
+    {
+      "name": "android.hardware.sensors-service.sheng-multihal",
+      "old_file": "device/xiaomi/sheng/aidl/sensors/Android.bp",
+      "new_file": "device/xiaomi/sheng/aidl/sensors/Android.bp",
+      "type": "cc_binary"
+    },
+    {
+      "name": "audio.primary.sheng",
+      "old_file": "device/xiaomi/sheng/audio/rotation/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/audio/rotation/Android.bp",
+      "type": "cc_library_shared"
+    },
+    {
+      "name": "charger_fw_fstab.qti",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "fstab.sheng",
+      "old_file": "device/xiaomi/sheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "init.class_main.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "init.kernel.post_boot-kalama.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "init.kernel.post_boot.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "init.qcom.class_core.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "init.qcom.early_boot.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "init.qcom.factory.rc",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "init.qcom.post_boot.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "init.qcom.rc",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "init.qcom.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "init.qti.kernel.rc",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "init.qti.kernel.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "init.qti.write.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "init.recovery.qcom.rc",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "init.sheng.rc",
+      "old_file": "device/xiaomi/sheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "init.sm8550.rc",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "init.target.rc",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "libar-pal-sheng",
+      "old_file": "device/xiaomi/sheng/audio/pal/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "type": "cc_library_shared"
+    },
+    {
+      "name": "libar-pal-sheng-install",
+      "old_file": "device/xiaomi/sheng/audio/pal/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "type": "cc_prebuilt_library_shared"
+    },
+    {
+      "name": "libarpal-sheng-headers",
+      "old_file": "device/xiaomi/sheng/audio/pal/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "type": "cc_library_headers"
+    },
+    {
+      "name": "libsdedrm-sheng",
+      "old_file": "device/xiaomi/sheng/display/sde-drm/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "type": "cc_library_shared"
+    },
+    {
+      "name": "libsdedrm-sheng-install",
+      "old_file": "device/xiaomi/sheng/display/sde-drm/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "type": "cc_prebuilt_library_shared"
+    },
+    {
+      "name": "libsdmdal-sheng",
+      "old_file": "device/xiaomi/sheng/display/dal/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "type": "cc_library_shared"
+    },
+    {
+      "name": "libsdmdal-sheng-install",
+      "old_file": "device/xiaomi/sheng/display/dal/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "type": "cc_prebuilt_library_shared"
+    },
+    {
+      "name": "libsheng_audio_log_compat",
+      "old_file": "device/xiaomi/sheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/compat/Android.bp",
+      "type": "cc_library_shared"
+    },
+    {
+      "name": "libsheng_gsl_headers",
+      "old_file": "device/xiaomi/sheng/audio/gsl/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/audio/gsl/Android.bp",
+      "type": "cc_library_headers"
+    },
+    {
+      "name": "libshgdolby_foundation",
+      "old_file": "device/xiaomi/sheng/compat/dolby/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "type": "cc_prebuilt_library_shared"
+    },
+    {
+      "name": "privapp-permissions-org.lineageos.sheng.dolby.xml",
+      "old_file": "device/xiaomi/sheng/dolby/ShengDolby/Android.bp",
+      "new_file": "device/xiaomi/sheng/dolby/ShengDolby/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "privapp-permissions-sheng-location",
+      "old_file": "device/xiaomi/sheng/location/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/location/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "sheng_dolby_dms_compat",
+      "old_file": "device/xiaomi/sheng/compat/dolby/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "type": "filegroup"
+    },
+    {
+      "name": "sheng_dolby_effect_compat",
+      "old_file": "device/xiaomi/sheng/compat/dolby/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "type": "filegroup"
+    },
+    {
+      "name": "sheng_dolby_pregain_compat",
+      "old_file": "device/xiaomi/sheng/compat/dolby/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "type": "filegroup"
+    },
+    {
+      "name": "sheng_dolby_volume_compat",
+      "old_file": "device/xiaomi/sheng/compat/dolby/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "type": "filegroup"
+    },
+    {
+      "name": "sheng_firmware_WCNSS_qcom_cfg.ini_symlink",
+      "old_file": "device/xiaomi/sheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/Android.bp",
+      "type": "install_symlink"
+    },
+    {
+      "name": "sheng_firmware_wlan_mac.bin_symlink",
+      "old_file": "device/xiaomi/sheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/Android.bp",
+      "type": "install_symlink"
+    },
+    {
+      "name": "sheng_firmware_wlanmdsp.otaupdate_symlink",
+      "old_file": "device/xiaomi/sheng/Android.bp",
+      "new_file": "device/xiaomi/sheng/Android.bp",
+      "type": "install_symlink"
+    },
+    {
+      "name": "sheng_metoknlp_proprietary_license",
+      "old_file": "device/xiaomi/sheng/location/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/location/Android.bp",
+      "type": "license"
+    },
+    {
+      "name": "system_dlkm_modprobe.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    },
+    {
+      "name": "ueventd-odm.rc",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "ueventd.qcom.rc",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "vendor.qti.hardware.display.allocator-service-sheng",
+      "old_file": "device/xiaomi/sheng/display/gralloc/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/display/gralloc/Android.bp",
+      "type": "cc_binary"
+    },
+    {
+      "name": "vendor.qti.hardware.display.composer-service-sheng",
+      "old_file": "device/xiaomi/sheng/display/composer/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/display/composer/Android.bp",
+      "type": "cc_binary"
+    },
+    {
+      "name": "vendor.qti.hardware.display.composer-service-sheng.rc",
+      "old_file": "device/xiaomi/sheng/display/composer/Android.bp",
+      "new_file": "device/xiaomi/sheng/interfaces/display/composer/Android.bp",
+      "type": "prebuilt_etc"
+    },
+    {
+      "name": "vendor_modprobe.sh",
+      "old_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "new_file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "type": "sh_binary"
+    }
+  ],
+  "soong_source_checks": [
+    {
+      "file": "device/xiaomi/sheng/aidl/sensors/Android.bp",
+      "property": "srcs",
+      "value": "service.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/aidl/sensors/Android.bp",
+      "property": "srcs",
+      "value": "HalProxy.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/aidl/sensors/Android.bp",
+      "property": "srcs",
+      "value": "HalProxyCallback.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/aidl/sensors/Android.bp",
+      "property": "init_rc",
+      "value": "android.hardware.sensors-service.sheng-multihal.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/configs/display/color/Android.bp",
+      "property": "src",
+      "value": "snapdragon_color_libs_config.xml",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/dolby/ShengDolby/Android.bp",
+      "property": "srcs",
+      "value": "src/**/*.java",
+      "exists": true,
+      "matches": 3
+    },
+    {
+      "file": "device/xiaomi/sheng/dolby/ShengDolby/Android.bp",
+      "property": "resource_dirs",
+      "value": "res",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/dolby/ShengDolby/Android.bp",
+      "property": "src",
+      "value": "privapp-permissions-org.lineageos.sheng.dolby.xml",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/gsl/Android.bp",
+      "property": "export_include_dirs",
+      "value": "api",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/gsl/Android.bp",
+      "property": "export_include_dirs",
+      "value": "dls_client_api",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/gsl/Android.bp",
+      "property": "export_include_dirs",
+      "value": "hw_rsc_api",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/gsl/Android.bp",
+      "property": "export_include_dirs",
+      "value": "rtc_api",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "context_manager/inc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "device/inc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "inc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "plugins/codecs",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "resource_manager/inc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "session/inc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "stream/inc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "utils/inc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "Pal.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "context_manager/src/ContextManager.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/Bluetooth.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/Device.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/DisplayPort.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/ECRefDevice.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/ExtEC.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/FMDevice.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/Handset.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/HandsetMic.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/HandsetVaMic.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/HapticsDev.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/HdmiIn.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/Headphone.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/HeadsetMic.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/HeadsetVaMic.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/RTProxy.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/Speaker.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/SpeakerMic.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/SpeakerProtection.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/USBAudio.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "device/src/UltrasoundDevice.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "resource_manager/src/ResourceManager.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "resource_manager/src/SndCardMonitor.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/ACDEngine.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/ContextDetectionEngine.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/PayloadBuilder.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/Session.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/SessionAgm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/SessionAlsaCompress.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/SessionAlsaPcm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/SessionAlsaUtils.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/SessionAlsaVoice.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/SoundTriggerEngine.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/SoundTriggerEngineCapi.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "session/src/SoundTriggerEngineGsl.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/Stream.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamACD.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamACDB.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamCommon.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamCompress.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamContextProxy.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamInCall.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamNonTunnel.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamPCM.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamSensorPCMData.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamSoundTrigger.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "stream/src/StreamUltraSound.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/ACDPlatformInfo.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/CustomVAInterface.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/HotwordInterface.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/MetadataParser.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/PalRingBuffer.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/SignalHandler.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/SoundTriggerPlatformInfo.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/SoundTriggerUtils.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/SVAInterface.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/VoiceUIInterface.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": "utils/src/VoiceUIPlatformInfo.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "inc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "include_dirs",
+      "value": "system/media/audio/include",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "include_dirs",
+      "value": "system/media/audio_route/include",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "export_include_dirs",
+      "value": "inc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/rotation/Android.bp",
+      "property": "srcs",
+      "value": "ShengAudioRotation.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/compat/Android.bp",
+      "property": "srcs",
+      "value": "AudioLogLevel.c",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "property": "srcs",
+      "value": "libshgdolby_foundation.so",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "property": "srcs",
+      "value": "libdlbdsservice.so",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "property": "srcs",
+      "value": "libhwdap.so",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "property": "srcs",
+      "value": "libdlbpreg.so",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp",
+      "property": "srcs",
+      "value": "libdlbvol.so",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/composer/Android.bp",
+      "property": "srcs",
+      "value": "*.cpp",
+      "exists": true,
+      "matches": 31
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/composer/Android.bp",
+      "property": "src",
+      "value": "vendor.qti.hardware.display.composer-service-sheng.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "local_include_dirs",
+      "value": "include",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_events_interface.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_info_interface.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_interface.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_info_drm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_device_drm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_peripheral_drm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_tv_drm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_events_drm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_scale_drm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_virtual_drm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": "hw_color_manager_drm.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/gralloc/Android.bp",
+      "property": "srcs",
+      "value": "QtiAllocator.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/gralloc/Android.bp",
+      "property": "srcs",
+      "value": "service.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/gralloc/Android.bp",
+      "property": "init_rc",
+      "value": "vendor.qti.hardware.display.allocator-service-sheng.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/gralloc/Android.bp",
+      "property": "vintf_fragments",
+      "value": "vendor.qti.hardware.display.allocator-service-sheng.xml",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "include_dirs",
+      "value": "device/xiaomi/sheng/interfaces/display/dal/include",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_manager.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_connector.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_encoder.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_crtc.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_plane.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_atomic_req.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_utils.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_pp_manager.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_property.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_dpps_mgr_imp.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": "drm_panel_feature_mgr.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/keyboard/Android.bp",
+      "property": "srcs",
+      "value": "src/**/*.java",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/keyboard/Android.bp",
+      "property": "src",
+      "value": "init.sheng-keyboard-presence.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/touch/Android.bp",
+      "property": "srcs",
+      "value": "native/TouchControl.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/touch/Android.bp",
+      "property": "export_include_dirs",
+      "value": "native",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/touch/Android.bp",
+      "property": "srcs",
+      "value": "native/TouchControlTest.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/touch/Android.bp",
+      "property": "srcs",
+      "value": "jni/ShengTouchNative.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/touch/Android.bp",
+      "property": "srcs",
+      "value": "native/TouchControlMain.cpp",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/touch/Android.bp",
+      "property": "init_rc",
+      "value": "init.sheng.touch.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/touch/Android.bp",
+      "property": "srcs",
+      "value": "src/**/*.java",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/input/touch/Android.bp",
+      "property": "src",
+      "value": "privapp-permissions-com.xiaomi.sheng.touch.xml",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/location/Android.bp",
+      "property": "src",
+      "value": "permissions/privapp-permissions-sheng-location.xml",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/charger_fw_fstab.qti",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/init.qcom.factory.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/init.qcom.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/init.qti.kernel.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/init.recovery.qcom.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/init.sm8550.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/init.target.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/ueventd-odm.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/ueventd.qcom.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/init.class_main.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/init.kernel.post_boot-kalama.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/init.kernel.post_boot.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/init.qcom.class_core.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/init.qcom.early_boot.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/init.qcom.post_boot.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/init.qcom.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/init.qti.kernel.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/init.qti.write.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/system_dlkm_modprobe.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "bin/vendor_modprobe.sh",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/init.sheng.rc",
+      "exists": true,
+      "matches": 1
+    },
+    {
+      "file": "device/xiaomi/sheng/rootdir/Android.bp",
+      "property": "src",
+      "value": "etc/fstab.qcom",
+      "exists": true,
+      "matches": 1
+    }
+  ],
+  "soong_source_failures": [],
+  "module_source_references": [
+    {
+      "file": "device/xiaomi/sheng/interfaces/audio/pal/Android.bp",
+      "property": "srcs",
+      "value": ":libar-pal-sheng",
+      "exists": true
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/dal/Android.bp",
+      "property": "srcs",
+      "value": ":libsdmdal-sheng",
+      "exists": true
+    },
+    {
+      "file": "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp",
+      "property": "srcs",
+      "value": ":libsdedrm-sheng",
+      "exists": true
+    }
+  ],
+  "device_mk_copy_source_checks": [
+    {
+      "file": "device.mk",
+      "line": 90,
+      "source": "configs/audio/audio_cloud_control_white_list.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 91,
+      "source": "configs/audio/audio_policy_volumes.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 92,
+      "source": "configs/audio/usecaseKvManager.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 93,
+      "source": "configs/audio/sku_kalama/adsp_sleep_monitor.conf",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 94,
+      "source": "configs/audio/sku_kalama/audio_effects.conf",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 95,
+      "source": "configs/audio/sku_kalama/audio_policy_configuration.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 103,
+      "source": "configs/audio/card-defs.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 104,
+      "source": "configs/audio/sku_kalama/audio_effects.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 105,
+      "source": "configs/audio/microphone_characteristics.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 138,
+      "source": "configs/permissions/camerax-vendor-extensions.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 151,
+      "source": "configs/display/displayconfig/display_id_4630947038039379843.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 253,
+      "source": "interfaces/location/sysconfig/sheng-location.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 254,
+      "source": "interfaces/location/permissions/default-permissions-sheng-location.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 258,
+      "source": "configs/device-config-defaults",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 307,
+      "source": "configs/sensors/hals.conf",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 424,
+      "source": "configs/idc/uinput-fpc.idc",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 425,
+      "source": "configs/keylayout/uinput-fpc.kl",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 437,
+      "source": "configs/audio/mixer_paths_kalama_mtp.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 438,
+      "source": "configs/audio/resourcemanager_kalama_mtp.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 446,
+      "source": "configs/idc/NVTCapacitiveTouchScreen.idc",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 447,
+      "source": "configs/touch/sheng-touch-report",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 448,
+      "source": "rootdir/etc/vendor.qti.camera.provider-service_64.rc",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 451,
+      "source": "configs/audio/sku_kalama/audio_effects.xml",
+      "exists": true
+    }
+  ],
+  "make_local_path_checks": [
+    {
+      "file": "device.mk",
+      "line": 90,
+      "source": "configs/audio/audio_cloud_control_white_list.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 91,
+      "source": "configs/audio/audio_policy_volumes.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 92,
+      "source": "configs/audio/usecaseKvManager.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 93,
+      "source": "configs/audio/sku_kalama/adsp_sleep_monitor.conf",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 94,
+      "source": "configs/audio/sku_kalama/audio_effects.conf",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 95,
+      "source": "configs/audio/sku_kalama/audio_policy_configuration.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 104,
+      "source": "configs/audio/sku_kalama/audio_effects.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 138,
+      "source": "configs/permissions/camerax-vendor-extensions.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 151,
+      "source": "configs/display/displayconfig/display_id_4630947038039379843.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 253,
+      "source": "interfaces/location/sysconfig/sheng-location.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 254,
+      "source": "interfaces/location/permissions/default-permissions-sheng-location.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 258,
+      "source": "configs/device-config-defaults",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 307,
+      "source": "configs/sensors/hals.conf",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 424,
+      "source": "configs/idc/uinput-fpc.idc",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 425,
+      "source": "configs/keylayout/uinput-fpc.kl",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 437,
+      "source": "configs/audio/mixer_paths_kalama_mtp.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 438,
+      "source": "configs/audio/resourcemanager_kalama_mtp.xml",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 446,
+      "source": "configs/idc/NVTCapacitiveTouchScreen.idc",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 447,
+      "source": "configs/touch/sheng-touch-report",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 448,
+      "source": "rootdir/etc/vendor.qti.camera.provider-service_64.rc",
+      "exists": true
+    },
+    {
+      "file": "device.mk",
+      "line": 451,
+      "source": "configs/audio/sku_kalama/audio_effects.xml",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 52,
+      "source": "configs/config.fs",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 94,
+      "source": "configs/modules/modules.list.recovery",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 95,
+      "source": "configs/modules/modules.list.recovery",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 96,
+      "source": "configs/modules/modules.load.recovery",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 97,
+      "source": "configs/modules/modules.load.vendor_dlkm",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 98,
+      "source": "configs/modules/modules.load.first_stage",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 99,
+      "source": "configs/modules/modules.load.recovery",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 150,
+      "source": "configs/vintf/framework_dolby_matrix.xml",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 152,
+      "source": "configs/vintf/framework_manifest.xml",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 202,
+      "source": "configs/kernel/sheng.config",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 221,
+      "source": "sepolicy/vendor",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 222,
+      "source": "properties/vendor.prop",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 223,
+      "source": "properties/odm.prop",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 224,
+      "source": "properties/system.prop",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 225,
+      "source": "properties/product.prop",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 226,
+      "source": "properties/system_ext.prop",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 227,
+      "source": "rootdir/etc/fstab.qcom",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 230,
+      "source": "configs/vintf/manifest_kalama.xml",
+      "exists": true
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 231,
+      "source": "configs/vintf/manifest_xiaomi.xml",
+      "exists": true
+    }
+  ],
+  "tools_python_syntax": [
+    {
+      "file": "device/xiaomi/sheng/tools/audit_erofs_metadata.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/audit_upstream_sources.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_dolby_app.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_dolby_foundation_compat.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_sensor_probe.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/cleanup_packaging_staging.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/inspect_dolby_database.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_batch_followup.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_batch_helpers.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_dolby_followup.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_hardware_followup.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_location_followup.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_model_followup.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_overlay_followup.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_refresh_followup.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_startup_followup.py",
+      "ok": true
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/postprocess_vendor.py",
+      "ok": true
+    }
+  ],
+  "tools_stale_path_references": [],
+  "tools_root_derivations": [
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_dolby_app.py",
+      "line": 11,
+      "text": "device = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_dolby_app.py",
+      "line": 12,
+      "text": "workspace = device.parents[2]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_dolby_foundation_compat.py",
+      "line": 13,
+      "text": "device = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_dolby_foundation_compat.py",
+      "line": 14,
+      "text": "workspace = device.parents[2]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_sensor_probe.py",
+      "line": 6,
+      "text": "device = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_sensor_probe.py",
+      "line": 7,
+      "text": "workspace = device.parents[2]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_batch_followup.py",
+      "line": 16,
+      "text": "DEVICE = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_batch_helpers.py",
+      "line": 53,
+      "text": "device = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_dolby_followup.py",
+      "line": 19,
+      "text": "device = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_dolby_followup.py",
+      "line": 20,
+      "text": "workspace = device.parents[2]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_hardware_followup.py",
+      "line": 17,
+      "text": "device = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_hardware_followup.py",
+      "line": 18,
+      "text": "workspace = device.parents[2]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_location_followup.py",
+      "line": 23,
+      "text": "DEVICE = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_model_followup.py",
+      "line": 19,
+      "text": "DEVICE = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_model_followup.py",
+      "line": 20,
+      "text": "WORKSPACE = DEVICE.parents[2]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_overlay_followup.py",
+      "line": 25,
+      "text": "DEVICE = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_refresh_followup.py",
+      "line": 20,
+      "text": "device = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_refresh_followup.py",
+      "line": 21,
+      "text": "workspace = device.parents[2]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_startup_followup.py",
+      "line": 20,
+      "text": "device = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/package_sheng_startup_followup.py",
+      "line": 21,
+      "text": "workspace = device.parents[2]"
+    }
+  ],
+  "input_sha256": {
+    "device/xiaomi/sheng/Android.bp": "aec56a48a9e5bee9ab689fc0716553aafeb9333479bef9c4512879792fb86d5f",
+    "device/xiaomi/sheng/aidl/sensors/Android.bp": "da5f21b6bf4bfc1cbb1748153014b316ed15b0feeca418d70c8c9fc64b6fc891",
+    "device/xiaomi/sheng/configs/display/color/Android.bp": "8e940b89c2301c58b2569664bb631353765db7d800c0799828c400537ab93d2c",
+    "device/xiaomi/sheng/dolby/ShengDolby/Android.bp": "71bf4678dcd9e664085c6a0af232487233f4b609a98805b9f79500aa43120226",
+    "device/xiaomi/sheng/interfaces/audio/gsl/Android.bp": "69bea613c42c820898626be6a84f94552c346c83094cbb6e14edf5d4c45ad7c2",
+    "device/xiaomi/sheng/interfaces/audio/pal/Android.bp": "9d534442b70935076c119d400acf55a78d416c10762773e0b97572a39562eb45",
+    "device/xiaomi/sheng/interfaces/audio/rotation/Android.bp": "f6a4e2d537364ce818b87e0ae7db486012ee24158291981e7e930898fdf78078",
+    "device/xiaomi/sheng/interfaces/compat/Android.bp": "e64ea72d33160c796309ac8d8e345e2f47ee1320e0126367d96aef426ba308f1",
+    "device/xiaomi/sheng/interfaces/compat/dolby/Android.bp": "fe2109e69fc4099e09267b41e36817128017cf18542aeec5027ff4fa28224233",
+    "device/xiaomi/sheng/interfaces/display/composer/Android.bp": "9f4ea503ee4512eae5e1d814dc767b813fa407bcd581fc064257526ff3f2d6a2",
+    "device/xiaomi/sheng/interfaces/display/dal/Android.bp": "79279107b15baf25fed5ad415ccca704d42057c68db8890a5873ad82aaa39f60",
+    "device/xiaomi/sheng/interfaces/display/gralloc/Android.bp": "194c1dfb11e5bd22d0ddf7547fc5dbf0f39a77e9ed9e056f68b3551876c1a769",
+    "device/xiaomi/sheng/interfaces/display/sde-drm/Android.bp": "58056097d7317e1da8a9810d90bf0d81d8727aa18a5c958616867a013a868139",
+    "device/xiaomi/sheng/interfaces/input/keyboard/Android.bp": "e3c06ccdcdb6741d45655017922f1a4158d7aea724345680a59a79d572dedd6f",
+    "device/xiaomi/sheng/interfaces/input/touch/Android.bp": "a51dbf8ceb26c9718c3c74c8ebddd731210f010bac608ab8f182bb12cb39825f",
+    "device/xiaomi/sheng/interfaces/location/Android.bp": "d3daef306dbdc85ae19ed63de898d545134d744393d582c0629485ab4970c437",
+    "device/xiaomi/sheng/interfaces/location/overlay/Android.bp": "1dc0a3f5df961c6998503b4b25cc0956920c2a88db15acc9335471bd64c60167",
+    "device/xiaomi/sheng/overlay/FrameworkResOverlaySheng/Android.bp": "1b874af55f809c473a0b7e07a8162866812f58a7e0c85318ee4574ffcde4b19d",
+    "device/xiaomi/sheng/overlay/LineageResOverlaySheng/Android.bp": "cdfb2a10a02610ce876930e55a61013e5b2e3c42039b50f8768a32a08583997e",
+    "device/xiaomi/sheng/overlay/SettingsResOverlaySheng/Android.bp": "00dfeb788e0ec92c9bcd15743a5054ff43135f1e6ab8309b9a7f63ee93b91e42",
+    "device/xiaomi/sheng/overlay/SystemUIResOverlaySheng/Android.bp": "bed10b56b377483a5e3cb61a3e78d7a84a8ca96cdc55ebef718d49d927f6b892",
+    "device/xiaomi/sheng/overlay/WifiResOverlaySheng/Android.bp": "2faebabcd321d6f0038523f71f902e1cf6442a2f0a671160cc0e4a56c081633f",
+    "device/xiaomi/sheng/rootdir/Android.bp": "4c3e882d82b9ea6958b6d1f026dc4886f15c7f4b40862fb2be220494db59f98f",
+    "device/xiaomi/sheng/device.mk": "2625ea346267085d6022700a513a1b7c28a6df42b709e08bf318f8aa9f235e4c",
+    "device/xiaomi/sheng/BoardConfig.mk": "1e46909bac4a457bc5e903a208bc33284b96002eb0b850fc32540831b78e107b",
+    "device/xiaomi/sheng/tools/audit_erofs_metadata.py": "bef193411152354e97f4d1f7e6e18d9aa9c44a4df31a37de805173436408ecd3",
+    "device/xiaomi/sheng/tools/audit_upstream_sources.py": "be96120ca694537dcf492bc2ed5924c66133ff7b57f7e979aa1a28719d982e33",
+    "device/xiaomi/sheng/tools/build_hardware.sh": "04d11cd639bdd45ac55813b88870ce2efd0cd4e984266c0c4e6cf798b44801e6",
+    "device/xiaomi/sheng/tools/build_sheng_agm_dap_probe.sh": "0c4c6efcbf4fd6e43824fd42cecc4fd90cc8a222fd119b0f2ecbe35029859c87",
+    "device/xiaomi/sheng/tools/build_sheng_dolby_app.py": "095c441416f65cf8b7dbeabeff4365b8d138d6212538c665c6232e0756751f36",
+    "device/xiaomi/sheng/tools/build_sheng_dolby_foundation_compat.py": "9000ca048e8e48995f36dc8135675af6288ee63af130b81ded1f1fb643645e52",
+    "device/xiaomi/sheng/tools/build_sheng_sensor_probe.py": "1d78fb42dd55474dfcf1ae8f6fbe9817f01f14e45c6ae0deb4a3a58d295799c3",
+    "device/xiaomi/sheng/tools/cleanup_packaging_staging.py": "e27f54652a5c8a5546efabd46b03532f3d5ef96f118c284b4787f4938902bb51",
+    "device/xiaomi/sheng/tools/extract_vendor.sh": "f591d08e01fd8fd284d7d47acad971a717b66510751a0b092838e349e039b293",
+    "device/xiaomi/sheng/tools/flash_sheng_audio_followup.ps1": "d98ba033560c43db56608fc899b338069f34b040c20383704e9eaa03386eb182",
+    "device/xiaomi/sheng/tools/flash_sheng_location_followup.ps1": "6f064d21631185a533f6013747e440fcec59899d3096709039c33c45b254aced",
+    "device/xiaomi/sheng/tools/flash_sheng_model_followup.ps1": "864867628c9ca8c94c67fa775ca8e16dbf91abb0fe0604bf1ae1db7c4358b4fe",
+    "device/xiaomi/sheng/tools/flash_sheng_overlay_followup.ps1": "b98201009fe674cae94669abc1c048f64046c74cf0c6ea765726a945b9197fe8",
+    "device/xiaomi/sheng/tools/flash_sheng_refresh_followup.ps1": "cc539de56ec9240dc167513efc2d67fd11afa5adfc88d52501daec431d311e3e",
+    "device/xiaomi/sheng/tools/inspect_dolby_database.py": "818dce3e5eb0bd56b64afb22378977fecc8a2f9209f540f50850aadc6695dce1",
+    "device/xiaomi/sheng/tools/package_sheng_batch_followup.py": "4adb168d1510b497ce13b21032d3dd1810c761567b05f30acb091c05c9332a2c",
+    "device/xiaomi/sheng/tools/package_sheng_batch_helpers.py": "6731a9a2bfc4bba8d8f7d6ac2441bddcfff1a24426c1fb95a3893d7c8d8d76a9",
+    "device/xiaomi/sheng/tools/package_sheng_dolby_followup.py": "d3895d00f5867cb33d879c4ab04a008ebac84bbab49373e7980f0018645bc115",
+    "device/xiaomi/sheng/tools/package_sheng_hardware_followup.py": "327bd8f3deb4b3b2f834fcc301296425e37eb472f6af909b8027515eeb4f4b8f",
+    "device/xiaomi/sheng/tools/package_sheng_location_followup.py": "6ac205bd259c91e74ede74f370e5fb2edfe072a494b772f964d4dc7e83a3267c",
+    "device/xiaomi/sheng/tools/package_sheng_model_followup.py": "a241df0cf7c87aee68dc84a0be3e69d69f1f2128bd6a570182c5e8845bb96494",
+    "device/xiaomi/sheng/tools/package_sheng_overlay_followup.py": "a042bb4456fe6e215f4a5eb1b12037c91dca4100e2e5d4a642f0c601aab88d97",
+    "device/xiaomi/sheng/tools/package_sheng_refresh_followup.py": "1b9410a245021c1dff3e612effdc2ae326a9aa988317655aba0418b7b9aebe34",
+    "device/xiaomi/sheng/tools/package_sheng_startup_followup.py": "532ca4dfaa32f43d715a05a0dfbde037dc44d6c0e2174e37571cff0b62ac2814",
+    "device/xiaomi/sheng/tools/postprocess_vendor.py": "2ea051b5f4f31afae58f4ec30894466344e45cb325fec46ff2182c031d832429",
+    "device/xiaomi/sheng/tools/relocate_artifacts.ps1": "e974575998f9c5e6d4b473f8d75b431c497cdd2ecd273cdba310966e7c140508"
+  },
+  "passed": true,
+  "tools_shell_syntax": [
+    {
+      "file": "device/xiaomi/sheng/tools/build_hardware.sh",
+      "ok": true,
+      "error": ""
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/build_sheng_agm_dap_probe.sh",
+      "ok": true,
+      "error": ""
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/extract_vendor.sh",
+      "ok": true,
+      "error": ""
+    }
+  ],
+  "tools_root_derivation_check": {
+    "old_scripts_parent": "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/device/xiaomi/sheng",
+    "new_tools_parent": "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/device/xiaomi/sheng",
+    "device_parents_2": "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18",
+    "expected_workspace": "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18",
+    "valid": true,
+    "interfaces_location_extractor_root": "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/device/xiaomi/sheng/interfaces/location",
+    "note": "tools retains the same depth as scripts; Python parents[1], device.parents[2] and PowerShell parent traversal remain valid. Location extractor uses its own parent, retaining proprietary/ relative reachability."
+  },
+  "paused_input_not_in_product_packages": true,
+  "paused_input_policy_not_in_active_board_dirs": true,
+  "tools_powershell_syntax": [
+    {
+      "file": "device/xiaomi/sheng/tools/flash_sheng_audio_followup.ps1",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/flash_sheng_location_followup.ps1",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/flash_sheng_model_followup.ps1",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/flash_sheng_overlay_followup.ps1",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/flash_sheng_refresh_followup.ps1",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "device/xiaomi/sheng/tools/relocate_artifacts.ps1",
+      "ok": true,
+      "errors": []
+    }
+  ],
+  "resolved_findings": [
+    {
+      "finding": "Migrated init/fstab definitions initially replaced the original rootdir build definitions",
+      "resolution": "Restored all 20 original modules and appended 2 migrated definitions; final rootdir module count is 22"
+    },
+    {
+      "finding": "Location packer retained location/proprietary/MetokNLP.apk",
+      "resolution": "Updated to interfaces/location/proprietary/MetokNLP.apk"
+    },
+    {
+      "finding": "Sensor probe helper retained split device / scripts source path",
+      "resolution": "Updated split segment to tools; default source exists"
+    }
+  ]
+}

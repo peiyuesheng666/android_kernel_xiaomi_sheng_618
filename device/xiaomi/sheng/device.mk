@@ -148,7 +148,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.composer-service-sheng
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/displayconfig/display_id_4630947038039379843.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630947038039379843.xml
+    $(LOCAL_PATH)/configs/display/displayconfig/display_id_4630947038039379843.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630947038039379843.xml
 
 # Dolby
 PRODUCT_PACKAGES += \
@@ -250,8 +250,8 @@ PRODUCT_PACKAGES += \
     ShengLocationOverlay
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/location/sysconfig/sheng-location.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/sysconfig/sheng-location.xml \
-    $(LOCAL_PATH)/location/permissions/default-permissions-sheng-location.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/default-permissions/default-permissions-sheng-location.xml
+    $(LOCAL_PATH)/interfaces/location/sysconfig/sheng-location.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/sysconfig/sheng-location.xml \
+    $(LOCAL_PATH)/interfaces/location/permissions/default-permissions-sheng-location.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/default-permissions/default-permissions-sheng-location.xml
 
 # Large-screen window compatibility (upstream DeviceConfig bootstrap).
 PRODUCT_COPY_FILES += \

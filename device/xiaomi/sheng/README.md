@@ -49,17 +49,42 @@ are retained. The migration receipt in the project reports records file hashes
 and source commit; piano was used only to study organization, with zero copied
 implementation files.
 
-The current checks cover input integrity, standalone references, scoped makefile
-evaluation, extraction, module-guard behavior and overlay resource compilation.
-Full Android compilation, private module compatibility and hardware boot testing
-remain separate required validation steps.
+## Directory layout
 
-The first full ROM compiled. The user's latest retest confirms the source kernel
-boots with version5.15.220; the full Lineage ROM and Recovery display remain
-unverified. Earlier broad failure reports were superseded by this retest. See the workspace report
-`reports/recovery-bringup-20261105.md`. Recovery r2 is a separate self-contained
-diagnostic image with our compiled Lineage recovery userspace and the exact
-kernel/DTB/DTBO/modules extracted from the user's own stock firmware. Its
-configuration is in `recovery/`; the main ROM's kernel strategy is not silently
-changed to a stock prebuilt. Later r3/r4 serial diagnostics isolate Recovery
-startup/display; full-ROM and peripheral validation remain required.
+The layout follows the [piano seventeen tree](https://github.com/xiaomi-pad-8-pro-development/android_device_xiaomi_piano/tree/seventeen),
+fresh-fetched at commit `3f10fc25273b42d18d0bd533551a0a5c3dda0094`.
+Its implementation files are not imported. sheng-specific adapters and development
+tools are grouped below while the normal Android product entry points stay at the root.
+
+| Directory | Contents |
+| --- | --- |
+| `aidl/` | Device AIDL services and declared interfaces. |
+| `configs/` | Audio, display, input, sensor and VINTF configuration; display files use `configs/display/`. |
+| `dolby/` | Dolby settings application. |
+| `interfaces/` | Board-owned audio, display, compatibility and location adapters. |
+| `interfaces/input/` | Keyboard and touch candidates; physical testing is currently paused. |
+| `overlay/` | Framework, SystemUI and ROM resource overlays. |
+| `properties/` | Partition-specific properties. |
+| `rootdir/` | Init, fstab and their build modules. |
+| `sepolicy/` | Integrated board policy. Candidate input policy stays with its feature until integration. |
+| `kernel/`, `recovery/` | This board's kernel/module and Recovery configuration. |
+| `tools/` | Source audits, build helpers, development packaging and diagnostic probes. |
+| `docs/`, `patches/` | Current status, validation evidence and device-source derivation records. |
+
+Root `Android.bp` keeps the namespace and firmware symlinks. Compatibility and
+init modules live with their source directories. Production install paths and
+module identities are retained when source directories move.
+
+## Current validation
+
+The tested device baseline is r11. Display, 144 Hz wake, touch direction,
+automatic rotation, six-speaker audio, live Dolby controls, ambient brightness,
+cover wake, model name and network location have recorded results in
+[`docs/HARDWARE_STATUS.md`](docs/HARDWARE_STATUS.md). Each remaining item keeps
+its own verification status; source and build success are recorded separately
+from actual device testing.
+
+The r12 generic fullscreen configuration compiled and passed its temporary
+window test. Stock color-library registration is integrated as a candidate.
+Keyboard/touch candidates are retained for the user's return and are not
+registered in the current product. No runtime touch experiment is left active.

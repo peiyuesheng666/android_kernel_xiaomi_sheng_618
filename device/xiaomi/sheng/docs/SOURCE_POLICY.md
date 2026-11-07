@@ -9,15 +9,16 @@ Make installation collisions. No normal build patches a public repository.
 
 The `seventeen` piano tree is an organizational reference, at revision
 `3f10fc25273b42d18d0bd533551a0a5c3dda0094`. Its board values and firmware are
-not sheng inputs. The sheng tree uses `aidl/sensors`, `configs/`, `display/`,
-`audio/`, `compat/`, `dolby/`, `overlay/` and `docs/` for its own components.
+not sheng inputs. The sheng tree uses `aidl/sensors`, `configs/`,
+`interfaces/{audio,display,compat,location}`, `dolby/`, `overlay/`, `rootdir/`,
+`sepolicy/`, `tools/` and `docs/` for its own components.
 
 Before building, run the following from an existing ROM checkout:
 
 ```sh
-python3 device/xiaomi/sheng/scripts/audit_upstream_sources.py --fetch \
+python3 device/xiaomi/sheng/tools/audit_upstream_sources.py --fetch \
     --output /tmp/sheng-upstream-source-audit.json
-bash device/xiaomi/sheng/scripts/build_hardware.sh
+bash device/xiaomi/sheng/tools/build_hardware.sh
 ```
 
 The audit fetches each previously edited public repository's exact pinned

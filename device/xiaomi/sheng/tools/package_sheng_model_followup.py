@@ -51,7 +51,11 @@ def debugfs(image, command):
 
 
 def parse_image(avb, avbtool, path):
-    return avb._parse_image(avbtool.ImageHandler(str(path), read_only=True))
+    image = avbtool.ImageHandler(str(path), read_only=True)
+    try:
+        return avb._parse_image(image)
+    finally:
+        image._image.close()
 
 
 def model_values(data):

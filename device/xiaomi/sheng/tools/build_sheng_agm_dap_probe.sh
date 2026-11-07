@@ -16,7 +16,7 @@ variant=android_vendor_arm64_armv8-2a-dotprod_kryo
     "$libroot/crtbegin_dynamic/$variant/crtbegin_dynamic.o" \
     -I hardware/qcom-caf/sm8550/audio/graphservices/acdb/api \
     -I hardware/qcom-caf/sm8550/audio/graphservices/ar_osal/api \
-    "$device/scripts/${SHENG_PROBE_SOURCE:-ShengAgmDapProbe.c}" \
+    "$device/tools/${SHENG_PROBE_SOURCE:-ShengAgmDapProbe.c}" \
     "$libroot/libc/${variant}_shared/libc.so" \
     "out/soong/.intermediates/bionic/libdl/libdl/${variant}_shared/libdl.so" \
     "$libroot/crtend_android/$variant/crtend_android.o" \

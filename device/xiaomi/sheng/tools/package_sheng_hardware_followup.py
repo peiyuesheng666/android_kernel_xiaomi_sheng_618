@@ -93,9 +93,9 @@ changes = {
         'etc/selinux/vendor_sepolicy.cil',
     )
 }
-changes['etc/displayconfig/display_id_4630947038039379843.xml'] = device/'configs/displayconfig/display_id_4630947038039379843.xml'
+changes['etc/displayconfig/display_id_4630947038039379843.xml'] = device/'configs/display/displayconfig/display_id_4630947038039379843.xml'
 # The preferred installation must contain this build's native device module.
-native_pal = list((rom/'out/soong/.intermediates/device/xiaomi/sheng/audio/pal/libar-pal-sheng').glob('android_vendor_*_shared/libar-pal.so'))
+native_pal = list((rom/'out/soong/.intermediates/device/xiaomi/sheng/interfaces/audio/pal/libar-pal-sheng').glob('android_vendor_*_shared/libar-pal.so'))
 assert len(native_pal) == 1, native_pal
 assert sha(native_pal[0]) == sha(changes['lib64/libar-pal.so'])
 expected_libs = {

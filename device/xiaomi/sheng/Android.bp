@@ -14,13 +14,6 @@ soong_namespace {
     ],
 }
 
-cc_library_shared {
-    name: "libsheng_audio_log_compat",
-    vendor: true,
-    srcs: ["compat/AudioLogLevel.c"],
-    cflags: ["-Wall", "-Wextra", "-Werror"],
-}
-
 install_symlink {
     name: "sheng_firmware_wlanmdsp.otaupdate_symlink",
     vendor: true,
@@ -40,22 +33,4 @@ install_symlink {
     vendor: true,
     installed_location: "firmware/wlan/qca_cld/kiwi_v2/WCNSS_qcom_cfg.ini",
     symlink_target: "/vendor/etc/wifi/kiwi_v2/WCNSS_qcom_cfg.ini",
-}
-
-
-
-// SPDX-License-Identifier: Apache-2.0
-prebuilt_etc {
-    name: "init.sheng.rc",
-    src: "rootdir/etc/init.sheng.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "fstab.sheng",
-    filename: "fstab.qcom",
-    src: "rootdir/etc/fstab.qcom",
-    vendor: true,
-    vendor_ramdisk_available: true,
 }
