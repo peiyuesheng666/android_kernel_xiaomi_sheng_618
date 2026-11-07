@@ -54,3 +54,19 @@ directory without replacing prior versions. Frozen spec SHA256 is
  e20d765c2b4b6f44388155ec8071a0d1e8204bb93f07d2329104ab84538e10ab.
 Image hashes and scope evidence are in packaging-r18-20261107.json.
 Runtime acceptance is separate and pending at publication.
+
+## Installed r18 verification
+
+ODM and vbmeta were flashed on b and rebooted, with no erase or slot change.
+Initial reads occurred during boot; the later boot-ready check gives root=0,
+boot-completed=1 and boot animation stopped. All six exact installed chain hashes
+and the two new RRO, unchanged sensor and accepted color-core hashes match.
+Live Framework available modes are 0,2,1; live Settings strings are 自适应,
+生动,鲜艳 and their values are 0,2,1. Thus the actual generated menu keeps its
+visible order and associates 生动 with original mode2, 鲜艳 with original mode1.
+White-balance default remains enabled via the absent saved key, its increase
+transition remains 3000 ms, and Night Light remains the user's saved off state.
+SurfaceFlinger reports device composition and usesClientComposition=false.
+A final physical menu/function check is pending; prior accepted yellow-flash
+and Night Light fixes remain the baseline. Evidence: runtime-r18-20261107.json
+and workspace reports/device/r18-runtime.
