@@ -15,7 +15,8 @@ without duplicate declarations; its normal init services are replaced before
 class startup. Its main.cpp
 is based on the unmodified pinned QTI source (SHA256
 fc0e48a388eef1a60217d20191d9cd65667accda4a3b00c04b3a514dc7821a88)
-and adds the stock SOH path before BatteryMonitor initialization. The ordinary
+and adds the stock SOH path before BatteryMonitor initialization. The inherited
+unused prop_str declaration is removed so the current -Wall/-Werror build passes. The ordinary
 system product selects this module; recovery retains the upstream module.
 The existing pinned QTI policy already grants the health domain read-only
 access to this battery sysfs label; no extra health permissions are added.
@@ -54,3 +55,14 @@ retained in /root/sheng-lineage/battery-date-review-20261107.
 The read-only ShengHealthReadback utility calls the same standard properties
 used by DeviceDiagnostics. Before r19 it reports SOH status0/value0 and
 storage remaining lifetime100, confirming both data paths directly.
+
+## Combined r19 build
+
+The final combined AON/Health build passed on 2026-11-07 (incremental retry
+01:28 after removing the unused baseline variable). The prior 13:53 attempt
+completed graph and installation checks but failed the unused-variable check.
+The new AArch64 executable is 238832 bytes, SHA256
+07b3145d9ba4c1b93ad7cb3cfc11ec663a707258b3aeefb50cf6218e3c613011.
+Its twelve DT_NEEDED libraries match the retained QTI service. The embedded
+SOH path, compiled file label, QTI/ Sheng init override and retained policy
+cache markers were checked. Runtime and physical UI acceptance are still pending.

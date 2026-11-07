@@ -1,0 +1,67 @@
+{
+  "revision": 19,
+  "combined_build_passed": true,
+  "resource_delta": {
+    "bool/config_adaptive_sleep_available": {
+      "old": null,
+      "new": [
+        "      () true"
+      ]
+    },
+    "string/config_defaultAttentionService": {
+      "old": null,
+      "new": [
+        "      () \"com.xiaomi.aon/com.xiaomi.aon.AonAttentionService\""
+      ]
+    }
+  },
+  "all_prior_resources_unchanged": true,
+  "stock_dex_unchanged": true,
+  "dex_sha256": "98fd4791cb87e96c42f935a45228daa7cf36ad80c4e86edc6b488c7671d195b8",
+  "aon_platform_certificates": [
+    "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8"
+  ],
+  "health_needed": [
+    "android.hardware.health-V5-ndk.so",
+    "libbase.so",
+    "libbinder_ndk.so",
+    "libc++.so",
+    "libc.so",
+    "libcutils.so",
+    "libdl.so",
+    "libhidlbase.so",
+    "liblog.so",
+    "libm.so",
+    "libpng.so",
+    "libutils.so"
+  ],
+  "health_needed_unchanged": true,
+  "health_aarch64": true,
+  "health_soh_path_embedded": true,
+  "init_verifier_passed": true,
+  "compiled_labels_passed": true,
+  "retained_policy_cache_markers_passed": true,
+  "new_health_file_contexts": [
+    "/vendor/bin/hw/android\\.hardware\\.health-service\\.sheng u:object_r:hal_health_default_exec:s0"
+  ],
+  "reviewed_sha256": {
+    "odm": {
+      "etc/selinux/precompiled_sepolicy": "8317106950e7f99da8dd80691b028771c57d441752ae6ff58e6648739ce99374",
+      "overlay/FrameworkResOverlaySheng.apk": "c75aa44932b9f637723fe95b7b25dec8b004c3e6d766894c3d9a8b251310483e"
+    },
+    "vendor": {
+      "bin/hw/android.hardware.health-service.sheng": "07b3145d9ba4c1b93ad7cb3cfc11ec663a707258b3aeefb50cf6218e3c613011",
+      "etc/init/android.hardware.health-service.sheng.rc": "2429ec9215c8ca47ff704415db2416cfad6dabd8063ce14e0beb9def81d38c0e",
+      "etc/selinux/vendor_file_contexts": "8378fbe17737d5b36f168efd982cb7859d4d102fe197c7ee2efd55a1ac991dcf",
+      "etc/selinux/vendor_sepolicy.cil": "b9849a0178c4c35bdc09e2d4d8aa87181c8421dd5a8cc2ab532c1403f4f7221a",
+      "etc/selinux/vendor_service_contexts": "c07e9275cc1f43cf0b076442fd74e977f5972624e046c3087b6c3efc1200f778",
+      "etc/vintf/manifest.xml": "6a94b185039d32e2d16b98efeeb8db1d91d720e82ab4226cf2bc972427e493b5"
+    },
+    "system_ext": {
+      "app/MiAONService/MiAONService.apk": "3f5adb243442c3a5d4c88fbe35a61243f205624754d1a441a6ede27caf744625"
+    }
+  },
+  "phase": "combined build reviewed; packaging pending",
+  "hardware_boot_tested": false,
+  "runtime_verified": false
+}

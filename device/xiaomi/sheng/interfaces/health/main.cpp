@@ -64,7 +64,6 @@ void qti_healthd_board_init(struct healthd_config *hc)
     unsigned char retries = RETRY_COUNT;
     int ret = 0;
     unsigned char buf;
-    char prop_str[PROPERTY_VALUE_MAX];
     int soc_id_prop = 0;
     bool is_no_batt_psy;
     int soc = property_get_int32("ro.vendor.qti.soc_id", -1);
