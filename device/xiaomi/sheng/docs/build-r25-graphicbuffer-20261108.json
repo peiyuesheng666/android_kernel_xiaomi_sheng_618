@@ -787,7 +787,7 @@
     "tools/package_sheng_color_functions.py": "eb29562a7034d32a757eebbaeca32da8f0eafbdaa60008e0d4c789f65f2fdb58",
     "tools/package_sheng_color_labels.py": "ec49512af4fbc86427ca0a7275e59f46c7a9d44c6287e18d3773a984ce036156",
     "tools/package_sheng_dolby_followup.py": "d3895d00f5867cb33d879c4ab04a008ebac84bbab49373e7980f0018645bc115",
-    "tools/package_sheng_graphicbuffer_r25.py": "b25df958138a94019d67cf2bbdb08464949a9da756e4749f8f310088d11734ed",
+    "tools/package_sheng_graphicbuffer_r25.py": "d72a8f9a5e868db76e7c152fb30ab293817499bb0a5f20f1064fa3c0f43fe156",
     "tools/package_sheng_hardware_followup.py": "327bd8f3deb4b3b2f834fcc301296425e37eb472f6af909b8027515eeb4f4b8f",
     "tools/package_sheng_identity_r22.py": "93aa5e175633c10110ee307421a5abcbbd25752c7ad5a4655addf87c38dc91d2",
     "tools/package_sheng_livedisplay.py": "5b9d8a8a1ccb98e1a1258ab5e24852572751bde7a56c32b268448aa3b1159eb8",
@@ -860,5 +860,7 @@
     "reports/device/r25-build-review/r25-prebuild-final-upstream-source-audit.json": "9dcaf845f492420ddd02e08c9f4e46e0942c49085216c965d65d445377a32ad8",
     "reports/device/r25-build-review/sheng-graphicbuffer-abi-probe-client": "3abef5488e910128f69e1711ff0365858e522423f25be8bea88f47638c0d0566",
     "reports/device/r25-build-review/sheng-graphicbuffer-layout.a": "a637eff4ea95af4d4caee969846b40c42d69d1d679426300276218a95a0f5141"
-  }
+  },
+  "packaging_tool_revision_note": "Runtime modules and formal build outputs are unchanged. Packaging variable shadowing fixed before publication; failed attempt frozen inputs and review retained as attempt1.",
+  "packaging_attempt1_failure_log_sha256": "38350a6d1fb751ec736bb2891d781ce892a5689e2a49ca907eea0e5324c1a1db"
 }

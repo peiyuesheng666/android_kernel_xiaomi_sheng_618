@@ -105,7 +105,7 @@ def main():
     bases = bases_for(workspace)
     spec = freeze(workspace, args.spec) if args.freeze_only else json.loads(args.spec.read_text())
     validate(spec, workspace)
-    digest = sha(args.spec)
+    spec_digest = sha(args.spec)
     sys.path.insert(0, str(ROM / 'external/avb'))
     import avbtool
     avb = avbtool.Avb()
@@ -116,7 +116,7 @@ def main():
                     and d.partition_name == p]
         assert len(selected) == 1 and selected[0].encode() == tree.encode()
     if args.freeze_only or args.validate_only:
-        print(json.dumps(dict(revision=25, spec_sha256=digest, validation_passed=True)))
+        print(json.dumps(dict(revision=25, spec_sha256=spec_digest, validation_passed=True)))
         return
     destination = workspace / 'artifacts/system-hardware-followup-sheng-r25'
     assert not destination.exists(), 'Never overwrite a published batch'
@@ -130,9 +130,9 @@ def main():
         for relative in SCOPE[p]:
             assert report['baseline_entries'][relative] == ('file', review['original_sha256'][p][relative])
         outputs[p], trees[p], reports[p] = image, tree, report
-    for relative, digest in PROVIDERS.items():
-        assert sha(work / 'vendor-tree' / relative) == digest
-        assert sha(work / 'vendor-readback' / relative) == digest
+    for relative, dependency_digest in PROVIDERS.items():
+        assert sha(work / 'vendor-tree' / relative) == dependency_digest
+        assert sha(work / 'vendor-readback' / relative) == dependency_digest
     for suffix in ('tree', 'readback'):
         assert sha(work / ('odm-' + suffix) / 'lib64/camera/aon_front.pb') == (
             'b0d920c16e4968173cf8f4f90c1056e959b9aad1c2651a76cca17ee19dac46d6')
@@ -142,9 +142,9 @@ def main():
     merge_parent(avb, avbtool, bases['vbmeta'], [trees['odm'], trees['vendor']],
                  outputs['vbmeta'], 'SHA256_RSA4096', work)
     validate(spec, workspace)
-    assert sha(args.spec) == digest and set(outputs) == set(OUTPUTS)
+    assert sha(args.spec) == spec_digest and set(outputs) == set(OUTPUTS)
     bases_for(workspace)
-    report = dict(revision=25, frozen_spec=spec, spec_sha256=digest,
+    report = dict(revision=25, frozen_spec=spec, spec_sha256=spec_digest,
                   baseline_sha256={p: entry[2] for p, entry in PINNED.items()},
                   partition_reports=reports, work_dir=str(work),
                   exact_baselines_verified=True, all_filesystem_stages_verified=True,
