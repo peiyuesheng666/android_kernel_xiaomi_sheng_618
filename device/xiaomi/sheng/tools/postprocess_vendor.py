@@ -39,6 +39,7 @@ def postprocess_vendor(vendor: Path):
         ('libcom.xiaomi.grallocutils', 'odm/lib64/libcom.xiaomi.grallocutils.so', ':sheng_gb_grallocutils_compat'),
         ('libcom.xiaomi.mawutils', 'odm/lib64/libcom.xiaomi.mawutils.so', ':sheng_gb_mawutils_compat'),
         ('libmis_plugin_vidhance', 'odm/lib64/libmis_plugin_vidhance.so', ':sheng_gb_vidhance_compat'),
+        ('c2.dolby.hevc.enc', 'vendor/lib64/c2.dolby.hevc.enc.so', ':sheng_gb_dolby_encoder_compat'),
     ):
         start = text.index('    name: "' + name + '",')
         end = text.index('\n}\n', start) + 3

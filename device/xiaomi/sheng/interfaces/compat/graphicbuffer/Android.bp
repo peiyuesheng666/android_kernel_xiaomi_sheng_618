@@ -60,3 +60,35 @@ cc_genrule {
          "--input $(location stock/libmis_plugin_vidhance.so) --name libmis_plugin_vidhance.so --output $(out)",
 }
 
+cc_genrule {
+    name: "sheng_dolby_video_decoder_compat",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":sheng-graphicbuffer-layout", ":sheng_dolby_video_decoder_legacy_handler_input"],
+    tools: ["sheng-graphicbuffer-patcher"],
+    out: ["c2.dolby.hevc.dec.so"],
+    cmd: "$(location sheng-graphicbuffer-patcher) --layout $(location :sheng-graphicbuffer-layout) " +
+         "--input $(location :sheng_dolby_video_decoder_legacy_handler_input) --name c2.dolby.hevc.dec.so --output $(out)",
+}
+
+cc_genrule {
+    name: "sheng_dolby_video_secure_decoder_compat",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":sheng-graphicbuffer-layout", ":sheng_dolby_video_secure_decoder_legacy_handler_input"],
+    tools: ["sheng-graphicbuffer-patcher"],
+    out: ["c2.dolby.hevc.sec.dec.so"],
+    cmd: "$(location sheng-graphicbuffer-patcher) --layout $(location :sheng-graphicbuffer-layout) " +
+         "--input $(location :sheng_dolby_video_secure_decoder_legacy_handler_input) --name c2.dolby.hevc.sec.dec.so --output $(out)",
+}
+
+cc_genrule {
+    name: "sheng_gb_dolby_encoder_compat",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":sheng-graphicbuffer-layout", "stock/c2.dolby.hevc.enc.so"],
+    tools: ["sheng-graphicbuffer-patcher"],
+    out: ["c2.dolby.hevc.enc.so"],
+    cmd: "$(location sheng-graphicbuffer-patcher) --layout $(location :sheng-graphicbuffer-layout) " +
+         "--input $(location stock/c2.dolby.hevc.enc.so) --name c2.dolby.hevc.enc.so --output $(out)",
+}

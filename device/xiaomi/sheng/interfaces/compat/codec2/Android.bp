@@ -30,11 +30,11 @@ cc_binary {
 // Stock video handlers use the pre-delivery-status AHandler layout. Keep the
 // generated vendor installer identities and isolate only their foundation ABI.
 filegroup {
-    name: "sheng_dolby_video_decoder_compat",
+    name: "sheng_dolby_video_decoder_legacy_handler_input",
     srcs: ["video/c2.dolby.hevc.dec.so"],
 }
 
 filegroup {
-    name: "sheng_dolby_video_secure_decoder_compat",
+    name: "sheng_dolby_video_secure_decoder_legacy_handler_input",
     srcs: ["video/c2.dolby.hevc.sec.dec.so"],
 }
