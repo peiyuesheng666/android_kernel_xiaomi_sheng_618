@@ -1,3 +1,6 @@
+# Display the marketing name while partition model IDs retain PRODUCT_MODEL.
+ro.product.model=Xiaomi Pad 6S Pro 12.4
+
 # CameraX
 ro.camerax.extensions.enabled=true
 
