@@ -1,0 +1,54 @@
+{
+  "revision": 11,
+  "files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "d947ae93faad87bcb26da93afe245d6528e04f2b698ca4116257d29262ff5aac"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "43412dea1eebb58489cd8acfec9368123af94090d3b2665aab225abc61f17e78"
+    }
+  ],
+  "work_dir": "/root/sheng-lineage/hardware-followup/20261107T035959333664Z-overlay",
+  "raw_base_sha256": "35ceeb371eedb76f4d268ae5a65387f2353150e6b86a84366039821aa69b4d0c",
+  "raw_base_bytes": 1141067776,
+  "vbmeta_base_sha256": "5e3c933a430680a1b150607580c2f711166992b6c0fb9520a8c5ecc6edf0f312",
+  "inherited_image_sha256": {
+    "system_ext": "7a4e2a739f9cbc3a9713113e40f8a181dde34875c1ef0abee5e53411de58c573",
+    "vbmeta_system": "c0a925d91b33750a09eea0b99beeb759a37c47ac8736112c802a8adbf68eb0f8",
+    "system": "50cb7ebad3703ca03734f566aa6ea1f462675f4b361c968849b913b33e932089",
+    "vendor": "c663a57f003d3cd0791ec2a7b50ad36ed1e1d1d96c0b4b414adc5b3bc63ef038"
+  },
+  "changed_odm_files": [
+    "overlay/SystemUIResOverlaySheng.apk"
+  ],
+  "compiled_inputs": {
+    "overlay/SystemUIResOverlaySheng.apk": "bce2b6b8f14673f116ca896a0c4669560e6688441d6538d1d4f33620ab6165a8"
+  },
+  "overlay_signer_certificate_sha256": {
+    "overlay/SystemUIResOverlaySheng.apk": [
+      "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc"
+    ]
+  },
+  "exact_installed_base_verified": true,
+  "filesystem_readback_verified": true,
+  "all_odm_inode_metadata_preserved": true,
+  "erofs_uuid_preserved": true,
+  "unrelated_files_preserved": true,
+  "partition_sizes_unchanged": true,
+  "odm_hashtree_verified": true,
+  "signatures_verified": true,
+  "only_odm_avb_descriptor_changed": true,
+  "embedded_avb_properties_preserved": true,
+  "overlay_certificates_preserved": true,
+  "existing_avb_public_key_preserved": true,
+  "r9_location_chain_preserved": true,
+  "hardware_boot_tested": true,
+  "runtime_verified": true,
+  "validation_record": "overlay-geometry-r11-validation.json"
+}
