@@ -451,3 +451,10 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/sku_kalama/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
+
+# Xiaomi apps can require the vendor tablet class as well as Android tablet
+# configuration. Keep this compatibility surface and classpath adapter local.
+PRODUCT_PACKAGES += \
+    sheng-tablet-compat \
+    sheng-tablet-compat-init \
+    sheng-tablet-bootclasspath

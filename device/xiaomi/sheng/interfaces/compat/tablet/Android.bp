@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: Apache-2.0
+java_library {
+    name: "sheng-tablet-compat",
+    srcs: ["src/**/*.java"],
+    sdk_version: "core_platform",
+    system_ext_specific: true,
+    installable: true,
+    compile_dex: true,
+    dex_preopt: { enabled: false },
+}
+
+prebuilt_etc {
+    name: "sheng-tablet-compat-init",
+    src: "sheng-tablet-compat.rc",
+    filename_from_src: true,
+    sub_dir: "init",
+    system_ext_specific: true,
+}
