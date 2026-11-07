@@ -53,6 +53,7 @@
   },
   "stock_cutout_path_empty": true,
   "shared_1080x2400_shape_imported": false,
-  "hardware_validation_pending": true,
+  "hardware_validation_pending": false,
+  "hardware_validation": "overlay-geometry-r10-validation.json",
   "notes": "This is verified stock resource mapping into the upstream layout, not a pixel-identical port of MIUI private status-bar containers."
 }

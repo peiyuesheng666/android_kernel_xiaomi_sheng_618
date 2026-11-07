@@ -53,6 +53,7 @@
   "overlay_certificates_preserved": true,
   "existing_avb_public_key_preserved": true,
   "r9_location_chain_preserved": true,
-  "hardware_boot_tested": false,
-  "runtime_verified": false
+  "hardware_boot_tested": true,
+  "runtime_verified": true,
+  "validation_record": "overlay-geometry-r10-validation.json"
 }
