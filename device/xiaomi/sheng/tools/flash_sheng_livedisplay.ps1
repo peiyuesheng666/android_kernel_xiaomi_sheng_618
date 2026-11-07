@@ -1,8 +1,8 @@
 param([switch]$Flash)
-# Verify locally by default; explicit -Flash updates only the reviewed r14 batch.
+# Verify locally by default; explicit -Flash updates only the reviewed r15 batch.
 $ErrorActionPreference = 'Stop'
 $workspace = (Resolve-Path (Join-Path $PSScriptRoot '../../../..')).Path
-$imageDirectory = Join-Path $workspace 'artifacts/system-hardware-followup-sheng-r14'
+$imageDirectory = Join-Path $workspace 'artifacts/system-hardware-followup-sheng-r15'
 $serial = 'ca10ede3'
 $sizes = @{ odm = 1141067776; vendor = 303517696; vbmeta = 8192 }
 $baselines = @{
@@ -18,7 +18,11 @@ $scope = @{
     vendor = @('lib64/libsdmcore.so')
 }
 $manifest = Get-Content -LiteralPath (Join-Path $imageDirectory 'build-result.json') -Raw | ConvertFrom-Json
-if ($manifest.revision -ne 14 -or $manifest.frozen_spec.revision -ne 14) { throw 'Display batch revision mismatch.' }
+if ($manifest.revision -ne 15 -or $manifest.frozen_spec.revision -ne 15) { throw 'Display batch revision mismatch.' }
+if ($manifest.frozen_spec.partitions.vendor.'lib64/libsdmcore.so'.sha256 -ne
+        'd3908ae8be949614ad63a0b884927bb390df6e9327771a5ae0905c212c0fa303') {
+    throw 'r15 must contain the runtime-tested owning color adapter.'
+}
 foreach ($check in @('exact_baselines_verified', 'all_filesystem_stages_verified', 'vbmeta_parent_verified')) {
     if ($manifest.$check -ne $true) { throw "Missing display batch check: $check" }
 }
@@ -51,11 +55,11 @@ foreach ($file in $manifest.files) {
         throw "Image changed: $($file.name)"
     }
 }
-Write-Output 'r14 display images, metadata and AVB parent verified.'
+Write-Output 'r15 display images, metadata and AVB parent verified.'
 if (-not $Flash) { return }
 $adbPath = Join-Path $workspace 'tools/platform-tools/adb.exe'
 $fastbootPath = Join-Path $workspace 'tools/platform-tools/fastboot.exe'
-$evidenceDirectory = Join-Path $workspace ('reports/device/batch-r14-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+$evidenceDirectory = Join-Path $workspace ('reports/device/batch-r15-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
 New-Item -ItemType Directory -Path $evidenceDirectory | Out-Null
 $logPath = Join-Path $evidenceDirectory 'flash-and-reboot.txt'
 function Invoke-SerialTool([string]$executable, [string[]]$arguments) {

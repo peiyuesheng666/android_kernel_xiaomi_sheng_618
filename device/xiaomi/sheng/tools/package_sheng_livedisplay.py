@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Freeze and package the r14 display-only delta against the installed r13 chain."""
+"""Freeze and package the r15 display-only delta against the installed r13 chain."""
 import argparse
 from datetime import datetime, timezone
 import json
@@ -15,6 +15,7 @@ from package_sheng_batch_helpers import (
 from package_sheng_model_followup import PRODUCT, ROM, parse_image, sha
 
 DEVICE = Path(__file__).resolve().parents[1]
+OWNED_CORE_SHA256 = 'd3908ae8be949614ad63a0b884927bb390df6e9327771a5ae0905c212c0fa303'
 SCOPE = {
     'odm': {'overlay/FrameworkResOverlaySheng.apk', 'overlay/SettingsResOverlaySheng.apk'},
     'vendor': {'lib64/libsdmcore.so'},
@@ -39,7 +40,9 @@ def source_paths(workspace):
 
 def validate(spec, workspace):
     assert set(spec) == {'revision', 'partitions', 'device_inputs', 'build_inputs', 'source_commit'}
-    assert spec['revision'] == 14 and set(spec['partitions']) == set(SCOPE)
+    assert spec['revision'] == 15 and set(spec['partitions']) == set(SCOPE)
+    assert spec['partitions']['vendor']['lib64/libsdmcore.so']['sha256'] == OWNED_CORE_SHA256, \
+        'Only the runtime-tested owning color adapter may be packaged as r15'
     for partition, files in spec['partitions'].items():
         assert set(files) == SCOPE[partition], 'Unexpected display batch scope'
         validate_inputs(partition, files)
@@ -63,7 +66,7 @@ def freeze(workspace, destination):
             files[partition][relative] = dict(source=str(source), bytes=source.stat().st_size,
                                                sha256=sha(source), kind='file')
     inputs = set().union(*(erofs_input_keys(p) for p in SCOPE))
-    spec = dict(revision=14, partitions=files,
+    spec = dict(revision=15, partitions=files,
                 device_inputs={p: sha(DEVICE / p) for p in source_paths(workspace)},
                 build_inputs={p: sha(packaging_input_path(p)) for p in sorted(inputs)},
                 source_commit=subprocess.run(['git', '-C', str(workspace), 'rev-parse', 'HEAD'],
@@ -101,11 +104,11 @@ def main():
                    and d.partition_name == partition]
         assert len(matches) == 1 and matches[0].encode() == descriptor.encode(), partition
     if args.freeze_only or args.validate_only:
-        print(json.dumps(dict(revision=14, frozen_spec_sha256=spec_hash, validation_passed=True)))
+        print(json.dumps(dict(revision=15, frozen_spec_sha256=spec_hash, validation_passed=True)))
         return
-    destination = workspace / 'artifacts/system-hardware-followup-sheng-r14'
+    destination = workspace / 'artifacts/system-hardware-followup-sheng-r15'
     assert not destination.exists(), 'Never overwrite a published batch'
-    work = Path('/root/sheng-lineage/hardware-followup') / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ-livedisplay-r14')
+    work = Path('/root/sheng-lineage/hardware-followup') / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ-livedisplay-r15')
     work.mkdir(parents=True)
     outputs, descriptors, reports = {}, [], {}
     for partition, files in spec['partitions'].items():
@@ -119,7 +122,7 @@ def main():
     assert sha(args.spec) == spec_hash, 'Frozen spec changed'
     for partition, image in bases.items():
         assert sha(image) == PINNED[partition][2], 'Baseline changed'
-    report = dict(revision=14, frozen_spec=spec, frozen_spec_sha256=spec_hash,
+    report = dict(revision=15, frozen_spec=spec, frozen_spec_sha256=spec_hash,
                   baseline_sha256={p: value[2] for p, value in PINNED.items()},
                   partition_reports=reports, work_dir=str(work),
                   exact_baselines_verified=True, all_filesystem_stages_verified=True,
