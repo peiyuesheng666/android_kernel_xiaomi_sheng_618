@@ -20,8 +20,10 @@ def main():
     args.work.mkdir(parents=True, exist_ok=False)
     jdk = ROM / 'prebuilts/jdk/jdk21/linux-x86/bin'
     java_env = dict(os.environ, JAVA_HOME=str(jdk.parent), PATH=str(jdk) + ':' + os.environ['PATH'])
-    jar = ROM / 'out/host/linux-x86/framework/sheng-systemui-power-patcher.jar'
-    patcher = ROM / 'out/host/linux-x86/bin/sheng-systemui-power-patcher'
+    jar = ROM / ('out/soong/.intermediates/device/xiaomi/sheng/interfaces/compat/systemui/'
+                 'sheng-systemui-power-patcher/linux_glibc_common/combined/sheng-systemui-power-patcher.jar')
+    assert jar.is_file()
+    patcher = [jdk / 'java', '-Xmx2g', '-cp', jar, 'ShengSystemUiPowerPatcher']
     subprocess.run([jdk / 'javac', '-cp', jar, '-d', args.work,
                     DEVICE / 'interfaces/compat/systemui/tests/ShengSystemUiApkVerifier.java'], check=True)
     subprocess.run([jdk / 'java', '-Xmx2g', '-cp', f'{args.work}:{jar}',
@@ -38,7 +40,7 @@ def main():
         with zipfile.ZipFile(source, 'w') as apk:
             for key, value in changes.items():
                 apk.writestr(key, value)
-        result = subprocess.run([patcher, source, helper, args.work / (name + '-out.apk')],
+        result = subprocess.run([*patcher, source, helper, args.work / (name + '-out.apk')],
                                 capture_output=True, text=True, timeout=90, env=java_env)
         (args.work / (name + '.log')).write_text(result.stdout + result.stderr)
         assert result.returncode != 0, f'Malformed input accepted: {name}'
