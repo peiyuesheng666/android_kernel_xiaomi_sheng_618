@@ -25,7 +25,7 @@ OWNED_PUBLIC_REPOS = [
     'kernel/xiaomi/sm8550-devicetrees',
     'vendor/qcom/opensource/healthd-ext',
     'build/soong', 'lineage-sdk',
-    'packages/modules/common', 'packages/modules/SdkExtensions',
+    'packages/modules/common', 'packages/modules/SdkExtensions', 'art',
 ]
 
 def run(repo, *args, check=True):

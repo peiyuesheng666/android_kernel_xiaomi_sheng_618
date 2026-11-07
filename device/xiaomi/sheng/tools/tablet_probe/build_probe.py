@@ -23,7 +23,7 @@ env = dict(os.environ, JAVA_HOME=str(jdk), PATH=str(jdk / "bin") + ":" + os.envi
 def run(command):
     subprocess.run([str(x) for x in command], cwd=root, env=env, check=True)
 run([jdk / "bin/javac", "-source", "8", "-target", "8", "-classpath", sdk,
-     "-d", out / "classes", source / "TabletProbe.java"])
+     "-d", out / "classes", *sorted(source.glob("*.java"))])
 run([host / "d8", "--lib", sdk, "--min-api", "23", "--output", out / "dex",
      *sorted((out / "classes").rglob("*.class"))])
 run([host / "aapt2", "link", "--manifest", source / "AndroidManifest.xml", "-I", sdk, "-o", out / "unsigned.apk"])
