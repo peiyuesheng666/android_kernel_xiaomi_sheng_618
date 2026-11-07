@@ -1,0 +1,33 @@
+{
+  "revision": 17,
+  "recorded_utc": "2026-11-07T09:16:36.143356+00:00",
+  "hardware_boot_tested": true,
+  "all_six_installed_hashes_verified": true,
+  "installed_chain_sha256": {
+    "odm": "2d8146ff348984037eef80922f6e9d26f5beefd582cf387c9f5985c9140cb946",
+    "vendor": "de2ca07b44743f201bd911c11e54ce60134463c3f4e83589b6413c537e7d02de",
+    "vbmeta": "32d99a8d9f1b996086569e04e41d682a5aeab08c4eaf85640de8cab8bb69056d",
+    "system": "0551a74f4f995793665a485d10caacffb22ccd8fdaffb78d7811d17c658b3ac1",
+    "vbmeta_system": "a947be896074811b496f42cf3759def63f808518869f56ed6c67c608622cd165",
+    "system_ext": "7a4e2a739f9cbc3a9713113e40f8a181dde34875c1ef0abee5e53411de58c573"
+  },
+  "settings_overlay_sha256": "83600de78c26df4221e44d70df5ab866c756d34fee68f9623512aa17aa95f71f",
+  "framework_overlay_sha256": "7ac73d535677d7ce33a846c06cb252d09605ebebc5d653a6e6a4382aa3f22292",
+  "sensor_sha256": "20739ca0b279d8570d081a549788db5e5d44fa2a84e330eb58317cd4c99a19ec",
+  "color_core_sha256": "d3908ae8be949614ad63a0b884927bb390df6e9327771a5ae0905c212c0fa303",
+  "setting_default_restored": true,
+  "cct_override": -1,
+  "color_mode_values": [
+    0,
+    2,
+    1
+  ],
+  "uses_hardware_composition": true,
+  "gpu_fallback": false,
+  "lift_to_wake_user_accepted": true,
+  "screen_attention_available": false,
+  "user_white_balance_wake_acceptance": "pending",
+  "user_night_transition_acceptance": "pending",
+  "user_color_labels_acceptance": "pending",
+  "raw_evidence": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/reports/device/r17-runtime"
+}

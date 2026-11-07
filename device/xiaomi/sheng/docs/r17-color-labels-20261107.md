@@ -44,3 +44,19 @@ four chain images remain their verified r16 baselines. The frozen spec digest
 is 24126bade96752a2854e6672a5c6a9d54fa30ec9bedf60ddb37e5b2db57e4867.
 Published hashes are in packaging-r17-20261107.json. Existing r16 output/spec
 are unchanged. Runtime/user acceptance remain separate.
+
+## Reboot and installed r17 checks
+
+ODM and vbmeta were flashed on b without erase or slot change, then rebooted.
+Boot-completed=1, boot animation stopped, root ADB returned. All six installed
+partition hashes match the r17 chain. The exact new Settings RRO, retained r16
+Framework RRO/sensor executable and accepted r15 color-core hashes match.
+Runtime Settings resource readback returns 0,2,1. Framework returns the matched
+nominal XYZ and 3000-ms increase duration. SurfaceFlinger uses device composition
+with usesClientComposition=false in the inspected snapshot.
+
+The temporary DWB-disable key was deleted (original value absent), the installed
+default is true, and the CCT override is -1 after reboot. Night Light was left
+at its saved disabled state for physical regression testing. Three user checks
+are pending: repeated wake/password entry, Night Light transition, and visible
+labels plus ordinary picture/touch. Do not mark them accepted before feedback.
