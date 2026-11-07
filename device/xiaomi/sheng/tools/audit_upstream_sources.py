@@ -23,6 +23,7 @@ OWNED_PUBLIC_REPOS = [
     'hardware/qcom-caf/sm8550/audio/primary-hal',
     'kernel/xiaomi/sm8550', 'kernel/xiaomi/sm8550-modules',
     'kernel/xiaomi/sm8550-devicetrees',
+    'vendor/qcom/opensource/healthd-ext',
 ]
 
 def run(repo, *args, check=True):
