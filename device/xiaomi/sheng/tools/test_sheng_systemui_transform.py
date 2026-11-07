@@ -16,6 +16,10 @@ def main():
     parser.add_argument('--helper', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--work', type=Path, required=True)
+    parser.add_argument('--patcher-classes', type=Path,
+                        help='Explicit independently compiled candidate classes, ahead of the Soong JAR')
+    parser.add_argument('--known-bad-output', type=Path,
+                        help='Previously failed APK that direct field checks must reject')
     args = parser.parse_args()
     args.work.mkdir(parents=True, exist_ok=False)
     jdk = ROM / 'prebuilts/jdk/jdk21/linux-x86/bin'
@@ -23,11 +27,22 @@ def main():
     jar = ROM / ('out/soong/.intermediates/device/xiaomi/sheng/interfaces/compat/systemui/'
                  'sheng-systemui-power-patcher/linux_glibc_common/combined/sheng-systemui-power-patcher.jar')
     assert jar.is_file()
-    patcher = [jdk / 'java', '-Xmx2g', '-cp', jar, 'ShengSystemUiPowerPatcher']
+    classpath = str(jar)
+    if args.patcher_classes:
+        assert (args.patcher_classes / 'ShengSystemUiPowerPatcher.class').is_file()
+        classpath = f'{args.patcher_classes}:{jar}'
+    patcher = [jdk / 'java', '-Xmx2g', '-cp', classpath, 'ShengSystemUiPowerPatcher']
     subprocess.run([jdk / 'javac', '-cp', jar, '-d', args.work,
                     DEVICE / 'interfaces/compat/systemui/tests/ShengSystemUiApkVerifier.java'], check=True)
     subprocess.run([jdk / 'java', '-Xmx2g', '-cp', f'{args.work}:{jar}',
                     'ShengSystemUiApkVerifier', args.original, args.output], check=True)
+    if args.known_bad_output:
+        result = subprocess.run([jdk / 'java', '-Xmx2g', '-cp', f'{args.work}:{jar}',
+                                 'ShengSystemUiApkVerifier', args.original, args.known_bad_output],
+                                capture_output=True, text=True, timeout=90)
+        (args.work / 'known-bad-field-loss.log').write_text(result.stdout + result.stderr)
+        assert result.returncode != 0 and 'field declarations changed' in result.stderr
+        print('PASS rejected original r24 field-loss regression', flush=True)
     with zipfile.ZipFile(args.original) as apk:
         entries = {info.filename: apk.read(info) for info in apk.infolist()}
     dexes = [name for name in entries if name.endswith('.dex')]

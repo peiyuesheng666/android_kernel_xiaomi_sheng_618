@@ -91,8 +91,14 @@ link and the user subsequently confirmed that AON works. Ordinary video and
 speaker output were also confirmed after r23.
 Details and remaining items are in [docs/HARDWARE_STATUS.md](docs/HARDWARE_STATUS.md).
 
-r24 images were written to ca10ede3's b slot and reboot was requested, but ADB
-has not returned and the current boot state is unknown. r25's two independent
+r24 reached framework boot completion but SystemUI repeatedly crashed due to
+instance fields lost by the device-owned APK transform. The accepted r22
+system_ext and vbmeta_system were restored and reboot requested; rollback
+startup/readback still await reconnection. The source correction passed an
+incremental module build, direct field checks and signed-APK review, and has
+not been installed. See
+[docs/r24-systemui-boot-regression-20261108.md](docs/r24-systemui-boot-regression-20261108.md).
+r25's two independent
 camera and Dolby GraphicBuffer allocation repairs passed the formal build,
 binary review and local image validation; r25 has not been flashed. The later
 stylus direction configs passed the platform parser, but a complete new product
@@ -102,6 +108,8 @@ after r25 installation and basic runtime checks. See
 [docs/offline-validation-20261108.json](docs/offline-validation-20261108.json)
 for exact evidence hashes and validation boundaries. Local r25 image and pinned
 decode-fixture validation were rerun successfully after that record was committed.
+Those sealed r25 images assume the original r24 system_ext; preserve their
+baseline guard and prepare a new reviewed chain after confirming the rollback.
 
 The final color request keeps 自适应/生动/鲜艳 visible order and swaps the latter
 two functions; r18 passed the user check and 鲜艳 selection reads actual mode1. Source/build/package milestones remain

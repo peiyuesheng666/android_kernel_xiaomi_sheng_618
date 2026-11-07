@@ -4,6 +4,8 @@ import com.android.tools.smali.dexlib2.Opcode;
 import com.android.tools.smali.dexlib2.dexbacked.DexBackedDexFile;
 import com.android.tools.smali.dexlib2.iface.ClassDef;
 import com.android.tools.smali.dexlib2.iface.Method;
+import com.android.tools.smali.dexlib2.iface.Field;
+import com.android.tools.smali.dexlib2.util.MethodUtil;
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction;
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction;
 import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction;
@@ -90,7 +92,10 @@ public final class ShengSystemUiApkVerifier {
                     method.getHiddenApiRestrictions(), implementation));
         }
         var copy = new ImmutableClassDef(cls.getType(), cls.getAccessFlags(), cls.getSuperclass(),
-                cls.getInterfaces(), cls.getSourceFile(), cls.getAnnotations(), cls.getFields(), methods);
+                cls.getInterfaces(), cls.getSourceFile(), cls.getAnnotations(),
+                cls.getStaticFields(), cls.getInstanceFields(),
+                methods.stream().filter(MethodUtil::isDirect).toList(),
+                methods.stream().filter(method -> !MethodUtil.isDirect(method)).toList());
         var store = new MemoryDataStore();
         try {
             DexPool.writeTo(store, new ImmutableDexFile(Opcodes.forDexVersion(39), List.of(copy)));
@@ -98,6 +103,23 @@ public final class ShengSystemUiApkVerifier {
         } finally {
             store.close();
         }
+    }
+    private static Map<String, List<Object>> fieldMembers(Iterable<? extends Field> fields) {
+        Map<String, List<Object>> result = new TreeMap<>();
+        for (Field field : fields) {
+            check(result.put(field.toString(), Arrays.asList(field.getAccessFlags(),
+                    field.getInitialValue(), field.getAnnotations(), field.getHiddenApiRestrictions())) == null,
+                    "Duplicate field " + field);
+        }
+        return result;
+    }
+    private static void verifyFields(ClassDef before, ClassDef after) {
+        // Compare decoded declarations directly. Re-pooling both sides with the
+        // same constructor can hide a field-loss bug in that constructor.
+        check(fieldMembers(before.getStaticFields()).equals(fieldMembers(after.getStaticFields())),
+                "Static field declarations changed " + before.getType());
+        check(fieldMembers(before.getInstanceFields()).equals(fieldMembers(after.getInstanceFields())),
+                "Instance field declarations changed " + before.getType());
     }
     private static void verifyBody(Method method) {
         List<Instruction> code = new ArrayList<>();
@@ -201,6 +223,8 @@ public final class ShengSystemUiApkVerifier {
             int targets = 0;
             for (var entry : oldClasses.entrySet()) {
                 ClassDef next = newClasses.get(entry.getKey());
+                check(next != null, "Missing class " + entry.getKey());
+                verifyFields(entry.getValue(), next);
                 check(next != null && Arrays.equals(canonical(entry.getValue()), canonical(next)),
                         "Unexpected class or member change " + entry.getKey());
                 for (Method method : next.getMethods()) {

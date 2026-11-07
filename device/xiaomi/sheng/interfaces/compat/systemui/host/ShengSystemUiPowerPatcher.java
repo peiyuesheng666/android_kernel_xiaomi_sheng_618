@@ -15,6 +15,7 @@ import com.android.tools.smali.dexlib2.immutable.reference.ImmutableFieldReferen
 import com.android.tools.smali.dexlib2.immutable.reference.ImmutableMethodReference;
 import com.android.tools.smali.dexlib2.writer.io.MemoryDataStore;
 import com.android.tools.smali.dexlib2.writer.pool.DexPool;
+import com.android.tools.smali.dexlib2.util.MethodUtil;
 import java.io.ByteArrayInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -101,7 +102,9 @@ public final class ShengSystemUiPowerPatcher {
             }
             classes.add(new ImmutableClassDef(cls.getType(), cls.getAccessFlags(),
                     cls.getSuperclass(), cls.getInterfaces(), cls.getSourceFile(),
-                    cls.getAnnotations(), cls.getFields(), methods));
+                    cls.getAnnotations(), cls.getStaticFields(), cls.getInstanceFields(),
+                    methods.stream().filter(MethodUtil::isDirect).toList(),
+                    methods.stream().filter(method -> !MethodUtil.isDirect(method)).toList()));
         }
         if (!changed) return input;
         // This pinned dexlib2 can emit invalid pooled parameter debug tables for
@@ -122,7 +125,9 @@ public final class ShengSystemUiPowerPatcher {
             }
             executableClasses.add(new ImmutableClassDef(cls.getType(), cls.getAccessFlags(),
                     cls.getSuperclass(), cls.getInterfaces(), cls.getSourceFile(), cls.getAnnotations(),
-                    cls.getFields(), methods));
+                    cls.getStaticFields(), cls.getInstanceFields(),
+                    methods.stream().filter(MethodUtil::isDirect).toList(),
+                    methods.stream().filter(method -> !MethodUtil.isDirect(method)).toList()));
         }
         var output = new MemoryDataStore();
         try {

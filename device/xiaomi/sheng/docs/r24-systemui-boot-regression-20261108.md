@@ -28,3 +28,32 @@ field checks are being validated separately. r24 power-animation acceptance
 is withdrawn. The sealed r25 images assume the failed r24 system_ext baseline;
 do not bypass their baseline guard or flash that old SystemUI again. A new
 reviewed image chain is needed before resuming that batch.
+
+## Source correction and validation
+
+The patcher now passes static/instance fields and direct/virtual methods through
+separate constructor arguments. The verifier compares decoded static and instance
+field declarations, access flags, values, annotations and restrictions before
+canonical code comparison. The original broken r24 APK is rejected by this check.
+The fixed candidate and signed output preserve all 37,424 original classes and
+their fields, retain non-DEX payload bytes, and change only the intended two
+method bodies with two helper classes. Six malformed-input cases also pass.
+
+The host source was first compiled independently. Then an incremental module
+build copied six exact existing Soong edges into a small Ninja graph: javac,
+JAR merge, APK transform, JNI/dex uncompression and platform signing. Build flags
+and real tool dependencies were preserved. The signed APK is
+a38be61543b88e1510e447f1ddceea30b3bb24a5069f74df42d5a53943acdbd8;
+its platform certificate and unsigned candidate payload comparison pass. The
+old installed PRODUCT APK remains untouched; the corrected signed intermediate
+and diagnostic copy are ready for a later reviewed install/package step.
+
+The first subset attempt failed on a missing host-tool alias. The second found
+conflicting dist/nodist helper definitions; restricting the scan to numbered
+shards resolved that graph-selection error. The third completed all six edges.
+These attempts are retained under hardware-diagnostics/systemui-field-formal-module-20261108*.
+Fresh-fetch prebuild and postbuild physical audits passed for 20 public
+repositories, with the same heads and all 1,243 repo projects clean. This is a
+module build, not a completed full product build or a runtime pass. No fixed
+APK has been flashed; rollback startup still needs target reconnection.
+Exact evidence hashes are in systemui-field-fix-validation-20261108.json.
