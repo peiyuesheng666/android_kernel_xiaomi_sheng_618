@@ -1,6 +1,6 @@
 # sheng hardware status and repair order
 
-Updated 2026-11-07 after the r6 reboot test. All fixes stay in this device tree;
+Updated 2026-11-07 after the r7 reboot test. All fixes stay in this device tree;
 public source is verified against freshly fetched manifest-pinned upstream.
 Each logical fix gets a commit, and each batch is compiled, flashed and tested
 before moving to the next hardware path. Source changes and static checks alone
@@ -22,6 +22,7 @@ are not listed as successful hardware tests.
 | Front light | User confirmed off after removing keyboard/button-backlight activation. |
 | Native refresh | Corrected stock submode clocks; native 60/90/120/144 switching checked, and r6 144 Hz touch/display/power-cycle user-verified. |
 | Built-in vibration capability | Fake HAL/declaration removed; r6 VibratorManager reports vibratorIds=[]; external devices are not removed. |
+| About-device name | r7 Settings name Xiaomi Pad 6S Pro 12.4, display and touch user-verified; scoped hardware model remains 24018RPACC. |
 | Recovery basic interaction | Source kernel, touch orientation, ADB and misc access verified in r13. |
 
 ## Confirmed working, without claiming a new hardware repair
@@ -35,7 +36,6 @@ are not listed as successful hardware tests.
 
 | Order | Item | Current state |
 | --- | --- | --- |
-| Simple | About-device name | Device system.prop now requests Xiaomi Pad 6S Pro 12.4; retain 24018RPACC partition/attestation model. Build/flash/readback still pending. |
 | Configuration/service integration | NFC/NTAG5 | Tablet uses a passive interconnection tag; stock ntag5_tool/init/policy are missing. Do not advertise unsupported reader/payment NFC. I2C behavior still needs testing. |
 | Configuration/service integration | Network location | No network provider is currently bound. Stock MetokNLP has compatible dependency candidates; app/permissions/provider setup and actual location testing remain pending. |
 | Component adaptation | Power-button position | Physical button is upper-left; SystemUI's reveal origin is hardcoded on the other edge. No valid RRO side switch exists. Needs device-owned implementation, not a false dimension-only fix. |
@@ -47,6 +47,7 @@ are not listed as successful hardware tests.
 | Input integration | Stylus | Not yet usable. |
 | Audio/Bluetooth integration | LHDC v5 | Not yet verified working. |
 | Touch/power integration | Double-tap wake | Still pending. |
+| Touch integration | Touch latency and sampling-rate boost | User reports delayed touch and no effect from the higher sampling-rate option; verify actual controller report rate and mode changes separately from touch orientation. |
 | Startup | Short backlight-only interval | Recovery/system still show roughly one-to-two seconds of backlight before an image. r6 also had about 52 seconds of framework startup before unlock. |
 | Validation | Other sensors | Only individually tested sensors are considered working; remaining sensor tests are pending. |
 

@@ -24,8 +24,12 @@ bytes are unchanged. Readback and read-only e2fsck pass; the original AVB salt,
 metadata and every other descriptor are retained. Vendor/ODM/r6 display and
 the r5 Dolby app are outside this delta.
 
-The compiled property and packaged images passed checks. Flash and postboot
-Settings/property validation are pending.
+The r7 system and vbmeta_system delta was flashed to slot b and booted. ADB
+readback confirms `ro.product.model=Xiaomi Pad 6S Pro 12.4` while system,
+vendor and ODM scoped models remain `24018RPACC`. The r6 vendor and vbmeta
+hashes are retained, SurfaceFlinger reports actual 144 Hz, and boot completes.
+On 2026-11-07 the user confirmed the correct name in Settings and normal display
+and touch. Evidence is in `model-name-r7-validation.json`.
 
 The flash guard reads system/vendor dynamic partitions through
 `/dev/block/mapper`, verified on the running device, and physical AVB partitions

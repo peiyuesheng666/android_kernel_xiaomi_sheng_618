@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-07",
+  "release": "r7",
+  "slot": "b",
+  "evidence_directory": "reports/device/model-r7-20261107-093035",
+  "system_sha256": "50cb7ebad3703ca03734f566aa6ea1f462675f4b361c968849b913b33e932089",
+  "vbmeta_system_4096_sha256": "5990b5c9fae89018ff9efb38ab338c48fc7c635f34fa95216a9f5a2c69fb212b",
+  "retained_vendor_sha256": "c663a57f003d3cd0791ec2a7b50ad36ed1e1d1d96c0b4b414adc5b3bc63ef038",
+  "retained_vbmeta_8192_sha256": "488757df791a7cdf9387e2b81b30fbddb2210a6a0ccdf338048dc8f0c75e33af",
+  "adb": {
+    "boot_completed": true,
+    "model": "Xiaomi Pad 6S Pro 12.4",
+    "system_model": "24018RPACC",
+    "vendor_model": "24018RPACC",
+    "odm_model": "24018RPACC",
+    "actual_refresh_hz": 144
+  },
+  "user_confirmation": {
+    "settings_name_correct": true,
+    "display_normal": true,
+    "touch_normal": true,
+    "verbatim": "名称正确，画面和触摸正常"
+  },
+  "passed": true
+}
