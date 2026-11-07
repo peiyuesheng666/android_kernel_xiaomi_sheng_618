@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<overlay>
+    <!-- Inline values apply in every locale, including translated target formats.
+         SettingsProvider passes Build.MODEL as a format argument; the marketed
+         name has no placeholders and does not change the hardware model. -->
+    <item target="string/def_device_name_simple" value="Xiaomi Pad 6S Pro 12.4" />
+    <item target="string/def_device_name" value="Xiaomi Pad 6S Pro 12.4" />
+</overlay>

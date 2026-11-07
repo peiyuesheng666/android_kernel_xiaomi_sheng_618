@@ -263,6 +263,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     FrameworkResOverlaySheng \
     SystemUIResOverlaySheng \
+    SettingsProviderResOverlaySheng \
     SettingsResOverlaySheng \
     WifiResOverlaySheng
 
