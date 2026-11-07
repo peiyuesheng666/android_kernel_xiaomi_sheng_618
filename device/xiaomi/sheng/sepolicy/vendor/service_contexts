@@ -1,0 +1,2 @@
+# Exact sheng stock Binder instance, not a HIDL hwservice.
+vendor.xiaomi.hardware.aon.IAlwaysOn/miaonservicehal u:object_r:hal_camera_aon_service:s0

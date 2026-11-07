@@ -1,0 +1,9 @@
+# sheng stock AON is served by the existing camera-provider process.
+type hal_camera_aon_service, hal_service_type, protected_service, service_manager_type;
+hal_attribute_service(hal_camera, hal_camera_aon_service)
+
+# The stock platform-signed shared-system-UID attention app is system_app.
+# Only this named AON service gains lookup; other camera service labels stay intact.
+allow system_app hal_camera_aon_service:service_manager find;
+binder_call(system_app, hal_camera_default)
+binder_call(hal_camera_default, system_app)

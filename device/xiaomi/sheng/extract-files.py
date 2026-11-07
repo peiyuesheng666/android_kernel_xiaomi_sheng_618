@@ -140,6 +140,6 @@ module = ExtractUtilsModule('sheng', 'xiaomi', blob_fixups=blob_fixups,
     lib_fixups=lib_fixups, namespace_imports=namespace_imports)
 if __name__ == '__main__':
     ExtractUtils.device(module).run()
-    sys.path.insert(0, str(Path(__file__).resolve().parent / 'scripts'))
+    sys.path.insert(0, str(Path(__file__).resolve().parent / 'tools'))
     from postprocess_vendor import postprocess_vendor
     postprocess_vendor(Path(__file__).resolve().parents[3] / 'vendor/xiaomi/sheng')

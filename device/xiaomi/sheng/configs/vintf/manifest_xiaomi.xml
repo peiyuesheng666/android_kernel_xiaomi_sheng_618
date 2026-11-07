@@ -20,4 +20,10 @@
         </interface>
         <fqname>@1.1::IOffloadControl/default</fqname>
     </hal>
+    <!-- Exact AIDL identity shipped in sheng's stock ODM AON manifest. -->
+    <hal format="aidl">
+        <name>vendor.xiaomi.hardware.aon</name>
+        <version>1</version>
+        <fqname>IAlwaysOn/miaonservicehal</fqname>
+    </hal>
 </manifest>

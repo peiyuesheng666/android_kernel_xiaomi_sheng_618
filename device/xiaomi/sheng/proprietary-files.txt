@@ -1977,3 +1977,6 @@ vendor/lib64/vendor.xiaomi.hardware.miface@1.0.so
 vendor/lib64/vendor.xiaomi.hardware.mikeybag-V1-ndk_platform.so
 vendor/lib64/vendor.xiaomi.sensor.citsensorservice@1.1.so
 vendor/lib64/vendor.xiaomi.sensor.citsensorservice@2.0.so
+
+# AON screen attention
+product/app/MiAONService/MiAONService.apk:system_ext/app/MiAONService/MiAONService.apk
