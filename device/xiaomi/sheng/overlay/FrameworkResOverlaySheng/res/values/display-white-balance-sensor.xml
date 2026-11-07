@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <resources>
-    <!-- Legacy DisplayWhiteBalanceFactory matches the sensor string type.
-         Android 17's display-config path already binds this front CCT sensor.
-         Availability and calibrated white-balance parameters are not enabled here. -->
+    <!-- Both standard DWB factories use the verified front Kelvin sensor.
+         Brightness comes from the separately bound standard ALS; Xiaomi RGB
+         sensor payloads are never interpreted as Kelvin or XYZ. -->
     <string name="config_displayWhiteBalanceColorTemperatureSensorName" translatable="false">xiaomi.sensor.front_cct</string>
+    <bool name="config_displayWhiteBalanceAvailable">true</bool>
+    <bool name="config_displayWhiteBalanceEnabledDefault">true</bool>
+
+    <!-- SurfaceFlingerAIDL's actual native-primary query on sheng returns this
+         sRGB/D65 working space. Match that API as the resource fallback too. -->
+    <string-array name="config_displayWhiteBalanceDisplayPrimaries" translatable="false">
+        <item>0.4123</item><item>0.2126</item><item>0.0193</item>
+        <item>0.3576</item><item>0.7152</item><item>0.1192</item>
+        <item>0.1805</item><item>0.0722</item><item>0.9506</item>
+        <item>0.9505</item><item>1.0</item><item>1.0891</item>
+    </string-array>
+    <string-array name="config_displayWhiteBalanceDisplayNominalWhite" translatable="false">
+        <item>0.9505</item><item>1.0</item><item>1.0891</item>
+    </string-array>
+    <integer name="config_displayWhiteBalanceDisplayNominalWhiteCct">6500</integer>
+    <integer name="config_displayWhiteBalanceColorTemperatureDefault">6500</integer>
+    <!-- Exact bounds and low-light white from this panel's stock TrueTone2.
+         Standard DWB retains its own filter/Bradford algorithm; the stock 2D
+         Lux/CCT table is not misrepresented as a one-dimensional LUT. -->
+    <integer name="config_displayWhiteBalanceColorTemperatureMin">5300</integer>
+    <integer name="config_displayWhiteBalanceColorTemperatureMax">8100</integer>
+    <array name="config_displayWhiteBalanceLowLightAmbientBrightnesses">
+        <item>0.0</item><item>50.0</item>
+    </array>
+    <array name="config_displayWhiteBalanceLowLightAmbientBrightnessesStrong">
+        <item>0.0</item><item>50.0</item>
+    </array>
+    <item name="config_displayWhiteBalanceLowLightAmbientColorTemperature" format="float" type="dimen">5600.0</item>
+    <item name="config_displayWhiteBalanceLowLightAmbientColorTemperatureStrong" format="float" type="dimen">5600.0</item>
 </resources>

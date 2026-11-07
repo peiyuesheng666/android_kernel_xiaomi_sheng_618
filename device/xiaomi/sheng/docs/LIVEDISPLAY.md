@@ -88,9 +88,8 @@ and automatic temperature controls; existing Lineage settings are retained.
 No service fork, new HAL, settings polling, boot-time settings write or private
 Xiaomi display service is added. The existing SDK default mode and temperatures
 are left unchanged. LiveDisplay Automatic follows twilight/sunrise/sunset, not
-the front CCT sensor. Sensor-based standard DisplayWhiteBalance remains off
-until its independent calibration work is complete. This change does not claim
-stock TrueTone behavior.
+the front CCT sensor. Sensor-based standard DisplayWhiteBalance is configured
+separately below. This change does not claim stock TrueTone behavior.
 
 Compile FrameworkResOverlaySheng and SettingsResOverlaySheng together. After
 installation/reboot verify resource lookup, new LiveDisplay mode capabilities,
@@ -141,3 +140,31 @@ checks. `tools/flash_sheng_livedisplay.ps1` defaults to native local verificatio
 explicit `-Flash` additionally checks all six installed hashes, serial, model,
 slot b and fastbootd identity before writing ODM, vendor and their vbmeta parent.
 The USB runner and time limits are reused from the reviewed r13 flash tool.
+
+## Sensor-based ambient white balance candidate
+
+The read-only AIDL probe obtained the actual primary display token and native
+XYZ values: R=(0.4123,0.2126,0.0193), G=(0.3576,0.7152,0.1192),
+B=(0.1805,0.0722,0.9506), W=(0.9505,1,1.0891). They agree with the active
+sRGB/D65 working-space contract. These API values are not new instrument
+measurements. The standard DWB overlay now uses the returned white and matching
+fallback primaries, nominal/default 6500 K, the panel's stock 5300-8100 K bounds
+and 5600 K low-light target. Low-light blending covers 0-50 lux using the stock
+CCT lux threshold. Native-primary evidence is retained as
+reports/device/r14-display-investigation/native-primaries-before.txt.
+
+Availability and default enablement are on, while an explicitly saved user
+setting remains authoritative. DWB uses the verified 33171088 front Kelvin
+sensor plus the standard ALS; unlike ColorOS' fused consumer it does not need
+the streaming sensor's lux at index 1. No global sensor remapping is added.
+Android's existing filter, throttling and Bradford transform handle adaptation
+and suspend sensor listening when the primary display is off. The panel's 2D
+stock table is not copied into an incompatible 1D resource; this is standard
+Android ambient adaptation, not a claim of identical stock TrueTone2 mapping.
+
+The existing standard DWB toggle controls real ambient adaptation; LiveDisplay
+Automatic controls the independent twilight schedule. Framework restrictions
+still apply: DWB is inactive in unmanaged Saturated mode and while conflicting
+accessibility transforms are active. The managed Original/Vivid modes must be
+used for its acceptance. This newly enabled path still needs real sensor,
+matrix, hardware-composition, off/on and user-visible acceptance on r14.
