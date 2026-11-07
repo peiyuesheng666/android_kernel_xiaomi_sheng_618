@@ -1,0 +1,29 @@
+{
+  "implementation_commit": "f20b6cf",
+  "pal_sha256": "cbb24166fde6042d1bdfb60a3ae362aa5d0f8559390bff0ac61bd8364c998e1e",
+  "upstream_audit": "upstream-final-speaker-mfc-audit.json",
+  "public_repositories_verified": 13,
+  "manifest_projects_clean": 1243,
+  "final_mfc_tag": "0xc000003d",
+  "final_mfc_module_id": "0x07001015",
+  "display_maps": {
+    "0": [5, 2, 4, 1],
+    "90": [4, 5, 1, 2],
+    "180": [1, 4, 2, 5],
+    "270": [2, 1, 5, 4]
+  },
+  "user_confirmed": {
+    "dolby_off_all_four_poses": true,
+    "dolby_on_all_four_poses": true,
+    "all_six_speakers": true,
+    "music_switch_mode_eq_immediate": true,
+    "mono_mp3_after_pause_resume": true,
+    "stereo_aac_after_pause_resume": true,
+    "stereo_aac_offload_eq_immediate": true
+  },
+  "dsp_dolby_output_channels": 4,
+  "mono_mp3_compressed_offload_completed": true,
+  "stereo_aac_compressed_offload_completed": true,
+  "temporary_bind_validation": true,
+  "permanent_reboot_validation": false
+}

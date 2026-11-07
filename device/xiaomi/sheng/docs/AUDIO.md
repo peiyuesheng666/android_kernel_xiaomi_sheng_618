@@ -48,8 +48,13 @@ quad output; the rotation stage permutes four distinct channels at unity gain.
 Other devices retain the upstream stereo-swap behavior. The first automatic
 test passed both landscape postures, while both portrait postures reversed
 left/right. The portrait entries were exchanged based on that physical test.
-Verification of those revised entries, Dolby-on, offload and restart remains
-pending.
+The revised entries passed all four physical poses with Dolby both disabled
+and enabled; the user confirmed all six speakers. Real music and AAC offload
+retained immediate switch/mode/EQ control. Mono MP3 and stereo AAC both used
+compressed offload and completed after the scripted two-second pause/resume.
+The validated PAL SHA-256 is
+`cbb24166fde6042d1bdfb60a3ae362aa5d0f8559390bff0ac61bd8364c998e1e`.
+Permanent packaging and reboot validation remain pending.
 
 `ShengSpeakerFormatProbe.c` can target the earlier or final stock MFC.
 `ShengSpeakerMatrixProbe.c` tests coefficient tables without changing saved
