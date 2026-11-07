@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <!-- Lineage ColorTemperatureController intentionally yields to Night Light
+         when this is true. Use the requested LiveDisplay day/night/automatic
+         temperature controls with the existing accelerated RGB implementation. -->
+    <bool name="config_nightDisplayAvailable">false</bool>
+</resources>
