@@ -176,8 +176,6 @@ def main():
     config.write_text('\n'.join(entries) + '\n')
     contexts = ROM / 'out/soong/.intermediates/system/sepolicy/file_contexts.concat.tmp/android_common/gen/file_contexts.concat.tmp'
     run([HOST / 'sefcontext_compile', '-o', work / 'file_contexts.bin', contexts])
-    file_list = work / 'odm_file_list.txt'
-    file_list.write_text('\n'.join(sorted(str(p.relative_to(root)) for p in root.rglob('*'))) + '\n')
     props = dict(line.split('=', 1) for line in
                  (PRODUCT / 'obj/PACKAGING/odm_intermediates/odm_image_info.txt').read_text().splitlines()
                  if '=' in line)
@@ -195,8 +193,11 @@ def main():
     info.write_text('\n'.join(key + '=' + value for key, value in props.items()) + '\n')
     image = work / 'odm.img'
     with (work / 'odm-build.log').open('w') as log:
-        run([HOST / 'build_image', '--input-directory-filter-file', file_list,
-             root, info, image, PRODUCT / 'system'], cwd=ROM, stdout=log, stderr=subprocess.STDOUT)
+        # The entire extracted tree has already been checked against the base.
+        # build_image's filter-copy step recreates directories without their
+        # original mtimes, so build this complete audited tree directly.
+        run([HOST / 'build_image', root, info, image, PRODUCT / 'system'],
+            cwd=ROM, stdout=log, stderr=subprocess.STDOUT)
     assert image.stat().st_size == ODM_BYTES
     run([HOST / 'avbtool', 'verify_image', '--image', image], capture_output=True)
     readback = work / 'odm-readback'
