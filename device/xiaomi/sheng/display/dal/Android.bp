@@ -1,0 +1,42 @@
+// Device-owned DAL compatibility for sheng's stock libsdedrm ABI.
+cc_library_shared {
+    name: "libsdmdal-sheng",
+    stem: "libsdmdal",
+    installable: false,
+    compile_multilib: "64",
+    defaults: ["qtidisplay_defaults"],
+    sanitize: { integer_overflow: true },
+    vendor: true,
+    header_libs: ["qti_display_kernel_headers"],
+    local_include_dirs: ["include"],
+    cflags: [
+        "-fno-operator-names",
+        "-Wno-format",
+        "-Wno-unused-parameter",
+        "-DLOG_TAG=\"SDM\"",
+    ],
+    shared_libs: [
+        "libdisplaydebug", "libsdmutils", "libdrm", "libdrmutils", "libsdedrm",
+    ],
+    srcs: [
+        "hw_events_interface.cpp", "hw_info_interface.cpp", "hw_interface.cpp",
+        "hw_info_drm.cpp", "hw_device_drm.cpp", "hw_peripheral_drm.cpp",
+        "hw_tv_drm.cpp", "hw_events_drm.cpp", "hw_scale_drm.cpp",
+        "hw_virtual_drm.cpp", "hw_color_manager_drm.cpp",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libsdmdal-sheng-install",
+    source_module_name: "libsdmdal",
+    stem: "libsdmdal",
+    prefer: true,
+    vendor: true,
+    compile_multilib: "64",
+    srcs: [":libsdmdal-sheng"],
+    strip: { none: true },
+    shared_libs: [
+        "libdisplaydebug", "libsdmutils", "libdrm", "libdrmutils", "libsdedrm",
+        "libc++", "libc", "libm", "libdl",
+    ],
+}
