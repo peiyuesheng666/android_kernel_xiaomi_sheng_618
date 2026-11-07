@@ -7,5 +7,9 @@
 runtime_resource_overlay {
     name: "SettingsResOverlaySheng",
     resource_libs: ["Settings"],
+    // Keep Settings' absolute 0x7f references separate from overlay-local IDs.
+    // This overlay deliberately uses no local resource references: its XML and
+    // arrays contain literals, while external resources retain their target IDs.
+    aaptflags: ["--package-id", "0x80"],
     device_specific: true,
 }

@@ -107,8 +107,8 @@
         <Preference
             android:key="sheng_marketname"
             android:order="29"
-            android:title="@string/sheng_model_name"
-            android:summary="@string/sheng_marketname"
+            android:title="Model name"
+            android:summary="Xiaomi Pad 6S Pro 12.4"
             android:selectable="false"
             settings:enableCopying="true"/>
 
@@ -116,7 +116,7 @@
         <Preference
             android:key="device_model"
             android:order="30"
-            android:title="@*com.android.settings:string/model_info"
+            android:title="Model number"
             android:summary="@*com.android.settings:string/summary_placeholder"
             android:fragment="com.android.settings.deviceinfo.hardwareinfo.HardwareInfoFragment"
             settings:enableCopying="true"

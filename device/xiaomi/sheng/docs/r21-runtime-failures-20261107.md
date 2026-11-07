@@ -13,9 +13,10 @@ use(DeviceNamePreferenceController.class) returns null before setHost. The RRO
 was enabled, but both its local resources and referenced Settings resources
 used build-time package ID 0x7f. Android's overlay dynamic reference table
 remaps unmatched 0x7f references as overlay-local, including the controller
-attribute. Linking the device RRO with --shared-lib assigns its local resources
-dynamic package ID 0x00 and retains external Settings attributes at 0x7f.
-AAPT2 confirms both classes of references remain distinct. A static installed
+attribute. The --shared-lib candidate separated the IDs during AAPT2 linking but was
+subsequently rejected by idmap2 because its package ID is zero. A plain 0x80
+candidate then failed on local strings. See r22-settings-resources-20261107.md
+for the final candidate and the retained failed experiments. A static installed
 overlay cannot be upgraded from /data; the two diagnostic install attempts
 were rejected, so they did not validate the live page. Rebooted UI/controller
 checks are still required.
