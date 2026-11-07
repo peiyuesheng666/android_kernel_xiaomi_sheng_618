@@ -55,3 +55,26 @@ hashtree descriptors are the only vbmeta changes. The frozen spec digest is
 200d672ee4f6baa73ca25cf3b803e45ce1b8537d59d274e1c2b8a0b55514ec0c.
 Published image identities are recorded in packaging-r16-20261107.json.
 Boot and user-visible regression acceptance remain pending at publication.
+
+## Installed r16 and bounded hardware follow-up
+
+r16 reboot completed on slot b, root ADB reconnected, and all six installed
+partition hashes match the published chain. The corrected sensor executable
+and r15 accepted color-core library match their frozen identities. Installed
+Framework resources return increasing-transition 3000 ms and the neutral XYZ.
+The actual focused front-CCT probe registered only the non-wake front sensor
+and received 5828,6541,7374,8251,9199 K, with no nonpositive delivered Kelvin.
+The earlier general probe log is retained separately and is not focused.
+
+The initial two override trials required applied=5300 K and timed out with a
+partially warmed applied CCT. A subsequent trial accepts its measured 5840 K
+warm baseline. Thirty-five hardware PCC reads show no previous abrupt ~1-second
+G/R jump. Small reversals remain (maximum adjacent G/R +0.001770, B/R +0.004547)
+in this forced overlapping-fade case; physical natural-ambient acceptance is
+still required. Do not treat this as a fully monotonic transition. The bounded
+script restores Night Light keys, screen timeout and DWB override to -1.
+Temporary display_white_balance_enabled=0 remains until a fresh r17 reboot;
+then restore the original absent/default key for user testing.
+Evidence: workspace reports/device/r16-runtime/boot-and-installed-hashes.txt,
+front-cct-focused-probe.txt, actual-warm-night-transition.txt and
+actual-warm-transition-analysis.json. No screen pixels or camera were used.
