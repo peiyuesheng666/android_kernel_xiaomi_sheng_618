@@ -29,3 +29,17 @@ remain the accepted baseline; the forced-warm PCC trial's small reversals are
 still documented and do not establish all-condition strict monotonicity.
 AON inventory found the existing unavailable Screen attention entry; no camera
 or attention detection was started. Input candidates remain paused.
+
+## Compiled resource comparison
+
+The retained r17 Framework APK was dumped from its verified packaging tree and
+compared with r18's compiled Framework APK. Their complete aapt2 resource dumps
+are identical after substituting the single config_availableColorModes array
+0,1,2 -> 0,2,1. In particular, every white-balance resource, transition duration,
+nominal XYZ and composition-color mapping is unchanged. The r18 source-combined
+menu is 自适应=0, 生动=2, 鲜艳=1; standard Settings selection writes those exact
+numeric IDs. Before r18 flash, the user's saved mode is 0, Night Light is 0,
+and display_white_balance_enabled remains absent/default true.
+Evidence: workspace logs/r17-retained-framework-resources.txt,
+logs/r18-framework-resources.txt, logs/r18-settings-resources.txt, and
+reports/device/r18-runtime/before-flash-settings.txt.
