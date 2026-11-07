@@ -9,6 +9,7 @@ import com.android.tools.smali.dexlib2.immutable.ImmutableClassDef;
 import com.android.tools.smali.dexlib2.immutable.ImmutableDexFile;
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethod;
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethodImplementation;
+import com.android.tools.smali.dexlib2.immutable.ImmutableMethodParameter;
 import com.android.tools.smali.dexlib2.immutable.instruction.*;
 import com.android.tools.smali.dexlib2.immutable.reference.ImmutableFieldReference;
 import com.android.tools.smali.dexlib2.immutable.reference.ImmutableMethodReference;
@@ -44,6 +45,7 @@ public final class ShengSystemUiPowerPatcher {
     private static ImmutableMethod replacement(Method method, int registers,
             List<? extends Instruction> instructions) {
         require(method.getImplementation() != null, "Missing method code: " + method);
+        require((method.getAccessFlags() & 0x8) == 0, "Target unexpectedly became static");
         require(method.getImplementation().getTryBlocks().isEmpty(), "Unexpected try blocks");
         return new ImmutableMethod(method.getDefiningClass(), method.getName(),
                 method.getParameters(), method.getReturnType(), method.getAccessFlags(),
@@ -102,12 +104,35 @@ public final class ShengSystemUiPowerPatcher {
                     cls.getAnnotations(), cls.getFields(), methods));
         }
         if (!changed) return input;
-        try (var output = new MemoryDataStore()) {
-            DexPool.writeTo(output, new ImmutableDexFile(dex.getOpcodes(), classes));
+        // This pinned dexlib2 can emit invalid pooled parameter debug tables for
+        // R8's shared debug programs. Drop optional debugger names/line tables in
+        // the rewritten dex; retain all code, catches, annotations and signatures.
+        var executableClasses = new ArrayList<ClassDef>();
+        for (ClassDef cls : classes) {
+            var methods = new ArrayList<Method>();
+            for (Method method : cls.getMethods()) {
+                var parameters = method.getParameters().stream().map(parameter ->
+                        new ImmutableMethodParameter(parameter.getType(), parameter.getAnnotations(), null)).toList();
+                var code = method.getImplementation();
+                methods.add(new ImmutableMethod(method.getDefiningClass(), method.getName(), parameters,
+                        method.getReturnType(), method.getAccessFlags(), method.getAnnotations(),
+                        method.getHiddenApiRestrictions(), code == null ? null
+                            : new ImmutableMethodImplementation(code.getRegisterCount(),
+                                    code.getInstructions(), code.getTryBlocks(), null)));
+            }
+            executableClasses.add(new ImmutableClassDef(cls.getType(), cls.getAccessFlags(),
+                    cls.getSuperclass(), cls.getInterfaces(), cls.getSourceFile(), cls.getAnnotations(),
+                    cls.getFields(), methods));
+        }
+        var output = new MemoryDataStore();
+        try {
+            DexPool.writeTo(output, new ImmutableDexFile(dex.getOpcodes(), executableClasses));
             byte[] bytes = output.getData();
             var verify = DexBackedDexFile.fromInputStream(null, new ByteArrayInputStream(bytes));
             require(verify.getClasses().size() == dex.getClasses().size(), "Class count changed");
             return bytes;
+        } finally {
+            output.close();
         }
     }
 
@@ -134,6 +159,7 @@ public final class ShengSystemUiPowerPatcher {
         for (ClassDef cls : helperDex.getClasses()) helperTypes.add(cls.getType());
         require(helperTypes.equals(Set.of(EFFECT, GEOMETRY)), "Unexpected helper classes");
         var types = new HashSet<String>();
+        var dexIndexes = new HashSet<Integer>();
         int dexCount = 0;
         try (var apk = new ZipFile(args[0]); var out = new ZipOutputStream(Files.newOutputStream(output))) {
             var entries = apk.entries();
@@ -146,6 +172,9 @@ public final class ShengSystemUiPowerPatcher {
                         || name.equals("META-INF/MANIFEST.MF"))) continue;
                 byte[] bytes = apk.getInputStream(entry).readAllBytes();
                 if (name.matches("classes([2-9]|[1-9][0-9]+)?\\.dex")) {
+                    int index = name.equals("classes.dex") ? 1
+                            : Integer.parseInt(name.substring(7, name.length() - 4));
+                    require(dexIndexes.add(index), "Duplicate dex index");
                     dexCount++;
                     bytes = patchDex(bytes, types);
                 }
@@ -154,8 +183,10 @@ public final class ShengSystemUiPowerPatcher {
             require(reveals == 1 && wakes == 1, "Expected exactly one definition of each target method; "
                     + "reveal=" + reveals + " wake=" + wakes);
             require(!types.contains(EFFECT) && !types.contains(GEOMETRY), "Helper already present");
-            require(dexCount > 0 && apk.getEntry("classes" + (dexCount + 1) + ".dex") == null,
-                    "Noncontiguous multidex layout");
+            require(dexCount > 0, "Missing dex files");
+            for (int index = 1; index <= dexCount; index++) {
+                require(dexIndexes.contains(index), "Noncontiguous multidex layout");
+            }
             put(out, "classes" + (dexCount + 1) + ".dex", helper, 1230768000000L);
         }
         // Every non-DEX, non-signature payload is retained byte for byte.

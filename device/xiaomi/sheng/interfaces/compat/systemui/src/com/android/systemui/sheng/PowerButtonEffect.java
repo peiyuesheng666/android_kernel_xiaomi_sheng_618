@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Point;
 import android.view.Display;
 import com.android.app.animation.Interpolators;
-import com.android.systemui.res.R;
 import com.android.systemui.statusbar.LightRevealScrim;
 
 /** Device-specific button edge, preserving the upstream animation timing and oval. */
@@ -16,7 +15,8 @@ public final class PowerButtonEffect {
         float interpolated = Interpolators.FAST_OUT_SLOW_IN_REVERSE.getInterpolation(amount);
         float fade = Math.max(interpolated - 0.5f, 0f) / 0.5f;
         scrim.setRevealGradientEndColorAlpha(1f - fade);
-        scrim.setInterpolatedRevealAmount(interpolated);
+        // The upstream optimizer removes interpolatedRevealAmount: it has no readers.
+        // Do not call that removed setter from a separately compiled helper.
         Display display = scrim.getDisplay();
         int rotation = display == null ? 0 : display.getRotation();
         float width = scrim.getWidth(), height = scrim.getHeight();
@@ -40,8 +40,11 @@ public final class PowerButtonEffect {
             size.set(context.getResources().getDisplayMetrics().widthPixels,
                     context.getResources().getDisplayMetrics().heightPixels);
         }
-        float nativeY = context.getResources().getDimension(
-                R.dimen.physical_power_button_center_screen_location_y);
+        // R8 removes the R class from the final APK; resolve the retained resource by name.
+        int resource = context.getResources().getIdentifier(
+                "physical_power_button_center_screen_location_y", "dimen", "com.android.systemui");
+        if (resource == 0) throw new IllegalStateException("Missing power button geometry resource");
+        float nativeY = context.getResources().getDimension(resource);
         float[] center = PowerButtonGeometry.center(rotation, size.x, size.y, nativeY, 0f);
         return new Point(Math.round(center[0]), Math.round(center[1]));
     }

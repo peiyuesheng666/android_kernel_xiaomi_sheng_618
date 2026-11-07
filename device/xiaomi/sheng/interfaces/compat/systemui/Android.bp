@@ -31,8 +31,9 @@ android_app_import {
     filename: "SystemUI.apk",
     overrides: ["SystemUI"],
     certificate: "platform",
+    optional_uses_libs: ["androidx.window.extensions", "androidx.window.sidecar"],
     privileged: true,
     system_ext_specific: true,
     dex_preopt: { enabled: false },
-    required: ["privapp_whitelist_com.android.systemui"],
+    required: ["privapp_whitelist_com.android.systemui", "wmshell.protolog.pb"],
 }
