@@ -15,6 +15,7 @@
  */
 
 #include "HalProxyCallback.h"
+#include "ShengCctSample.h"
 
 #include <cinttypes>
 #include <android-base/properties.h>
@@ -74,6 +75,14 @@ std::vector<V2_1::Event> HalProxyCallbackBase::processEvents(const std::vector<V
                     setSubHalIndex(event.u.dynamic.sensorHandle, mSubHalIndex);
         }
         const V2_1::SensorInfo& sensor = mCallback->getSensorInfo(event.sensorHandle);
+
+        if (sheng::RejectInvalidFrontCct(static_cast<int32_t>(event.sensorType),
+                                        static_cast<int32_t>(sensor.type),
+                                        sensor.typeAsString.c_str(),
+                                        (sensor.flags & V1_0::SensorFlagBits::WAKE_UP) != 0,
+                                        event.u.scalar)) {
+            continue;
+        }
 
         // sheng's stock device-orientation algorithm uses portrait zero,
         // while its built-in display uses landscape zero. Adjust only this

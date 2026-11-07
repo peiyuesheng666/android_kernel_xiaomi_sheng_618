@@ -1,5 +1,13 @@
 # sheng sensor and cover configuration
 
+2026-11-07 follow-up: r15 DWB histories contained repeated front-CCT 0 K
+samples during the transient-yellow regression. The device bridge now rejects
+nonpositive/nonfinite data only for the exact non-wakeup front-CCT sensor and
+matching private event type. Flush/additional-info events, back CCT, ALS and
+all other sensor types are preserved. Positive Kelvin samples are not clamped
+to the incorrect 131.6 maxRange. Host sanitizer coverage checks these cases;
+Android build and hardware acceptance are recorded separately when completed.
+
 `aidl/sensors` builds the device-owned sensor multihal. The device-orientation
 event uses `(orientation + 3) % 4`, matching the user's verified 90-degree
 mounting correction. The public `hardware/xiaomi` source remains unchanged.
