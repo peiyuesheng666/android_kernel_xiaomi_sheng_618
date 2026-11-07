@@ -1,0 +1,26 @@
+{
+  "revision": 13,
+  "build_success": true,
+  "build_duration": "13:26",
+  "log": "/root/sheng-lineage/logs/sheng-r13-unattended-build-20261107.log",
+  "compiled_device_source_commit": "72aa29b",
+  "frozen_spec_sha256": "a36df0eea6d9dae4ffe559506580e46b010b8056315c043fd61d028a5693cc54",
+  "frozen_device_input_count": 655,
+  "prebuild_public_source_check": true,
+  "postbuild_public_source_check": true,
+  "public_repo_count": 1243,
+  "fresh_fetch_known_repo_count": 13,
+  "generated_zygote": "zygote64",
+  "generated_dex2oat64_enabled": "true",
+  "fpc_alias": "odm/lib64/hw/fingerprint.fpc.default.so -> fingerprint.fpc.so",
+  "original_fpc_blob_sha256": "4388432669c5fe1cc52ebd5a343d190724a2417f60352a804b43b0900939bcbd",
+  "init_and_selinux_checks_passed": true,
+  "mapping_marker_matches_installed": {
+    "plat": "ff3041d3a7edff36c930712e8b316d1746f0d9bb178cba6215705d64257e51ad",
+    "product": "fdc2c9023817843200c3abc1599f13adf3c520ef3439de74b37377193d65614e",
+    "system_ext": "7e7cf9f9ae6f9ab567ba74d9f287fb31a7fd922d87def5848247d1ab78750f9f"
+  },
+  "hardware_boot_tested": false,
+  "fingerprint_enrollment_tested": false,
+  "color_accuracy_verified": false
+}
