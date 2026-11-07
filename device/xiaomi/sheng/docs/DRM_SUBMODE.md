@@ -38,3 +38,10 @@ graph; the preferred device ELF inputs and installed outputs were verified.
 The postbuild fresh-fetch audit is `upstream-refresh-submode-build-audit.json`:
 all 1,243 repo-managed projects are clean and all 13 public-source checks pass.
 This is build validation; 144 Hz runtime validation is still pending.
+
+DSI mode data is validated in `HWDeviceDRM::Init` before the legacy void
+`InitializeConfigs` path. Bounds are checked before topology access, and stock
+submode clocks are required only for DSI; DP and virtual displays retain their
+standard timing clock. No class layout or virtual-function signatures changed.
+The corrected DAL rebuilt successfully and was loaded at native 60 Hz; the
+kernel reports an active CRTC and normal device composition after wake.

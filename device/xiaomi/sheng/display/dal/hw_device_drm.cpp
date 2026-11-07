@@ -568,6 +568,23 @@ DisplayError HWDeviceDRM::Init() {
     return kErrorDeviceRemoved;
   }
 
+  // InitializeConfigs has a legacy void ABI. Reject invalid stock DSI data
+  // before entering that path rather than leaving partial display attributes.
+  if (!default_mode_ && connector_info_.type == DRM_MODE_CONNECTOR_DSI) {
+    for (uint32_t index = 0; index < connector_info_.modes.size(); index++) {
+      const auto &mode = connector_info_.modes[index];
+      const uint32_t submode_index = mode.curr_submode_index;
+      if (submode_index >= mode.sub_modes.size() ||
+          !mode.sub_modes[submode_index].clock_khz) {
+        DLOGE("Invalid sheng DSI pixel clock for config %u submode %u", index, submode_index);
+        drm_mgr_intf_->DestroyAtomicReq(drm_atomic_intf_);
+        drm_atomic_intf_ = {};
+        drm_mgr_intf_->UnregisterDisplay(&token_);
+        return kErrorDriverData;
+      }
+    }
+  }
+
   hw_info_intf_->GetHWResourceInfo(&hw_resource_);
 
   InitializeConfigs();
@@ -728,6 +745,11 @@ DisplayError HWDeviceDRM::PopulateDisplayAttributes(uint32_t index) {
   uint32_t mm_height = 0;
   DRMTopology topology = DRMTopology::SINGLE_LM;
 
+  if (index >= display_attributes_.size()) {
+    DLOGE("Invalid display attribute index %u", index);
+    return kErrorParameters;
+  }
+
   if (default_mode_) {
     DRMResMgr *res_mgr = nullptr;
     int ret = DRMResMgr::GetInstance(&res_mgr);
@@ -739,13 +761,27 @@ DisplayError HWDeviceDRM::PopulateDisplayAttributes(uint32_t index) {
     res_mgr->GetMode(&mode);
     res_mgr->GetDisplayDimInMM(&mm_width, &mm_height);
   } else {
-    uint32_t submode_idx = connector_info_.modes[index].curr_submode_index;
-    conn_mode = connector_info_.modes[index];
+    if (index >= connector_info_.modes.size()) {
+      DLOGE("Invalid connector mode index %u", index);
+      return kErrorDriverData;
+    }
+    const auto &mode_info = connector_info_.modes[index];
+    const uint32_t submode_idx = mode_info.curr_submode_index;
+    if (submode_idx >= mode_info.sub_modes.size()) {
+      DLOGE("Invalid connector submode %u for config %u", submode_idx, index);
+      return kErrorDriverData;
+    }
+    if (connector_info_.type == DRM_MODE_CONNECTOR_DSI &&
+        !mode_info.sub_modes[submode_idx].clock_khz) {
+      DLOGE("Missing sheng stock pixel clock for config %u submode %u", index, submode_idx);
+      return kErrorDriverData;
+    }
+    conn_mode = mode_info;
     mode = conn_mode.mode;
     mm_width = connector_info_.mmWidth;
     mm_height = connector_info_.mmHeight;
-    topology = connector_info_.modes[index].sub_modes[submode_idx].topology;
-    if (connector_info_.modes[index].sub_modes[submode_idx].panel_mode_caps &
+    topology = mode_info.sub_modes[submode_idx].topology;
+    if (mode_info.sub_modes[submode_idx].panel_mode_caps &
         DRM_MODE_FLAG_CMD_MODE_PANEL) {
       display_attributes_[index].smart_panel = true;
     }
@@ -783,13 +819,9 @@ DisplayError HWDeviceDRM::PopulateDisplayAttributes(uint32_t index) {
   // TODO(user): This clock should no longer be used as mode's pixel clock for RFI connectors.
   // Driver can expose list of dynamic pixel clocks, userspace needs to support dynamic change.
   display_attributes_[index].clock_khz = mode.clock;
-  if (!default_mode_) {
+  if (!default_mode_ && connector_info_.type == DRM_MODE_CONNECTOR_DSI) {
     const auto &sub_modes = conn_mode.sub_modes;
     const uint32_t submode_index = conn_mode.curr_submode_index;
-    if (submode_index >= sub_modes.size() || !sub_modes[submode_index].clock_khz) {
-      DLOGE("Missing sheng stock pixel clock for config %u submode %u", index, submode_index);
-      return kErrorDriverData;
-    }
     display_attributes_[index].clock_khz = sub_modes[submode_index].clock_khz;
     DLOGI("Sheng config %u (%u Hz): submode clock %u kHz, DRM mode clock %u kHz", index,
           display_attributes_[index].fps, display_attributes_[index].clock_khz, mode.clock);
