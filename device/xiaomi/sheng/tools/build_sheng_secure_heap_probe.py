@@ -37,7 +37,8 @@ def main():
     compile_args[compile_args.index('-MF') + 1] = str(work / 'probe.d')
     compile_args[-1] = str(DEVICE / 'tools/ShengSecureHeapProbe.cpp')
     compile_args[-1:-1] = ['-I' + str(DEVICE / 'interfaces/display/gralloc'),
-            '-Ivendor/qcom/opensource/commonsys-intf/display/gralloc']
+            '-Ivendor/qcom/opensource/commonsys-intf/display/gralloc',
+            '-Ivendor/qcom/opensource/commonsys-intf/display/include']
     response = [s for s in link_args if s.startswith('@')]
     assert len(response) == 1
     inputs = shlex.split(Path(response[0][1:]).read_text())
