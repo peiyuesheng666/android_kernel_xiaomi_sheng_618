@@ -1,0 +1,32 @@
+{
+  "revision": 33,
+  "scoped_configuration_assembly_passed": true,
+  "host_init_verifier_passed": true,
+  "exact_seven_line_delta_verified": true,
+  "charging_value_written": false,
+  "supplemental_public_audit_passed": true,
+  "full_product_build_passed": false,
+  "normal_product_module_build_passed": false,
+  "source_sha256": {
+    "rootdir/etc/init.sm8550.rc": "e95aff62e4d5b5d296707afaa150d2f61c6131b9c3eb2ee7cd1eddc44f9c41e4",
+    "tools/build_sheng_charging_boot_r33.py": "5452e27b8234c9f4cc9865f7b1c58200a7e1aa1c7dd5cbf497e2a99a4058f1c2"
+  },
+  "reviewed_sha256": {
+    "vendor": {
+      "etc/init/init.sm8550.rc": "e95aff62e4d5b5d296707afaa150d2f61c6131b9c3eb2ee7cd1eddc44f9c41e4"
+    }
+  },
+  "baseline_rc_sha256": "021e9c5be5871089c51ae1ba62ab42a0e7b97e9cef064d75d11244c8e75956de",
+  "prebuild_audit_sha256": "f6cd92019c0d9aa245b388a3fd48516031206999ca6ebf70ccdd8b66ab301dfc",
+  "command_log_sha256": "613ff57ccb3adba4f5f376937fa3baeb7df4161e6ef985d859c5a3370b4ebc7a",
+  "work": "/root/sheng-lineage/hardware-diagnostics/r33-charging-boot-20261108",
+  "systemui_changed": false,
+  "installed": false,
+  "runtime_verified": false,
+  "postbuild_public_audit_passed": true,
+  "postbuild_public_audit_sha256": "e7391441674627e4b59d0a6aaef0c5fdda158549c70473de53681829a006af78",
+  "public_repositories_fresh_audited": 24,
+  "all_project_status_checked": 1243,
+  "supplemental_prebuild_sha256": "aff5433a41ea1f926051c1af0e63eba866168f854247fab1c864a56fe43516e8",
+  "supplemental_postbuild_sha256": "aff5433a41ea1f926051c1af0e63eba866168f854247fab1c864a56fe43516e8"
+}
