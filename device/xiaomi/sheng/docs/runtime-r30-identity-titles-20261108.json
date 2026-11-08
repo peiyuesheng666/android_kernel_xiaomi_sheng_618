@@ -1,0 +1,45 @@
+{
+  "revision": 30,
+  "date": "2026-11-08",
+  "serial": "ca10ede3",
+  "slot": "b",
+  "user_confirmed_boot": true,
+  "user_confirmed_title_color_normal": true,
+  "seven_partition_and_scoped_file_hashes_passed": true,
+  "boot_completed": true,
+  "selinux": "Enforcing",
+  "systemui_original": true,
+  "camera_provider_alive": true,
+  "crash_buffer_empty": true,
+  "thermal_boot_complete_wait_timeout_present": false,
+  "mi_thermald": "running",
+  "thermal_hal": "running",
+  "thermal_sconfig": 19,
+  "settings_resource_probe_locales": [
+    "zh-CN",
+    "en-US"
+  ],
+  "codename_installed": "sheng",
+  "model": "24018RPACC",
+  "marketname": "Xiaomi Pad 6S Pro 12.4",
+  "bluetooth_auto_connect_property": "true",
+  "stylus_input_orientation": "Rotation90",
+  "physical_stylus_verified": false,
+  "full_product_build_passed": false,
+  "raw_evidence_directory": "reports/device/r30-20261108-101116",
+  "flash_operations_sha256": "32dcaac4a490be0c2364f613a93f4ecbae71d0307610786ca7bdc21acb181d7d",
+  "evidence_sha256": {
+    "crash-buffer.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "device-operations.txt": "ae58ad25d076b72a5e2c2476140da78c789cebf4ba5390c1eb3b727d26310ea4",
+    "identity-state.txt": "f780c60ddb4e22702686cfd31dc6001ee0ba6c91adf032993d0c5d135376906c",
+    "input-state.txt": "3ce7ca1ae94de8e545af19d00ff850d5c9bb9035f491976134c264b24b664fc4",
+    "kernel.txt": "965a181d368632049679bf184982b84c26b408ea3efeca93f28f5fbe59680a3a",
+    "packaging-manifest.json": "96a328945b2def7d4705391665da3d2ce730f83e42d545a0bd8a1fd9879ebd87",
+    "resources-en-US.txt": "8ff59839cae34882bba6df0f028c0c3894dc17b08f1f2777445f3c088cd72d69",
+    "resources-zh-CN.txt": "023b4003592d5cfa00063bc11d28cfe03f6a8d39996794ece8e0fe7dd310cbfc",
+    "thermal-state.txt": "37d7fd02e0165bea5627a9756ed8faa09e4c186eff93ce95308ab49e9b9e69cf"
+  },
+  "other_observations": [
+    "Kernel records a mi_thermald denial setting vendor.sys.thermal.bcl.boot_completed; thermal services run but this separate property-policy issue remains to investigate."
+  ]
+}

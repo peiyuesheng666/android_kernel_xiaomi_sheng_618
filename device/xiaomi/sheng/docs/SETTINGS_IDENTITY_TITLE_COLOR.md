@@ -15,3 +15,9 @@ No Settings source, framework source or SystemUI change is needed.
 The ResourceProbe checks the actual compiled XML selectable flag in addition to
 both labels, summaries, controller counts and external references. Final color
 appearance remains subject to user acceptance after installation.
+
+r30 was installed on ca10ede3 slot b on 2026-11-08. The user confirmed both
+titles now have the normal color. Seven partition hashes, the installed overlay
+hash, original SystemUI and installed Chinese/English resource probes passed;
+the crash buffer was empty. See runtime-r30-identity-titles-20261108.json.
+This scoped overlay build does not establish a full product build result.
