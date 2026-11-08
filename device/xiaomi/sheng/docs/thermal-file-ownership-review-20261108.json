@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-08",
+  "serial": "ca10ede3",
+  "slot": "b",
+  "binary_sha256": "659fe2afe90316244d240afcb24661d701e7d450f304daa58bd2fd2d69f9b0e7",
+  "original_policy_sha256": "e2cce0352e8cb904f41e3d9167bbb29d75b03a14107272f8d99430dfd08e2790",
+  "original_capability_rule": "(allow mi_thermald mi_thermald (capability (chown fowner)))",
+  "chown_call_paths": {
+    "0x9b5f0": "/data/vendor/thermal/report.dump",
+    "0x9b64c": "/data/vendor/thermal/thermal.dump",
+    "0x9b6a8": "/data/vendor/thermal/last_thermal.dump",
+    "0x9b73c": "/data/vendor/thermal/thermal-global-mode"
+  },
+  "requested_uid": 1000,
+  "requested_gid": 1000,
+  "disassembly_path": "/root/sheng-lineage/hardware-diagnostics/mi-thermald-disassembly-20261108.txt",
+  "disassembly_sha256": "4e13788a542f87c5c6469dc6f3b5404b4e6b22dc4d9abeca7c4a5a03d033dd4a",
+  "ownership_before_evidence": "reports/device/r32-source-20261108/thermal-ownership-before.txt",
+  "ownership_before_sha256": "de4b922411b1a1c88990a8a904f26e82dbfb62ef2127068cd869ea96e5d8935b",
+  "policy_built": false,
+  "installed": false,
+  "runtime_accepted": false,
+  "second_boot_tested": false
+}

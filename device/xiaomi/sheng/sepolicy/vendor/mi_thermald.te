@@ -7,6 +7,9 @@ allow mi_thermald sysfs_thermal:file w_file_perms;
 allow mi_thermald sys_thermal_wifi_limit:file rw_file_perms;
 allow mi_thermald thermal_data_file:dir rw_dir_perms;
 allow mi_thermald thermal_data_file:file { create getattr open read rename setattr unlink write };
+# The original daemon owns/chmods its four thermal state files at startup.
+# Retain the stock daemon's ownership operations within its existing file rules.
+allow mi_thermald self:capability { chown fowner };
 allow mi_thermald vendor_data_file:dir r_dir_perms;
 allow mi_thermald vendor_data_file:file rw_file_perms;
 allow mi_thermald vendor_sysfs_battery_supply:dir r_dir_perms;
