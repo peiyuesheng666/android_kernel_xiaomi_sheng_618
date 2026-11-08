@@ -1,0 +1,43 @@
+{
+  "real_aarch64_kernel": true,
+  "real_gpt_block_io_and_fsync": true,
+  "image_sha256": "99d34cdb44cf1174c23451aad863adbc459d728268c509ca4905c632285e8f6a",
+  "cases": [
+    {
+      "case": "valid",
+      "gpt_name": "rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 2,
+      "expected_write": true,
+      "uptime_ms": [
+        10302,
+        10015
+      ],
+      "qemu_log": "/root/sheng-618/diagnostic/fault-r10/qemu/valid.log"
+    },
+    {
+      "case": "wrong-name",
+      "gpt_name": "not-rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 0,
+      "expected_write": false,
+      "uptime_ms": [],
+      "qemu_log": "/root/sheng-618/diagnostic/fault-r10/qemu/wrong-name.log"
+    },
+    {
+      "case": "wrong-size",
+      "gpt_name": "rawdump",
+      "partition_mib": 299,
+      "valid_snapshots": 0,
+      "expected_write": false,
+      "uptime_ms": [],
+      "qemu_log": "/root/sheng-618/diagnostic/fault-r10/qemu/wrong-size.log"
+    }
+  ],
+  "torn_copy_rejected_other_copy_readable": true,
+  "hardware_ufs_tested": false,
+  "embedded_helper_exec_and_finit_module_tested": true,
+  "partition_guard_cases_run": true,
+  "exception_stack_persisted_before_panic": null,
+  "fault_injection_case_run": false
+}

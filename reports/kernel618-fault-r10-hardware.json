@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-08",
+  "revision": "fault-r10",
+  "serial": "ca10ede3",
+  "product": "sheng",
+  "active_slot": "a",
+  "flashed_partition": "boot_a",
+  "boot_sha256": "bcdef4a1f306623ee176b3f54ed94693a1bfa6ef135a361bebc1b3c48c2fee9f",
+  "image_sha256": "99d34cdb44cf1174c23451aad863adbc459d728268c509ca4905c632285e8f6a",
+  "flash_succeeded": true,
+  "reboot_command_succeeded": true,
+  "hardware_log_received": false,
+  "android_boot_completed": null,
+  "original_boot_backed_up": false,
+  "diagnostic_only": true,
+  "control_revision": "display-r8",
+  "current_state": "Flashed and rebooted; waiting for feedback and persistent logs"
+}

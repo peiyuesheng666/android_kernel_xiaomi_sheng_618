@@ -1,0 +1,6 @@
+--- a/arch/arm64/kernel/traps.c
++++ b/arch/arm64/kernel/traps.c
+@@ -17,0 +18 @@
++#include <linux/sheng_bootlog.h>
+@@ -198,0 +200 @@
++	sheng_bootlog_fault_pause();

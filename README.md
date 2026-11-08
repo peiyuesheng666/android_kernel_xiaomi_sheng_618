@@ -32,7 +32,9 @@ display-r8 已加入显示 probe 分阶段落盘检查点，编译、337 模块 
 和官方 boot 解包回读通过。实机六个 CRTC、硬件/VM 初始化、IRQ 和 DRM 状态重置
 均已返回；最新快照至 22.397 秒，最后检查点为 mode_config_reset returned。
 display-r9 沿用完全相同的 Image，仅用底座已有 k618_cont_splash=0 开关对照
-旧画面接管路径，已刷入 boot_a；结果待读回。
+旧画面接管路径；实机确认开关生效，但仍停在同一检查点，最新快照至 22.329 秒。
+fault-r10 已补上异常后的跨 CPU 日志写入，QEMU 真正触发 BUG/panic 后读回完整
+寄存器和调用栈，正常落盘及错误分区名称/大小拒写也通过；已刷入 boot_a，实机结果待确认。
 详见 [reports/KERNEL618_DEBUG_STATUS.md](reports/KERNEL618_DEBUG_STATUS.md)。
 尚未正常开机，平板功能适配与验证仍未完成。
 

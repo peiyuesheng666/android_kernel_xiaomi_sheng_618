@@ -3,8 +3,11 @@
 // Reference: selected SM8550 integration k618_probe.c (partition validation,
 // alternating snapshots). No USB, filesystem mounts, or module helper needed.
 #include <linux/blkdev.h>
+#include <linux/atomic.h>
 #include <linux/crc32.h>
+#include <linux/cpumask.h>
 #include <linux/device.h>
+#include <linux/delay.h>
 #include <linux/err.h>
 #include <linux/file.h>
 #include <linux/fs.h>
@@ -13,7 +16,10 @@
 #include <linux/kmsg_dump.h>
 #include <linux/ktime.h>
 #include <linux/moduleparam.h>
+#include <linux/mutex.h>
 #include <linux/random.h>
+#include <linux/sheng_bootlog.h>
+#include <linux/smp.h>
 #include <linux/string.h>
 #include <linux/vmalloc.h>
 #include <linux/workqueue.h>
@@ -43,7 +49,32 @@ static char *snapshot;
 static u64 run_id, sequence;
 static unsigned long began;
 static void save_snapshot(struct work_struct *work);
+static void save_fault_snapshot(struct work_struct *work);
 static DECLARE_DELAYED_WORK(snapshot_work, save_snapshot);
+static DECLARE_WORK(fault_work, save_fault_snapshot);
+static DEFINE_MUTEX(snapshot_lock);
+static atomic_t fault_pause_used = ATOMIC_INIT(0);
+
+/* Called by arm64 __die after the real registers/stack have been printed.
+ * Never do block I/O or acquire a logger lock from the exception context.
+ * Explicitly wake a writer on another online CPU; the delayed work's timer
+ * may be pinned to the CPU that has just disabled its interrupts.
+ * This cannot help if the storage IRQ is on the faulting CPU, or the SoC
+ * hangs without entering __die. Keep the delay bounded and one-shot.
+ */
+void sheng_bootlog_fault_pause(void)
+{
+    unsigned int cpu;
+
+    if (!READ_ONCE(destination) || atomic_cmpxchg(&fault_pause_used, 0, 1))
+        return;
+    cpu = cpumask_any_but(cpu_online_mask, raw_smp_processor_id());
+    if (cpu >= nr_cpu_ids)
+        return;
+    pr_emerg("sheng_bootlog: exception registers/stack printed; 1500 ms capture window on CPU%u\n", cpu);
+    queue_work_on(cpu, system_highpri_wq, &fault_work);
+    mdelay(1500);
+}
 
 static int is_rawdump(struct device *dev, const void *unused)
 {
@@ -81,7 +112,8 @@ static void open_destination(void)
               MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
 }
 
-static void save_snapshot(struct work_struct *work)
+/* snapshot_lock serializes the regular and remote fault workers. */
+static void capture_snapshot(void)
 {
     struct kmsg_dump_iter iter;
     struct bootlog_header *header;
@@ -94,7 +126,7 @@ static void save_snapshot(struct work_struct *work)
     if (!destination)
         open_destination();
     if (!destination)
-        goto again;
+        return;
     memset(snapshot, 0, SLOT_BYTES);
     kmsg_dump_rewind(&iter);
     kmsg_dump_get_buffer(&iter, true, snapshot + sizeof(*header),
@@ -122,7 +154,26 @@ static void save_snapshot(struct work_struct *work)
                            sequence, written, total, error);
     else if (sequence == 1)
         pr_notice("sheng_bootlog: first snapshot persisted, %zu bytes\n", text_bytes);
-again:
+}
+
+static void save_fault_snapshot(struct work_struct *work)
+{
+    unsigned long until = jiffies + msecs_to_jiffies(1000);
+
+    while (!mutex_trylock(&snapshot_lock)) {
+        if (time_after_eq(jiffies, until))
+            return;
+        msleep(10);
+    }
+    if (snapshot && destination)
+        capture_snapshot();
+    mutex_unlock(&snapshot_lock);
+}
+
+static void save_snapshot(struct work_struct *work)
+{
+    mutex_lock(&snapshot_lock);
+    capture_snapshot();
     if (time_before(jiffies, began + msecs_to_jiffies(LIFE_MS)))
         queue_delayed_work(system_unbound_wq, &snapshot_work,
                            msecs_to_jiffies(destination ? 250 : 100));
@@ -134,6 +185,7 @@ again:
         snapshot = NULL;
         pr_notice("sheng_bootlog: finished after 120 seconds\n");
     }
+    mutex_unlock(&snapshot_lock);
 }
 
 static int __init sheng_bootlog_init(void)

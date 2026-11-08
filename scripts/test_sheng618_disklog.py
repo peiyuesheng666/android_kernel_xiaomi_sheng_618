@@ -20,9 +20,12 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--revision', default='disklog-r5')
 parser.add_argument('--helper-exec', action='store_true')
 parser.add_argument('--positive-only', action='store_true')
+parser.add_argument('--fault-after-log', action='store_true',
+                    help='On CPU 1, BUG in a disposable module and require its stack in disk snapshots')
 options = parser.parse_args()
+assert not options.fault_after_log or options.positive_only
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
-root = Path('/root/sheng-618/diagnostic') / options.revision / 'qemu'
+root = Path('/root/sheng-618/diagnostic') / options.revision / ('qemu-fault' if options.fault_after_log else 'qemu')
 root.mkdir(parents=True, exist_ok=True)
 out = Path('/root/sheng-618/upstream-build/k618/out-gki')
 image = work / 'artifacts' / ('sheng-6.18-' + options.revision) / 'Image'
@@ -56,8 +59,33 @@ for name in ('virtio_pci_modern_dev', 'virtio_pci_legacy_dev', 'virtio_pci', 'vi
         include(name)
 assert any('virtio_blk' in p for p in order)
 (rd / 'test-order').write_text('\n'.join(order) + '\n')
+if options.fault_after_log:
+    from build_sheng618_upstream import ACK, environment
+    fault = root / 'fault-module'
+    fault.mkdir(exist_ok=True)
+    (fault / 'Makefile').write_text('obj-m := sheng_fault_probe.o\n')
+    (fault / 'sheng_fault_probe.c').write_text('''// SPDX-License-Identifier: GPL-2.0-only
+#include <linux/module.h>
+#include <linux/init.h>
+#include <linux/bug.h>
+static int __init fault_init(void)
+{
+    pr_emerg("SHENG_DISKLOG_FAULT_INJECT: deliberate QEMU-only BUG\\n");
+    BUG();
+    return 0;
+}
+module_init(fault_init);
+MODULE_LICENSE("GPL");
+MODULE_DESCRIPTION("Disposable QEMU-only fault capture probe");
+''')
+    with (root / 'fault-module-build.log').open('w') as stream:
+        subprocess.run(['make', '-C', str(ACK), 'O=' + str(out), 'ARCH=arm64', 'LLVM=1',
+                        'LLVM_IAS=1', 'M=' + str(fault), '-j8', 'modules'],
+                       env=environment(8), stdout=stream, stderr=subprocess.STDOUT, check=True)
+    shutil.copyfile(fault / 'sheng_fault_probe.ko', rd / 'sheng_fault_probe.ko')
 program = root / 'test-init.c'
-program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n' + r'''
+program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n'
+                   '#define TEST_FAULT ' + str(int(options.fault_after_log)) + '\n' + r'''
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <unistd.h>
@@ -70,6 +98,7 @@ program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n'
 #include <sys/wait.h>
 #include <string.h>
 #include <errno.h>
+#include <sched.h>
 int main(void) {
     if (getpid()!=1) return 20;
     mkdir("/dev",0755);
@@ -112,6 +141,24 @@ int main(void) {
             return 21;
         }
         usleep(100000);
+    }
+    if(TEST_FAULT) {
+        sleep(3);
+        pid_t child=fork();
+        if(child==0) {
+            cpu_set_t cpus;
+            CPU_ZERO(&cpus);
+            CPU_SET(1,&cpus);
+            if(sched_setaffinity(0,sizeof(cpus),&cpus)) _exit(31);
+            int fd=open("/sheng_fault_probe.ko",O_RDONLY);
+            if(fd<0) _exit(32);
+            syscall(SYS_finit_module,fd,"",0);
+            _exit(33);
+        }
+        int status=0;
+        if(child<0 || waitpid(child,&status,0)!=child) return 34;
+        dprintf(console,"FAULT TEST unexpectedly survived status=%d\n",status);
+        return 35;
     }
     sleep(1);
     reboot(RB_POWER_OFF);
@@ -174,7 +221,8 @@ for label, name, mib, expected in inputs:
                                  '-kernel', str(image), '-initrd', str(initrd),
                                  '-drive', f'if=none,id=logdisk,file={path},format=raw',
                                  '-device', 'virtio-blk-pci,drive=logdisk',
-                                 '-append', 'console=ttyAMA0 earlycon=pl011,0x9000000 rdinit=/init panic=-1 printk.devkmsg=on sheng_bootlog.enable=1'],
+                                 '-append', 'console=ttyAMA0 earlycon=pl011,0x9000000 rdinit=/init panic=-1 printk.devkmsg=on sheng_bootlog.enable=1'
+                                 + (' panic_on_oops=1 irqaffinity=0' if options.fault_after_log else '')],
                                 stdout=stream, stderr=subprocess.STDOUT, timeout=60)
     assert result.returncode == 0, transcript
     console = transcript.read_text()
@@ -182,6 +230,9 @@ for label, name, mib, expected in inputs:
     if options.helper_exec:
         assert console.count('TEST embedded helper exec ') == len(order), transcript
         assert 'result=111' not in console, transcript
+    if options.fault_after_log:
+        assert 'Kernel panic - not syncing:' in console, transcript
+        assert 'FAULT TEST unexpectedly survived' not in console, transcript
     with path.open('rb') as stream:
         stream.seek((1 + 288) * 1024**2)
         raw = stream.read(2 * 1024**2)
@@ -190,6 +241,10 @@ for label, name, mib, expected in inputs:
         assert len(slots) == 2, transcript
         assert all('SHENG_DISKLOG_QEMU_ACTUAL' in s['text'] for s in slots)
         assert max(s['uptime_ms'] for s in slots) >= 5000
+        if options.fault_after_log:
+            assert any(all(marker in s['text'] for marker in (
+                'SHENG_DISKLOG_FAULT_INJECT', 'sheng_fault_probe', 'Call trace:',
+                'pc :', '1500 ms capture window')) for s in slots), transcript
         # A torn newest write must leave the other validated copy readable.
         torn = bytearray(raw)
         torn[64] ^= 1
@@ -206,5 +261,8 @@ report = {'real_aarch64_kernel': True, 'real_gpt_block_io_and_fsync': True,
           'hardware_ufs_tested': False,
           'embedded_helper_exec_and_finit_module_tested': options.helper_exec,
           'partition_guard_cases_run': not options.positive_only}
-(work / ('reports/kernel618-' + options.revision + '-qemu.json')).write_text(json.dumps(report, indent=2) + '\n')
+report['fault_injection_case_run'] = options.fault_after_log
+report['exception_stack_persisted_before_panic'] = True if options.fault_after_log else None
+suffix = '-qemu-fault.json' if options.fault_after_log else '-qemu.json'
+(work / ('reports/kernel618-' + options.revision + suffix)).write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

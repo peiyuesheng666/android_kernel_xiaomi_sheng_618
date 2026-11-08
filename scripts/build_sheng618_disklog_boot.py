@@ -49,6 +49,8 @@ def run(args, **kwargs):
 assert sha(stock) == '4156a2369f78bc5df61b6a521b07a508dedf20d5e63c207d30986ae37df3eaea'
 misc = ACK / 'drivers/misc'
 source = work / 'device/xiaomi/sheng/interfaces/kernel/6.18/sheng_bootlog.c'
+if 'sheng_bootlog_fault_pause' in source.read_text():
+    run([sys.executable, work / 'scripts/patch_sheng618_fault_capture.py'])
 shutil.copyfile(source, misc / 'sheng_bootlog.c')
 makefile = misc / 'Makefile'
 line = 'obj-$(CONFIG_SHENG_BOOTLOG) += sheng_bootlog.o\n'
@@ -120,6 +122,10 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
           'does_not_require_sysfs_or_device_nodes': True,
           'requires_ufs_partition_registration': True, 'hardware_log_received': False,
           'cmdline': cmdline, 'build_log': str(log), 'maximum_retained_versions': 5}
+if 'sheng_bootlog_fault_pause' in source.read_text():
+    report['fault_capture_receipt'] = 'kernel618-fault-capture-source.json'
+    report['exception_pause_ms'] = 1500
+    report['exception_writer_runs_on_other_cpu'] = True
 (dest / 'build-result.json').write_text(json.dumps(report, indent=2) + '\n')
 (dest / 'SHA256SUMS').write_text(report['boot_sha256'] + '  boot.img\n' + report['image_sha256'] + '  Image\n')
 (work / ('reports/kernel618-' + tag + '-boot.json')).write_text(json.dumps(report, indent=2) + '\n')

@@ -93,7 +93,7 @@ Image SHA256: b5d2b44b566ac85bd704b50b5c63c2c13d2f07cca6e288d34d0e9b63950a4efb�
 cont_splash_config begin 或最终显示异常栈。HFI/SPR 报错后这些步骤仍然完成，
 不能把它们当作已证明的终止原因，也不能认定尚未保存的下一阶段从未执行。
 
-### r9 旧画面接管对照（已刷入，运行结果待确认）
+### r9 旧画面接管对照（未改善，日志已读回）
 
 所选底座固定提交 c3956156ce7c4193c451dfda531fad72d35bfebb 的 k618_timg.sh
 已有 msm_drm.k618_cont_splash 开关（其临时启动默认 0）；k618_tp_fix.py 的实现
@@ -105,7 +105,35 @@ r9 完全复用 r8 Image（SHA256 相同），仅改变 boot cmdline 的测试�
 msm_drm.k618_cont_splash=0，用于判断旧画面交接是否影响后续进展。
 未重复编译内核/模块；原厂 boot 只读，AVB 自校验和内核解包回读通过。
 boot SHA256: b28a199244fa644433ba8acbcc2f7c9da711ed7d684cce2151c4f5ae0b56a09d。
-已刷入 boot_a 并 reboot，正在等待本轮反馈及实机参数/日志确认。
+用户反馈仍失败。读回 run 34ce03b2b23a7c35，seq69/70 至 22.077/22.329 秒，
+两份 CRC/尾标记有效。模块参数 k618_cont_splash=0 和内核日志 none handed over
+均确认开关生效，但最后阶段仍为 22.113900 秒 mode_config_reset returned。
+该选项未解决启动失败；不能据此补造最终崩溃位置或认定已经完成正常冷点屏。
+
+### r10 异常寄存器/调用栈落盘（已刷入，实机结果待确认）
+
+r8/r9 都缺少最终故障栈。保留 r8 的显示模块、权限和阶段检查点，ARM64 __die
+打印 show_regs/dump_kernel_instr 后调用一次有界抓取窗口；此处只排队另一颗在线
+CPU 的高优先级工作并等待 1500 ms，不在异常上下文做块 I/O 或获取日志互斥锁。
+普通与异常工作以互斥锁串行访问同一缓冲、序号和文件，偏移仍为 rawdump 288..290 MiB。
+非 SHENG_BOOTLOG 配置使用空内联函数，18,008 个内核导出/CRC 保持不变。
+
+第一版模拟故障证明单纯延时无法保存最终栈：定时任务可能绑在关中断的故障 CPU。
+该未刷候选已在保护检查下原位替换；改为明确向其他 CPU 排队后重新编译。
+最终 QEMU 测试在 CPU1 的临时模块中 BUG，panic_on_oops=1，存储 IRQ 在 CPU0；
+读回两份 CRC 有效记录，最新至 13.435 秒，包含故障模块、PC、Call trace 和抓取窗口。
+故障模块仅存在于临时测试 initrd，不包含在平板交付 Image 的模块层。
+正常场景执行实际内嵌 /k618_umh 加载 virtio、写盘/fsync 成功；错误 GPT 名称、
+299 MiB 大小均拒绝写入，损坏一份后另一份仍可读。见 kernel618-fault-r10-qemu.json
+和 kernel618-fault-r10-qemu-fault.json。
+
+限制：真实故障必须进入 __die，且其他 CPU 与存储中断仍能工作；不保证捕获硬件
+整体挂死或直接 panic 的路径。模拟测试不等于真实 UFS 异常抓取通过。
+源码与补丁见 kernel618-fault-capture-source.json、sheng_bootlog.c/h 和
+arm64-fault-capture.patch。boot 封包、解包回读、AVB 自校验、原模块层哈希核对通过。
+boot SHA256: bcdef4a1f306623ee176b3f54ed94693a1bfa6ef135a361bebc1b3c48c2fee9f。
+Image SHA256: 99d34cdb44cf1174c23451aad863adbc459d728268c509ca4905c632285e8f6a。
+已刷入 boot_a 并 reboot，等待本轮反馈及实际日志，尚未正常开机。
 
 ## 内核直接落盘
 
@@ -155,6 +183,6 @@ init_boot 的 /init 转交 vendor_boot 的探测程序，再由其设置 USB ACM
 本任务仅参考 USB 顺序和描述符，没有引入 HarmonyOS 服务。
 文件与哈希见 `kernel618-anyhmos-usb-reference.json`。
 
-当前五版保留为 disklog-r5、display-r6、display-r7、display-r8、display-r9。
+当前五版保留为 display-r6、display-r7、display-r8、display-r9、fault-r10。
 首版及 baseline-r2 交付目录已清理，原始 Image 仍保留在 WSL
 /root/sheng-618/diagnostic/baseline-r2/verified/kernel。

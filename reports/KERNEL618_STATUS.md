@@ -20,7 +20,10 @@ display-r8 已加入仅用于诊断的 probe 检查点并刷入 boot_a，保留�
 模块助手权限和七项模式表；构建/ABI/封包检查通过。实机六个 CRTC、硬件/VM 初始化、
 IRQ 和 mode_config_reset 全部返回，快照至 22.397 秒，尚无最终异常栈。
 display-r9 只改变已有 k618_cont_splash=0 启动选项，完全复用 r8 Image，
-用于对照旧画面接管路径，已刷入 boot_a，实际结果待读回。
+实机确认开关生效，但最后检查点仍为 mode_config_reset returned，快照至 22.329 秒。
+fault-r10 继续复用 r8 显示模块，只补强 ARM64 __die 打印后的日志抓取：从其他 CPU
+唤起写入，异常 CPU 最多延时 1.5 秒一次。模拟 BUG/panic 的寄存器/栈落盘、
+真实块写入和分区拒写检查通过；已刷入 boot_a，实际故障是否进入该路径仍待验证。
 
 首轮测试产物曾导出为 `artifacts/sheng-6.18-first-boot/Image`，
 64,506,368 字节（约 61.5 MiB），SHA256 为
