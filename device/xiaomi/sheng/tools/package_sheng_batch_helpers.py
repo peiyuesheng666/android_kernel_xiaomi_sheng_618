@@ -543,7 +543,7 @@ def publish_batch(destination, outputs, report):
     stage.mkdir()  # Retain this diagnostic directory on failure; never delete a computed tree.
     files = []
     for partition, source in sorted(outputs.items()):
-        assert partition in {'system', 'system_ext', 'vendor', 'odm', 'vbmeta', 'vbmeta_system'}
+        assert partition in {'system', 'system_ext', 'vendor', 'vendor_dlkm', 'odm', 'vbmeta', 'vbmeta_system'}
         target = stage / (partition + '.img')
         shutil.copyfile(source, target)
         digest = sha(source)

@@ -88,6 +88,14 @@ finally { [IO.Directory]::Delete($Target) }
             self.assertEqual(helpers.sha(target), item['sha256'])
             self.assertEqual(target.stat().st_size, item['bytes'])
 
+    def test_vendor_dlkm_publication(self):
+        module_image = self.root / 'vendor-dlkm-source.bin'
+        module_image.write_bytes(b'fixture-vendor-dlkm')
+        helpers.publish_batch(self.destination, {'vendor_dlkm': module_image}, {'fixture': True})
+        report = json.loads((self.destination / 'build-result.json').read_text())
+        self.assertEqual(report['files'][0]['partition'], 'vendor_dlkm')
+        self.assertEqual((self.destination / 'vendor_dlkm.img').read_bytes(), module_image.read_bytes())
+
     def test_existing_destination_is_preserved(self):
         self.destination.mkdir()
         (self.destination / 'sentinel').write_bytes(b'preserved')
