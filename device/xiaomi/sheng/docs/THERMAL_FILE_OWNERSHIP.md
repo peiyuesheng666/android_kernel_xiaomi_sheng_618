@@ -24,5 +24,10 @@ setattr permissions still constrain the affected files; this change adds no
 file allow rule, relabeling, permissive domain, broad app permission or binary
 patch. Do not add the other stock capabilities without separate evidence.
 
-Source correction is prepared. Policy compilation and Enforcing runtime
-acceptance, including a second boot after ownership transfer, remain pending.
+Source correction and isolated policy compilation passed, including neverallow
+checks and byte-identical reproduction of the r31 baseline. A comparison of
+3671 existing types found only the two requested thermal capability permissions
+plus the independent face frontend's HIDL-manager lookup; no existing permission
+was removed. No new permissive domain was introduced. Candidate installation and
+Enforcing runtime acceptance, including a second boot after ownership transfer,
+remain pending.
