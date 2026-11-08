@@ -1,0 +1,36 @@
+{
+  "revision": 25,
+  "serial": "ca10ede3",
+  "slot": "b",
+  "hardware_boot_tested": true,
+  "installed_partition_hashes": {
+    "vbmeta_system": "3fe3413cc7fe8786372606ebfe7f9470e41bbf34b1dbcb5db7397540d9afc26a",
+    "vbmeta": "844a09d6781156bbc1a63fbe8f20abb12b4cb8cf713b4e1e434826d2063815a3",
+    "vendor": "1033f2d63390dab9101d2fd97963d2a9f85cbcb872b71fb3f002c5b840fd29d3",
+    "system": "0f9c8ad6341faae4abaa9c080614d6d879aa62e85e36383086bb0333adfb4dce",
+    "odm": "933b205abe8bd856c62044a21e166097c288fadb56c18dd4c51099f104964ed7",
+    "system_ext": "82006f12228ebda0a521a96f8373c48bb52edb981a790830304f8ea50aa60419"
+  },
+  "all_six_partition_hashes_match": true,
+  "reviewed_seven_libraries_installed": true,
+  "graphic_buffer_bytes": 3376,
+  "redzone_construction_destruction_cycles": 200,
+  "gralloc_client_allocation_release_cycles": 100,
+  "media_codec_allocation_count": 6,
+  "dolby_idle_cpu_ticks_5_seconds": {
+    "1407": 0,
+    "1388": 0
+  },
+  "monitored_processes_stable": true,
+  "aon_alias_verified": true,
+  "temporary_probes_cleaned": true,
+  "camera_preview_user_passed": true,
+  "camera_orientation_user_passed": false,
+  "camera_orientation_user_requested_correction": "90 degrees counterclockwise",
+  "video_stream_decode_verified": false,
+  "original_systemui_preserved": true,
+  "power_button_animation_excluded_by_user": true,
+  "agent_started_camera_or_attention": false,
+  "other_connected_device_operated": false,
+  "evidence_directory": "C:\\Users\\Dev裴月笙\\Desktop\\XiaomiPad6SProPort6.18\\reports\\device\\r25-runtime-20261108-082533"
+}

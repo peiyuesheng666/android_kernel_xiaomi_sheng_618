@@ -102,7 +102,10 @@ is excluded from the repair target at the user's request. See
 [docs/r24-systemui-boot-regression-20261108.md](docs/r24-systemui-boot-regression-20261108.md).
 r25's two independent
 camera and Dolby GraphicBuffer allocation repairs passed the formal build,
-binary review and local image validation; r25 has not been flashed. The later
+binary review, flashing and six-partition readback. The user confirmed working
+camera preview; a 90-degree counterclockwise orientation correction is pending.
+Two 60-frame profile-5 decode sessions passed; profile 8.1 timed out, so full
+video acceptance remains pending. See [docs/r25-runtime-20261108.md](docs/r25-runtime-20261108.md). The later
 stylus direction configs passed the platform parser, but a complete new product
 build was interrupted by host C-drive pressure and they are not installed.
 The compiled offscreen Dolby Vision regression is prepared for execution only
