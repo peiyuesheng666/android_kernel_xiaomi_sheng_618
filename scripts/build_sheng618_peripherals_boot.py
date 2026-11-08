@@ -38,11 +38,21 @@ replacements = {
     'nt36532_touch.ko': K618/'sheng-ports/touch/nt36532_touch.ko',
 }
 source_receipts = ['kernel618-peripherals-source.json','kernel618-touch-source.json']
+followup = PROJECT/'reports/kernel618-camera-backlight-source.json'
+if followup.exists():
+    source_receipts.append(followup.name)
+    replacements['camera.ko'] = K618/'vendor/qcom/opensource/camera-kernel/camera.ko'
 source_snapshots = {}
 for receipt_name in source_receipts:
     source_snapshots[receipt_name] = json.loads((PROJECT/'reports'/receipt_name).read_text())
-for name, hashes in json.loads((PROJECT/'reports/kernel618-peripherals-source.json').read_text())['files'].items():
-    assert hashlib.sha256((K618/name).read_bytes()).hexdigest() == hashes['after'], name
+expected_sources = {name: hashes['after'] for name, hashes in source_snapshots['kernel618-peripherals-source.json']['files'].items()}
+if followup.exists():
+    for name, hashes in source_snapshots[followup.name]['files'].items():
+        if name in expected_sources:
+            assert hashes['before'] == expected_sources[name], 'Source chain mismatch: ' + name
+        expected_sources[name] = hashes['after']
+for name, expected in expected_sources.items():
+    assert hashlib.sha256((K618/name).read_bytes()).hexdigest() == expected, name
 for name, hashes in json.loads((PROJECT/'reports/kernel618-touch-source.json').read_text())['files'].items():
     assert hashlib.sha256((K618/'sheng-ports/touch'/name).read_bytes()).hexdigest() == hashes['staged_sha256'], name
 for name, source in replacements.items():

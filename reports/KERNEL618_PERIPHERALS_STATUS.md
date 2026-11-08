@@ -103,3 +103,41 @@ r24 THP HAL 偶有 `copy_frame_data_from_mmap:err tp_frame crc error`，
 暂未区分环形缓冲并发读取或其他原因，不能把基本可用写成完整无故障。
 扬声器需持续播放复测；准备抓取时 ADB/Fastboot 均不可见，已询问 USB
 连接情况，尚不能归因 USB 驱动或断线。没有因此开启自动重启。
+
+## 2026-11-09 r25 相机电源 ABI 与双背光
+
+r24 用户进一步确认连续音乐不再卡顿，但插电音效及同时播放的音乐会卡一下。
+USB 消失由用户确认是手动拔线，已重新接回，不记为 USB 故障。
+新反馈包括亮度条完全不改变屏幕亮度、相机不可用、合盖开盖无反应、
+指纹不可用、触摸唤醒慢；开机慢、白闪及键盘/触摸板继续保留为待修。
+用户已要求夜间自行推进，暂不询问；需要物理操作的验收留待用户醒来。
+
+r24 rawdump 成功读回，run=ba7fdf6b1024666d，末次 uptime=120416ms，
+版本/run 尾标记及 CRC 有效。相机反复拒绝 `Invalid Seq type: 14`，
+三个本机传感器及 EEPROM 的上电因此失败。MiCode sheng 和 LOS nuwa
+均定义 SENSOR_BOB=13、SENSOR_BOB2=14；选用的通用驱动却将 13 定义为
+CUSTOM_REG3，最大值为 14。r25 恢复 BOB/BOB2 的原厂编号与 cam_bob/
+cam_bob2 电源映射，同时保留通用 CUSTOM_REG3 在后续编号及原有电压验证。
+没有更换相机固件或跳过上电失败。
+
+N81A 原厂 DT 采用 bl_ctrl_external，两个 ktz,ktz8866 节点分别位于
+I2C 0/4、地址 0x11。通用驱动的 DSI_BACKLIGHT_EXTERNAL 分支为空。
+r25 接入 MiCode sheng 的 2048 项亮度映射及原厂偏置/LED 控制寄存器，
+只在精确 N81A 面板使用，补 6.18 I2C API、列表锁/注销及错误传播。
+先写亮度再使能 LED，避免使能时短暂使用旧亮度；此项尚不能证明白闪已消失。
+来源、固定提交、适用差异及完整补丁见 kernel618-camera-backlight-source.json
+和 sheng-camera-backlight.patch。
+
+r25 340 模块 ABI、18008 内核导出、cpio 权限、原厂 boot 封包解包检查通过；
+只刷 boot_a，无自动重启。59.27 秒连接真实 6.18 ADB，67.00 秒记录启动完成。
+boot SHA256=7bdfa23ffa90e0990ff26feebe460b2bd1b3237c4abcf7b2b610c34bce4e06fc；
+Image SHA256=5f189e7d3bc81607d693eb411cb90e24497444303067cd86a71dfbbc8aa35c13。
+实机两个 KTZ8866 均已绑定；相机 HAL 从 0 恢复为 9 个逻辑设备，4 个公开设备。
+这不是九个物理摄像头，也不等于拍照/录像通过。安全相机 intent 测试未打开
+实际相机客户端，设备仍在锁屏，未绕过锁屏；预览验收仍待完成。
+亮度控制的物理效果仍需验收，不因驱动绑定就标为完成。
+
+诊断目录 reports/device/kernel618-hardware-r25/services-1794159999865978940/
+及 preview-1794160049233457332/；相机设备列表较大，原始日志不入 Git。
+新增有界只读服务/音频采集脚本及不拍照的预览测试脚本。
+指纹 FPC 与霍尔的下一版源码准备仍在继续，未混入 r25 实机结果。

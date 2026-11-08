@@ -1,0 +1,49 @@
+{
+  "references": {
+    "display": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+    "camera": "ad342a26a37e9fabc2f626a6622b788bf9aa546b",
+    "los_nuwa_camera": "92a9fde479d3262da080cfd28bab0775b0da500a"
+  },
+  "files": {
+    "vendor/qcom/opensource/camera-kernel/drivers/cam_sensor_module/cam_sensor_utils/cam_sensor_cmn_header.h": {
+      "before": "cab2e40a6ff0c37724e33f56afd3def29ace2f88228d4c4e1fd39e0de63ac50a",
+      "after": "b3d44a64232a9ce6ec9b5524a24d092a8a0a4b936d38f941e6b054c49aec1bc3",
+      "added": false
+    },
+    "vendor/qcom/opensource/camera-kernel/drivers/cam_sensor_module/cam_sensor_utils/cam_sensor_util.c": {
+      "before": "c1d4fac540efa6ffde07aa5cf5151e717db30e351286472df43758fff927bf28",
+      "after": "a033f897a00d3d592b3c61cf68997a9a20783e6b696604ee922418d7c2ba159d",
+      "added": false
+    },
+    "vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.h": {
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after": "bccbc172ee7feb2b4c2a030867deef6068663df94642af9c35f3ae92bd6f219f",
+      "added": true
+    },
+    "vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c": {
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after": "50b993a172a2d9c53e940f58f236ae6b895e3b452baea00e9b7bedf223de7c26",
+      "added": true
+    },
+    "vendor/qcom/opensource/display-drivers/msm/Kbuild": {
+      "before": "fdfe9e97c56923f6580eec6a82f575317476f39890b33904aa474943254c5356",
+      "after": "1152875d8fda8c2a38f084fc26fb6452b2ed72b734da4a3d5b6488c9181bd32f",
+      "added": false
+    },
+    "vendor/qcom/opensource/display-drivers/msm/msm_drv.c": {
+      "before": "7840e083b7a844f2ced6618ed9949881fc27417a08c52f3abefcc4398291e9da",
+      "after": "18e92e8cb59db439afc5d60d4ee98fccc1937ecf53b576de67652a1dd36739ca",
+      "added": false
+    },
+    "vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.c": {
+      "before": "3fcf80fca60f831e964abdf8705091eeb28d3a62aa56ccc0f8229608ce6d6db0",
+      "after": "b0cb9e14f605f6fbef50f8637f64567671a9b8da27ff76db8058445ac2ebad85",
+      "added": false
+    }
+  },
+  "evidence": "r24 CAM Invalid Seq type 14; stock N81A external backlight with two ktz,ktz8866 nodes",
+  "applicability": "LOS nuwa and MiCode sheng agree BOB=13 BOB2=14; reuse same regulator path. LCD external backlight differs from phone DCS.",
+  "preserved": "Official 2048-entry brightness remap, bias bits and voltage validation; stock DT and firmware unchanged",
+  "adaptation": "6.18 I2C API, locked list lifetime, error propagation, program brightness before enabling LEDs",
+  "hardware_result": "pending"
+}
