@@ -1,0 +1,136 @@
+{
+  "date": "2026-11-08T10:41:19.6024393+08:00",
+  "request": "Delete obsolete project versions before continuing device-tree repairs",
+  "windows": {
+    "date": "2026-11-08T10:39:42.3840468+08:00",
+    "storage_root": "E:\\XiaomiPad6SProPort6.18-artifacts",
+    "deleted_version_directories": 50,
+    "deleted_payload_files": 123,
+    "deleted_payload_bytes": 41068246404,
+    "preserved_record_files": 120,
+    "free_bytes_before": 390936948736,
+    "free_bytes_after": 432005197824,
+    "rollback_images_verified": 14,
+    "rollback_directory": "E:\\XiaomiPad6SProPort6.18-artifacts\\system-hardware-followup-sheng-r30",
+    "records_directory": "E:\\XiaomiPad6SProPort6.18-artifacts\\historical-version-records-20261108",
+    "tablet_serial": "ca10ede3",
+    "tablet_slot": "b",
+    "device_writes_performed": false
+  },
+  "wsl": {
+    "date": "2026-11-08T10:40:14.025213+08:00",
+    "storage_root": "/root/sheng-lineage",
+    "deleted_paths": 185,
+    "deleted_file_entries": 137336,
+    "deleted_logical_bytes": 104624492526,
+    "deleted_unique_allocated_bytes": 102423801856,
+    "free_bytes_before": 425950261248,
+    "free_bytes_after": 528374063104,
+    "preserved": [
+      "all source trees and Git history",
+      "firmware-dump",
+      "extraction",
+      "extraction-standalone",
+      "hardware-diagnostics including graphicbuffer-abi-r25",
+      "recovery-r13-native-source-fast-touch",
+      "lineage-24.0 build providers and installed partition trees",
+      "historical logs and metadata"
+    ],
+    "device_writes_performed": false
+  },
+  "rollback_images": [
+    {
+      "name": "boot.img",
+      "bytes": 201326592,
+      "sha256": "de7deddb268bc0f864ca106aa428ad64f07e4c121ff8fa9f19c797a7e0c0ec3c"
+    },
+    {
+      "name": "dtbo.img",
+      "bytes": 25165824,
+      "sha256": "ce2f8e51daa162e964da81e43f1ef7e524b3119506c0216d1b7d8a174204d8b0"
+    },
+    {
+      "name": "init_boot.img",
+      "bytes": 8388608,
+      "sha256": "2c48a30e99b71b1bbd3dc6366c7afa190a242230418928f68aa5563bce620a8f"
+    },
+    {
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "eecbef1b87f4055f5c35c519d2d1d220b479e0fe6320d970708e277ebba532c0"
+    },
+    {
+      "name": "product.img",
+      "bytes": 2489184256,
+      "sha256": "943933c299688f3b769567ef0d554512614e3cb70c9ce7242083e34d935b9cee"
+    },
+    {
+      "name": "recovery.img",
+      "bytes": 104857600,
+      "sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f"
+    },
+    {
+      "name": "system_dlkm.img",
+      "bytes": 348160,
+      "sha256": "73e36df936817c4c266ce0ec5a8ff372db9fb5007e6476d6ebd8973f989b2855"
+    },
+    {
+      "name": "system_ext.img",
+      "bytes": 572813312,
+      "sha256": "ccda96e9d2590f4aebf8327e9d2fa1f21ec4358cdd4d78add1557d3d0443263c"
+    },
+    {
+      "name": "system.img",
+      "bytes": 1005133824,
+      "sha256": "0f9c8ad6341faae4abaa9c080614d6d879aa62e85e36383086bb0333adfb4dce"
+    },
+    {
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "7f3c4603e9fc7fedd923b074c9086c2d3520d7b375add56bbbb3d32f7a07411c"
+    },
+    {
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "f9fe4bdd11d692d3c5427aacb89532c7959691d70509ace9905fc13c8075b440"
+    },
+    {
+      "name": "vendor_boot.img",
+      "bytes": 100663296,
+      "sha256": "6cfc89bac563d15af78065b592ac8a22d5794826a8cae9be41e033977700fd4a"
+    },
+    {
+      "name": "vendor_dlkm.img",
+      "bytes": 62590976,
+      "sha256": "94ab3296f0a23c2337fd40e641839e69384cd14e7f83ae76cdfa4ae132d30859"
+    },
+    {
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "b0e5ff1c8b259a66a7e2907ee6d22121cd1094a6ecc4c82e467decab25462184"
+    }
+  ],
+  "r31_baseline_location": "artifacts/system-hardware-followup-sheng-r30",
+  "r31_packager_dependency_check_passed": true,
+  "current_r31_images_built": false,
+  "historical_records_verified_count": 120,
+  "evidence_directory": "artifacts/cleanup-20261108",
+  "evidence_sha256": {
+    "cleanup-wsl.py": "a1f58d6997ae038d5edc191ed64ee73fd8d6e360f81300b66b3b4797c5a3b832",
+    "cleanup-windows.ps1": "75b71acbf37b30896e4db62f268eeeb54dd7a90d96a2fb7f47bdc202f8b709ba",
+    "wsl-deleted.json": "4396fc617f62066c759cf2e570f5d2f145c857502716ec44f975fc064087ff18",
+    "wsl-plan.json": "4396fc617f62066c759cf2e570f5d2f145c857502716ec44f975fc064087ff18",
+    "windows-result.json": "9d6f2418ef60f6d3f0d745391e902689a8d81887a2a9f8df4506dc07e60d47e7",
+    "wsl-result.json": "b2584609864eafe5c4951ab869a99614128dad093fb140fd90b2e0887cd2af27",
+    "dependency-check.json": "64d83efcc62af72f36c81fae474633c43e660510aa82e4c188e1c76e8d75f636",
+    "preserved-version-records.json": "c9796cca1db29a0037dce0e91527002e55591e76c40776767f5c2bd7b105ba00",
+    "windows-plan.json": "05f2b1dfc2ebb019ed51079c62fe1c70bbfc75884e4248ec3fda7ebdf0f2f868"
+  },
+  "notes": [
+    "All obsolete exported version payloads were deleted after verifying the consolidated current fourteen-image set.",
+    "Source files, Git history, raw diagnostic reports, original firmware inputs and current build providers were preserved.",
+    "Historical reports retain their original version paths; their payload files no longer exist. Exported historical build records are under artifacts/historical-version-records-20261108.",
+    "WSL freed bytes describe available ext4 filesystem space; no VHD compaction, WSL shutdown, device reboot, adb root or partition write was performed.",
+    "The other connected tablet and its independent recovery project were not accessed."
+  ]
+}
