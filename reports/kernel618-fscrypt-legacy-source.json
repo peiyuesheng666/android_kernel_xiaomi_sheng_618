@@ -1,0 +1,25 @@
+{
+  "before": "cd2c46474d32f176100226bff7e786ed5e53e0db6ac429d15e255f555513555b",
+  "after": "9c55bf356044ec0699b69072ffb26359b88985b0cc8946f5077520a2cb4fd945",
+  "hardware_evidence": "crypto-r15 run a293e563889714e0: total108/header8/type2/flags0/raw100 rejected at provisioning size check",
+  "behavior": "Permit old zero-reserved provisioning up to wrapped maximum; only existing Android __flags ioctl enables wrapped interpretation. Native raw size and raw/wrapped checks remain enforced at retrieval.",
+  "key_material_logged": false,
+  "modifies_userspace_or_keys_on_disk": false,
+  "references": [
+    {
+      "commit": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+      "path": "fs/crypto/keyring.c",
+      "result": "Retain existing secret.android_compat path and original Android KDF context"
+    },
+    {
+      "commit": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "path": "fs/crypto/keyring.c",
+      "result": "LOS 5.15 accepts 128-byte provisioning and checks old ioctl wrapped flags"
+    },
+    {
+      "commit": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "fs/crypto/keyring.c",
+      "result": "MiCode 5.15 has the same old reserved-field representation"
+    }
+  ]
+}

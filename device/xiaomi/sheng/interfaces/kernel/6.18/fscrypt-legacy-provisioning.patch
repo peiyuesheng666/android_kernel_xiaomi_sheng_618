@@ -1,0 +1,32 @@
+--- a/fs/crypto/keyring.c
++++ b/fs/crypto/keyring.c
+@@ -598,0 +599 @@
++	u32 size_flags;
+@@ -605,0 +607,8 @@
++	size_flags = payload->flags;
++#ifdef CONFIG_SHENG_LEGACY_FSCRYPT_PROVISIONING
++	/* 5.15 used zero reserved here, including for up to 128 wrapped bytes.
++	 * Actual interpretation is checked when the ioctl retrieves this key.
++	 */
++	if (!payload->flags)
++		size_flags = FSCRYPT_ADD_KEY_FLAG_HW_WRAPPED;
++#endif
+@@ -607 +616 @@
+-				    payload->flags)) {
++				    size_flags)) {
+@@ -679,0 +689 @@
++	bool legacy_wrapped = false;
+@@ -696 +706,9 @@
+-	if (payload->type != type || payload->flags != flags)
++#ifdef CONFIG_SHENG_LEGACY_FSCRYPT_PROVISIONING
++	/* Only the already-validated old Android __flags ioctl may interpret
++	 * a zero-reserved provisioning payload as hardware-wrapped material.
++	 */
++	legacy_wrapped = secret->android_compat && !payload->flags &&
++		flags == FSCRYPT_ADD_KEY_FLAG_HW_WRAPPED;
++#endif
++	if (payload->type != type ||
++	    (payload->flags != flags && !legacy_wrapped))
+@@ -698,0 +717,2 @@
++	if (!fscrypt_valid_key_size(key->datalen - sizeof(*payload), flags))
++		goto bad_key;

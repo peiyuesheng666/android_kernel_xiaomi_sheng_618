@@ -34,6 +34,8 @@ parser.add_argument('--auto-return', choices=['deadline', 'fault', 'panic', 'reb
                     help='Exercise opt-in reset at 15 seconds (QEMU only), or actual reboot/fault path')
 parser.add_argument('--legacy-reuse', action='store_true',
                     help='Real finit_module duplicate and missing legacy ABI regression')
+parser.add_argument('--fscrypt-provisioning', action='store_true',
+                    help='Synthetic keys through real add_key and ext4 FS_IOC_ADD_ENCRYPTION_KEY')
 options = parser.parse_args()
 if options.auto_return in ('fault', 'panic', 'emergency'):
     options.fault_after_log = True
@@ -42,6 +44,7 @@ assert not options.slab_tracking or options.fault_after_log
 assert bool(options.extra_test_module) == bool(options.require_marker)
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
 root = Path('/root/sheng-618/diagnostic') / options.revision / (
+    'qemu-fscrypt' if options.fscrypt_provisioning else
     'qemu-module-reuse' if options.legacy_reuse else
     'qemu-auto-' + options.auto_return if options.auto_return else
     'qemu-regression' if options.extra_test_module else
@@ -172,7 +175,15 @@ MODULE_DESCRIPTION("Disposable QEMU-only fault capture probe");
                        env=environment(8), stdout=stream, stderr=subprocess.STDOUT, check=True)
     shutil.copyfile(fault / 'sheng_fault_probe.ko', rd / 'sheng_fault_probe.ko')
 program = root / 'test-init.c'
+cryptfs = root / 'ext4-disposable.img'
+if options.fscrypt_provisioning:
+    from build_sheng618_upstream import ACK
+    with cryptfs.open('wb') as stream:
+        stream.truncate(64 * 1024**2)
+    subprocess.run(['mkfs.ext4', '-q', '-F', '-O', 'encrypt', str(cryptfs)], check=True)
+    shutil.copyfile(ACK / 'include/uapi/linux/fscrypt.h', root / 'test-fscrypt.h')
 program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n'
+                   '#define TEST_FSCRYPT ' + str(int(options.fscrypt_provisioning)) + '\n'
                    '#define TEST_REUSE ' + str(int(options.legacy_reuse)) + '\n'
                    '#define TEST_DEADLINE ' + str(int(options.auto_return == 'deadline')) + '\n'
                    '#define TEST_REBOOT ' + str(int(options.auto_return == 'reboot')) + '\n'
@@ -190,6 +201,61 @@ program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n'
 #include <string.h>
 #include <errno.h>
 #include <sched.h>
+#include <stdint.h>
+#include <sys/ioctl.h>
+#if TEST_FSCRYPT
+#include "test-fscrypt.h"
+static int test_fscrypt(int log, int console) {
+    struct { uint32_t type, flags; unsigned char raw[160]; } payload;
+    const unsigned int sizes[]={32,100,100,129,8,32,32};
+    const unsigned int flags[]={0,0,1,0,0,2,0};
+    long keys[7];
+    for(int i=0;i<7;i++) {
+        memset(&payload,0,sizeof(payload));
+        payload.type=i==6 ? 3 : FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER;
+        payload.flags=flags[i];
+        memset(payload.raw,0x5a,sizeof(payload.raw)); /* Public synthetic bytes, no device keys. */
+        char name[60];
+        snprintf(name,sizeof(name),"sheng-fscrypt-test-%d",i);
+        errno=0;
+        keys[i]=syscall(SYS_add_key,"fscrypt-provisioning",name,&payload,8+sizes[i],-3);
+        int saved=errno;
+        dprintf(console,"SHENG_FSCRYPT_ADD %d success=%d errno=%d\n",i,keys[i]>=0,saved);
+        if(i<3 ? keys[i]<0 : (keys[i]!=-1 || saved!=EINVAL)) return 50+i;
+    }
+    mkdir("/sys",0755);
+    if(mount("sysfs","/sys","sysfs",0,"")) return 60;
+    FILE *dev=fopen("/sys/block/vdb/dev","r");
+    unsigned int major_number,minor_number;
+    if(!dev || fscanf(dev,"%u:%u",&major_number,&minor_number)!=2) return 61;
+    fclose(dev);
+    mknod("/dev/cryptfs",S_IFBLK|0600,makedev(major_number,minor_number));
+    mkdir("/scratch",0755);
+    if(mount("/dev/cryptfs","/scratch","ext4",0,"")) return 62;
+    int fd=open("/scratch",O_RDONLY|O_DIRECTORY);
+    if(fd<0) return 63;
+    const int which[]={0,1,2,1,1,2,1};
+    const unsigned int native_flags[]={0,0,1,1,0,0,1};
+    const unsigned int old_flags[]={0,1,0,0,0,0,1};
+    const int expected[]={0,EOPNOTSUPP,EOPNOTSUPP,EKEYREJECTED,EKEYREJECTED,EKEYREJECTED,EINVAL};
+    for(int i=0;i<7;i++) {
+        struct fscrypt_add_key_arg arg={0};
+        arg.key_spec.type=FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER;
+        arg.key_id=(uint32_t)keys[which[i]];
+        arg.flags=native_flags[i];
+        arg.__flags=old_flags[i];
+        errno=0;
+        int result=ioctl(fd,FS_IOC_ADD_ENCRYPTION_KEY,&arg);
+        int saved=errno;
+        dprintf(console,"SHENG_FSCRYPT_IOCTL %d result=%d errno=%d expected=%d\n",i,result,saved,expected[i]);
+        if(expected[i] ? (result!=-1 || saved!=expected[i]) : result!=0) return 70+i;
+    }
+    close(fd);
+    const char marker[]="<5>SHENG_FSCRYPT_REGRESSION_PASS legacy_wrapped_native_checks_intact\n";
+    if(write(log,marker,sizeof(marker)-1)!=(ssize_t)(sizeof(marker)-1)) return 79;
+    return 0;
+}
+#endif
 int main(void) {
     if (getpid()!=1) return 20;
     mkdir("/dev",0755);
@@ -223,6 +289,10 @@ int main(void) {
         if(r) return 23;
     }
     if(f)fclose(f);
+#if TEST_FSCRYPT
+    int crypto_result=test_fscrypt(log,console);
+    if(crypto_result) { dprintf(console,"SHENG_FSCRYPT_FAILED code=%d\n",crypto_result); return crypto_result; }
+#endif
     if(TEST_REUSE) {
         const char *paths[] = {"/testmods/sheng_reuse_live.ko", "/legacy-sheng_reuse_live.ko",
                                "/legacy-sheng_reuse_absent.ko"};
@@ -333,6 +403,8 @@ for label, name, mib, expected in inputs:
                                  '-kernel', str(image), '-initrd', str(initrd),
                                  '-drive', f'if=none,id=logdisk,file={path},format=raw',
                                  '-device', 'virtio-blk-pci,drive=logdisk',
+                                 *(['-drive', f'if=none,id=cryptfs,file={cryptfs},format=raw',
+                                    '-device', 'virtio-blk-pci,drive=cryptfs'] if options.fscrypt_provisioning else []),
                                  '-append', 'console=ttyAMA0 earlycon=pl011,0x9000000 rdinit=/init panic=-1 printk.devkmsg=on sheng_bootlog.enable=1'
                                  + (' panic_on_oops=1 irqaffinity=0' if options.fault_after_log else '')
                                  + (' stack_depot_disable=on stack_depot_disable=off slab_debug=U,kmalloc-2k'
@@ -376,6 +448,10 @@ for label, name, mib, expected in inputs:
         assert 'sheng_reuse_absent: ACTUAL_INIT' not in console
         assert 'SHENG_REUSE_REGRESSION_PASS' in console
         assert 'sheng_module_reuse: sheng_reuse_live already live' in console
+    if options.fscrypt_provisioning:
+        assert 'SHENG_FSCRYPT_REGRESSION_PASS' in console, transcript
+        assert console.count('SHENG_FSCRYPT_IOCTL ') == 7
+        assert console.count('SHENG_FSCRYPT_ADD ') == 7
     if options.fault_after_log and options.auto_return not in ('fault', 'emergency'):
         assert 'Kernel panic - not syncing:' in console, transcript
         assert 'FAULT TEST unexpectedly survived' not in console, transcript
@@ -391,6 +467,8 @@ for label, name, mib, expected in inputs:
             assert any(options.require_marker in s['text'] for s in slots), transcript
         if options.legacy_reuse:
             assert any('SHENG_REUSE_REGRESSION_PASS' in s['text'] for s in slots)
+        if options.fscrypt_provisioning:
+            assert any('SHENG_FSCRYPT_REGRESSION_PASS' in s['text'] for s in slots)
         if options.auto_return:
             assert 'TEST_ONLY automatic bootloader return at uptime 15 seconds' in console
             assert any(e.get('event') == 'SHUTDOWN' and e.get('data', {}).get('reason') == 'guest-reset'
@@ -443,7 +521,14 @@ if options.legacy_reuse:
     report['legacy_live_duplicate_eexist_and_missing_enoexec'] = True
     report['actual_live_init_count'] = 1
     report['actual_absent_init_count'] = 0
-suffix = ('-qemu-module-reuse.json' if options.legacy_reuse else
+if options.fscrypt_provisioning:
+    report['fscrypt_actual_add_key_cases'] = 7
+    report['fscrypt_actual_ext4_ioctl_cases'] = 7
+    report['public_synthetic_key_bytes_only'] = True
+    report['hardware_wrapped_key_derivation_tested'] = False
+    report['old_and_new_wrapped_formats_reach_unsupported_virtual_hardware'] = True
+suffix = ('-qemu-fscrypt.json' if options.fscrypt_provisioning else
+          '-qemu-module-reuse.json' if options.legacy_reuse else
           '-qemu-auto-' + options.auto_return + '.json' if options.auto_return else
           '-qemu-regression.json' if options.extra_test_module else '-qemu-slab.json'
           if options.slab_tracking else '-qemu-fault.json' if options.fault_after_log else '-qemu.json')

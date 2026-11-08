@@ -196,3 +196,6 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 2026-11-08 crypto-r15 只加入 fscrypt 负载大小/标志诊断，保持原校验，待实机确认旧 ABI 差异。
 
 2026-11-08 crypto-r15 实机确认旧零 reserved 的 100 字节 wrapped 密钥负载被新接口 64 字节限制拒绝。
+
+2026-11-08 wrapped-r16 已补旧 wrapped provisioning ABI；QEMU 实际 add_key/ext4 ioctl 共 14 例通过，
+原始/封装密钥隔离和长度检查保留；真实 ICE 派生与启动待实机。

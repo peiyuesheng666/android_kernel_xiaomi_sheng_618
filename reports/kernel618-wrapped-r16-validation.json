@@ -1,0 +1,9 @@
+{
+  "boot_sha256": "43ef372266a788a4b5c49780519d9f18e31613f96ab7f579310bc0471553979a",
+  "image_sha256": "e9b4ea0629a33dd5bf3e3a0c5f48b0c1e0549eb34d3f5ae0ee24cc5869fc63c6",
+  "qemu_receipt": "kernel618-wrapped-r16-qemu-fscrypt.json",
+  "hardware_pending": true,
+  "source_receipt": "kernel618-fscrypt-legacy-source.json",
+  "original_firmware_modified": false,
+  "hardware_crypto_not_proven_by_qemu": true
+}

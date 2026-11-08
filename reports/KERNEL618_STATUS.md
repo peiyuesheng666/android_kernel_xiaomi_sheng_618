@@ -521,3 +521,23 @@ get_keyring_key 还要求 payload.flags 与 ioctl flags 一致。实际负载尚
 下一修复只兼容旧 provisioning 表示；取用时仍要求旧 ioctl wrapped 标志，
 新接口的 raw/wrapped 区分与尺寸校验保持严格。当前 ADB 未连通、系统尚未开机。
 此次自动返回 Fastboot、临时 Recovery、读取日志和返回 Fastboot 再次完成。
+
+
+### wrapped-r16：兼容旧 Android wrapped provisioning ABI
+
+CONFIG_SHENG_LEGACY_FSCRYPT_PROVISIONING 允许旧零 reserved 负载存入至 128 字节；
+取用时只有既有 Android ioctl 的 __flags 合法置位后，secret.android_compat 为真，
+才允许把零 reserved provisioning 解释为 wrapped。新 flags 接口继续严格检查 raw/wrapped
+匹配；新增取用时的实际长度校验，普通原始密钥仍受 64 字节限制。
+复用所选 ACK 原有 Android 旧 KDF context 和硬件导出逻辑，不修改密钥、磁盘格式或系统包。
+来源及实机触发证据见 kernel618-fscrypt-legacy-source.json。
+
+同一 Image 的 QEMU 用公开的合成字节，通过真实 add_key 系统调用七例和 ext4
+FS_IOC_ADD_ENCRYPTION_KEY 七例。正常原始密钥成功；旧零 reserved 100 字节及新
+wrapped 100 字节均通过负载检查，进入虚拟硬件不支持的 wrapped 派生层并得到 EOPNOTSUPP。
+错标类型/flags、过长过短负载、新 raw 取用 100 字节、未经旧 __flags 的错误 wrapped
+取用、两组 wrapped 标志冲突均按预期拒绝。不是用假驱动证明硬件解密有效。
+结果标记已落入 CRC 有效快照；QEMU 不具备真机 ICE，真实 wrapped 派生仍待实机。
+18,008 导出及官方 boot 封包解包检查通过，337 模块仍复用 r12，不重编显示模块。
+保留 180 秒测试参数；实机 ADB 尚未连接，本轮准备自动验证。
+五版：aux-r12、auto-r13、modules-r14、crypto-r15、wrapped-r16。

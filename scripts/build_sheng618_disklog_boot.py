@@ -25,6 +25,7 @@ parser.add_argument('--test-timeout', type=int, choices=[180],
 parser.add_argument('--legacy-module-reuse', action='store_true',
                     help='Recognize live replacements for stock 5.15 module duplicates')
 parser.add_argument('--fscrypt-trace', action='store_true', help='Print only provisioning length/type/flags')
+parser.add_argument('--legacy-fscrypt', action='store_true', help='Support old Android wrapped provisioning ABI')
 parser.add_argument('--replace-untested', action='store_true',
                     help='Replace only this unflashed candidate, preserving its directory')
 options = parser.parse_args()
@@ -60,7 +61,9 @@ if 'sheng_bootlog_test_mode' in source.read_text():
     run([sys.executable, work / 'scripts/patch_sheng618_test_reboot.py'])
 if options.legacy_module_reuse:
     run([sys.executable, work / 'scripts/patch_sheng618_module_reuse.py'])
-if options.fscrypt_trace:
+if options.legacy_fscrypt:
+    run([sys.executable, work / 'scripts/patch_sheng618_fscrypt_legacy.py'])
+elif options.fscrypt_trace:
     run([sys.executable, work / 'scripts/patch_sheng618_fscrypt_trace.py'])
 shutil.copyfile(source, misc / 'sheng_bootlog.c')
 makefile = misc / 'Makefile'
@@ -87,6 +90,8 @@ try:
          options.overlay.resolve(), '--disable', 'INITRAMFS_FORCE'])
     run([ACK / 'scripts/config', '--file', config,
          '--enable' if options.legacy_module_reuse else '--disable', 'SHENG_LEGACY_MODULE_REUSE'])
+    run([ACK / 'scripts/config', '--file', config,
+         '--enable' if options.legacy_fscrypt else '--disable', 'SHENG_LEGACY_FSCRYPT_PROVISIONING'])
     print('Building built-in disk logger: ' + str(log), flush=True)
     with log.open('w') as stream:
         run([*make, 'olddefconfig'], env=env, stdout=stream, stderr=subprocess.STDOUT)
@@ -136,7 +141,8 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
           'interval_ms': 250, 'maximum_duration_ms': 200000 if options.test_timeout else 120000,
           'test_timeout_seconds': options.test_timeout, 'crc32_and_footer': True,
           'legacy_live_module_reuse': options.legacy_module_reuse,
-          'fscrypt_metadata_trace': options.fscrypt_trace,
+          'fscrypt_metadata_trace': 'sheng_fscrypt_abi: provisioning' in (ACK / 'fs/crypto/keyring.c').read_text(),
+          'legacy_fscrypt_provisioning': options.legacy_fscrypt,
           'does_not_require_sysfs_or_device_nodes': True,
           'requires_ufs_partition_registration': True, 'hardware_log_received': False,
           'cmdline': cmdline, 'build_log': str(log), 'maximum_retained_versions': 5}
