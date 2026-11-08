@@ -70,6 +70,24 @@ r7 已刷入 boot_a。经临时 r13 Recovery 读回 run e406b6c7f30277d3 的 seq
 Recovery 正常识别 DP_PLL_4NM_V1_1。这证明绑定不一致，但不足以断定停机原因。
 原始日志在 reports/device/kernel618-display-r7/；下一步细化显示初始化检查点。
 
+### r8 显示阶段检查点（已刷入，运行结果待确认）
+
+新增 sheng_boot_trace.h 与 display-probe-trace.patch，限定在可休眠的显示 probe
+上下文记录硬件初始化、连接器、每个 CRTC、IRQ、mode reset、splash handoff、
+DRM 注册和 postinit 的前后阶段。每次检查点等待 350 ms，给原 250 ms 工作队列
+保存日志的时间；会增加启动时间并可能影响时序，属于诊断候选。
+没有依据现有的错误行直接禁用 HFI/DP 或宣称修复新的停机问题。
+
+源码与固定参考记录见 kernel618-display-probe-trace-source.json。显示模块编译、
+337 模块的 20,544 项导入 CRC、18,008 内核导出、349 项归档路径/权限、只改变
+msm_drm.ko 负载和官方 boot 解包回读均通过。编译模块中检查点字符串与源码
+哈希已核对，未重复运行不能覆盖该模块硬件行为的 QEMU 测试。
+
+boot SHA256: 21a41ee11c30437a712db6891d319359cf65eebe774bcfbaf8ed59014551b893。
+Image SHA256: b5d2b44b566ac85bd704b50b5c63c2c13d2f07cca6e288d34d0e9b63950a4efb。
+已经 Recovery ADB 重启到 Fastboot 后刷入 boot_a 并发出 reboot，命令均成功；
+正在等待本轮屏幕反馈与实机日志，不能据此认定可正常开机。
+
 ## 内核直接落盘
 
 `sheng_bootlog.c` 内置于内核，在 late_initcall 启动工作队列，保留 Android
@@ -118,6 +136,6 @@ init_boot 的 /init 转交 vendor_boot 的探测程序，再由其设置 USB ACM
 本任务仅参考 USB 顺序和描述符，没有引入 HarmonyOS 服务。
 文件与哈希见 `kernel618-anyhmos-usb-reference.json`。
 
-当前五版保留为 serial-r3、serial-r4、disklog-r5、display-r6、display-r7。
+当前五版保留为 serial-r4、disklog-r5、display-r6、display-r7、display-r8。
 首版及 baseline-r2 交付目录已清理，原始 Image 仍保留在 WSL
 /root/sheng-618/diagnostic/baseline-r2/verified/kernel。

@@ -1,0 +1,41 @@
+{
+  "revision": "display-r8",
+  "checks": {
+    "release": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+    "expected_series": "6.18",
+    "symvers_sha256": "f145e6a36d7f7dc574acbf4cd6dd11ebf3f6597f723d7099d4fb27de4c9fe373",
+    "effective_module_count": 337,
+    "versioned_imports_checked": 20544,
+    "issue_counts": {},
+    "issue_count": 0,
+    "issues": [],
+    "issues_truncated": false,
+    "warnings": [],
+    "abi_passed": true,
+    "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+  },
+  "old_msm_drm_sha256": "09c4c64e8a683fe0e49c164deb170d724f5fec840ea990ade8a5f475accf47c2",
+  "new_msm_drm_sha256": "97d0735ddbd1a62924d42fc15c56bf5d861a04ee362a65861f14d0c454200b50",
+  "module_count": 337,
+  "dependency_coverage": true,
+  "source_receipt": "kernel618-display-multitiming-source.json",
+  "overlay_sha256": "5d649d4ff8fc36424f063cfa4bb8c88283863a68af282afb4d2bb68f4ba9f948",
+  "archive_metadata": {
+    "archive": "/root/sheng-618/diagnostic/display-r8/overlay.cpio",
+    "sha256": "5d649d4ff8fc36424f063cfa4bb8c88283863a68af282afb4d2bb68f4ba9f948",
+    "entry_count": 349,
+    "module_count": 337,
+    "helper_mode": "0o100755",
+    "helper_is_regular": true,
+    "helper_executable": true,
+    "helper_sha256": "7e8efddffe6700c7799d4d0434135e7e04bbb14ffdcc3aa0aeafda4c3c547283"
+  },
+  "changed_payloads": [
+    "lib/modules/msm_drm.ko"
+  ],
+  "all_archive_modes_match_original": true,
+  "reused_verified_display_module": false,
+  "hardware_result": "pending",
+  "probe_trace_source_receipt": "kernel618-display-probe-trace-source.json",
+  "probe_trace_present_in_module": true
+}

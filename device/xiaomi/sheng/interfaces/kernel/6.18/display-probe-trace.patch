@@ -1,0 +1,68 @@
+--- a/msm/msm_drv.c
++++ b/msm/msm_drv.c
+@@ -71,0 +72 @@
++#include "sheng_boot_trace.h"
+@@ -905,0 +907 @@
++	sheng_probe_checkpoint("hw_init begin");
+@@ -906,0 +909,2 @@
++	sheng_probe_checkpoint("hw_init returned");
++
+@@ -1051,0 +1056 @@
++	sheng_probe_checkpoint("components initialized");
+@@ -1080,0 +1086 @@
++	sheng_probe_checkpoint("IRQ install begin");
+@@ -1081,0 +1088,2 @@
++	sheng_probe_checkpoint("IRQ install returned");
++
+@@ -1094,0 +1103 @@
++	sheng_probe_checkpoint("mode_config_reset begin");
+@@ -1095,0 +1105,2 @@
++	sheng_probe_checkpoint("mode_config_reset returned");
++
+@@ -1097,0 +1109 @@
++	sheng_probe_checkpoint("cont_splash_config begin");
+@@ -1098,0 +1111,2 @@
++	sheng_probe_checkpoint("cont_splash_config returned");
++
+@@ -1104,0 +1119 @@
++	sheng_probe_checkpoint("drm_dev_register begin");
+@@ -1105,0 +1121,2 @@
++	sheng_probe_checkpoint("drm_dev_register returned");
++
+@@ -1135,0 +1153 @@
++	sheng_probe_checkpoint("postinit begin");
+@@ -1136,0 +1155,2 @@
++	sheng_probe_checkpoint("postinit returned");
++
+--- a/msm/sde/sde_kms.c
++++ b/msm/sde/sde_kms.c
+@@ -63,0 +64 @@
++#include "../sheng_boot_trace.h"
+@@ -2648,0 +2650 @@
++	sheng_probe_checkpoint("display connectors setup returned");
+@@ -2697,0 +2700,2 @@
++		pr_notice("sheng_display_probe: CRTC %d/%d begin\n", i, max_crtc_count);
++		msleep(350);
+@@ -2698,0 +2703,3 @@
++		pr_notice("sheng_display_probe: CRTC %d/%d returned, error=%ld\n",
++			i, max_crtc_count, IS_ERR(crtc) ? PTR_ERR(crtc) : 0L);
++		msleep(350);
+@@ -2796,0 +2804 @@
++	sheng_probe_checkpoint("postinit power event begin");
+@@ -2797,0 +2806,2 @@
++	sheng_probe_checkpoint("postinit power event returned");
++
+@@ -6049,0 +6060 @@
++	sheng_probe_checkpoint("DRM objects begin");
+@@ -6050,0 +6062,2 @@
++	sheng_probe_checkpoint("DRM objects returned");
++
+@@ -6175,0 +6189 @@
++	sheng_probe_checkpoint("hardware blocks begin");
+@@ -6176,0 +6191,2 @@
++	sheng_probe_checkpoint("hardware blocks returned");
++
+@@ -6212,0 +6229 @@
++	sheng_probe_checkpoint("VM init begin");
+@@ -6224,0 +6242 @@
++	sheng_probe_checkpoint("VM init returned");

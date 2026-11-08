@@ -1,0 +1,32 @@
+{
+  "revision": "display-r8",
+  "boot_sha256": "21a41ee11c30437a712db6891d319359cf65eebe774bcfbaf8ed59014551b893",
+  "image_sha256": "b5d2b44b566ac85bd704b50b5c63c2c13d2f07cca6e288d34d0e9b63950a4efb",
+  "boot_bytes": 100663296,
+  "image_bytes": 78858752,
+  "logger_source_sha256": "01b8acc4e61b22950ef3b3ad6359573291fba09a8f3449bacdbddebb3d627b32",
+  "kernel_exports_unchanged": 18008,
+  "original_android_init_preserved": true,
+  "module_overlay": "/root/sheng-618/diagnostic/display-r8/overlay.cpio",
+  "module_overlay_sha256": "5d649d4ff8fc36424f063cfa4bb8c88283863a68af282afb4d2bb68f4ba9f948",
+  "usb_preinit_added": false,
+  "kernel_log_buffer_bytes": 4194304,
+  "writer_is_built_in": true,
+  "destination": {
+    "gpt_name": "rawdump",
+    "required_partition_bytes": 314572800,
+    "offset": 301989888,
+    "span": 2097152,
+    "slots": 2,
+    "slot_bytes": 1048576
+  },
+  "interval_ms": 250,
+  "maximum_duration_ms": 120000,
+  "crc32_and_footer": true,
+  "does_not_require_sysfs_or_device_nodes": true,
+  "requires_ufs_partition_registration": true,
+  "hardware_log_received": false,
+  "cmdline": "printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=display-r8",
+  "build_log": "/root/sheng-618/logs/upstream-display-r8-image.log",
+  "maximum_retained_versions": 5
+}

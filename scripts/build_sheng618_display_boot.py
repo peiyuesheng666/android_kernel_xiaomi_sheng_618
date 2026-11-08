@@ -15,7 +15,7 @@ from audit_sheng618_overlay import audit, entries
 from build_sheng618_upstream import CLANG, K618, OUT, PROJECT, ROOT, UPSTREAM, command, environment
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--tag', choices=['display-r6', 'display-r7'], default='display-r7')
+parser.add_argument('--tag', choices=['display-r6', 'display-r7', 'display-r8'], default='display-r7')
 parser.add_argument('--reuse-module', action='store_true',
                     help='Reuse the exact display module already verified for r6')
 parser.add_argument('--replace-untested', action='store_true')
@@ -29,6 +29,9 @@ if (PROJECT / 'artifacts' / ('sheng-6.18-' + tag)).exists():
 native.mkdir(parents=True, exist_ok=True)
 env = environment(os.cpu_count())
 subprocess.run([sys.executable, PROJECT / 'scripts/patch_sheng618_display.py'], check=True)
+if tag == 'display-r8':
+    assert not options.reuse_module, 'r8 checkpoints require a newly compiled module'
+    subprocess.run([sys.executable, PROJECT / 'scripts/patch_sheng618_display_trace.py'], check=True)
 if not options.reuse_module:
     command(tag + '-module', ['bash', UPSTREAM / 'kernel-6.18/k618_tp.sh',
                              str(os.cpu_count()), 'display'], env)
@@ -36,6 +39,12 @@ source_report = json.loads((PROJECT / 'reports/kernel618-display-multitiming-sou
 tree = K618 / 'vendor/qcom/opensource/display-drivers'
 for relative, hashes in source_report['files'].items():
     assert hashlib.sha256((tree / relative).read_bytes()).hexdigest() == hashes['after']
+trace_report = None
+if tag == 'display-r8':
+    trace_report = json.loads((PROJECT / 'reports/kernel618-display-probe-trace-source.json').read_text())
+    for relative, hashes in trace_report['files'].items():
+        assert hashlib.sha256((tree / relative).read_bytes()).hexdigest() == hashes['after']
+    assert hashlib.sha256((tree / 'msm/sheng_boot_trace.h').read_bytes()).hexdigest() == trace_report['header_sha256']
 
 rd = native / 'layer'
 old = K618 / 'boot-test/stage/rd'
@@ -49,6 +58,8 @@ shutil.copyfile(replacement, modules / replacement.name)
 # Match the original embedded layer's packaging: debug sections belong in the
 # native build tree, not in a bootloader-constrained boot image.
 subprocess.run([CLANG / 'llvm-strip', '--strip-debug', modules / replacement.name], check=True)
+if trace_report:
+    assert b'sheng_display_probe: CRTC %d/%d begin' in (modules / replacement.name).read_bytes()
 if options.reuse_module:
     r6 = json.loads((PROJECT / 'reports/kernel618-display-r6-layer.json').read_text())
     assert hashlib.sha256((modules / replacement.name).read_bytes()).hexdigest() == r6['new_msm_drm_sha256']
@@ -86,6 +97,9 @@ report = {'revision': tag, 'checks': checked, 'old_msm_drm_sha256': old_sha,
           'all_archive_modes_match_original': True,
           'reused_verified_display_module': options.reuse_module,
           'hardware_result': 'pending'}
+if trace_report:
+    report['probe_trace_source_receipt'] = 'kernel618-display-probe-trace-source.json'
+    report['probe_trace_present_in_module'] = True
 (PROJECT / ('reports/kernel618-' + tag + '-layer.json')).write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2), flush=True)
 subprocess.run([sys.executable, PROJECT / 'scripts/build_sheng618_disklog_boot.py',

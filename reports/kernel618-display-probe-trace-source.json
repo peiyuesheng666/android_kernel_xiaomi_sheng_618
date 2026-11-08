@@ -1,0 +1,19 @@
+{
+  "files": {
+    "msm/msm_drv.c": {
+      "before": "362297d9a671857b563b37db8286f5a3284f8773c61bfb22789ced43f5924cbc",
+      "after": "7840e083b7a844f2ced6618ed9949881fc27417a08c52f3abefcc4398291e9da"
+    },
+    "msm/sde/sde_kms.c": {
+      "before": "e0faebd11fbaf7983463f361501f7e4a0e46a115aced7bd6fd5d286a20ddcb6b",
+      "after": "ba1f6d2cfee9a089f4e1e76750f1d5a2bb1639804ba317929264b72ebecb59b2"
+    }
+  },
+  "header_sha256": "e2cc92a14622a32006a3909c873d34a42f353d7bd53ded187edc0d175a6b08b0",
+  "patch_context_lines": 0,
+  "checkpoint_delay_ms": 350,
+  "logger_interval_ms": 250,
+  "scope": "sleepable display probe diagnostics only; no DP/HFI feature changes",
+  "basis": "r7 rawdump ends at 12.516 s without final Oops; compare selected nuwa base, LOS 92a9fde479d3262da080cfd28bab0775b0da500a, MiCode 6461221b68908b990e1fa2b60feaa812cb944ef5",
+  "source_tree": "/root/sheng-618/upstream-build/k618/vendor/qcom/opensource/display-drivers"
+}
