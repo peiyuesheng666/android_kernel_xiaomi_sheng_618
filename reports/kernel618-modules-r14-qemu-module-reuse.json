@@ -1,0 +1,41 @@
+{
+  "real_aarch64_kernel": true,
+  "real_gpt_block_io_and_fsync": true,
+  "image_sha256": "9c3a940982ae0fb2d7d4c465bd82dd9ad1467088c99b549337c9f5483960e5ef",
+  "cases": [
+    {
+      "case": "valid",
+      "gpt_name": "rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 2,
+      "expected_write": true,
+      "uptime_ms": [
+        10430,
+        10143
+      ],
+      "qemu_log": "/root/sheng-618/diagnostic/modules-r14/qemu-module-reuse/valid.log",
+      "qmp_shutdown_events": [
+        {
+          "timestamp": {
+            "seconds": 1794149980,
+            "microseconds": 580117
+          },
+          "event": "SHUTDOWN",
+          "data": {
+            "guest": true,
+            "reason": "guest-shutdown"
+          }
+        }
+      ]
+    }
+  ],
+  "torn_copy_rejected_other_copy_readable": true,
+  "hardware_ufs_tested": false,
+  "embedded_helper_exec_and_finit_module_tested": true,
+  "partition_guard_cases_run": false,
+  "fault_injection_case_run": false,
+  "exception_stack_persisted_before_panic": null,
+  "legacy_live_duplicate_eexist_and_missing_enoexec": true,
+  "actual_live_init_count": 1,
+  "actual_absent_init_count": 0
+}

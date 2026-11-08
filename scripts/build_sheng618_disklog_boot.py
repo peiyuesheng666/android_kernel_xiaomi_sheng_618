@@ -22,6 +22,8 @@ parser.add_argument('--tag', default='disklog-r5')
 parser.add_argument('--overlay', type=Path, default=K618 / 'boot-test/stage/overlay.cpio')
 parser.add_argument('--test-timeout', type=int, choices=[180],
                     help='Test only: return to bootloader at uptime 180 seconds')
+parser.add_argument('--legacy-module-reuse', action='store_true',
+                    help='Recognize live replacements for stock 5.15 module duplicates')
 parser.add_argument('--replace-untested', action='store_true',
                     help='Replace only this unflashed candidate, preserving its directory')
 options = parser.parse_args()
@@ -55,6 +57,8 @@ if 'sheng_bootlog_fault_pause' in source.read_text():
     run([sys.executable, work / 'scripts/patch_sheng618_fault_capture.py'])
 if 'sheng_bootlog_test_mode' in source.read_text():
     run([sys.executable, work / 'scripts/patch_sheng618_test_reboot.py'])
+if options.legacy_module_reuse:
+    run([sys.executable, work / 'scripts/patch_sheng618_module_reuse.py'])
 shutil.copyfile(source, misc / 'sheng_bootlog.c')
 makefile = misc / 'Makefile'
 line = 'obj-$(CONFIG_SHENG_BOOTLOG) += sheng_bootlog.o\n'
@@ -78,6 +82,8 @@ try:
     run([ACK / 'scripts/config', '--file', config, '--enable', 'SHENG_BOOTLOG',
          '--set-val', 'LOG_BUF_SHIFT', '22', '--set-str', 'INITRAMFS_SOURCE',
          options.overlay.resolve(), '--disable', 'INITRAMFS_FORCE'])
+    run([ACK / 'scripts/config', '--file', config,
+         '--enable' if options.legacy_module_reuse else '--disable', 'SHENG_LEGACY_MODULE_REUSE'])
     print('Building built-in disk logger: ' + str(log), flush=True)
     with log.open('w') as stream:
         run([*make, 'olddefconfig'], env=env, stdout=stream, stderr=subprocess.STDOUT)
@@ -126,6 +132,7 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
                           'slots': 2, 'slot_bytes': 1024**2},
           'interval_ms': 250, 'maximum_duration_ms': 200000 if options.test_timeout else 120000,
           'test_timeout_seconds': options.test_timeout, 'crc32_and_footer': True,
+          'legacy_live_module_reuse': options.legacy_module_reuse,
           'does_not_require_sysfs_or_device_nodes': True,
           'requires_ufs_partition_registration': True, 'hardware_log_received': False,
           'cmdline': cmdline, 'build_log': str(log), 'maximum_retained_versions': 5}

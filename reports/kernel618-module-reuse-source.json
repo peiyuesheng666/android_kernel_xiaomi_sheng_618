@@ -1,0 +1,29 @@
+{
+  "before": "dfceec699f54d7fdc6547688ffedc65d02953152e77f82b4a7c3c72fcdc6a2ab",
+  "after": "80606ebb42fd6f365a307f49b8f5eef87a6191b6b0db7a97f521f3f301256643",
+  "trigger": "r12 init.qti.kernel.rc:54 waits vendor.all.modules.ready; both stock modprobe services exit 1 after 5.15 module-layout rejection",
+  "evidence": "msm_sysstats replacement loaded at 4.191 s; stock duplicate refused at 31.411 s. zsmalloc replacement also live before GKI duplicate.",
+  "behavior": "Only 5.15 modinfo names with a MODULE_STATE_LIVE counterpart return native EEXIST before old struct layout; missing modules remain errors",
+  "references": [
+    {
+      "commit": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+      "path": "kernel-6.18/k618_insmod.c",
+      "result": "Selected upstream uses generic kretprobe failure tolerance; do not enable it because it also masks absent drivers"
+    },
+    {
+      "commit": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+      "path": "kernel/module/main.c",
+      "result": "ELF section/name validation runs before struct layout; module_mutex and MODULE_STATE_LIVE protect the duplicate check"
+    },
+    {
+      "path": "/root/sheng-lineage/firmware-dump/partitions/vendor/bin/vendor_modprobe.sh",
+      "result": "First-module failure aborts before setprop vendor.all.modules.ready"
+    },
+    {
+      "commit": "65d661b1a536701e8b118be4e9728d7b5ca727c9",
+      "path": "/root/sheng-lineage/lineage-24.0/system/core/libmodprobe/libmodprobe_ext.cpp",
+      "result": "AOSP Modprobe::Insmod accepts EEXIST as an already loaded module"
+    }
+  ],
+  "scope": "Kernel-only opt-in HyperOS duplicate recognition; no changes to firmware or vendor scripts"
+}

@@ -1,0 +1,24 @@
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -2303,0 +2304,21 @@
++#ifdef CONFIG_SHENG_LEGACY_MODULE_REUSE
++	/* Stock HyperOS tries its 5.15 files after the embedded 6.18 layer.
++	 * Preserve the native duplicate result without interpreting old struct
++	 * module data. ELF bounds and authentication have already been checked.
++	 * A missing/not-live replacement still follows every normal ABI check.
++	 */
++	if (info->name && strstarts(get_modinfo(info, "vermagic") ?: "", "5.15.")) {
++		struct module *loaded;
++		bool live;
++
++		mutex_lock(&module_mutex);
++		loaded = find_module(info->name);
++		live = loaded && loaded->state == MODULE_STATE_LIVE;
++		mutex_unlock(&module_mutex);
++		if (live) {
++			pr_notice("sheng_module_reuse: %s already live; legacy duplicate -> EEXIST\n",
++				  info->name);
++			return -EEXIST;
++		}
++	}
++#endif

@@ -463,3 +463,24 @@ seq651/652 至 179.590/179.878 秒，之后自动返回 Fastboot。
 结合原厂 rc 和 modprobe 的退出日志，确认等待模块就绪属性这条兼容问题。
 Android 尚未启动、候选 ADB 未连接；异常返回 Fastboot 仅 QEMU 验证，实机此次验证超时路径。
 自动化记录 kernel618-auto-r13-automation.json，硬件结果 kernel618-auto-r13-hardware.json。
+
+
+### modules-r14：修复 HyperOS 重复加载旧 ABI 模块的内核兼容
+
+r12/r13 中 6.18 msm_sysstats 和 zsmalloc 已成功加载，原厂 modprobe 随后再次尝试
+5.15 文件，先撞上 struct module 布局校验，退出 1。vendor_modprobe.sh 第一模块失败后
+直接退出，未发送 vendor.all.modules.ready；init.qti.kernel.rc:54 的 wait_for_prop 无限等待。
+这是移植内核与原厂启动约定不兼容，未修改原厂镜像或 rc 脚本。
+
+启用 CONFIG_SHENG_LEGACY_MODULE_REUSE：签名及 ELF 边界、modinfo 校验之后，
+仅当旧 5.15 文件声明的模块名已有 MODULE_STATE_LIVE 的驱动，返回原生 -EEXIST；
+缺失/未就绪的驱动仍执行完整布局和 ABI 校验并报错。未加载旧机器码，也未伪造所有错误成功。
+Android libmodprobe 已有 EEXIST 成功处理，原厂模块脚本可继续完成；参考固定提交见
+kernel618-module-reuse-source.json。选定上游 k618_insmod 的泛化错误容忍没有启用。
+
+同一交付 Image 的 QEMU 实际 syscall 验证通过：普通重复 EEXIST、
+伪造旧 ABI/错误结构大小但已有 6.18 驱动的重复 EEXIST、相同旧 ABI 但无对应驱动 ENOEXEC。
+已加载探针 init 仅执行一次，缺失探针未执行，结果标记实际写入 CRC 有效 rawdump。
+337 模块 overlay 与 r12 相同，18,008 导出一致，官方 boot 封包/AVB/解包回读通过。
+仍启用 180 秒测试模式（候选 ADB 尚未连接）；此修复实机验证待本轮刷入。
+当前五版：fault-r10、slab-r11、aux-r12、auto-r13、modules-r14。

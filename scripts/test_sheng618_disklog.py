@@ -236,7 +236,8 @@ int main(void) {
             dprintf(console,"SHENG_REUSE_CASE %d result=%d errno=%d expected=%d\n",i,result,saved,expected[i]);
             if(result!=-1 || saved!=expected[i]) return 41+i;
         }
-        dprintf(log,"<5>SHENG_REUSE_REGRESSION_PASS duplicate_live_EEXIST missing_ENOEXEC\n");
+        const char marker[]="<5>SHENG_REUSE_REGRESSION_PASS duplicate_live_EEXIST missing_ENOEXEC\n";
+        if(write(log,marker,sizeof(marker)-1)!=(ssize_t)(sizeof(marker)-1)) return 44;
     }
     for(int i=0;i<80;i++) {
         char record[100];

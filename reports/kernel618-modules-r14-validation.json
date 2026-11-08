@@ -1,0 +1,10 @@
+{
+  "boot_sha256": "0915f741d4f306d032029d3b6d118a31af04db5d18803bb86057bcb7add690ef",
+  "image_sha256": "9c3a940982ae0fb2d7d4c465bd82dd9ad1467088c99b549337c9f5483960e5ef",
+  "kernel_exports_unchanged": 18008,
+  "same_overlay_as": "aux-r12",
+  "qemu_receipt": "kernel618-modules-r14-qemu-module-reuse.json",
+  "hardware_pending": true,
+  "test_mode_remains_until_candidate_adb_available": true,
+  "source_receipt": "kernel618-module-reuse-source.json"
+}
