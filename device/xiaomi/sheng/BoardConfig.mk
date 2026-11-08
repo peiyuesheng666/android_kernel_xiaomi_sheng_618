@@ -116,6 +116,9 @@ $(foreach p, $(call to-upper, $(SHENG_SYSTEM_PARTITIONS)), \
 $(foreach p, $(call to-upper, $(SHENG_VENDOR_PARTITIONS)), \
     $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs))
 
+# Retain room for device-owned HAL integrations in dynamically sized vendor images.
+BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 33554432
+
 $(foreach p, $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST)), \
     $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
 
