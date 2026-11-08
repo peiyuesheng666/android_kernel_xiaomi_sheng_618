@@ -1,0 +1,60 @@
+{
+  "revision": "panel-r19",
+  "boot_sha256": "f884a00c36f8319c558567f54dbecdee78ccc03bbe21e097cfa6a09bb63a6cc2",
+  "image_sha256": "0f811991f5c30face3b8d9a370d631dc43b507423469994450aee2ef966716a5",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T00:07:38+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T00:07:38+0800",
+      "elapsed_seconds": 0.04
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T00:08:09+0800",
+      "elapsed_seconds": 30.67
+    },
+    {
+      "event": "candidate_adb_connected",
+      "time": "2026-11-09T00:08:35+0800",
+      "elapsed_seconds": 57.26
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T00:08:40+0800",
+      "elapsed_seconds": 61.62
+    },
+    {
+      "event": "android_boot_completed",
+      "time": "2026-11-09T00:09:05+0800",
+      "elapsed_seconds": 86.98
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "candidate_adb_connected": true,
+  "kernel": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "android_boot_completed": true,
+  "user_feedback": {
+    "display": "Improved, not fixed: full corruption on initial boot; screen off/on largely clears it; intermittent regular stripes remain.",
+    "touch": "not working",
+    "auto_rotation": "not working",
+    "speakers": "silent",
+    "video": "C:/Users/Dev裴月笙/Downloads/IMG_4022.MP4",
+    "video_observation": "Screen turns on around 1.2 s, appears clear, regular stripes appear around 3.0 s and disappear around 4.2 s."
+  },
+  "readback_receipt": "kernel618-panel-r19-automation.json",
+  "remaining_issues": [
+    "display initialization and rate transition",
+    "missing NT36532 SPI driver",
+    "missing legacy FastRPC device nodes",
+    "audio routing and amplifiers",
+    "USB stability"
+  ]
+}

@@ -483,3 +483,15 @@ scr0/scr1均得到与 MiCode 逐字节一致的完整 drm_dsc_config，
 因为r18候选ADB已实机连通，本版不传test_timeout和panic测试参数，
 保留120秒诊断日志，不再自动重启或把正常软件重启转Fastboot。
 实机花屏是否改善尚待刷入验证，触摸/传感器/音频问题未在本版修复。
+
+
+### panel-r19 实机与视频反馈
+
+实机 ADB 57.26 秒连通，Android 启动完成 86.98 秒；测试复位已关闭。
+用户确认花屏改善，但首次启动仍整屏损坏，熄屏重亮后大幅改善，偶发规则横条仍在。
+已逐帧查看 IMG_4022.MP4：约1.2秒亮屏，约3.0秒出现规则条纹，约4.2秒恢复。
+这些现象不等于已确定根因；继续对照首次亮屏和刷新率切换的板级序列。
+触摸、自动旋转、扬声器仍未通过。InputManager无触摸屏，SPI0.0未绑定驱动；
+SensorService没有实体传感器，原厂FastRPC节点缺失，音频日志仍将CS35L41路由留在stub。
+临时Recovery读回run4a5a4b405171f7ef、seq387/388、至120.548秒，两份CRC有效；
+读取后回到Fastboot。详见kernel618-panel-r19-{hardware,automation}.json。
