@@ -1,0 +1,50 @@
+{
+  "revision": 34,
+  "spec_sha256": "30f302da1fb7982ca002fab2c97d11da30d833ee187bc99ecd62c4016b39da21",
+  "files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "4f1e803df428e8423a367a088ee6877a92e6a3e332c49e26ae044833ec86ce5a"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "a620104732a891ae91ac373ad11ea5ec4bf39b7b08431adc89d2c21cb53c8e63"
+    }
+  ],
+  "partition_reports": {
+    "odm": {
+      "changed_files": [
+        "overlay/SettingsResOverlaySheng.apk"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "0aa7b969-4e53-581b-b90a-26e09cf8d195",
+      "apk_certificates": {
+        "overlay/SettingsResOverlaySheng.apk": [
+          "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc"
+        ]
+      },
+      "created_symlinks": {},
+      "baseline_entries": {
+        "overlay/SettingsResOverlaySheng.apk": [
+          "file",
+          "c660a53eb7dc10cff7813175d6e3a4f9ff817aa72dee4e8de85b2a9a39fbed22"
+        ]
+      },
+      "partition_size": 1141067776,
+      "raw_filesystem_bytes": 1119764480,
+      "avb_max_filesystem_bytes": 1122971648,
+      "free_payload_bytes": 3207168
+    }
+  },
+  "exact_baselines_verified": true,
+  "all_filesystem_stages_verified": true,
+  "root_signature_verified": true,
+  "root_other_descriptors_unchanged": true,
+  "original_systemui_required": true,
+  "full_product_build_passed": false,
+  "runtime_verified": false
+}
