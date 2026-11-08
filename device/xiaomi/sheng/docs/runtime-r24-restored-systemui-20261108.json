@@ -1,0 +1,29 @@
+{
+  "revision": 24,
+  "serial": "ca10ede3",
+  "slot": "b",
+  "systemui_rollback_to_accepted_r22": true,
+  "overall_passed": false,
+  "all_six_partition_hashes_match": true,
+  "original_systemui_sha256": "33017b0d59e28da5db3e089a98f49601de508228a012392ee2d04c82cda3ccb1",
+  "systemui_pid_before_and_after": 3539,
+  "user_confirmed_lock_screen_or_launcher": true,
+  "both_dolby_hal_interface_checks_passed": true,
+  "media_codec_create_release_count": 6,
+  "dolby_processes_stable_during_probe": true,
+  "dolby_idle_cpu_check_passed": true,
+  "aon_alias_verified": true,
+  "failure": "Current boot contains a Dolby service native crash.",
+  "startup_crash": {
+    "process": "dolbycodec2",
+    "pid": 1368,
+    "uptime_seconds": 7,
+    "signal": "SIGABRT",
+    "cause": "Unchecked HIDL DEAD_OBJECT return in DolbyC2Client SimpleParamReflector::describe",
+    "preceding_event": "vendor-qti-media-c2audio-hal-1-0 PID 1486 received SIGSYS; causality not yet established"
+  },
+  "camera_or_attention_started_by_agent": false,
+  "other_device_operated": false,
+  "evidence_directory": "reports/device/r24-runtime-20261108-081024",
+  "tombstone": "reports/device/r24-runtime-20261108-081024/tombstone_19.txt"
+}

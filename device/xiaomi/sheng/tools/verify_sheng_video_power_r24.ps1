@@ -1,4 +1,4 @@
-param()
+param([switch]$AcceptedSystemUIRollback)
 $ErrorActionPreference = 'Stop'
 $workspace = (Resolve-Path (Join-Path $PSScriptRoot '../../../..')).Path
 $adb = Join-Path $workspace 'tools/platform-tools/adb.exe'
@@ -47,6 +47,9 @@ foreach ($partition in @('system', 'system_ext', 'odm', 'vendor', 'vbmeta', 'vbm
     if ($partition -in @('vendor', 'system_ext', 'vbmeta', 'vbmeta_system')) {
         $expected = ($manifest.files | Where-Object partition -eq $partition).sha256
     }
+    if ($AcceptedSystemUIRollback -and $partition -in @('system_ext', 'vbmeta_system')) {
+        $expected = $accepted.installed_partition_hashes.$partition
+    }
     $command = if ($partition -in @('vbmeta', 'vbmeta_system')) {
         $bytes = if ($partition -eq 'vbmeta') { 8192 } else { 4096 }
         "dd if=/dev/block/by-name/${partition}_b bs=$bytes count=1 2>/dev/null | sha256sum"
@@ -71,6 +74,12 @@ if ($link -notmatch '(?m)^/odm/lib64/camera/aon_front.pb\s*$' -or
 Save-Shell 'services-before.txt' 'lshal -i; ps -A | grep -E "dolby|codec2"' | Out-Null
 $libraries = Save-Shell 'reviewed-output-hashes.txt' 'sha256sum /vendor/lib64/c2.dolby.hevc.dec.so /vendor/lib64/c2.dolby.hevc.sec.dec.so /system_ext/priv-app/SystemUI/SystemUI.apk'
 foreach ($partition in @('vendor', 'system_ext')) {
+    if ($AcceptedSystemUIRollback -and $partition -eq 'system_ext') {
+        if ($libraries -notmatch '(?m)^33017b0d59e28da5db3e089a98f49601de508228a012392ee2d04c82cda3ccb1\s') {
+            throw 'Accepted original SystemUI APK differs.'
+        }
+        continue
+    }
     foreach ($property in $manifest.frozen_spec.partitions.$partition.files.PSObject.Properties) {
         if ($libraries -notmatch ('(?m)^' + $property.Value.sha256 + '\s')) {
             throw "Running output differs from reviewed file: $($property.Name)"
@@ -154,6 +163,7 @@ if ($logs -match 'Process: com\.android\.systemui, PID:|Cmdline: com\.android\.s
 }
 $result = [ordered]@{
     revision = 24; serial = $serial; slot = 'b'; hardware_boot_tested = $true
+    systemui_rollback_to_accepted_r22 = [bool]$AcceptedSystemUIRollback
     installed_partition_hashes = $hashes; all_six_partition_hashes_match = $true
     exact_component_store_size = 288; both_hal_stores_verified = $true
     media_codec_all_component_allocation_release_verified = $true; aon_alias_verified = $true

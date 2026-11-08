@@ -14,6 +14,9 @@ r24 启动后 SystemUI 因字段丢失反复崩溃，用户停在“平板电脑
 电源键动画按用户最新意见不计作 bug，移出待修清单。详见
 r24-systemui-boot-regression-20261108.md。
 r25 相机与 Dolby 缓冲修复已正式构建、审查并封装，尚未刷入。
+回退后的 r24 自动检查完成六组件创建/释放、空闲 CPU 和接口检查，但开机早期
+Dolby 存在 HIDL DEAD_OBJECT abort，整体回归未通过；另有高通 c2audio SIGSYS
+待定位。见 runtime-r24-restored-systemui-20261108.json。
 官方澎湃系统的另一台平板未操作。
 r23 恢复原厂 AON 配置链接，用户已明确反馈“AON 好了”，新日志有检测回调。
 两个 Dolby Codec2 main 的分配由 264 改为当前 ABI 的 288 字节，双实例接口和
