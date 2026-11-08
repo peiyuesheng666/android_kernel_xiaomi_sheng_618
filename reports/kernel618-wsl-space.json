@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "root": "/root/sheng-618",
+  "linux_available_bytes": 542420869120,
+  "linux_usable_free_bytes": 597413224448,
+  "already_backed_free_lower_bound_bytes": 78942724096,
+  "probe_read_only": true,
+  "probe_warnings": [],
+  "backing_vhdx": {
+    "distro": "Ubuntu-22.04",
+    "path": "C:\\Users\\Public\\wsl\\Ubuntu2204\\ext4.vhdx",
+    "attributes": 32,
+    "host_available_bytes": 11024576512,
+    "linux_path": "/mnt/c/Users/Public/wsl/Ubuntu2204/ext4.vhdx",
+    "host_mount": "/mnt/c"
+  },
+  "vhdx": {
+    "virtual_bytes": 1099511627776,
+    "host_file_bytes": 581285445632,
+    "payload_block_bytes": 1048576,
+    "fully_present_payload_bytes": 471271997440,
+    "retained_unmapped_payload_bytes": 109769129984,
+    "host_reserved_payload_bytes": 581041127424,
+    "payload_state_counts": {
+      "6": 449440,
+      "2": 17350,
+      "0": 393038,
+      "3": 188748
+    },
+    "region_crc32c_verified": true
+  },
+  "root_block_device": "/dev/sdd",
+  "host_free_bytes": 11024576512,
+  "effective_write_budget_bytes": 89967300608,
+  "linux_available_gib": 505.17,
+  "linux_usable_free_gib": 556.38,
+  "host_free_gib": 10.27,
+  "already_backed_free_lower_bound_gib": 73.52,
+  "effective_write_budget_gib": 83.79
+}

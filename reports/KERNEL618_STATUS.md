@@ -1,13 +1,13 @@
 # sheng 6.18 移植：来源和 ABI 核查
 
 2026-11-08。主要目标为当前 LineageOS 24.0，保留原厂 HyperOS 兼容方向；
-两个系统都需要分别通过实际启动和硬件验证。当前没有编译完成的 sheng 6.18
-内核、boot 镜像或可刷包，本报告不宣称已完成移植。
+两个系统都需要分别通过实际启动和硬件验证。当前已编译 6.18.32 开发基线和
+LOS kalama TCSR 驱动，尚无完成板级适配的 sheng 内核、boot 镜像或可刷包。
 
 ## 选定来源
 
-按用户最新要求，SM8550 驱动来源采用 LOS 官方三仓库，不使用 MiCode sheng
-源码作为构建输入。版本与当前 ROM 已审计的内核/BSP 输入一致；没有改动现用
+2026-11-08 用户最新确认：SM8550 驱动以 LOS 官方三仓库为主，缺失的平板驱动
+允许补用小米官方 sheng 源码。LOS 版本与当前 ROM 已审计的输入一致；没有改动现用
 ROM 的公共源码、BoardConfig、模块选择或任何设备分区。
 
 | 仓库 | 固定提交 |
@@ -27,9 +27,32 @@ LOS 内核输入仍是 5.15。6.18 核心参考 ACK
 
 本项目的输入选择在
 `device/xiaomi/sheng/interfaces/kernel/6.18/source-plan.json`。
-三个 LOS 仓库的 Git 目录已经准备在 `/root/sheng-618/src/lineage-*`，固定提交和
-树 ID 见 `kernel618-source-audit.json`。这些是没有完整检出的源码目录索引，
-不属于已经构建好的内核。
+三个 LOS 仓库已经完整检出在 `/root/sheng-618/src/lineage-*`。官方 sheng 补充
+来源固定在同一 source-plan 的 `supplemental_board_sources`，内核、音频和两份
+设备树已经完整检出；显示和相机驱动暂为目录索引。固定提交、树 ID、实际检出
+状态和文件名覆盖见 `kernel618-source-audit.json`。
+
+## 2026-11-08 实际构建与首个驱动移植
+
+- ACK 核心保持固定提交且工作区干净；24 线程编译成功，版本为
+  `6.18.32-4k-android17-5-sheng-ack-baseline`。输出在
+  `/root/sheng-618/out/ack-dist`，包括 Image、Image.gz 和 105 个配套 GKI 模块。
+- Ubuntu 的 elfutils 0.186 无法解析 Clang 生成的 Rust helper DWARF5 行表；
+  仅禁用 ZSTD 压缩也不能解决。新增私有 elfutils 0.193 准备脚本，固定归档 SHA256，
+  不替换系统库；确认 gendwarfksyms 实际加载私有 libdw/libelf。保留 Rust、BTF、
+  MODVERSIONS 和 GENDWARFKSYMS。
+- 实际复用 ROM 的 Clang r584948b 和 Rust 1.91.1，与 ACK 推荐的 r584948c /
+  1.91.1.p3 不同。记录实际版本和哈希，不宣称兼容 madrid 二进制或其 KMI。
+- 从固定 LOS 内核移植 `tcsrcc-kalama.c`，保留六路时钟的编号、寄存器和
+  `qcom,kalama-tcsrcc` 绑定。使用未修改的 ACK 公共时钟代码生成 clk-qcom.ko，
+  单独生成 tcsrcc-kalama.ko；输入源码不修改，每个暂存文件记录来源及哈希。
+- TCSR 没有 voltage proxy votes 或 critical clocks，sync_state 改接 ACK 的
+  clk_sync_state；保留休眠恢复的 clk_restore_context。ACK 无下游 DEEPSLEEP
+  扩展，此路径未实现、未实测，其他控制器的 PLL/电压框架仍待迁移。
+- ARM64 Image 头、gzip 回解、分发副本哈希、107 个模块的结构和依赖闭合、
+  6,169 项真实导入 CRC、命名空间和依赖排序检查通过，无缺失符号或重复导出。
+  基线模块有签名尾部；未做签名密码学验证，两个新移植模块尚未安装或签名。
+  完整验证和产物哈希见 `kernel618-build-verification.json`。
 
 ## “只换内核、不动模块”的核查
 
@@ -54,14 +77,15 @@ SHA256。候选核查另加入候选内核编译的 zram/zsmalloc，合计 419 �
 | --- | --- |
 | 当前 LOS `5.15.220-gf9ca2b71f672` | 25,134 项版本化导入全部匹配；无缺失符号、CRC 或结构大小错误 |
 | 已有 ACK `6.12.96-4k-android16-7-sheng-ack-baseline` | 检查 25,216 项；19,002 项 CRC 不同、2,990 项缺失提供者、52 项重复导出；417 个原厂模块结构均为 960 字节，候选模块结构为 1,600 字节 |
-| 新 6.18 候选 | 尚未构建，尚无真实 ABI 检查结果 |
+| 新 ACK `6.18.32-4k-android17-5-sheng-ack-baseline` | 25,215 项导入；18,636 项 CRC 不同、3,356 项缺失提供者、52 项重复导出；417 个原厂模块结构均不匹配，不能混用 |
 
 5.15 对照还发现三个已解析、但原厂未提供 CRC 的导入（btpower 两项、nxp-nci
 一项）。真实加载器允许这些导入；报告列为 warning，不把它们写成“已由 CRC
 证明兼容”。静态核查不替代签名、命名空间、设备树绑定、内存语义或硬件测试。
 
 6.12 是用于检验核查工具能拒绝跨版本不匹配输入的真实对照，不是 6.18
-的实测结果。不能把这些数值写成新 6.18 的失败统计。
+的实测结果。6.18 的真实结果单列于 `kernel618-audit-candidate-618.json`；它核查
+“基线加原厂模块”的不兼容性，不等同于上面 107 个新编译模块的闭合检查。
 
 结果分别见 `kernel618-stock-inventory.json`、`kernel618-audit-control-515.json`
 和 `kernel618-audit-control-612.json`。失败报告保留准确总计和前 80 条示例，
@@ -76,18 +100,21 @@ SHA256。候选核查另加入候选内核编译的 zram/zsmalloc，合计 419 �
 ## 仍需解决的适配
 
 三份固定 LOS 仓库的文件目录检索未找到平板特定的 NT36532、Nanosic 键盘、
-霍尔、metis、POGO 充电、CS35L43 和 N81A 面板实现文件。检索只覆盖所列三库，
-不代表全网没有公开实现；命中一个 touchfeature 文件也不能证明它兼容平板
+霍尔、metis、POGO 充电、CS35L43 和 N81A 面板实现文件。补充官方 sheng 来源后，
+已找到 POGO、CS35L43 和面板来源，九仓库的文件名检索仍缺少 NT36532、
+Nanosic 键盘、霍尔和 metis。这不代表全网没有公开实现；命中一个 touchfeature
+文件也不能证明它兼容平板
 的 host-processing/笔协议。当前可用 5.15 方案依赖原厂 BSP 模块，不能据此宣称
 LOS 公共源码已经完整重建平板驱动。
 
 下一阶段必须处理 LOS 通用驱动到 6.18 的迁移和这些平板接口，再完成有效模块
 闭合、合并 DTB/DTBO 绑定、启动包及 AVB 检查，最后在授权后做实机启动和硬件验证。
 
-C 盘本次检查约剩 10.7 GiB；WSL 的 512 GiB 空闲是虚拟磁盘内部数值，不能当作
-C 盘还能写入那么多。源码准备工具同时检查宿主空间；目录索引允许在 2 GiB
-预算下准备，完整检出/移植构建采用保守的 40 GiB 前置预算。这个预算是本项目
-的空间预留，不是参考仓库规定的硬性需求。没有清理其他任务的构建产物或缓存。
+C 盘约剩 10.3 GiB。容量工具验证当前注册 VHDX 非 sparse/压缩文件，并计算已
+分配块内可复用空间的保守下界；构建前有效预算约 83.8 GiB，包含约 73.5 GiB
+已落盘的可复用空间，故 40 GiB 预留检查通过。不能把 WSL 内部约 505 GiB 空闲
+全部当成宿主容量。没有清理其他任务的产物或缓存。容量读数见
+`kernel618-wsl-space.json`。
 
 ## 重跑
 
@@ -98,6 +125,11 @@ python3 scripts/audit_kernel618_sources.py --output reports/kernel618-source-aud
 
 # 检查完整构建的预留空间；空间不足返回 2。
 python3 scripts/prepare_kernel618_sources.py --preflight
+
+# 编译基线、首个 LOS 控制器，再验证真实产物。没有刷机操作。
+bash scripts/build_kernel618_baseline.sh
+bash scripts/build_kernel618_clock_port.sh
+python3 scripts/verify_kernel618_build.py
 
 # 检查原厂 BSP 原始文件哈希和 ELF 信息；成功只是清单核查成功。
 python3 scripts/audit_kernel618_modules.py \

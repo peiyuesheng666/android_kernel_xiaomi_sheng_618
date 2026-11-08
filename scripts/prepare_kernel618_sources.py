@@ -9,8 +9,9 @@ import argparse
 import json
 import os
 from pathlib import Path
-import shutil
 import subprocess
+
+from kernel618_space import probe_space
 
 
 def run(*args):
@@ -33,24 +34,24 @@ def main():
     root = args.root.resolve()
     if root == Path('/') or root == Path.home() or root.is_relative_to(Path('/mnt')):
         parser.error('Choose a separate native Linux build directory')
-    ancestor = root
-    while not ancestor.exists():
-        ancestor = ancestor.parent
-    linux_free = shutil.disk_usage(ancestor).free
-    host_free = shutil.disk_usage('/mnt/c').free if Path('/mnt/c').exists() else linux_free
+    space = probe_space(root)
     required_gib = 2 if args.catalog_only else plan['minimum_host_free_gib']
     minimum = required_gib * 1024**3
-    print(json.dumps({'root': str(root), 'linux_free_gib': round(linux_free / 1024**3, 2),
-                      'host_free_gib': round(host_free / 1024**3, 2),
+    print(json.dumps({'root': str(root), 'linux_free_gib': space['linux_available_gib'],
+                      'host_free_gib': space['host_free_gib'],
+                      'already_backed_free_lower_bound_gib': space['already_backed_free_lower_bound_gib'],
+                      'effective_write_budget_gib': space['effective_write_budget_gib'],
                       'required_host_free_gib': required_gib,
                       'catalog_only': args.catalog_only,
-                      'space_passed': min(linux_free, host_free) >= minimum,
-                      'full_port_space_passed': min(linux_free, host_free) >= plan['minimum_host_free_gib'] * 1024**3}))
-    if min(linux_free, host_free) < minimum:
+                      'space_passed': space['effective_write_budget_bytes'] >= minimum,
+                      'full_port_space_passed': space['effective_write_budget_bytes'] >= plan['minimum_host_free_gib'] * 1024**3,
+                      'probe_warnings': space['probe_warnings']}))
+    if space['effective_write_budget_bytes'] < minimum:
         return 2
     if args.preflight:
         return 0
-    components = plan['board_sources']
+    selected_sources = plan['board_sources'] + plan.get('supplemental_board_sources', [])
+    components = selected_sources
     if args.component:
         unknown = set(args.component) - {x['name'] for x in components}
         if unknown:
@@ -65,15 +66,15 @@ def main():
     records = {x['name']: x for x in json.loads(receipt.read_text())} if receipt.exists() else {}
     # A changed source selection withdraws old receipts without deleting caches.
     records = {name: item for name, item in records.items()
-               if name in {x['name'] for x in plan['board_sources']}}
+               if name in {x['name'] for x in selected_sources}}
     for spec in components:
         destination = root / 'src' / spec['name']
-        is_catalog = not destination.exists() or records.get(spec['name'], {}).get('catalog_only', False)
+        is_catalog = not destination.exists() or all(p.name == '.git' for p in destination.iterdir())
         if destination.exists():
             # Never reset or clean a checkout someone has already edited.
             if run('git', '-C', str(destination), 'rev-parse', 'HEAD') != spec['revision']:
                 raise ValueError(f'Existing source revision differs: {destination}')
-            catalog = records.get(spec['name'], {}).get('catalog_only', False)
+            catalog = is_catalog
             if catalog:
                 if any(p.name != '.git' for p in destination.iterdir()):
                     raise ValueError(f'Source files added to a catalog checkout: {destination}')

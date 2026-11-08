@@ -27,16 +27,21 @@ def main():
     if git(args.reference, 'status', '--porcelain'):
         raise ValueError('Reference project has local changes')
     receipts, trees = [], {}
-    for source in plan['board_sources']:
+    primary_names = {x['name'] for x in plan['board_sources']}
+    for source in plan['board_sources'] + plan.get('supplemental_board_sources', []):
         repo = args.source_root / 'src' / source['name']
         revision = git(repo, 'rev-parse', 'HEAD')
         if revision != source['revision']:
             raise ValueError(f'Wrong source revision: {repo}')
         files = git(repo, 'ls-tree', '-r', '--name-only', revision).splitlines()
+        catalog_only = all(p.name == '.git' for p in repo.iterdir())
+        if not catalog_only and git(repo, 'status', '--porcelain'):
+            raise ValueError(f'Source checkout has local changes: {repo}')
         trees[source['name']] = files
         receipts.append({**source, 'path': str(repo), 'checked_revision': revision,
                          'git_tree': git(repo, 'rev-parse', revision + '^{tree}'),
-                         'catalog_file_count': len(files), 'full_checkout_or_build': False})
+                         'catalog_file_count': len(files), 'full_checkout': not catalog_only,
+                         'source_role': 'primary' if source['name'] in primary_names else 'tablet-supplement'})
     coverage = {}
     for label, tokens in {
         'novatek_nt36532': ['nt36532'],
@@ -53,7 +58,7 @@ def main():
                    for name, files in trees.items() for path in files
                    if any(token in path.lower() for token in tokens)]
         coverage[label] = {'matches': matches[:40], 'match_count': len(matches),
-                           'scope': 'Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim.'}
+                           'scope': 'Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim.'}
     evidence = []
     for file, needle in [
         ('README.zh-CN.md', '406'),
@@ -75,13 +80,14 @@ def main():
               'reference': plan['reference'], 'reference_evidence': evidence,
               'board_source_receipts': receipts, 'filename_coverage': coverage,
               'source_inputs_modified': False, 'device_writes': 0,
-              'kernel618_compiled': False, 'kernel618_device_validated': False,
+              'build_evidence': 'kernel618-build-verification.json (separate build audit)',
+              'kernel618_device_validated': False,
               'missing_catalog_groups': [k for k, v in coverage.items() if v['match_count'] == 0]}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({'checked_repositories': len(receipts),
                       'missing_catalog_groups': result['missing_catalog_groups'],
-                      'kernel618_compiled': False}))
+                      'build_evidence': result['build_evidence']}))
 
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@
   "schema": 1,
   "device": "sheng",
   "primary_rom": "LineageOS 24.0",
-  "source_plan_sha256": "ea6713cbf05f859b5ef1b9772806672ec1d968ed9c7157571d3449f6ba2b6b82",
+  "source_plan_sha256": "1e4e7b2539d59814077428291ceeaaf2502e85a2833329d755e15604d9bd515e",
   "reference": {
     "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550.git",
     "revision": "c3956156ce7c4193c451dfda531fad72d35bfebb",
@@ -84,7 +84,8 @@
       "checked_revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
       "git_tree": "45cd31bf6fa130c803a0ab79839b6d7d5ca99028",
       "catalog_file_count": 71264,
-      "full_checkout_or_build": false
+      "full_checkout": true,
+      "source_role": "primary"
     },
     {
       "name": "lineage-modules",
@@ -96,7 +97,8 @@
       "checked_revision": "92a9fde479d3262da080cfd28bab0775b0da500a",
       "git_tree": "303d14a030e5c715514a052e0a21ca7b411d27b2",
       "catalog_file_count": 8359,
-      "full_checkout_or_build": false
+      "full_checkout": true,
+      "source_role": "primary"
     },
     {
       "name": "lineage-devicetrees",
@@ -108,14 +110,93 @@
       "checked_revision": "43b5ada5654ed84c25f74789bc8f6326b7bacd20",
       "git_tree": "ab3d48925ce5f3df81572eb93fa2d348a254d7ff",
       "catalog_file_count": 5748,
-      "full_checkout_or_build": false
+      "full_checkout": true,
+      "source_role": "primary"
+    },
+    {
+      "name": "micode-kernel",
+      "url": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "branch": "sheng-u-oss",
+      "scope": "Official sheng tablet drivers missing from LOS; not a replacement kernel core",
+      "path": "/root/sheng-618/src/micode-kernel",
+      "checked_revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "git_tree": "93360d5c43d92697c9e94e26e04f4bc345f4b31e",
+      "catalog_file_count": 71097,
+      "full_checkout": true,
+      "source_role": "tablet-supplement"
+    },
+    {
+      "name": "micode-audio",
+      "url": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "branch": "sheng-u-oss",
+      "scope": "Official sheng CS35L43 amplifier and tablet audio differences",
+      "path": "/root/sheng-618/src/micode-audio",
+      "checked_revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "git_tree": "10bf4a48b1ad4037e5181e045fd84913e110d940",
+      "catalog_file_count": 423,
+      "full_checkout": true,
+      "source_role": "tablet-supplement"
+    },
+    {
+      "name": "micode-devicetree",
+      "url": "https://github.com/MiCode/kernel_devicetree.git",
+      "revision": "c4e85e1569f8acbbfe8e6dd694623aa56e424c60",
+      "branch": "sheng-u-oss",
+      "scope": "Tablet board wiring and input dependencies, checked against shipping firmware",
+      "path": "/root/sheng-618/src/micode-devicetree",
+      "checked_revision": "c4e85e1569f8acbbfe8e6dd694623aa56e424c60",
+      "git_tree": "ddbd8e72d1bd5a1f0fb307e62d8aa91798939be1",
+      "catalog_file_count": 4877,
+      "full_checkout": true,
+      "source_role": "tablet-supplement"
+    },
+    {
+      "name": "micode-display-devicetree",
+      "url": "https://github.com/MiCode/vendor_qcom_proprietary_display-devicetree.git",
+      "revision": "0af012cb525b81e293ddc83a5a5c41538946489a",
+      "branch": "sheng-u-oss",
+      "scope": "N81A dual-DSI tablet panel definitions absent from LOS phone trees",
+      "path": "/root/sheng-618/src/micode-display-devicetree",
+      "checked_revision": "0af012cb525b81e293ddc83a5a5c41538946489a",
+      "git_tree": "1d818e46e70e5ea188977194af429e3ffece8b43",
+      "catalog_file_count": 211,
+      "full_checkout": true,
+      "source_role": "tablet-supplement"
+    },
+    {
+      "name": "micode-display",
+      "url": "https://github.com/MiCode/vendor_opensource_display-drivers.git",
+      "revision": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+      "branch": "sheng-u-oss",
+      "scope": "Tablet display differences only; LOS remains the general driver foundation",
+      "path": "/root/sheng-618/src/micode-display",
+      "checked_revision": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+      "git_tree": "a8479547d1a2c6b3ac9d0ad3ba530392d0831d81",
+      "catalog_file_count": 365,
+      "full_checkout": false,
+      "source_role": "tablet-supplement"
+    },
+    {
+      "name": "micode-camera",
+      "url": "https://github.com/MiCode/vendor_qcom_opensource_camera-kernel.git",
+      "revision": "ad342a26a37e9fabc2f626a6622b788bf9aa546b",
+      "branch": "sheng-u-oss",
+      "scope": "Tablet camera differences only",
+      "path": "/root/sheng-618/src/micode-camera",
+      "checked_revision": "ad342a26a37e9fabc2f626a6622b788bf9aa546b",
+      "git_tree": "4c4114a69dd96f15614d9bec7db05ab49174f2ab",
+      "catalog_file_count": 555,
+      "full_checkout": false,
+      "source_role": "tablet-supplement"
     }
   ],
   "filename_coverage": {
     "novatek_nt36532": {
       "matches": [],
       "match_count": 0,
-      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+      "scope": "Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim."
     },
     "xiaomi_touchfeature": {
       "matches": [
@@ -125,56 +206,236 @@
         }
       ],
       "match_count": 1,
-      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+      "scope": "Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim."
     },
     "keyboard": {
       "matches": [],
       "match_count": 0,
-      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+      "scope": "Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim."
     },
     "hall": {
       "matches": [],
       "match_count": 0,
-      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+      "scope": "Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim."
     },
     "metis": {
       "matches": [],
       "match_count": 0,
-      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+      "scope": "Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim."
     },
     "pogo_charging": {
-      "matches": [],
-      "match_count": 0,
-      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+      "matches": [
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/Kconfig"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/Makefile"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/battmngr/Makefile"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/battmngr/main_charge.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/battmngr/step-chg-jeita.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/battmngr/xm_charger_core.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/battmngr/xm_charger_feature.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/battmngr/xm_charger_ffc.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/battmngr/xm_charger_thermal.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/battmngr/xm_charger_votable.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/extSOC/Makefile"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/extSOC/inc/nano_macro.h"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/extSOC/inc/virtual_fg.h"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/extSOC/nanosic_platform.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/extSOC/virtual_fg.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/init/Makefile"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/init/inc/xm_battmngr_init.h"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/init/xm_battmngr_init.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/utils/Makefile"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/utils/battmngr_notifier.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/utils/battmngr_voter.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/power/supply/pogoChg/utils/platform_class.c"
+        }
+      ],
+      "match_count": 22,
+      "scope": "Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim."
     },
     "cs35l43": {
-      "matches": [],
-      "match_count": 0,
-      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+      "matches": [
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/Kbuild"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/cs35l43-cal.c"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/cs35l43-i2c.c"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/cs35l43-spi.c"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/cs35l43-tables.c"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/cs35l43.c"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/cs35l43.h"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/wm_adsp.c"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/wm_adsp.h"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "asoc/codecs/cs35l43/wmfw.h"
+        },
+        {
+          "repository": "micode-audio",
+          "path": "include/uapi/audio/sound/cs35l43.h"
+        }
+      ],
+      "match_count": 11,
+      "scope": "Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim."
     },
     "fingerprint": {
-      "matches": [],
-      "match_count": 0,
-      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+      "matches": [
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/input/fingerprint/fpc_1553/Kconfig"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/input/fingerprint/fpc_1553/Makefile"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/input/fingerprint/fpc_1553/fpc1020_tee.c"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/input/fingerprint/xiaomi_fp/Kconfig"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/input/fingerprint/xiaomi_fp/Makefile"
+        },
+        {
+          "repository": "micode-kernel",
+          "path": "drivers/input/fingerprint/xiaomi_fp/xiaomi_fingerprint.c"
+        }
+      ],
+      "match_count": 6,
+      "scope": "Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim."
     },
     "tablet_panel": {
-      "matches": [],
-      "match_count": 0,
-      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+      "matches": [
+        {
+          "repository": "micode-display-devicetree",
+          "path": "display/dsi-panel-n81a-36-02-0a-dualdsi-dsc-lcd-video-micommon.dtsi"
+        },
+        {
+          "repository": "micode-display-devicetree",
+          "path": "display/dsi-panel-n81a-36-02-0a-dualdsi-dsc-lcd-video-qcomcommon.dtsi"
+        },
+        {
+          "repository": "micode-display-devicetree",
+          "path": "display/dsi-panel-n81a-36-02-0a-dualdsi-dsc-lcd-video.dtsi"
+        },
+        {
+          "repository": "micode-display-devicetree",
+          "path": "display/dsi-panel-n81a-36-02-0a-p0-dualdsi-dsc-lcd-video.dtsi"
+        },
+        {
+          "repository": "micode-display-devicetree",
+          "path": "display/sheng-sde-display-mtp-overlay.dts"
+        },
+        {
+          "repository": "micode-display-devicetree",
+          "path": "display/sheng-sde-display-mtp.dtsi"
+        }
+      ],
+      "match_count": 6,
+      "scope": "Filename catalog search of pinned LOS and user-approved official MiCode sheng repositories; not a global source-availability claim."
     }
   },
   "source_inputs_modified": false,
   "device_writes": 0,
-  "kernel618_compiled": false,
+  "build_evidence": "kernel618-build-verification.json (separate build audit)",
   "kernel618_device_validated": false,
   "missing_catalog_groups": [
     "novatek_nt36532",
     "keyboard",
     "hall",
-    "metis",
-    "pogo_charging",
-    "cs35l43",
-    "fingerprint",
-    "tablet_panel"
+    "metis"
   ]
 }

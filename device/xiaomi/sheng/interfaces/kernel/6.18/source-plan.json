@@ -4,7 +4,7 @@
   "primary_rom": "LineageOS 24.0",
   "vendor_baseline": "OS3.0.303.0.WNXCNXM",
   "secondary_rom": "HyperOS, separate runtime validation required",
-  "status": "source-and-abi-investigation; no 6.18 device build yet",
+  "status": "baseline-build-and-driver-port; no 6.18 device boot validation yet",
   "build_root": "/root/sheng-618",
   "minimum_host_free_gib": 40,
   "kernel_core": {
@@ -45,7 +45,51 @@
       "scope": "LOS SM8550 hardware definitions, checked against sheng stock DTB/DTBO"
     }
   ],
-  "source_policy": "Use LOS official sources as requested; withdrawn MiCode sheng catalogs are not build inputs. Keep the existing ROM checkout pinned and unchanged.",
+  "supplemental_board_sources": [
+    {
+      "name": "micode-kernel",
+      "url": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "branch": "sheng-u-oss",
+      "scope": "Official sheng tablet drivers missing from LOS; not a replacement kernel core"
+    },
+    {
+      "name": "micode-audio",
+      "url": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "branch": "sheng-u-oss",
+      "scope": "Official sheng CS35L43 amplifier and tablet audio differences"
+    },
+    {
+      "name": "micode-devicetree",
+      "url": "https://github.com/MiCode/kernel_devicetree.git",
+      "revision": "c4e85e1569f8acbbfe8e6dd694623aa56e424c60",
+      "branch": "sheng-u-oss",
+      "scope": "Tablet board wiring and input dependencies, checked against shipping firmware"
+    },
+    {
+      "name": "micode-display-devicetree",
+      "url": "https://github.com/MiCode/vendor_qcom_proprietary_display-devicetree.git",
+      "revision": "0af012cb525b81e293ddc83a5a5c41538946489a",
+      "branch": "sheng-u-oss",
+      "scope": "N81A dual-DSI tablet panel definitions absent from LOS phone trees"
+    },
+    {
+      "name": "micode-display",
+      "url": "https://github.com/MiCode/vendor_opensource_display-drivers.git",
+      "revision": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+      "branch": "sheng-u-oss",
+      "scope": "Tablet display differences only; LOS remains the general driver foundation"
+    },
+    {
+      "name": "micode-camera",
+      "url": "https://github.com/MiCode/vendor_qcom_opensource_camera-kernel.git",
+      "revision": "ad342a26a37e9fabc2f626a6622b788bf9aa546b",
+      "branch": "sheng-u-oss",
+      "scope": "Tablet camera differences only"
+    }
+  ],
+  "source_policy": "2026-11-08 user approved LOS as primary with official MiCode sheng sources for missing tablet drivers. Keep the existing ROM checkout pinned and unchanged. Supplemental inputs must have fixed revisions and per-file provenance.",
   "module_inputs": "../stock-modules/module-plan.json",
   "board_groups": [
     {"name": "display", "modules": ["msm_drm.ko"], "requires": "tablet LCD dual-DSI/DSC and original display userspace ABI"},
