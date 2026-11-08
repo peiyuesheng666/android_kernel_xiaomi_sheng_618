@@ -1,0 +1,46 @@
+{
+  "revision": "wrapped-r16",
+  "serial": "ca10ede3",
+  "flashed_partition": "boot_a",
+  "boot_sha256": "43ef372266a788a4b5c49780519d9f18e31613f96ab7f579310bc0471553979a",
+  "image_sha256": "e9b4ea0629a33dd5bf3e3a0c5f48b0c1e0549eb34d3f5ae0ee24cc5869fc63c6",
+  "hardware_log_received": true,
+  "run": "7c9c618cd9fdeff7",
+  "latest_log": "reports/device/kernel618-wrapped-r16/bootlog-7c9c618cd9fdeff7-153.txt",
+  "raw_sha256": "69ec95d5113776a298b9b93ee99733193c71ed46c625e890b637d08bcd26438e",
+  "valid_snapshots": [
+    {
+      "sequence": 152,
+      "uptime_ms": 43564
+    },
+    {
+      "sequence": 153,
+      "uptime_ms": 43826
+    }
+  ],
+  "automatic_fastboot_return": true,
+  "manual_reboot_needed": false,
+  "host_elapsed_seconds": 64.74,
+  "temporary_recovery_and_readback_automatic": true,
+  "android_boot_completed": false,
+  "candidate_adb_connected": false,
+  "original_boot_backed_up": false,
+  "current_state": "Fastboot after automatic log readback",
+  "previous_block_resolved": true,
+  "hardware_crypto_progress": [
+    "Legacy provisioning total108/header8/type2/flags0/raw100 accepted at 42.250599s",
+    "vdc enablefilecrypto exited 0 at 42.260879s",
+    "Existing encrypted directories and persistent properties read",
+    "vdc cryptfs init_user0 exited 0 at 43.254042s"
+  ],
+  "credential_unlock_fully_tested": false,
+  "next_failure": "kiwi/amss20.bin request failed ENOENT; sysfs fallback denied firmware_load; CNSS panics at 43.812440s",
+  "automatic_panic_fastboot_hardware_verified": true,
+  "hardware_verified_return_routes": [
+    "180-second timeout (r13)",
+    "Android requested reboot (r14)",
+    "kernel panic (r16)"
+  ],
+  "all_soc_hard_lock_return_guaranteed": false,
+  "next": "Compare stock firmware paths and old/new firmware loader SELinux contract; retain stock userspace"
+}

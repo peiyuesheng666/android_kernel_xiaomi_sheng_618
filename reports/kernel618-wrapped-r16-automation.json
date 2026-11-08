@@ -1,0 +1,76 @@
+{
+  "revision": "wrapped-r16",
+  "serial": "ca10ede3",
+  "boot_sha256": "43ef372266a788a4b5c49780519d9f18e31613f96ab7f579310bc0471553979a",
+  "image_sha256": "e9b4ea0629a33dd5bf3e3a0c5f48b0c1e0549eb34d3f5ae0ee24cc5869fc63c6",
+  "test_timeout_seconds": 180,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "wall_time": "2026-11-08T23:16:24+0800"
+    },
+    {
+      "event": "candidate_started",
+      "wall_time": "2026-11-08T23:16:24+0800"
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:16:25+0800",
+      "seconds_remaining": 235
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:16:55+0800",
+      "seconds_remaining": 205
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:17:25+0800",
+      "seconds_remaining": 175
+    },
+    {
+      "event": "automatic_fastboot_received",
+      "wall_time": "2026-11-08T23:17:29+0800",
+      "elapsed_seconds": 64.74
+    },
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-08T23:17:32+0800"
+    },
+    {
+      "event": "log_readback_complete",
+      "wall_time": "2026-11-08T23:17:46+0800",
+      "run": "7c9c618cd9fdeff7",
+      "uptime_ms": 43826
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:17:46+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "finished_in_fastboot",
+      "wall_time": "2026-11-08T23:17:50+0800"
+    }
+  ],
+  "automatic_fastboot_return": true,
+  "raw_sha256": "69ec95d5113776a298b9b93ee99733193c71ed46c625e890b637d08bcd26438e",
+  "run": "7c9c618cd9fdeff7",
+  "valid_snapshots": [
+    {
+      "sequence": 152,
+      "uptime_ms": 43564
+    },
+    {
+      "sequence": 153,
+      "uptime_ms": 43826
+    }
+  ],
+  "log_readback_succeeded": true,
+  "latest_log": "reports/device/kernel618-wrapped-r16/bootlog-7c9c618cd9fdeff7-153.txt"
+}

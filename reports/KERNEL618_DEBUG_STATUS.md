@@ -385,3 +385,17 @@ wrapped 100 字节均通过负载检查，进入虚拟硬件不支持的 wrapped
 18,008 导出及官方 boot 封包解包检查通过，337 模块仍复用 r12，不重编显示模块。
 保留 180 秒测试参数；实机 ADB 尚未连接，本轮准备自动验证。
 五版：aux-r12、auto-r13、modules-r14、crypto-r15、wrapped-r16。
+
+
+### wrapped-r16 实机通过加密初始化，panic 自动回 Fastboot
+
+run 7c9c618cd9fdeff7，seq152/153 至 43.564/43.826 秒，CRC 有效。
+旧 100 字节 wrapped provisioning 已接受，42.261 秒 enablefilecrypto 以 0 退出；
+既有加密目录校验、持久属性、APEX 和 init_user0 均已继续，真实硬件加密路径通过本轮启动阶段。
+尚未验证所有凭据解锁与完整 Android 功能，候选 ADB 仍未连通。
+下一故障是 kiwi/amss20.bin 固件直读 ENOENT，sysfs fallback 被 firmware_load 权限拒绝，
+43.812 秒 CNSS 触发 wlan crashed panic。异常栈已持久保存。
+电脑在 64.74 秒自动收到 Fastboot，自动临时 Recovery 读日志后再次返回 Fastboot。
+因此超时、Android 主动重启、实际内核 panic 三种回 Fastboot 路径均已实机验证。
+全 SoC 硬锁或极早复位仍不能保证。保留测试模式，ADB 连通后的下一版关闭。
+详见 kernel618-wrapped-r16-{hardware,automation}.json。

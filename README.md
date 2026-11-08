@@ -199,3 +199,6 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 
 2026-11-08 wrapped-r16 已补旧 wrapped provisioning ABI；QEMU 实际 add_key/ext4 ioctl 共 14 例通过，
 原始/封装密钥隔离和长度检查保留；真实 ICE 派生与启动待实机。
+
+2026-11-08 wrapped-r16 实机通过加密初始化；下一卡点是 Wi-Fi 固件加载兼容。
+真实 panic 自动回 Fastboot 并读日志成功，三种测试回退路径均已实机验证，尚无候选 ADB。
