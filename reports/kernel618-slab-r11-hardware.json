@@ -11,9 +11,56 @@
   "compiled": false,
   "flash_succeeded": true,
   "reboot_command_succeeded": true,
-  "hardware_log_received": false,
-  "android_boot_completed": null,
+  "hardware_log_received": true,
+  "android_boot_completed": false,
   "original_boot_backed_up": false,
   "diagnostic_only": true,
-  "current_state": "Flashed boot_a and rebooted; awaiting hardware result"
+  "current_state": "Temporary Recovery after r11 readback; r12 AUX lifecycle fix built, not yet flashed",
+  "user_result": "Still failed; returned to Fastboot",
+  "raw_region_sha256": "b1ff73a06a42e0421977d04d9831e2042f2156a32e3ab1e8a1e6ee0948135fab",
+  "run": "6080c2fc01074de6",
+  "valid_crc_snapshots": [
+    {
+      "sequence": 70,
+      "uptime_ms": 23278
+    },
+    {
+      "sequence": 69,
+      "uptime_ms": 22461
+    }
+  ],
+  "latest_log": "reports/device/kernel618-slab-r11/bootlog-6080c2fc01074de6-70.txt",
+  "fault": {
+    "type": "Same devices kset list_add corruption: prev->next is NULL",
+    "time_seconds": 22.51776,
+    "cpu": 6,
+    "pid": 12,
+    "slab": "kmalloc-2k",
+    "slab_object": "ffffff8023d7d000",
+    "pointer_offset": 480,
+    "latest_allocation_stack": [
+      "sde_hw_sspp_init",
+      "sde_plane_init",
+      "_sde_kms_drm_obj_init"
+    ],
+    "retained_free_stack": [
+      "kfree",
+      "devm_kfree",
+      "dp_aux_put",
+      "dp_display_post_init",
+      "dp_connector_post_init",
+      "sde_connector_init"
+    ],
+    "pc": "__list_add_valid_or_report+0x104/0x10c",
+    "stack": [
+      "devices_kset_move_last",
+      "device_reorder_to_tail",
+      "device_pm_move_to_tail",
+      "deferred_probe_work_func"
+    ]
+  },
+  "allocation_free_provenance_received": true,
+  "source_confirmation": "dp_init_sub_modules registers AUX before dp_pll_get; error_pll calls dp_aux_put without unregistering embedded I2C adapter",
+  "layout_confirmation": "devres data offset 128 + dp_aux_private embedded I2C kobject entry offset 352 = slab offset 480; compiler assertions in lifecycle regression test",
+  "attribution": "Dangling AUX I2C adapter after DP PLL failure; SSPP is the later allocation reusing freed memory, not established as the faulty free"
 }

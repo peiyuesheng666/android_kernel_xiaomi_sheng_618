@@ -361,7 +361,7 @@ __list_add_valid_or_report。损坏 entry 位于 kmalloc-2k 对象偏移 480。
 原始日志 reports/device/kernel618-fault-r10/，整理见 kernel618-fault-r10-hardware.json。
 
 
-### slab-r11：只对已证损坏的内存池记录来源（已刷入，实机待确认）
+### slab-r11：实机取得 DP AUX 提前释放来源
 
 复用 fault-r10 的相同 Image 和全部模块，不重新编译。仅 boot cmdline 新增
 stack_depot_disable=off slab_debug=U,kmalloc-2k，用 ACK 原生 SLAB_STORE_USER
@@ -385,3 +385,25 @@ Recovery ADB 重启到 Fastboot，核对 sheng/slot a 后已刷 boot_a 并 reboo
 整理见 kernel618-slab-r11-{boot,qemu-slab,hardware}.json。
 当前五版为 display-r7、display-r8、display-r9、fault-r10、slab-r11；
 仅清理旧 display-r6 交付目录，原始日志及源码记录保留。
+
+
+### slab-r11 实机结果与 AUX 生命周期根因
+
+run 6080c2fc01074de6，seq69/70 至 22.461/23.278 秒，两份 CRC/尾标记有效。
+cmdline 的 slab-r11、stack_depot_disable=off 和 slab_debug=U,kmalloc-2k 均确认。
+同一设备链表 BUG 再现；本轮成功保存分配栈和 Free path。
+坏 entry 为 ffffff8023d7d1e0，所属 kmalloc-2k 对象起点 ffffff8023d7d000、偏移 480。
+最新分配来自 sde_hw_sspp_init；保留的上次释放栈为 devm_kfree → dp_aux_put →
+dp_display_post_init → dp_connector_post_init → sde_connector_init。
+SSPP 是复用已释放对象的后续分配者，不能据此指责它错误释放了 AUX。
+
+源码确认：dp_init_sub_modules 先成功注册 AUX 的内嵌 I2C adapter，再查找 DP PLL；
+本机缺少新 qcom,dp-pll phandle，使 PLL 初始化失败，错误路径直接 dp_aux_put。
+旧 dp_aux_put 只销毁 mutex 并 devm_kfree，没有注销仍在设备链表中的 I2C adapter。
+devres 的 128 字节头 + AUX 对象内 I2C kobject.entry 的 352 字节偏移恰好是 480；
+在独立回归模块用相同内核类型和实际结构声明编译断言核对。
+所选 nuwa/HyperOS 集成、LOS 92a9fde479d3262da080cfd28bab0775b0da500a、
+MiCode 6461221b68908b990e1fa2b60feaa812cb944ef5 都有同样的错误清理遗漏；
+MiCode 旧同节点 PLL 绑定避开了本机这条触发路径。现修复对象所有者的清理职责，
+不删除链表检查，不用禁用 SSPP 或整个 DP 来掩盖问题。
+原始日志 reports/device/kernel618-slab-r11/；结果见 kernel618-slab-r11-hardware.json。
