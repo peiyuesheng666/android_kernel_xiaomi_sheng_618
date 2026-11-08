@@ -58,9 +58,11 @@ display = 'vendor/qcom/opensource/display-drivers/'
 name = display + 'msm/sheng_ktz8866.h'
 files[name] = (reference / 'mi_backlight_ktz8866.h').read_text()
 files[name] = '#include <linux/types.h>\n#include <linux/list.h>\n' + files[name]
+files[name] = once(files[name], 'struct ktz8866_led {', 'struct ktz8866_led {\n\t\tstruct device *dev;')
 files[name] += '\nint sheng_ktz8866_init(void);\nvoid sheng_ktz8866_exit(void);\nint ktz8866_backlight_update_status(unsigned int level);\n'
 name = display + 'msm/sheng_ktz8866.c'
 text = (reference / 'mi_backlight_ktz8866.c').read_text()
+text = '#include <linux/ratelimit.h>\n#include <linux/timekeeping.h>\n' + text
 text = text.replace('#include "mi_backlight_ktz8866.h"', '#include "sheng_ktz8866.h"')
 text = once(text, '#define u8\tunsigned int\nstatic struct list_head ktz8866_dev_list;\nstatic struct mutex ktz8866_dev_list_mutex;',
     'static LIST_HEAD(ktz8866_dev_list);\nstatic DEFINE_MUTEX(ktz8866_dev_list_mutex);')
@@ -112,6 +114,8 @@ text = text[:a] + '''int ktz8866_backlight_update_status(unsigned int level)
 {
 	struct ktz8866_led *ktz;
 	int ret = 0, err;
+	static DEFINE_RATELIMIT_STATE(trace_limit, HZ, 4);
+	bool trace = ktime_get_boottime_seconds() < 120 && __ratelimit(&trace_limit);
 
 	mutex_lock(&ktz8866_dev_list_mutex);
 	if (list_empty(&ktz8866_dev_list))
@@ -120,6 +124,17 @@ text = text[:a] + '''int ktz8866_backlight_update_status(unsigned int level)
 		err = ktz->ops->update_status(ktz, level);
 		if (err && !ret)
 			ret = err;
+		if (trace) {
+			unsigned int lsb, msb, enable;
+			int readback = regmap_read(ktz->regmap, KTZ8866_DISP_BB_LSB, &lsb);
+			if (!readback)
+				readback = regmap_read(ktz->regmap, KTZ8866_DISP_BB_MSB, &msb);
+			if (!readback)
+				readback = regmap_read(ktz->regmap, KTZ8866_DISP_BL_ENABLE, &enable);
+			if (!readback)
+				dev_info(ktz->dev, "sheng_backlight requested=%u cached=%d actual=%u enable=0x%x write_rc=%d\\n",
+					level, ktz->level, ((msb & 0xff) << 3) | (lsb & 7), enable, err);
+		}
 	}
 	mutex_unlock(&ktz8866_dev_list_mutex);
 	return ret;
@@ -127,6 +142,38 @@ text = text[:a] + '''int ktz8866_backlight_update_status(unsigned int level)
 ''' + text[b:]
 text = once(text, 'static int ktz8866_probe(struct i2c_client *i2c,\n\t\t\t  const struct i2c_device_id *id)',
     'static int ktz8866_probe(struct i2c_client *i2c)')
+telemetry = r'''/* Read actual I2C registers without providing a raw write interface. */
+static ssize_t register_brightness_show(struct device *dev,
+                                      struct device_attribute *attr, char *buf)
+{
+	struct ktz8866_led *ktz = dev_get_drvdata(dev);
+	unsigned int lsb, msb, enable;
+	int ret;
+
+	mutex_lock(&ktz8866_dev_list_mutex);
+	ret = regmap_read(ktz->regmap, KTZ8866_DISP_BB_LSB, &lsb);
+	if (!ret)
+		ret = regmap_read(ktz->regmap, KTZ8866_DISP_BB_MSB, &msb);
+	if (!ret)
+		ret = regmap_read(ktz->regmap, KTZ8866_DISP_BL_ENABLE, &enable);
+	if (!ret)
+		ret = sysfs_emit(buf, "cached=%d actual=%u enable=0x%02x\n",
+			ktz->level, ((msb & 0xff) << 3) | (lsb & 7), enable);
+	mutex_unlock(&ktz8866_dev_list_mutex);
+	return ret;
+}
+static DEVICE_ATTR_RO(register_brightness);
+static struct attribute *ktz8866_attrs[] = {
+	&dev_attr_register_brightness.attr,
+	NULL,
+};
+ATTRIBUTE_GROUPS(ktz8866);
+
+'''
+text = once(text, 'static int ktz8866_probe(struct i2c_client *i2c)',
+            telemetry + 'static int ktz8866_probe(struct i2c_client *i2c)')
+text = once(text, '\t\t.of_match_table = ktz8866_match_table,',
+            '\t\t.of_match_table = ktz8866_match_table,\n\t\t.dev_groups = ktz8866_groups,')
 text = once(text, '\tint ret = 0;\n\n\tif (!i2c_check_functionality',
     '\tunsigned int enable;\n\tint ret;\n\n\tif (!i2c_check_functionality')
 text = once(text, '''	if(!pdata->regmap) {
@@ -139,6 +186,7 @@ text = once(text, '''	if(!pdata->regmap) {
 		return ret;
 	pdata->ktz8866_status = !!(enable & KTZ8866_backlight_EN_MASK);
 	pdata->level = -1;
+	pdata->dev = &i2c->dev;
 	i2c_set_clientdata(i2c, pdata);''')
 text = once(text, '\tlist_add(&pdata->entry, &ktz8866_dev_list);',
     '\tmutex_lock(&ktz8866_dev_list_mutex);\n\tlist_add(&pdata->entry, &ktz8866_dev_list);\n\tmutex_unlock(&ktz8866_dev_list_mutex);')
@@ -183,6 +231,16 @@ files[name] = text
 name = display + 'msm/dsi/dsi_panel.c'
 text = read(name)
 text = '#include "../sheng_ktz8866.h"\n' + text
+text = once(text, '\tint i;\n\n#ifdef OPLUS_FEATURE_DISPLAY\n\tDSI_INFO("dsi_panel_reset\\n");',
+    '\tint i;\n\n'
+    '\t/* Keep the N81A LCD dark while its reset invalidates the scanout.\n'
+    '\t * Brightness is restored through the normal commit/backlight path.\n'
+    '\t * 0x3f disables LEDs only; the original LCD bias bits stay enabled. */\n'
+    '\tif (dsi_panel_is_sheng(panel) && panel->bl_config.type == DSI_BACKLIGHT_EXTERNAL) {\n'
+    '\t\trc = ktz8866_backlight_update_status(0);\n'
+    '\t\tif (rc)\n'
+    '\t\t\treturn rc;\n'
+    '\t}\n\n#ifdef OPLUS_FEATURE_DISPLAY\n\tDSI_INFO("dsi_panel_reset\\n");')
 a = text.index('int dsi_panel_set_backlight(')
 b = text.index('\n}\n', a) + 3
 body = once(text[a:b], '\tcase DSI_BACKLIGHT_EXTERNAL:\n\t\tbreak;',

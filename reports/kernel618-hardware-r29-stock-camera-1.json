@@ -1,0 +1,112 @@
+{
+  "revision": "hardware-r29",
+  "camera": "1",
+  "evidence": "reports/device/kernel618-hardware-r29/preview-1794162321186791360",
+  "samples": [
+    {
+      "file": "camera-0.txt",
+      "sha256": "5681fb57a7baa36485a04acd6393205a68635585a710be254d24efc949880290",
+      "streams": [
+        {
+          "frames": 47,
+          "width": 1920,
+          "height": 1440,
+          "format": "0x22,"
+        },
+        {
+          "frames": 0,
+          "width": 1920,
+          "height": 1440,
+          "format": "0x23,"
+        },
+        {
+          "frames": 47,
+          "width": 1600,
+          "height": 1200,
+          "format": "0x23,"
+        }
+      ]
+    },
+    {
+      "file": "camera-1.txt",
+      "sha256": "e039498d7de16c34c96053c417c426deae79eda73f8a2e13ad017abcd903d158",
+      "streams": [
+        {
+          "frames": 99,
+          "width": 1920,
+          "height": 1440,
+          "format": "0x22,"
+        },
+        {
+          "frames": 0,
+          "width": 1920,
+          "height": 1440,
+          "format": "0x23,"
+        },
+        {
+          "frames": 99,
+          "width": 1600,
+          "height": 1200,
+          "format": "0x23,"
+        }
+      ]
+    },
+    {
+      "file": "camera-2.txt",
+      "sha256": "e6ac2bf09f33f980a87f2b6ff14404821503714048b65f6654cd2c666d2c7f54",
+      "streams": [
+        {
+          "frames": 151,
+          "width": 1920,
+          "height": 1440,
+          "format": "0x22,"
+        },
+        {
+          "frames": 0,
+          "width": 1920,
+          "height": 1440,
+          "format": "0x23,"
+        },
+        {
+          "frames": 151,
+          "width": 1600,
+          "height": 1200,
+          "format": "0x23,"
+        }
+      ]
+    },
+    {
+      "file": "camera-3.txt",
+      "sha256": "f5c33ab81ddadb8896d81b7456567d383d2544d7c0f0558c029ebc0a159a2d78",
+      "streams": [
+        {
+          "frames": 203,
+          "width": 1920,
+          "height": 1440,
+          "format": "0x22,"
+        },
+        {
+          "frames": 0,
+          "width": 1920,
+          "height": 1440,
+          "format": "0x23,"
+        },
+        {
+          "frames": 203,
+          "width": 1600,
+          "height": 1200,
+          "format": "0x23,"
+        }
+      ]
+    }
+  ],
+  "maximum_frames_by_sample": [
+    47,
+    99,
+    151,
+    203
+  ],
+  "real_preview_stream_progress": true,
+  "photos_saved": false,
+  "scope": "Stock app preview only; still photography, video and visual quality not validated"
+}

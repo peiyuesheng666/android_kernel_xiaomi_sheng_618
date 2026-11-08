@@ -1,0 +1,10 @@
+{
+  "revision": "hardware-r29",
+  "camera": "1",
+  "format": "private",
+  "evidence": "reports/device/kernel618-hardware-r29/camera-frames-1794162101414363142",
+  "returncode": 1,
+  "result": "accessible_cameras=2\r\ncamera=1 metadata_status=0 format=34\r\ncamera=1 open_status=0 size=640x480\r\ncamera=1 session_status=0\r\ncamera=1 repeating_status=0\r\nRESULT camera=1 frames=0 completed=0 failed=0 errors=0 passed=0\r\n",
+  "binary_sha256": "43943efd3124f90a83200dba8725cc74d786d25f920ba3b870ec8870ef679b49",
+  "pixels_saved": false
+}

@@ -17,12 +17,12 @@
     },
     "vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.h": {
       "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "after": "bccbc172ee7feb2b4c2a030867deef6068663df94642af9c35f3ae92bd6f219f",
+      "after": "8a392c93d7636da4f4240b99fa10d3ff500f34393d84f2592caa9133bbac24ea",
       "added": true
     },
     "vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c": {
       "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "after": "50b993a172a2d9c53e940f58f236ae6b895e3b452baea00e9b7bedf223de7c26",
+      "after": "a0380c75141a743b8d156af081c327c1a04a784850383769cbe9fae74cd609a7",
       "added": true
     },
     "vendor/qcom/opensource/display-drivers/msm/Kbuild": {
@@ -37,7 +37,7 @@
     },
     "vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.c": {
       "before": "3fcf80fca60f831e964abdf8705091eeb28d3a62aa56ccc0f8229608ce6d6db0",
-      "after": "b0cb9e14f605f6fbef50f8637f64567671a9b8da27ff76db8058445ac2ebad85",
+      "after": "a675c06604bb38390490cbbd615166814a106c9a65e4e5558ca369c144973d6c",
       "added": false
     }
   },

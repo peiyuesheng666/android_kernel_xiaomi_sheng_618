@@ -10,6 +10,7 @@ from test_sheng618_hardware import ROOT, SERIAL
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--revision', required=True)
+parser.add_argument('--front', action='store_true')
 options = parser.parse_args()
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
 folder = ROOT/'reports/device'/('kernel618-'+options.revision)/('preview-'+str(time.time_ns()))
@@ -27,12 +28,25 @@ def call(name, command):
 assert call('kernel', 'uname -r').strip().startswith('6.18.')
 try:
     call('wake', 'input keyevent 224')
-    call('start', 'am start -a android.media.action.STILL_IMAGE_CAMERA_SECURE')
+    policy = call('keyguard-policy', 'dumpsys window policy')
+    if re.search(r'^\s+secure=false\s*$', policy, re.M):
+        # Normal OS dismissal of an unsecured swipe screen. Never attempt to
+        # dismiss a credential-protected keyguard or guess user credentials.
+        call('dismiss-unsecured-swipe', 'wm dismiss-keyguard')
+        action = 'android.media.action.STILL_IMAGE_CAMERA'
+    else:
+        action = 'android.media.action.STILL_IMAGE_CAMERA_SECURE'
+    extra = ''
+    if options.front:
+        call('close-previous-test', 'am force-stop com.android.camera')
+        extra = ' --ez android.intent.extra.USE_FRONT_CAMERA true --ei android.intent.extras.CAMERA_FACING 1'
+    call('start', 'am start -a '+action+extra)
     for i in range(4):
         time.sleep(5)
         call('camera-'+str(i), 'dumpsys media.camera')
         print(json.dumps(dict(sample=i)), flush=True)
-    call('logcat', 'logcat -b all -d -t 8000 | grep -iE "camx|camera3|cam_req|cam_sensor|camera.*(error|fail)|surface.*(error|fail)"')
+    call('focus', 'dumpsys window | grep -E "mCurrentFocus|mFocusedApp"')
+    call('logcat', 'logcat -b all -d -t 12000 | grep -iE "camx|camera3|cam_req|cam_sensor|camera.*(error|fail)|surface.*(error|fail)|gralloc|GraphicBuffer|BufferQueue"')
 finally:
     call('close', 'input keyevent 3')
 print(str(folder), flush=True)

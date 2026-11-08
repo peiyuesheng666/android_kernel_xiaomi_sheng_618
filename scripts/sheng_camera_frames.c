@@ -3,6 +3,8 @@
 #include <camera/NdkCameraManager.h>
 #include <camera/NdkCameraMetadataTags.h>
 #include <media/NdkImageReader.h>
+#include <android/hardware_buffer.h>
+#include <string.h>
 #include <stdio.h>
 #include <stdatomic.h>
 #include <time.h>
@@ -28,7 +30,7 @@ static void image_available(void *ctx, AImageReader *reader) {
     }
 }
 
-static int exercise(ACameraManager *manager, const char *id) {
+static int exercise(ACameraManager *manager, const char *id, int format) {
     ACameraMetadata *metadata = NULL;
     ACameraDevice *device = NULL;
     AImageReader *reader = NULL;
@@ -42,15 +44,18 @@ static int exercise(ACameraManager *manager, const char *id) {
     ACameraMetadata_const_entry configs;
     atomic_store(&frames, 0); atomic_store(&errors, 0);
     atomic_store(&completed, 0); atomic_store(&failed, 0);
-    if (ACameraManager_getCameraCharacteristics(manager, id, &metadata) != ACAMERA_OK) goto done;
+    int meta_status = ACameraManager_getCameraCharacteristics(manager, id, &metadata);
+    printf("camera=%s metadata_status=%d format=%d\n", id, meta_status, format);
+    if (meta_status != ACAMERA_OK) goto done;
     if (ACameraMetadata_getConstEntry(metadata, ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS, &configs) != ACAMERA_OK) goto done;
     for (unsigned int i = 0; i + 3 < configs.count; i += 4) {
         const int32_t *c = configs.data.i32 + i;
-        if (c[0] == AIMAGE_FORMAT_YUV_420_888 && c[3] == 0 && c[1] >= 320 && c[1] <= 4096 &&
+        if (c[0] == format && c[3] == 0 && c[1] >= 640 && c[1] <= 4096 &&
             (!width || c[1] * c[2] < width * height)) { width = c[1]; height = c[2]; }
     }
     if (!width) goto done;
-    if (AImageReader_new(width, height, AIMAGE_FORMAT_YUV_420_888, 3, &reader) != AMEDIA_OK) goto done;
+    uint64_t usage = format == AIMAGE_FORMAT_PRIVATE ? AHARDWAREBUFFER_USAGE_GPU_SAMPLED_IMAGE : AHARDWAREBUFFER_USAGE_CPU_READ_OFTEN;
+    if (AImageReader_newWithUsage(width, height, format, usage, 8, &reader) != AMEDIA_OK) goto done;
     AImageReader_ImageListener listener = { .context = NULL, .onImageAvailable = image_available };
     if (AImageReader_setImageListener(reader, &listener) != AMEDIA_OK) goto done;
     if (AImageReader_getWindow(reader, &window) != AMEDIA_OK) goto done;
@@ -89,15 +94,20 @@ done:
     return result;
 }
 
-int main(void) {
+int main(int argc, char **argv) {
     setvbuf(stdout, NULL, _IOLBF, 0);
     ACameraManager *manager = ACameraManager_create();
     ACameraIdList *ids = NULL;
     if (!manager || ACameraManager_getCameraIdList(manager, &ids) != ACAMERA_OK) return 2;
     printf("accessible_cameras=%d\n", ids->numCameras);
-    int failed = 0;
-    for (int i = 0; i < ids->numCameras && i < 4; i++) failed += exercise(manager, ids->cameraIds[i]);
+    int failed = 0, tested = 0;
+    int format = argc > 2 && !strcmp(argv[2], "private") ? AIMAGE_FORMAT_PRIVATE : AIMAGE_FORMAT_YUV_420_888;
+    for (int i = 0; i < ids->numCameras && i < 4; i++) {
+        if (argc > 1 && strcmp(argv[1], ids->cameraIds[i])) continue;
+        tested++;
+        failed += exercise(manager, ids->cameraIds[i], format);
+    }
     ACameraManager_deleteCameraIdList(ids);
     ACameraManager_delete(manager);
-    return failed ? 1 : 0;
+    return !tested ? 3 : failed ? 1 : 0;
 }

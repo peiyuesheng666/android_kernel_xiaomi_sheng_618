@@ -94,7 +94,7 @@
  				CAM_DBG(CAM_SENSOR_UTIL, "Bypass regulator disable seq_type %d",
 --- /dev/null
 +++ b/vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.h
-@@ -0,0 +1,281 @@
+@@ -0,0 +1,282 @@
 +#include <linux/types.h>
 +#include <linux/list.h>
 +/*
@@ -153,6 +153,7 @@
 + * @level - setting backlight status
 +**/
 +struct ktz8866_led {
++		struct device *dev;
 +		int level;
 +		bool ktz8866_status;
 +		bool dimming_status;
@@ -378,7 +379,9 @@
 +int ktz8866_backlight_update_status(unsigned int level);
 --- /dev/null
 +++ b/vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c
-@@ -0,0 +1,195 @@
+@@ -0,0 +1,239 @@
++#include <linux/ratelimit.h>
++#include <linux/timekeeping.h>
 +/*
 + * KTZ Semiconductor KTZ8866 LED Driver
 + *
@@ -495,6 +498,8 @@
 +{
 +	struct ktz8866_led *ktz;
 +	int ret = 0, err;
++	static DEFINE_RATELIMIT_STATE(trace_limit, HZ, 4);
++	bool trace = ktime_get_boottime_seconds() < 120 && __ratelimit(&trace_limit);
 +
 +	mutex_lock(&ktz8866_dev_list_mutex);
 +	if (list_empty(&ktz8866_dev_list))
@@ -503,10 +508,48 @@
 +		err = ktz->ops->update_status(ktz, level);
 +		if (err && !ret)
 +			ret = err;
++		if (trace) {
++			unsigned int lsb, msb, enable;
++			int readback = regmap_read(ktz->regmap, KTZ8866_DISP_BB_LSB, &lsb);
++			if (!readback)
++				readback = regmap_read(ktz->regmap, KTZ8866_DISP_BB_MSB, &msb);
++			if (!readback)
++				readback = regmap_read(ktz->regmap, KTZ8866_DISP_BL_ENABLE, &enable);
++			if (!readback)
++				dev_info(ktz->dev, "sheng_backlight requested=%u cached=%d actual=%u enable=0x%x write_rc=%d\n",
++					level, ktz->level, ((msb & 0xff) << 3) | (lsb & 7), enable, err);
++		}
 +	}
 +	mutex_unlock(&ktz8866_dev_list_mutex);
 +	return ret;
 +}
++
++/* Read actual I2C registers without providing a raw write interface. */
++static ssize_t register_brightness_show(struct device *dev,
++                                      struct device_attribute *attr, char *buf)
++{
++	struct ktz8866_led *ktz = dev_get_drvdata(dev);
++	unsigned int lsb, msb, enable;
++	int ret;
++
++	mutex_lock(&ktz8866_dev_list_mutex);
++	ret = regmap_read(ktz->regmap, KTZ8866_DISP_BB_LSB, &lsb);
++	if (!ret)
++		ret = regmap_read(ktz->regmap, KTZ8866_DISP_BB_MSB, &msb);
++	if (!ret)
++		ret = regmap_read(ktz->regmap, KTZ8866_DISP_BL_ENABLE, &enable);
++	if (!ret)
++		ret = sysfs_emit(buf, "cached=%d actual=%u enable=0x%02x\n",
++			ktz->level, ((msb & 0xff) << 3) | (lsb & 7), enable);
++	mutex_unlock(&ktz8866_dev_list_mutex);
++	return ret;
++}
++static DEVICE_ATTR_RO(register_brightness);
++static struct attribute *ktz8866_attrs[] = {
++	&dev_attr_register_brightness.attr,
++	NULL,
++};
++ATTRIBUTE_GROUPS(ktz8866);
 +
 +static int ktz8866_probe(struct i2c_client *i2c)
 +{
@@ -533,6 +576,7 @@
 +		return ret;
 +	pdata->ktz8866_status = !!(enable & KTZ8866_backlight_EN_MASK);
 +	pdata->level = -1;
++	pdata->dev = &i2c->dev;
 +	i2c_set_clientdata(i2c, pdata);
 +	pdata->ops = &ops;
 +	mutex_lock(&ktz8866_dev_list_mutex);
@@ -560,6 +604,7 @@
 +	.driver = {
 +		.name = "ktz8866",
 +		.of_match_table = ktz8866_match_table,
++		.dev_groups = ktz8866_groups,
 +	},
 +	.probe = ktz8866_probe,
 +	.remove = ktz8866_remove,
@@ -623,7 +668,23 @@
  // SPDX-License-Identifier: GPL-2.0-only
  /*
   * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-@@ -1009,6 +1010,8 @@
+@@ -388,6 +389,15 @@
+ 	struct dsi_panel_reset_config *r_config = &panel->reset_config;
+ 	int i;
+ 
++	/* Keep the N81A LCD dark while its reset invalidates the scanout.
++	 * Brightness is restored through the normal commit/backlight path.
++	 * 0x3f disables LEDs only; the original LCD bias bits stay enabled. */
++	if (dsi_panel_is_sheng(panel) && panel->bl_config.type == DSI_BACKLIGHT_EXTERNAL) {
++		rc = ktz8866_backlight_update_status(0);
++		if (rc)
++			return rc;
++	}
++
+ #ifdef OPLUS_FEATURE_DISPLAY
+ 	DSI_INFO("dsi_panel_reset\n");
+ #endif /* OPLUS_FEATURE_DISPLAY */
+@@ -1009,6 +1019,8 @@
  		k618_mi_disp_bl(panel, bl_lvl);
  		break;
  	case DSI_BACKLIGHT_EXTERNAL:
