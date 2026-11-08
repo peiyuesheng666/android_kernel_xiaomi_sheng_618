@@ -142,3 +142,22 @@ Full product and normal product module builds have not passed. No candidate was
 installed on the device, no service or camera was started, and no enrollment or
 authentication was attempted. Namespace behavior, startup and runtime ABI still
 need device checks; working face enrollment is not yet established.
+
+## r32 installed runtime
+
+r32 was installed on ca10ede3/b after vendor_b growth to 336 MiB. Seven partition
+hashes, all fourteen payload files and nine new-node metadata entries matched;
+the original SystemUI APK was preserved. IFace/default and IMiFace/default
+registered in hal_face_default and hal_miface_default respectively under
+Enforcing. The framework called getSensorProps, created its user-0 session and
+successfully enumerated zero faces. Both daemons retained PIDs 1469/1478 during
+the observed boot. These checks establish startup and those limited Binder/HIDL
+calls, not complete runtime ABI coverage or working enrollment/authentication.
+
+The reported second-screen stall was a separate main-thread wait for the
+Lineage charging-control Binder interface. Its daemon could not access the
+charging class attribute. Correcting only that live attribute's permissions
+allowed boot completion while both face services stayed running. No face HAL
+was stopped and no SystemUI modification was used. The agent did not request
+camera capture, enrollment, or authentication. See
+r32-boot-charging-control-20261108.md; r33 carries the persistent init repair.

@@ -31,3 +31,25 @@ plus the independent face frontend's HIDL-manager lookup; no existing permission
 was removed. No new permissive domain was introduced. Candidate installation and
 Enforcing runtime acceptance, including a second boot after ownership transfer,
 remain pending.
+
+## r32 runtime and creation-only fourth path
+
+r32 was installed and its seven partition hashes and fourteen payload hashes
+passed guarded readback after temporary recovery from the independent charging
+HAL startup stall. Under Enforcing, the daemon itself changed report.dump,
+thermal.dump and last_thermal.dump to system:system, with the expected modes.
+No thermal ownership was changed manually. A subsequent boot is still needed
+to check fowner on those now system-owned files.
+
+thermal-global-mode remains root:system 0664 with its old 1970 timestamp. Further
+review of the same original disassembly corrects the initial expectation that
+all four paths would be chowned on every boot: access(F_OK) at 0x9b6e0 branches
+directly to 0x9b7a8 if this fourth file exists. Its open/chmod/chown sequence,
+including chown at 0x9b73c, runs only when the file is absent. The first three
+paths have unconditional chmod/chown calls. Therefore the unchanged fourth
+file does not establish a continuing capability denial. Its new-file creation
+branch has not been tested; the existing user state was preserved.
+
+See r32-boot-charging-control-20261108.md for the exact recovery scope. Do not
+claim four-file migration, creation-branch acceptance, or a second-boot pass
+from the first r32 boot.
