@@ -18,6 +18,26 @@ vendor.miface-hal-1-0. The generated vendor tree already retains libmiface and
 vendor.xiaomi.hardware.miface@1.0, but not these service binaries or registrations.
 Having their client libraries is insufficient to provide the standard face HAL.
 
+The service also needs android.hardware.biometrics.face-V2-ndk.so and
+android.hardware.biometrics.common-V2-ndk.so. Both original libraries exist in
+the firmware inputs and are absent from the currently installed product trees.
+The current public interface definitions retain frozen V2 source versions; an
+integration should use these existing module names and verify the generated V2
+libraries rather than creating conflicting replacements for shared interfaces.
+
+A host ELF dependency check has now passed for both original service binaries,
+both original V2 interface libraries, and the currently installed libmiface.
+The dependency set combines current vendor libraries, current vendor variants
+of LLNDK/runtime providers, and the two original V2 libraries as explicit
+candidates. No DT_NEEDED provider was missing from that candidate set and no
+undefined symbol was reported by check_elf_file.py. This is a candidate linking
+check: the two V2 files are still absent on the device, generated V2 build outputs
+have not been compiled, and linker namespaces, service startup and runtime ABI
+behavior remain unverified. It does not establish a working face service.
+
+Commands, exact provider paths, source hashes and all five zero exit statuses
+are saved in reports/device/r31-20261108-104747/face-dependency-elf-check.json.
+
 The AIDL service depends on face-V2-ndk, biometrics.common-V2-ndk, and the Xiaomi
 miface interface. The mifaced daemon also depends on libmiface, vendor camera
 and media NDK libraries, libQSEEComAPI, legacy graphics interfaces and libmisight.

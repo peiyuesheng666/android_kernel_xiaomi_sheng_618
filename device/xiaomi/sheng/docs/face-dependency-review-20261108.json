@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-08",
+  "investigation_only": true,
+  "checks_passed": 5,
+  "all_candidate_dependencies_found": true,
+  "original_face_v2_libraries_installed": false,
+  "public_frozen_v2_interface_sources_available": true,
+  "generated_v2_interfaces_built": false,
+  "daemon_startup_tested": false,
+  "camera_opened": false,
+  "enrollment_tested": false,
+  "actual_linker_namespace_tested": false,
+  "selinux_integration_tested": false,
+  "raw_evidence": "reports/device/r31-20261108-104747/face-dependency-elf-check.json",
+  "raw_evidence_sha256": "9417ec87deb1d03138cf8547cd06b27cfc53a161784353ad0d2f2ad490b670a1",
+  "scope": "ELF dependencies and exported symbols, using current vendor providers and original two V2 interface candidates; not runtime compatibility or enrollment"
+}
