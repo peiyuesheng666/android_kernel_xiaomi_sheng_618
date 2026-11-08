@@ -109,7 +109,7 @@
             android:order="29"
             android:title="型号名称"
             android:summary="Xiaomi Pad 6S Pro 12.4"
-            android:selectable="false"
+            android:selectable="true"
             settings:enableCopying="true"/>
 
         <!-- Model & hardware -->
@@ -129,7 +129,7 @@
             android:order="31"
             android:title="设备代号"
             android:summary="sheng"
-            android:selectable="false"
+            android:selectable="true"
             settings:enableCopying="true"/>
 
         <!-- EID -->

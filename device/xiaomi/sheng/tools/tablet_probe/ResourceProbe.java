@@ -70,14 +70,16 @@ public final class ResourceProbe {
                     if ("sheng_marketname".equals(key)) {
                         String title = parser.getAttributeValue("http://schemas.android.com/apk/res/android", "title");
                         String summary = parser.getAttributeValue("http://schemas.android.com/apk/res/android", "summary");
-                        marketing = (chinese ? "型号名称" : "Model name").equals(title) && "Xiaomi Pad 6S Pro 12.4".equals(summary);
+                        marketing = "true".equals(parser.getAttributeValue("http://schemas.android.com/apk/res/android", "selectable"))
+                                && (chinese ? "型号名称" : "Model name").equals(title) && "Xiaomi Pad 6S Pro 12.4".equals(summary);
                     }
                     if ("device_model".equals(key) || "hardware_info_device_model".equals(key)) {
                         number = (chinese ? "型号编号" : "Model number").equals(parser.getAttributeValue(
                                 "http://schemas.android.com/apk/res/android", "title"));
                     }
                     if ("sheng_codename".equals(key)) {
-                        codename = (chinese ? "设备代号" : "Device codename").equals(
+                        codename = "true".equals(parser.getAttributeValue("http://schemas.android.com/apk/res/android", "selectable"))
+                                && (chinese ? "设备代号" : "Device codename").equals(
                                 parser.getAttributeValue("http://schemas.android.com/apk/res/android", "title"))
                                 && "sheng".equals(parser.getAttributeValue(
                                         "http://schemas.android.com/apk/res/android", "summary"));
