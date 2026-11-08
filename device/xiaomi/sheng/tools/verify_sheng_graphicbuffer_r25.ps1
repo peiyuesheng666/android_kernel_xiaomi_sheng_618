@@ -45,8 +45,8 @@ if ((Invoke-Adb @('shell', 'getprop ro.product.device')).Trim() -ne 'sheng' -or
 }
 $expected = @{
     system = '0f9c8ad6341faae4abaa9c080614d6d879aa62e85e36383086bb0333adfb4dce'
-    system_ext = 'dec8a7e4dc8adc931ab6998d204a4f21b058b16af28a8615ef17fe8bf25811cc'
-    vbmeta_system = '644b62ff23dbf89775a5870b517d36a74fa13e9cefaa0d24a97ef5c9dea5014f'
+    system_ext = '82006f12228ebda0a521a96f8373c48bb52edb981a790830304f8ea50aa60419'
+    vbmeta_system = '3fe3413cc7fe8786372606ebfe7f9470e41bbf34b1dbcb5db7397540d9afc26a'
 }
 foreach ($file in $manifest.files) { $expected[$file.partition] = $file.sha256 }
 if ($expected.Count -ne 6) { throw 'Unexpected partition coverage.' }
@@ -85,7 +85,7 @@ foreach ($partition in @('odm', 'vendor')) {
 $providers = Save-Shell 'unchanged-provider-hashes.txt' 'sha256sum /vendor/lib64/libui.so /vendor/lib64/libgui_vendor.so /system_ext/priv-app/SystemUI/SystemUI.apk'
 foreach ($digest in @('5d6f48b97bbcbf79ce805f96e7d7043597154dbd8c615a8a4dfcaf8b916bf3f1',
     '0b082826f4787ea3332e282e7c9de877c4e7384d388bdb68fdb7fbcdf0b231c3',
-    'd2fcdb478e16a259db35bfafe30d0f4e73d3dc96dfe297be601de24f8604c75d')) {
+    '33017b0d59e28da5db3e089a98f49601de508228a012392ee2d04c82cda3ccb1')) {
     if ($providers -notmatch ('(?m)^' + $digest + '\s')) { throw 'An unchanged ABI provider or SystemUI differs.' }
 }
 function Get-ProcessIdentity([string]$tag) {
@@ -154,7 +154,8 @@ $result = [ordered]@{
     media_codec_allocation_count=6; dolby_idle_cpu_ticks_5_seconds=$deltas
     monitored_processes_stable=$true; aon_alias_verified=$true; temporary_probes_cleaned=$true
     camera_preview_user_passed=$null; video_stream_decode_verified=$false
-    power_button_animation_user_passed=$null; agent_started_camera_or_attention=$false
+    original_systemui_preserved=$true; power_button_animation_excluded_by_user=$true
+    agent_started_camera_or_attention=$false
     other_connected_device_operated=$false; evidence_directory=$evidence
 }
 $result | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $evidence 'runtime-result.json') -Encoding utf8

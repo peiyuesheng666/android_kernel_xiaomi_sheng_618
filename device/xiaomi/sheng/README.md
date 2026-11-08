@@ -111,8 +111,9 @@ after r25 installation and basic runtime checks. See
 for exact evidence hashes and validation boundaries. Local r25 image and pinned
 decode-fixture validation were rerun successfully after that record was committed.
 Those sealed r25 images were reviewed against the original r24 baseline;
-preserve their guards until a supplemental review explicitly verifies the
-restored upstream SystemUI partition chain.
+the supplemental review now verifies the restored upstream SystemUI partition
+chain, and the flash/runtime tools require that exact accepted baseline. See
+[docs/r25-original-systemui-install-plan-20261108.md](docs/r25-original-systemui-install-plan-20261108.md).
 
 The final color request keeps 自适应/生动/鲜艳 visible order and swaps the latter
 two functions; r18 passed the user check and 鲜艳 selection reads actual mode1. Source/build/package milestones remain

@@ -5,12 +5,23 @@ $images = Join-Path $workspace 'artifacts/system-hardware-followup-sheng-r25'
 $serial = 'ca10ede3'
 $baselines = @{
     system = '0f9c8ad6341faae4abaa9c080614d6d879aa62e85e36383086bb0333adfb4dce'
-    system_ext = 'dec8a7e4dc8adc931ab6998d204a4f21b058b16af28a8615ef17fe8bf25811cc'
+    system_ext = '82006f12228ebda0a521a96f8373c48bb52edb981a790830304f8ea50aa60419'
     odm = 'c315f3e80f292909740d3e052102dcabb36b3f3bcaa817918f9dbc92630ce651'
     vendor = '4aa0518217ad9521d044b7408348039eb88457fa855bc3544cb499fea0299026'
     vbmeta = '883ba3ee6d22460c8a14f5a0eb04aabb4544d1d48d2386de52715b16ca7a9493'
-    vbmeta_system = '644b62ff23dbf89775a5870b517d36a74fa13e9cefaa0d24a97ef5c9dea5014f'
+    vbmeta_system = '3fe3413cc7fe8786372606ebfe7f9470e41bbf34b1dbcb5db7397540d9afc26a'
 }
+$chainPath = Join-Path $workspace 'device/xiaomi/sheng/docs/r25-restored-chain-20261108.json'
+$chain = Get-Content -Raw -LiteralPath $chainPath | ConvertFrom-Json
+foreach ($key in @('supplemental_chain_review_passed', 'sealed_r25_images_unchanged',
+    'original_systemui_required', 'root_other_descriptors_unchanged', 'changed_child_descriptors_match',
+    'accepted_system_parent_signature_verified', 'accepted_system_parent_key_matches_root',
+    'system_descriptor_unchanged', 'system_ext_descriptor_matches_accepted_image')) {
+    if ($chain.$key -ne $true) { throw "Missing restored-chain review: $key" }
+}
+$manifestPath = Join-Path $images 'build-result.json'
+if ((Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne
+    $chain.manifest_sha256) { throw 'Sealed r25 manifest changed after supplemental review.' }
 $manifest = Get-Content -Raw -LiteralPath (Join-Path $images 'build-result.json') | ConvertFrom-Json
 $reviewPath = Join-Path $workspace 'device/xiaomi/sheng/docs/build-r25-graphicbuffer-20261108.json'
 $build = Get-Content -Raw -LiteralPath $reviewPath | ConvertFrom-Json
@@ -67,6 +78,7 @@ foreach ($file in $manifest.files) {
     $path = Join-Path $images $file.name
     $item = Get-Item -LiteralPath $path -Force
     if ($file.name -ne ($file.partition + '.img') -or $file.bytes -ne $sizes[$file.partition] -or
+        $file.sha256 -ne $chain.image_sha256.($file.partition) -or
         $item.Length -ne $file.bytes -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
         (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() -ne $file.sha256) {
         throw "Image identity or hash mismatch: $($file.name)"
@@ -115,7 +127,12 @@ foreach ($partition in $baselines.Keys) {
     $value = Invoke-DeviceTool $adb @('shell', $command)
     if ($value -notmatch ('(?m)^' + $baselines[$partition] + '\s')) { throw "Live baseline mismatch: $partition" }
 }
+$systemui = Invoke-DeviceTool $adb @('shell', 'sha256sum /system_ext/priv-app/SystemUI/SystemUI.apk')
+if ($systemui -notmatch '(?m)^33017b0d59e28da5db3e089a98f49601de508228a012392ee2d04c82cda3ccb1\s') {
+    throw 'Original SystemUI must be preserved.'
+}
 Copy-Item -LiteralPath (Join-Path $images 'build-result.json') -Destination (Join-Path $evidence 'packaging-manifest.json')
+Copy-Item -LiteralPath $chainPath -Destination (Join-Path $evidence 'restored-chain-review.json')
 Invoke-DeviceTool $adb @('reboot', 'fastboot') | Write-Output
 $deadline = (Get-Date).AddSeconds(90)
 $ready = $false
