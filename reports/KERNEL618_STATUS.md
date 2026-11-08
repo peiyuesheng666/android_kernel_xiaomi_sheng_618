@@ -1,7 +1,20 @@
 # sheng 6.18 移植：来源和 ABI 核查
 
-2026-11-08。LineageOS 24.0 和原厂澎湃 HyperOS 都是必需目标，两个系统需要
-分别通过实际启动和硬件验证。当前 105 个 ACK 基线模块加 82 个移植模块通过
+2026-11-08 最新用户指令：直接使用 JiaqiLi404/android_kernel_618_for_sm8550
+作为主底座，仅补小米平板 6S Pro 的板级差异，保留此前有用的移植成果。
+此任务仅支持原厂澎湃 HyperOS，取消类原生目标，不再独立重做上游已有的
+澎湃适配。用户只要原始 `Image` 二进制，并自行测试，无须制作刷机包。
+
+新入口 `python3.11 scripts/prepare_sheng618_upstream.py --only soc` 已重建
+原仓库固定提交的 ACK 和 SoC 集成补丁，SoC tree 校验为
+`3ddaf72a978d520b5ce6aa5e25d5a21d13f9787f`。源码和后续构建位于
+`/root/sheng-618/upstream-build`，脚本位于 `/root/sheng-618/upstream-project`。
+早先 clean ACK、LOS/MiCode 输入和 `/root/sheng-618/ports` 保持原状；
+后续只在新底座需要时复用平板驱动、修复和构建生成器。
+`--only sources` 继续获取上游固定的工具链与 techpack；不获取 nuwa 手机
+固件用于平板启动，不执行原仓库的刷机入口。
+
+下述是此前独立移植路线的历史结果：105 个 ACK 基线模块加 82 个移植模块通过
 编译及联合静态核查；尚无完成板级适配的 sheng 内核、boot 镜像或可刷包。
 用户要求能由 6.18 现有实现替代的组件直接复用，不能按原厂 .ko 数机械地逐个重搬。
 

@@ -3,7 +3,7 @@
 当前主系统工程为 sheng 独立设备配置和 LineageOS 24.0 / Android 17，使用
 LineageOS 官方 SM8550 5.15 内核。2026-11-08 新增独立的 6.18 移植调查，
 驱动以 LOS 官方 SM8550 三仓库为主；2026-11-08 用户允许为缺失平板驱动补用
-小米官方 sheng 源码。6.18 必须同时支持 LineageOS 和原厂澎湃 HyperOS，分别验证。
+小米官方 sheng 源码。6.18 最新范围改为仅支持原厂澎湃 HyperOS，取消此任务的类原生适配。
 能经绑定和接口核对由 6.18 现有驱动替代的组件直接复用。6.12 保留作开发对照。
 piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬件参数和
 固件仍须核对 sheng 本机，不能照搬其他型号的值。
@@ -15,7 +15,10 @@ SMEM/SOCINFO/SMP2P/AOSS、TLMM、NoC/QoS、PMIC、UFS PHY、GLINK/QMI/PDR、
 Q6/PAS/SYSMON/MDT、安全内存、I2C/SPI/GPI、CPU 调频、温度采集/阈值和冷却
 驱动已编译；新增 PMIC 外围、UFS host 和 ICE/HWKM/TME 加密链后，105 个基线
 加 82 个移植模块通过联合符号与 CRC 核查，共 9,529 项版本化导入。
-加密用户空间兼容、完整平板内核和两套系统的硬件验证尚未完成。
+以上是此前独立移植路线的结果，保留供复用。用户现指定直接使用
+JiaqiLi404/android_kernel_618_for_sm8550 的通用 SM8550/澎湃集成，
+只补 sheng 板级差异，不再重复开发上游已有功能。交付原始 `Image` 二进制，
+用户负责测试；当前尚无完成板级适配的 Image。
 
 ## 工作记录与 Git 提交规则
 

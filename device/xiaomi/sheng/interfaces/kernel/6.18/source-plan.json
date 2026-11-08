@@ -1,19 +1,20 @@
 {
   "schema": 1,
   "device": "sheng",
-  "primary_rom": "LineageOS 24.0",
+  "primary_rom": "HyperOS OS3.0.303.0.WNXCNXM",
   "vendor_baseline": "OS3.0.303.0.WNXCNXM",
-  "secondary_rom": "HyperOS (required, separate runtime validation required)",
-  "required_roms": ["LineageOS 24.0", "HyperOS OS3.0.303.0.WNXCNXM"],
-  "rom_compatibility_policy": "Both ROMs are required targets. Preserve stock vendor device nodes, ioctl layouts, sysfs semantics, firmware and secure-world protocols; validate each ROM independently. Compiled modules alone do not establish ROM compatibility.",
-  "status": "baseline-build-and-driver-port; no 6.18 device boot validation yet",
+  "secondary_rom": null,
+  "required_roms": ["HyperOS OS3.0.303.0.WNXCNXM"],
+  "rom_compatibility_policy": "2026-11-08 user narrowed this task to HyperOS only. Reuse the selected upstream project's existing HyperOS integration and adapt sheng hardware differences. No separate LineageOS or generic HyperOS compatibility workstream.",
+  "status": "adopting-user-selected-sm8550-integration-with-sheng-deltas; no device boot validation yet",
+  "delivery": {"format": "raw ARM64 Image binary", "packaging_requested": false, "device_testing": "user"},
   "build_root": "/root/sheng-618",
   "minimum_host_free_gib": 40,
   "kernel_core": {
     "url": "https://android.googlesource.com/kernel/common",
     "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
     "version": "6.18.32",
-    "scope": "6.18 core reference; LOS SM8550 repositories remain the selected driver foundation"
+    "scope": "Pinned ACK core used by the selected SM8550 integration; preserve the earlier clean baseline"
   },
   "reference": {
     "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550.git",
@@ -22,7 +23,9 @@
     "ack_version": "6.18.32",
     "strategy": "recompiled SoC/techpack/device modules plus selected madrid 6.18 binaries; embedded replacement module layer",
     "physical_device_validation": "pending according to upstream README",
-    "direct_nuwa_image_use": false
+    "direct_nuwa_image_use": false,
+    "role": "selected primary 6.18 build and common SM8550 integration; adapt tablet differences only",
+    "reuse_earlier_ports": true
   },
   "board_sources": [
     {
@@ -91,7 +94,7 @@
       "scope": "Tablet camera differences only"
     }
   ],
-  "source_policy": "2026-11-08 user approved LOS as primary with official MiCode sheng sources for missing tablet drivers. Keep the existing ROM checkout pinned and unchanged. Supplemental inputs must have fixed revisions and per-file provenance.",
+  "source_policy": "2026-11-08 latest user instruction selects JiaqiLi404/android_kernel_618_for_sm8550 as the primary integrated base, retaining usable earlier work and supplementing tablet differences from pinned LOS and official MiCode sheng sources. HyperOS only; deliver raw Image for user testing. Keep the existing ROM checkout unchanged. Record fixed revisions and source provenance.",
   "module_inputs": "../stock-modules/module-plan.json",
   "board_groups": [
     {"name": "display", "modules": ["msm_drm.ko"], "requires": "tablet LCD dual-DSI/DSC and original display userspace ABI"},
@@ -107,8 +110,8 @@
     "Merged tablet DTB/DTBO matches enabled drivers",
     "Original init/vendor ramdisk remains in charge, with any replacement module layer explicitly audited",
     "Boot/package/AVB validation against actual sheng partitions",
-    "Authorized device boot and hardware checks independently on both required ROMs: LineageOS and HyperOS",
+    "User-performed sheng HyperOS device boot and hardware checks",
     "HyperOS stock vendor HAL/device-node/ioctl/sysfs compatibility, encrypted userdata and wrapped-key recovery without data conversion",
-    "Independent display, audio, camera, input/pen/keyboard, charging, radio, suspend/resume and performance validation on each required ROM"
+    "Display, audio, camera, input/pen/keyboard, charging, radio, suspend/resume and performance validation on sheng HyperOS"
   ]
 }
