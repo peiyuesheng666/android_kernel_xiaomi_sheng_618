@@ -21,7 +21,7 @@ foreach ($key in @('exact_baselines_verified', 'all_filesystem_stages_verified',
     'original_systemui_required', 'system_ext_and_vendor_dlkm_unchanged')) {
     if ($manifest.$key -ne $true) { throw "Missing packaging review: $key" }
 }
-$specPath = Join-Path $workspace 'device/xiaomi/sheng/docs/batch-r32-inputs-20261108.json'
+$specPath = Join-Path $workspace 'device/xiaomi/sheng/docs/batch-r32-final-inputs-20261108.json'
 if ((Get-FileHash -LiteralPath $specPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $manifest.spec_sha256) {
     throw 'Frozen specification changed.'
 }
@@ -31,11 +31,12 @@ foreach ($entry in $manifest.frozen_spec.reviews_sha256.PSObject.Properties) {
         throw "Review changed: $($entry.Name)"
     }
 }
-$reviewPath = Join-Path $workspace 'device/xiaomi/sheng/docs/r32-face-assembly-build-review-20261108.json'
+$reviewPath = Join-Path $workspace 'device/xiaomi/sheng/docs/r32-face-final-build-review-20261108.json'
 $review = Get-Content -Raw -LiteralPath $reviewPath | ConvertFrom-Json
 foreach ($key in @('scoped_configuration_assembly_passed','baseline_matrix_byte_reproduced',
     'only_miface_matrix_hal_added','complete_live_vintf_compatibility_passed',
-    'actual_kernel_config_checked','exact_face_context_and_policy_checks_passed','postbuild_public_audit_passed')) {
+    'actual_kernel_config_checked','exact_face_context_and_policy_checks_passed','postbuild_public_audit_passed',
+    'normal_strip_rule_reused','all_runtime_elf_sections_preserved','five_stripped_candidate_elf_checks_passed')) {
     if ($review.$key -ne $true) { throw "Missing build review: $key" }
 }
 if ($review.full_product_build_passed -ne $false) { throw 'Do not claim a full product build.' }

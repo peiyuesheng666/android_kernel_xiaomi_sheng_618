@@ -19,7 +19,7 @@ from package_sheng_model_followup import PRODUCT, ROM, parse_image, sha
 
 DEVICE = Path(__file__).resolve().parents[1]
 DIAG = Path('/root/sheng-lineage/hardware-diagnostics')
-REVIEW = 'docs/r32-face-assembly-build-review-20261108.json'
+REVIEW = 'docs/r32-face-final-build-review-20261108.json'
 PINNED = {
     'system': ('r30', 1005133824, '0f9c8ad6341faae4abaa9c080614d6d879aa62e85e36383086bb0333adfb4dce'),
     'vendor': ('r31', 303517696, '033fdfcc1100e8d504739c43442a6b4e57e73088b938d2f9a9bff9369702217f'),
@@ -62,7 +62,8 @@ def validate(spec, workspace):
     for key in ('scoped_configuration_assembly_passed', 'baseline_matrix_byte_reproduced',
                 'only_miface_matrix_hal_added', 'complete_live_vintf_compatibility_passed',
                 'actual_kernel_config_checked', 'exact_face_context_and_policy_checks_passed',
-                'postbuild_public_audit_passed'):
+                'postbuild_public_audit_passed', 'normal_strip_rule_reused',
+                'all_runtime_elf_sections_preserved', 'five_stripped_candidate_elf_checks_passed'):
         assert review[key] is True, key
     assert review['full_product_build_passed'] is False
     assert review['normal_product_module_build_passed'] is False
