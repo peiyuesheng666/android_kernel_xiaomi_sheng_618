@@ -1,0 +1,11 @@
+// SPDX-License-Identifier: Apache-2.0
+cc_library_shared {
+    name: "camera.sheng",
+    device_specific: true,
+    compile_multilib: "64",
+    relative_install_path: "hw",
+    srcs: ["CameraModule.cpp"],
+    header_libs: ["libhardware_headers"],
+    shared_libs: ["libcamera_metadata", "libdl", "liblog"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}

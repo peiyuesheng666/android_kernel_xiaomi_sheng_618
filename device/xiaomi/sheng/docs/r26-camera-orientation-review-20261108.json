@@ -1,0 +1,34 @@
+{
+  "revision": 26,
+  "isolated_compile_passed": true,
+  "full_soong_product_build_passed": false,
+  "synthetic_target_test_passed": true,
+  "orientation_cases": 12,
+  "concurrent_cache_reads": 1600,
+  "real_camera_opened_by_agent": false,
+  "runtime_installed": false,
+  "user_preview_passed": false,
+  "standard_module_prefix_bytes": 344,
+  "oem_module_object_bytes": 376,
+  "clockwise_mount_angle_delta": -90,
+  "back_orientation": [
+    90,
+    0
+  ],
+  "front_orientation": [
+    270,
+    180
+  ],
+  "unknown_and_external_orientations_preserved": true,
+  "source_sha256": {
+    "interfaces/compat/camera/Android.bp": "c6cdfe9c9b33aaf0827442198c5dfd70579073725ecbad6b3e4aa3e821dc6ecd",
+    "interfaces/compat/camera/CameraModule.cpp": "3775761de3783c4105c7384ae5c318c2b96ee1e3b2f320c5e82effb508be0cee",
+    "interfaces/compat/camera/CameraModuleTest.cpp": "efb3381322e900f1330a52520b7aeb69226e93a2cec3b73f1e70138e3b034e79"
+  },
+  "output_sha256": {
+    "camera.sheng.so": "1af026426ed133d440fe01bc3bf5c1ccb1cfe0317b5c962bef22f6f1677728bc",
+    "sheng-camera-orientation-test": "7e99897d7c0a434527410313b596c7e0a2f3f5c3fac6b2de683250790f32ffe6"
+  },
+  "commands": "/root/sheng-lineage/hardware-diagnostics/r26-camera-orientation-attempt2/commands.json",
+  "original_camera_sha256": "f9da8ec81ea9bd995ca2bfdd7c2d55b7de589acdc9b199f1e7005c814f9ef6a4"
+}
