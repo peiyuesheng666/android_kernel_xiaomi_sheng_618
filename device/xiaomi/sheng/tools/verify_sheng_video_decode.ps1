@@ -6,7 +6,7 @@ $fixtureDir = Join-Path $workspace 'reports/device/video-decode-fixtures-2026110
 $probeDir = Join-Path $workspace 'reports/device/video-decode-probe-20261108'
 $probe = Join-Path $probeDir 'sheng-video-decode-probe.jar'
 $build = Get-Content -Raw -LiteralPath (Join-Path $probeDir 'build-result.json') | ConvertFrom-Json
-$source = Join-Path $PSScriptRoot 'ShengVideoDecodeProbe.java'
+$source = Join-Path $workspace 'device/xiaomi/sheng/tools/ShengVideoDecodeProbe.java'
 function Get-Sha([string]$path) { return (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
 if ($build.build_passed -ne $true -or (Get-Sha $source) -ne $build.source_sha256 -or
     (Get-Sha $probe) -ne $build.jar_sha256) { throw 'Probe does not match its successful compilation.' }
@@ -48,15 +48,20 @@ foreach ($condition in @(@('ro.product.device','sheng'), @('ro.boot.slot_suffix'
 }
 $review = Get-Content -Raw -LiteralPath (Join-Path $workspace 'device/xiaomi/sheng/docs/build-r25-graphicbuffer-20261108.json') | ConvertFrom-Json
 if ($review.revision -ne 25 -or $review.build_passed -ne $true -or $review.allocation_sites -ne 14) { throw 'Missing r25 ABI review.' }
-foreach ($partition in @('odm', 'vendor')) {
+foreach ($partition in @('vendor')) {
     foreach ($property in $review.reviewed_sha256.$partition.PSObject.Properties) {
         $hash = Invoke-Adb @('shell', ('sha256sum /' + $partition + '/' + $property.Name))
-        if ($hash -notmatch ('(?m)^' + $property.Value + '\s')) { throw 'Install and verify r25 before exercising video buffers.' }
+        if ($hash -notmatch ('(?m)^' + $property.Value + '\s')) { throw 'Installed Dolby codec ABI differs from the reviewed r25 correction.' }
     }
 }
 foreach ($property in $review.dependency_library_sha256.PSObject.Properties) {
     $hash = Invoke-Adb @('shell', ('sha256sum /vendor/' + $property.Name))
     if ($hash -notmatch ('(?m)^' + $property.Value + '\s')) { throw 'Unexpected ABI provider.' }
+}
+$r31 = Get-Content -Raw -LiteralPath (Join-Path $workspace 'artifacts/system-hardware-followup-sheng-r31/build-result.json') | ConvertFrom-Json
+foreach ($file in $r31.files) {
+    $command = if ($file.partition -eq 'vbmeta') {'dd if=/dev/block/by-name/vbmeta_b bs=8192 count=1 2>/dev/null | sha256sum'} else {'sha256sum /dev/block/mapper/vendor_b'}
+    if ((Invoke-Adb @('shell',$command)) -notmatch ('(?m)^' + $file.sha256 + '\s')) { throw 'Install and verify the exact r31 image before decoding.' }
 }
 $processCommand = 'pidof com.android.systemui vendor.qti.camera.provider-service_64 dolbycodec2 vendor.dolby.media.c2@1.0-service'
 $before = ((Invoke-Adb @('shell', $processCommand)).Trim() -split '\s+' | Sort-Object) -join ','

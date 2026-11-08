@@ -16,4 +16,12 @@ property contexts against the existing compiled SELinux policy before packaging;
 acceptance requires the daemon to publish its own value after reboot under
 Enforcing, with the original denial absent. Do not synthesize the value with setprop.
 
-Source implementation is complete; installed/runtime acceptance is pending.
+Installed/runtime acceptance passed on ca10ede3 slot b on 2026-11-08. The r31
+seven-partition and two-file hashes match, SELinux remains Enforcing, and the
+daemon itself published value 1 after reboot. Neither the kernel nor logcat
+evidence contains the original BCL property-service denial. Both thermal services
+are running and sconfig remains 19. No manual setprop was used.
+
+Separate mi_thermald chown capability denials remain in the boot log; this narrow
+property correction neither resolves them nor grants broader permissions.
+See runtime-r31-thermal-format-20261108.json for exact evidence hashes.

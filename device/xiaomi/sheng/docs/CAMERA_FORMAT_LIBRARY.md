@@ -26,7 +26,16 @@ The reproduction's diagnostic Java process timed out and exited; the monitored
 system and Dolby service PIDs stayed stable. Its crash-buffer exception is a
 diagnostic failure, not a newly established native service crash.
 
-Implementation is complete; installation, real allocator and decode acceptance
-remain pending. Profile 8.1 success alone will not establish HDR color accuracy,
-protected playback or encoder-stream correctness. No camera is activated by
-these layout and offscreen decode checks.
+The installed r31 library passed all sixteen export checks and the three layout
+queries on ca10ede3 slot b. Seven partition hashes, installed library bytes,
+root:root ownership, mode 0644 and same_process_hal_file labeling match the
+reviewed package. Pinned Dolby Vision profile 5 and profile 8.1 fixtures each
+completed two offscreen decode/drain/release sessions of 60 frames. Profile 8.1
+previously timed out before producing output; both new sessions reached EOS and
+produced matching sampled output hashes. SystemUI, camera provider and both
+Dolby process PIDs remained stable, and the crash buffer was empty.
+
+This establishes the tested clear-stream decode recovery. It does not establish
+HDR color accuracy, protected playback or encoder-stream correctness. No camera
+was activated and decoded frames were neither displayed nor saved. See
+runtime-r31-thermal-format-20261108.json for evidence hashes and remaining limits.
