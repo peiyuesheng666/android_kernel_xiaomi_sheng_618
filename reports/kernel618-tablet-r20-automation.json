@@ -11,9 +11,61 @@
   "original_boot_backed_up": false,
   "events": [
     {
-      "event": "failed",
-      "wall_time": "2026-11-09T00:31:48+0800",
-      "error": "error: device 'ca10ede3' not found"
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T00:35:14+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-09T00:35:25+0800"
+    },
+    {
+      "event": "log_readback_complete",
+      "wall_time": "2026-11-09T00:35:39+0800",
+      "run": "f7278f12145f21b8",
+      "uptime_ms": 120452
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T00:35:40+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "finished_in_fastboot",
+      "wall_time": "2026-11-09T00:35:45+0800"
     }
-  ]
+  ],
+  "previous_control_receipt": {
+    "revision": "tablet-r20",
+    "serial": "ca10ede3",
+    "boot_sha256": "fdeef6c7c3c6ffbd5add64e9f348d30cea8e78cc7688abb1949fe5f329d72ead",
+    "image_sha256": "a743221cbde012c268ce5c9ac8ee012162e475ab88f37bb68a47d31c92d9241a",
+    "test_timeout_seconds": null,
+    "writes": [
+      "boot_a"
+    ],
+    "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+    "original_boot_backed_up": false,
+    "events": [
+      {
+        "event": "failed",
+        "wall_time": "2026-11-09T00:31:48+0800",
+        "error": "error: device 'ca10ede3' not found"
+      }
+    ]
+  },
+  "raw_sha256": "10df3b6d5f153164e4e54732d8ea38bf8b0afb7d145aef888912b3cd06cd7048",
+  "run": "f7278f12145f21b8",
+  "valid_snapshots": [
+    {
+      "sequence": 402,
+      "uptime_ms": 120168
+    },
+    {
+      "sequence": 403,
+      "uptime_ms": 120452
+    }
+  ],
+  "log_readback_succeeded": true,
+  "latest_log": "reports/device/kernel618-tablet-r20/bootlog-f7278f12145f21b8-403.txt"
 }

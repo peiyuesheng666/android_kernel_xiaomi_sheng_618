@@ -56,8 +56,8 @@
   "display": {
     "user_video_sha256": "a11345c3f3aae2063cca070f6889e986078f17d3e5af05d9df62366242fb303c",
     "screenshot_composition_looks_normal": true,
-    "panel_stripes_fixed_verified": false,
-    "user_feedback": "pending",
+    "panel_stripes_fixed_verified": "User reports initial success; extended testing pending",
+    "user_feedback": "Normal picture; no stripes noticed so far on r20",
     "timing_command_runtime_log_received": false
   },
   "touch": {
@@ -71,15 +71,15 @@
   },
   "usb": {
     "initial_adb_connected": true,
-    "stable": false,
-    "disconnected_observed": "2026-11-09T00:31:48+0800",
-    "latest_adb_and_fastboot_both_absent": true,
-    "cause": "unknown: no device response; screen state and persistent logs pending"
+    "disconnect_cause": "User explicitly confirmed manually unplugging the cable",
+    "recurring_usb_failure_observed_in_this_run": false,
+    "long_term_stability_verified": false
   },
   "persistent_log_readback": {
-    "succeeded": false,
-    "reason": "Device already absent before ADB reboot command; no recovery started",
-    "receipt": "kernel618-tablet-r20-automation.json"
+    "succeeded": true,
+    "receipt": "kernel618-tablet-r20-automation.json",
+    "run": "f7278f12145f21b8",
+    "earlier_readback_failure_cause": "USB cable manually unplugged by user; not an automatic device disconnect"
   },
   "diagnostic_evidence": {
     "board-nodes.txt": "a8ee38c70b846d1d6fb6a33729796d9167334d6487e7609986ffd675c5c5a6fc",
@@ -88,5 +88,12 @@
     "display-awake.txt": "54a443c9619deb0a42d4cd84826d5ee3817710fd6eeb62bab24860f067edc1be",
     "screenshot-awake.png": "251a5e1fb39e0c573fa6f7014f9b84f5c75275f17477508e6ee15c25d2a29a95",
     "logcat-awake.txt": "b37cb34621e2c961b1884a4ba5f55db26dcf4b41714c806a80f81a3bc8a9a1f2"
-  }
+  },
+  "user_reported_remaining_failures": [
+    "touchscreen",
+    "stylus",
+    "keyboard",
+    "touchpad",
+    "speakers"
+  ]
 }
