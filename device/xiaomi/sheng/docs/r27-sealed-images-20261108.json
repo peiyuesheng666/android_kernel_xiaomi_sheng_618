@@ -1,0 +1,27 @@
+{
+  "revision": 27,
+  "manifest_sha256": "c5def9eaf25c269834c097823c5ca42c313c1c4b99b647e78fd9ad0e77b0fadf",
+  "spec_sha256": "7d5b342e4e3375600797a27b6926b124616bb50981e5b91d9fb17aef67481be6",
+  "source_commit": "7f6f0b25badbb7982e4811e281363b9e97484d93",
+  "files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "a49ad651ffb55ed91d8c34852966dc2065a0788269f07e55fc216b3b7bcd3b15"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "ac7f76375e529b428de41c189532190fbbeb48a91909c7cfca292caa6fa0ba18"
+    }
+  ],
+  "filesystem_scope": [
+    "odm/lib64/hw/camera.sheng.so"
+  ],
+  "root_descriptor_scope": [
+    "odm"
+  ],
+  "runtime_installed": false
+}
