@@ -205,3 +205,6 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 
 2026-11-08 firmware-r17 恢复原厂 5.15 的 firmware SELinux 加载接口，强制模式保持；
 新旧 Image 实际固件加载与权限拒绝对照通过，实机待验证。
+
+2026-11-08 firmware-r17 实机在 79.076 秒完成 HyperOS 启动，用户确认进入系统；
+花屏与 USB 无可用 UDC 尚待修，ADB 未通，180 秒回 Fastboot 已触发，日志已保留。

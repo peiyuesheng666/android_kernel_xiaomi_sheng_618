@@ -418,3 +418,17 @@ EACCES、补载被拒，r17 直读与 sysfs 补载均成功且数据逐字节一
 不是关闭 SELinux，不禁用 Wi-Fi，不改原厂固件。18,008 导出不变，337 模块继续复用 r12。
 官方 boot 封包、AVB 和解包回读通过，保留 180 秒测试模式；实机启动待本轮自动验证。
 当前五版 auto-r13、modules-r14、crypto-r15、wrapped-r16、firmware-r17。
+
+
+### firmware-r17 实机首次完成原厂系统启动，显示与 USB 待修
+
+用户确认进入系统，同时报告花屏与 USB 异常。CRC 有效实机日志在 79.076 秒出现
+sys.boot_completed=1，原卡住的固件补载恢复，GPU/ADSP/Wi-Fi 配置已由原厂 ueventd 传入。
+不等于所有功能正常：USB 在 adbd 启动后持续报无可用 UDC，显示切换 50/120Hz 但花屏，
+另有 Wi-Fi NAPI 清理警告，Wi-Fi 功能未验收。候选 ADB 从未连通，继续保留测试模式。
+180 秒计时后自动回 Fastboot，主机 198.92 秒收到，临时 Recovery 自动读回两份日志。
+日志量超过 1 MiB 后开头命令行被尾部快照挤出，脚本因此停止，未自动完成最后回退。
+原始快照未丢失，已显式解码、验证 CRC，并回到 Fastboot；未取消或放宽校验静默认领。
+run668e360a40eda214，seq576/577，uptime179.234/179.539 秒。版本归属依据本轮唯一受控
+flash 的哈希、全新 run 与超时范围，快照本身没有版本标记；下一版增加持续版本身份。
+详见 kernel618-firmware-r17-{hardware,automation}.json。

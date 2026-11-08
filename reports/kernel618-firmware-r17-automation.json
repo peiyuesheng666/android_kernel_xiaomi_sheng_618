@@ -1,0 +1,93 @@
+{
+  "revision": "firmware-r17",
+  "serial": "ca10ede3",
+  "boot_sha256": "facbfc13c7eb7aab68f4f575d2b5d59321170887c1ba8d819592425e0995088d",
+  "image_sha256": "50ff1bd70e97ae9a6df3bebd97cecc5e5dc91f9eab78534d340b72ee37222047",
+  "test_timeout_seconds": 180,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "wall_time": "2026-11-08T23:30:08+0800"
+    },
+    {
+      "event": "candidate_started",
+      "wall_time": "2026-11-08T23:30:08+0800"
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:30:08+0800",
+      "seconds_remaining": 235
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:30:39+0800",
+      "seconds_remaining": 205
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:31:09+0800",
+      "seconds_remaining": 175
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:31:39+0800",
+      "seconds_remaining": 145
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:32:09+0800",
+      "seconds_remaining": 114
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:32:39+0800",
+      "seconds_remaining": 84
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:33:09+0800",
+      "seconds_remaining": 54
+    },
+    {
+      "event": "automatic_fastboot_received",
+      "wall_time": "2026-11-08T23:33:27+0800",
+      "elapsed_seconds": 198.92
+    },
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-08T23:33:30+0800"
+    },
+    {
+      "event": "failed",
+      "wall_time": "2026-11-08T23:33:44+0800",
+      "error": "No CRC-valid snapshot from the requested revision; preserve for diagnosis"
+    },
+    {
+      "event": "manual_crc_readback_verified_and_returned_fastboot",
+      "wall_time": "2026-11-08T23:36:46+0800"
+    }
+  ],
+  "automatic_fastboot_return": true,
+  "raw_sha256": "c4b4cd97a862a424ffddb23d2bf49da0b0ed1f421d7ce255c9ed8dbe38350a51",
+  "run": "668e360a40eda214",
+  "valid_snapshots": [
+    {
+      "sequence": 576,
+      "uptime_ms": 179234
+    },
+    {
+      "sequence": 577,
+      "uptime_ms": 179539
+    }
+  ],
+  "log_readback_succeeded": true,
+  "controller_completed_automatically": false,
+  "revision_identity": "Controlled single flash, expected new run and timeout; initial command line rolled out of printk tail",
+  "revision_marker_present": false,
+  "latest_log": "reports/device/kernel618-firmware-r17/bootlog-668e360a40eda214-577.txt"
+}

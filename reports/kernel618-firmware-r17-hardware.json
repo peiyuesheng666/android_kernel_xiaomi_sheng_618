@@ -1,0 +1,39 @@
+{
+  "revision": "firmware-r17",
+  "boot_sha256": "facbfc13c7eb7aab68f4f575d2b5d59321170887c1ba8d819592425e0995088d",
+  "image_sha256": "50ff1bd70e97ae9a6df3bebd97cecc5e5dc91f9eab78534d340b72ee37222047",
+  "hardware_log_received": true,
+  "run": "668e360a40eda214",
+  "valid_snapshots": [
+    {
+      "sequence": 576,
+      "uptime_ms": 179234
+    },
+    {
+      "sequence": 577,
+      "uptime_ms": 179539
+    }
+  ],
+  "raw_sha256": "c4b4cd97a862a424ffddb23d2bf49da0b0ed1f421d7ce255c9ed8dbe38350a51",
+  "latest_log": "reports/device/kernel618-firmware-r17/bootlog-668e360a40eda214-577.txt",
+  "android_boot_completed": true,
+  "boot_completed_at_seconds": 79.075843,
+  "user_confirmed_system_entered": true,
+  "user_reported_issues": [
+    "corrupted display",
+    "USB failure"
+  ],
+  "candidate_adb_connected": false,
+  "full_hardware_functionality_verified": false,
+  "automatic_fastboot_return": true,
+  "host_fastboot_seconds": 198.92,
+  "controller_tag_check_failed": true,
+  "raw_log_crc_valid": true,
+  "revision_attribution": "Controlled single flash, expected new run and timeout; initial command line rolled out of printk tail",
+  "firmware_loading_progress": "GPU, ADSP, Wi-Fi configuration firmware delivered by stock ueventd; previous firmware panic avoided",
+  "usb_proof": "adbd starts at 50.311784s; repeated UDC core could not find available UDC or busy",
+  "display_proof": "3048x2032 modes switch at 50/120Hz; user reports corrupted screen",
+  "warning": "Wi-Fi NAPI cleanup warnings observed; Wi-Fi operation not verified",
+  "current_state": "Fastboot; raw snapshots preserved; no manual key reset needed",
+  "next": "Fix USB UDC probe/binding and display output; retain test mode until candidate ADB connects"
+}
