@@ -1,0 +1,188 @@
+--- a/msm/dsi/dsi_defs.h
++++ b/msm/dsi/dsi_defs.h
+@@ -410,6 +410,8 @@
+ 	DSI_CMD_SET_MI_PEAK_GAMMA_READ_PRE,
+ 	DSI_CMD_SET_MI_PEAK_GAMMA,
+ 	DSI_CMD_SET_MI_PEAK_GAMMA_READ_PRE_DISABLE,
++	DSI_CMD_SET_SHENG_TIMING_VIDEO,
++	DSI_CMD_SET_SHENG_PEN_CLEAR,
+ 	DSI_CMD_SET_MAX
+ };
+ #endif /* OPLUS_FEATURE_DISPLAY */
+--- a/msm/dsi/dsi_panel.h
++++ b/msm/dsi/dsi_panel.h
+@@ -291,6 +291,7 @@
+ 
+ 	bool skip_panel_off;
+ 	bool panel_initialized;
++	u32 k618_sheng_last_fps;
+ 	bool te_using_watchdog_timer;
+ 	bool disable_cesta_hw_sleep;
+ 	struct dsi_qsync_capabilities qsync_caps;
+@@ -331,6 +332,10 @@
+ {
+ 	return panel->ulps_feature_enabled;
+ }
++
++bool dsi_panel_is_sheng(struct dsi_panel *panel);
++int dsi_panel_tx_cmd_set(struct dsi_panel *panel, enum dsi_cmd_set_type type,
++		bool do_peripheral_flush);
+ 
+ static inline bool dsi_panel_initialized(struct dsi_panel *panel)
+ {
+--- a/msm/dsi/dsi_panel.c
++++ b/msm/dsi/dsi_panel.c
+@@ -2668,6 +2668,8 @@
+ 	"mi,mdss-dsi-peak-gamma-read-pre-command",
+ 	"mi,mdss-dsi-peak-gamma-command",
+ 	"mi,mdss-dsi-peak-gamma-read-pre-disable-command",
++	"qcom,mdss-dsi-timing-switch-video-command",
++	"mi,mdss-dsi-dispparam-pen-clear-command",
+ };
+ 
+ const char *cmd_set_state_map[DSI_CMD_SET_MAX] = {
+@@ -2776,6 +2778,8 @@
+ 	"mi,mdss-dsi-peak-gamma-read-pre-command-state",
+ 	"mi,mdss-dsi-peak-gamma-command-state",
+ 	"mi,mdss-dsi-peak-gamma-read-pre-disable-command-state",
++	"qcom,mdss-dsi-timing-switch-video-command-state",
++	"mi,mdss-dsi-dispparam-pen-clear-command-state",
+ };
+ #endif /* OPLUS_FEATURE_DISPLAY */
+ 
+@@ -6510,6 +6514,15 @@
+ 	return rc;
+ }
+ 
++bool dsi_panel_is_sheng(struct dsi_panel *panel)
++{
++	u64 id = 0;
++
++	return panel && panel->panel_mode == DSI_OP_VIDEO_MODE &&
++		!of_property_read_u64(panel->panel_of_node, "mi,panel-id", &id) &&
++		id == 0x4e38316150360200ULL;
++}
++
+ int dsi_panel_post_enable(struct dsi_panel *panel)
+ {
+ 	int rc = 0;
+@@ -6541,6 +6554,11 @@
+ 		DSI_ERR("[%s] failed to send DSI_CMD_SET_POST_ON cmds, rc=%d\n",
+ 		       panel->name, rc);
+ 		goto error;
++	}
++	if (!rc && dsi_panel_is_sheng(panel)) {
++		rc = dsi_panel_tx_cmd_set(panel, DSI_CMD_SET_SHENG_TIMING_VIDEO, false);
++		DSI_INFO("sheng post-on video timing: fps=%u rc=%d\n",
++			panel->cur_mode->timing.refresh_rate, rc);
+ 	}
+ error:
+ 	mutex_unlock(&panel->panel_lock);
+--- a/msm/dsi/dsi_display.c
++++ b/msm/dsi/dsi_display.c
+@@ -8803,6 +8803,9 @@
+ 		}
+ 	}
+ 
++	display->panel->k618_sheng_last_fps = display->panel->cur_mode ?
++		display->panel->cur_mode->timing.refresh_rate : 0;
++
+ 	rc = dsi_display_validate_mode_set(display, &adj_mode, flags);
+ 	if (rc) {
+ 		DSI_ERR("[%s] mode cannot be set\n", display->name);
+--- a/msm/sde/sde_encoder.c
++++ b/msm/sde/sde_encoder.c
+@@ -55,6 +55,7 @@
+ #include "sde_fence.h"
+ #include "sde_aiqe_common.h"
+ #include "dsi_display.h"
++#include "dsi_drm.h"
+ #include "hfi_encoder.h"
+ 
+ #ifdef OPLUS_FEATURE_DISPLAY
+@@ -7172,9 +7173,42 @@
+ 	return ret;
+ }
+ 
++static int sheng_encoder_wait_for_active(
++			struct drm_encoder *drm_enc)
++{
++	struct drm_display_mode mode;
++	struct sde_encoder_virt *sde_enc = NULL;
++	u32 ln_cnt, min_ln_cnt, active_mark_region;
++	u32 i, retry = 15;
++	if (!drm_enc) {
++		SDE_ERROR("invalid encoder\n");
++		return -EINVAL;
++	}
++	sde_enc = to_sde_encoder_virt(drm_enc);
++	for (i = 0; i < sde_enc->num_phys_encs; i++) {
++		struct sde_encoder_phys *phys = sde_enc->phys_encs[i];
++		if (!phys || !phys->ops.get_line_count ||
++		    (phys->ops.is_master && !phys->ops.is_master(phys)))
++			continue;
++		mode = phys->cached_mode;
++		min_ln_cnt = (mode.vtotal - mode.vsync_start) +
++			(mode.vsync_end - mode.vsync_start);
++		active_mark_region = mode.vdisplay + min_ln_cnt - mode.vdisplay / 4;
++		while (retry) {
++			ln_cnt = phys->ops.get_line_count(phys);
++			if ((ln_cnt > min_ln_cnt) && (ln_cnt < active_mark_region))
++				return 0;
++			udelay(2000);
++			retry--;
++		}
++	}
++	return -EINVAL;
++}
++
+ void sde_encoder_kickoff(struct drm_encoder *drm_enc, bool config_changed)
+ {
+ 	struct sde_encoder_virt *sde_enc;
++	struct dsi_panel *sheng_panel = NULL;
+ 	struct sde_encoder_phys *phys;
+ 	struct sde_kms *sde_kms;
+ 	enum msm_disp_op disp_op;
+@@ -7267,6 +7301,27 @@
+ 	oplus_apuir_set_ds(sde_enc);
+ #endif
+ 
++	/* MiCode N81A: change the panel rate around the video timing latch. */
++	if (sde_enc->disp_info.intf_type == DRM_MODE_CONNECTOR_DSI) {
++		struct drm_bridge *bridge = drm_bridge_chain_get_first_bridge(drm_enc);
++		struct dsi_bridge *dsi = bridge ? container_of(bridge, struct dsi_bridge, base) : NULL;
++
++		if (dsi && dsi->display && dsi_panel_is_sheng(dsi->display->panel) &&
++		    (dsi->dsi_mode.dsi_mode_flags & DSI_MODE_FLAG_VRR)) {
++			sheng_panel = dsi->display->panel;
++			mutex_lock(&sheng_panel->panel_lock);
++			sheng_encoder_wait_for_active(drm_enc);
++			if (sheng_panel->k618_sheng_last_fps == 60 &&
++			    dsi->dsi_mode.timing.refresh_rate != 120) {
++				ret = dsi_panel_tx_cmd_set(sheng_panel, DSI_CMD_SET_SHENG_PEN_CLEAR, false);
++				if (ret)
++					SDE_ERROR("sheng pen clear failed: %d\n", ret);
++				sde_encoder_wait_for_event(drm_enc, MSM_ENC_VBLANK);
++				sheng_encoder_wait_for_active(drm_enc);
++			}
++		}
++	}
++
+ 	/* All phys encs are ready to go, trigger the kickoff */
+ 	_sde_encoder_kickoff_phys(sde_enc, config_changed);
+ 
+@@ -7275,6 +7330,14 @@
+ 		phys = sde_enc->phys_encs[i];
+ 		if (phys && phys->ops.handle_post_kickoff)
+ 			phys->ops.handle_post_kickoff(phys);
++	}
++
++	if (sheng_panel) {
++		ret = dsi_panel_tx_cmd_set(sheng_panel, DSI_CMD_SET_SHENG_TIMING_VIDEO, false);
++		SDE_INFO("sheng video switch: %u -> %u rc=%d\n",
++			sheng_panel->k618_sheng_last_fps,
++			sheng_panel->cur_mode->timing.refresh_rate, ret);
++		mutex_unlock(&sheng_panel->panel_lock);
+ 	}
+ 
+ 	if (sde_enc->autorefresh_solver_disable &&

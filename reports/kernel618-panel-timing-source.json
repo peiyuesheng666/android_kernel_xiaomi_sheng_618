@@ -1,0 +1,33 @@
+{
+  "reference_repository": "https://github.com/MiCode/vendor_opensource_display-drivers",
+  "reference_revision": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+  "upstream_revision": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+  "scope": "N81A post-on and VRR kickoff timing commands, active-window wait, 60Hz pen-clear sequence",
+  "hardware_values": "all command payloads remain parsed from original sheng DT; no new register values",
+  "panel_id": "0x4e38316150360200",
+  "files": {
+    "msm/dsi/dsi_defs.h": {
+      "before": "573a2a9f409ab30d9df32239bca0c59d534bff37fbdca8f43a0a7230d1b54d8b",
+      "after": "d05a7326c3c1de6184f8cf4f1d060d5411a208d8bb23de635944c806bbfa6626"
+    },
+    "msm/dsi/dsi_panel.h": {
+      "before": "21912d763ce76803c6d28e45050fae84c6a33837a0879ffb93e43ac5e72c7190",
+      "after": "be53d0b25f30e747064e3b6d48e0176b2ff191b570050c04789fa940e287c49a"
+    },
+    "msm/dsi/dsi_panel.c": {
+      "before": "96db0b3daeb51cc19bc8ddedbde2d11c5924b437b9411801555e0088ce0c85ad",
+      "after": "fd47fa42d06956e33ef9a02c639498d7a4aab67120c51bd750477516e96dfce2"
+    },
+    "msm/dsi/dsi_display.c": {
+      "before": "fd81b404a624fd3840475ddfd354cc8a8f8a9f907c524bd5019574421d74ae16",
+      "after": "8f8b6c22f95b50904646dc47f13bd9533023544965380673992ae1d3cc5f3c0b"
+    },
+    "msm/sde/sde_encoder.c": {
+      "before": "7da8b743474f0284034372f5b4fba9404c76fd86e79d6d821c3bf3db038a6bd4",
+      "after": "0e161878e0451a25c95ec48777977044d7d5bea6200d57072d5d22ba1fafe71f"
+    }
+  },
+  "hardware_result": "pending",
+  "initial_splash_corruption_fixed_claimed": false,
+  "screen_corruption_fixed_claimed": false
+}

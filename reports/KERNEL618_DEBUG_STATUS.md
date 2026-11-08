@@ -495,3 +495,21 @@ scr0/scr1均得到与 MiCode 逐字节一致的完整 drm_dsc_config，
 SensorService没有实体传感器，原厂FastRPC节点缺失，音频日志仍将CS35L41路由留在stub。
 临时Recovery读回run4a5a4b405171f7ef、seq387/388、至120.548秒，两份CRC有效；
 读取后回到Fastboot。详见kernel618-panel-r19-{hardware,automation}.json。
+
+### tablet-r20：恢复 N81A 变帧序列和旧 FastRPC 接口
+
+对照 MiCode sheng 6461221b，补回首次 POST_ON 后的专用视频时序命令、
+VRR kickoff 前的扫描有效窗口等待、60Hz 切出时的 pen-clear/vblank 序列，
+以及 kickoff 后的专用视频时序命令。仅实际 N81A 面板 ID 启用；全部寄存器负载
+仍由本机原厂 DT 解析，保留 r19 的 DSC 数学参数。视频约3秒出现规则条纹、
+约4.2秒恢复，仅作为定位依据，尚不能认定已确定全部显示根因。
+
+复用用户指定底座 c3956156 的 k618_rpc515.sh/fix.py，源自固定 fuxi
+7fad87dc，适配原厂 qcom,msm-fastrpc-compute 及 adsprpc-smd 接口；
+实际 sheng DT 无旧 ION 节点，核实后才采用上游对不再导出的 CMA 查询处理。
+EVA 同步使用旧 FastRPC 头重新构建。保留源文件前后哈希、移植补丁和 Kbuild。
+338模块、20551项版本化导入检查通过；归档模式与文件表保持一致，只有
+msm_drm/frpc-adsprpc/msm-eva 三项负载变化。18008内核导出不变，
+官方boot封包、AVB和解包回读通过，测试自动重启关闭，交付最多五版。
+DSC 原始 C 数学对照重新执行通过。实机显示、传感器、音频结果待验证。
+触摸驱动与 CS35L43 音频路由未在本版补齐，不能声明全部硬件已恢复。

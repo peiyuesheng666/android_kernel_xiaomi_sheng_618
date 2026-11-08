@@ -1,0 +1,66 @@
+{
+  "upstream_repository": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550",
+  "upstream_revision": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+  "source_revision": "7fad87dc178d09489b74a714e4a525d56f546855",
+  "source_repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+  "upstream_scripts": {
+    "k618_rpc515.sh": "325af87e06ef1510b49494f2c32c14416e0906278acb3a86b0092c6c7723a3c6",
+    "k618_rpc515_fix.py": "5ff8c0c4c3c6bc9c27d9087f3915a91fe3862c85c75c199c58de5fe568a69133"
+  },
+  "files": {
+    "adsprpc.c": {
+      "before": "1403a2dadb919be9452c1506442d8ce154a9354098fc8736145fa121dfdf1549",
+      "after": "3dbc62f773cdefa6621e602a9813e659d498a63d72152985946922bb1d39cef0"
+    },
+    "adsprpc_compat.c": {
+      "before": "794fabd176500e4769218208bf44c7f488b7588daeb96422c1f663ca9a1fef33",
+      "after": "794fabd176500e4769218208bf44c7f488b7588daeb96422c1f663ca9a1fef33"
+    },
+    "adsprpc_compat.h": {
+      "before": "edc33f50a0bf7f898279b0995f7201dcb13ad6bdb11e8a08725a4ab74fefb8ca",
+      "after": "edc33f50a0bf7f898279b0995f7201dcb13ad6bdb11e8a08725a4ab74fefb8ca"
+    },
+    "adsprpc_shared.h": {
+      "before": "b674c2d47ac187248ee4000e885e296e75356c645749a2e69c7d6b6b80f2c9e5",
+      "after": "b674c2d47ac187248ee4000e885e296e75356c645749a2e69c7d6b6b80f2c9e5"
+    },
+    "adsprpc_rpmsg.c": {
+      "before": "57b839d6a1b244e918d09a0549be6ab7e2e11f71b18fe52c78f8fb8723766146",
+      "after": "57b839d6a1b244e918d09a0549be6ab7e2e11f71b18fe52c78f8fb8723766146"
+    },
+    "adsprpc_socket.c": {
+      "before": "9d3d6207ed5814ad2def9e02fa29fed467e45e31e58056ac6e1165f118338b40",
+      "after": "9d3d6207ed5814ad2def9e02fa29fed467e45e31e58056ac6e1165f118338b40"
+    },
+    "include/uapi/misc/fastrpc.h": {
+      "before": "2564299aa99f2f91bfdb601cb37100f84c3e19c5c0bcfdc89f24114fa7988de3",
+      "after": "2564299aa99f2f91bfdb601cb37100f84c3e19c5c0bcfdc89f24114fa7988de3"
+    },
+    "include/uapi/linux/msm_ion.h": {
+      "before": "9362cee3e3b617956f4cbe0c72a6ce3d28ddbe7fb392cac023007d8915662c28",
+      "after": "9362cee3e3b617956f4cbe0c72a6ce3d28ddbe7fb392cac023007d8915662c28"
+    },
+    "include/uapi/linux/msm_ion_ids.h": {
+      "before": "d5f7f5c3b6676bc6fce031e359517a546f628161d55664cb9f7ede703a30b899",
+      "after": "d5f7f5c3b6676bc6fce031e359517a546f628161d55664cb9f7ede703a30b899"
+    },
+    "include/linux/qcom-dma-mapping.h": {
+      "before": "e0f240956fd1c665fb8b24104b72c7b911ec3e5985b5438d8c20c70cea5173e6",
+      "after": "e0f240956fd1c665fb8b24104b72c7b911ec3e5985b5438d8c20c70cea5173e6"
+    },
+    "include/linux/fastrpc.h": {
+      "before": "cf68f49d70c594b38f2659336ce0af65f0a8855cc55236903bfbd453e2e4eefc",
+      "after": "cf68f49d70c594b38f2659336ce0af65f0a8855cc55236903bfbd453e2e4eefc"
+    },
+    "include/trace/events/fastrpc.h": {
+      "before": "bac61b140e43c073373c244843597793e5b3b970fb565eae76e2dba0ab08cfbf",
+      "after": "993084be242e1d5d3fd545025769fe1e50d14155dd641036d9b00f506b4f5828"
+    }
+  },
+  "live_dt_sha256": "8c4459a39446641a67877a9e007492a4b106b4a24664ef34b01523702c16a5d9",
+  "live_dt_has_legacy_ion": false,
+  "compatibility": "Original qcom,msm-fastrpc-compute binding and adsprpc-smd userspace nodes",
+  "matching_eva_rebuilt_with_legacy_header": true,
+  "hardware_result": "pending",
+  "sensors_or_audio_fixed_claimed": false
+}
