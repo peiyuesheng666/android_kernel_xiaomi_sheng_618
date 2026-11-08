@@ -1,0 +1,24 @@
+{
+  "files": {
+    "vendor/qcom/opensource/display-drivers/msm/sde/sde_connector.c": {
+      "before": "43cf771fc1a140222621817d1b106cca14f5d4efb7752500d1a214424e8c5f6b",
+      "after": "e01472b800f3c0fdba0c0a77a0449fa35bd1b385c8f12990fff2d84435abb147"
+    },
+    "vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c": {
+      "before": "d6c47721c1d019983c317d35babf503321f4bcf29160fb679d60d9d810b72639",
+      "after": "ec78f39741f28101c7a9108c24c59d4c58803885f6cf2120da6cb4d8f73fcbf2"
+    }
+  },
+  "backup": "/root/sheng-618/diagnostic/hardware-r34/boot-handoff-before",
+  "references": {
+    "micode_display": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+    "los_nuwa_display": "92a9fde479d3262da080cfd28bab0775b0da500a"
+  },
+  "reference_behavior": "Both fixed reference connector implementations initialize props.brightness from brightness_init_level; MiCode KTZ probe does not darken the bootloader image",
+  "stock_dt_panel_id": "0x4e38316150360200",
+  "stock_initial_brightness": 307,
+  "stock_max_brightness": 4095,
+  "evidence": "r33 initial requested4095; probe LEDs0 at13.323/13.338s; first nonzero40.943s; user reports white flash and black interval",
+  "adaptation": "Read existing DT initial brightness only for N81A; remove our probe-only LED blackout; retain pre-reset LED off, bias and normal brightness routing",
+  "hardware_result": "pending"
+}

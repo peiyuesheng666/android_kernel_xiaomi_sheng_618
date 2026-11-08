@@ -1,0 +1,60 @@
+{
+  "revision": "hardware-r34",
+  "capture_authorization": "User requested wireless log capture before the wired deadline; no new flash after deadline",
+  "guard_result": {
+    "event": "wired_adb_deadline_reached",
+    "time": "2026-11-09T07:42:09+0800",
+    "elapsed_seconds": 300.81,
+    "wired_adb_observed": false,
+    "wired_adb_available_at_deadline": false,
+    "stop_required": true
+  },
+  "stopped_after_usb_deadline": true,
+  "wireless_serial": "192.168.1.153:33289",
+  "wireless_does_not_satisfy_usb_gate": true,
+  "wireless_boot_completed": true,
+  "actual_kernel": "6.18.32-peiyuesheng-sheng-kernel",
+  "actual_build_timestamp": "Mon Nov 9 07:35:59 +08 2026",
+  "current_kernel": {
+    "archive_sha256": "1a70e9052e9a4aa4494492657a04a14f7bfbef919ee5c98c406e874e7763cb22",
+    "member": "bugreport-sheng-BP2A.250605.031.A3-2026-11-09-07-41-08.txt",
+    "kernel_bytes": 2239788,
+    "kernel_sha256": "8af87c7df967d343856ecfd1bab182f2023acd3b22cd9dd8d983c6270f763986"
+  },
+  "raw_folder": "reports/device/kernel618-hardware-r34",
+  "usb_folder": "reports/device/kernel618-usb-wireless-20261109-074058-469571",
+  "battery_evidence": {
+    "usb_powered": false,
+    "ac_powered": false,
+    "max_charging_current": 0,
+    "max_charging_voltage": 0,
+    "status": 3
+  },
+  "user_report": "Power bank shows about 4.9 V but no watts; startup white flash persists",
+  "usb_evidence": {
+    "ucsi_version": "1.10",
+    "connected": false,
+    "power_role": "no-power",
+    "data_role": "no-data",
+    "host_transition_seconds": 89.212862,
+    "none_transition_seconds": 89.727609,
+    "last_connect_duration_millis": 515,
+    "role_transition_correlated_to_specific_plug_action": false
+  },
+  "display_evidence": {
+    "initial_brightness": 307,
+    "initial_max": 4095,
+    "initial_log_seconds": 13.599703,
+    "first_logged_nonzero_brightness_seconds": 38.666726,
+    "probe_led_blank_removed": true,
+    "white_flash_fixed": false,
+    "complete_boot_time_improvement_verified": false
+  },
+  "limits": [
+    "Shell dmesg, USB sysfs and capability reads denied by unchanged SELinux; current kernel obtained through bugreport",
+    "Role transition alone does not identify the reason for disconnect or charging failure",
+    "No charging-current or protection settings changed; enumeration and charging remain broken",
+    "No new keyboard, camera-video, audio-stability or smoothness acceptance"
+  ],
+  "outcome": "USB gate failed; no Recovery reboot, no r35 build or flash"
+}

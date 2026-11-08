@@ -1,0 +1,31 @@
+{
+  "files": {
+    "soc/drivers/usb/repeater/repeater-qti-pmic-eusb2.c": {
+      "before": "b287788ecda1fc5a757f7fbb64115ec971bcfb360818270ea19daf47c064f0f4",
+      "after": "46317274b36af4813f2aa171b42a21f2c02ea67e363869fef27eaa7e822d330f"
+    }
+  },
+  "references": [
+    {
+      "repository": "lineage-kernel",
+      "commit": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "file": "drivers/usb/repeater/repeater-qti-pmic-eusb2.c",
+      "sha256": "9c9467d051ee95c8ade449d3b5ec4a1440c8cbc73cc9f3d018420d0cad636a8b",
+      "stock_capability_present": false
+    },
+    {
+      "repository": "micode-kernel",
+      "commit": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "file": "drivers/usb/repeater/repeater-qti-pmic-eusb2.c",
+      "sha256": "93e9c7a9a73d86c4cdb5ff228b382933907387213e94517c607efee9a50ade12",
+      "stock_capability_present": true
+    }
+  ],
+  "capability_value": 0,
+  "capability_read_only": true,
+  "scope_model": "Qualcomm Technologies, Inc. 8550 sheng",
+  "cause": "HyperOS USB HAL repeatedly reads absent enable_msflag; old host override DT property was ignored",
+  "device_mode_tuning_changed": false,
+  "enumeration_root_cause_proven": false,
+  "hardware_result": "pending"
+}

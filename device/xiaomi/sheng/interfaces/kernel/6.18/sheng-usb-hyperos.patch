@@ -1,0 +1,75 @@
+--- a/drivers/usb/repeater/repeater-qti-pmic-eusb2.c
++++ b/drivers/usb/repeater/repeater-qti-pmic-eusb2.c
+@@ -13,9 +13,8 @@
+ #include <linux/regulator/consumer.h>
+ #include <linux/usb/dwc3-msm.h>
+ #include <linux/usb/repeater.h>
+-#ifdef OPLUS_FEATURE_CHG_BASIC
+ #include <linux/proc_fs.h>
+-#endif
++#include <linux/seq_file.h>
+ 
+ #define EUSB2_3P0_VOL_MIN			3075000 /* uV */
+ #define EUSB2_3P0_VOL_MAX			3300000 /* uV */
+@@ -104,6 +103,7 @@
+ 	bool			power_enabled;
+ 
+ 	struct dentry		*root;
++	struct proc_dir_entry	*sheng_ms_enable;
+ 	u8			usb2_crossover;
+ 	u8			iusb2;
+ 	u8			res_fsdif;
+@@ -655,6 +655,14 @@
+ }
+ #endif
+ 
++/* MiCode enables the alternate HDD scheme only on M2/M3/N11.
++ * N81A/sheng advertises zero; the HyperOS USB HAL reads this capability. */
++static int sheng_enable_msflag_show(struct seq_file *seq, void *unused)
++{
++	seq_puts(seq, "0\n");
++	return 0;
++}
++
+ static int eusb2_repeater_probe(struct platform_device *pdev)
+ {
+ 	struct eusb2_repeater *er;
+@@ -700,7 +708,10 @@
+ 	if (ret < 0)
+ 		goto err_probe;
+ 
+-	ret = eusb2_repeater_read_overrides(dev, "qcom,host-param-override-seq",
++	/* Preserve the current binding and accept the stock 5.15 DT alias. */
++	ret = eusb2_repeater_read_overrides(dev,
++			of_find_property(dev->of_node, "qcom,host-param-override-seq", NULL) ?
++			"qcom,host-param-override-seq" : "qcom,param-override-seq-host",
+ 			&er->host_param_override_seq, &er->host_param_override_seq_cnt);
+ 	if (ret < 0)
+ 		goto err_probe;
+@@ -723,6 +734,18 @@
+ #endif
+ 
+ 	eusb2_repeater_create_debugfs(er);
++	/* Scope the stock ABI to the verified sheng model, not every Kalama DT. */
++	{
++		const char *model;
++
++		if (!of_property_read_string(of_root, "model", &model) &&
++		    !strcmp(model, "Qualcomm Technologies, Inc. 8550 sheng")) {
++			er->sheng_ms_enable = proc_create_single("enable_msflag", 0444,
++					NULL, sheng_enable_msflag_show);
++			if (!er->sheng_ms_enable)
++				dev_warn(dev, "failed to publish sheng USB capability\n");
++		}
++	}
+ 	return 0;
+ 
+ err_probe:
+@@ -740,6 +763,7 @@
+ 	remove_proc_entry("usb", NULL);
+ #endif
+ 
++	proc_remove(er->sheng_ms_enable);
+ 	debugfs_remove_recursive(er->root);
+ 	usb_remove_repeater_dev(&er->ur);
+ 	eusb2_repeater_power(er, false);

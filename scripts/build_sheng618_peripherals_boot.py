@@ -48,6 +48,9 @@ if followup.exists():
 latency = PROJECT/'reports/kernel618-display-latency-source.json'
 if latency.exists():
     source_receipts.append(latency.name)
+handoff = PROJECT/'reports/kernel618-boot-handoff-source.json'
+if handoff.exists():
+    source_receipts.append(handoff.name)
 extra_groups = {
     'fingerprint': ('fpc1552.ko', 'xiaomifp.ko'),
     'hall': ('xiaomi_hall.ko',),
@@ -76,6 +79,11 @@ if latency.exists():
         if name in expected_sources:
             assert hashes['before'] == expected_sources[name], 'Source chain mismatch: ' + name
         expected_sources[name] = hashes['after']
+if handoff.exists():
+    for name, hashes in source_snapshots[handoff.name]['files'].items():
+        if name in expected_sources:
+            assert hashes['before'] == expected_sources[name], 'Source chain mismatch: ' + name
+        expected_sources[name] = hashes['after']
 for name, expected in expected_sources.items():
     assert hashlib.sha256((K618/name).read_bytes()).hexdigest() == expected, name
 for name, hashes in json.loads((PROJECT/'reports/kernel618-touch-source.json').read_text())['files'].items():
@@ -98,6 +106,13 @@ if options.all_modules_manifest:
         assert hashlib.sha256((K618/name).read_bytes()).hexdigest() == hashes['after'], name
     source_receipts.append('kernel618-usb-refclock-source.json')
     source_snapshots['kernel618-usb-refclock-source.json'] = usb_receipt
+    repeater = PROJECT/'reports/kernel618-usb-hyperos-source.json'
+    if repeater.exists():
+        data = json.loads(repeater.read_text())
+        for name, hashes in data['files'].items():
+            assert hashlib.sha256((K618/name).read_bytes()).hexdigest() == hashes['after'], name
+        source_receipts.append(repeater.name)
+        source_snapshots[repeater.name] = data
 for name, source in replacements.items():
     shutil.copyfile(source, modules/name)
     subprocess.run([CLANG/'llvm-strip','--strip-debug',modules/name],check=True)

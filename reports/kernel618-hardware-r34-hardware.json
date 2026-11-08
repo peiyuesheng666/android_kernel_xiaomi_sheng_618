@@ -1,0 +1,84 @@
+{
+  "revision": "hardware-r34",
+  "boot_sha256": "c0743ff5824c4a20158f7bea5f5aa13e7881de5e2e74385b91e1885e3f2237ce",
+  "image_sha256": "e80d81154e91e7bad2f1c3061fcd06402b1c155976c54d016fcc686ef2033dc3",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T07:37:08+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:37:08+0800",
+      "elapsed_seconds": 0.04
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:37:39+0800",
+      "elapsed_seconds": 30.64
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:38:10+0800",
+      "elapsed_seconds": 61.3
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:38:40+0800",
+      "elapsed_seconds": 91.95
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:39:11+0800",
+      "elapsed_seconds": 122.58
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:39:42+0800",
+      "elapsed_seconds": 153.27
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:40:13+0800",
+      "elapsed_seconds": 184.32
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:40:43+0800",
+      "elapsed_seconds": 214.94
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:41:14+0800",
+      "elapsed_seconds": 245.64
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T07:41:45+0800",
+      "elapsed_seconds": 276.3
+    },
+    {
+      "event": "wired_adb_deadline_reached",
+      "time": "2026-11-09T07:42:09+0800",
+      "elapsed_seconds": 300.81,
+      "wired_adb_observed": false,
+      "wired_adb_available_at_deadline": false,
+      "stop_required": true
+    },
+    {
+      "event": "failed",
+      "time": "2026-11-09T07:42:09+0800",
+      "error": "USB ADB absent at the 300-second deadline; preserve results and stop task"
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "wired_adb_timeout_seconds": 300,
+  "stop_task_if_wired_adb_absent": true,
+  "adb_transport": "USB",
+  "adb_serial": "ca10ede3",
+  "stop_required": true
+}

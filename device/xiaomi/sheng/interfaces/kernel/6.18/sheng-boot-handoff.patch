@@ -1,0 +1,58 @@
+--- a/vendor/qcom/opensource/display-drivers/msm/sde/sde_connector.c
++++ b/vendor/qcom/opensource/display-drivers/msm/sde/sde_connector.c
+@@ -564,6 +564,22 @@
+ 	props.max_brightness = bl_config->brightness_max_level;
+ #ifndef OPLUS_FEATURE_DISPLAY
+ 	props.brightness = bl_config->brightness_max_level;
++	/* MiCode sheng and LOS use the DT initial level, not maximum brightness.
++	 * Keep this tablet adaptation local to the N81A external-backlight panel. */
++	{
++		u64 panel_id;
++		u32 initial;
++
++		if (display->panel->bl_config.type == DSI_BACKLIGHT_EXTERNAL &&
++		    !of_property_read_u64(display->panel->panel_of_node,
++			"mi,panel-id", &panel_id) && panel_id == 0x4e38316150360200ULL &&
++		    !of_property_read_u32(display->panel->panel_of_node,
++			"qcom,mdss-brightness-init-level", &initial)) {
++			props.brightness = min_t(u32, initial, props.max_brightness);
++			SDE_INFO("sheng initial backlight=%u max=%u\n",
++				props.brightness, props.max_brightness);
++		}
++	}
+ #else /* OPLUS_FEATURE_DISPLAY */
+ 	if (oplus_display_ops.backlight_setup_pre) {
+ 		oplus_display_ops.backlight_setup_pre(&props, display);
+--- a/vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c
++++ b/vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c
+@@ -197,27 +197,9 @@
+ 	pdata->dev = &i2c->dev;
+ 	i2c_set_clientdata(i2c, pdata);
+ 	pdata->ops = &ops;
+-	/* Continuous splash may skip dsi_panel_reset entirely. Darken the LEDs
+-	 * at their own probe, before display reconfiguration; keep LCD bias on.
+-	 * Normal N81A backlight updates restore the user's requested level. */
+-	{
+-		const char *model;
+-		if (!of_property_read_string(of_root, "model", &model) &&
+-		    !strcmp(model, "Qualcomm Technologies, Inc. 8550 sheng")) {
+-			unsigned int lsb, msb, current_enable;
+-			ret = ktz_update_status(pdata, 0);
+-			if (!ret)
+-				ret = regmap_read(pdata->regmap, KTZ8866_DISP_BB_LSB, &lsb);
+-			if (!ret)
+-				ret = regmap_read(pdata->regmap, KTZ8866_DISP_BB_MSB, &msb);
+-			if (!ret)
+-				ret = regmap_read(pdata->regmap, KTZ8866_DISP_BL_ENABLE, &current_enable);
+-			if (ret)
+-				return ret;
+-			dev_info(&i2c->dev, "sheng_backlight boot_dark actual=%u enable=0x%x previous_enable=0x%x\n",
+-				 ((msb & 0xff) << 3) | (lsb & 7), current_enable, enable);
+-		}
+-	}
++	/* Probe must preserve the bootloader image. The actual panel reset
++	 * path darkens these LEDs before invalidating scanout. */
++
+ 	mutex_lock(&ktz8866_dev_list_mutex);
+ 	list_add(&pdata->entry, &ktz8866_dev_list);
+ 	mutex_unlock(&ktz8866_dev_list_mutex);

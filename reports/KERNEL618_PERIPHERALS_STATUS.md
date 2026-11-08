@@ -1,5 +1,60 @@
 # 6.18 sheng 外围实机修复
 
+## 2026-11-09 r34 开机背光及澎湃 USB 接口候选
+
+本轮按用户新约定：只刷 boot_a，正常构建无自动重启；重启后完整观察
+300 秒，只以有线 ca10ede3 的 ADB 及实际 shell 响应作为继续条件。
+无线 ADB 不替代 USB 验收。五分钟末有线 ADB 仍不可用就停止后续修复，
+只整理本轮记录；不自动切 Recovery 或再刷下一版。
+
+开机显示对照固定 MiCode 显示 6461221b68908b990e1fa2b60feaa812cb944ef5、
+LOS nuwa 显示 92a9fde479d3262da080cfd28bab0775b0da500a，恢复已有原厂 DT
+初始亮度 307，限于 N81A 外置背光面板；此前通用路径设为最大值 4095。
+去掉本项目 r31 加入的 KTZ probe 关背光，保留实际 panel reset 前的关灯。
+r33 此处两盏背光在 13.32 秒熄灭，直到 40.94 秒才重新非零，存在约 27 秒
+黑屏空档。脚本、补丁、不可变源副本及哈希见 kernel618-boot-handoff-source.json。
+用户对 r34 的实测仍为“白一下屏然后进入小米 Logo”，因此白闪未修复，
+黑屏间隔和完整开机时间尚未量化，不能声称显示问题全部解决。
+
+USB 对照固定 LOS f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d 与 MiCode
+29db5d592c5b577aa9d9611da988a5e071d100dd。LOS 没有 enable_msflag 私有 ABI；
+MiCode 只对 M2/M3/N11 特定地区开启该方案，sheng/N81A 返回 0。本轮仅在
+已核实的 sheng model 上恢复 /proc/enable_msflag 的只读 0，随驱动注销清理。
+原厂 USB HAL 高频读取缺失节点并报 ENOENT，已保留原始日志；不能将该缺口
+等同于枚举失败的根因。中继器解析额外接受原厂 qcom,param-override-seq-host
+别名，现有 qcom,host-param-override-seq 优先；不改 device 模式调参。
+源核查见 kernel618-usb-hyperos-source.json。UCSI sync_control 回读接口与
+6.18 core 合同匹配，此处未改。SS PHY 父时钟警告仍未解决。
+
+本轮重编 SoC 模块和 display，使用 r33 同一身份真实重编的其他模块，
+未修改二进制 CRC/vermagic。344 模块、20964 项导入 CRC、18008 项内核导出、
+归档权限、来源哈希链、官方 boot 模板解包回读检查通过。固定版本及用户/主机
+保持 6.18.32-peiyuesheng-sheng-kernel、peiyuesheng@MiFans。
+07:37:08+0800 已仅刷 boot_a，07:42:09 完成 300.81 秒有线检测，全程未见
+ca10ede3 的 ADB，stop_required=true。按用户规则停止后续修复和刷机，未切
+Recovery、未构建或刷入 r35。正常系统启动与 USB 枚举分开记录。
+无自动重启，官方包只读，交付目录保留 r30–r34 五版。
+Image SHA256=e80d81154e91e7bad2f1c3061fcd06402b1c155976c54d016fcc686ef2033dc3；
+boot SHA256=c0743ff5824c4a20158f7bea5f5aa13e7881de5e2e74385b91e1885e3f2237ce。
+
+用户在截止前接通已配对无线 ADB 并明确要求抓 USB/充电日志；已用新端口
+192.168.1.153:33289 完成只读采样和 bugreport，未以无线连接替代有线验收。
+实机 banner 构建时间为 07:35:59、boot_completed=1。当前 KERNEL LOG 的
+13.599703 秒确认初始亮度 307；探测阶段没有原关灯动作，但用户仍观察白闪。
+35.501575 秒 UCSI 1.10 已探测，36.642169 秒初始角色 NONE，89.212862 秒
+短暂切 HOST，89.727609 秒回 NONE，dumpsys 记录连接持续 515ms。
+这段切换未与具体插线动作可靠同步，不能断言错误识别了哪种外设。
+采样时 Type-C disconnected/no-power/no-data，电池 USB powered=false、
+最大充电电流/电压均为零；用户反馈充电宝显示 4.9V、无瓦数。
+该证据表明问题不限于 ADB 服务，但尚不足以确定连接掉线和充电失败根因。
+SS PHY 的 pipe_clk set_parent disable 告警仍存在；未修改充电电流或保护设置。
+原厂 SELinux 拒绝 shell 直接读 dmesg、部分 sysfs 和 enable_msflag；当前内核段
+由 bugreport 正规获得，未降低 enforcement，也未将拒读误报为节点缺失。
+原始日志继续忽略，不入 Git；哈希与限制见 kernel618-hardware-r34-followup.json。
+
+键盘/触控板休眠后可靠性、相机录像卡死、插电音效卡顿及流畅度仍未验收；
+本轮没有将调频、录像或键盘标为已修复。
+
 ## 2026-11-09 r33 USB 时钟、键盘恢复与持续日志候选
 
 r32 有线 USB 在旧内核上自行恢复，不视为新修复生效。当前内核证据确认

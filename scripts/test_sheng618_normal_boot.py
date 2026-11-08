@@ -23,7 +23,9 @@ folder.mkdir(parents=True, exist_ok=True)
 assert not (folder / 'flash.txt').exists(), 'Preserve previous flash records'
 report = ROOT / ('reports/kernel618-' + tag + '-hardware.json')
 receipt = dict(revision=tag, boot_sha256=build['boot_sha256'], image_sha256=build['image_sha256'],
-               writes=['boot_a'], test_mode_enabled=False, events=[], full_hardware_functionality_verified=False)
+               writes=['boot_a'], test_mode_enabled=False, events=[], full_hardware_functionality_verified=False,
+               wired_adb_timeout_seconds=300, stop_task_if_wired_adb_absent=True,
+               adb_transport='USB', adb_serial=SERIAL)
 
 def record(event, **data):
     receipt['events'].append(dict(event=event, time=time.strftime('%Y-%m-%dT%H:%M:%S%z'), **data))
@@ -55,7 +57,8 @@ try:
     call('fastboot', 'reboot')
     start = time.monotonic()
     next_notice = 0
-    while time.monotonic() - start < 180:
+    captured = False
+    while time.monotonic() - start < receipt['wired_adb_timeout_seconds']:
         devices = call('adb', 'devices', check=False)
         if re.search(SERIAL + r'\s+device\b', devices):
             kernel = call('adb', 'shell', 'uname -r').strip()
@@ -72,19 +75,29 @@ try:
                 record('candidate_adb_connected', elapsed_seconds=round(time.monotonic()-start, 2))
             if call('adb', 'shell', 'getprop sys.boot_completed').strip() == '1':
                 receipt['android_boot_completed'] = True
-                for name, command in [('properties', 'getprop'), ('input', 'dumpsys input'),
-                                      ('sensors', 'dumpsys sensorservice'), ('logcat', 'logcat -b all -d -t 5000'),
-                                      ('audio-policy', 'dumpsys media.audio_policy'),
-                                      ('usb', 'dumpsys usb')]:
-                    (folder / (name+'.txt')).write_text(call('adb', 'shell', command, check=False, timeout=30))
-                record('android_boot_completed', elapsed_seconds=round(time.monotonic()-start, 2))
-                break
+                if not captured:
+                    for name, command in [('properties', 'getprop'), ('input', 'dumpsys input'),
+                                          ('sensors', 'dumpsys sensorservice'), ('logcat', 'logcat -b all -d -t 5000'),
+                                          ('audio-policy', 'dumpsys media.audio_policy'),
+                                          ('usb', 'dumpsys usb')]:
+                        (folder / (name+'.txt')).write_text(call('adb', 'shell', command, check=False, timeout=30))
+                    captured = True
+                    record('android_boot_completed', elapsed_seconds=round(time.monotonic()-start, 2))
         if time.monotonic() >= next_notice:
             next_notice = time.monotonic()+30
             record('waiting_for_android', elapsed_seconds=round(time.monotonic()-start, 2))
         time.sleep(2)
-    else:
-        raise TimeoutError('Android boot completion not received within 180 seconds')
+    devices = call('adb', 'devices', check=False)
+    available = bool(re.search(SERIAL + r'\s+device\b', devices))
+    if available:
+        # A listed transport alone does not prove that adbd can execute commands.
+        available = call('adb', 'shell', 'uname -r', check=False).strip() == build['build_identity']['release']
+    receipt['stop_required'] = not available
+    record('wired_adb_deadline_reached', elapsed_seconds=round(time.monotonic()-start, 2),
+           wired_adb_observed=receipt.get('candidate_adb_connected', False),
+           wired_adb_available_at_deadline=available, stop_required=receipt['stop_required'])
+    if not available:
+        raise TimeoutError('USB ADB absent at the 300-second deadline; preserve results and stop task')
 except Exception as error:
     record('failed', error=str(error))
     raise

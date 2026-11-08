@@ -11,6 +11,17 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
+2026-11-09 r34：恢复 N81A 原厂初始亮度 307，移除 probe 时关背光造成的
+长黑屏路径；补回澎湃 USB HAL 所需的 sheng 只读 enable_msflag=0，兼容
+原厂中继器 host 调参属性名。用户实测仍白闪后进入小米 Logo，白闪未解决。
+SoC/display 重编及全部 344 个配套模块 ABI、20964 项导入 CRC、18008 项内核
+导出、归档权限、来源哈希链、官方 boot 封包回读通过。07:37:08+0800 仅刷
+boot_a，无自动重启；07:42:09 完成 300.81 秒检测，有线 ADB 全程未出现，
+已按用户规则停止后续修复和刷机。截止前经用户新连的无线 ADB 完成日志抓取，
+确认系统正常启动；Type-C 无数据/供电角色，电池报告充电电流为零，USB/充电
+仍未修复。交付保留 r30–r34 共五版，原厂包只读。USB 枚举、键盘间歇
+失效、相机录像卡死、插电音效、卡顿及开机速度仍未验收。详见上述外围报告。
+
 2026-11-09：r33 已完成内核与全部 344 个模块重编，固定版本为
 6.18.32-peiyuesheng-sheng-kernel，构建用户 peiyuesheng、主机 MiFans；
 编译器横幅保留 Clang/LLD 版本，完整来源另存构建报告。20957 项版本化
