@@ -105,6 +105,13 @@ on boot
     chmod 0660 /sys/devices/virtual/touch/touch_dev/bump_sample_rate
 
 on post-fs-data
+    # This driver exposes class attributes without a matching device uevent.
+    # Grant access before the Lineage health HAL probes charging-control nodes;
+    # otherwise its constructor waits forever and blocks framework startup.
+    wait /sys/class/qcom-battery/input_suspend 10
+    chown system system /sys/class/qcom-battery/input_suspend
+    chmod 0660 /sys/class/qcom-battery/input_suspend
+
     mkdir /data/vendor/misc 01771 system system
     mkdir /data/vendor/misc/mi_fp 0770 system system
     mkdir /persist/mi_fp 0770 system system
