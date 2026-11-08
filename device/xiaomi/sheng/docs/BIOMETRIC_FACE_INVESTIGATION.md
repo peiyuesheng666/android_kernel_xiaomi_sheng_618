@@ -31,8 +31,8 @@ The dependency set combines current vendor libraries, current vendor variants
 of LLNDK/runtime providers, and the two original V2 libraries as explicit
 candidates. No DT_NEEDED provider was missing from that candidate set and no
 undefined symbol was reported by check_elf_file.py. This is a candidate linking
-check: the two V2 files are still absent on the device, generated V2 build outputs
-have not been compiled, and linker namespaces, service startup and runtime ABI
+check: at that stage the two V2 files were absent on the device and generated V2
+outputs had not been compiled. Linker namespaces, service startup and runtime ABI
 behavior remain unverified. It does not establish a working face service.
 
 Commands, exact provider paths, source hashes and all five zero exit statuses
@@ -57,3 +57,25 @@ eecbef1b87f4055f5c35c519d2d1d220b479e0fe6320d970708e277ebba532c0.
 
 This is investigation evidence. No face service or camera was started, no
 enrollment or authentication was attempted, and no face repair is yet claimed.
+
+## Frozen V2 source candidate build
+
+Both V2 NDK interface libraries have now been generated from the unchanged public
+frozen V2 AIDL definitions and compiled as isolated candidates. The device-owned
+builder reuses recorded vendor compiler/linker templates by streaming Ninja text;
+it does not load the complete build graph or install outputs into the product.
+Fresh upstream audits before and after this build passed for 22 public repositories,
+including hardware/interfaces, with all 1243 project statuses clean.
+
+Both original service executables, rebuilt face V2, rebuilt common V2 and current
+libmiface passed check_elf_file.py against the complete candidate dependency set.
+The first face V2 ELF check omitted libnativewindow from its supplied provider
+list and failed. The rebuilt library actually declares that dependency; adding the
+existing current vendor provider to the check resolved it. Both the failed initial
+report and the complete passing report are retained without disabling ELF checks.
+
+Exact inputs, output hashes, command logs and audit hashes are recorded in
+face-v2-candidate-build-20261108.json. These libraries remain uninstalled. Normal
+product module integration, precise SELinux policy, service registration, linker
+namespace behavior and runtime ABI still require validation. No service, camera,
+enrollment or authentication was started by this candidate build.
