@@ -1,0 +1,27 @@
+{
+  "real_aarch64_kernel": true,
+  "real_gpt_block_io_and_fsync": true,
+  "image_sha256": "eb51425e43080ae0408fb2d6612fd7c2082b24e5b67b24178d905f67a05c5991",
+  "cases": [
+    {
+      "case": "valid",
+      "gpt_name": "rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 2,
+      "expected_write": true,
+      "uptime_ms": [
+        10334,
+        10046
+      ],
+      "qemu_log": "/root/sheng-618/diagnostic/aux-r12/qemu-regression/valid.log"
+    }
+  ],
+  "torn_copy_rejected_other_copy_readable": true,
+  "hardware_ufs_tested": false,
+  "embedded_helper_exec_and_finit_module_tested": true,
+  "partition_guard_cases_run": false,
+  "fault_injection_case_run": false,
+  "exception_stack_persisted_before_panic": null,
+  "extra_test_module": "/root/sheng-618/diagnostic/aux-r12/aux-lifetime-test/sheng_aux_test.ko",
+  "regression_marker_persisted": "SHENG_AUX_LIFETIME_PASS"
+}

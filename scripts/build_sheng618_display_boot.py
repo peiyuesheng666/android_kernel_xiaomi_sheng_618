@@ -15,7 +15,7 @@ from audit_sheng618_overlay import audit, entries
 from build_sheng618_upstream import CLANG, K618, OUT, PROJECT, ROOT, UPSTREAM, command, environment
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--tag', choices=['display-r6', 'display-r7', 'display-r8'], default='display-r7')
+parser.add_argument('--tag', choices=['display-r6', 'display-r7', 'display-r8', 'aux-r12'], default='display-r7')
 parser.add_argument('--reuse-module', action='store_true',
                     help='Reuse the exact display module already verified for r6')
 parser.add_argument('--replace-untested', action='store_true')
@@ -29,9 +29,11 @@ if (PROJECT / 'artifacts' / ('sheng-6.18-' + tag)).exists():
 native.mkdir(parents=True, exist_ok=True)
 env = environment(os.cpu_count())
 subprocess.run([sys.executable, PROJECT / 'scripts/patch_sheng618_display.py'], check=True)
-if tag == 'display-r8':
+if tag in ('display-r8', 'aux-r12'):
     assert not options.reuse_module, 'r8 checkpoints require a newly compiled module'
     subprocess.run([sys.executable, PROJECT / 'scripts/patch_sheng618_display_trace.py'], check=True)
+if tag == 'aux-r12':
+    subprocess.run([sys.executable, PROJECT / 'scripts/patch_sheng618_dp_aux_lifetime.py'], check=True)
 if not options.reuse_module:
     command(tag + '-module', ['bash', UPSTREAM / 'kernel-6.18/k618_tp.sh',
                              str(os.cpu_count()), 'display'], env)
@@ -40,7 +42,7 @@ tree = K618 / 'vendor/qcom/opensource/display-drivers'
 for relative, hashes in source_report['files'].items():
     assert hashlib.sha256((tree / relative).read_bytes()).hexdigest() == hashes['after']
 trace_report = None
-if tag == 'display-r8':
+if tag in ('display-r8', 'aux-r12'):
     trace_report = json.loads((PROJECT / 'reports/kernel618-display-probe-trace-source.json').read_text())
     for relative, hashes in trace_report['files'].items():
         assert hashlib.sha256((tree / relative).read_bytes()).hexdigest() == hashes['after']
@@ -100,6 +102,11 @@ report = {'revision': tag, 'checks': checked, 'old_msm_drm_sha256': old_sha,
 if trace_report:
     report['probe_trace_source_receipt'] = 'kernel618-display-probe-trace-source.json'
     report['probe_trace_present_in_module'] = True
+if tag == 'aux-r12':
+    aux_report = json.loads((PROJECT / 'reports/kernel618-dp-aux-lifetime-source.json').read_text())
+    for relative, hashes in aux_report['files'].items():
+        assert hashlib.sha256((tree / relative).read_bytes()).hexdigest() == hashes['after']
+    report['aux_lifetime_source_receipt'] = 'kernel618-dp-aux-lifetime-source.json'
 (PROJECT / ('reports/kernel618-' + tag + '-layer.json')).write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2), flush=True)
 subprocess.run([sys.executable, PROJECT / 'scripts/build_sheng618_disklog_boot.py',

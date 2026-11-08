@@ -1,0 +1,16 @@
+--- a/msm/dp/dp_aux.c
++++ b/msm/dp/dp_aux.c
+@@ -745,0 +746,4 @@
++	/* drm_aux is published only after successful registration. */
++	if (!dp_aux->drm_aux)
++		return;
++
+@@ -747,0 +752 @@
++	dp_aux->drm_aux = NULL;
+@@ -972,0 +978,2 @@
++	/* Includes post-init failures after AUX registration (e.g. PLL). */
++	dp_aux_deregister(dp_aux);
+--- a/msm/dp/dp_display.c
++++ b/msm/dp/dp_display.c
+@@ -2461,0 +2462 @@
++	dp->aux = NULL;

@@ -251,3 +251,23 @@ MiCode 6461221b68908b990e1fa2b60feaa812cb944ef5 都有同样的错误清理遗�
 MiCode 旧同节点 PLL 绑定避开了本机这条触发路径。现修复对象所有者的清理职责，
 不删除链表检查，不用禁用 SSPP 或整个 DP 来掩盖问题。
 原始日志 reports/device/kernel618-slab-r11/；结果见 kernel618-slab-r11-hardware.json。
+
+
+### aux-r12：DP AUX 修复实机越过旧异常，尚未开机
+
+修复 AUX 所有者的释放顺序：成功注册后，先注销内嵌 I2C adapter，再释放对象；
+重复注销及注册失败可安全清理，PLL 错误出口清空 dp->aux。
+参考来源和固定提交见 kernel618-dp-aux-lifetime-source.json；旧 PLL 绑定及外接显示仍未完成。
+QEMU 用实际 DRM/I2C 注册路径验证六种生命周期，全部通过；旧版 put 对照检测到
+释放时 adapter 仍存活。相同结构的编译断言核对 128+352=480 的悬空 entry 偏移。
+337 模块 ABI、全部归档权限、助手执行和 boot 解包回读通过。
+
+实机 run 0f13ca0f8bfb71ea，seq426/427 为 120.350/120.606 秒，两份 CRC/尾标记有效。
+此前 list_add BUG 未再出现；显示 splash、DRM 注册、postinit 均返回，
+msm_drm 25.442 秒加载完，GPU msm_kgsl 28.307 秒加载完。
+原厂 init 已挂载系统分区，最后动作是 init.qti.kernel.rc:54 的 post-fs；
+printk 至 32.631 秒，但日志写入线程继续工作至 120 秒，尚不能判为整个内核硬死锁。
+用户看到白闪后卡米标，手动返回 Fastboot；系统启动及功能验证仍未通过。
+下一步读取 init 等待原因，并加入仅测试版启用的 180 秒自动回 Fastboot 和电脑端读日志。
+原始记录 reports/device/kernel618-aux-r12/，整理见 kernel618-aux-r12-hardware.json。
+当前五版：display-r8、display-r9、fault-r10、slab-r11、aux-r12；仅清理旧交付目录。

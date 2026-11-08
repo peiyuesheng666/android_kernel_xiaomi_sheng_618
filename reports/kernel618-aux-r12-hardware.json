@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-08",
+  "revision": "aux-r12",
+  "serial": "ca10ede3",
+  "product": "sheng",
+  "active_slot": "a",
+  "flashed_partition": "boot_a",
+  "boot_sha256": "5f5b62729a70a2b1057eb365c59d726b110bfe6c3b71bbc26d424d69e3604c35",
+  "image_sha256": "eb51425e43080ae0408fb2d6612fd7c2082b24e5b67b24178d905f67a05c5991",
+  "flash_succeeded": true,
+  "hardware_log_received": true,
+  "android_boot_completed": false,
+  "original_boot_backed_up": false,
+  "user_result": "White flash then stuck on Mi logo; manually returned to Fastboot",
+  "current_state": "Temporary verified Recovery; ADB available",
+  "raw_region_sha256": "e454b94c95a451b4d4bbc43b66f667e1093f1711e0b4021a719a7387e0243b5f",
+  "run": "0f13ca0f8bfb71ea",
+  "valid_crc_snapshots": [
+    {
+      "sequence": 426,
+      "uptime_ms": 120350
+    },
+    {
+      "sequence": 427,
+      "uptime_ms": 120606
+    }
+  ],
+  "latest_log": "reports/device/kernel618-aux-r12/bootlog-0f13ca0f8bfb71ea-427.txt",
+  "aux_lifetime_fault_recurred": false,
+  "progress": "Display postinit and all remaining modules including msm_kgsl completed; stock init mounted system/vendor and reached post-fs",
+  "last_printk_seconds": 32.630688,
+  "last_init_action": "/vendor/etc/init/hw/init.qti.kernel.rc:54 post-fs",
+  "kernel_logger_alive_seconds": 120.606,
+  "next": "Obtain final task stacks and stock post-fs commands; opt-in 180-second bootloader return"
+}

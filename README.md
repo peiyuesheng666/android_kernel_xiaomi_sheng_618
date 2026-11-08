@@ -177,3 +177,6 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 
 导出的开发基线包位于本目录 `artifacts/`，内含内核、配套 GKI 模块及来源记录。
 它不含 sheng 的 6.12 厂商驱动，也不含可直接刷入的 `boot.img`。
+
+2026-11-08 aux-r12 已实机越过 AUX 悬空 I2C 设备引发的链表 BUG，显示和 GPU 模块加载完成。
+原厂 init 停在 post-fs，尚未开机；日志写入正常运行至 120 秒。详见 reports/KERNEL618_DEBUG_STATUS.md。

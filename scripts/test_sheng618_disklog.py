@@ -24,11 +24,17 @@ parser.add_argument('--fault-after-log', action='store_true',
                     help='On CPU 1, BUG in a disposable module and require its stack in disk snapshots')
 parser.add_argument('--slab-tracking', action='store_true',
                     help='Verify kmalloc-2k allocation provenance using the exact candidate cmdline')
+parser.add_argument('--extra-test-module', type=Path,
+                    help='Load a disposable regression module after the virtio providers')
+parser.add_argument('--require-marker',
+                    help='Require this regression marker in both console and a CRC-valid disk snapshot')
 options = parser.parse_args()
 assert not options.fault_after_log or options.positive_only
 assert not options.slab_tracking or options.fault_after_log
+assert bool(options.extra_test_module) == bool(options.require_marker)
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
 root = Path('/root/sheng-618/diagnostic') / options.revision / (
+    'qemu-regression' if options.extra_test_module else
     'qemu-slab' if options.slab_tracking else 'qemu-fault' if options.fault_after_log else 'qemu')
 root.mkdir(parents=True, exist_ok=True)
 out = Path('/root/sheng-618/upstream-build/k618/out-gki')
@@ -62,6 +68,10 @@ for name in ('virtio_pci_modern_dev', 'virtio_pci_legacy_dev', 'virtio_pci', 'vi
     if name in modules:
         include(name)
 assert any('virtio_blk' in p for p in order)
+if options.extra_test_module:
+    assert options.extra_test_module.is_file()
+    shutil.copyfile(options.extra_test_module, rd / 'testmods' / options.extra_test_module.name)
+    order.append('/testmods/' + options.extra_test_module.name)
 (rd / 'test-order').write_text('\n'.join(order) + '\n')
 if options.fault_after_log:
     from build_sheng618_upstream import ACK, environment
@@ -249,6 +259,8 @@ for label, name, mib, expected in inputs:
     if options.helper_exec:
         assert console.count('TEST embedded helper exec ') == len(order), transcript
         assert 'result=111' not in console, transcript
+    if options.require_marker:
+        assert options.require_marker in console, transcript
     if options.fault_after_log:
         assert 'Kernel panic - not syncing:' in console, transcript
         assert 'FAULT TEST unexpectedly survived' not in console, transcript
@@ -260,6 +272,8 @@ for label, name, mib, expected in inputs:
         assert len(slots) == 2, transcript
         assert all('SHENG_DISKLOG_QEMU_ACTUAL' in s['text'] for s in slots)
         assert max(s['uptime_ms'] for s in slots) >= 5000
+        if options.require_marker:
+            assert any(options.require_marker in s['text'] for s in slots), transcript
         if options.fault_after_log:
             assert any(all(marker in s['text'] for marker in (
                 'SHENG_DISKLOG_FAULT_INJECT', 'sheng_fault_probe', 'Call trace:',
@@ -290,6 +304,10 @@ report['exception_stack_persisted_before_panic'] = True if options.fault_after_l
 if options.slab_tracking:
     report['kmalloc_2k_allocation_and_free_stacks_persisted'] = True
     report['stock_stack_depot_disable_overridden'] = True
-suffix = '-qemu-slab.json' if options.slab_tracking else '-qemu-fault.json' if options.fault_after_log else '-qemu.json'
+if options.extra_test_module:
+    report['extra_test_module'] = str(options.extra_test_module)
+    report['regression_marker_persisted'] = options.require_marker
+suffix = ('-qemu-regression.json' if options.extra_test_module else '-qemu-slab.json'
+          if options.slab_tracking else '-qemu-fault.json' if options.fault_after_log else '-qemu.json')
 (work / ('reports/kernel618-' + options.revision + suffix)).write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

@@ -1,0 +1,30 @@
+{
+  "source_file": "/root/sheng-618/upstream-build/k618/vendor/qcom/opensource/display-drivers/msm/dp/dp_aux.c",
+  "source_sha256": "2757bae15941eba1c18d2b108f30ba65eb80dfe3b170dbfcf4919e7967d65499",
+  "extracted_functions": [
+    "dp_aux_register",
+    "dp_aux_deregister",
+    "dp_aux_put"
+  ],
+  "exact_private_public_and_bridge_structs_extracted": true,
+  "compiled_aux_i2c_device_kobject_entry_offset": 352,
+  "compiled_devres_data_offset": 128,
+  "combined_slab_pointer_offset": 480,
+  "actual_drm_and_i2c_registration": true,
+  "hardware_transfer_callbacks_stubbed": true,
+  "one_registration_failure_injected": true,
+  "free_wrapper_detects_and_safely_unregisters_a_live_adapter_before_free": true,
+  "cases": [
+    "registered then put (PLL failure)",
+    "deregister twice then put",
+    "registration failure then put",
+    "never registered then put",
+    "register-deregister-register then put",
+    "normal unbind then put"
+  ],
+  "all_cases_passed": true,
+  "test_module_only_in_disposable_qemu_initrd": true,
+  "before_fix_live_adapter_at_free_detected": true,
+  "hardware_dp_or_display_tested": false,
+  "qemu_receipt": "kernel618-aux-r12-qemu-regression.json"
+}
