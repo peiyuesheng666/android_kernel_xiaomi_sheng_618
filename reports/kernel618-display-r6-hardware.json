@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-08",
+  "revision": "display-r6",
+  "serial": "ca10ede3",
+  "product": "sheng",
+  "active_slot": "a",
+  "flashed_partition": "boot_a",
+  "boot_sha256": "c308bf72851ee8c5e3033d5a84eb532c1ccb31e1d63ed897ba5791e024227771",
+  "image_sha256": "a0105e5f72fdb5ae4e665c6e9befdb3f54c3b27b1e97e3a88c97b7024ddea047",
+  "flash_succeeded": true,
+  "reboot_command_succeeded": true,
+  "hardware_log_received": false,
+  "previous_crash_fixed": null,
+  "android_boot_completed": null,
+  "current_state": "Awaiting Fastboot return to read persistent snapshots",
+  "original_boot_backed_up": false
+}

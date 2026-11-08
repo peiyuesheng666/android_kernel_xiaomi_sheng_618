@@ -1,0 +1,24 @@
+{
+  "revision": "display-r6",
+  "checks": {
+    "release": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+    "expected_series": "6.18",
+    "symvers_sha256": "f145e6a36d7f7dc574acbf4cd6dd11ebf3f6597f723d7099d4fb27de4c9fe373",
+    "effective_module_count": 337,
+    "versioned_imports_checked": 20544,
+    "issue_counts": {},
+    "issue_count": 0,
+    "issues": [],
+    "issues_truncated": false,
+    "warnings": [],
+    "abi_passed": true,
+    "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+  },
+  "old_msm_drm_sha256": "09c4c64e8a683fe0e49c164deb170d724f5fec840ea990ade8a5f475accf47c2",
+  "new_msm_drm_sha256": "ecbe9436eb3bee2f47fec158e05963a067431c9b4d1268f4925cbcd754fde77c",
+  "module_count": 337,
+  "dependency_coverage": true,
+  "source_receipt": "kernel618-display-multitiming-source.json",
+  "overlay_sha256": "75df49b0fb9114bfe99293ac0df40f644fea18d700092d1f1cdc09be453d58c4",
+  "hardware_result": "pending"
+}

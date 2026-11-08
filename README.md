@@ -23,6 +23,8 @@ JiaqiLi404/android_kernel_618_for_sm8550 的通用 SM8550/澎湃集成，
 生成版本最多保留五版。首版 Image 已按此保留规则清理，baseline-r2 boot
 内仍保留同一 Image。当前 disklog-r5 已实机验证内核直接保存日志：
 从 rawdump 读回两份 CRC 有效记录，确认显示驱动在约 12.38 秒发生空指针异常。
+display-r6 已补上本机屏幕的多时序/刷新率映射，编译与完整模块 ABI 检查通过，
+已刷入 boot_a；是否越过该异常仍需读取这轮实机日志确认。
 详见 [reports/KERNEL618_DEBUG_STATUS.md](reports/KERNEL618_DEBUG_STATUS.md)。
 尚未正常开机，平板功能适配与验证仍未完成。
 

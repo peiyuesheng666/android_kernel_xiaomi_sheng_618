@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
 """Build the original module layer plus a bounded, built-in rawdump logger."""
+import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shlex
 import shutil
@@ -15,10 +17,23 @@ from build_sheng618_upstream import ACK, K618, LOGS, ROOT, TOOLS, environment
 work = Path(__file__).resolve().parents[1]
 rom = Path('/root/sheng-lineage/lineage-24.0')
 stock = Path('/mnt/e/6/玩机资源/XiaomiPad6SPro12.4刷机资源/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/boot.img')
-tag = 'disklog-r5'
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--tag', default='disklog-r5')
+parser.add_argument('--overlay', type=Path, default=K618 / 'boot-test/stage/overlay.cpio')
+parser.add_argument('--replace-untested', action='store_true',
+                    help='Replace only this unflashed candidate, preserving its directory')
+options = parser.parse_args()
+tag = options.tag
+assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', tag), 'Invalid artifact label'
+assert options.overlay.is_file()
 native = ROOT / 'diagnostic' / tag
 dest = work / 'artifacts' / ('sheng-6.18-' + tag)
-assert not dest.exists(), 'Preserve tested revisions'
+if dest.exists():
+    assert options.replace_untested, 'Preserve tested revisions'
+    assert not (work / ('reports/device/kernel618-' + tag) / 'flash.txt').exists()
+    assert not (work / ('reports/kernel618-' + tag + '-hardware.json')).exists()
+    previous = json.loads((dest / 'build-result.json').read_text())
+    assert previous['revision'] == tag and not previous['hardware_log_received']
 native.mkdir(parents=True, exist_ok=True)
 
 
@@ -56,7 +71,7 @@ log = LOGS / ('upstream-' + tag + '-image.log')
 try:
     run([ACK / 'scripts/config', '--file', config, '--enable', 'SHENG_BOOTLOG',
          '--set-val', 'LOG_BUF_SHIFT', '22', '--set-str', 'INITRAMFS_SOURCE',
-         K618 / 'boot-test/stage/overlay.cpio', '--disable', 'INITRAMFS_FORCE'])
+         options.overlay.resolve(), '--disable', 'INITRAMFS_FORCE'])
     print('Building built-in disk logger: ' + str(log), flush=True)
     with log.open('w') as stream:
         run([*make, 'olddefconfig'], env=env, stdout=stream, stderr=subprocess.STDOUT)
@@ -76,7 +91,7 @@ args = shlex.split(run([sys.executable, unpack, '--boot_img', stock, '--out', pa
                        '--format=mkbootimg'], capture_output=True, text=True).stdout)
 assert (parts / 'ramdisk').read_bytes() == b''
 args[args.index('--kernel') + 1] = str(image)
-cmdline = 'printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=disklog-r5'
+cmdline = 'printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=' + tag
 args[args.index('--cmdline') + 1] = cmdline
 packed = native / 'boot.img'
 run([sys.executable, rom / 'system/tools/mkbootimg/mkbootimg.py', *args, '--output', packed])
@@ -88,13 +103,15 @@ verify = native / 'verified'
 header = run([sys.executable, unpack, '--boot_img', packed, '--out', verify], capture_output=True, text=True).stdout
 assert sha(verify / 'kernel') == sha(image) and (verify / 'ramdisk').read_bytes() == b''
 assert cmdline in header and 'rdinit=' not in header
-dest.mkdir()
+dest.mkdir(exist_ok=options.replace_untested)
 shutil.copyfile(image, dest / 'Image')
 shutil.copyfile(packed, dest / 'boot.img')
 report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256': sha(dest / 'Image'),
           'boot_bytes': packed.stat().st_size, 'image_bytes': image.stat().st_size,
           'logger_source_sha256': sha(source), 'kernel_exports_unchanged': len(actual),
-          'original_android_init_and_module_layer': True, 'usb_preinit_added': False,
+          'original_android_init_preserved': True,
+          'module_overlay': str(options.overlay.resolve()),
+          'module_overlay_sha256': sha(options.overlay), 'usb_preinit_added': False,
           'kernel_log_buffer_bytes': 4 * 1024**2, 'writer_is_built_in': True,
           'destination': {'gpt_name': 'rawdump', 'required_partition_bytes': 300 * 1024**2,
                           'offset': 288 * 1024**2, 'span': 2 * 1024**2,
@@ -105,7 +122,7 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
           'cmdline': cmdline, 'build_log': str(log), 'maximum_retained_versions': 5}
 (dest / 'build-result.json').write_text(json.dumps(report, indent=2) + '\n')
 (dest / 'SHA256SUMS').write_text(report['boot_sha256'] + '  boot.img\n' + report['image_sha256'] + '  Image\n')
-(work / 'reports/kernel618-disklog-r5-boot.json').write_text(json.dumps(report, indent=2) + '\n')
+(work / ('reports/kernel618-' + tag + '-boot.json')).write_text(json.dumps(report, indent=2) + '\n')
 versions = sorted((p for p in (work / 'artifacts').glob('sheng-6.18-*') if p.is_dir()),
                   key=lambda p: p.stat().st_mtime, reverse=True)
 for old in versions[5:]:

@@ -11,6 +11,8 @@
 该证据来自本机 6.18 运行；不能用其他版本 Recovery 日志替代。
 封包与 USB 尝试、落盘区域、校验结果和限制见
 [KERNEL618_DEBUG_STATUS.md](KERNEL618_DEBUG_STATUS.md)。尚未正常进入系统。
+display-r6 已恢复 MiCode 的 DT 多时序选择，337 模块/20,544 项导入与
+18,008 项内核导出检查通过，已刷入 boot_a，待读回日志确认运行结果。
 
 首轮测试产物曾导出为 `artifacts/sheng-6.18-first-boot/Image`，
 64,506,368 字节（约 61.5 MiB），SHA256 为

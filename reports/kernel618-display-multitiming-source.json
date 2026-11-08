@@ -1,0 +1,25 @@
+{
+  "reference_repository": "https://github.com/MiCode/vendor_opensource_display-drivers",
+  "reference_revision": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+  "los_comparison_revision": "92a9fde479d3262da080cfd28bab0775b0da500a",
+  "files": {
+    "msm/dsi/dsi_defs.h": {
+      "before": "3627441acc795f0f74c780f6842780ecc4c6c59df4c8adca55205036f88f443c",
+      "after": "573a2a9f409ab30d9df32239bca0c59d534bff37fbdca8f43a0a7230d1b54d8b"
+    },
+    "msm/dsi/dsi_panel.c": {
+      "before": "d779637cb061fd7a3a85c47e0bf64eee5fba9acc365251819922ffd58486ab54",
+      "after": "bfd23db427fb292d1f15189226c3796be5c99974d31ae65afeb5410c10835bae"
+    },
+    "msm/dsi/dsi_display.c": {
+      "before": "5b6061063eecb39a140c23588a61aa0d8b9ead319f2d4a5529ac32e89028c8b9",
+      "after": "fd81b404a624fd3840475ddfd354cc8a8f8a9f907c524bd5019574421d74ae16"
+    }
+  },
+  "patch": "device/xiaomi/sheng/interfaces/kernel/6.18/display-multitiming.patch",
+  "patch_sha256": "a77e6d90b047c4852b522e404be8c97993b31a76c1baa3ef90167041a567e778",
+  "source_tree": "/root/sheng-618/upstream-build/k618/vendor/qcom/opensource/display-drivers",
+  "new_hardware_parameters": false,
+  "scope": "MiCode DT multi-timing selection and complete mode table validation",
+  "hardware_result": "pending"
+}

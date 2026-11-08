@@ -1,0 +1,72 @@
+--- a/msm/dsi/dsi_defs.h
++++ b/msm/dsi/dsi_defs.h
+@@ -800,0 +801,3 @@
++	/* k618 sheng: immutable parser-owned per-timing FPS cells. */
++	const __be32 *k618_mi_fps;
++	u32 k618_mi_fps_count;
+--- a/msm/dsi/dsi_panel.c
++++ b/msm/dsi/dsi_panel.c
+@@ -5165 +5165,2 @@
+-		!panel->panel_mode_switch_enabled)
++		!panel->panel_mode_switch_enabled &&
++		!utils->read_bool(utils->data, "mi,video-mode-multi-timing"))
+@@ -5193,0 +5195,5 @@
++	/* MiCode sheng: timings partition the global FPS list. */
++	if (panel->dfps_caps.dfps_support &&
++	    utils->read_bool(utils->data, "mi,video-mode-multi-timing"))
++		num_video_modes = 1;
++
+@@ -5454,0 +5461,15 @@
++
++		/* The parser backing data lives as long as the panel. */
++		if (utils->read_bool(utils_data, "mi,video-mode-multi-timing")) {
++			int bytes = 0;
++
++			prv_info->k618_mi_fps = utils->get_property(utils->data,
++					"mi,mdss-dsi-supported-fps-list", &bytes);
++			if (!prv_info->k618_mi_fps || bytes <= 0 ||
++			    bytes % sizeof(__be32)) {
++				DSI_ERR("missing/invalid sheng timing FPS list %u\n", index);
++				rc = -EINVAL;
++				goto parse_fail;
++			}
++			prv_info->k618_mi_fps_count = bytes / sizeof(__be32);
++		}
+--- a/msm/dsi/dsi_display.c
++++ b/msm/dsi/dsi_display.c
+@@ -8005,2 +8005 @@
+-			struct dsi_display_mode *sub_mode =
+-					&display->modes[array_idx];
++			struct dsi_display_mode *sub_mode;
+@@ -8007,0 +8007,16 @@
++			u32 j;
++			bool supported = false;
++
++			/* k618 sheng: use only rates belonging to this timing. */
++			if (dfps_caps.dfps_support && support_video_mode &&
++			    display_mode.priv_info->k618_mi_fps_count) {
++				for (j = 0; j < display_mode.priv_info->k618_mi_fps_count; j++)
++					if (be32_to_cpup(&display_mode.priv_info->k618_mi_fps[j]) ==
++					    dfps_caps.dfps_list[i])
++						supported = true;
++				if (!supported)
++					continue;
++			}
++			if (array_idx >= display->panel->num_display_modes)
++				return -EOVERFLOW;
++			sub_mode = &display->modes[array_idx];
+@@ -8095,0 +8111,8 @@
++	if (array_idx != display->panel->num_display_modes) {
++		DSI_ERR("mode table incomplete: %u/%u\n", array_idx,
++			display->panel->num_display_modes);
++		return -EINVAL;
++	}
++	DSI_INFO("k618 mode table: %u modes from %u timings\n",
++		array_idx, timing_mode_count);
++
+@@ -8163 +8186 @@
+-	if (rc)
++	if (rc) {
+@@ -8164,0 +8188,2 @@
++		display->modes = NULL;
++	}

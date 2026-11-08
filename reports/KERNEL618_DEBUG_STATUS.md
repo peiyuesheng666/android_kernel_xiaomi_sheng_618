@@ -25,6 +25,28 @@ disklog-r5 已成功把本机 6.18 日志写入 rawdump，并经 Recovery 读回
 两份原始区域、解码元数据和日志。整理结果及哈希见
 `kernel618-disklog-r5-hardware.json`。
 
+## 显示模式表修复（display-r6）
+
+对照所选 6.18 基座、LOS 模块提交
+`92a9fde479d3262da080cfd28bab0775b0da500a` 和 MiCode sheng display 提交
+`6461221b68908b990e1fa2b60feaa812cb944ef5`：`get_default_lms` 的基本遍历
+在三者相同；MiCode 额外处理 `mi,video-mode-multi-timing` 和每个 timing
+的 `mi,mdss-dsi-supported-fps-list`，通用基座没有处理这些属性。
+
+本机实际 DTB 中，活动面板有三组时序：120 Hz 时序支持 120/60，144 Hz
+时序支持 144，90 Hz 时序支持 90/50/48/30。旧逻辑按全部时序分配 21 项，
+随后只构造第一时序的 7 项，遍历剩余空项时崩溃；还会错误地用 120 Hz
+时序推算 144 Hz 的 porch。不是靠跳过空指针来替代时序适配。
+
+修复保留现有 6.18 驱动，读取上述原厂属性以构造完整七项表；增加写入边界、
+最终数量检查，并将失败后释放的 modes 指针清空。属性数据由原 parser 持有，
+随 mode 私有信息复制引用，不新增 FPS 数组堆分配。没有引入其他型号屏幕参数。
+模块去掉调试符号后封入原模块层，日志代码保持原样。
+
+来源与源码前后哈希：`kernel618-display-multitiming-source.json`；实际 DT
+只读审计：`kernel618-display-multitiming-dt.json`；337 个模块和 20,544 项
+导入 CRC 检查通过：`kernel618-display-r6-layer.json`。实际启动结果待下一轮读取。
+
 ## 内核直接落盘
 
 `sheng_bootlog.c` 内置于内核，在 late_initcall 启动工作队列，保留 Android
@@ -73,5 +95,5 @@ init_boot 的 /init 转交 vendor_boot 的探测程序，再由其设置 USB ACM
 本任务仅参考 USB 顺序和描述符，没有引入 HarmonyOS 服务。
 文件与哈希见 `kernel618-anyhmos-usb-reference.json`。
 
-当前五版保留为 serial-r1、baseline-r2、serial-r3、serial-r4、disklog-r5。
+当前五版保留为 baseline-r2、serial-r3、serial-r4、disklog-r5、display-r6。
 首版独立 Image 目录已清理，其相同二进制仍包含在 baseline-r2 boot 中。

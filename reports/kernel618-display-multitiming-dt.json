@@ -1,0 +1,68 @@
+{
+  "dtb_sha256": "6c6b6d8e45e8eefbd8861ab361a23c8458acee96155bc13941e5f9a8dc8e99dd",
+  "panel_node": "/soc/qcom,mdss_mdp@ae00000/qcom,mdss_dsi_n81a_36_02_0a_duledsi_dsc_vid",
+  "mi_multi_timing": true,
+  "global_fps": [
+    120,
+    144,
+    90,
+    60,
+    50,
+    48,
+    30
+  ],
+  "timings": [
+    {
+      "node": "timing@120",
+      "base_fps": 120,
+      "supported_fps": [
+        120,
+        60
+      ],
+      "width_per_controller": 1524,
+      "height": 2032,
+      "topology": [
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "node": "timing@144",
+      "base_fps": 144,
+      "supported_fps": [
+        144
+      ],
+      "width_per_controller": 1524,
+      "height": 2032,
+      "topology": [
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "node": "timing@90",
+      "base_fps": 90,
+      "supported_fps": [
+        90,
+        50,
+        48,
+        30
+      ],
+      "width_per_controller": 1524,
+      "height": 2032,
+      "topology": [
+        2,
+        2,
+        2
+      ]
+    }
+  ],
+  "every_global_rate_maps_to_exactly_one_timing": true,
+  "old_driver_declared_modes": 21,
+  "old_driver_initialized_modes": 7,
+  "correct_modes": 7,
+  "correct_timings": 3,
+  "scope": "Read-only actual hardware DT compatibility audit; not kernel execution"
+}
