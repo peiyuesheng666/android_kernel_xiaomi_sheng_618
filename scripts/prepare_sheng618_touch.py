@@ -125,6 +125,36 @@ static ssize_t mi_dsi_panel_lockdown_info_read(unsigned char *info)
             text = text[:a] + '\t/* sheng N81A CSOT, verified by panel-id above. */\n\tts->lcd_id_value = 0;\n' + text[b:]
             # SPI core may use the immediate transfer path without a worker.
             text = text.replace('if(client->controller) {', 'if (client->controller && client->controller->kworker) {')
+        if name.endswith('/nt36xxx_fw_update.c'):
+            text = change(text, '''void Boot_Update_Firmware(struct work_struct *work)
+{
+	mutex_lock(&ts->lock);
+	nvt_update_firmware(BOOT_UPDATE_FIRMWARE_NAME);
+	if (ts->pen_support)
+		update_pen_status(true);
+	mutex_unlock(&ts->lock);
+}''', '''void Boot_Update_Firmware(struct work_struct *work)
+{
+	static unsigned int unavailable_retries;
+	int ret;
+
+	mutex_lock(&ts->lock);
+	ret = nvt_update_firmware(BOOT_UPDATE_FIRMWARE_NAME);
+	if (!ret && ts->pen_support)
+		update_pen_status(true);
+	mutex_unlock(&ts->lock);
+	/* sheng loads this module before /vendor firmware paths are mounted.
+	 * Retry missing files asynchronously; never relax any firmware checks.
+	 * Existing remove/shutdown cancels this same delayed_work object.
+	 */
+	if (ret == -ENOENT && unavailable_retries++ < 60) {
+		NVT_LOG("boot firmware unavailable; retry %u in 1s\\n", unavailable_retries);
+		queue_delayed_work(system_wq, &ts->nvt_fwu_work, msecs_to_jiffies(1000));
+	} else {
+		NVT_LOG("boot firmware completed ret=%d retries=%u\\n", ret, unavailable_retries);
+		unavailable_retries = 0;
+	}
+}''')
         if name == 'xiaomi/xiaomi_touch_core.c':
             text = change(text, '\tnetlink_cfg.cb_mutex = NULL;\n', '')
             text = change(text, 'static int xiaomi_touch_remove(struct platform_device *pdev)',

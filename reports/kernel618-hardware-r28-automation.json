@@ -1,0 +1,52 @@
+{
+  "revision": "hardware-r28",
+  "serial": "ca10ede3",
+  "boot_sha256": "4177b508c540e22c8f0cde440396187cc1f58d1f7563447fdc27341dce6058af",
+  "image_sha256": "6d5f4c1490b4532066696e78bb8cf7ab663c137106f2c64bf97d2f0190e339b4",
+  "test_timeout_seconds": null,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T02:15:07+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-09T02:15:17+0800"
+    },
+    {
+      "event": "log_readback_complete",
+      "wall_time": "2026-11-09T02:15:31+0800",
+      "run": "29401ccbe62ef88a",
+      "uptime_ms": 120494
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T02:15:32+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "finished_in_fastboot",
+      "wall_time": "2026-11-09T02:15:37+0800"
+    }
+  ],
+  "raw_sha256": "61e4114c8d3074393ee1dcafc976918f34bfd17438cdaa34a3ba1d5b03f23b6c",
+  "run": "29401ccbe62ef88a",
+  "valid_snapshots": [
+    {
+      "sequence": 382,
+      "uptime_ms": 120494
+    },
+    {
+      "sequence": 381,
+      "uptime_ms": 120193
+    }
+  ],
+  "log_readback_succeeded": true,
+  "latest_log": "reports/device/kernel618-hardware-r28/bootlog-29401ccbe62ef88a-382.txt"
+}

@@ -1,0 +1,8 @@
+{
+  "revision": "hardware-r28",
+  "evidence": "reports/device/kernel618-hardware-r28/camera-frames-1794161649480116931",
+  "returncode": 1,
+  "result": "accessible_cameras=2\r\ncamera=0 open_status=0 size=320x240\r\ncamera=0 session_status=0\r\ncamera=0 repeating_status=0\r\nRESULT camera=0 frames=0 completed=0 failed=0 errors=0 passed=0\r\nRESULT camera=1 frames=0 completed=0 failed=0 errors=0 passed=0\r\n",
+  "binary_sha256": "ec3021dd5343eb2ea38a7985e6ca7365ebe70819a0d4bc1888edc53064cb43d3",
+  "pixels_saved": false
+}

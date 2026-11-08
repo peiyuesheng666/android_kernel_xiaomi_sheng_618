@@ -35,6 +35,7 @@
 #define LOG_OFFSET (288ULL * 1024 * 1024)
 #define SLOT_BYTES (1024U * 1024)
 #define LIFE_MS 120000
+#define EARLY_TRACE_BYTES (128U * 1024)
 
 struct bootlog_header {
     char magic[8];
@@ -62,6 +63,13 @@ static struct task_struct *test_reset_task;
 static struct hrtimer restart_guard;
 static struct file *destination;
 static char *snapshot;
+/* Bounded boot diagnostics survive later printk storms in both disk slots.
+ * Read only kernel messages already published through printk. Never access
+ * input samples, biometric templates or camera buffers here.
+ */
+static char early_trace[EARLY_TRACE_BYTES];
+static size_t early_trace_bytes;
+static u64 early_next_seq;
 static u64 run_id, sequence;
 static unsigned long began;
 static void save_snapshot(struct work_struct *work);
@@ -167,6 +175,35 @@ static void open_destination(void)
 }
 
 /* snapshot_lock serializes the regular and remote fault workers. */
+static void capture_early_trace(void)
+{
+    struct kmsg_dump_iter iter;
+    char line[1024];
+    size_t bytes;
+    unsigned int budget = 4096;
+
+    if (early_trace_bytes >= EARLY_TRACE_BYTES - sizeof(line))
+        return;
+    kmsg_dump_rewind(&iter);
+    iter.cur_seq = max(iter.cur_seq, early_next_seq);
+    while (budget-- && kmsg_dump_get_line(&iter, true, line, sizeof(line), &bytes)) {
+        /* get_line returns a byte count, not a guaranteed C string. */
+        line[min(bytes, sizeof(line) - 1)] = '\0';
+        if (strstr(line, "NVT-ts") || strstr(line, "ktz8866") ||
+            strstr(line, "sheng_backlight") || strstr(line, "fpc1020") ||
+            strstr(line, "sheng-hall") || strstr(line, "xiaomi_hall") ||
+            strstr(line, "Direct firmware load") ||
+            strstr(line, "SHENG_EARLY_TRACE_TEST")) {
+            bytes = min(bytes, sizeof(line) - 1);
+            if (bytes > EARLY_TRACE_BYTES - early_trace_bytes)
+                break;
+            memcpy(early_trace + early_trace_bytes, line, bytes);
+            early_trace_bytes += bytes;
+        }
+    }
+    early_next_seq = iter.cur_seq;
+}
+
 static void capture_snapshot(void)
 {
     struct kmsg_dump_iter iter;
@@ -177,6 +214,7 @@ static void capture_snapshot(void)
     ssize_t written;
     int error;
 
+    capture_early_trace();
     if (!destination)
         open_destination();
     if (!destination)
@@ -188,8 +226,14 @@ static void capture_snapshot(void)
     memset(snapshot, 0, SLOT_BYTES);
     kmsg_dump_rewind(&iter);
     kmsg_dump_get_buffer(&iter, true, snapshot + sizeof(*header),
-                        SLOT_BYTES - sizeof(*header) - sizeof(*end) - 4095 - 256,
+                        SLOT_BYTES - sizeof(*header) - sizeof(*end) - 4095 - 512 - early_trace_bytes,
                         &text_bytes);
+    text_bytes += scnprintf(snapshot + sizeof(*header) + text_bytes, 128,
+                           "\nsheng_bootlog: preserved early driver trace begin\n");
+    memcpy(snapshot + sizeof(*header) + text_bytes, early_trace, early_trace_bytes);
+    text_bytes += early_trace_bytes;
+    text_bytes += scnprintf(snapshot + sizeof(*header) + text_bytes, 128,
+                           "\nsheng_bootlog: preserved early driver trace end\n");
     /* Keep identity inside the CRC-covered payload even under a printk storm. */
     text_bytes += scnprintf(snapshot + sizeof(*header) + text_bytes, 256,
                            "\nsheng_bootlog: identity revision=%s run=%016llx\n",

@@ -1,0 +1,44 @@
+{
+  "revision": "hardware-r27",
+  "boot_sha256": "6f28f52bbb87a90813588453c72d10597c5070a657728b7715e17a501945b3b3",
+  "image_sha256": "34a03a1ec69a89bfa91d952b3dc4857fec02b7264fa02648f83ef009d3ed2c23",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T02:05:54+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T02:05:54+0800",
+      "elapsed_seconds": 0.04
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T02:06:25+0800",
+      "elapsed_seconds": 30.67
+    },
+    {
+      "event": "candidate_adb_connected",
+      "time": "2026-11-09T02:06:54+0800",
+      "elapsed_seconds": 59.31
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T02:06:56+0800",
+      "elapsed_seconds": 61.55
+    },
+    {
+      "event": "android_boot_completed",
+      "time": "2026-11-09T02:06:59+0800",
+      "elapsed_seconds": 65.08
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "candidate_adb_connected": true,
+  "kernel": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "android_boot_completed": true
+}

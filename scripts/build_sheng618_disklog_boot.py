@@ -143,6 +143,7 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
           'kernel_log_buffer_bytes': 4 * 1024**2, 'writer_is_built_in': True,
           'periodic_log_identity': True,
           'snapshot_identity_trailer': True,
+          'preserved_early_driver_trace_bytes': 128 * 1024,
           'destination': {'gpt_name': 'rawdump', 'required_partition_bytes': 300 * 1024**2,
                           'offset': 288 * 1024**2, 'span': 2 * 1024**2,
                           'slots': 2, 'slot_bytes': 1024**2},

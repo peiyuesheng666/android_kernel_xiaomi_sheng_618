@@ -57,7 +57,7 @@
     },
     "p81/nt36532/nt36xxx_fw_update.c": {
       "source_sha256": "8928b4d0d448e0de9a48ea5e40b82ef9a42d4247e31c8ca10970bbde3515d976",
-      "staged_sha256": "8928b4d0d448e0de9a48ea5e40b82ef9a42d4247e31c8ca10970bbde3515d976"
+      "staged_sha256": "dbd4ebbdc638a535ac6007a9e4937a3f215ae035b516dea05a4e9996d60f2788"
     },
     "p81/nt36532/nt36xxx_mem_map.h": {
       "source_sha256": "dd9eb861cef1ac86c83ee4a99c311d708cf0286d08949048dc1b118f7792f9f0",

@@ -1,0 +1,31 @@
+{
+  "references": [
+    {
+      "url": "https://www.mi.com/global/product/xiaomi-pad-6s-pro-124/specs/",
+      "path": "/root/sheng-618/diagnostic/nfc-spec.html",
+      "sha256": "3d8dbbcd7da3c49d5da31ada7b777f61141ad3a9c22e5db77565a1fc99dc92b4"
+    },
+    {
+      "url": "https://www.mi.com/global/product/xiaomi-pad-6s-pro-124/",
+      "path": "/root/sheng-618/diagnostic/nfc-overview.html",
+      "sha256": "4daf7677413e07ffc9f01d6061282efecaa93a263011e30f963addc04d2c378a"
+    }
+  ],
+  "official_wording": "Supports NFC tag",
+  "official_behavior": "Phone touches tablet NFC area to initiate Xiaomi Share photos/files transfer",
+  "live_dt_sha256": "8c4459a39446641a67877a9e007492a4b106b4a24664ef34b01523702c16a5d9",
+  "live_dt_matches": [
+    "nfc {",
+    "nfc_int_active {",
+    "nfc_int_suspend {",
+    "nfc_enable_active {",
+    "nfc_enable_suspend {",
+    "nfc_enable_suspend = \"/soc/pinctrl@f000000/nfc/nfc_enable_suspend\";",
+    "nfc_enable_active = \"/soc/pinctrl@f000000/nfc/nfc_enable_active\";",
+    "nfc_int_suspend = \"/soc/pinctrl@f000000/nfc/nfc_int_suspend\";",
+    "nfc_int_active = \"/soc/pinctrl@f000000/nfc/nfc_int_active\";"
+  ],
+  "device_evidence": "reports/kernel618-hardware-r26-switches.json",
+  "result": "No active NFC controller/service found; official feature is NFC-tag initiated sharing. No fabricated controller or service added.",
+  "limitation": "Physical tag interaction and actual Xiaomi Share transfer require another compatible device"
+}

@@ -328,6 +328,9 @@ int main(void) {
         if(write(log,marker,sizeof(marker)-1)!=(ssize_t)(sizeof(marker)-1)) return 44;
     }
     if(TEST_LOG_WRAP) {
+        const char early[]="<5>SHENG_EARLY_TRACE_TEST before_log_storm\n";
+        if(write(log,early,sizeof(early)-1)!=(ssize_t)(sizeof(early)-1)) return 75;
+        usleep(600000); /* At least two real logger intervals before wrapping. */
         char record[256];
         memset(record,'z',sizeof(record));
         memcpy(record,"<6>SHENG_LOG_WRAP ",sizeof("<6>SHENG_LOG_WRAP ")-1);
@@ -496,6 +499,8 @@ for label, name, mib, expected in inputs:
         assert max(s['uptime_ms'] for s in slots) >= 5000
         if options.log_wrap:
             assert all('Kernel command line:' not in s['text'] for s in slots)
+            assert all('SHENG_EARLY_TRACE_TEST before_log_storm' in s['text'] for s in slots)
+            assert all('preserved early driver trace begin' in s['text'] for s in slots)
             assert all('SHENG_LOG_WRAP ' in s['text'] for s in slots)
             assert all('sheng_bootlog: identity revision=' + options.revision + ' run=' + s['run'] + '\n' in s['text'] for s in slots)
             assert all(s['text'].endswith('sheng_bootlog: identity revision=' + options.revision +
