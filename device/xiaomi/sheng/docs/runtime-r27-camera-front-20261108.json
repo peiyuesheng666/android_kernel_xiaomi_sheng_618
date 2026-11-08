@@ -1,0 +1,24 @@
+{
+  "revision": 27,
+  "target_serial": "ca10ede3",
+  "target_slot": "b",
+  "flash_completed": true,
+  "reboot_command_succeeded": true,
+  "flashed_partitions": [
+    "odm_b",
+    "vbmeta_b"
+  ],
+  "boot_verified": false,
+  "runtime_partition_readback_passed": false,
+  "runtime_camera_metadata_verified": false,
+  "user_front_preview_passed": false,
+  "front_expected_orientation": 0,
+  "back_expected_orientation": 0,
+  "blocking_observation": "Target USB/ADB endpoint absent after reboot; screen-state question pending",
+  "no_adb_root_in_this_revision": true,
+  "agent_opened_camera": false,
+  "systemui_modified": false,
+  "flash_evidence": "reports/device/r27-20261108-090809/device-operations.txt",
+  "flash_evidence_sha256": "ebcd1cebb345ed7ec78e4d2fd7d314cdb99c970f7dbcc6120e68f50252e6419b",
+  "overall_acceptance": false
+}
