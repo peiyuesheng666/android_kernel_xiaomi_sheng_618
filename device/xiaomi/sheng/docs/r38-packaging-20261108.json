@@ -1,0 +1,29 @@
+{
+  "revision": 38,
+  "spec_sha256": "b8b2d811e2e6c8e93b7903884cefe43c8bbc594841d00cec946534023e91f8f4",
+  "exact_baselines_verified": true,
+  "all_filesystem_stages_verified": true,
+  "root_signature_verified": true,
+  "root_other_descriptors_unchanged": true,
+  "changed_files": [
+    "etc/init/init.sm8550.rc"
+  ],
+  "metadata_preserved": true,
+  "files": [
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "25aec842be41f8afefe440425ce7464c12b0544ecc9591ca4a1950b827472b20"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 352321536,
+      "sha256": "c7fe1fb8b05bf63538a4366452f0ac4e2916e9100ec75f6c9b003bc3a77039e1"
+    }
+  ],
+  "full_product_build_passed": false,
+  "installed": false,
+  "runtime_verified": false
+}
