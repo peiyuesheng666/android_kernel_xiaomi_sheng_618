@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/xiaomi-pad-8-pro-development/android_device_xiaomi_piano",
+  "branch": "seventeen",
+  "fetched_commit": "3f10fc25273b42d18d0bd533551a0a5c3dda0094",
+  "reviewed_files_sha256": {
+    "device.mk": "04f2432878a65504cd5497e722b051e7954927ac348aeaecb5a8aaa3daaecf27",
+    "configs/idc/NVTCapacitivePenM80p.idc": "2f4c9413f482bb3b9f98ae7bdff4503515fb9b98a716bda20c1cd3d16df17127",
+    "configs/idc/NVTCapacitivePenP81c.idc": "2f4c9413f482bb3b9f98ae7bdff4503515fb9b98a716bda20c1cd3d16df17127",
+    "configs/idc/Vendor_0022_Product_5081.idc": "a133987d1f6b9f15838237ef12cd4dcc036172fa9b30ca06685cec2856b789d2",
+    "configs/keychars/Vendor_0022_Product_5081.kcm": "1874343b45c4c895fe37e9f11b7a6c2ceafea37482135c5709a84bb94093e17e"
+  },
+  "sheng_orientation_must_remain_90": true,
+  "reference_device_wake_applies_to_all_notify_events": true,
+  "selective_touch_wake_requires_further_driver_validation": true,
+  "notes_implemented_by_optional_sibling_repositories": true,
+  "r28_only_installs_direction_idc": true
+}

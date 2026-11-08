@@ -1,0 +1,61 @@
+{
+  "revision": 28,
+  "configuration_assembly_passed": true,
+  "platform_idc_parser_passed": true,
+  "platform_build_property_validation_passed": true,
+  "full_product_build_passed": false,
+  "prebuild_public_audit_sha256": "74be8d08fae5b36a35ce8d730847de20d275c63db1903be64ef128aa73146baf",
+  "prebuild_public_repositories": 21,
+  "input_validator_sha256": "bd9e6a72ac920527b36625fe9ee4f9dd6689527261572a53552a0d7d15373dd6",
+  "input_validator_command": [
+    "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/frameworks/base/tools/validatekeymaps/validatekeymaps/linux_glibc_x86_64/validatekeymaps",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/configs/idc/NVTCapacitivePenM80p.idc",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/configs/idc/NVTCapacitivePenP81c.idc",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/configs/idc/NVTCapacitiveTouchScreen.idc"
+  ],
+  "input_validator_library_path": "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/lib64",
+  "input_validator_libraries_sha256": {
+    "libvintf.so": "fc979ed14215043adc89b32cfd810d7efd94dde4c10cbf2fd416bef7995a1c2f",
+    "libc++.so": "533ac8d8f18cd73fdb9be7cd21f1e1e0d0c31b8a32157524b238b8e8d54f319a"
+  },
+  "input_validator_log_sha256": "acb1dabf95ce3e4ac151534b7ec976f4b4c2118d7f98015f725e1e5b78c3da93",
+  "property_validation_source_sha256": "c572650b58630fc26998281960fa821feba7f643fcb4f4aba387608ee6a6aa23",
+  "original_prop_sha256": {
+    "vendor": "32b86616ae0fad743149688105c795ec5a1edb50d36fa0bbb5ee939a86d81348",
+    "system_ext": "8e9dbaddb01ffada54f45f52a872ba22075fcb35637f948062d78d371d8dc3c5"
+  },
+  "compiled_files_sha256": {
+    "vendor": {
+      "usr/idc/NVTCapacitivePenM80p.idc": "9d45d3fa4fd30fd6ad224e38baeb694c727329b719c6a7622b1af0c9c4cf285a",
+      "build.prop": "264883ef0a6486d9861ec1d94db4fb7f0d6a639d242184be66064ca79bba8834",
+      "usr/idc/NVTCapacitivePenP81c.idc": "9d45d3fa4fd30fd6ad224e38baeb694c727329b719c6a7622b1af0c9c4cf285a"
+    },
+    "system_ext": {
+      "etc/build.prop": "42a295fba0b5e87a9aedcf73446b5d47ef200129fbc90188f68813f69246b040"
+    }
+  },
+  "installed": false,
+  "runtime_verified": false,
+  "headset_reconnect_tested": false,
+  "stylus_physical_tested": false,
+  "lhdc_v5_fixed": false,
+  "systemui_changed": false,
+  "postbuild_public_audit_passed": true,
+  "postbuild_public_audit_sha256": "293d6262ef6e5aeb92cba7ef581349da026373a52d0a49bca30107c148d7cf5b",
+  "supplemental_build_make_audit_sha256": "603515687305739048dc2094860227fe719493b3debdf46aa4ddad31c03a1289",
+  "configuration_assembly_dir": "/root/sheng-lineage/hardware-diagnostics/r28-config-assembly-attempt4",
+  "failed_assembly_attempts": [
+    {
+      "attempt": 1,
+      "reason": "host validator runtime library path missing"
+    },
+    {
+      "attempt": 2,
+      "reason": "incorrect bin/lib64 runtime library path"
+    },
+    {
+      "attempt": 3,
+      "reason": "build/soong/scripts Python dependency path missing"
+    }
+  ]
+}
