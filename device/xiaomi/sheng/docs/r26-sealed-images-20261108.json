@@ -1,0 +1,86 @@
+{
+  "revision": 26,
+  "images_sealed": true,
+  "full_product_build_passed": false,
+  "all_filesystem_stages_verified": true,
+  "three_changed_child_descriptors_verified": true,
+  "root_signature_verified": true,
+  "root_other_descriptors_unchanged": true,
+  "original_systemui_required": true,
+  "manifest_sha256": "62965ac513706cfaa996ce249f775b8cced56a0a4f6fb9334164f5adf078e0fe",
+  "spec_sha256": "49d3be5f4420de9e53c77d2ca4ee2ae8e3f647d437bad8b5221089209f0cf8c8",
+  "source_commit": "040a98b5126dd318e145c65e78e5bdc95b79e43a",
+  "partition_reports": {
+    "odm": {
+      "changed_files": [
+        "lib64/hw/camera.sheng.so"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "0aa7b969-4e53-581b-b90a-26e09cf8d195",
+      "apk_certificates": {},
+      "created_symlinks": {},
+      "baseline_entries": {
+        "lib64/hw/camera.sheng.so": null
+      }
+    },
+    "vendor": {
+      "changed_files": [
+        "build.prop"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "e0bc7ea7-6ad2-53bd-8343-db3cd56b720c",
+      "apk_certificates": {},
+      "created_symlinks": {},
+      "baseline_entries": {
+        "build.prop": [
+          "file",
+          "78f879ecf3452091f0cadf097be81d28002322de9f68237ec322a07a83d9ac0e"
+        ]
+      }
+    },
+    "vendor_dlkm": {
+      "changed_files": [
+        "lib/modules/nt36532_touch.ko"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "ae1bfedd-0320-5bf5-869d-4ddb85d9caaa",
+      "apk_certificates": {},
+      "created_symlinks": {},
+      "baseline_entries": {
+        "lib/modules/nt36532_touch.ko": [
+          "file",
+          "a1f3f907f4519eaf3d63243561fc32c7f75337188a3953b3857bcad60135233f"
+        ]
+      }
+    }
+  },
+  "files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "c2bd108f940919f11c9b98ac2e0893d79c2b654f2b87032960250dcbeb7821eb"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "9287340daa55149d2f1aa5a84c9a8086a6da80163e3c92af1c3b762edcc68208"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "f5af272548b0182939c631692a05ca322dfe38aceed103614ca3865145e81528"
+    },
+    {
+      "partition": "vendor_dlkm",
+      "name": "vendor_dlkm.img",
+      "bytes": 62590976,
+      "sha256": "94ab3296f0a23c2337fd40e641839e69384cd14e7f83ae76cdfa4ae132d30859"
+    }
+  ],
+  "runtime_installed": false,
+  "camera_preview_user_passed": false,
+  "touch_startup_user_passed": false
+}
