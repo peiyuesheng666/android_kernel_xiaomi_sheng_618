@@ -7,6 +7,10 @@
     "soc": ["smem.ko", "socinfo.ko", "smp2p.ko", "qcom_aoss.ko", "qcom_hwspinlock.ko", "qcom-ipcc.ko"],
     "pinctrl": ["pinctrl-msm.ko", "pinctrl-kalama.ko"],
     "interconnect": ["qnoc-kalama.ko", "icc-rpmh.ko", "icc-bcm-voter.ko", "qnoc-qos.ko"],
+    "pmic": ["spmi-pmic-arb.ko", "qcom-spmi-pmic.ko", "pinctrl-spmi-gpio.ko", "pinctrl-spmi-mpp.ko", "qcom-spmi-sdam.ko", "qcom-pdc.ko", "gdsc-regulator.ko", "proxy-consumer.ko"],
+    "ufs-phy": ["phy-qcom-ufs.ko", "phy-qcom-ufs-qmp-v4-kalama.ko"],
+    "ipc": ["qcom_glink.ko", "qcom_glink_smem.ko", "rproc_qcom_common.ko", "qmi_helpers.ko", "pdr_interface.ko", "pmic_glink.ko", "glink_probe.ko", "glink_pkt.ko"],
+    "remoteproc": ["qcom_q6v5.ko", "qcom_q6v5_pas.ko", "qcom_sysmon.ko", "qcom_pil_info.ko", "mdt_loader.ko", "secure_buffer.ko", "qcom_ramdump.ko"],
     "pogo": ["xm_utils.ko"],
     "cs35l43": ["cs35l43_dlkm.ko"]
   },

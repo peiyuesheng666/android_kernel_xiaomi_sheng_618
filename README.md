@@ -10,11 +10,9 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 
 2026-11-08 全量迁移继续推进：LOS Kalama 全套时钟/VDD、SCM/QTEE、RPMh、
-SMEM/SOCINFO/SMP2P/AOSS、TLMM 和 NoC/QoS 已编译；105 个基线加 29 个移植模块
-通过联合符号与 CRC 核查。此为平台阶段进展，完整平板内核和硬件验证尚未完成。
-当前已编译 ACK 6.18.32 基线、LOS kalama TCSR 时钟、官方 sheng 电池管理工具
-和 CS35L43 功放驱动。109 个模块的 6,330 项版本化导入检查通过；尚无完成板级
-适配或实机验证的 sheng 6.18 包。
+SMEM/SOCINFO/SMP2P/AOSS、TLMM、NoC/QoS、PMIC、UFS PHY、GLINK/QMI/PDR、
+Q6/PAS/SYSMON/MDT 和安全内存驱动已编译；105 个基线加 54 个移植模块通过
+联合符号与 CRC 核查，共 8,338 项版本化导入。完整平板内核和硬件验证尚未完成。
 
 ## 工作记录与 Git 提交规则
 
@@ -37,8 +35,9 @@ SMEM/SOCINFO/SMP2P/AOSS、TLMM 和 NoC/QoS 已编译；105 个基线加 29 个�
 
 2026-11-08 用户新增约定：之后每修一个 bug，先查 piano、nuwa 及相关依赖
 仓库如何处理该功能，记录固定提交、适用差异和验证结果。优先使用适合本机的
-成熟类原生实现，不默认继续修补原厂实现；原厂组件只在硬件依赖或有明确依据时
-保留。当前人脸改查 ROM FaceUnlock 路线，原厂 miface 与受保护 GPU 合成的
+成熟类原生设计，不默认继续修补原厂实现。用户进一步明确：只参考他们的做法，
+新增软件自行编写，不导入现成 FaceUnlock 应用、私有识别库或模型。原厂组件
+只在硬件依赖或有明确依据时保留。当前人脸改查自编软件实现，原厂 miface 与受保护 GPU 合成的
 r39 缓解候选停止推进；该候选的源码和构建暂存属性已还原，未封包、未刷入。
 参考流程及既有公共源码约束见 `device/xiaomi/sheng/docs/SOURCE_POLICY.md`。
 

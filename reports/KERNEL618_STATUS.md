@@ -7,6 +7,32 @@ LOS kalama TCSR、官方 sheng 电池管理工具和 CS35L43 功放模块，尚�
 
 ### 用户要求全量推进后的平台阶段
 
+2026-11-08 后续批次：PMIC、UFS PHY、IPC 和 remoteproc 共新增 25 个模块，
+现为 105 个基线加 54 个移植模块；8,338 项版本化导入的联合检查通过，
+无缺失提供者、CRC 差异、重复导出、命名空间或依赖环错误。
+
+- PMIC arbiter、SPMI PMIC、GPIO/MPP、SDAM、PDC、GDSC regulator 和 proxy
+  consumer 八个模块保留 LOS 的供电和中断语义。GPIO fwspec 改填内核提供的
+  union，set 返回真实 pinconf 结果，GDSC 使用当前 ACK 的 regulator 内部结构。
+  QTI regmap 诊断扩展仍未启用。
+- UFS 公共 PHY 与 Kalama QMP v4 两个模块编译通过，保留 LOS 的表和绑定。
+  UFS host、ICE 及其整链集成尚未完成。
+- GLINK/native/SMEM、SSR、memshare、QMI、PDR、PMIC GLINK 和 packet/probe
+  共八个模块通过。ACK RPMSG 公共结构不含 LOS 的 rx_done/signals 扩展；
+  扩展状态迁入私有通道，保留延迟 intent 释放，按端点 ops 检查调用类型。
+  信号回调安装与清除和接收锁同步，移除 packet client 时先清回调。
+  vm_flags、IDA、timer API 已更新；修复早期失败路径释放错误 minor 的问题。
+  PMIC send 在 size_t 转为 rpmsg int 长度前检查范围和报头长度。
+- Q6V5、PAS、SYSMON、PIL info、MDT loader、secure buffer 和 ramdump 七个
+  模块通过，使用 ACK 的 remoteproc 公共和内部结构及 LOS Kalama 资源定义。
+  两个 SYSMON timeout 保留 LOS Kconfig 默认 10 秒；secure buffer 用 PFN
+  换算替代移除的 nth_page，保留跨内存 section 的逐页私有标记。
+  崩溃/minidump 可选路径未全部迁移，DSP 固件启动仍未实测。
+
+重跑追加：`python3 scripts/build_kernel618_platform.py pmic`、`ufs-phy`、
+`ipc`、`remoteproc`，随后执行 `python3 scripts/verify_kernel618_build.py`。
+所有新模块仍为外部编译产物，未安装、未签名、未制作启动镜像。
+
 2026-11-08：继续源码迁移，新增 `build_kernel618_platform.py` 和共享的
 `kernel618_portlib.py`。各组独立暂存，输入固定且干净，所有转换先生成再写入，
 失败的转换不会覆盖上一次有效暂存；记录源码/生成文件/编译结果与模块哈希。
@@ -61,7 +87,7 @@ LOS 内核输入仍是 5.15。6.18 核心参考 ACK
 `device/xiaomi/sheng/interfaces/kernel/6.18/source-plan.json`。
 三个 LOS 仓库已经完整检出在 `/root/sheng-618/src/lineage-*`。官方 sheng 补充
 来源固定在同一 source-plan 的 `supplemental_board_sources`，内核、音频和两份
-设备树已经完整检出；显示和相机驱动暂为目录索引。固定提交、树 ID、实际检出
+设备树、显示和相机驱动均已完整检出。固定提交、树 ID、实际检出
 状态和文件名覆盖见 `kernel618-source-audit.json`。
 
 ## 2026-11-08 实际构建与平台、板级模块移植

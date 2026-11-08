@@ -17,8 +17,8 @@
     "CONFIG_ANDROID_BINDER_IPC_RUST=m"
   ],
   "baseline_module_count": 105,
-  "port_module_count": 29,
-  "versioned_imports_checked": 7218,
+  "port_module_count": 54,
+  "versioned_imports_checked": 8338,
   "this_module_bytes": 1664,
   "static_module_closure_passed": true,
   "issue_counts": {},
@@ -48,7 +48,7 @@
   "host_elfutils": {
     "version": "0.193",
     "system_libraries_changed": false,
-    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x00007f5b873c8000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x00007f5b87269000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x00007f5b8724e000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f5b87227000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f5b86e00000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007f5b871fc000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f5b873ca000)"
+    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x00007366d3780000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x00007366d3621000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x00007366d3606000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007366d35df000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007366d3200000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007366d35b4000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007366d3782000)"
   },
   "artifacts": {
     "Image": {
@@ -1373,6 +1373,605 @@
         "icc-rpmh.ko",
         "icc-bcm-voter.ko",
         "qnoc-qos.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "pmic": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/spmi/spmi-pmic-arb.c",
+          "source_sha256": "ecf837b3763c5d4138a2cb8e9b11db0c272225d7ade952accc68aef201480ab4",
+          "staged_path": "spmi-pmic-arb.c",
+          "staged_sha256": "25670160f6bb3ae2121d1a223fe3c21a55285d721f6d17f43e1f458365662fab"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/mfd/qcom-spmi-pmic.c",
+          "source_sha256": "f2429e9f1989185f26c47e294405617db98f5c15f00a5abe76c872b75e0e72ab",
+          "staged_path": "qcom-spmi-pmic.c",
+          "staged_sha256": "80fa42247cf76c6420159c7cc07de967816d83470c151e89ba405e6cdcbd78dc"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/pinctrl/qcom/pinctrl-spmi-gpio.c",
+          "source_sha256": "9ffb74c6125d32beef36bb028e214f21a029e1992187eba0dd9e3a4e07d2bea8",
+          "staged_path": "pinctrl-spmi-gpio.c",
+          "staged_sha256": "d45971232b8fe2ea6defc3ebcfb99c978d47b49916c5670923ce741a490b6b44"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/pinctrl/qcom/pinctrl-spmi-mpp.c",
+          "source_sha256": "6f3d1a14e71aac7ee284fba1d7009c329f4df1631a04efc0129406306ee813c7",
+          "staged_path": "pinctrl-spmi-mpp.c",
+          "staged_sha256": "28eadaa72cac02a7fdbb0c1f37c5a4f2a975121084f78eb901269da2f7c0ec14"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/nvmem/qcom-spmi-sdam.c",
+          "source_sha256": "0fb0151dad6a68e6e6c105658a9f86ef3ed879af7779378a44f0a866dc59c746",
+          "staged_path": "qcom-spmi-sdam.c",
+          "staged_sha256": "4226bb5e81a9870d296c96cdc40d6ea833f09cd65682ca65a20540f221e5ae95"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/irqchip/qcom-pdc.c",
+          "source_sha256": "5d4a9e9ff2740d94ca73ef07df78a7be8ab81cbb6d7097f73d362f6c187a3357",
+          "staged_path": "qcom-pdc.c",
+          "staged_sha256": "50a60b743c7c5ae54da110e480e733d5ca4b960578777189a061405c7482da25"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/gdsc-regulator.c",
+          "source_sha256": "88079c9a88a70a3da4a37dac0b589f44695917491887769f16cff1ecbcf01b2d",
+          "staged_path": "gdsc-regulator.c",
+          "staged_sha256": "60e6b6e09ff0c4b3c89e00978dc6cbb10560805d08a65eae31eb1fea1495d193"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/regulator/proxy-consumer.c",
+          "source_sha256": "9539d488e65dd2b8e3d4d9f17655759703d28af1449d1bf38ee933187a26c0fe",
+          "staged_path": "proxy-consumer.c",
+          "staged_sha256": "9539d488e65dd2b8e3d4d9f17655759703d28af1449d1bf38ee933187a26c0fe"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/soc/qcom/spmi-pmic-arb.h",
+          "source_sha256": "c21a198ab9aed32d1dd7ac48d7e0dbe1a33af0a55fe7eb642ac6335ecb724822",
+          "staged_path": "include/linux/soc/qcom/spmi-pmic-arb.h",
+          "staged_sha256": "c21a198ab9aed32d1dd7ac48d7e0dbe1a33af0a55fe7eb642ac6335ecb724822"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qti-regmap-debugfs.h",
+          "source_sha256": "1579912bc66ece4fc806a3e6175c9b3dbe2c0ca551d66b51fc70c5a77cd0cd8d",
+          "staged_path": "include/linux/qti-regmap-debugfs.h",
+          "staged_sha256": "1579912bc66ece4fc806a3e6175c9b3dbe2c0ca551d66b51fc70c5a77cd0cd8d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/pinctrl/qcom,pmic-gpio.h",
+          "source_sha256": "fbed1013d71075774a32ea3c048b1445de132a59da9e438dc0af5b3f61fe6d8f",
+          "staged_path": "include/dt-bindings/pinctrl/qcom,pmic-gpio.h",
+          "staged_sha256": "fbed1013d71075774a32ea3c048b1445de132a59da9e438dc0af5b3f61fe6d8f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/regulator/debug-regulator.h",
+          "source_sha256": "a9510e4a15452c34b0c16457a66fd428f095f37002c32c221b5790d6ab3ab1ad",
+          "staged_path": "include/linux/regulator/debug-regulator.h",
+          "staged_sha256": "a9510e4a15452c34b0c16457a66fd428f095f37002c32c221b5790d6ab3ab1ad"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/regulator/proxy-consumer.h",
+          "source_sha256": "130df851f401836afdd8cb79a57710b9f4027af4bc93ac5aeadc381b658a3c3d",
+          "staged_path": "include/linux/regulator/proxy-consumer.h",
+          "staged_sha256": "130df851f401836afdd8cb79a57710b9f4027af4bc93ac5aeadc381b658a3c3d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/mailbox/qmp.h",
+          "source_sha256": "e5930d839e715770a48aea7966f4cf4b2682b17b4d13852a72c57ff8503410cc",
+          "staged_path": "include/linux/mailbox/qmp.h",
+          "staged_sha256": "e5930d839e715770a48aea7966f4cf4b2682b17b4d13852a72c57ff8503410cc"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/gdsc-debug.h",
+          "source_sha256": "ef9539d22478d7203b9e9b476f935fd3a6dc053f4828ff86342e0738f5d98283",
+          "staged_path": "gdsc-debug.h",
+          "staged_sha256": "ef9539d22478d7203b9e9b476f935fd3a6dc053f4828ff86342e0738f5d98283"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/trace-gdsc.h",
+          "source_sha256": "eae1f838a08190e7947f16e03e84aa36f06628dea6013c7f72b3d0dac1c80327",
+          "staged_path": "trace-gdsc.h",
+          "staged_sha256": "823df969d72d92e77a792a696ca96a1446754f10b3fa6d1a82d640ed55f17fc1"
+        },
+        {
+          "repository": "https://android.googlesource.com/kernel/common",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/regulator/internal.h",
+          "source_sha256": "b8c94e4545757f037ccde4aec18000bf9d3de2c7d30e0ec81e6fd05a0c7f247e",
+          "staged_path": "regulator-internal.h",
+          "staged_sha256": "b8c94e4545757f037ccde4aec18000bf9d3de2c7d30e0ec81e6fd05a0c7f247e"
+        }
+      ],
+      "generated_sha256": {
+        "spmi-pmic-arb.c": "25670160f6bb3ae2121d1a223fe3c21a55285d721f6d17f43e1f458365662fab",
+        "qcom-spmi-pmic.c": "80fa42247cf76c6420159c7cc07de967816d83470c151e89ba405e6cdcbd78dc",
+        "pinctrl-spmi-gpio.c": "d45971232b8fe2ea6defc3ebcfb99c978d47b49916c5670923ce741a490b6b44",
+        "pinctrl-spmi-mpp.c": "28eadaa72cac02a7fdbb0c1f37c5a4f2a975121084f78eb901269da2f7c0ec14",
+        "qcom-spmi-sdam.c": "4226bb5e81a9870d296c96cdc40d6ea833f09cd65682ca65a20540f221e5ae95",
+        "qcom-pdc.c": "50a60b743c7c5ae54da110e480e733d5ca4b960578777189a061405c7482da25",
+        "gdsc-regulator.c": "60e6b6e09ff0c4b3c89e00978dc6cbb10560805d08a65eae31eb1fea1495d193",
+        "proxy-consumer.c": "9539d488e65dd2b8e3d4d9f17655759703d28af1449d1bf38ee933187a26c0fe",
+        "include/linux/soc/qcom/spmi-pmic-arb.h": "c21a198ab9aed32d1dd7ac48d7e0dbe1a33af0a55fe7eb642ac6335ecb724822",
+        "include/linux/qti-regmap-debugfs.h": "1579912bc66ece4fc806a3e6175c9b3dbe2c0ca551d66b51fc70c5a77cd0cd8d",
+        "include/dt-bindings/pinctrl/qcom,pmic-gpio.h": "fbed1013d71075774a32ea3c048b1445de132a59da9e438dc0af5b3f61fe6d8f",
+        "include/linux/regulator/debug-regulator.h": "a9510e4a15452c34b0c16457a66fd428f095f37002c32c221b5790d6ab3ab1ad",
+        "include/linux/regulator/proxy-consumer.h": "130df851f401836afdd8cb79a57710b9f4027af4bc93ac5aeadc381b658a3c3d",
+        "include/linux/mailbox/qmp.h": "e5930d839e715770a48aea7966f4cf4b2682b17b4d13852a72c57ff8503410cc",
+        "gdsc-debug.h": "ef9539d22478d7203b9e9b476f935fd3a6dc053f4828ff86342e0738f5d98283",
+        "trace-gdsc.h": "823df969d72d92e77a792a696ca96a1446754f10b3fa6d1a82d640ed55f17fc1",
+        "regulator-internal.h": "b8c94e4545757f037ccde4aec18000bf9d3de2c7d30e0ec81e6fd05a0c7f247e",
+        "Kbuild": "56fde0bdfec420f6ec15a39d5c3d9a78225c84b514a41a371e206463f040f27e"
+      },
+      "modules": [
+        "spmi-pmic-arb.ko",
+        "qcom-spmi-pmic.ko",
+        "pinctrl-spmi-gpio.ko",
+        "pinctrl-spmi-mpp.ko",
+        "qcom-spmi-sdam.ko",
+        "qcom-pdc.ko",
+        "gdsc-regulator.ko",
+        "proxy-consumer.ko"
+      ],
+      "runtime_validated": false,
+      "limits": [
+        "QTI regmap diagnostic debugfs extension is not enabled."
+      ]
+    },
+    "ufs-phy": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/phy/qualcomm/phy-qcom-ufs.c",
+          "source_sha256": "21c4d2254f10397782b55f7c8887b8fce9bdf2c7a72fa047fbfed6d79290f22e",
+          "staged_path": "phy-qcom-ufs.c",
+          "staged_sha256": "21c4d2254f10397782b55f7c8887b8fce9bdf2c7a72fa047fbfed6d79290f22e"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/phy/qualcomm/phy-qcom-ufs-i.h",
+          "source_sha256": "933214602e5abe0a2c5a9e33a70146db36cd581fad5a50933816c3a3f83d4313",
+          "staged_path": "phy-qcom-ufs-i.h",
+          "staged_sha256": "933214602e5abe0a2c5a9e33a70146db36cd581fad5a50933816c3a3f83d4313"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/phy/qualcomm/phy-qcom-ufs-qmp-v4-kalama.c",
+          "source_sha256": "6fb8734362e4888c46cafa66ab0ca587ef3afbb10811f5417863c3197c88aa2a",
+          "staged_path": "phy-qcom-ufs-qmp-v4-kalama.c",
+          "staged_sha256": "1209e7f1d155f3da1a4edd37deee2ebdd6003aea111e7420032942a5297ace9b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/phy/qualcomm/phy-qcom-ufs-qmp-v4-kalama.h",
+          "source_sha256": "3d14eb9812be70814737260b5b188096c1959a7e64e2b3b3957bbb94371f1d1c",
+          "staged_path": "phy-qcom-ufs-qmp-v4-kalama.h",
+          "staged_sha256": "3d14eb9812be70814737260b5b188096c1959a7e64e2b3b3957bbb94371f1d1c"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/phy/phy-qcom-ufs.h",
+          "source_sha256": "2df19c2be4d87aa449719664002eb30c66bdcaee9429ea8e475a752bb57fe3ce",
+          "staged_path": "include/linux/phy/phy-qcom-ufs.h",
+          "staged_sha256": "bbd48c1a76454ca19a99a2b99b63d8814e63df57706fbbc12e01ec8cbc99a359"
+        }
+      ],
+      "generated_sha256": {
+        "phy-qcom-ufs.c": "21c4d2254f10397782b55f7c8887b8fce9bdf2c7a72fa047fbfed6d79290f22e",
+        "phy-qcom-ufs-i.h": "933214602e5abe0a2c5a9e33a70146db36cd581fad5a50933816c3a3f83d4313",
+        "phy-qcom-ufs-qmp-v4-kalama.c": "1209e7f1d155f3da1a4edd37deee2ebdd6003aea111e7420032942a5297ace9b",
+        "phy-qcom-ufs-qmp-v4-kalama.h": "3d14eb9812be70814737260b5b188096c1959a7e64e2b3b3957bbb94371f1d1c",
+        "include/linux/phy/phy-qcom-ufs.h": "bbd48c1a76454ca19a99a2b99b63d8814e63df57706fbbc12e01ec8cbc99a359",
+        "Kbuild": "0d33b9edd782b57a070195d441d92a6e48ade90706862a9aa23fd3abdeec2ddd"
+      },
+      "modules": [
+        "phy-qcom-ufs.ko",
+        "phy-qcom-ufs-qmp-v4-kalama.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "ipc": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/rpmsg/qcom_glink_native.c",
+          "source_sha256": "4ef13fff266f64bc1006685521ef3724d95f5080a3744eda3cce86940fd7c8cb",
+          "staged_path": "qcom_glink_native.c",
+          "staged_sha256": "89109a07ad9151f6cb7cf2f1b0517bdb362f8564760bd7c908e1012d8b584780"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/rpmsg/qcom_glink_native.h",
+          "source_sha256": "cc84e078fc3fef4394b6809cc08230f3a57accc31fac03c7a2b03acd86418019",
+          "staged_path": "qcom_glink_native.h",
+          "staged_sha256": "cc84e078fc3fef4394b6809cc08230f3a57accc31fac03c7a2b03acd86418019"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/rpmsg/qcom_glink_smem.c",
+          "source_sha256": "f6250ad8910df3bbe31ba2a80c6c6fefcf7faa4ec5554e87e8b0207708e02bef",
+          "staged_path": "qcom_glink_smem.c",
+          "staged_sha256": "f6250ad8910df3bbe31ba2a80c6c6fefcf7faa4ec5554e87e8b0207708e02bef"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/rpmsg/qcom_glink_ssr.c",
+          "source_sha256": "b07f0de083044911bfb3faf7b235350ee6077e50a0fa2755dc22bec1daffba31",
+          "staged_path": "qcom_glink_ssr.c",
+          "staged_sha256": "a88562857c6644e2169a1c1f042ca9f591d76947e54f2c03ad68fe76e1595791"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/rpmsg/qcom_glink_memshare.c",
+          "source_sha256": "376fd7bef381ba8a6bb225d9e25254d4f2082188ee1937a733061da35fb8efe1",
+          "staged_path": "qcom_glink_memshare.c",
+          "staged_sha256": "fb91d634b4dab01b71ce636231401eabe65e662cf22eabb12979d83d2d43ea9f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/remoteproc/qcom_common.c",
+          "source_sha256": "2382304df1293249d1c52d5a5c40de582aff29341ce227c198d1895282504761",
+          "staged_path": "qcom_common.c",
+          "staged_sha256": "d83d339a82fc05c94cdb9e2ea54d9f8d771cf812dcdcd68c0e8019eb24afe5f1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/remoteproc/qcom_common.h",
+          "source_sha256": "1ef6f30cd7cf03c94fabbc3580033611f0ff7b5b948d6e4dce2e43e9cb6d9beb",
+          "staged_path": "qcom_common.h",
+          "staged_sha256": "1ef6f30cd7cf03c94fabbc3580033611f0ff7b5b948d6e4dce2e43e9cb6d9beb"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/remoteproc/qcom_tracepoints.c",
+          "source_sha256": "53444cf16fd16f4af7c39d9a44a775f7186959e8df894df8dbcda6730850ae7f",
+          "staged_path": "qcom_tracepoints.c",
+          "staged_sha256": "53444cf16fd16f4af7c39d9a44a775f7186959e8df894df8dbcda6730850ae7f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/qmi_encdec.c",
+          "source_sha256": "3c9137f9d3a36b64c3f1c5605c7d7504eaafee0872e4af3265b551157c9acdb1",
+          "staged_path": "qmi_encdec.c",
+          "staged_sha256": "3c9137f9d3a36b64c3f1c5605c7d7504eaafee0872e4af3265b551157c9acdb1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/qmi_interface.c",
+          "source_sha256": "8ba21e6ab7f45287c913c7b965261ed2afe09d93d65ba9c221ef2d1a18628616",
+          "staged_path": "qmi_interface.c",
+          "staged_sha256": "8ba21e6ab7f45287c913c7b965261ed2afe09d93d65ba9c221ef2d1a18628616"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/pdr_interface.c",
+          "source_sha256": "1752a701b774e0cb8e56842fe755b97183e047a7b3a341974ef72ac6ac731336",
+          "staged_path": "pdr_interface.c",
+          "staged_sha256": "67126f4c6ea96c61d3ff6b7348524709e6521885c85bd06c25075db696a17c2d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/pdr_internal.h",
+          "source_sha256": "b4437a8acae41e129155bbaf99725e9e8afa00d83608141d51db00ffa673d468",
+          "staged_path": "pdr_internal.h",
+          "staged_sha256": "b4437a8acae41e129155bbaf99725e9e8afa00d83608141d51db00ffa673d468"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/pmic_glink.c",
+          "source_sha256": "69781e72e1024f1eda873bc40212049b85c09beb2cb7ffa7f35a086cbbd85836",
+          "staged_path": "pmic_glink.c",
+          "staged_sha256": "40f13516f23d6721bf2d6cb15eedd2e0a952aea1c86f485284dcdac283359564"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/glink_probe.c",
+          "source_sha256": "3719f67f8c4a8b0d32fb73a08c8d99ae51d0d28f66e2ea165a146d4ff6aabd25",
+          "staged_path": "glink_probe.c",
+          "staged_sha256": "478e91603e2c6f907567b8192cf1c9839a816208ea271730e23a92103050232d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/glink_pkt.c",
+          "source_sha256": "2133a4eec64a88348c95a4b26e51ced35dfec2b377913b33a5b976438fa548ed",
+          "staged_path": "glink_pkt.c",
+          "staged_sha256": "cd838cb478e33230c01a538cc63b1a0e187aa366b32bc7efb4335fd309d28db1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/soc/qcom/qmi.h",
+          "source_sha256": "2bd717ab2a14b24e7254a37234143c8dfb2c0728f4d4a9fd437527d9e5ea8947",
+          "staged_path": "include/linux/soc/qcom/qmi.h",
+          "staged_sha256": "2bd717ab2a14b24e7254a37234143c8dfb2c0728f4d4a9fd437527d9e5ea8947"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/soc/qcom/pdr.h",
+          "source_sha256": "539056d653d8012d0a943f41bbd287367c512fa46d0b0e1abd8b4c0b3008752a",
+          "staged_path": "include/linux/soc/qcom/pdr.h",
+          "staged_sha256": "539056d653d8012d0a943f41bbd287367c512fa46d0b0e1abd8b4c0b3008752a"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/soc/qcom/pmic_glink.h",
+          "source_sha256": "6585664587bb0ca3f319c52ff105f295fb65f34771351e08849f9adfae2112c8",
+          "staged_path": "include/linux/soc/qcom/pmic_glink.h",
+          "staged_sha256": "6585664587bb0ca3f319c52ff105f295fb65f34771351e08849f9adfae2112c8"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/remoteproc/qcom_rproc.h",
+          "source_sha256": "b0dc8bd66caab1acfbd2e988a42d7ebde7e52b235e9a27ac5a3ad171e6ec4337",
+          "staged_path": "include/linux/remoteproc/qcom_rproc.h",
+          "staged_sha256": "b0dc8bd66caab1acfbd2e988a42d7ebde7e52b235e9a27ac5a3ad171e6ec4337"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/rpmsg/qcom_glink.h",
+          "source_sha256": "0d499b9be59f9c561e5735b8530cf961e0a23bf5717e3f43627f374c10f4c170",
+          "staged_path": "include/linux/rpmsg/qcom_glink.h",
+          "staged_sha256": "0d499b9be59f9c561e5735b8530cf961e0a23bf5717e3f43627f374c10f4c170"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/trace/events/rproc_qcom.h",
+          "source_sha256": "05b37aaf77a7255cbf47060c605241c93d690288ce3007157c53d5b4f6f24e14",
+          "staged_path": "include/trace/events/rproc_qcom.h",
+          "staged_sha256": "aa9a1a05188108b2e536674b1d7ff425cfde196e78724b839b256a1151554137"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/rpm-smd.h",
+          "source_sha256": "a9ab985c7fd6d1f7be14641679f2c16ed7683fcbb7755ce1850f2d7c35eead6a",
+          "staged_path": "include/soc/qcom/rpm-smd.h",
+          "staged_sha256": "a9ab985c7fd6d1f7be14641679f2c16ed7683fcbb7755ce1850f2d7c35eead6a"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/subsystem_notif.h",
+          "source_sha256": "aad8495ae599e54ccdb72b51c05e26082cc83bbc6f9fc7f7e8466f087f043e75",
+          "staged_path": "include/soc/qcom/subsystem_notif.h",
+          "staged_sha256": "aad8495ae599e54ccdb72b51c05e26082cc83bbc6f9fc7f7e8466f087f043e75"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/rpmsg/rpmsg_core.c",
+          "source_sha256": "ada480d08bf00a770a18c0f913399fc17817027dbef8ba6669f6ea3617291f0c",
+          "staged_path": "glink-rpmsg-extensions.inc",
+          "staged_sha256": "1796586e3cfdda5474c705ba2464ae0f24d008018be71732d14e8ecaf0c83b54"
+        }
+      ],
+      "generated_sha256": {
+        "qcom_glink_native.c": "89109a07ad9151f6cb7cf2f1b0517bdb362f8564760bd7c908e1012d8b584780",
+        "qcom_glink_native.h": "cc84e078fc3fef4394b6809cc08230f3a57accc31fac03c7a2b03acd86418019",
+        "qcom_glink_smem.c": "f6250ad8910df3bbe31ba2a80c6c6fefcf7faa4ec5554e87e8b0207708e02bef",
+        "qcom_glink_ssr.c": "a88562857c6644e2169a1c1f042ca9f591d76947e54f2c03ad68fe76e1595791",
+        "qcom_glink_memshare.c": "fb91d634b4dab01b71ce636231401eabe65e662cf22eabb12979d83d2d43ea9f",
+        "qcom_common.c": "d83d339a82fc05c94cdb9e2ea54d9f8d771cf812dcdcd68c0e8019eb24afe5f1",
+        "qcom_common.h": "1ef6f30cd7cf03c94fabbc3580033611f0ff7b5b948d6e4dce2e43e9cb6d9beb",
+        "qcom_tracepoints.c": "53444cf16fd16f4af7c39d9a44a775f7186959e8df894df8dbcda6730850ae7f",
+        "qmi_encdec.c": "3c9137f9d3a36b64c3f1c5605c7d7504eaafee0872e4af3265b551157c9acdb1",
+        "qmi_interface.c": "8ba21e6ab7f45287c913c7b965261ed2afe09d93d65ba9c221ef2d1a18628616",
+        "pdr_interface.c": "67126f4c6ea96c61d3ff6b7348524709e6521885c85bd06c25075db696a17c2d",
+        "pdr_internal.h": "b4437a8acae41e129155bbaf99725e9e8afa00d83608141d51db00ffa673d468",
+        "pmic_glink.c": "40f13516f23d6721bf2d6cb15eedd2e0a952aea1c86f485284dcdac283359564",
+        "glink_probe.c": "478e91603e2c6f907567b8192cf1c9839a816208ea271730e23a92103050232d",
+        "glink_pkt.c": "cd838cb478e33230c01a538cc63b1a0e187aa366b32bc7efb4335fd309d28db1",
+        "include/linux/soc/qcom/qmi.h": "2bd717ab2a14b24e7254a37234143c8dfb2c0728f4d4a9fd437527d9e5ea8947",
+        "include/linux/soc/qcom/pdr.h": "539056d653d8012d0a943f41bbd287367c512fa46d0b0e1abd8b4c0b3008752a",
+        "include/linux/soc/qcom/pmic_glink.h": "6585664587bb0ca3f319c52ff105f295fb65f34771351e08849f9adfae2112c8",
+        "include/linux/remoteproc/qcom_rproc.h": "b0dc8bd66caab1acfbd2e988a42d7ebde7e52b235e9a27ac5a3ad171e6ec4337",
+        "include/linux/rpmsg/qcom_glink.h": "0d499b9be59f9c561e5735b8530cf961e0a23bf5717e3f43627f374c10f4c170",
+        "include/trace/events/rproc_qcom.h": "aa9a1a05188108b2e536674b1d7ff425cfde196e78724b839b256a1151554137",
+        "include/soc/qcom/rpm-smd.h": "a9ab985c7fd6d1f7be14641679f2c16ed7683fcbb7755ce1850f2d7c35eead6a",
+        "include/soc/qcom/subsystem_notif.h": "aad8495ae599e54ccdb72b51c05e26082cc83bbc6f9fc7f7e8466f087f043e75",
+        "glink-rpmsg-extensions.inc": "1796586e3cfdda5474c705ba2464ae0f24d008018be71732d14e8ecaf0c83b54",
+        "sheng-rpmsg.h": "b74feea8e4429d2cba17807c16c5eee8d1752ce7da0ea5cfcc0de376a4f6d248",
+        "glink-signals-callback.inc": "19a889be8f491773e324d77ea25b5d035a9f2d117c359098c420323195e6d73f",
+        "Kbuild": "b538e336f35e21405283b69479925ca1e0c2782e5caf0ac5eb077498e8779165"
+      },
+      "modules": [
+        "qcom_glink.ko",
+        "qcom_glink_smem.ko",
+        "rproc_qcom_common.ko",
+        "qmi_helpers.ko",
+        "pdr_interface.ko",
+        "pmic_glink.ko",
+        "glink_probe.ko",
+        "glink_pkt.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "remoteproc": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/remoteproc/qcom_q6v5.c",
+          "source_sha256": "24eeb7bcc3b24c10a76bf61c20fd5b56db3f840a296c298850694bae127851fd",
+          "staged_path": "qcom_q6v5.c",
+          "staged_sha256": "24eeb7bcc3b24c10a76bf61c20fd5b56db3f840a296c298850694bae127851fd"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/remoteproc/qcom_q6v5.h",
+          "source_sha256": "ebcbae2fbf306b0713ce5be6fe26151d195f9ac1b23d075e0cc769e1f4255c30",
+          "staged_path": "qcom_q6v5.h",
+          "staged_sha256": "ebcbae2fbf306b0713ce5be6fe26151d195f9ac1b23d075e0cc769e1f4255c30"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/remoteproc/qcom_q6v5_pas.c",
+          "source_sha256": "eea7a1681ab42a0bcb80bf93bc1da0b71c2dcf9575f4748742ad036dbef09a88",
+          "staged_path": "qcom_q6v5_pas.c",
+          "staged_sha256": "30d5f33349b03f5866164447e1645a46b145ead9942013a3463eeff7c22a0d58"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/remoteproc/qcom_sysmon.c",
+          "source_sha256": "e3935eb6bb58ae5d6e1c1e80ade92588823256f4acfd08c187885dbd7e3549ca",
+          "staged_path": "qcom_sysmon.c",
+          "staged_sha256": "2a5064d90def0d51205725339805aff4ad3f2ecefe62db278f22e91aa28c758b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/remoteproc/qcom_pil_info.c",
+          "source_sha256": "a47de6dd8ebc0957d9b0fb8f0624204068d48fba67d0733a6f787671671e77b9",
+          "staged_path": "qcom_pil_info.c",
+          "staged_sha256": "a47de6dd8ebc0957d9b0fb8f0624204068d48fba67d0733a6f787671671e77b9"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/remoteproc/qcom_pil_info.h",
+          "source_sha256": "fec8d4ebbafebb33ef925c873c9d9e586ddb7bcf8b9f37ac78fafc0fb3186718",
+          "staged_path": "qcom_pil_info.h",
+          "staged_sha256": "fec8d4ebbafebb33ef925c873c9d9e586ddb7bcf8b9f37ac78fafc0fb3186718"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/mdt_loader.c",
+          "source_sha256": "8cd291df12df156843382ae24ee6365e481171a6919801be3bce921112c37585",
+          "staged_path": "mdt_loader.c",
+          "staged_sha256": "e2bc69eb040b498b638abf0906e3de4bb0269cf2d0e6ccf2159f5db59e18fe7f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/secure_buffer.c",
+          "source_sha256": "b1369fbffad8c58dc302d30848e35b09d0e8957ff4389e1cecc947ca96170bbb",
+          "staged_path": "secure_buffer.c",
+          "staged_sha256": "154033ae2b499b0c3d40fd9e9952c69ba99fdf0486f86db623f164e7fd0fa2c5"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/trace_secure_buffer.h",
+          "source_sha256": "fcb02631be16307f953655dc78baec59577080bd21dd8499a410c68950721dfd",
+          "staged_path": "trace_secure_buffer.h",
+          "staged_sha256": "3081c4556ef2f92480a2f6e3210bccf61c8fb3a17c95d66d8a2add9b1bdc49ca"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/qcom_ramdump.c",
+          "source_sha256": "d00596b3c86e615328901ad42ea18a0a3e5a472063826d0ebcbc3374729e1d38",
+          "staged_path": "qcom_ramdump.c",
+          "staged_sha256": "e4c95780abca2dd40b50f79bf73cf8ff0d3d7ef0bd2b98a0b4f263c9eafdd5ab"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/soc/qcom/mdt_loader.h",
+          "source_sha256": "b8ef47460d59f4ac870e0fe304df750646392ad49b9a8a8b920d213c77bc7f3c",
+          "staged_path": "include/linux/soc/qcom/mdt_loader.h",
+          "staged_sha256": "b8ef47460d59f4ac870e0fe304df750646392ad49b9a8a8b920d213c77bc7f3c"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/qcom_ramdump.h",
+          "source_sha256": "fbbc8286c575a098912d291624952c0eb8469d6a98a31316b70b9746330d03c7",
+          "staged_path": "include/soc/qcom/qcom_ramdump.h",
+          "staged_sha256": "fbbc8286c575a098912d291624952c0eb8469d6a98a31316b70b9746330d03c7"
+        }
+      ],
+      "generated_sha256": {
+        "qcom_q6v5.c": "24eeb7bcc3b24c10a76bf61c20fd5b56db3f840a296c298850694bae127851fd",
+        "qcom_q6v5.h": "ebcbae2fbf306b0713ce5be6fe26151d195f9ac1b23d075e0cc769e1f4255c30",
+        "qcom_q6v5_pas.c": "30d5f33349b03f5866164447e1645a46b145ead9942013a3463eeff7c22a0d58",
+        "qcom_sysmon.c": "2a5064d90def0d51205725339805aff4ad3f2ecefe62db278f22e91aa28c758b",
+        "qcom_pil_info.c": "a47de6dd8ebc0957d9b0fb8f0624204068d48fba67d0733a6f787671671e77b9",
+        "qcom_pil_info.h": "fec8d4ebbafebb33ef925c873c9d9e586ddb7bcf8b9f37ac78fafc0fb3186718",
+        "mdt_loader.c": "e2bc69eb040b498b638abf0906e3de4bb0269cf2d0e6ccf2159f5db59e18fe7f",
+        "secure_buffer.c": "154033ae2b499b0c3d40fd9e9952c69ba99fdf0486f86db623f164e7fd0fa2c5",
+        "trace_secure_buffer.h": "3081c4556ef2f92480a2f6e3210bccf61c8fb3a17c95d66d8a2add9b1bdc49ca",
+        "qcom_ramdump.c": "e4c95780abca2dd40b50f79bf73cf8ff0d3d7ef0bd2b98a0b4f263c9eafdd5ab",
+        "include/linux/soc/qcom/mdt_loader.h": "b8ef47460d59f4ac870e0fe304df750646392ad49b9a8a8b920d213c77bc7f3c",
+        "include/soc/qcom/qcom_ramdump.h": "fbbc8286c575a098912d291624952c0eb8469d6a98a31316b70b9746330d03c7",
+        "Kbuild": "42a1e88c39146c04594ccbd36567402732657cf747929bafa5facf08d8bde6f9"
+      },
+      "modules": [
+        "qcom_q6v5.ko",
+        "qcom_q6v5_pas.ko",
+        "qcom_sysmon.ko",
+        "qcom_pil_info.ko",
+        "mdt_loader.ko",
+        "secure_buffer.ko",
+        "qcom_ramdump.ko"
       ],
       "runtime_validated": false,
       "limits": []
@@ -4429,6 +5028,589 @@
       "aliases": [],
       "signed_trailer_present": false
     },
+    "spmi_pmic_arb": {
+      "path": "/root/sheng-618/ports/pmic/spmi-pmic-arb.ko",
+      "sha256": "efbd7745f620f32b4c4c7684dcd2a0f0aa6390c24cf7e21550bf587495ca0727",
+      "versioned_imports": 54,
+      "depends": [],
+      "aliases": [
+        "platform:spmi_pmic_arb",
+        "of:N*T*Cqcom,spmi-pmic-arb",
+        "of:N*T*Cqcom,spmi-pmic-arbC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_spmi_pmic": {
+      "path": "/root/sheng-618/ports/pmic/qcom-spmi-pmic.ko",
+      "sha256": "8dea915cabbce71f1bcd39d3dc18c5fe98362ab320896256a740e7be3d771a1a",
+      "versioned_imports": 8,
+      "depends": [],
+      "aliases": [
+        "spmi:spmi-pmic",
+        "of:N*T*Cqcom,spmi-pmic",
+        "of:N*T*Cqcom,spmi-pmicC*",
+        "of:N*T*Cqcom,pm8941",
+        "of:N*T*Cqcom,pm8941C*",
+        "of:N*T*Cqcom,pm8841",
+        "of:N*T*Cqcom,pm8841C*",
+        "of:N*T*Cqcom,pm8019",
+        "of:N*T*Cqcom,pm8019C*",
+        "of:N*T*Cqcom,pm8226",
+        "of:N*T*Cqcom,pm8226C*",
+        "of:N*T*Cqcom,pm8110",
+        "of:N*T*Cqcom,pm8110C*",
+        "of:N*T*Cqcom,pma8084",
+        "of:N*T*Cqcom,pma8084C*",
+        "of:N*T*Cqcom,pmi8962",
+        "of:N*T*Cqcom,pmi8962C*",
+        "of:N*T*Cqcom,pmd9635",
+        "of:N*T*Cqcom,pmd9635C*",
+        "of:N*T*Cqcom,pm8994",
+        "of:N*T*Cqcom,pm8994C*",
+        "of:N*T*Cqcom,pmi8994",
+        "of:N*T*Cqcom,pmi8994C*",
+        "of:N*T*Cqcom,pm8916",
+        "of:N*T*Cqcom,pm8916C*",
+        "of:N*T*Cqcom,pm8004",
+        "of:N*T*Cqcom,pm8004C*",
+        "of:N*T*Cqcom,pm8909",
+        "of:N*T*Cqcom,pm8909C*",
+        "of:N*T*Cqcom,pm8950",
+        "of:N*T*Cqcom,pm8950C*",
+        "of:N*T*Cqcom,pmi8950",
+        "of:N*T*Cqcom,pmi8950C*",
+        "of:N*T*Cqcom,pm8998",
+        "of:N*T*Cqcom,pm8998C*",
+        "of:N*T*Cqcom,pmi8998",
+        "of:N*T*Cqcom,pmi8998C*",
+        "of:N*T*Cqcom,pm8005",
+        "of:N*T*Cqcom,pm8005C*",
+        "of:N*T*Cqcom,pm660l",
+        "of:N*T*Cqcom,pm660lC*",
+        "of:N*T*Cqcom,pm660",
+        "of:N*T*Cqcom,pm660C*"
+      ],
+      "signed_trailer_present": false
+    },
+    "pinctrl_spmi_gpio": {
+      "path": "/root/sheng-618/ports/pmic/pinctrl-spmi-gpio.ko",
+      "sha256": "6717eab3b4ade41e9babfc9fd3494fca17e716cf9c0aca145fc1345a8ae9eef1",
+      "versioned_imports": 36,
+      "depends": [],
+      "aliases": [
+        "platform:qcom-spmi-gpio",
+        "of:N*T*Cqcom,pm660-gpio",
+        "of:N*T*Cqcom,pm660-gpioC*",
+        "of:N*T*Cqcom,pm660l-gpio",
+        "of:N*T*Cqcom,pm660l-gpioC*",
+        "of:N*T*Cqcom,pm6125-gpio",
+        "of:N*T*Cqcom,pm6125-gpioC*",
+        "of:N*T*Cqcom,pm6150-gpio",
+        "of:N*T*Cqcom,pm6150-gpioC*",
+        "of:N*T*Cqcom,pm6150l-gpio",
+        "of:N*T*Cqcom,pm6150l-gpioC*",
+        "of:N*T*Cqcom,pm6350-gpio",
+        "of:N*T*Cqcom,pm6350-gpioC*",
+        "of:N*T*Cqcom,pm7250b-gpio",
+        "of:N*T*Cqcom,pm7250b-gpioC*",
+        "of:N*T*Cqcom,pm7325-gpio",
+        "of:N*T*Cqcom,pm7325-gpioC*",
+        "of:N*T*Cqcom,pm8005-gpio",
+        "of:N*T*Cqcom,pm8005-gpioC*",
+        "of:N*T*Cqcom,pm8008-gpio",
+        "of:N*T*Cqcom,pm8008-gpioC*",
+        "of:N*T*Cqcom,pm8150-gpio",
+        "of:N*T*Cqcom,pm8150-gpioC*",
+        "of:N*T*Cqcom,pmc8180-gpio",
+        "of:N*T*Cqcom,pmc8180-gpioC*",
+        "of:N*T*Cqcom,pm8150b-gpio",
+        "of:N*T*Cqcom,pm8150b-gpioC*",
+        "of:N*T*Cqcom,pm8150l-gpio",
+        "of:N*T*Cqcom,pm8150l-gpioC*",
+        "of:N*T*Cqcom,pmc8180c-gpio",
+        "of:N*T*Cqcom,pmc8180c-gpioC*",
+        "of:N*T*Cqcom,pm8350-gpio",
+        "of:N*T*Cqcom,pm8350-gpioC*",
+        "of:N*T*Cqcom,pm8350b-gpio",
+        "of:N*T*Cqcom,pm8350b-gpioC*",
+        "of:N*T*Cqcom,pm8350c-gpio",
+        "of:N*T*Cqcom,pm8350c-gpioC*",
+        "of:N*T*Cqcom,pm8450-gpio",
+        "of:N*T*Cqcom,pm8450-gpioC*",
+        "of:N*T*Cqcom,pm8916-gpio",
+        "of:N*T*Cqcom,pm8916-gpioC*",
+        "of:N*T*Cqcom,pm8937-gpio",
+        "of:N*T*Cqcom,pm8937-gpioC*",
+        "of:N*T*Cqcom,pm8941-gpio",
+        "of:N*T*Cqcom,pm8941-gpioC*",
+        "of:N*T*Cqcom,pm8950-gpio",
+        "of:N*T*Cqcom,pm8950-gpioC*",
+        "of:N*T*Cqcom,pm8994-gpio",
+        "of:N*T*Cqcom,pm8994-gpioC*",
+        "of:N*T*Cqcom,pm8998-gpio",
+        "of:N*T*Cqcom,pm8998-gpioC*",
+        "of:N*T*Cqcom,pma8084-gpio",
+        "of:N*T*Cqcom,pma8084-gpioC*",
+        "of:N*T*Cqcom,pmi8950-gpio",
+        "of:N*T*Cqcom,pmi8950-gpioC*",
+        "of:N*T*Cqcom,pmi8994-gpio",
+        "of:N*T*Cqcom,pmi8994-gpioC*",
+        "of:N*T*Cqcom,pmi8998-gpio",
+        "of:N*T*Cqcom,pmi8998-gpioC*",
+        "of:N*T*Cqcom,pmk8350-gpio",
+        "of:N*T*Cqcom,pmk8350-gpioC*",
+        "of:N*T*Cqcom,pmm8155au-gpio",
+        "of:N*T*Cqcom,pmm8155au-gpioC*",
+        "of:N*T*Cqcom,pmr735a-gpio",
+        "of:N*T*Cqcom,pmr735a-gpioC*",
+        "of:N*T*Cqcom,pmr735b-gpio",
+        "of:N*T*Cqcom,pmr735b-gpioC*",
+        "of:N*T*Cqcom,pms405-gpio",
+        "of:N*T*Cqcom,pms405-gpioC*",
+        "of:N*T*Cqcom,pmx55-gpio",
+        "of:N*T*Cqcom,pmx55-gpioC*",
+        "of:N*T*Cqcom,pmx65-gpio",
+        "of:N*T*Cqcom,pmx65-gpioC*",
+        "of:N*T*Cqcom,pmx75-gpio",
+        "of:N*T*Cqcom,pmx75-gpioC*",
+        "of:N*T*Cqcom,pmx35-gpio",
+        "of:N*T*Cqcom,pmx35-gpioC*",
+        "of:N*T*Cqcom,pm7550ba-gpio",
+        "of:N*T*Cqcom,pm7550ba-gpioC*",
+        "of:N*T*Cqcom,pm8550-gpio",
+        "of:N*T*Cqcom,pm8550-gpioC*",
+        "of:N*T*Cqcom,pm8550b-gpio",
+        "of:N*T*Cqcom,pm8550b-gpioC*",
+        "of:N*T*Cqcom,pm8550ve-gpio",
+        "of:N*T*Cqcom,pm8550ve-gpioC*",
+        "of:N*T*Cqcom,pm8550vs-gpio",
+        "of:N*T*Cqcom,pm8550vs-gpioC*",
+        "of:N*T*Cqcom,pmk8550-gpio",
+        "of:N*T*Cqcom,pmk8550-gpioC*",
+        "of:N*T*Cqcom,pmr735d-gpio",
+        "of:N*T*Cqcom,pmr735d-gpioC*",
+        "of:N*T*Cqcom,pm8775-gpio",
+        "of:N*T*Cqcom,pm8775-gpioC*",
+        "of:N*T*Cqcom,pm5100-gpio",
+        "of:N*T*Cqcom,pm5100-gpioC*",
+        "of:N*T*Cqcom,pm2250-gpio",
+        "of:N*T*Cqcom,pm2250-gpioC*",
+        "of:N*T*Cqcom,pm8009-gpio",
+        "of:N*T*Cqcom,pm8009-gpioC*",
+        "of:N*T*Cqcom,pmi632-gpio",
+        "of:N*T*Cqcom,pmi632-gpioC*",
+        "of:N*T*Cqcom,pmxr2230-gpio",
+        "of:N*T*Cqcom,pmxr2230-gpioC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "pinctrl_spmi_mpp": {
+      "path": "/root/sheng-618/ports/pmic/pinctrl-spmi-mpp.ko",
+      "sha256": "92cfc46b2889be15ee44aa01415cf81a8608fb310fd1885e0a1686d7359b8a65",
+      "versioned_imports": 26,
+      "depends": [],
+      "aliases": [
+        "platform:qcom-spmi-mpp",
+        "of:N*T*Cqcom,pm8019-mpp",
+        "of:N*T*Cqcom,pm8019-mppC*",
+        "of:N*T*Cqcom,pm8841-mpp",
+        "of:N*T*Cqcom,pm8841-mppC*",
+        "of:N*T*Cqcom,pm8916-mpp",
+        "of:N*T*Cqcom,pm8916-mppC*",
+        "of:N*T*Cqcom,pm8941-mpp",
+        "of:N*T*Cqcom,pm8941-mppC*",
+        "of:N*T*Cqcom,pm8950-mpp",
+        "of:N*T*Cqcom,pm8950-mppC*",
+        "of:N*T*Cqcom,pmi8950-mpp",
+        "of:N*T*Cqcom,pmi8950-mppC*",
+        "of:N*T*Cqcom,pm8994-mpp",
+        "of:N*T*Cqcom,pm8994-mppC*",
+        "of:N*T*Cqcom,pma8084-mpp",
+        "of:N*T*Cqcom,pma8084-mppC*",
+        "of:N*T*Cqcom,pmi8994-mpp",
+        "of:N*T*Cqcom,pmi8994-mppC*",
+        "of:N*T*Cqcom,spmi-mpp",
+        "of:N*T*Cqcom,spmi-mppC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_spmi_sdam": {
+      "path": "/root/sheng-618/ports/pmic/qcom-spmi-sdam.ko",
+      "sha256": "5681726d628b0ccd8d068aeb06b7221ac9d4f6d5c0818d495a82db82861e03b2",
+      "versioned_imports": 12,
+      "depends": [],
+      "aliases": [
+        "of:N*T*Cqcom,spmi-sdam",
+        "of:N*T*Cqcom,spmi-sdamC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_pdc": {
+      "path": "/root/sheng-618/ports/pmic/qcom-pdc.ko",
+      "sha256": "9018c0c0842a41416d5611e902f207de7cde2c5e9d97f5d27486f03ceb12c879",
+      "versioned_imports": 57,
+      "depends": [
+        "ipc_logging",
+        "qcom_scm"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,pdc",
+        "of:N*T*Cqcom,pdcC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "gdsc_regulator": {
+      "path": "/root/sheng-618/ports/pmic/gdsc-regulator.ko",
+      "sha256": "ab5126a07360d349584f888776f29f0575daf3523162150d139c99af08db77f3",
+      "versioned_imports": 69,
+      "depends": [
+        "proxy_consumer"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "proxy_consumer": {
+      "path": "/root/sheng-618/ports/pmic/proxy-consumer.ko",
+      "sha256": "0840b9bc70c1465524229948524372a0626ac6a8c8f2486788d9dee51cdc5c4b",
+      "versioned_imports": 25,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "phy_qcom_ufs": {
+      "path": "/root/sheng-618/ports/ufs-phy/phy-qcom-ufs.ko",
+      "sha256": "0be977fbf6178f3371659ef10e2a11fcd6e1dcf24e5be7fcd576dcbe74d1dcfd",
+      "versioned_imports": 43,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "phy_qcom_ufs_qmp_v4_kalama": {
+      "path": "/root/sheng-618/ports/ufs-phy/phy-qcom-ufs-qmp-v4-kalama.ko",
+      "sha256": "fecd713e3bc7080808fdaa7bcaf2905ca8c84b3e823759df645f576d66b530e0",
+      "versioned_imports": 27,
+      "depends": [
+        "phy_qcom_ufs"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,ufs-phy-qmp-v4-kalama",
+        "of:N*T*Cqcom,ufs-phy-qmp-v4-kalamaC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_glink": {
+      "path": "/root/sheng-618/ports/ipc/qcom_glink.ko",
+      "sha256": "a1a237cf0b57930c33b9fd1786c6c0a02544fb75be168d9be0aaaae7d3ab71a5",
+      "versioned_imports": 91,
+      "depends": [
+        "ipc_logging"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qcom_glink_smem": {
+      "path": "/root/sheng-618/ports/ipc/qcom_glink_smem.ko",
+      "sha256": "1acfa45ea94d763354b6f6a2ebb35320e021256ba253eab4bed16e86758f0704",
+      "versioned_imports": 24,
+      "depends": [
+        "smem",
+        "qcom_glink",
+        "ipc_logging"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "rproc_qcom_common": {
+      "path": "/root/sheng-618/ports/ipc/rproc_qcom_common.ko",
+      "sha256": "c66a12e1d3071c53e8257432f5d4a9866b5faadbe98b7d7677d3507b0b26e31b",
+      "versioned_imports": 75,
+      "depends": [
+        "smem",
+        "qcom_glink_smem",
+        "qcom_glink"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qmi_helpers": {
+      "path": "/root/sheng-618/ports/ipc/qmi_helpers.ko",
+      "sha256": "32780881564b74dd5120b677b43359aa4e755027ad1b054299afbbb4e0c1ecd9",
+      "versioned_imports": 37,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "pdr_interface": {
+      "path": "/root/sheng-618/ports/ipc/pdr_interface.ko",
+      "sha256": "33a2a9e16591515e9a95350073616563472942e8ce360cd4c8ab4ebc19d9f743",
+      "versioned_imports": 36,
+      "depends": [
+        "qmi_helpers"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "pmic_glink": {
+      "path": "/root/sheng-618/ports/ipc/pmic_glink.ko",
+      "sha256": "275d61efcd12b40887a2165f3645ad89b0928a077a6feb17d9a052169b7d4766",
+      "versioned_imports": 65,
+      "depends": [
+        "ipc_logging",
+        "rproc_qcom_common",
+        "pdr_interface"
+      ],
+      "aliases": [
+        "qcom,pmic-glink",
+        "of:N*T*Cqcom,pmic-glink",
+        "of:N*T*Cqcom,pmic-glinkC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "glink_probe": {
+      "path": "/root/sheng-618/ports/ipc/glink_probe.ko",
+      "sha256": "9da7e24ef381beb754689de01a7187b28379b985f3625d6c401e9d3236e9b9c2",
+      "versioned_imports": 24,
+      "depends": [
+        "ipc_logging",
+        "rproc_qcom_common",
+        "qcom_glink_smem",
+        "qcom_glink"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "glink_pkt": {
+      "path": "/root/sheng-618/ports/ipc/glink_pkt.ko",
+      "sha256": "a523147d1869480568eec35faf153824d2bdd7083a3147b1b602a24a2caa1e77",
+      "versioned_imports": 99,
+      "depends": [
+        "ipc_logging",
+        "qcom_glink"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qcom_q6v5": {
+      "path": "/root/sheng-618/ports/remoteproc/qcom_q6v5.ko",
+      "sha256": "c3a2a617415f0343c834ff103e80c0fffe51f9c2cb67dda45a2c01200434a872",
+      "versioned_imports": 30,
+      "depends": [
+        "qcom_sysmon",
+        "smem",
+        "rproc_qcom_common"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qcom_q6v5_pas": {
+      "path": "/root/sheng-618/ports/remoteproc/qcom_q6v5_pas.ko",
+      "sha256": "21ba34dfb448c313547c88d63c55f2a6e53e1e242a0e0a804bd4e163b2a1221b",
+      "versioned_imports": 115,
+      "depends": [
+        "qcom_scm",
+        "qcom_aoss",
+        "qcom_q6v5",
+        "qcom_pil_info",
+        "rproc_qcom_common",
+        "qcom_sysmon",
+        "qcom_ramdump",
+        "secure_buffer",
+        "mdt_loader"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,msm8974-adsp-pil",
+        "of:N*T*Cqcom,msm8974-adsp-pilC*",
+        "of:N*T*Cqcom,msm8996-adsp-pil",
+        "of:N*T*Cqcom,msm8996-adsp-pilC*",
+        "of:N*T*Cqcom,msm8996-slpi-pil",
+        "of:N*T*Cqcom,msm8996-slpi-pilC*",
+        "of:N*T*Cqcom,msm8998-adsp-pas",
+        "of:N*T*Cqcom,msm8998-adsp-pasC*",
+        "of:N*T*Cqcom,msm8998-slpi-pas",
+        "of:N*T*Cqcom,msm8998-slpi-pasC*",
+        "of:N*T*Cqcom,qcs404-adsp-pas",
+        "of:N*T*Cqcom,qcs404-adsp-pasC*",
+        "of:N*T*Cqcom,qcs404-cdsp-pas",
+        "of:N*T*Cqcom,qcs404-cdsp-pasC*",
+        "of:N*T*Cqcom,qcs404-wcss-pas",
+        "of:N*T*Cqcom,qcs404-wcss-pasC*",
+        "of:N*T*Cqcom,sc7180-mpss-pas",
+        "of:N*T*Cqcom,sc7180-mpss-pasC*",
+        "of:N*T*Cqcom,sc8180x-adsp-pas",
+        "of:N*T*Cqcom,sc8180x-adsp-pasC*",
+        "of:N*T*Cqcom,sc8180x-cdsp-pas",
+        "of:N*T*Cqcom,sc8180x-cdsp-pasC*",
+        "of:N*T*Cqcom,sc8180x-mpss-pas",
+        "of:N*T*Cqcom,sc8180x-mpss-pasC*",
+        "of:N*T*Cqcom,sdm660-adsp-pas",
+        "of:N*T*Cqcom,sdm660-adsp-pasC*",
+        "of:N*T*Cqcom,sdm845-adsp-pas",
+        "of:N*T*Cqcom,sdm845-adsp-pasC*",
+        "of:N*T*Cqcom,sdm845-cdsp-pas",
+        "of:N*T*Cqcom,sdm845-cdsp-pasC*",
+        "of:N*T*Cqcom,sdx55-mpss-pas",
+        "of:N*T*Cqcom,sdx55-mpss-pasC*",
+        "of:N*T*Cqcom,sm8150-adsp-pas",
+        "of:N*T*Cqcom,sm8150-adsp-pasC*",
+        "of:N*T*Cqcom,sm8150-cdsp-pas",
+        "of:N*T*Cqcom,sm8150-cdsp-pasC*",
+        "of:N*T*Cqcom,sm8150-mpss-pas",
+        "of:N*T*Cqcom,sm8150-mpss-pasC*",
+        "of:N*T*Cqcom,sm8150-slpi-pas",
+        "of:N*T*Cqcom,sm8150-slpi-pasC*",
+        "of:N*T*Cqcom,sm8250-adsp-pas",
+        "of:N*T*Cqcom,sm8250-adsp-pasC*",
+        "of:N*T*Cqcom,sm8250-cdsp-pas",
+        "of:N*T*Cqcom,sm8250-cdsp-pasC*",
+        "of:N*T*Cqcom,sm8250-slpi-pas",
+        "of:N*T*Cqcom,sm8250-slpi-pasC*",
+        "of:N*T*Cqcom,sm8350-adsp-pas",
+        "of:N*T*Cqcom,sm8350-adsp-pasC*",
+        "of:N*T*Cqcom,sm8350-cdsp-pas",
+        "of:N*T*Cqcom,sm8350-cdsp-pasC*",
+        "of:N*T*Cqcom,sm8350-slpi-pas",
+        "of:N*T*Cqcom,sm8350-slpi-pasC*",
+        "of:N*T*Cqcom,sm8350-mpss-pas",
+        "of:N*T*Cqcom,sm8350-mpss-pasC*",
+        "of:N*T*Cqcom,waipio-adsp-pas",
+        "of:N*T*Cqcom,waipio-adsp-pasC*",
+        "of:N*T*Cqcom,waipio-cdsp-pas",
+        "of:N*T*Cqcom,waipio-cdsp-pasC*",
+        "of:N*T*Cqcom,waipio-slpi-pas",
+        "of:N*T*Cqcom,waipio-slpi-pasC*",
+        "of:N*T*Cqcom,waipio-modem-pas",
+        "of:N*T*Cqcom,waipio-modem-pasC*",
+        "of:N*T*Cqcom,kalama-adsp-pas",
+        "of:N*T*Cqcom,kalama-adsp-pasC*",
+        "of:N*T*Cqcom,kalama-cdsp-pas",
+        "of:N*T*Cqcom,kalama-cdsp-pasC*",
+        "of:N*T*Cqcom,kalama-modem-pas",
+        "of:N*T*Cqcom,kalama-modem-pasC*",
+        "of:N*T*Cqcom,cinder-modem-pas",
+        "of:N*T*Cqcom,cinder-modem-pasC*",
+        "of:N*T*Cqcom,khaje-adsp-pas",
+        "of:N*T*Cqcom,khaje-adsp-pasC*",
+        "of:N*T*Cqcom,khaje-cdsp-pas",
+        "of:N*T*Cqcom,khaje-cdsp-pasC*",
+        "of:N*T*Cqcom,khaje-modem-pas",
+        "of:N*T*Cqcom,khaje-modem-pasC*",
+        "of:N*T*Cqcom,sdmshrike-adsp-pas",
+        "of:N*T*Cqcom,sdmshrike-adsp-pasC*",
+        "of:N*T*Cqcom,sdmshrike-cdsp-pas",
+        "of:N*T*Cqcom,sdmshrike-cdsp-pasC*",
+        "of:N*T*Cqcom,scuba_auto-modem-pas",
+        "of:N*T*Cqcom,scuba_auto-modem-pasC*",
+        "of:N*T*Cqcom,scuba_auto-lpass-pas",
+        "of:N*T*Cqcom,scuba_auto-lpass-pasC*",
+        "of:N*T*Cqcom,monaco-adsp-pas",
+        "of:N*T*Cqcom,monaco-adsp-pasC*",
+        "of:N*T*Cqcom,monaco-modem-pas",
+        "of:N*T*Cqcom,monaco-modem-pasC*",
+        "of:N*T*Cqcom,lemans-adsp-pas",
+        "of:N*T*Cqcom,lemans-adsp-pasC*",
+        "of:N*T*Cqcom,lemans-cdsp-pas",
+        "of:N*T*Cqcom,lemans-cdsp-pasC*",
+        "of:N*T*Cqcom,lemans-cdsp1-pas",
+        "of:N*T*Cqcom,lemans-cdsp1-pasC*",
+        "of:N*T*Cqcom,lemans-gpdsp0-pas",
+        "of:N*T*Cqcom,lemans-gpdsp0-pasC*",
+        "of:N*T*Cqcom,lemans-gpdsp1-pas",
+        "of:N*T*Cqcom,lemans-gpdsp1-pasC*",
+        "of:N*T*Cqcom,kona-adsp-pas",
+        "of:N*T*Cqcom,kona-adsp-pasC*",
+        "of:N*T*Cqcom,kona-cdsp-pas",
+        "of:N*T*Cqcom,kona-cdsp-pasC*",
+        "of:N*T*Cqcom,kona-slpi-pas",
+        "of:N*T*Cqcom,kona-slpi-pasC*",
+        "of:N*T*Cqcom,kona-npu-pas",
+        "of:N*T*Cqcom,kona-npu-pasC*",
+        "of:N*T*Cqcom,crow-wpss-pas",
+        "of:N*T*Cqcom,crow-wpss-pasC*",
+        "of:N*T*Cqcom,crow-adsp-pas",
+        "of:N*T*Cqcom,crow-adsp-pasC*",
+        "of:N*T*Cqcom,crow-cdsp-pas",
+        "of:N*T*Cqcom,crow-cdsp-pasC*",
+        "of:N*T*Cqcom,crow-modem-pas",
+        "of:N*T*Cqcom,crow-modem-pasC*",
+        "of:N*T*Cqcom,qcs405-adsp-pas",
+        "of:N*T*Cqcom,qcs405-adsp-pasC*",
+        "of:N*T*Cqcom,qcs405-wlan-dsp",
+        "of:N*T*Cqcom,qcs405-wlan-dspC*",
+        "of:N*T*Cqcom,qcs405-cdsp-pas",
+        "of:N*T*Cqcom,qcs405-cdsp-pasC*",
+        "of:N*T*Cqcom,trinket-modem-pas",
+        "of:N*T*Cqcom,trinket-modem-pasC*",
+        "of:N*T*Cqcom,trinket-adsp-pas",
+        "of:N*T*Cqcom,trinket-adsp-pasC*",
+        "of:N*T*Cqcom,trinket-cdsp-pas",
+        "of:N*T*Cqcom,trinket-cdsp-pasC*",
+        "of:N*T*Cqcom,qcs605-adsp-pas",
+        "of:N*T*Cqcom,qcs605-adsp-pasC*",
+        "of:N*T*Cqcom,qcs605-cdsp-pas",
+        "of:N*T*Cqcom,qcs605-cdsp-pasC*",
+        "of:N*T*Cqcom,bengal-adsp-pas",
+        "of:N*T*Cqcom,bengal-adsp-pasC*",
+        "of:N*T*Cqcom,bengal-cdsp-pas",
+        "of:N*T*Cqcom,bengal-cdsp-pasC*",
+        "of:N*T*Cqcom,bengal-modem-pas",
+        "of:N*T*Cqcom,bengal-modem-pasC*",
+        "of:N*T*Cqcom,scuba-adsp-pas",
+        "of:N*T*Cqcom,scuba-adsp-pasC*",
+        "of:N*T*Cqcom,scuba-modem-pas",
+        "of:N*T*Cqcom,scuba-modem-pasC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_sysmon": {
+      "path": "/root/sheng-618/ports/remoteproc/qcom_sysmon.ko",
+      "sha256": "f7a8d8fd06a46af1654aa8509d4d31dd9014d7120ad101fff64b5be6f91c3be1",
+      "versioned_imports": 51,
+      "depends": [
+        "qmi_helpers",
+        "rproc_qcom_common"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qcom_pil_info": {
+      "path": "/root/sheng-618/ports/remoteproc/qcom_pil_info.ko",
+      "sha256": "de0302398bce4d8bee1a52e38eb6af66fb07cfd62cc59726a833571b5becf189",
+      "versioned_imports": 20,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "mdt_loader": {
+      "path": "/root/sheng-618/ports/remoteproc/mdt_loader.ko",
+      "sha256": "c0567cd151dfd65cee4d70aa095a29cb5908134cbfc94287ee6bbdd5689e343b",
+      "versioned_imports": 22,
+      "depends": [
+        "qcom_scm"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "secure_buffer": {
+      "path": "/root/sheng-618/ports/remoteproc/secure_buffer.ko",
+      "sha256": "3ccb52a49d3575f3dcc5795bbc7a3ae369a80d5536321aec38cf6ca8fbc00eac",
+      "versioned_imports": 39,
+      "depends": [
+        "qcom_scm"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,secure-buffer",
+        "of:N*T*Cqcom,secure-bufferC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_ramdump": {
+      "path": "/root/sheng-618/ports/remoteproc/qcom_ramdump.ko",
+      "sha256": "64d0e4fab604d5115d97a2cbd384babf9f9055a52261d060872b705f78a8f55b",
+      "versioned_imports": 35,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
     "xm_utils": {
       "path": "/root/sheng-618/ports/pogo/xm_utils.ko",
       "sha256": "0a415c760822c8ad6249693b989734fac14b3c01f66bc4a776f1c1bd84b5c019",
@@ -4583,6 +5765,31 @@
     "icc_rpmh",
     "qnoc_qos",
     "qnoc_kalama",
+    "spmi_pmic_arb",
+    "qcom_spmi_pmic",
+    "pinctrl_spmi_gpio",
+    "pinctrl_spmi_mpp",
+    "qcom_spmi_sdam",
+    "qcom_pdc",
+    "proxy_consumer",
+    "gdsc_regulator",
+    "phy_qcom_ufs",
+    "phy_qcom_ufs_qmp_v4_kalama",
+    "qcom_glink",
+    "qcom_glink_smem",
+    "rproc_qcom_common",
+    "qmi_helpers",
+    "pdr_interface",
+    "pmic_glink",
+    "glink_probe",
+    "glink_pkt",
+    "qcom_sysmon",
+    "qcom_q6v5",
+    "qcom_pil_info",
+    "qcom_ramdump",
+    "secure_buffer",
+    "mdt_loader",
+    "qcom_q6v5_pas",
     "xm_utils",
     "cs35l43_dlkm"
   ],

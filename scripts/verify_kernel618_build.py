@@ -52,6 +52,7 @@ def main():
     port_sources = {}
     source_specs = plan['board_sources'] + plan.get('supplemental_board_sources', [])
     source_paths = {x['url']: root / 'src' / x['name'] for x in source_specs}
+    source_paths[plan['kernel_core']['url']] = source
     checked_sources = set()
     for group, names in ports.items():
         port_dir = root / 'ports' / group

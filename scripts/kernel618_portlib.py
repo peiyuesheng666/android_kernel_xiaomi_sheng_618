@@ -36,8 +36,8 @@ class Port:
 
     def check_source(self, name):
         repo = ROOT / 'src' / name
-        spec = next(s for s in PLAN['board_sources'] + PLAN.get('supplemental_board_sources', [])
-                    if s['name'] == name)
+        spec = PLAN['kernel_core'] if name == 'ack' else next(
+            s for s in PLAN['board_sources'] + PLAN.get('supplemental_board_sources', []) if s['name'] == name)
         if name not in self.checked:
             if git(repo, 'rev-parse', 'HEAD') != spec['revision'] or git(repo, 'status', '--porcelain'):
                 raise ValueError(f'Input is not the clean pinned source: {repo}')
