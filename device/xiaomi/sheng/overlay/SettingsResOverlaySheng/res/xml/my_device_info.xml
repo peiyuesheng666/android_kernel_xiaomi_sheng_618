@@ -123,6 +123,15 @@
             settings:keywords="@*com.android.settings:string/keywords_model_and_hardware"
             settings:controller="com.android.settings.deviceinfo.HardwareInfoPreferenceController"/>
 
+        <!-- Device codename, separate from the marketed name and model number. -->
+        <Preference
+            android:key="sheng_codename"
+            android:order="31"
+            android:title="Device codename"
+            android:summary="sheng"
+            android:selectable="false"
+            settings:enableCopying="true"/>
+
         <!-- EID -->
         <com.android.settings.deviceinfo.simstatus.SimEidInfoPreference
             android:key="eid_info"

@@ -48,6 +48,7 @@ public final class ResourceProbe {
                 int controllers = 0;
                 boolean marketing = false;
                 boolean number = false;
+                boolean codename = false;
                 while (parser.next() != XmlResourceParser.END_DOCUMENT) {
                     if (parser.getEventType() != XmlResourceParser.START_TAG) continue;
                     String key = parser.getAttributeValue("http://schemas.android.com/apk/res/android", "key");
@@ -75,12 +76,18 @@ public final class ResourceProbe {
                         number = (chinese ? "型号编号" : "Model number").equals(parser.getAttributeValue(
                                 "http://schemas.android.com/apk/res/android", "title"));
                     }
+                    if ("sheng_codename".equals(key)) {
+                        codename = (chinese ? "设备代号" : "Device codename").equals(
+                                parser.getAttributeValue("http://schemas.android.com/apk/res/android", "title"))
+                                && "sheng".equals(parser.getAttributeValue(
+                                        "http://schemas.android.com/apk/res/android", "summary"));
+                    }
                 }
                 parser.close();
-                if (controllers != ("my_device_info".equals(xml) ? 10 : 4) || !marketing || !number) {
-                    throw new AssertionError(xml + " controllers=" + controllers + " marketing=" + marketing + " number=" + number);
+                if (controllers != ("my_device_info".equals(xml) ? 10 : 4) || !marketing || !number || !codename) {
+                    throw new AssertionError(xml + " controllers=" + controllers + " marketing=" + marketing + " number=" + number + " codename=" + codename);
                 }
-                System.out.println(locale + "/" + xml + ": controllers=" + controllers + ", name and number labels valid");
+                System.out.println(locale + "/" + xml + ": controllers=" + controllers + ", name, number and codename labels valid");
             }
         } else {
             int cases = 0;
