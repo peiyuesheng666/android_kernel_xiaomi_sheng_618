@@ -17,8 +17,8 @@
     "CONFIG_ANDROID_BINDER_IPC_RUST=m"
   ],
   "baseline_module_count": 105,
-  "port_module_count": 2,
-  "versioned_imports_checked": 6169,
+  "port_module_count": 4,
+  "versioned_imports_checked": 6330,
   "this_module_bytes": 1664,
   "static_module_closure_passed": true,
   "issue_counts": {},
@@ -48,7 +48,7 @@
   "host_elfutils": {
     "version": "0.193",
     "system_libraries_changed": false,
-    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x0000731b47b5d000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x0000731b479fe000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x0000731b479e3000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x0000731b479bc000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000731b47600000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x0000731b47991000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000731b47b5f000)"
+    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x000078c186434000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x000078c1862d5000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x000078c1862ba000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x000078c186293000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000078c186000000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x000078c186268000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000078c186436000)"
   },
   "artifacts": {
     "Image": {
@@ -75,6 +75,497 @@
       "path": "/root/sheng-618/out/ack-dist/ack.config",
       "bytes": 230725,
       "sha256": "bc6a0dbcd1c97aea4a5ee42947652df65e584cf427d07cf2224d45a85464b280"
+    }
+  },
+  "port_source_receipts": {
+    "clock": {
+      "schema": 1,
+      "scope": "LOS TCSR Kalama port and unmodified ACK clock helpers",
+      "source_files": [
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/common.c",
+          "source_sha256": "803e0f09194777208b64a56ec3a5451aadfc6232464ef80961ac75f25fcadc8e",
+          "staged_path": "common.c",
+          "staged_sha256": "803e0f09194777208b64a56ec3a5451aadfc6232464ef80961ac75f25fcadc8e"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap.c",
+          "source_sha256": "2438f057d67c3cd0229e710494dcf0a381bc69021591fe9cb89219734b8e633d",
+          "staged_path": "clk-regmap.c",
+          "staged_sha256": "2438f057d67c3cd0229e710494dcf0a381bc69021591fe9cb89219734b8e633d"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-alpha-pll.c",
+          "source_sha256": "a27a1c6a3e8343759bbd5345caa0bf9511259ec704fbfc2856891a65ca5e269e",
+          "staged_path": "clk-alpha-pll.c",
+          "staged_sha256": "a27a1c6a3e8343759bbd5345caa0bf9511259ec704fbfc2856891a65ca5e269e"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-pll.c",
+          "source_sha256": "b12e945d1f142101c28d33cf465095a247b560c2255f12fb1b8a224f49db8c30",
+          "staged_path": "clk-pll.c",
+          "staged_sha256": "b12e945d1f142101c28d33cf465095a247b560c2255f12fb1b8a224f49db8c30"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-rcg.c",
+          "source_sha256": "54f09b586c5433c38e3749f59856d57c1122d42258f5c47cfc11c6d696e1c777",
+          "staged_path": "clk-rcg.c",
+          "staged_sha256": "54f09b586c5433c38e3749f59856d57c1122d42258f5c47cfc11c6d696e1c777"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-rcg2.c",
+          "source_sha256": "28d570df7a3af481da5e88af29aca161c597d00f0991d6fca4f445a6c0491a1d",
+          "staged_path": "clk-rcg2.c",
+          "staged_sha256": "28d570df7a3af481da5e88af29aca161c597d00f0991d6fca4f445a6c0491a1d"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-branch.c",
+          "source_sha256": "a0840dff3927c93b5ece621cd799415d3827428fdb8c67e3ac682561d30efc72",
+          "staged_path": "clk-branch.c",
+          "staged_sha256": "a0840dff3927c93b5ece621cd799415d3827428fdb8c67e3ac682561d30efc72"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap-divider.c",
+          "source_sha256": "34261ec016413f96a7482fdca6d0f4c6de52703e51968a2d5bebd9eb2af5d04e",
+          "staged_path": "clk-regmap-divider.c",
+          "staged_sha256": "34261ec016413f96a7482fdca6d0f4c6de52703e51968a2d5bebd9eb2af5d04e"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap-mux.c",
+          "source_sha256": "ce97dcf91932dca63a961abbfe3a60500ec523475d819f738fb55decab55d85a",
+          "staged_path": "clk-regmap-mux.c",
+          "staged_sha256": "ce97dcf91932dca63a961abbfe3a60500ec523475d819f738fb55decab55d85a"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap-mux-div.c",
+          "source_sha256": "f4bfcc8a91a2fbd097352cea21b3c6f9e2f81ef25be7bd4878f8cab037412653",
+          "staged_path": "clk-regmap-mux-div.c",
+          "staged_sha256": "f4bfcc8a91a2fbd097352cea21b3c6f9e2f81ef25be7bd4878f8cab037412653"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap-phy-mux.c",
+          "source_sha256": "76be83dfd9ad18692d3f09d85589be6cff60cec62573344bdf2fd4eb47357380",
+          "staged_path": "clk-regmap-phy-mux.c",
+          "staged_sha256": "76be83dfd9ad18692d3f09d85589be6cff60cec62573344bdf2fd4eb47357380"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-hfpll.c",
+          "source_sha256": "db5fe959a97f12cd9e74c8e73d7e255ed3c775f11f473924c693b52cedc14f8d",
+          "staged_path": "clk-hfpll.c",
+          "staged_sha256": "db5fe959a97f12cd9e74c8e73d7e255ed3c775f11f473924c693b52cedc14f8d"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/reset.c",
+          "source_sha256": "434e63a159118f20a49114f5b184f405739e5ba4cda4148f4e101bf6b36326e8",
+          "staged_path": "reset.c",
+          "staged_sha256": "434e63a159118f20a49114f5b184f405739e5ba4cda4148f4e101bf6b36326e8"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/gdsc.c",
+          "source_sha256": "7a7d49dd634aed099b5707ff3adab7bb0b4751dbbf19fa8cf234688fd329f093",
+          "staged_path": "gdsc.c",
+          "staged_sha256": "7a7d49dd634aed099b5707ff3adab7bb0b4751dbbf19fa8cf234688fd329f093"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-alpha-pll.h",
+          "source_sha256": "a650f336e91466e15a8ac1809e574826081522cf12cc37e7970b84eb9fa02fdc",
+          "staged_path": "clk-alpha-pll.h",
+          "staged_sha256": "a650f336e91466e15a8ac1809e574826081522cf12cc37e7970b84eb9fa02fdc"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-branch.h",
+          "source_sha256": "d1cdd6eda43aaf475916c3e429ed70f83786b63a2cf1037d2639abf159b6519a",
+          "staged_path": "clk-branch.h",
+          "staged_sha256": "d1cdd6eda43aaf475916c3e429ed70f83786b63a2cf1037d2639abf159b6519a"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-hfpll.h",
+          "source_sha256": "5b69f9614ca06439a6162cdac041fa5d8a8e681130926ae207f84bf29c1a3606",
+          "staged_path": "clk-hfpll.h",
+          "staged_sha256": "5b69f9614ca06439a6162cdac041fa5d8a8e681130926ae207f84bf29c1a3606"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-krait.h",
+          "source_sha256": "075ae44118bc9b17203704161525b36fa838481bb96b21e3b6100de0cc224f9a",
+          "staged_path": "clk-krait.h",
+          "staged_sha256": "075ae44118bc9b17203704161525b36fa838481bb96b21e3b6100de0cc224f9a"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-pll.h",
+          "source_sha256": "8eca6afa9577d99872c39dba393ce7a21874f8ff899e9476718dc1e0edb821cc",
+          "staged_path": "clk-pll.h",
+          "staged_sha256": "8eca6afa9577d99872c39dba393ce7a21874f8ff899e9476718dc1e0edb821cc"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-rcg.h",
+          "source_sha256": "128e149a3f94d356a16e294e0ba406452e2a47af0443396cc2ff078da7731e1d",
+          "staged_path": "clk-rcg.h",
+          "staged_sha256": "128e149a3f94d356a16e294e0ba406452e2a47af0443396cc2ff078da7731e1d"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap-divider.h",
+          "source_sha256": "a7dad4fcf36cd4dae19aa712636456a053a7c8c04f6bc70283bbb23e563341ff",
+          "staged_path": "clk-regmap-divider.h",
+          "staged_sha256": "a7dad4fcf36cd4dae19aa712636456a053a7c8c04f6bc70283bbb23e563341ff"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap-mux-div.h",
+          "source_sha256": "a51e4292681a842f02495ba470f4d20e31a890b230019390be090bb7816e6f9a",
+          "staged_path": "clk-regmap-mux-div.h",
+          "staged_sha256": "a51e4292681a842f02495ba470f4d20e31a890b230019390be090bb7816e6f9a"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap-mux.h",
+          "source_sha256": "3ada36bf130ccfc6b5de7e6cedf9fd27da88f3589ed505def758289107e8f28e",
+          "staged_path": "clk-regmap-mux.h",
+          "staged_sha256": "3ada36bf130ccfc6b5de7e6cedf9fd27da88f3589ed505def758289107e8f28e"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap-phy-mux.h",
+          "source_sha256": "8ed1d6af2f70ae1fcccca1e4b4b7152b53c2bbc763924c11fdcca606536bb531",
+          "staged_path": "clk-regmap-phy-mux.h",
+          "staged_sha256": "8ed1d6af2f70ae1fcccca1e4b4b7152b53c2bbc763924c11fdcca606536bb531"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/clk-regmap.h",
+          "source_sha256": "3c8dab9af916ecc46ed515533eb2535222a2ecd172cb9f0abfcbe16ca726735a",
+          "staged_path": "clk-regmap.h",
+          "staged_sha256": "3c8dab9af916ecc46ed515533eb2535222a2ecd172cb9f0abfcbe16ca726735a"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/common.h",
+          "source_sha256": "f704afff1e85ec09ae681f8402e179411e744d57045a0c9737a287cf667d0b1e",
+          "staged_path": "common.h",
+          "staged_sha256": "f704afff1e85ec09ae681f8402e179411e744d57045a0c9737a287cf667d0b1e"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/gdsc.h",
+          "source_sha256": "354adcd7878a7cdeae9fc892df19f3b8b11bcfea494893f126692a0b2d5a1df1",
+          "staged_path": "gdsc.h",
+          "staged_sha256": "354adcd7878a7cdeae9fc892df19f3b8b11bcfea494893f126692a0b2d5a1df1"
+        },
+        {
+          "repository": "/root/sheng-618/src/ack",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/clk/qcom/reset.h",
+          "source_sha256": "ee4ae7a90e5e3544ffa5335ad96511cee659bad16f09f1fa9fc28f1d10db06a3",
+          "staged_path": "reset.h",
+          "staged_sha256": "ee4ae7a90e5e3544ffa5335ad96511cee659bad16f09f1fa9fc28f1d10db06a3"
+        },
+        {
+          "repository": "/root/sheng-618/src/lineage-kernel",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/tcsrcc-kalama.c",
+          "source_sha256": "8f6eeca2554081e24d8bb8764b68410ffe63c2571c336e565b2dc9577b5ae848",
+          "staged_path": "tcsrcc-kalama.c",
+          "staged_sha256": "9417c00a777ff9128683cdfc7f7e09d96b99454ed9e1e03606daf27fb2eca3ac"
+        },
+        {
+          "repository": "/root/sheng-618/src/lineage-kernel",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/clock/qcom,tcsrcc-kalama.h",
+          "source_sha256": "e322dcae06fa902d5f96ebc96a9930372e1be07cc6134ba5245d7f5552403b89",
+          "staged_path": "include/dt-bindings/clock/qcom,tcsrcc-kalama.h",
+          "staged_sha256": "e322dcae06fa902d5f96ebc96a9930372e1be07cc6134ba5245d7f5552403b89"
+        }
+      ],
+      "generated_sha256": {
+        "common.c": "803e0f09194777208b64a56ec3a5451aadfc6232464ef80961ac75f25fcadc8e",
+        "clk-regmap.c": "2438f057d67c3cd0229e710494dcf0a381bc69021591fe9cb89219734b8e633d",
+        "clk-alpha-pll.c": "a27a1c6a3e8343759bbd5345caa0bf9511259ec704fbfc2856891a65ca5e269e",
+        "clk-pll.c": "b12e945d1f142101c28d33cf465095a247b560c2255f12fb1b8a224f49db8c30",
+        "clk-rcg.c": "54f09b586c5433c38e3749f59856d57c1122d42258f5c47cfc11c6d696e1c777",
+        "clk-rcg2.c": "28d570df7a3af481da5e88af29aca161c597d00f0991d6fca4f445a6c0491a1d",
+        "clk-branch.c": "a0840dff3927c93b5ece621cd799415d3827428fdb8c67e3ac682561d30efc72",
+        "clk-regmap-divider.c": "34261ec016413f96a7482fdca6d0f4c6de52703e51968a2d5bebd9eb2af5d04e",
+        "clk-regmap-mux.c": "ce97dcf91932dca63a961abbfe3a60500ec523475d819f738fb55decab55d85a",
+        "clk-regmap-mux-div.c": "f4bfcc8a91a2fbd097352cea21b3c6f9e2f81ef25be7bd4878f8cab037412653",
+        "clk-regmap-phy-mux.c": "76be83dfd9ad18692d3f09d85589be6cff60cec62573344bdf2fd4eb47357380",
+        "clk-hfpll.c": "db5fe959a97f12cd9e74c8e73d7e255ed3c775f11f473924c693b52cedc14f8d",
+        "reset.c": "434e63a159118f20a49114f5b184f405739e5ba4cda4148f4e101bf6b36326e8",
+        "gdsc.c": "7a7d49dd634aed099b5707ff3adab7bb0b4751dbbf19fa8cf234688fd329f093",
+        "clk-alpha-pll.h": "a650f336e91466e15a8ac1809e574826081522cf12cc37e7970b84eb9fa02fdc",
+        "clk-branch.h": "d1cdd6eda43aaf475916c3e429ed70f83786b63a2cf1037d2639abf159b6519a",
+        "clk-hfpll.h": "5b69f9614ca06439a6162cdac041fa5d8a8e681130926ae207f84bf29c1a3606",
+        "clk-krait.h": "075ae44118bc9b17203704161525b36fa838481bb96b21e3b6100de0cc224f9a",
+        "clk-pll.h": "8eca6afa9577d99872c39dba393ce7a21874f8ff899e9476718dc1e0edb821cc",
+        "clk-rcg.h": "128e149a3f94d356a16e294e0ba406452e2a47af0443396cc2ff078da7731e1d",
+        "clk-regmap-divider.h": "a7dad4fcf36cd4dae19aa712636456a053a7c8c04f6bc70283bbb23e563341ff",
+        "clk-regmap-mux-div.h": "a51e4292681a842f02495ba470f4d20e31a890b230019390be090bb7816e6f9a",
+        "clk-regmap-mux.h": "3ada36bf130ccfc6b5de7e6cedf9fd27da88f3589ed505def758289107e8f28e",
+        "clk-regmap-phy-mux.h": "8ed1d6af2f70ae1fcccca1e4b4b7152b53c2bbc763924c11fdcca606536bb531",
+        "clk-regmap.h": "3c8dab9af916ecc46ed515533eb2535222a2ecd172cb9f0abfcbe16ca726735a",
+        "common.h": "f704afff1e85ec09ae681f8402e179411e744d57045a0c9737a287cf667d0b1e",
+        "gdsc.h": "354adcd7878a7cdeae9fc892df19f3b8b11bcfea494893f126692a0b2d5a1df1",
+        "reset.h": "ee4ae7a90e5e3544ffa5335ad96511cee659bad16f09f1fa9fc28f1d10db06a3",
+        "tcsrcc-kalama.c": "9417c00a777ff9128683cdfc7f7e09d96b99454ed9e1e03606daf27fb2eca3ac",
+        "include/dt-bindings/clock/qcom,tcsrcc-kalama.h": "e322dcae06fa902d5f96ebc96a9930372e1be07cc6134ba5245d7f5552403b89",
+        "Kbuild": "489130f46f5c12f77bf27a3b1e71e4ddfaf8356c9f69d389e3ed024f41315c94"
+      },
+      "preserves_downstream_binding": "qcom,kalama-tcsrcc",
+      "runtime_validated": false,
+      "boot_image": false,
+      "limitations": [
+        "Downstream CONFIG_DEEPSLEEP is not implemented in ACK.",
+        "Other Kalama clock controllers still require voltage/PLL framework migration."
+      ]
+    },
+    "pogo": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "drivers/power/supply/pogoChg/utils/battmngr_voter.c",
+          "source_sha256": "fdb779e4ad8033de5645d22bb77069d84b4bd445702b4396ca2f4ddd119047d0",
+          "staged_path": "battmngr_voter.c",
+          "staged_sha256": "553e219aec73b9613d55179eb5cfcc6a5914957281514352a6b574463e1bfd8d"
+        },
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "drivers/power/supply/pogoChg/utils/battmngr_notifier.c",
+          "source_sha256": "43c4b56a9391aae7e1ce2aa298ea4cb57695aa02c6ad389cd61dfde389e24f22",
+          "staged_path": "battmngr_notifier.c",
+          "staged_sha256": "f7c6256774be74fec477fe917416385278fb2b928a5326a811a9b8e47898b61d"
+        },
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "drivers/power/supply/pogoChg/utils/platform_class.c",
+          "source_sha256": "dbd5a8df4c1629d6ce68531dbfc423a7b6a97d562cb7c22d91b6778a96334994",
+          "staged_path": "platform_class.c",
+          "staged_sha256": "461834c23d049be056be9ae2d270f6bf9101388892ad5beec415783d0ab5cb49"
+        },
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "include/linux/battmngr/battmngr_notifier.h",
+          "source_sha256": "c6cb8e432bd0585db9f72363cc0293bde4ad8b23908fb9860c5cdbd4f9763cb3",
+          "staged_path": "include/linux/battmngr/battmngr_notifier.h",
+          "staged_sha256": "27e675a6ae69dcab49558c77eaae4d4d3d764555270cf00ecba59110bae080ec"
+        },
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "include/linux/battmngr/battmngr_voter.h",
+          "source_sha256": "27df22107bb8fc4ab3bff18793fba16354489fd4a39b53c3def0edd167badab3",
+          "staged_path": "include/linux/battmngr/battmngr_voter.h",
+          "staged_sha256": "b16026693b1d419fc9938de6a0331ba21beba57afbf0f88d0e356d6fabf96e60"
+        },
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "include/linux/battmngr/platform_class.h",
+          "source_sha256": "a8ffea565be91523171a91cfe9f2139821847fdd76359f3ede97594dd310bbfe",
+          "staged_path": "include/linux/battmngr/platform_class.h",
+          "staged_sha256": "9c772e94663f498e4050da7a3ac5a0c584a52ada5caf5b4cd3f02a8982feaa4c"
+        },
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "include/linux/battmngr/qti_use_pogo.h",
+          "source_sha256": "14175dac88d7c399c133fed4f4d63d3fb131a9cadfcec41f55da03cc55d20f22",
+          "staged_path": "include/linux/battmngr/qti_use_pogo.h",
+          "staged_sha256": "14175dac88d7c399c133fed4f4d63d3fb131a9cadfcec41f55da03cc55d20f22"
+        },
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "include/linux/battmngr/step-chg-jeita.h",
+          "source_sha256": "1fc3adeeb6cef57c20f83aa6e647f9e77fdcb7aeb00d817a637965568951ea22",
+          "staged_path": "include/linux/battmngr/step-chg-jeita.h",
+          "staged_sha256": "1fc3adeeb6cef57c20f83aa6e647f9e77fdcb7aeb00d817a637965568951ea22"
+        },
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "include/linux/battmngr/xm_charger_core.h",
+          "source_sha256": "56a57fbf58c36fee8485b0085727dc4798f43dfb4ae01c084a31facdb503edb7",
+          "staged_path": "include/linux/battmngr/xm_charger_core.h",
+          "staged_sha256": "db171f37dd30deaa71fb7680ec03d05e20506311007d47d2fa8fe5cacae6da4b"
+        },
+        {
+          "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+          "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+          "path": "include/linux/battmngr/xm_charger_feature.h",
+          "source_sha256": "0bfe3b4c9666f562ec18a42a386346447345304b47d647c13d0a1d9fce53e992",
+          "staged_path": "include/linux/battmngr/xm_charger_feature.h",
+          "staged_sha256": "f1b302a1b21ba03370ef99e6e3004ca1a0130ec6c920457df9050f48a43593ec"
+        }
+      ],
+      "generated_sha256": {
+        "battmngr_voter.c": "553e219aec73b9613d55179eb5cfcc6a5914957281514352a6b574463e1bfd8d",
+        "battmngr_notifier.c": "f7c6256774be74fec477fe917416385278fb2b928a5326a811a9b8e47898b61d",
+        "platform_class.c": "461834c23d049be056be9ae2d270f6bf9101388892ad5beec415783d0ab5cb49",
+        "include/linux/battmngr/battmngr_notifier.h": "27e675a6ae69dcab49558c77eaae4d4d3d764555270cf00ecba59110bae080ec",
+        "include/linux/battmngr/battmngr_voter.h": "b16026693b1d419fc9938de6a0331ba21beba57afbf0f88d0e356d6fabf96e60",
+        "include/linux/battmngr/platform_class.h": "9c772e94663f498e4050da7a3ac5a0c584a52ada5caf5b4cd3f02a8982feaa4c",
+        "include/linux/battmngr/qti_use_pogo.h": "14175dac88d7c399c133fed4f4d63d3fb131a9cadfcec41f55da03cc55d20f22",
+        "include/linux/battmngr/step-chg-jeita.h": "1fc3adeeb6cef57c20f83aa6e647f9e77fdcb7aeb00d817a637965568951ea22",
+        "include/linux/battmngr/xm_charger_core.h": "db171f37dd30deaa71fb7680ec03d05e20506311007d47d2fa8fe5cacae6da4b",
+        "include/linux/battmngr/xm_charger_feature.h": "f1b302a1b21ba03370ef99e6e3004ca1a0130ec6c920457df9050f48a43593ec",
+        "Kbuild": "79a7e83c452efe996c9d428285035d5b0fd686ff2cc2fe0a68a8e65474641ea1"
+      },
+      "scope": "battery manager notifier, voting and device class only",
+      "charging_driver_complete": false,
+      "runtime_validated": false
+    },
+    "cs35l43": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "asoc/codecs/cs35l43/cs35l43-cal.c",
+          "source_sha256": "5322dc89c05530f9cb3fa82b2219b0ec66c69477f8422f42c2ff8c15ef8830ca",
+          "staged_path": "cs35l43-cal.c",
+          "staged_sha256": "e09cc90c0553a1325f81a69a240a406058560ac5c4c33947befe050bd4094ad0"
+        },
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "asoc/codecs/cs35l43/cs35l43-i2c.c",
+          "source_sha256": "0a494fb3478b8795ba48bf98e66fcaea20eb59e7209779c0c960addcd251d541",
+          "staged_path": "cs35l43-i2c.c",
+          "staged_sha256": "b4eeb855d074f199991aeceddf2038a13509dbd42c74fc6e8dc1e710e618b338"
+        },
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "asoc/codecs/cs35l43/cs35l43-spi.c",
+          "source_sha256": "7e0c6043837b54555671691ade29c8685f8b6f8cdee4759563eb1562b7a413af",
+          "staged_path": "cs35l43-spi.c",
+          "staged_sha256": "7e0c6043837b54555671691ade29c8685f8b6f8cdee4759563eb1562b7a413af"
+        },
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "asoc/codecs/cs35l43/cs35l43-tables.c",
+          "source_sha256": "5c235294f0a45a410494e2dfdcdddfe49df473e7f54a8413e07d6e0763066bf6",
+          "staged_path": "cs35l43-tables.c",
+          "staged_sha256": "5c235294f0a45a410494e2dfdcdddfe49df473e7f54a8413e07d6e0763066bf6"
+        },
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "asoc/codecs/cs35l43/cs35l43.c",
+          "source_sha256": "d37f244128451f2e246dc920efabd93f3112cada7ab3b8d92a72e3fa8a213775",
+          "staged_path": "cs35l43.c",
+          "staged_sha256": "643340fd3052954dc4f641416b613eccb0c283cab6453e755e76e9781b0a3e80"
+        },
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "asoc/codecs/cs35l43/cs35l43.h",
+          "source_sha256": "2e36aed48faff99bd884a6c1351d0e11488e067d30c1823730fce298cddd5758",
+          "staged_path": "cs35l43.h",
+          "staged_sha256": "2e36aed48faff99bd884a6c1351d0e11488e067d30c1823730fce298cddd5758"
+        },
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "asoc/codecs/cs35l43/wm_adsp.c",
+          "source_sha256": "6650a9a13ac93cdf0c2e6d6269a8e30edf1a60061c561bc4ba78372a06403922",
+          "staged_path": "wm_adsp.c",
+          "staged_sha256": "aa76d571a8c72b15840851960eab437b032d847da7ef5d2f823d463291dfc43b"
+        },
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "asoc/codecs/cs35l43/wm_adsp.h",
+          "source_sha256": "9faf71ffac33ccc441198af13cbff105bd812bd076dc67fc55a7e6f78d327f9e",
+          "staged_path": "wm_adsp.h",
+          "staged_sha256": "c66638c8100e41a64497af70ada94c9c1b6172e1e5a61c005b77416faa16a54d"
+        },
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "asoc/codecs/cs35l43/wmfw.h",
+          "source_sha256": "a93b48db4801cae879dc2cbbac6ec890a0ba51339b96d44c417e46c2ed97d76c",
+          "staged_path": "wmfw.h",
+          "staged_sha256": "a93b48db4801cae879dc2cbbac6ec890a0ba51339b96d44c417e46c2ed97d76c"
+        },
+        {
+          "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+          "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+          "path": "include/uapi/audio/sound/cs35l43.h",
+          "source_sha256": "8902ab2ca22f8aa2b120e3226838a0ff2c6d6af0cfbde35d981dbf28effa0934",
+          "staged_path": "include/sound/cs35l43.h",
+          "staged_sha256": "8902ab2ca22f8aa2b120e3226838a0ff2c6d6af0cfbde35d981dbf28effa0934"
+        }
+      ],
+      "generated_sha256": {
+        "cs35l43-cal.c": "e09cc90c0553a1325f81a69a240a406058560ac5c4c33947befe050bd4094ad0",
+        "cs35l43-i2c.c": "b4eeb855d074f199991aeceddf2038a13509dbd42c74fc6e8dc1e710e618b338",
+        "cs35l43-spi.c": "7e0c6043837b54555671691ade29c8685f8b6f8cdee4759563eb1562b7a413af",
+        "cs35l43-tables.c": "5c235294f0a45a410494e2dfdcdddfe49df473e7f54a8413e07d6e0763066bf6",
+        "cs35l43.c": "643340fd3052954dc4f641416b613eccb0c283cab6453e755e76e9781b0a3e80",
+        "cs35l43.h": "2e36aed48faff99bd884a6c1351d0e11488e067d30c1823730fce298cddd5758",
+        "wm_adsp.c": "aa76d571a8c72b15840851960eab437b032d847da7ef5d2f823d463291dfc43b",
+        "wm_adsp.h": "c66638c8100e41a64497af70ada94c9c1b6172e1e5a61c005b77416faa16a54d",
+        "wmfw.h": "a93b48db4801cae879dc2cbbac6ec890a0ba51339b96d44c417e46c2ed97d76c",
+        "include/sound/cs35l43.h": "8902ab2ca22f8aa2b120e3226838a0ff2c6d6af0cfbde35d981dbf28effa0934",
+        "Kbuild": "df66d1f96d75e2e482ccb46cdef8687e189f8c100a3b90703a27ad2bbbaab122"
+      },
+      "runtime_validated": false,
+      "limits": [
+        "Vendor ONETRACK telemetry is not enabled; its mihw provider is not ported."
+      ]
     }
   },
   "modules": {
@@ -2469,6 +2960,26 @@
         "of:N*T*Cqcom,kalama-tcsrccC*"
       ],
       "signed_trailer_present": false
+    },
+    "xm_utils": {
+      "path": "/root/sheng-618/ports/pogo/xm_utils.ko",
+      "sha256": "0a415c760822c8ad6249693b989734fac14b3c01f66bc4a776f1c1bd84b5c019",
+      "versioned_imports": 40,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "cs35l43_dlkm": {
+      "path": "/root/sheng-618/ports/cs35l43/cs35l43_dlkm.ko",
+      "sha256": "83504b344c71b3f49d7cbff60e203e5843870ee2cf117e2e57de84f6843b70a8",
+      "versioned_imports": 121,
+      "depends": [],
+      "aliases": [
+        "of:N*T*Ccirrus,cs35l43",
+        "of:N*T*Ccirrus,cs35l43C*",
+        "i2c:cs35l43"
+      ],
+      "signed_trailer_present": false
     }
   },
   "dependency_order": [
@@ -2578,7 +3089,9 @@
     "soc_topology_test",
     "soc_utils_test",
     "clk_qcom",
-    "tcsrcc_kalama"
+    "tcsrcc_kalama",
+    "xm_utils",
+    "cs35l43_dlkm"
   ],
   "device_port_complete": false,
   "boot_image_created": false,

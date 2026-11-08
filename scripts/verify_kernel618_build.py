@@ -47,15 +47,31 @@ def main():
     module_paths = sorted(installed.rglob('*.ko'))
     assert module_paths
     baseline_count = len(module_paths)
-    port_dir = root / 'ports/clock'
-    receipt = json.loads((port_dir / 'source-receipt.json').read_text())
-    for name, expected in receipt['generated_sha256'].items():
-        assert sha(port_dir / name) == expected
-    module_paths += [port_dir / 'clk-qcom.ko', port_dir / 'tcsrcc-kalama.ko']
+    ports = {'clock': ['clk-qcom.ko', 'tcsrcc-kalama.ko'],
+             'pogo': ['xm_utils.ko'], 'cs35l43': ['cs35l43_dlkm.ko']}
+    port_sources = {}
+    source_specs = plan['board_sources'] + plan.get('supplemental_board_sources', [])
+    source_paths = {x['url']: root / 'src' / x['name'] for x in source_specs}
+    checked_sources = set()
+    for group, names in ports.items():
+        port_dir = root / 'ports' / group
+        receipt = json.loads((port_dir / 'source-receipt.json').read_text())
+        for name, expected in receipt['generated_sha256'].items():
+            assert sha(port_dir / name) == expected
+        for record in receipt['source_files']:
+            repo = source_paths.get(record['repository'], Path(record['repository']))
+            identity = (str(repo), record['revision'])
+            if identity not in checked_sources:
+                assert run('git', '-C', str(repo), 'rev-parse', 'HEAD') == record['revision']
+                assert not run('git', '-C', str(repo), 'status', '--porcelain')
+                checked_sources.add(identity)
+            assert sha(repo / record['path']) == record['source_sha256']
+        port_sources[group] = receipt
+        module_paths += [port_dir / name for name in names]
     modules = {}
     providers = defaultdict(list)
     export_policy = {}
-    for symvers in (out / 'Module.symvers', port_dir / 'Module.symvers'):
+    for symvers in [out / 'Module.symvers', *[root / 'ports' / group / 'Module.symvers' for group in ports]]:
         for line in symvers.read_text().splitlines():
             fields = line.split()
             if len(fields) >= 4:
@@ -133,7 +149,7 @@ def main():
               'build_root': str(root), 'baseline_build_complete': True,
               'image_arm64_header_verified': True, 'image_gzip_roundtrip_verified': True,
               'configuration_checks': required, 'baseline_module_count': baseline_count,
-              'port_module_count': 2, 'versioned_imports_checked': imports,
+              'port_module_count': sum(map(len, ports.values())), 'versioned_imports_checked': imports,
               'this_module_bytes': expected_layout, 'static_module_closure_passed': not issues,
               'issue_counts': dict(Counter(x['kind'] for x in issues)), 'issues': issues[:80],
               'toolchains': {name: {'path': str(path), 'sha256': sha(path),
@@ -144,6 +160,7 @@ def main():
               'artifacts': {name: {'path': str(dist / name), 'bytes': (dist / name).stat().st_size,
                                    'sha256': sha(dist / name)}
                             for name in ('Image', 'Image.gz', 'Module.symvers', 'System.map', 'ack.config')},
+              'port_source_receipts': port_sources,
               'modules': rows, 'dependency_order': ordered,
               'device_port_complete': False, 'boot_image_created': False,
               'device_writes': 0, 'physical_device_validated': False,

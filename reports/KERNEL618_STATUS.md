@@ -1,8 +1,9 @@
 # sheng 6.18 移植：来源和 ABI 核查
 
 2026-11-08。主要目标为当前 LineageOS 24.0，保留原厂 HyperOS 兼容方向；
-两个系统都需要分别通过实际启动和硬件验证。当前已编译 6.18.32 开发基线和
-LOS kalama TCSR 驱动，尚无完成板级适配的 sheng 内核、boot 镜像或可刷包。
+两个系统都需要分别通过实际启动和硬件验证。当前已编译 6.18.32 开发基线、
+LOS kalama TCSR、官方 sheng 电池管理工具和 CS35L43 功放模块，尚无完成板级
+适配的 sheng 内核、boot 镜像或可刷包。
 
 ## 选定来源
 
@@ -32,7 +33,7 @@ LOS 内核输入仍是 5.15。6.18 核心参考 ACK
 设备树已经完整检出；显示和相机驱动暂为目录索引。固定提交、树 ID、实际检出
 状态和文件名覆盖见 `kernel618-source-audit.json`。
 
-## 2026-11-08 实际构建与首个驱动移植
+## 2026-11-08 实际构建与平台、板级模块移植
 
 - ACK 核心保持固定提交且工作区干净；24 线程编译成功，版本为
   `6.18.32-4k-android17-5-sheng-ack-baseline`。输出在
@@ -49,10 +50,19 @@ LOS 内核输入仍是 5.15。6.18 核心参考 ACK
 - TCSR 没有 voltage proxy votes 或 critical clocks，sync_state 改接 ACK 的
   clk_sync_state；保留休眠恢复的 clk_restore_context。ACK 无下游 DEEPSLEEP
   扩展，此路径未实现、未实测，其他控制器的 PLL/电压框架仍待迁移。
-- ARM64 Image 头、gzip 回解、分发副本哈希、107 个模块的结构和依赖闭合、
-  6,169 项真实导入 CRC、命名空间和依赖排序检查通过，无缺失符号或重复导出。
-  基线模块有签名尾部；未做签名密码学验证，两个新移植模块尚未安装或签名。
-  完整验证和产物哈希见 `kernel618-build-verification.json`。
+- 从官方 sheng 内核移植 xm_utils.ko，包括 battmngr 的 notifier、voter 和设备类；
+  更新 class_create 接口并将模块初始化/退出函数限制到文件内，没有改变充电参数。
+  完整 charger、virtual_fg、nanosic_platform 和 PMIC GLINK 尚未移植，不能宣称充电可用。
+- 从官方 sheng 音频仓库移植 cs35l43_dlkm.ko，保留 I2C 绑定和异步固件加载，
+  更新 I2C probe/remove、ASoC DAI/压缩音频回调、64 位时间戳及错误日志的指针/
+  size_t 格式。保留原固件与寄存器逻辑。
+  ONETRACK/MIEV 遥测暂未启用，其 mihw 提供者未迁移。功放模块编译通过不代表
+  Qualcomm 音频平台、声卡、路由、DSP IPC 或六扬声器已可用。
+- ARM64 Image 头、gzip 回解、分发副本哈希、109 个模块的结构和依赖闭合、
+  6,330 项真实导入 CRC、命名空间和依赖排序检查通过，无缺失符号或重复导出。
+  基线模块有签名尾部；未做签名密码学验证，四个新移植模块尚未安装或签名。
+  完整验证、每个实际输入文件/暂存文件的哈希和产物哈希见
+  `kernel618-build-verification.json`。基线/TCSR 提交为 `0314a96`；没有刷机或修改原厂固件。
 
 ## “只换内核、不动模块”的核查
 
@@ -85,7 +95,7 @@ SHA256。候选核查另加入候选内核编译的 zram/zsmalloc，合计 419 �
 
 6.12 是用于检验核查工具能拒绝跨版本不匹配输入的真实对照，不是 6.18
 的实测结果。6.18 的真实结果单列于 `kernel618-audit-candidate-618.json`；它核查
-“基线加原厂模块”的不兼容性，不等同于上面 107 个新编译模块的闭合检查。
+“基线加原厂模块”的不兼容性，不等同于上面 109 个新编译模块的闭合检查。
 
 结果分别见 `kernel618-stock-inventory.json`、`kernel618-audit-control-515.json`
 和 `kernel618-audit-control-612.json`。失败报告保留准确总计和前 80 条示例，
@@ -129,6 +139,8 @@ python3 scripts/prepare_kernel618_sources.py --preflight
 # 编译基线、首个 LOS 控制器，再验证真实产物。没有刷机操作。
 bash scripts/build_kernel618_baseline.sh
 bash scripts/build_kernel618_clock_port.sh
+bash scripts/build_kernel618_pogo_port.sh
+python3 scripts/build_kernel618_cs35l43.py
 python3 scripts/verify_kernel618_build.py
 
 # 检查原厂 BSP 原始文件哈希和 ELF 信息；成功只是清单核查成功。
