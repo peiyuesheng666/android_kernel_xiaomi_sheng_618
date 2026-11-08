@@ -1,0 +1,25 @@
+{
+  "revision": 30,
+  "sealed_manifest_sha256": "96a328945b2def7d4705391665da3d2ce730f83e42d545a0bd8a1fd9879ebd87",
+  "frozen_spec_sha256": "729a1d7a9c1ad70d816816c32d957b770e03778f107df821e18216f656f4d233",
+  "sealed_files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "eecbef1b87f4055f5c35c519d2d1d220b479e0fe6320d970708e277ebba532c0"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "f9fe4bdd11d692d3c5427aacb89532c7959691d70509ace9905fc13c8075b440"
+    }
+  ],
+  "exact_file_scope": [
+    "overlay/SettingsResOverlaySheng.apk"
+  ],
+  "metadata_preserved": true,
+  "runtime_verified": false,
+  "full_product_build_passed": false
+}
