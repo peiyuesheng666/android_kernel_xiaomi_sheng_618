@@ -1,0 +1,39 @@
+{
+  "revision": 28,
+  "date": "2026-11-08",
+  "serial": "ca10ede3",
+  "slot": "b",
+  "boot_completed": true,
+  "seven_partition_readback_passed": true,
+  "installed_scoped_file_hashes_passed": true,
+  "verification_transcript_sha256": "50aaabbf1895287a8c3eb5d8babbd3e1ed9424aa6e872409547c20f79099974f",
+  "packaging_manifest_sha256": "1f89b10dac6b387ba0dd5923f169050298c8501006d67b6ef45fe29d9d64d3ce",
+  "bluetooth_auto_connect_property": "true",
+  "bluetooth_auto_connect_startup_denial_present": false,
+  "shell_empty_read_was_permission_artifact": true,
+  "stylus_idc_loaded": [
+    "NVTCapacitivePenM80p",
+    "NVTCapacitivePenP81c"
+  ],
+  "stylus_input_orientation": "Rotation90",
+  "systemui_original_sha256": "33017b0d59e28da5db3e089a98f49601de508228a012392ee2d04c82cda3ccb1",
+  "camera_provider_pid": 1509,
+  "systemui_pid": 3389,
+  "crash_buffer_empty": true,
+  "selinux": "Enforcing",
+  "adaptive_sleep": 1,
+  "screen_off_timeout": 15000,
+  "full_product_build_passed": false,
+  "headset_reconnect_tested": false,
+  "stylus_physical_tested": false,
+  "lhdc_v5_fixed": false,
+  "camera_directions_user_accepted_revision": 27,
+  "evidence_sha256": {
+    "bluetooth-denials-followup.txt": "a2764e2c989c8378ebd29b64a861c14cc531824cf78a1d04b094e51aca912b02",
+    "crash-buffer-followup.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "input-state-followup.txt": "6e3b10883d499c81016a735d950c6f81244b39c9e25ec04f1c56fd667306456f",
+    "kernel-followup.txt": "191ee9266d35528295dfa009dc88c678a5a17a54eafe2f6ac63898365b62fdb9",
+    "runtime-health-followup.txt": "89cf3f1cbc456398729e0879460b347ac34497285a32d6387a83b4340cc5721e"
+  },
+  "raw_evidence_directory": "reports/device/r28-20261108-093018"
+}

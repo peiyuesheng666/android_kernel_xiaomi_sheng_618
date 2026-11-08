@@ -47,3 +47,14 @@ validatekeymaps，三个配置解析通过。这不能记为完整产品或安�
 已经在 proprietary-files、生成的 vendor mk 及当前 system_ext 安装输出中，
 不重复添加，也不把已有功能计为本次修复。P81c 的 ABS_BRAKE 与 BTN_JOYSTICK
 被平台同时识别为 joystick；其原厂私有语义尚未确定，不猜测重映射成笔快捷键。
+
+## r28 已安装状态（2026-11-08）
+
+r28 已在 ca10ede3/b 刷入，两份 IDC 的安装哈希通过，dumpsys input 实际加载
+对应 vendor/usr/idc 文件，两种笔的 mapper 均为 Rotation90。七分区回读及
+新增 crash buffer 检查通过。当前不再是“尚未刷入”；上文为此前构建历史。
+
+实际落笔、悬浮、压感、充电/配对和按键仍未验收。正在参考用户指定的 piano
+设备树及其配套模块；不执行其 vendorsetup，不应用公共 framework 或 SystemUI
+补丁。其 Xiaomi TouchFeature AIDL 服务在本机未注册，必须先匹配 sheng 接口，
+不能直接安装依赖阻塞等待该服务的应用并声称完整适配。
