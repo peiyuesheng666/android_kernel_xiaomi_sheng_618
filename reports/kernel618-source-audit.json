@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "device": "sheng",
+  "primary_rom": "LineageOS 24.0",
+  "source_plan_sha256": "ea6713cbf05f859b5ef1b9772806672ec1d968ed9c7157571d3449f6ba2b6b82",
+  "reference": {
+    "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550.git",
+    "revision": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+    "ack_revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+    "ack_version": "6.18.32",
+    "strategy": "recompiled SoC/techpack/device modules plus selected madrid 6.18 binaries; embedded replacement module layer",
+    "physical_device_validation": "pending according to upstream README",
+    "direct_nuwa_image_use": false
+  },
+  "reference_evidence": [
+    {
+      "file": "README.zh-CN.md",
+      "sha256": "0bf47da8e76a0e574dffdb4bf59c54b4f7d18bc6d07da43612f8a11f73344572",
+      "lines": [
+        {
+          "line": 17,
+          "text": "| **匹配内核、模块和引导镜像** | 统一生成模块 payload（406 个模块）、模块层 ramdisk、boot.img 与 AnyKernel3 安装包 | 官方 OTA 中的 54 个小米模块 + 源码重编模块；[固件来源](docs/PROVENANCE.zh-CN.md#firmware) |"
+        }
+      ],
+      "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550/blob/c3956156ce7c4193c451dfda531fad72d35bfebb/README.zh-CN.md#L17"
+    },
+    {
+      "file": "kernel-6.18/k618_ports.py",
+      "sha256": "08037b23ac57ce0bff618da1a63b2b3644ec26f7b099357aa6e9e7fd59959fc4",
+      "lines": [
+        {
+          "line": 1087,
+          "text": "\t * k618 initramfs_last: the built-in initramfs goes on after the ramdisk the bootloader passes"
+        },
+        {
+          "line": 1109,
+          "text": "\t/* k618 initramfs_last: and the built-in one over it */"
+        }
+      ],
+      "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550/blob/c3956156ce7c4193c451dfda531fad72d35bfebb/kernel-6.18/k618_ports.py#L1087"
+    },
+    {
+      "file": "kernel-6.18/k618_timg.sh",
+      "sha256": "fedc8f76ea8d96d1ad01a33e344e92bc4229c57c3f6e8b83a945b261d276830e",
+      "lines": [
+        {
+          "line": 159,
+          "text": "\tMR=${MADRID_ROOT:-$NB/madrid-OS4.0.24.0.XEOCNXM}"
+        }
+      ],
+      "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550/blob/c3956156ce7c4193c451dfda531fad72d35bfebb/kernel-6.18/k618_timg.sh#L159"
+    },
+    {
+      "file": "kernel-6.18/k618_gki.sh",
+      "sha256": "b64eb7c309a9f132c8c72602173b0699056d58f30eccae36c88b216c0958bd2f",
+      "lines": [
+        {
+          "line": 12,
+          "text": "# mode -- so this kernel's KMI is the 18 Pro Max's and its prebuilt android17 vendor modules can be"
+        }
+      ],
+      "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550/blob/c3956156ce7c4193c451dfda531fad72d35bfebb/kernel-6.18/k618_gki.sh#L12"
+    },
+    {
+      "file": "kernel-6.18/k618_touch.sh",
+      "sha256": "5e32dc6d801f7686414f71cb9542ab543159e9c95858a16c07dad88b8d8afbc3",
+      "lines": [
+        {
+          "line": 2,
+          "text": "# k618_touch.sh [jobs]: the touch screen -- ST FTS over SPI (fts_touch_spi.ko) and Xiaomi's"
+        }
+      ],
+      "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550/blob/c3956156ce7c4193c451dfda531fad72d35bfebb/kernel-6.18/k618_touch.sh#L2"
+    }
+  ],
+  "board_source_receipts": [
+    {
+      "name": "lineage-kernel",
+      "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+      "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "branch": "lineage-24.0",
+      "scope": "Current ROM-pinned LOS SM8550 5.15 driver foundation; migrate required interfaces to 6.18",
+      "path": "/root/sheng-618/src/lineage-kernel",
+      "checked_revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "git_tree": "45cd31bf6fa130c803a0ab79839b6d7d5ca99028",
+      "catalog_file_count": 71264,
+      "full_checkout_or_build": false
+    },
+    {
+      "name": "lineage-modules",
+      "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-modules.git",
+      "revision": "92a9fde479d3262da080cfd28bab0775b0da500a",
+      "branch": "lineage-24.0",
+      "scope": "LOS Qualcomm and Xiaomi external drivers; audit tablet touch, pen, keyboard, display, audio and camera coverage",
+      "path": "/root/sheng-618/src/lineage-modules",
+      "checked_revision": "92a9fde479d3262da080cfd28bab0775b0da500a",
+      "git_tree": "303d14a030e5c715514a052e0a21ca7b411d27b2",
+      "catalog_file_count": 8359,
+      "full_checkout_or_build": false
+    },
+    {
+      "name": "lineage-devicetrees",
+      "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-devicetrees.git",
+      "revision": "43b5ada5654ed84c25f74789bc8f6326b7bacd20",
+      "branch": "lineage-24.0",
+      "scope": "LOS SM8550 hardware definitions, checked against sheng stock DTB/DTBO",
+      "path": "/root/sheng-618/src/lineage-devicetrees",
+      "checked_revision": "43b5ada5654ed84c25f74789bc8f6326b7bacd20",
+      "git_tree": "ab3d48925ce5f3df81572eb93fa2d348a254d7ff",
+      "catalog_file_count": 5748,
+      "full_checkout_or_build": false
+    }
+  ],
+  "filename_coverage": {
+    "novatek_nt36532": {
+      "matches": [],
+      "match_count": 0,
+      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+    },
+    "xiaomi_touchfeature": {
+      "matches": [
+        {
+          "repository": "lineage-kernel",
+          "path": "drivers/input/touchscreen/xiaomi/xiaomi_touch.c"
+        }
+      ],
+      "match_count": 1,
+      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+    },
+    "keyboard": {
+      "matches": [],
+      "match_count": 0,
+      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+    },
+    "hall": {
+      "matches": [],
+      "match_count": 0,
+      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+    },
+    "metis": {
+      "matches": [],
+      "match_count": 0,
+      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+    },
+    "pogo_charging": {
+      "matches": [],
+      "match_count": 0,
+      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+    },
+    "cs35l43": {
+      "matches": [],
+      "match_count": 0,
+      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+    },
+    "fingerprint": {
+      "matches": [],
+      "match_count": 0,
+      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+    },
+    "tablet_panel": {
+      "matches": [],
+      "match_count": 0,
+      "scope": "Filename catalog search of the three pinned LOS official SM8550 repositories; not a global source-availability claim."
+    }
+  },
+  "source_inputs_modified": false,
+  "device_writes": 0,
+  "kernel618_compiled": false,
+  "kernel618_device_validated": false,
+  "missing_catalog_groups": [
+    "novatek_nt36532",
+    "keyboard",
+    "hall",
+    "metis",
+    "pogo_charging",
+    "cs35l43",
+    "fingerprint",
+    "tablet_panel"
+  ]
+}

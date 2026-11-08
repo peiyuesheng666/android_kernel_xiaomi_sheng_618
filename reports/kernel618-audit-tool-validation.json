@@ -1,0 +1,11 @@
+{
+  "checks_passed": [
+    "current_515_real_modules_pass_with_unversioned_warnings",
+    "515_candidate_cannot_claim_618",
+    "missing_module_layout_provider_rejects_all_419_modules",
+    "extended_modversions_long_symbol",
+    "truncated_extended_modversions_rejected"
+  ],
+  "all_passed": true,
+  "scope": "Audit-tool validation; no 6.18 kernel or device testing"
+}

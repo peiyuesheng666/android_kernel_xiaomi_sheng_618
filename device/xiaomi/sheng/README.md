@@ -13,6 +13,12 @@ clean Git status. The exact receipt is
 Device-owned replacement modules are being compiled; this source audit is
 not a claim that the new images have passed hardware testing.
 
+The separate 6.18 investigation uses the official LOS SM8550 kernel, modules
+and devicetrees as its driver foundation, as requested on 2026-11-08. Its source
+plan lives in `interfaces/kernel/6.18`; the workspace report is
+`reports/KERNEL618_STATUS.md`. No 6.18 device kernel or flashable package has
+been built or validated, and the production 5.15 selection is unchanged.
+
 ## Work records and commits
 
 After completing each change, debugging task or documentation task, update the
@@ -32,7 +38,8 @@ read-only; cached partition files and firmware are on C: inside WSL.
 
 External source dependencies are the official LineageOS SM8550 kernel, modules,
 devicetrees and `hardware/xiaomi`, plus normal Android/LineageOS/Qualcomm platform
-repositories. The first kernel is 5.15; the 6.12 port is a later task.
+repositories. The first kernel is 5.15; the separate 6.18 port is under source
+and ABI investigation, with the existing 6.12 build retained as a control.
 
 For the initial source-kernel build candidate, the kernel core is built from the official
 LineageOS 5.15 source. The vendor BSP uses the supplied firmware's complete

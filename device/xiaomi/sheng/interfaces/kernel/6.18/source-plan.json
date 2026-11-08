@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "device": "sheng",
+  "primary_rom": "LineageOS 24.0",
+  "vendor_baseline": "OS3.0.303.0.WNXCNXM",
+  "secondary_rom": "HyperOS, separate runtime validation required",
+  "status": "source-and-abi-investigation; no 6.18 device build yet",
+  "build_root": "/root/sheng-618",
+  "minimum_host_free_gib": 40,
+  "kernel_core": {
+    "url": "https://android.googlesource.com/kernel/common",
+    "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+    "version": "6.18.32",
+    "scope": "6.18 core reference; LOS SM8550 repositories remain the selected driver foundation"
+  },
+  "reference": {
+    "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550.git",
+    "revision": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+    "ack_revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+    "ack_version": "6.18.32",
+    "strategy": "recompiled SoC/techpack/device modules plus selected madrid 6.18 binaries; embedded replacement module layer",
+    "physical_device_validation": "pending according to upstream README",
+    "direct_nuwa_image_use": false
+  },
+  "board_sources": [
+    {
+      "name": "lineage-kernel",
+      "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+      "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "branch": "lineage-24.0",
+      "scope": "Current ROM-pinned LOS SM8550 5.15 driver foundation; migrate required interfaces to 6.18"
+    },
+    {
+      "name": "lineage-modules",
+      "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-modules.git",
+      "revision": "92a9fde479d3262da080cfd28bab0775b0da500a",
+      "branch": "lineage-24.0",
+      "scope": "LOS Qualcomm and Xiaomi external drivers; audit tablet touch, pen, keyboard, display, audio and camera coverage"
+    },
+    {
+      "name": "lineage-devicetrees",
+      "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-devicetrees.git",
+      "revision": "43b5ada5654ed84c25f74789bc8f6326b7bacd20",
+      "branch": "lineage-24.0",
+      "scope": "LOS SM8550 hardware definitions, checked against sheng stock DTB/DTBO"
+    }
+  ],
+  "source_policy": "Use LOS official sources as requested; withdrawn MiCode sheng catalogs are not build inputs. Keep the existing ROM checkout pinned and unchanged.",
+  "module_inputs": "../stock-modules/module-plan.json",
+  "board_groups": [
+    {"name": "display", "modules": ["msm_drm.ko"], "requires": "tablet LCD dual-DSI/DSC and original display userspace ABI"},
+    {"name": "touch-and-pen", "modules": ["nt36532_touch.ko", "xiaomi_touch.ko", "metis.ko"], "requires": "Tablet Novatek host-processing and pen path, sourced from LOS where available"},
+    {"name": "keyboard-and-hall", "modules": ["nanosic_driver.ko", "xiaomi_keyboard_driver.ko", "xiaomi_hall.ko"], "requires": "tablet-specific input protocols and screen notifications"},
+    {"name": "charging", "modules": ["xm_charger.ko", "xm_battmngr_init.ko", "xm_utils.ko", "nanosic_platform.ko", "virtual_fg.ko", "xm_power.ko"], "requires": "tablet battery/POGO/pen charging interfaces"},
+    {"name": "audio", "modules": ["cs35l43_dlkm.ko"], "requires": "tablet speaker amp; reference CS35L41 alone is insufficient"},
+    {"name": "fingerprint", "modules": ["fpc1552.ko", "xiaomifp.ko"], "requires": "tablet FPC and panel notification interfaces"}
+  ],
+  "release_gates": [
+    "Complete built 6.18 candidate and all effective modules",
+    "Real symbol CRCs, module_layout, structure size, dependencies, namespaces and signature checks",
+    "Merged tablet DTB/DTBO matches enabled drivers",
+    "Original init/vendor ramdisk remains in charge, with any replacement module layer explicitly audited",
+    "Boot/package/AVB validation against actual sheng partitions",
+    "Authorized device boot and hardware checks on LineageOS; HyperOS tested separately"
+  ]
+}

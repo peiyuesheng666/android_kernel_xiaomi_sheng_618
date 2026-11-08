@@ -1,0 +1,1243 @@
+{
+  "stock_module_count": 417,
+  "stock_inputs_hash_verified": true,
+  "identical_duplicate_paths": [
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/adsp_sleepmon.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/altmode-glink.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/bam_dma.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/bcl_soc.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/binder_gki.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/binder_prio.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/block2mtd.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/boot_stats.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cdsp-loader.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cdsprm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cfg80211.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/charger-ulog-glink.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/chipreg.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/core_hang_detect.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-csr.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-cti.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-dummy.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-funnel.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-hwevent.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-remote-etm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-replicator.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-stm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-tgu.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-tmc.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-tpda.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight-tpdm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/coresight.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cpq.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cpu_voltage_cooling.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cpufreq_stats_scmi.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/cpufreq_stats_vendor.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ddr_cdev.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/debugcc-kalama.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/dmesg_dumper.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/dwc3-msm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ehset.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/eud.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/f_fs_ipc_log.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/fpc1552.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/frpc-adsprpc.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/fsa4480-i2c.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/gh_irq_lend.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/gh_mem_notifier.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/gh_tlmm_vm_mem_access.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/glink_pkt.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/glink_probe.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/gpucc-kalama.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/hdcp_qseecom_dlkm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/heap_mem_ext_v01.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/hid-xbox_haptics-mi.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/hung_task_enh.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/hvc_gunyah.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/i2c-msm-geni.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/i3c-master-msm-geni.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/icc-test.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/industrialio-buffer-cb.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ipa_fmwk.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ir-spi.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/kunit.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/leds-qti-flash.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/leds-qti-tri-led.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/llcc_perfmon.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/lt9611uxc.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mac80211.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/max31760_fan.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/memlat.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/memlat_scmi.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/memlat_vendor.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mhi.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mhi_cntrl_qcom.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mhi_dev_dtr.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mhi_dev_netdev.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mhi_dev_satellite.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mhi_dev_uci.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mi_cnss_statistic.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mi_freqwdg.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mi_mempool.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mi_thermal_interface.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/microdump_collector.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/migt.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/millet_binder.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/millet_core.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/millet_hs.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/millet_oem_cgroup.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/millet_pkg.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/millet_sig.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm-mmrm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_drm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_ext_display.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_geni_serial.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_gpi.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_hw_fence.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_lmh_dcvs.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_memshare.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_performance.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_sharedmem.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_show_epoch.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_show_resume_irq.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/msm_sysstats.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mtd.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mtd_blkdevs.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mtdblock.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/mtdoops.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/nanosic_platform.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ntag5_i2c.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/nvmem_qfprom.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ofpart.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/panel_event_notifier.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/pci-msm-drv.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/pdr_interface.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/perf_helper.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/perfmgr.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-generic.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-msm-m31-eusb2.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-msm-snps-eusb2.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-msm-ssusb-qmp.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-qcom-emu.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-qcom-ufs-qmp-v4-khaje.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-qcom-ufs-qmp-v4-kona.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-qcom-ufs-qmp-v4-lahaina.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-qcom-ufs-qmp-v4-waipio.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/phy-qcom-ufs-qmp-v4.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/pinctrl-spmi-gpio.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/pinctrl-spmi-mpp.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/pm8941-pwrkey.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/pmic-pon-log.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/pmic_glink.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/policy_engine.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ps5169.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/pwm-qti-lpg.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qbt_handler.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom-cpufreq-hw-debug.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom-hv-haptics.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom-pon.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom-spmi-adc5-gen3.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom-spmi-temp-alarm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom-vadc-common.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_cpuss_sleep_stats.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_edac.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_esoc.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_glink.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_glink_smem.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_iommu_debug.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_ipc_lite.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_lpm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_pil_info.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_q6v5.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_q6v5_pas.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_ramdump.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_smd.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_sysmon.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qcom_va_minidump.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qdss_bridge.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qmi_helpers.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qrng_dlkm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qrtr-gunyah.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qrtr-mhi.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qrtr-smd.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qsee_ipc_irq_bridge.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qseecom_proxy.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qti-fixed-regulator.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qti-ocp-notifier.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qti_battery_charger.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qti_battery_debug.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qti_cpufreq_cdev.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qti_devfreq_cdev.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qti_qmi_cdev.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qti_qmi_sensor_v2.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/qti_userspace_cdev.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/rdbg.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/reboot-mode.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/redriver.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/repeater-i2c-eusb2.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/repeater-qti-pmic-eusb2.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/repeater.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/rimps_log.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/rproc_qcom_common.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/rq_stats.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/sdpm_clk.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/sg.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/slim-qcom-ngd-ctrl.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/slimbus.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/smcinvoke_dlkm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/smp2p.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/smp2p_sleepstate.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/snd-soc-hdmi-codec.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/snd-usb-audio-qmi.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/soc_sleep_stats.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/spi-msm-geni.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/spmi-glink-debug.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/spmi-pmic-arb-debug.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/sps_drv.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/stm_console.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/stm_core.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/stm_ftrace.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/stm_p_basic.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/stm_p_ost.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/subsystem_sleep_stats.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/sync_fence.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/synx-driver.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/sys_pm_vx.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/sysmon_subsystem_stats.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/tz_log_dlkm.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/ucsi_glink.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/usb_bam.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/usb_f_ccid.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/usb_f_cdev.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/usb_f_diag.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/usb_f_gsi.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/usb_f_qdss.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/usb_f_rndis.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/usbmon.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/virtual_fg.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/wl2866d.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xiaomi_wifi_gpio.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xiaomifp.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xlogchar.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xm_battmngr_init.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xm_charger.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xm_power.ko",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xm_utils.ko"
+  ],
+  "vermagic_counts": {
+    "5.15.78 SMP preempt mod_unload modversions aarch64": 417
+  },
+  "this_module_size_counts": {
+    "960": 417
+  },
+  "schema": 1,
+  "stock_firmware": "OS3.0.303.0.WNXCNXM",
+  "stock_root": "/root/sheng-lineage/firmware-dump/hardware/modules",
+  "stock_inventory_fingerprint": "2faab2d2cecff3a81136cded4c66b1c0dc74ae5c21e49da02ea0d14a5f293f6f",
+  "device": "sheng",
+  "source_inputs_modified": false,
+  "device_writes": 0,
+  "kernel618_ready": false,
+  "physical_device_validated": false,
+  "candidate": {
+    "release": "6.12.96-4k-android16-7-sheng-ack-baseline",
+    "expected_series": "6.12",
+    "symvers_sha256": "8752df064d5f6cfff5c719e0073cd52a3c0bcaf854b10bdc1697ed5ef1ba7670",
+    "effective_module_count": 419,
+    "versioned_imports_checked": 25216,
+    "issue_counts": {
+      "duplicate_export": 52,
+      "this_module_size": 417,
+      "crc_mismatch": 19002,
+      "missing_provider": 2990
+    },
+    "issue_count": 22461,
+    "issues": [
+      {
+        "kind": "duplicate_export",
+        "symbol": "__regmap_init_spmi_base",
+        "providers": [
+          [
+            "vmlinux",
+            2927592443
+          ],
+          [
+            "regmap-spmi.ko",
+            1038760003
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "__devm_regmap_init_spmi_base",
+        "providers": [
+          [
+            "vmlinux",
+            2927592443
+          ],
+          [
+            "regmap-spmi.ko",
+            2227737538
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "__regmap_init_spmi_ext",
+        "providers": [
+          [
+            "vmlinux",
+            2927592443
+          ],
+          [
+            "regmap-spmi.ko",
+            481843564
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "__devm_regmap_init_spmi_ext",
+        "providers": [
+          [
+            "vmlinux",
+            2927592443
+          ],
+          [
+            "regmap-spmi.ko",
+            1489490202
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "admin_timeout",
+        "providers": [
+          [
+            "vmlinux",
+            4069924974
+          ],
+          [
+            "nvme-core.ko",
+            3562288366
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_io_timeout",
+        "providers": [
+          [
+            "vmlinux",
+            4069924974
+          ],
+          [
+            "nvme-core.ko",
+            2168254994
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_wq",
+        "providers": [
+          [
+            "vmlinux",
+            1461482453
+          ],
+          [
+            "nvme-core.ko",
+            1689659490
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_reset_wq",
+        "providers": [
+          [
+            "vmlinux",
+            1461482453
+          ],
+          [
+            "nvme-core.ko",
+            1226981761
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_delete_wq",
+        "providers": [
+          [
+            "vmlinux",
+            1461482453
+          ],
+          [
+            "nvme-core.ko",
+            3582704587
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_try_sched_reset",
+        "providers": [
+          [
+            "vmlinux",
+            1250335970
+          ],
+          [
+            "nvme-core.ko",
+            2924006488
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_reset_ctrl",
+        "providers": [
+          [
+            "vmlinux",
+            1250335970
+          ],
+          [
+            "nvme-core.ko",
+            1524174948
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_delete_ctrl",
+        "providers": [
+          [
+            "vmlinux",
+            1250335970
+          ],
+          [
+            "nvme-core.ko",
+            1434298037
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_complete_rq",
+        "providers": [
+          [
+            "vmlinux",
+            65478751
+          ],
+          [
+            "nvme-core.ko",
+            1961796682
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_host_path_error",
+        "providers": [
+          [
+            "vmlinux",
+            1839576418
+          ],
+          [
+            "nvme-core.ko",
+            3075483612
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_cancel_request",
+        "providers": [
+          [
+            "vmlinux",
+            4225974771
+          ],
+          [
+            "nvme-core.ko",
+            472821417
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_cancel_tagset",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            1587535803
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_cancel_admin_tagset",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            2605118616
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_change_ctrl_state",
+        "providers": [
+          [
+            "vmlinux",
+            3489232125
+          ],
+          [
+            "nvme-core.ko",
+            185409408
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_wait_reset",
+        "providers": [
+          [
+            "vmlinux",
+            3539040964
+          ],
+          [
+            "nvme-core.ko",
+            2233577090
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_put_ns",
+        "providers": [
+          [
+            "vmlinux",
+            1105146647
+          ],
+          [
+            "nvme-core.ko",
+            780725028
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_fail_nonready_command",
+        "providers": [
+          [
+            "vmlinux",
+            4160164262
+          ],
+          [
+            "nvme-core.ko",
+            3615203315
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "__nvme_check_ready",
+        "providers": [
+          [
+            "vmlinux",
+            1910077328
+          ],
+          [
+            "nvme-core.ko",
+            3691098954
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_cleanup_cmd",
+        "providers": [
+          [
+            "vmlinux",
+            65478751
+          ],
+          [
+            "nvme-core.ko",
+            825098613
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_setup_cmd",
+        "providers": [
+          [
+            "vmlinux",
+            101201294
+          ],
+          [
+            "nvme-core.ko",
+            676368202
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "__nvme_submit_sync_cmd",
+        "providers": [
+          [
+            "vmlinux",
+            63146234
+          ],
+          [
+            "nvme-core.ko",
+            509129602
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_submit_sync_cmd",
+        "providers": [
+          [
+            "vmlinux",
+            4216337786
+          ],
+          [
+            "nvme-core.ko",
+            948922855
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_command_effects",
+        "providers": [
+          [
+            "vmlinux",
+            362121517
+          ],
+          [
+            "nvme-core.ko",
+            3732782358
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_stop_keep_alive",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            366921290
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_set_features",
+        "providers": [
+          [
+            "vmlinux",
+            205004804
+          ],
+          [
+            "nvme-core.ko",
+            2751556779
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_get_features",
+        "providers": [
+          [
+            "vmlinux",
+            205004804
+          ],
+          [
+            "nvme-core.ko",
+            3907616673
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_set_queue_count",
+        "providers": [
+          [
+            "vmlinux",
+            3123923742
+          ],
+          [
+            "nvme-core.ko",
+            3357312264
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_disable_ctrl",
+        "providers": [
+          [
+            "vmlinux",
+            1975309359
+          ],
+          [
+            "nvme-core.ko",
+            878016821
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_enable_ctrl",
+        "providers": [
+          [
+            "vmlinux",
+            1250335970
+          ],
+          [
+            "nvme-core.ko",
+            3562819140
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_init_ctrl_finish",
+        "providers": [
+          [
+            "vmlinux",
+            1017454530
+          ],
+          [
+            "nvme-core.ko",
+            347566798
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_find_get_ns",
+        "providers": [
+          [
+            "vmlinux",
+            2748186327
+          ],
+          [
+            "nvme-core.ko",
+            360824379
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_remove_namespaces",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            1092581553
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_complete_async_event",
+        "providers": [
+          [
+            "vmlinux",
+            3546943741
+          ],
+          [
+            "nvme-core.ko",
+            2505686300
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_stop_ctrl",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            719200888
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_start_ctrl",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            1768265494
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_uninit_ctrl",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            2112602138
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_init_ctrl",
+        "providers": [
+          [
+            "vmlinux",
+            3229289758
+          ],
+          [
+            "nvme-core.ko",
+            540235731
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_unfreeze",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            2982711788
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_wait_freeze_timeout",
+        "providers": [
+          [
+            "vmlinux",
+            555853363
+          ],
+          [
+            "nvme-core.ko",
+            4022706119
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_wait_freeze",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            2062625199
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_start_freeze",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            2785655067
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_sync_io_queues",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            501210326
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_sync_queues",
+        "providers": [
+          [
+            "vmlinux",
+            2194004663
+          ],
+          [
+            "nvme-core.ko",
+            3626870613
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "nvme_ctrl_from_file",
+        "providers": [
+          [
+            "vmlinux",
+            4264581964
+          ],
+          [
+            "nvme-core.ko",
+            1709783210
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "__tracepoint_nvme_sq",
+        "providers": [
+          [
+            "vmlinux",
+            2086316199
+          ],
+          [
+            "nvme-core.ko",
+            2390672054
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "__traceiter_nvme_sq",
+        "providers": [
+          [
+            "vmlinux",
+            2469118042
+          ],
+          [
+            "nvme-core.ko",
+            3931627740
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "__SCK__tp_func_nvme_sq",
+        "providers": [
+          [
+            "vmlinux",
+            3440501913
+          ],
+          [
+            "nvme-core.ko",
+            296469652
+          ]
+        ]
+      },
+      {
+        "kind": "duplicate_export",
+        "symbol": "qcom_icc_xlate_extended",
+        "providers": [
+          [
+            "vmlinux",
+            787633944
+          ],
+          [
+            "icc-rpmh.ko",
+            3166319697
+          ]
+        ]
+      },
+      {
+        "kind": "this_module_size",
+        "module": "adsp_sleepmon.ko",
+        "bytes": 960,
+        "expected": 1600
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "module_layout",
+        "import_crc": 35839331,
+        "provider": [
+          "vmlinux",
+          3065031940
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "memcpy",
+        "import_crc": 1210688638,
+        "provider": [
+          "vmlinux",
+          2322895794
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "memset",
+        "import_crc": 3703006381,
+        "provider": [
+          "vmlinux",
+          286215482
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "__stack_chk_fail",
+        "import_crc": 3267466194,
+        "provider": [
+          "vmlinux",
+          3530740806
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "arch_timer_read_counter",
+        "import_crc": 1979420770,
+        "provider": [
+          "vmlinux",
+          921287537
+        ]
+      },
+      {
+        "kind": "missing_provider",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "android_kmalloc_64_create"
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "kmalloc_caches",
+        "import_crc": 3926906366,
+        "provider": [
+          "vmlinux",
+          1319674663
+        ]
+      },
+      {
+        "kind": "missing_provider",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "gic_nonsecure_priorities"
+      },
+      {
+        "kind": "missing_provider",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "cpu_hwcaps"
+      },
+      {
+        "kind": "missing_provider",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "cpu_hwcap_keys"
+      },
+      {
+        "kind": "missing_provider",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "arm64_const_caps_ready"
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "jiffies",
+        "import_crc": 364531878,
+        "provider": [
+          "vmlinux",
+          4070879370
+        ]
+      },
+      {
+        "kind": "missing_provider",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "__ubsan_handle_cfi_check_fail_abort"
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "unregister_rpmsg_driver",
+        "import_crc": 3399388294,
+        "provider": [
+          "vmlinux",
+          46159934
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "unregister_pm_notifier",
+        "import_crc": 1988203628,
+        "provider": [
+          "vmlinux",
+          170032461
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "debugfs_remove",
+        "import_crc": 1076758378,
+        "provider": [
+          "vmlinux",
+          2150478151
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "__init_swait_queue_head",
+        "import_crc": 1619476917,
+        "provider": [
+          "vmlinux",
+          3571722679
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "complete",
+        "import_crc": 2787473967,
+        "provider": [
+          "vmlinux",
+          2108237457
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "of_platform_populate",
+        "import_crc": 877236039,
+        "provider": [
+          "vmlinux",
+          3672629935
+        ]
+      },
+      {
+        "kind": "missing_provider",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "__cfi_slowpath_diag"
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "seq_printf",
+        "import_crc": 507692627,
+        "provider": [
+          "vmlinux",
+          1551016251
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "wait_for_completion",
+        "import_crc": 630669312,
+        "provider": [
+          "vmlinux",
+          2108237457
+        ]
+      },
+      {
+        "kind": "missing_provider",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "seq_puts"
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "single_open",
+        "import_crc": 1939277483,
+        "provider": [
+          "vmlinux",
+          2350397757
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "single_release",
+        "import_crc": 98328966,
+        "provider": [
+          "vmlinux",
+          3460647934
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "seq_read",
+        "import_crc": 2370120244,
+        "provider": [
+          "vmlinux",
+          1098011485
+        ]
+      },
+      {
+        "kind": "crc_mismatch",
+        "module": "adsp_sleepmon.ko",
+        "symbol": "seq_lseek",
+        "import_crc": 2667237170,
+        "provider": [
+          "vmlinux",
+          3936234636
+        ]
+      }
+    ],
+    "issues_truncated": true,
+    "warnings": [
+      {
+        "kind": "unversioned_global_import",
+        "module": "btpower.ko",
+        "symbol": "cnss_utils_update_device_type"
+      },
+      {
+        "kind": "unversioned_global_import",
+        "module": "btpower.ko",
+        "symbol": "get_client_env_object"
+      },
+      {
+        "kind": "unversioned_global_import",
+        "module": "nxp-nci.ko",
+        "symbol": "get_client_env_object"
+      }
+    ],
+    "abi_passed": false,
+    "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+  },
+  "status": "static_abi_failed"
+}
