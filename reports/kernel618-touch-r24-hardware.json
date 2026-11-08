@@ -1,0 +1,70 @@
+{
+  "revision": "touch-r24",
+  "boot_sha256": "805aab1554cc394c6d1d41a87c160c000910e5a45eab1e5c71ed97150ddb5759",
+  "image_sha256": "ef45268d3995d2be3991e3b53d3c508c124898c42f813e67ab3b4cb3a2d1ed32",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T01:24:24+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:24:24+0800",
+      "elapsed_seconds": 0.04
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:24:54+0800",
+      "elapsed_seconds": 30.68
+    },
+    {
+      "event": "candidate_adb_connected",
+      "time": "2026-11-09T01:25:23+0800",
+      "elapsed_seconds": 59.28
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:25:25+0800",
+      "elapsed_seconds": 61.53
+    },
+    {
+      "event": "android_boot_completed",
+      "time": "2026-11-09T01:25:29+0800",
+      "elapsed_seconds": 65.03
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "candidate_adb_connected": true,
+  "kernel": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "android_boot_completed": true,
+  "touch": {
+    "spi_bound": true,
+    "user_verified_working": true,
+    "user_feedback": "Both finger touch and pen now work; touch starts slowly",
+    "real_finger_coordinates_observed": true,
+    "finger_event_log": "logs/touch-r24-finger-events.txt",
+    "finger_event_log_sha256": "33e1eed03cd75fbd31449a52e974e69fc3152b2b33f462e383c7d6a3af663aec",
+    "boot_readiness_delay_fixed": false
+  },
+  "stylus": {
+    "user_verified_working": true,
+    "pen_capture_in_monitor_window": false,
+    "pressure_tilt_buttons_full_validation": false
+  },
+  "audio": {
+    "stutter_status": "Awaiting r24 sustained playback result",
+    "startup_flinger_capture": "reports/device/kernel618-touch-r24/audio-flinger.txt",
+    "sustained_capture_started": false,
+    "capture_blocker": "Device not visible to ADB at capture start; cause unconfirmed"
+  },
+  "diagnostic_evidence": {
+    "audio-flinger.txt": "8083f47f2e19727295e1343b9c579564d89306de5e7bf09bac3d3ff0deb0995f",
+    "board-nodes.txt": "696b171aacc7bb899a1c8ef040349267022ee0f96c765c74b5e5f6b889781fa1",
+    "input.txt": "a840b16bd99d95b9a599fbbfdb97be5140a39c9d22401260f0acd200611904ca",
+    "logcat.txt": "dd9d7b3998c47d012131183d829fa725597a9eecda35e0e6491522be6d78ffbf"
+  }
+}
