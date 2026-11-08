@@ -180,3 +180,6 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 
 2026-11-08 aux-r12 已实机越过 AUX 悬空 I2C 设备引发的链表 BUG，显示和 GPU 模块加载完成。
 原厂 init 停在 post-fs，尚未开机；日志写入正常运行至 120 秒。详见 reports/KERNEL618_DEBUG_STATUS.md。
+
+2026-11-08 auto-r13 已完成仅测试版 180 秒回 Fastboot、异常捕获后复位和电脑端单轮读日志脚本。
+同一 Image 的 QEMU 六项检查通过；实机自动化待验证。ADB 连通后的下一版关闭测试模式。

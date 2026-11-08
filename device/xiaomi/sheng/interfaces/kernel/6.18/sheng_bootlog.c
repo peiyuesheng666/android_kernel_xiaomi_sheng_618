@@ -11,13 +11,20 @@
 #include <linux/err.h>
 #include <linux/file.h>
 #include <linux/fs.h>
+#include <linux/hrtimer.h>
 #include <linux/init.h>
 #include <linux/kernel.h>
 #include <linux/kmsg_dump.h>
 #include <linux/ktime.h>
+#include <linux/kthread.h>
 #include <linux/moduleparam.h>
 #include <linux/mutex.h>
+#include <linux/nvmem-consumer.h>
+#include <linux/of.h>
 #include <linux/random.h>
+#include <linux/reboot.h>
+#include <linux/sched/debug.h>
+#include <linux/sched/signal.h>
 #include <linux/sheng_bootlog.h>
 #include <linux/smp.h>
 #include <linux/string.h>
@@ -44,6 +51,12 @@ struct bootlog_end {
 
 static bool enabled = true;
 module_param_named(enable, enabled, bool, 0400);
+/* Test builds opt in on the command line; normal builds never reboot here. */
+static unsigned int test_timeout;
+module_param(test_timeout, uint, 0400);
+static atomic_t restart_requested = ATOMIC_INIT(0);
+static struct task_struct *test_reset_task;
+static struct hrtimer restart_guard;
 static struct file *destination;
 static char *snapshot;
 static u64 run_id, sequence;
@@ -54,6 +67,43 @@ static DECLARE_DELAYED_WORK(snapshot_work, save_snapshot);
 static DECLARE_WORK(fault_work, save_fault_snapshot);
 static DEFINE_MUTEX(snapshot_lock);
 static atomic_t fault_pause_used = ATOMIC_INIT(0);
+
+bool sheng_bootlog_test_mode(void)
+{
+    return enabled && test_timeout >= 10 && test_timeout <= 600;
+}
+
+void sheng_bootlog_panic_pause(void)
+{
+    if (sheng_bootlog_test_mode())
+        sheng_bootlog_fault_pause();
+}
+
+/* Same DT cell and value as the board's qcom-reboot-reason driver. No raw
+ * physical address or guessed PMIC register; retry until its provider probes.
+ * Prearming permits the emergency restart path to avoid sleepable NVMEM I/O.
+ */
+static bool arm_bootloader_reason(void)
+{
+    struct device_node *node;
+    struct nvmem_cell *cell;
+    u8 reason = 0x02;
+    int result;
+
+    node = of_find_compatible_node(NULL, NULL, "qcom,reboot-reason");
+    if (!node)
+        return false;
+    cell = of_nvmem_cell_get(node, "restart_reason");
+    of_node_put(node);
+    if (IS_ERR(cell))
+        return false;
+    result = nvmem_cell_write(cell, &reason, sizeof(reason));
+    nvmem_cell_put(cell);
+    if (result != sizeof(reason))
+        return false;
+    pr_notice("sheng_bootlog: test bootloader PMIC reason 0x02 armed\n");
+    return true;
+}
 
 /* Called by arm64 __die after the real registers/stack have been printed.
  * Never do block I/O or acquire a logger lock from the exception context.
@@ -73,7 +123,8 @@ void sheng_bootlog_fault_pause(void)
         return;
     pr_emerg("sheng_bootlog: exception registers/stack printed; 1500 ms capture window on CPU%u\n", cpu);
     queue_work_on(cpu, system_highpri_wq, &fault_work);
-    mdelay(1500);
+    /* Leave other CPUs alive long enough to persist and perform a test reset. */
+    mdelay(test_timeout ? 15000 : 1500);
 }
 
 static int is_rawdump(struct device *dev, const void *unused)
@@ -168,13 +219,91 @@ static void save_fault_snapshot(struct work_struct *work)
     if (snapshot && destination)
         capture_snapshot();
     mutex_unlock(&snapshot_lock);
+    if (test_timeout) {
+        unsigned int cpu = get_cpu();
+
+        put_cpu();
+        /* Their previous sleep timer may be pinned to the exception CPU,
+         * whose IRQs are now off. Move and wake them on the capture CPU.
+         */
+        atomic_set(&restart_requested, 1);
+        if (!IS_ERR_OR_NULL(test_reset_task)) {
+            set_cpus_allowed_ptr(test_reset_task, cpumask_of(cpu));
+            wake_up_process(test_reset_task);
+        }
+    }
+}
+
+static void save_test_stacks(struct work_struct *work)
+{
+    struct task_struct *task;
+
+    pr_emerg("sheng_bootlog: test deadline diagnostics: init and blocked tasks\n");
+    rcu_read_lock();
+    task = find_task_by_vpid(1);
+    if (task)
+        get_task_struct(task);
+    rcu_read_unlock();
+    if (task) {
+        sched_show_task(task);
+        put_task_struct(task);
+    }
+    show_state_filter(TASK_UNINTERRUPTIBLE);
+    /* The independent reset thread does not wait for this I/O or task dump. */
+    mutex_lock(&snapshot_lock);
+    if (snapshot)
+        capture_snapshot();
+    mutex_unlock(&snapshot_lock);
+}
+static DECLARE_WORK(test_stacks_work, save_test_stacks);
+
+static int test_restart(void *unused)
+{
+    bool dumped = false;
+    bool reason_armed = false;
+    u64 last_reason_try = 0;
+
+    for (;;) {
+        u64 seconds = ktime_get_boottime_seconds();
+
+        if (!reason_armed && seconds >= last_reason_try + 2) {
+            last_reason_try = seconds;
+            reason_armed = arm_bootloader_reason();
+        }
+        if (!dumped && seconds + 5 >= test_timeout) {
+            dumped = true;
+            queue_work(system_unbound_wq, &test_stacks_work);
+        }
+        if (seconds >= test_timeout || atomic_read(&restart_requested))
+            break;
+        msleep(100);
+    }
+    pr_emerg("sheng_bootlog: TEST_RETURN_BOOTLOADER timeout=%u fault=%d\n",
+             test_timeout, atomic_read(&restart_requested));
+    /* Arm an independent high resolution timer before shutdown can block.
+     * Board notifier qcom-reboot-reason (priority 255) writes PMIC reason 0x02.
+     */
+    hrtimer_start(&restart_guard, ms_to_ktime(10000), HRTIMER_MODE_REL_PINNED);
+    kernel_restart("bootloader");
+    return 0;
+}
+
+static enum hrtimer_restart test_restart_fallback(struct hrtimer *timer)
+{
+    pr_emerg("sheng_bootlog: TEST_RETURN_BOOTLOADER shutdown stalled; architecture reset\n");
+    /* Do not acquire driver shutdown locks a second time. The normal path
+     * must have reached its PMIC notifier for bootloader intent to persist.
+     */
+    machine_restart("bootloader");
+    return HRTIMER_NORESTART;
 }
 
 static void save_snapshot(struct work_struct *work)
 {
     mutex_lock(&snapshot_lock);
     capture_snapshot();
-    if (time_before(jiffies, began + msecs_to_jiffies(LIFE_MS)))
+    if (time_before(jiffies, began + msecs_to_jiffies(
+            test_timeout ? (test_timeout + 20) * 1000 : LIFE_MS)))
         queue_delayed_work(system_unbound_wq, &snapshot_work,
                            msecs_to_jiffies(destination ? 250 : 100));
     else {
@@ -183,7 +312,7 @@ static void save_snapshot(struct work_struct *work)
         destination = NULL;
         vfree(snapshot);
         snapshot = NULL;
-        pr_notice("sheng_bootlog: finished after 120 seconds\n");
+        pr_notice("sheng_bootlog: capture finished\n");
     }
     mutex_unlock(&snapshot_lock);
 }
@@ -194,6 +323,8 @@ static int __init sheng_bootlog_init(void)
     static_assert(sizeof(struct bootlog_end) == 16);
     if (!enabled)
         return 0;
+    if (test_timeout && (test_timeout < 10 || test_timeout > 600))
+        return -EINVAL;
     snapshot = vzalloc(SLOT_BYTES);
     if (!snapshot)
         return -ENOMEM;
@@ -201,6 +332,20 @@ static int __init sheng_bootlog_init(void)
     began = jiffies;
     pr_notice("sheng_bootlog: built-in capture armed, run %016llx; waiting for rawdump\n", run_id);
     queue_delayed_work(system_unbound_wq, &snapshot_work, msecs_to_jiffies(100));
+    if (test_timeout) {
+        struct task_struct *reset;
+
+        hrtimer_setup(&restart_guard, test_restart_fallback, CLOCK_MONOTONIC,
+                      HRTIMER_MODE_REL_PINNED);
+        reset = kthread_run(test_restart, NULL, "sheng-test");
+        test_reset_task = reset;
+        if (IS_ERR(reset)) {
+            pr_err("sheng_bootlog: test restart thread failed\n");
+            return PTR_ERR(reset);
+        }
+        pr_notice("sheng_bootlog: TEST_ONLY automatic bootloader return at uptime %u seconds\n",
+                  test_timeout);
+    }
     return 0;
 }
 late_initcall(sheng_bootlog_init);

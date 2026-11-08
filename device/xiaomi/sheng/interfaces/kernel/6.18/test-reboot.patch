@@ -1,0 +1,19 @@
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -16,0 +17 @@
++#include <linux/sheng_bootlog.h>
+@@ -99 +100,4 @@
+-	machine_emergency_restart();
++	if (sheng_bootlog_test_mode())
++		machine_restart("bootloader");
++	else
++		machine_emergency_restart();
+@@ -291,0 +296,2 @@
++	if (sheng_bootlog_test_mode())
++		cmd = "bootloader";
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -23,0 +24 @@
++#include <linux/sheng_bootlog.h>
+@@ -498,0 +500 @@
++	sheng_bootlog_panic_pause();

@@ -271,3 +271,28 @@ printk 至 32.631 秒，但日志写入线程继续工作至 120 秒，尚不能
 下一步读取 init 等待原因，并加入仅测试版启用的 180 秒自动回 Fastboot 和电脑端读日志。
 原始记录 reports/device/kernel618-aux-r12/，整理见 kernel618-aux-r12-hardware.json。
 当前五版：display-r8、display-r9、fault-r10、slab-r11、aux-r12；仅清理旧交付目录。
+
+
+### auto-r13：仅测试模式的自动 Fastboot 流程
+
+仅 cmdline sheng_bootlog.test_timeout=180 启用：内核运行时间 175 秒打印 PID1 与
+不可中断任务栈并落盘，180 秒 kernel_restart("bootloader")。日志窗口延至 200 秒。
+普通 kernel_restart 在测试模式统一转 bootloader；emergency_restart 保留同一意图。
+按实际 qcom-reboot-reason 的 DT NVMEM cell 预写 0x02，不猜寄存器地址。
+异常/直接 panic 在其他 CPU 停止前给跨 CPU 写入及重启留出 15 秒，普通模式仍为 1.5 秒。
+10 秒高精度定时器兜底绕过阻塞的设备 shutdown。异常 CPU 关 IRQ 使普通睡眠及
+关机等待受阻，已在 QEMU 复现并用独立复位定时器处理；不保证整 SoC 硬锁或过早硬件复位。
+
+相同交付 Image 的 QEMU 普通落盘（无测试参数）、15 秒测试截止、真实 BUG、直接 panic、
+普通 reboot 和 emergency_restart 均通过。QMP 明确返回 guest-reset，避免把异常期间
+控制台停止输出误判成没有复位。BUG 的寄存器/调用栈和超时前任务栈有 CRC 有效副本。
+18,008 内核导出未变，原样复用 r12 的 337 模块 overlay；不重新编译显示驱动。
+官方 boot 只读封包、AVB 和解包回读通过。
+
+电脑端 scripts/test_sheng618_hardware.py 仅进行一轮：核对 serial/sheng/slot a/unlocked，
+刷 boot_a，等待 USB 离开及自动回 Fastboot，临时 boot 已验证 Recovery，
+仅读 rawdump 288..290 MiB，校验 CRC/本轮 cmdline 后返回 Fastboot。
+所有调用/等待有超时；失败停止，不循环刷入。若检测到候选 6.18 ADB，记录下一版关闭测试模式。
+目前软件验证通过，实机自动 Fastboot 和读回尚待这一轮测试。
+用户已要求一旦 ADB 连通，下一版去掉测试模式；默认不传参数即关闭此行为。
+五版交付为 display-r9、fault-r10、slab-r11、aux-r12、auto-r13。

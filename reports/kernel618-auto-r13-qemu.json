@@ -1,0 +1,25 @@
+{
+  "real_aarch64_kernel": true,
+  "real_gpt_block_io_and_fsync": true,
+  "image_sha256": "061e873b90cf52a5b7621856526e7e775fb513f3c379b7eab321da8a8da14a17",
+  "cases": [
+    {
+      "case": "valid",
+      "gpt_name": "rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 2,
+      "expected_write": true,
+      "uptime_ms": [
+        10398,
+        10110
+      ],
+      "qemu_log": "/root/sheng-618/diagnostic/auto-r13/qemu/valid.log"
+    }
+  ],
+  "torn_copy_rejected_other_copy_readable": true,
+  "hardware_ufs_tested": false,
+  "embedded_helper_exec_and_finit_module_tested": true,
+  "partition_guard_cases_run": false,
+  "fault_injection_case_run": false,
+  "exception_stack_persisted_before_panic": null
+}

@@ -20,6 +20,8 @@ stock = Path('/mnt/e/6/玩机资源/XiaomiPad6SPro12.4刷机资源/sheng_images_
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', default='disklog-r5')
 parser.add_argument('--overlay', type=Path, default=K618 / 'boot-test/stage/overlay.cpio')
+parser.add_argument('--test-timeout', type=int, choices=[180],
+                    help='Test only: return to bootloader at uptime 180 seconds')
 parser.add_argument('--replace-untested', action='store_true',
                     help='Replace only this unflashed candidate, preserving its directory')
 options = parser.parse_args()
@@ -51,6 +53,8 @@ misc = ACK / 'drivers/misc'
 source = work / 'device/xiaomi/sheng/interfaces/kernel/6.18/sheng_bootlog.c'
 if 'sheng_bootlog_fault_pause' in source.read_text():
     run([sys.executable, work / 'scripts/patch_sheng618_fault_capture.py'])
+if 'sheng_bootlog_test_mode' in source.read_text():
+    run([sys.executable, work / 'scripts/patch_sheng618_test_reboot.py'])
 shutil.copyfile(source, misc / 'sheng_bootlog.c')
 makefile = misc / 'Makefile'
 line = 'obj-$(CONFIG_SHENG_BOOTLOG) += sheng_bootlog.o\n'
@@ -94,6 +98,8 @@ args = shlex.split(run([sys.executable, unpack, '--boot_img', stock, '--out', pa
 assert (parts / 'ramdisk').read_bytes() == b''
 args[args.index('--kernel') + 1] = str(image)
 cmdline = 'printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=' + tag
+if options.test_timeout:
+    cmdline += ' sheng_bootlog.test_timeout=180 panic=5'
 args[args.index('--cmdline') + 1] = cmdline
 packed = native / 'boot.img'
 run([sys.executable, rom / 'system/tools/mkbootimg/mkbootimg.py', *args, '--output', packed])
@@ -118,13 +124,15 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
           'destination': {'gpt_name': 'rawdump', 'required_partition_bytes': 300 * 1024**2,
                           'offset': 288 * 1024**2, 'span': 2 * 1024**2,
                           'slots': 2, 'slot_bytes': 1024**2},
-          'interval_ms': 250, 'maximum_duration_ms': 120000, 'crc32_and_footer': True,
+          'interval_ms': 250, 'maximum_duration_ms': 200000 if options.test_timeout else 120000,
+          'test_timeout_seconds': options.test_timeout, 'crc32_and_footer': True,
           'does_not_require_sysfs_or_device_nodes': True,
           'requires_ufs_partition_registration': True, 'hardware_log_received': False,
           'cmdline': cmdline, 'build_log': str(log), 'maximum_retained_versions': 5}
 if 'sheng_bootlog_fault_pause' in source.read_text():
     report['fault_capture_receipt'] = 'kernel618-fault-capture-source.json'
     report['exception_pause_ms'] = 1500
+    report['test_exception_pause_ms'] = 15000 if options.test_timeout else None
     report['exception_writer_runs_on_other_cpu'] = True
 (dest / 'build-result.json').write_text(json.dumps(report, indent=2) + '\n')
 (dest / 'SHA256SUMS').write_text(report['boot_sha256'] + '  boot.img\n' + report['image_sha256'] + '  Image\n')

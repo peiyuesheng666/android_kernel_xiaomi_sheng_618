@@ -1,0 +1,17 @@
+{
+  "files": {
+    "kernel/reboot.c": {
+      "before": "da5e1f16be3e528391692771761e98b2fad0da45e67f24e5551d60f01d0ce711",
+      "after": "e44110017d8f67e8cb5ded844ec36525cf89b2c10e25a43fae4760b2d6b491f8"
+    },
+    "kernel/panic.c": {
+      "before": "40378aae0439dbfdceae35def45d7f4075f91ba01b78359ecc1d906c7b5ad863",
+      "after": "4dab8155bb7b46ae8c0dc3b4d54b9c268bdb9ee4ed3f8c088f7dd3dc3ce0202f"
+    }
+  },
+  "enabled_only_by": "sheng_bootlog.test_timeout=180 (valid range 10..600 for QEMU)",
+  "reference": "ACK ff4a6c3bb0f471a9dd186293a47b62c83829b97d normal/emergency restart and panic before other CPUs stop; selected qcom-reboot-reason DT cell writes 0x02",
+  "default_enabled": false,
+  "preserves_exported_function_signatures": true,
+  "limits": "Requires scheduled CPU, restart provider and PMIC reason support; hardware reset before provider probe is not guaranteed"
+}

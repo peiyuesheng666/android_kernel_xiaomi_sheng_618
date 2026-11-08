@@ -1,0 +1,17 @@
+{
+  "boot_sha256": "52d9576fbda92a1bae07ac66ddf6d6720b7cd2a2f623601e6660924e420d0f5d",
+  "image_sha256": "061e873b90cf52a5b7621856526e7e775fb513f3c379b7eab321da8a8da14a17",
+  "checks": [
+    "kernel618-auto-r13-qemu.json",
+    "kernel618-auto-r13-qemu-auto-deadline.json",
+    "kernel618-auto-r13-qemu-auto-fault.json",
+    "kernel618-auto-r13-qemu-auto-panic.json",
+    "kernel618-auto-r13-qemu-auto-reboot.json",
+    "kernel618-auto-r13-qemu-auto-emergency.json"
+  ],
+  "hardware_pending": true,
+  "modules_reused_from": "aux-r12",
+  "preliminary_failed_checks": "Fault path initially could not wake reset thread on exception CPU; moved to capture CPU. Shutdown then blocked; added high-resolution reset guard. Console ceased during reset; QMP guest-reset now verifies actual reset.",
+  "limitations": "Entire-SoC hard lock, unavailable reset provider, and reset before PMIC cell probes cannot be guaranteed",
+  "kernel_compatibility_next": "Stock post-fs waits for vendor.all.modules.ready after 5.15 duplicate modprobe rejected; prepare precise live replacement EEXIST recognition"
+}

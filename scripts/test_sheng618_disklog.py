@@ -7,9 +7,11 @@ import json
 import re
 from pathlib import Path
 import shutil
+import socket
 import struct
 import subprocess
 import sys
+import time
 import uuid
 import zlib
 
@@ -28,12 +30,20 @@ parser.add_argument('--extra-test-module', type=Path,
                     help='Load a disposable regression module after the virtio providers')
 parser.add_argument('--require-marker',
                     help='Require this regression marker in both console and a CRC-valid disk snapshot')
+parser.add_argument('--auto-return', choices=['deadline', 'fault', 'panic', 'reboot', 'emergency'],
+                    help='Exercise opt-in reset at 15 seconds (QEMU only), or actual reboot/fault path')
+parser.add_argument('--legacy-reuse', action='store_true',
+                    help='Real finit_module duplicate and missing legacy ABI regression')
 options = parser.parse_args()
+if options.auto_return in ('fault', 'panic', 'emergency'):
+    options.fault_after_log = True
 assert not options.fault_after_log or options.positive_only
 assert not options.slab_tracking or options.fault_after_log
 assert bool(options.extra_test_module) == bool(options.require_marker)
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
 root = Path('/root/sheng-618/diagnostic') / options.revision / (
+    'qemu-module-reuse' if options.legacy_reuse else
+    'qemu-auto-' + options.auto_return if options.auto_return else
     'qemu-regression' if options.extra_test_module else
     'qemu-slab' if options.slab_tracking else 'qemu-fault' if options.fault_after_log else 'qemu')
 root.mkdir(parents=True, exist_ok=True)
@@ -72,6 +82,51 @@ if options.extra_test_module:
     assert options.extra_test_module.is_file()
     shutil.copyfile(options.extra_test_module, rd / 'testmods' / options.extra_test_module.name)
     order.append('/testmods/' + options.extra_test_module.name)
+if options.legacy_reuse:
+    from build_sheng618_upstream import ACK, environment
+    probe = root / 'reuse-probe'
+    probe.mkdir(exist_ok=True)
+    (probe / 'Makefile').write_text('obj-m := sheng_reuse_live.o sheng_reuse_absent.o\n')
+    for name in ('sheng_reuse_live', 'sheng_reuse_absent'):
+        (probe / (name + '.c')).write_text(
+            '#include <linux/module.h>\n#include <linux/init.h>\n'
+            'static int __init probe_init(void) { pr_notice("' + name + ': ACTUAL_INIT\\n"); return 0; }\n'
+            'module_init(probe_init);\nMODULE_LICENSE("GPL");\n')
+    with (root / 'reuse-build.log').open('w') as stream:
+        subprocess.run(['make', '-C', str(ACK), 'O=' + str(out), 'ARCH=arm64', 'LLVM=1',
+                        'LLVM_IAS=1', 'M=' + str(probe), '-j8', 'modules'],
+                       env=environment(8), stdout=stream, stderr=subprocess.STDOUT, check=True)
+    for name in ('sheng_reuse_live', 'sheng_reuse_absent'):
+        path = probe / (name + '.ko')
+        shutil.copyfile(path, rd / 'testmods' / path.name)
+        data = bytearray(path.read_bytes())
+        shoff = struct.unpack_from('<Q', data, 40)[0]
+        entsize, count, names = struct.unpack_from('<HHH', data, 58)
+        strings_hdr = shoff + names * entsize
+        strings_at, strings_size = struct.unpack_from('<QQ', data, strings_hdr + 24)
+        strings = data[strings_at:strings_at + strings_size]
+        changed = set()
+        for index in range(count):
+            header = shoff + index * entsize
+            at = struct.unpack_from('<I', data, header)[0]
+            section = strings[at:].split(b'\0', 1)[0]
+            offset, length = struct.unpack_from('<QQ', data, header + 24)
+            if section == b'.modinfo':
+                original = bytes(data[offset:offset + length])
+                match = re.search(rb'(?<![^\x00])vermagic=([^\x00]+)', original)
+                assert match
+                start, end = match.span(1)
+                replacement = b'5.15.78 SMP preempt mod_unload modversions aarch64'
+                assert len(replacement) <= end - start
+                data[offset + start:offset + end] = replacement.ljust(end - start, b'\0')
+                changed.add('vermagic')
+            if section == b'.gnu.linkonce.this_module':
+                assert length > 8
+                struct.pack_into('<Q', data, header + 32, 8)
+                changed.add('struct-layout')
+        assert changed == {'vermagic', 'struct-layout'}
+        (rd / ('legacy-' + name + '.ko')).write_bytes(data)
+    order.append('/testmods/sheng_reuse_live.ko')
 (rd / 'test-order').write_text('\n'.join(order) + '\n')
 if options.fault_after_log:
     from build_sheng618_upstream import ACK, environment
@@ -83,6 +138,7 @@ if options.fault_after_log:
 #include <linux/init.h>
 #include <linux/bug.h>
 #include <linux/slab.h>
+#include <linux/reboot.h>
 static int __init fault_init(void)
 {
     /* SLAB_PROVENANCE_TEST */
@@ -105,6 +161,11 @@ MODULE_DESCRIPTION("Disposable QEMU-only fault capture probe");
     pr_emerg("SHENG_SLAB_PROVENANCE_TEST: freed object provenance\\n");
     kmem_dump_obj(probe);''')
     (fault / 'sheng_fault_probe.c').write_text(fault_source)
+    if options.auto_return == 'panic':
+        fault_source = fault_source.replace('    BUG();', '    panic("SHENG_DISKLOG_DIRECT_PANIC");')
+    if options.auto_return == 'emergency':
+        fault_source = fault_source.replace('    BUG();', '    emergency_restart();')
+    (fault / 'sheng_fault_probe.c').write_text(fault_source)
     with (root / 'fault-module-build.log').open('w') as stream:
         subprocess.run(['make', '-C', str(ACK), 'O=' + str(out), 'ARCH=arm64', 'LLVM=1',
                         'LLVM_IAS=1', 'M=' + str(fault), '-j8', 'modules'],
@@ -112,6 +173,9 @@ MODULE_DESCRIPTION("Disposable QEMU-only fault capture probe");
     shutil.copyfile(fault / 'sheng_fault_probe.ko', rd / 'sheng_fault_probe.ko')
 program = root / 'test-init.c'
 program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n'
+                   '#define TEST_REUSE ' + str(int(options.legacy_reuse)) + '\n'
+                   '#define TEST_DEADLINE ' + str(int(options.auto_return == 'deadline')) + '\n'
+                   '#define TEST_REBOOT ' + str(int(options.auto_return == 'reboot')) + '\n'
                    '#define TEST_FAULT ' + str(int(options.fault_after_log)) + '\n' + r'''
 #define _GNU_SOURCE
 #include <stdio.h>
@@ -159,6 +223,21 @@ int main(void) {
         if(r) return 23;
     }
     if(f)fclose(f);
+    if(TEST_REUSE) {
+        const char *paths[] = {"/testmods/sheng_reuse_live.ko", "/legacy-sheng_reuse_live.ko",
+                               "/legacy-sheng_reuse_absent.ko"};
+        const int expected[] = {EEXIST, EEXIST, ENOEXEC};
+        for(int i=0; i<3; i++) {
+            int fd=open(paths[i],O_RDONLY);
+            errno=0;
+            int result=fd<0 ? 1 : (int)syscall(SYS_finit_module,fd,"",0);
+            int saved=errno;
+            if(fd>=0) close(fd);
+            dprintf(console,"SHENG_REUSE_CASE %d result=%d errno=%d expected=%d\n",i,result,saved,expected[i]);
+            if(result!=-1 || saved!=expected[i]) return 41+i;
+        }
+        dprintf(log,"<5>SHENG_REUSE_REGRESSION_PASS duplicate_live_EEXIST missing_ENOEXEC\n");
+    }
     for(int i=0;i<80;i++) {
         char record[100];
         int n=snprintf(record,sizeof(record),"<5>SHENG_DISKLOG_QEMU_ACTUAL record=%d\n",i);
@@ -188,7 +267,8 @@ int main(void) {
         return 35;
     }
     sleep(1);
-    reboot(RB_POWER_OFF);
+    if(TEST_DEADLINE) { for(;;)pause(); }
+    reboot(TEST_REBOOT ? RB_AUTOBOOT : RB_POWER_OFF);
     for(;;)pause();
 }
 ''')
@@ -241,19 +321,48 @@ for label, name, mib, expected in inputs:
     path = root / (label + '.img')
     disk(path, name, mib)
     transcript = root / (label + '.log')
+    qmp_path = root / (label + '.qmp')
+    qmp_path.unlink(missing_ok=True)
+    qmp_data = b''
     with transcript.open('w') as stream:
-        result = subprocess.run(['qemu-system-aarch64', '-M', 'virt,virtualization=on',
+        process = subprocess.Popen(['qemu-system-aarch64', '-M', 'virt,virtualization=on',
                                  '-cpu', 'max,pauth-impdef=on', '-smp', '2', '-m', '1536',
                                  '-nic', 'none', '-nographic', '-monitor', 'none', '-no-reboot',
+                                 '-qmp', 'unix:' + str(qmp_path) + ',server=on,wait=off',
                                  '-kernel', str(image), '-initrd', str(initrd),
                                  '-drive', f'if=none,id=logdisk,file={path},format=raw',
                                  '-device', 'virtio-blk-pci,drive=logdisk',
                                  '-append', 'console=ttyAMA0 earlycon=pl011,0x9000000 rdinit=/init panic=-1 printk.devkmsg=on sheng_bootlog.enable=1'
                                  + (' panic_on_oops=1 irqaffinity=0' if options.fault_after_log else '')
                                  + (' stack_depot_disable=on stack_depot_disable=off slab_debug=U,kmalloc-2k'
-                                    if options.slab_tracking else '')],
-                                stdout=stream, stderr=subprocess.STDOUT, timeout=60)
-    assert result.returncode == 0, transcript
+                                    if options.slab_tracking else '')
+                                 + (' sheng_bootlog.test_timeout=15' if options.auto_return else '')],
+                                stdout=stream, stderr=subprocess.STDOUT)
+        try:
+            with socket.socket(socket.AF_UNIX) as monitor:
+                monitor.settimeout(60)
+                for attempt in range(100):
+                    try:
+                        monitor.connect(str(qmp_path))
+                        break
+                    except (FileNotFoundError, ConnectionRefusedError):
+                        time.sleep(0.05)
+                else:
+                    raise RuntimeError('QEMU monitor unavailable')
+                monitor.sendall(b'{"execute":"qmp_capabilities"}\r\n')
+                while True:
+                    chunk = monitor.recv(65536)
+                    if not chunk:
+                        break
+                    qmp_data += chunk
+            process.wait(timeout=5)
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.wait()
+    assert process.returncode == 0, transcript
+    qmp_events = [json.loads(line) for line in qmp_data.splitlines() if line.strip()]
+    (root / (label + '-qmp.json')).write_text(json.dumps(qmp_events, indent=2) + '\n')
     console = transcript.read_text()
     assert 'Unresolved symbol' not in console, transcript
     if options.helper_exec:
@@ -261,7 +370,12 @@ for label, name, mib, expected in inputs:
         assert 'result=111' not in console, transcript
     if options.require_marker:
         assert options.require_marker in console, transcript
-    if options.fault_after_log:
+    if options.legacy_reuse:
+        assert console.count('sheng_reuse_live: ACTUAL_INIT') == 1
+        assert 'sheng_reuse_absent: ACTUAL_INIT' not in console
+        assert 'SHENG_REUSE_REGRESSION_PASS' in console
+        assert 'sheng_module_reuse: sheng_reuse_live already live' in console
+    if options.fault_after_log and options.auto_return not in ('fault', 'emergency'):
         assert 'Kernel panic - not syncing:' in console, transcript
         assert 'FAULT TEST unexpectedly survived' not in console, transcript
     with path.open('rb') as stream:
@@ -274,7 +388,18 @@ for label, name, mib, expected in inputs:
         assert max(s['uptime_ms'] for s in slots) >= 5000
         if options.require_marker:
             assert any(options.require_marker in s['text'] for s in slots), transcript
-        if options.fault_after_log:
+        if options.legacy_reuse:
+            assert any('SHENG_REUSE_REGRESSION_PASS' in s['text'] for s in slots)
+        if options.auto_return:
+            assert 'TEST_ONLY automatic bootloader return at uptime 15 seconds' in console
+            assert any(e.get('event') == 'SHUTDOWN' and e.get('data', {}).get('reason') == 'guest-reset'
+                       for e in qmp_events), (transcript, qmp_events)
+            if options.auto_return == 'deadline':
+                assert any('test deadline diagnostics: init and blocked tasks' in s['text'] for s in slots)
+                assert max(s['uptime_ms'] for s in slots) >= 14000
+            if options.auto_return == 'reboot':
+                assert "reboot: Restarting system with command 'bootloader'" in console
+        if options.fault_after_log and options.auto_return not in ('panic', 'emergency'):
             assert any(all(marker in s['text'] for marker in (
                 'SHENG_DISKLOG_FAULT_INJECT', 'sheng_fault_probe', 'Call trace:',
                 'pc :', '1500 ms capture window')) for s in slots), transcript
@@ -291,7 +416,8 @@ for label, name, mib, expected in inputs:
         assert not slots and raw == bytes(len(raw)), transcript
     cases.append({'case': label, 'gpt_name': name, 'partition_mib': mib,
                   'valid_snapshots': len(slots), 'expected_write': expected,
-                  'uptime_ms': [s['uptime_ms'] for s in slots], 'qemu_log': str(transcript)})
+                  'uptime_ms': [s['uptime_ms'] for s in slots], 'qemu_log': str(transcript),
+                  'qmp_shutdown_events': [e for e in qmp_events if e.get('event') == 'SHUTDOWN']})
     print(json.dumps(cases[-1]), flush=True)
 report = {'real_aarch64_kernel': True, 'real_gpt_block_io_and_fsync': True,
           'image_sha256': hashlib.sha256(image.read_bytes()).hexdigest(),
@@ -300,14 +426,25 @@ report = {'real_aarch64_kernel': True, 'real_gpt_block_io_and_fsync': True,
           'embedded_helper_exec_and_finit_module_tested': options.helper_exec,
           'partition_guard_cases_run': not options.positive_only}
 report['fault_injection_case_run'] = options.fault_after_log
-report['exception_stack_persisted_before_panic'] = True if options.fault_after_log else None
+report['exception_stack_persisted_before_panic'] = (
+    True if options.fault_after_log and options.auto_return != 'emergency' else None)
 if options.slab_tracking:
     report['kmalloc_2k_allocation_and_free_stacks_persisted'] = True
     report['stock_stack_depot_disable_overridden'] = True
 if options.extra_test_module:
     report['extra_test_module'] = str(options.extra_test_module)
     report['regression_marker_persisted'] = options.require_marker
-suffix = ('-qemu-regression.json' if options.extra_test_module else '-qemu-slab.json'
+if options.auto_return:
+    report['auto_return_case'] = options.auto_return
+    report['qemu_deadline_seconds'] = 15
+    report['actual_pmic_fastboot_proven'] = False
+if options.legacy_reuse:
+    report['legacy_live_duplicate_eexist_and_missing_enoexec'] = True
+    report['actual_live_init_count'] = 1
+    report['actual_absent_init_count'] = 0
+suffix = ('-qemu-module-reuse.json' if options.legacy_reuse else
+          '-qemu-auto-' + options.auto_return + '.json' if options.auto_return else
+          '-qemu-regression.json' if options.extra_test_module else '-qemu-slab.json'
           if options.slab_tracking else '-qemu-fault.json' if options.fault_after_log else '-qemu.json')
 (work / ('reports/kernel618-' + options.revision + suffix)).write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))
