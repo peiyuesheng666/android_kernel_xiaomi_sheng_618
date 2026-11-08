@@ -1,0 +1,25 @@
+{
+  "files": {
+    "sheng_hall.c": {
+      "staged_sha256": "6670d2deb3291edf355165a6ca1befd8d8a87a5c2f05acdf6ac8e8fbe9a92e63"
+    },
+    "Kbuild": {
+      "staged_sha256": "c020e0ef35f9d3adfae80af412dc00afdfd550c545859738cc8ef4f530a54056"
+    }
+  },
+  "implementation": "Native Linux input switches, Linux 6.18 gpio-keys/PM API conventions",
+  "kernel_reference": "ACK ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+  "applicability": "No matching sheng-hall implementation in selected integration or local LOS/MiCode sources",
+  "binding_reference": {
+    "path": "/root/sheng-618/diagnostic/disklog-r5/live.dts",
+    "sha256": "8c4459a39446641a67877a9e007492a4b106b4a24664ef34b01523702c16a5d9"
+  },
+  "binary_reference": {
+    "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xiaomi_hall.ko",
+    "sha256": "935f4e5fb6a65d62afd7dacb0dfc9d2423cde99931758f6dd0045ef0daacecae",
+    "observations": "irq_handler 0x1700..0x1794: open=!active_low, close=active_low; probe requests named open/close SMP2P IRQs with RISING|ONESHOT"
+  },
+  "preserved": "Live DT GPIO171/172, EV_SW codes0/1, active-low polarity, two named SMP2P IRQs per child",
+  "limitations": "Private character-device algorithm switching not implemented; physical cover operation still requires user acceptance",
+  "hardware_result": "pending"
+}

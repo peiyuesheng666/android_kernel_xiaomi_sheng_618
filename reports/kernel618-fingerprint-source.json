@@ -1,0 +1,25 @@
+{
+  "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource",
+  "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+  "files": {
+    "fpc1020_tee.c": {
+      "original": "2928c39263ebaa6f8022ebc0555c5571dbf6af70f1e4f53828677083623b1cc3",
+      "staged_sha256": "6cc0da6a87f3662462339cd8a740148b79db339d466d10f22297e27a03aa6303",
+      "source": "fpc_1553/fpc1020_tee.c"
+    },
+    "xiaomi_fingerprint.c": {
+      "original": "44e12fa0700d4ed5dca4c0442c1b3f56dc28338537187daf0273395d4c1854b4",
+      "staged_sha256": "06b21212691eb8a288272e5d8c7701de8cc0e0046ddda1bad058acc35f96cd0e",
+      "source": "xiaomi_fp/xiaomi_fingerprint.c"
+    },
+    "Kbuild": {
+      "staged_sha256": "4b9f2bee84292e3e50e6670b46660a794045ab2389c9d063a65e1855f88ee75a"
+    }
+  },
+  "stage": "/root/sheng-618/upstream-build/k618/sheng-ports/fingerprint",
+  "applicability": "Original sheng fpc,fpc1020 and xiaomi-fingerprint nodes; side-mounted FPC, not phone in-display FOD",
+  "alternatives": "Selected SM8550 integration and local LOS sources lack this sheng FPC platform implementation",
+  "preserved": "Original sysfs request/power/IRQ interface and pinctrl names; biometric matching and enrolled data stay in stock HAL/TEE",
+  "adaptations": "6.18 platform remove and GPIO API, typed retry counter, OF reference and regulator error checks",
+  "hardware_result": "pending"
+}

@@ -42,6 +42,19 @@ followup = PROJECT/'reports/kernel618-camera-backlight-source.json'
 if followup.exists():
     source_receipts.append(followup.name)
     replacements['camera.ko'] = K618/'vendor/qcom/opensource/camera-kernel/camera.ko'
+extra_groups = {
+    'fingerprint': ('fpc1552.ko', 'xiaomifp.ko'),
+    'hall': ('xiaomi_hall.ko',),
+}
+for group, names in extra_groups.items():
+    receipt = PROJECT/'reports'/('kernel618-'+group+'-source.json')
+    if not receipt.exists():
+        continue
+    source_receipts.append(receipt.name)
+    data = json.loads(receipt.read_text())
+    for name, hashes in data['files'].items():
+        assert hashlib.sha256((K618/'sheng-ports'/group/name).read_bytes()).hexdigest() == hashes['staged_sha256'], name
+    replacements.update({name: K618/'sheng-ports'/group/name for name in names})
 source_snapshots = {}
 for receipt_name in source_receipts:
     source_snapshots[receipt_name] = json.loads((PROJECT/'reports'/receipt_name).read_text())
@@ -84,11 +97,11 @@ for name in ('modules.dep','modules.alias','modules.softdep'):
     (modules/name).write_text(data)
 load = modules/'k618_batch.load'
 text = load.read_text()
-for name in ('xiaomi_touch.ko', 'nt36532_touch.ko'):
-    if name not in text.splitlines():
-        text = text.rstrip()+'\n'+name+'\n'
-load.write_text(text)
-assert (modules/'k618_batch.load').read_text().splitlines()[-2:] == ['xiaomi_touch.ko','nt36532_touch.ko']
+late_modules = [name for names in extra_groups.values() for name in names if name in replacements]
+late_modules += ['xiaomi_touch.ko', 'nt36532_touch.ko']
+lines = [line for line in text.splitlines() if line not in late_modules]
+load.write_text('\n'.join(lines + late_modules)+'\n')
+assert load.read_text().splitlines()[-len(late_modules):] == late_modules
 
 overlay = native/'overlay.cpio'
 names = sorted(p.relative_to(rd).as_posix() for p in rd.rglob('*'))
@@ -99,7 +112,7 @@ packed = {name:(mode,data) for name,mode,data in entries(overlay.read_bytes())}
 baseline = {name:(mode,data) for name,mode,data in entries((ROOT/'diagnostic'/options.base/'overlay.cpio').read_bytes())}
 assert all(packed[n][0] == baseline[n][0] for n in baseline)
 added = sorted(packed.keys()-baseline.keys())
-expected_added = sorted('lib/modules/'+n for n in ('nt36532_touch.ko','xiaomi_touch.ko')
+expected_added = sorted('lib/modules/'+n for n in replacements
                         if 'lib/modules/'+n not in baseline)
 assert added == expected_added,added
 changed = sorted(n for n in baseline if packed[n][1] != baseline[n][1])
@@ -107,7 +120,8 @@ allowed = {'lib/modules/'+name for name in replacements}
 allowed |= {'lib/modules/'+name for name in ['modules.dep','modules.alias','modules.softdep','k618_batch.load']}
 assert set(changed) <= allowed, changed
 metadata = audit(overlay)
-assert metadata['helper_executable'] and metadata['module_count'] == 340
+expected_count = sum(name.endswith('.ko') for name in baseline) + len(expected_added)
+assert metadata['helper_executable'] and metadata['module_count'] == expected_count
 report = dict(revision=tag,base_revision=options.base,checks=checked,archive=metadata,
     changed_payloads=changed,added_payloads=added,source_receipts=source_receipts,
     source_snapshots=source_snapshots,

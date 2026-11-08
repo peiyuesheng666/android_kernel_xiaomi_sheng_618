@@ -1,0 +1,224 @@
+--- a/fpc_1553/fpc1020_tee.c
++++ b/fpc_1553/fpc1020_tee.c
+@@ -40,7 +40,8 @@
+ #include <linux/regulator/consumer.h>
+ #include <linux/pm_wakeup.h>
+ #include <linux/fb.h>
+-#include <linux/pinctrl/qcom-pinctrl.h>
++#include <linux/pinctrl/consumer.h>
++#include <drm/drm_panel.h>
+ //#include <drm/drm_bridge.h>
+ //#define FPC_DRM_INTERFACE_WA
+ 
+@@ -226,7 +227,7 @@
+ 
+ release_irq_gpio:
+ 		if (gpio_is_valid(fpc1020->irq_gpio)) {
+-			devm_gpio_free(dev, fpc1020->irq_gpio);
++			gpio_free( fpc1020->irq_gpio);
+ 			fpc1020->irq_gpio = FPC_GPIO_NO_DEFAULT;
+ 			dev_info(dev, "fpc irq gpio released successfully!\n");
+ 		}
+@@ -514,7 +515,7 @@
+     int enabled;
+     struct fpc1020_data *fpc1020 = dev_get_drvdata(device);
+     mutex_lock(&fpc1020->lock);
+-    enabled = regulator_is_enabled(vreg);
++    enabled = vreg ? regulator_is_enabled(vreg) : -ENODEV;
+     mutex_unlock(&fpc1020->lock);
+     return scnprintf(buffer, PAGE_SIZE, "%i\n", enabled);
+ }
+@@ -527,6 +528,10 @@
+     int voltage, enabled;
+     struct fpc1020_data *fpc1020 = dev_get_drvdata(device);
+     mutex_lock(&fpc1020->lock);
++    if (!vreg) {
++        mutex_unlock(&fpc1020->lock);
++        return -ENODEV;
++    }
+     if (!strncmp(buf, "enable", strlen("enable"))) {
+         enabled = regulator_is_enabled(vreg);
+         if (enabled <= 0) {
+@@ -581,6 +586,10 @@
+ 
+ 	if (!strncmp(buf, "reset", strlen("reset"))) {
+ 		mutex_lock(&fpc1020->lock);
++		if (!vreg) {
++			mutex_unlock(&fpc1020->lock);
++			return -ENODEV;
++		}
+ 		power_reset();
+ 		rc = hw_reset(fpc1020);
+ 		mutex_unlock(&fpc1020->lock);
+@@ -633,9 +642,12 @@
+ 
+         if (power_cfg == 1) {
+             pr_info("Try to enable fp_vdd_vreg\n");
+-            vreg = regulator_get(dev, "fp_vdd_vreg");
+-
+-            if (vreg == NULL) {
++            if (!vreg)
++                vreg = devm_regulator_get(dev, "fp_vdd_vreg");
++
++            if (IS_ERR(vreg)) {
++                rc = PTR_ERR(vreg);
++                vreg = NULL;
+                 dev_err(dev, "fp_vdd_vreg regulator get failed!\n");
+                 goto exit;
+             }
+@@ -650,8 +662,7 @@
+                 rc = regulator_enable(vreg);
+                 if (rc) {
+                     dev_err(dev, "error enabling fp_vdd_vreg!\n");
+-                    regulator_put(vreg);
+-                    vreg = NULL;
++                    /* devm releases this acquired handle on detach. */
+                     goto exit;
+                 }
+             }
+@@ -962,7 +973,7 @@
+ 		pr_info("%s enter fingerdown & fb_black then schedule_work\n", __func__);
+ 		fpc1020->wait_finger_down = false;
+ #ifndef FPC_DRM_INTERFACE_WA
+-		schedule_work(&fpc1020->work);
++		/* No legacy bridge work: the HAL receives the IRQ above. */
+ #endif
+ 	}
+ 
+@@ -982,14 +993,17 @@
+ 
+ 	if (rc < 0) {
+ 		dev_err(dev, "failed to get '%s'\n", label);
+-		return FPC_GPIO_NO_DEFINED;
+-	}
+-	*gpio = rc;
+-
+-	rc = devm_gpio_request(dev, *gpio, label);
++		return rc;
++	}
++	{
++		int requested = rc;
++		rc = gpio_request(requested, label);
++		if (!rc)
++			*gpio = requested;
++	}
+ 	if (rc) {
+ 		dev_err(dev, "failed to request gpio %d\n", *gpio);
+-		return FPC_GPIO_REQUEST_FAIL;
++		return rc;
+ 	}
+ 
+ 	dev_dbg(dev, "fpc %s <--- %s at %d\n", __func__, label, *gpio);
+@@ -1065,7 +1079,7 @@
+ {
+ 	struct fpc1020_data *fpc1020 = container_of(work, struct fpc1020_data,screen_state_dw.work);
+ 	int error = 0;
+-	static retry_count = 0;
++	static int retry_count;
+ 	struct device_node *node;
+ 	node = of_find_node_by_name(NULL, "fingerprint-screen");
+ 	if (!node) {
+@@ -1073,11 +1087,12 @@
+ 		return;
+ 	}
+ 	error = fpc_check_panel(node);
++	of_node_put(node);
+ 	if (active_panel) {
+ 		pr_info("success to get active panel, retry times = %d",retry_count);
+ 		if (!cookie) {
+ 			cookie = panel_event_notifier_register(PANEL_EVENT_NOTIFICATION_PRIMARY,
+-					PANEL_EVENT_NOTIFIER_CLIENT_FINGERPRINT, active_panel,
++					PANEL_EVENT_NOTIFIER_CLIENT_PRIMARY_ONSCREENFINGERPRINT, active_panel,
+ 					fpc_screen_state_for_fingerprint_callback, (void*)fpc1020);
+ 			if (IS_ERR(cookie))
+ 				pr_err("%s:Failed to register for active_panel events\n", __func__);
+@@ -1191,7 +1206,7 @@
+ 	fpc1020->irqf = IRQF_TRIGGER_RISING | IRQF_ONESHOT;
+ 	fpc1020->irq_requested = false;
+ 	fpc1020->gpios_requested = false;
+-	device_init_wakeup(dev, 1);
++	/* Enabled only after probe resources are ready. */
+ /*
+ 	if (of_property_read_bool(dev->of_node, "fpc,enable-wakeup")) {
+ 		irqf |= IRQF_NO_SUSPEND;
+@@ -1202,10 +1217,13 @@
+ 	mutex_init(&fpc1020->fb_lock);
+ 
+ 	fpc1020->ttw_wl = wakeup_source_register(dev, "fpc_ttw_wl");
++	if (!fpc1020->ttw_wl)
++		return -ENOMEM;
+ 
+ 	rc = sysfs_create_group(&dev->kobj, &attribute_group);
+ 	if (rc) {
+ 		dev_err(dev, "fpc could not create sysfs\n");
++		wakeup_source_unregister(fpc1020->ttw_wl);
+ 		goto exit;
+ 	}
+ 
+@@ -1232,6 +1250,7 @@
+ #endif
+ 	//rc = hw_reset(fpc1020);
+ 
++	device_init_wakeup(dev, true);
+ 	dev_info(dev, "%s: ok\n", __func__);
+ 
+ exit:
+@@ -1239,7 +1258,7 @@
+ 	return rc;
+ }
+ 
+-static int fpc1020_remove(struct platform_device *pdev)
++static void fpc1020_remove(struct platform_device *pdev)
+ {
+ 	struct fpc1020_data *fpc1020 = platform_get_drvdata(pdev);
+ 
+@@ -1250,13 +1269,19 @@
+ 		destroy_workqueue(fpc1020->screen_state_wq);
+ 	}
+ 
+-	if (active_panel && !IS_ERR(cookie)) {
++	if (active_panel && !IS_ERR_OR_NULL(cookie)) {
+ 		panel_event_notifier_unregister(cookie);
+ 	} else {
+ 		pr_err("%s:active_panel_event_notifier_unregister falt\n", __func__);
+ 	}
+ #endif
+ 	sysfs_remove_group(&pdev->dev.kobj, &attribute_group);
++	(void)device_prepare(fpc1020, false);
++	(void)request_vreg_gpio(fpc1020, false);
++	device_init_wakeup(&pdev->dev, false);
++	vreg = NULL;
++	cookie = NULL;
++	active_panel = NULL;
+ 	mutex_destroy(&fpc1020->lock);
+ 	mutex_destroy(&fpc1020->fb_lock);
+ 	wakeup_source_unregister(fpc1020->ttw_wl);
+@@ -1269,7 +1294,7 @@
+ 	 */
+ 	dev_info(&pdev->dev, "%s\n", __func__);
+ 
+-	return 0;
++	return;
+ }
+ 
+ static struct of_device_id fpc1020_of_match[] = {
+--- a/xiaomi_fp/xiaomi_fingerprint.c
++++ b/xiaomi_fp/xiaomi_fingerprint.c
+@@ -97,7 +97,7 @@
+ 	return rc;
+ }
+ 
+-static int xiaomi_fp_remove(struct platform_device *pdev)
++static void xiaomi_fp_remove(struct platform_device *pdev)
+ {
+ 	struct xiaomi_fp_data  *xiaomi_fp = platform_get_drvdata(pdev);
+ 
+@@ -106,7 +106,7 @@
+ 
+ 	dev_info(&pdev->dev, "%s\n", __func__);
+ 
+-	return 0;
++	return;
+ }
+ 
+ static struct of_device_id xiaomi_fp_of_match[] = {

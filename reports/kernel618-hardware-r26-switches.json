@@ -1,0 +1,31 @@
+{
+  "revision": "hardware-r26",
+  "evidence": "reports/device/kernel618-hardware-r26/switches-1794160828807306348",
+  "captures": {
+    "bindings": {
+      "command": "uname -r; for p in /sys/bus/platform/devices/soc:fingerprint_fpc /sys/bus/platform/devices/soc:xiaomi_fingerprint /sys/bus/platform/devices/soc:xiaomi_hall; do ls -ld \"$p/driver\"; done",
+      "returncode": 0,
+      "bytes": 457,
+      "sha256": "5f53db6ecda7ecc0f4d3126a55211f1f7e351ddc3d45bea494e99278db186cd6"
+    },
+    "fingerprint": {
+      "command": "dumpsys fingerprint; ps -A | grep -i fingerprint; getprop | grep -i fpc",
+      "returncode": 0,
+      "bytes": 765,
+      "sha256": "3fb430fa409bad39aeedb43f0478d40f24a19f9bbc61412c3ea59ca5de375cdf"
+    },
+    "hall": {
+      "command": "dumpsys input; cat /proc/interrupts",
+      "returncode": 0,
+      "bytes": 86375,
+      "sha256": "54f9db7a46c6b2ff8e8f8a560b6f94c2889a76d5eec08ef72a6461d11ed23c07"
+    },
+    "nfc": {
+      "command": "dumpsys nfc; pm list features | grep -i nfc; service list | grep -i nfc; ls -l /dev/pn* /dev/nq* /dev/st21*",
+      "returncode": 1,
+      "bytes": 150,
+      "sha256": "694695c7572885b72408b8c50bc41c5929285122bac2f1277b16e0df52fadd82"
+    }
+  },
+  "acceptance": "Binding and framework initialization only; real cover transitions and biometric enrollment/authentication require physical verification"
+}

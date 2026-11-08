@@ -1,5 +1,36 @@
 # 6.18 sheng 外围实机修复
 
+## 2026-11-09 r26 指纹与霍尔
+
+r26 新增 fpc1552、xiaomifp、xiaomi_hall 三个原生模块，合计 343 个。
+FPC 来源为 MiCode sheng 固定提交 29db5d592c5b577aa9d9611da988a5e071d100dd；
+保留原厂 HAL/TEE 和 sysfs 协议，适配 6.18 GPIO、remove、面板通知 API，
+补 GPIO 所有权、唤醒源及卸载清理，并移除原公开源码中未初始化 work 的调度。
+没有修改指纹匹配或录入逻辑。
+
+霍尔依据实际 DT 的 GPIO171/172、EV_SW 及四路 ADSP SMP2P 开合中断报告输入；
+原厂模块反汇编确认开合极性和 IRQF_TRIGGER_RISING|IRQF_ONESHOT。
+未发现可直接复用的 sheng 公开实现；未实现原厂私有字符设备算法控制。
+
+343 模块 20889 项版本化导入、18008 内核导出一致性、cpio 权限、AVB 与
+官方 boot 模板解包回读通过。01:58:32+0800 刷 boot_a，59.39 秒收到实际
+6.18 ADB，64.83 秒记录系统启动完成。三个平台节点均绑定；指纹框架空闲且
+HAL deaths=0，r25 的 HIDL daemon is null 忙重试消失。Android 已识别
+xiaomi_hall 输入设备和两种开关。实物合盖、指纹录入/识别尚未验收。
+
+boot SHA256=107b2a7d0b57e34d4ad876d79d228f7504d141a8af009c65e3cae9adf55af90b，
+Image SHA256=e6a712f4aa2929626872b7aebbf68d59ad31c72cf8a71f5c0237b046560248c0。
+交付 artifacts/sheng-6.18-hardware-r26/，无自动重启，最多五版。
+核验索引 kernel618-hardware-r26-switches.json，源文件哈希分别见 fingerprint/hall-source。
+
+r25 日志读回成功，run=0ab7429b895f0772，末次 uptime=120485ms；
+版本身份与两槽 CRC 有效。早于33.6秒的日志已被挤出，不能据此判断早期触摸固件加载。
+
+NFC：r26 没有 NFC 系统服务或 hardware feature，没有控制器设备节点；实际 DT
+暂未发现启用的 NFC 控制器，只有通用 pinctrl 名称。通用厂商配置或加载 nxp/stm
+模块不能证明本机存在对应控制器。尚未取得官方资料确认，不制造虚假绑定。
+触摸唤醒慢、开机白闪/慢、插电音效卡顿、键盘仍在继续排查。
+
 ## 2026-11-09 r21 结果与 r22 触摸修复
 
 r21 在 57.34 秒收到实际 6.18 ADB，65.22 秒完成 Android 启动。
