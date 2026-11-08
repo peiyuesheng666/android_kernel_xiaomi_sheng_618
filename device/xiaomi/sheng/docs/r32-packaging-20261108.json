@@ -1,0 +1,163 @@
+{
+  "revision": 32,
+  "spec_sha256": "7ed43c58034439e3ce621fc9e317f663d9eb6cb96a88ad277d3c3feb3bf6c6f5",
+  "files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "b2feb95cfd5ecc0caf2d058c0edb082334e8c8a49848857198651f676e9dd80e"
+    },
+    {
+      "partition": "system",
+      "name": "system.img",
+      "bytes": 1005133824,
+      "sha256": "542a7176cdfaa0a570fdf06d7fb9d64b896e6fd3d4dcd56eccde34414dc34350"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "216c90f844c2bd43c65069e915e52a0b8de0fc84cd21179276b27263172e1178"
+    },
+    {
+      "partition": "vbmeta_system",
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "2aba140be1ae25ea56f409c715e0296207f4caf9ae317815a5cda458d2d0b998"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 352321536,
+      "sha256": "adea27952e5c6d2613bdd472181298c532bd707224326e67f530b95681b10f7b"
+    }
+  ],
+  "baseline_sha256": {
+    "system": "0f9c8ad6341faae4abaa9c080614d6d879aa62e85e36383086bb0333adfb4dce",
+    "vendor": "033fdfcc1100e8d504739c43442a6b4e57e73088b938d2f9a9bff9369702217f",
+    "odm": "eecbef1b87f4055f5c35c519d2d1d220b479e0fe6320d970708e277ebba532c0",
+    "vbmeta": "f6ba37f234fcdacbd36b7837e1d6f6a3ecd6cb147269291548089e626fb9a834",
+    "vbmeta_system": "7f3c4603e9fc7fedd923b074c9086c2d3520d7b375add56bbbb3d32f7a07411c"
+  },
+  "partition_reports": {
+    "system": {
+      "changed_files": [
+        "system/etc/vintf/compatibility_matrix.device.xml"
+      ],
+      "metadata_preserved": true,
+      "created_nodes": [],
+      "replaced_files": [
+        "system/etc/vintf/compatibility_matrix.device.xml"
+      ],
+      "filesystem_changed_blocks": [
+        71,
+        80233,
+        80234,
+        80235,
+        80236,
+        80237,
+        80238,
+        80239,
+        80240,
+        80241,
+        80242,
+        80243,
+        80244,
+        80245,
+        80246,
+        80247,
+        80248,
+        80249
+      ]
+    },
+    "vendor": {
+      "changed_files": [
+        "etc/permissions/android.hardware.biometrics.face.xml",
+        "etc/selinux/vendor_file_contexts",
+        "etc/selinux/vendor_hwservice_contexts",
+        "etc/selinux/vendor_sepolicy.cil",
+        "lib64/android.hardware.biometrics.common-V2-ndk.so",
+        "lib64/android.hardware.biometrics.face-V2-ndk.so"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "e0bc7ea7-6ad2-53bd-8343-db3cd56b720c",
+      "apk_certificates": {},
+      "created_symlinks": {},
+      "baseline_entries": {
+        "etc/permissions/android.hardware.biometrics.face.xml": null,
+        "etc/selinux/vendor_file_contexts": [
+          "file",
+          "8378fbe17737d5b36f168efd982cb7859d4d102fe197c7ee2efd55a1ac991dcf"
+        ],
+        "etc/selinux/vendor_hwservice_contexts": [
+          "file",
+          "7741771847a4ad111fbf90c7595d8ea749da70bd9e107e3009722ae46e127549"
+        ],
+        "etc/selinux/vendor_sepolicy.cil": [
+          "file",
+          "b9849a0178c4c35bdc09e2d4d8aa87181c8421dd5a8cc2ab532c1403f4f7221a"
+        ],
+        "lib64/android.hardware.biometrics.common-V2-ndk.so": null,
+        "lib64/android.hardware.biometrics.face-V2-ndk.so": null
+      },
+      "partition_size": 352321536,
+      "raw_filesystem_bytes": 298684416,
+      "avb_max_filesystem_bytes": 346681344,
+      "free_payload_bytes": 47996928
+    },
+    "odm": {
+      "changed_files": [
+        "bin/hw/android.hardware.biometrics.face-aidl-service",
+        "bin/mifaced@1.0",
+        "etc/init/android.hardware.biometrics.face-aidl-service.rc",
+        "etc/init/vendor.xiaomi.hardware.miface@1.0-service.rc",
+        "etc/selinux/precompiled_sepolicy",
+        "etc/vintf/manifest/face-default.xml",
+        "etc/vintf/manifest/manifest_vendor.xiaomi.hardware.miface.xml"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "0aa7b969-4e53-581b-b90a-26e09cf8d195",
+      "apk_certificates": {},
+      "created_symlinks": {},
+      "baseline_entries": {
+        "bin/hw/android.hardware.biometrics.face-aidl-service": null,
+        "bin/mifaced@1.0": null,
+        "etc/init/android.hardware.biometrics.face-aidl-service.rc": null,
+        "etc/init/vendor.xiaomi.hardware.miface@1.0-service.rc": null,
+        "etc/selinux/precompiled_sepolicy": [
+          "file",
+          "ccb422e37de241d4da50eb1ae8890cf1fe3fe895677658932b861d2de7e6471b"
+        ],
+        "etc/vintf/manifest/face-default.xml": null,
+        "etc/vintf/manifest/manifest_vendor.xiaomi.hardware.miface.xml": null
+      },
+      "partition_size": 1141067776,
+      "raw_filesystem_bytes": 1119764480,
+      "avb_max_filesystem_bytes": 1122971648,
+      "free_payload_bytes": 3207168
+    }
+  },
+  "exact_baselines_verified": true,
+  "all_filesystem_stages_verified": true,
+  "both_parent_chains_verified": true,
+  "both_parent_signatures_verified": true,
+  "other_avb_descriptors_unchanged": true,
+  "vendor_logical_partition_growth": {
+    "before": 303517696,
+    "after": 352321536,
+    "required_payload_reserve": 33554432
+  },
+  "original_systemui_required": true,
+  "system_ext_and_vendor_dlkm_unchanged": true,
+  "full_product_build_passed": false,
+  "persistent_build_evidence_dir": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/r32-build-evidence-20261108T041111880915Z",
+  "manifest_path": "artifacts/system-hardware-followup-sheng-r32/build-result.json",
+  "manifest_sha256": "5d007638d856377da421d9526627ac4afe5bc07518776afcffee6ddfc09ed344",
+  "host_flasher_validation_passed": true,
+  "hardware_boot_tested": false,
+  "runtime_verified": false,
+  "rollback_vendor_logical_size": 303517696,
+  "rollback_vendor_path": "artifacts/system-hardware-followup-sheng-r31/vendor.img",
+  "rollback_note": "Restore exact r31 five-image chain and resize vendor_b back to 303517696 bytes in checked ca10ede3/b fastbootd before booting its old vendor footer; do not use the old source-frozen r31 flasher against newer source inputs."
+}
