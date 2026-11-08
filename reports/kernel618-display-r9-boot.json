@@ -1,0 +1,19 @@
+{
+  "revision": "display-r9",
+  "boot_sha256": "b28a199244fa644433ba8acbcc2f7c9da711ed7d684cce2151c4f5ae0b56a09d",
+  "image_sha256": "b5d2b44b566ac85bd704b50b5c63c2c13d2f07cca6e288d34d0e9b63950a4efb",
+  "boot_bytes": 100663296,
+  "image_bytes": 78858752,
+  "same_image_as_revision": "display-r8",
+  "compiled": false,
+  "cmdline": "printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=display-r9 msm_drm.k618_cont_splash=0",
+  "diagnostic_only": true,
+  "existing_upstream_module_option": "msm_drm.k618_cont_splash=0",
+  "option_reference": "upstream c3956156ce7c4193c451dfda531fad72d35bfebb kernel-6.18/k618_timg.sh and k618_tp_fix.py",
+  "interpretation": "Map existing splash memory but omit old display-state handoff; diagnostic comparison, not a completed panel fix",
+  "kernel_readback_matches": true,
+  "avb_self_verification_passed": true,
+  "original_android_init_preserved": true,
+  "hardware_log_received": false,
+  "maximum_retained_versions": 5
+}

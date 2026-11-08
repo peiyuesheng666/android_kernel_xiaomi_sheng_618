@@ -9,10 +9,67 @@
   "image_sha256": "b5d2b44b566ac85bd704b50b5c63c2c13d2f07cca6e288d34d0e9b63950a4efb",
   "flash_succeeded": true,
   "reboot_command_succeeded": true,
-  "hardware_log_received": false,
-  "android_boot_completed": null,
-  "current_state": "Flashed and rebooted; waiting for screen feedback and rawdump readback",
+  "hardware_log_received": true,
+  "android_boot_completed": false,
+  "current_state": "Temporary r13 Recovery; snapshots decoded; subsequently testing r9",
   "original_boot_backed_up": false,
   "diagnostic_only": true,
-  "probe_checkpoint_delay_ms": 350
+  "probe_checkpoint_delay_ms": 350,
+  "persistent_log": {
+    "raw_sha256": "d37d7236f8faa7fa9e4a6042d56690c27bcf8b7eb1eb71c5aff7077206e4342b",
+    "valid_snapshots": [
+      {
+        "slot": 0,
+        "run": "96341b5145998f87",
+        "sequence": 70,
+        "uptime_ms": 22397,
+        "bytes": 257767,
+        "file": "reports/device/kernel618-display-r8/bootlog-96341b5145998f87-70.txt"
+      },
+      {
+        "slot": 1,
+        "run": "96341b5145998f87",
+        "sequence": 69,
+        "uptime_ms": 22141,
+        "bytes": 257767,
+        "file": "reports/device/kernel618-display-r8/bootlog-96341b5145998f87-69.txt"
+      }
+    ],
+    "valid_snapshot_found": true
+  },
+  "display_probe_stages": [
+    "hw_init begin",
+    "hardware blocks begin",
+    "DRM objects begin",
+    "display connectors setup returned",
+    "CRTC 0/6 begin",
+    "CRTC 0/6 returned, error=0",
+    "CRTC 1/6 begin",
+    "CRTC 1/6 returned, error=0",
+    "CRTC 2/6 begin",
+    "CRTC 2/6 returned, error=0",
+    "CRTC 3/6 begin",
+    "CRTC 3/6 returned, error=0",
+    "CRTC 4/6 begin",
+    "CRTC 4/6 returned, error=0",
+    "CRTC 5/6 begin",
+    "CRTC 5/6 returned, error=0",
+    "DRM objects returned",
+    "hardware blocks returned",
+    "VM init begin",
+    "VM init returned",
+    "hw_init returned",
+    "components initialized",
+    "IRQ install begin",
+    "IRQ install returned",
+    "mode_config_reset begin",
+    "mode_config_reset returned"
+  ],
+  "crtc_initializations_completed": 6,
+  "irq_install_returned": true,
+  "mode_config_reset_returned": true,
+  "cont_splash_begin_captured": false,
+  "drm_dev_register_begin_captured": false,
+  "final_display_oops_captured": false,
+  "diagnosis": "All six CRTC creations, hardware/VM init, IRQ install and mode_config_reset returned. Last persisted marker is mode_config_reset returned at 22.146553 seconds; latest snapshot header 22.397 seconds. No final exception stack, so the exact stop site remains unproven."
 }

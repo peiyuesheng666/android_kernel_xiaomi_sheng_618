@@ -70,7 +70,7 @@ r7 已刷入 boot_a。经临时 r13 Recovery 读回 run e406b6c7f30277d3 的 seq
 Recovery 正常识别 DP_PLL_4NM_V1_1。这证明绑定不一致，但不足以断定停机原因。
 原始日志在 reports/device/kernel618-display-r7/；下一步细化显示初始化检查点。
 
-### r8 显示阶段检查点（已刷入，运行结果待确认）
+### r8 显示阶段检查点（实机日志已读回）
 
 新增 sheng_boot_trace.h 与 display-probe-trace.patch，限定在可休眠的显示 probe
 上下文记录硬件初始化、连接器、每个 CRTC、IRQ、mode reset、splash handoff、
@@ -85,8 +85,27 @@ msm_drm.ko 负载和官方 boot 解包回读均通过。编译模块中检查点
 
 boot SHA256: 21a41ee11c30437a712db6891d319359cf65eebe774bcfbaf8ed59014551b893。
 Image SHA256: b5d2b44b566ac85bd704b50b5c63c2c13d2f07cca6e288d34d0e9b63950a4efb。
-已经 Recovery ADB 重启到 Fastboot 后刷入 boot_a 并发出 reboot，命令均成功；
-正在等待本轮屏幕反馈与实机日志，不能据此认定可正常开机。
+已经 Recovery ADB 重启到 Fastboot 后刷入 boot_a 并发出 reboot，命令均成功。
+用户反馈仍失败。读回 run 96341b5145998f87，seq69/70 至 22.141/22.397 秒，
+两份 CRC/尾标记有效，启动标记为 display-r8。
+六个 CRTC 创建均返回 error=0，硬件/VM 初始化、IRQ 安装、mode_config_reset
+均返回。22.146553 秒为最后记录的 mode_config_reset returned；未保存后续
+cont_splash_config begin 或最终显示异常栈。HFI/SPR 报错后这些步骤仍然完成，
+不能把它们当作已证明的终止原因，也不能认定尚未保存的下一阶段从未执行。
+
+### r9 旧画面接管对照（已刷入，运行结果待确认）
+
+所选底座固定提交 c3956156ce7c4193c451dfda531fad72d35bfebb 的 k618_timg.sh
+已有 msm_drm.k618_cont_splash 开关（其临时启动默认 0）；k618_tp_fix.py 的实现
+在关闭时保留 splash 内存一对一映射，清除旧画面交接状态，让后续流程重新点屏。
+k618_load.c 从实际 kernel cmdline 提取模块参数后传给 finit_module。
+这是底座现有调试路径，未因此引入其他机型面板参数。
+
+r9 完全复用 r8 Image（SHA256 相同），仅改变 boot cmdline 的测试标记和
+msm_drm.k618_cont_splash=0，用于判断旧画面交接是否影响后续进展。
+未重复编译内核/模块；原厂 boot 只读，AVB 自校验和内核解包回读通过。
+boot SHA256: b28a199244fa644433ba8acbcc2f7c9da711ed7d684cce2151c4f5ae0b56a09d。
+已刷入 boot_a 并 reboot，正在等待本轮反馈及实机参数/日志确认。
 
 ## 内核直接落盘
 
@@ -136,6 +155,6 @@ init_boot 的 /init 转交 vendor_boot 的探测程序，再由其设置 USB ACM
 本任务仅参考 USB 顺序和描述符，没有引入 HarmonyOS 服务。
 文件与哈希见 `kernel618-anyhmos-usb-reference.json`。
 
-当前五版保留为 serial-r4、disklog-r5、display-r6、display-r7、display-r8。
+当前五版保留为 disklog-r5、display-r6、display-r7、display-r8、display-r9。
 首版及 baseline-r2 交付目录已清理，原始 Image 仍保留在 WSL
 /root/sheng-618/diagnostic/baseline-r2/verified/kernel。

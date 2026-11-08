@@ -29,7 +29,10 @@ display-r7 已改用保留权限的 newc 封包，完整归档权限/负载、AB
 空指针位置；仍未开机，最新有效日志至 12.516 秒，未抓到新的 Oops。
 当前进一步排查显示初始化的 DP PLL 旧绑定和缺失的最后阶段日志。
 display-r8 已加入显示 probe 分阶段落盘检查点，编译、337 模块 ABI、归档权限
-和官方 boot 解包回读通过，已刷入 boot_a；这一轮实机结果待读回。
+和官方 boot 解包回读通过。实机六个 CRTC、硬件/VM 初始化、IRQ 和 DRM 状态重置
+均已返回；最新快照至 22.397 秒，最后检查点为 mode_config_reset returned。
+display-r9 沿用完全相同的 Image，仅用底座已有 k618_cont_splash=0 开关对照
+旧画面接管路径，已刷入 boot_a；结果待读回。
 详见 [reports/KERNEL618_DEBUG_STATUS.md](reports/KERNEL618_DEBUG_STATUS.md)。
 尚未正常开机，平板功能适配与验证仍未完成。
 
