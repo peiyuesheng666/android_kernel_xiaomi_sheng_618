@@ -9,9 +9,10 @@
     "kernel618-auto-r13-qemu-auto-reboot.json",
     "kernel618-auto-r13-qemu-auto-emergency.json"
   ],
-  "hardware_pending": true,
+  "hardware_pending": false,
   "modules_reused_from": "aux-r12",
   "preliminary_failed_checks": "Fault path initially could not wake reset thread on exception CPU; moved to capture CPU. Shutdown then blocked; added high-resolution reset guard. Console ceased during reset; QMP guest-reset now verifies actual reset.",
   "limitations": "Entire-SoC hard lock, unavailable reset provider, and reset before PMIC cell probes cannot be guaranteed",
-  "kernel_compatibility_next": "Stock post-fs waits for vendor.all.modules.ready after 5.15 duplicate modprobe rejected; prepare precise live replacement EEXIST recognition"
+  "kernel_compatibility_next": "Stock post-fs waits for vendor.all.modules.ready after 5.15 duplicate modprobe rejected; prepare precise live replacement EEXIST recognition",
+  "hardware_receipt": "kernel618-auto-r13-hardware.json"
 }

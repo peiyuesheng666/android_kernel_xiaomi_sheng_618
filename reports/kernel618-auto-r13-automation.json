@@ -1,0 +1,101 @@
+{
+  "revision": "auto-r13",
+  "serial": "ca10ede3",
+  "boot_sha256": "52d9576fbda92a1bae07ac66ddf6d6720b7cd2a2f623601e6660924e420d0f5d",
+  "image_sha256": "061e873b90cf52a5b7621856526e7e775fb513f3c379b7eab321da8a8da14a17",
+  "test_timeout_seconds": 180,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T22:55:27+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "boot_a_flashed",
+      "wall_time": "2026-11-08T22:55:36+0800"
+    },
+    {
+      "event": "candidate_started",
+      "wall_time": "2026-11-08T22:55:36+0800"
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T22:55:36+0800",
+      "seconds_remaining": 235
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T22:56:07+0800",
+      "seconds_remaining": 205
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T22:56:37+0800",
+      "seconds_remaining": 174
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T22:57:07+0800",
+      "seconds_remaining": 144
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T22:57:37+0800",
+      "seconds_remaining": 114
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T22:58:07+0800",
+      "seconds_remaining": 84
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T22:58:37+0800",
+      "seconds_remaining": 54
+    },
+    {
+      "event": "automatic_fastboot_received",
+      "wall_time": "2026-11-08T22:58:47+0800",
+      "elapsed_seconds": 190.4
+    },
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-08T22:58:50+0800"
+    },
+    {
+      "event": "log_readback_complete",
+      "wall_time": "2026-11-08T22:59:04+0800",
+      "run": "268ff7eca5cb8087",
+      "uptime_ms": 179878
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T22:59:04+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "finished_in_fastboot",
+      "wall_time": "2026-11-08T22:59:08+0800"
+    }
+  ],
+  "automatic_fastboot_return": true,
+  "raw_sha256": "9f008f45a0608ecf4494a1d9d9aadfc04b11b910ce95da96dc6204df94a41129",
+  "run": "268ff7eca5cb8087",
+  "valid_snapshots": [
+    {
+      "sequence": 652,
+      "uptime_ms": 179878
+    },
+    {
+      "sequence": 651,
+      "uptime_ms": 179590
+    }
+  ],
+  "log_readback_succeeded": true,
+  "latest_log": "reports/device/kernel618-auto-r13/bootlog-268ff7eca5cb8087-652.txt"
+}

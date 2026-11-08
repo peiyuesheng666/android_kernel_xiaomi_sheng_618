@@ -296,3 +296,14 @@ printk 至 32.631 秒，但日志写入线程继续工作至 120 秒，尚不能
 目前软件验证通过，实机自动 Fastboot 和读回尚待这一轮测试。
 用户已要求一旦 ADB 连通，下一版去掉测试模式；默认不传参数即关闭此行为。
 五版交付为 display-r9、fault-r10、slab-r11、aux-r12、auto-r13。
+
+
+### auto-r13 实机自动化通过
+
+本轮无需手动按键：刷入并启动后，电脑在 190.40 秒重新收到 Fastboot，
+自动临时启动 Recovery，读取 CRC 有效的 run 268ff7eca5cb8087，
+seq651/652 至 179.590/179.878 秒，之后自动返回 Fastboot。
+175.106 秒任务栈已保存：PID1 为 S 状态 epoll 等待，不是卡在不可中断内核调用。
+结合原厂 rc 和 modprobe 的退出日志，确认等待模块就绪属性这条兼容问题。
+Android 尚未启动、候选 ADB 未连接；异常返回 Fastboot 仅 QEMU 验证，实机此次验证超时路径。
+自动化记录 kernel618-auto-r13-automation.json，硬件结果 kernel618-auto-r13-hardware.json。

@@ -183,3 +183,6 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 
 2026-11-08 auto-r13 已完成仅测试版 180 秒回 Fastboot、异常捕获后复位和电脑端单轮读日志脚本。
 同一 Image 的 QEMU 六项检查通过；实机自动化待验证。ADB 连通后的下一版关闭测试模式。
+
+2026-11-08 auto-r13 实机完成 180 秒超时返回 Fastboot、临时 Recovery 自动读日志并回到 Fastboot，
+全程无需手动按键；175 秒任务栈证实 init 正在等待事件。Android 尚未启动。

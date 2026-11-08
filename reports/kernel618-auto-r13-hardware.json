@@ -1,0 +1,34 @@
+{
+  "revision": "auto-r13",
+  "serial": "ca10ede3",
+  "flashed_partition": "boot_a",
+  "boot_sha256": "52d9576fbda92a1bae07ac66ddf6d6720b7cd2a2f623601e6660924e420d0f5d",
+  "image_sha256": "061e873b90cf52a5b7621856526e7e775fb513f3c379b7eab321da8a8da14a17",
+  "flash_succeeded": true,
+  "hardware_log_received": true,
+  "automatic_fastboot_return": true,
+  "host_elapsed_seconds": 190.4,
+  "run": "268ff7eca5cb8087",
+  "valid_snapshots": [
+    {
+      "sequence": 652,
+      "uptime_ms": 179878
+    },
+    {
+      "sequence": 651,
+      "uptime_ms": 179590
+    }
+  ],
+  "raw_sha256": "9f008f45a0608ecf4494a1d9d9aadfc04b11b910ce95da96dc6204df94a41129",
+  "latest_log": "reports/device/kernel618-auto-r13/bootlog-268ff7eca5cb8087-652.txt",
+  "android_boot_completed": false,
+  "candidate_adb_connected": false,
+  "manual_reboot_needed": false,
+  "temporary_recovery_and_readback_automatic": true,
+  "original_boot_backed_up": false,
+  "current_state": "Fastboot after automatic log readback",
+  "init_stack": "PID1 state S: epoll wait, no blocked kernel syscall; last action waits vendor.all.modules.ready",
+  "pmic_reason_prearm_logged": true,
+  "exception_fastboot_hardware_tested": false,
+  "next": "modules-r14: precise EEXIST recognition for live 6.18 replacements requested again by stock 5.15 modprobe"
+}
