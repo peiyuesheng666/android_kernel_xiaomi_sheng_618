@@ -58,7 +58,20 @@
     "screenshot_composition_looks_normal": true,
     "panel_stripes_fixed_verified": "User reports initial success; extended testing pending",
     "user_feedback": "Normal picture; no stripes noticed so far on r20",
-    "timing_command_runtime_log_received": false
+    "timing_command_runtime_log_received": true,
+    "timing_command_runtime_log": {
+      "path": "reports/device/kernel618-tablet-r20/bootlog-f7278f12145f21b8-403.txt",
+      "sha256": "1b1c5059d43b8385a9fb8983e5c36535950a4915cdc35a73cbee0ad46dcec87e",
+      "successful_commands": [
+        "<6>[   48.000694][  T656] [drm:dsi_panel_post_enable [msm_drm]] [msm-dsi-info]: sheng post-on video timing: fps=120 rc=0",
+        "<6>[   48.025650][  T656] [drm:sde_encoder_kickoff:7339] sheng video switch: 120 -> 144 rc=0",
+        "<6>[   49.691676][  T656] [drm:sde_encoder_kickoff:7339] sheng video switch: 144 -> 120 rc=0",
+        "<6>[   61.099210][  T656] [drm:sde_encoder_kickoff:7339] sheng video switch: 120 -> 50 rc=0",
+        "<6>[   64.770082][  T656] [drm:sde_encoder_kickoff:7339] sheng video switch: 50 -> 120 rc=0"
+      ],
+      "white_flash_root_cause_verified": false,
+      "white_flash_duration_measured": false
+    }
   },
   "touch": {
     "working": false,

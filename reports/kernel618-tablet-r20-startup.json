@@ -1,0 +1,30 @@
+{
+  "revision": "tablet-r20",
+  "kernel": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "current_boot_id": "a2e9b4a7-ea76-4ede-98dc-2cc6ba668886",
+  "boot_progress_seconds_from_kernel_start": {
+    "boot_progress_start": 42.189,
+    "boot_progress_preload_start": 42.677,
+    "boot_progress_preload_end": 44.749,
+    "boot_progress_system_run": 45.119,
+    "boot_progress_pms_start": 45.435,
+    "boot_progress_pms_ready": 48.588,
+    "boot_progress_ams_ready": 50.219,
+    "boot_progress_enable_screen": 52.724
+  },
+  "current_boot_is_separate_from_initial_flash_run": true,
+  "first_android_event_seconds": 42.189,
+  "android_start_to_enable_screen_seconds": 10.535,
+  "user_report": "White flash at boot with a noticeable delay; white interval not measured",
+  "hypothesis": "Bootloader display handover or first-frame/backlight sequencing; not established by the retained log",
+  "limits": [
+    "Retained initial-run kernel log begins at 31.878831 seconds; earliest display handover is missing",
+    "boot_progress_enable_screen is an Android event, not proof of physical first frame or white-flash duration",
+    "Successful DSI command returns do not prove visible panel output is correct",
+    "No evidence yet assigns the startup delay to one driver or ties it to the white flash"
+  ],
+  "original_flash_to_adb_seconds": 55.22,
+  "original_flash_to_boot_completed_seconds": 63.25,
+  "test_timeout_enabled": false,
+  "device_partitions_written_in_this_followup": []
+}
