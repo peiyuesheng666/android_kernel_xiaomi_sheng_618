@@ -1,0 +1,48 @@
+{
+  "revision": 31,
+  "date": "2026-11-08",
+  "serial": "ca10ede3",
+  "slot": "b",
+  "source_fixes_committed": true,
+  "scoped_build_passed": true,
+  "full_product_build_passed": false,
+  "exact_vendor_two_file_delta_verified": true,
+  "avb_and_inode_metadata_verified": true,
+  "flash_commands_completed": true,
+  "partitions_written": [
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "f6ba37f234fcdacbd36b7837e1d6f6a3ecd6cb147269291548089e626fb9a834"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "033fdfcc1100e8d504739c43442a6b4e57e73088b938d2f9a9bff9369702217f"
+    }
+  ],
+  "reboot_command_completed": true,
+  "adb_reconnected": false,
+  "hardware_boot_tested": false,
+  "runtime_verified": false,
+  "thermal_daemon_property_verified": false,
+  "installed_format_library_verified": false,
+  "profile5_decode_verified": false,
+  "profile81_decode_verified": false,
+  "systemui_modified": false,
+  "adb_root_executed": false,
+  "other_connected_device_operated": false,
+  "waiting_process": "ADB ca10ede3 wait-for-device, exec session 13786",
+  "raw_evidence_directory": "reports/device/r31-20261108-104747",
+  "evidence_sha256": {
+    "device-operations.txt": "a5ab69ec90b46fc9f60e68caa019a533624dab79317f1ea68dd6f576584fb445",
+    "face-offline-investigation.json": "4f154823e954f131815c77439267df61e531048c771136bd421fc921692eae5c",
+    "lhdc-offline-investigation.json": "e1dba68c7a5e4f14ca3c4c5f068664c6f5b3f9d73b862547fa43e3c4e84d4853",
+    "libmiface-disassembly.txt": "328b88c163da4f50169a1cc9ac5432a21be569e0f84e94747bb2fc49da1f8c39",
+    "packaging-manifest.json": "8435c5ca95c315e725dda7f9f80939811b02615c99fbd666bb0a1e4c6a91a038",
+    "verify-r31-pinned-video.ps1": "82b89bb250edbf7dedab404a0da06de17ef0eb2d92e9ce231841007b178b33f5"
+  },
+  "next_action": "After ca10ede3 reconnects, verify boot and root state, seven partitions and scoped files, daemon-owned property under Enforcing, installed layout exports, real gralloc allocation, and two pinned Dolby Vision profiles."
+}
