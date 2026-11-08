@@ -51,7 +51,7 @@ def validate(spec, workspace):
         assert set(stage['files']) == SCOPE[p] and set(stage['new_nodes']) == {NEW_LIBRARY}
         node = stage['new_nodes'][NEW_LIBRARY]
         assert node['uid'] == node['gid'] == 0 and node['mode'] & 0o777 == 0o644
-        assert node['selinux'] == 'u:object_r:vendor_file:s0'
+        assert node['selinux'] == 'u:object_r:same_process_hal_file:s0'
         validate_inputs(p, stage['files'])
         for r, value in stage['files'].items():
             assert value['sha256'] == review['reviewed_sha256'][p][r]

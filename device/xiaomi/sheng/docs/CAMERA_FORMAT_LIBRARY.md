@@ -17,7 +17,9 @@ odm/lib64/libcamximageformatutils.so, which does not replace this loader target.
 
 Keep the original library unchanged in the device tree and install it with an
 ordinary vendor cc_prebuilt_library_shared module. Retain ELF checks and all
-original dependencies. No gralloc source, pixel-format reinterpretation, camera
+original dependencies. The existing Qualcomm file-context rule labels this exact
+library same_process_hal_file; preserve that label with root:root and mode 0644.
+No new SELinux rule is needed. No gralloc source, pixel-format reinterpretation, camera
 HAL, Dolby library or SystemUI modification is required for this missing file.
 
 The reproduction's diagnostic Java process timed out and exited; the monitored

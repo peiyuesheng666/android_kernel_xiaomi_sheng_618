@@ -65,7 +65,7 @@ foreach ($partition in $scope.Keys) {
     }
     $node = $stage.new_nodes.'lib64/libcamxexternalformatutils.so'
     if ($node.uid -ne 0 -or $node.gid -ne 0 -or ($node.mode -band 511) -ne 420 -or
-        $node.selinux -ne 'u:object_r:vendor_file:s0') { throw 'Incorrect new library metadata.' }
+        $node.selinux -ne 'u:object_r:same_process_hal_file:s0') { throw 'Incorrect new library metadata.' }
     if ($stage.files.'lib64/libcamxexternalformatutils.so'.sha256 -ne
         '7a1affdcba4a1dc835e5ac1944bbea864056fb38bec45c87538ef4df9a2be599' -or
         $stage.files.'etc/selinux/vendor_property_contexts'.sha256 -ne
@@ -145,7 +145,7 @@ if ($VerifyRuntime) {
     }
     if ((Invoke-Target $adb @('shell','stat -c "%u %g %a" /vendor/lib64/libcamxexternalformatutils.so')).Trim() -ne '0 0 644' -or
         (Invoke-Target $adb @('shell','ls -Zd /vendor/lib64/libcamxexternalformatutils.so')) -notmatch
-        'u:object_r:vendor_file:s0') { throw 'Installed library metadata differs.' }
+        'u:object_r:same_process_hal_file:s0') { throw 'Installed library metadata differs.' }
     Invoke-Target $adb @('shell','getprop sys.boot_completed; getenforce; settings get secure adaptive_sleep; settings get system screen_off_timeout; getprop init.svc.mi_thermald; getprop init.svc.vendor.thermal-hal; cat /sys/class/thermal/thermal_message/sconfig; pidof com.android.systemui; pidof vendor.qti.camera.provider-service_64') | Write-Output
     Write-Output "Seven partition/file hashes verified; evidence: $evidence"
     return

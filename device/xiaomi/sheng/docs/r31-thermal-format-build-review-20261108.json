@@ -66,8 +66,15 @@
   "target_original_library_probe_evidence_sha256": "c47350fe8f9cb1483042841b1c527abee9de0be69078317d2b7d586ce36ec5c0",
   "target_installed_library_missing_evidence_sha256": "d741204b31041ba540ed8bf83b2d88f767fa6bfba73d752ce446114c40e2a4a9",
   "packaging_source_sha256": {
-    "tools/package_sheng_thermal_format_r31.py": "92c824c2ef62c5895bf7adedf004738b135d31c964463d9a63c7cffb7ea7f542",
-    "tools/flash_sheng_thermal_format_r31.ps1": "1902979b3e0982c891193783d9e7e9d84106073c23b8b584b987be7b17d0a54b"
+    "tools/package_sheng_thermal_format_r31.py": "ea0bafad93333405332a2b0cdd1aefee68fc2c74074b294bc8620656054a8e0b",
+    "tools/flash_sheng_thermal_format_r31.ps1": "643ac4564066c3dd94ddacd39f7e0b1fb816777df3b696c723e90de3772cc550"
   },
-  "rollback_baselines_directory": "artifacts/system-hardware-followup-sheng-r30"
+  "rollback_baselines_directory": "artifacts/system-hardware-followup-sheng-r30",
+  "new_library_metadata": {
+    "uid": 0,
+    "gid": 0,
+    "mode": 420,
+    "selinux": "u:object_r:same_process_hal_file:s0",
+    "source": "Existing Qualcomm generated file_contexts exact library rule; libcutils metadata template agrees"
+  }
 }
