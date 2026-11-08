@@ -1,0 +1,56 @@
+{
+  "binary_parser": "current ROM checkpolicy -b -M -C; no xperm formats skipped",
+  "inputs_and_decompiled_sha256": {
+    "/root/sheng-lineage/hardware-diagnostics/r32-policy-candidates-20261108-attempt2/precompiled_sepolicy": "85b032453940d401a69b216a5af221c35d9473d3bb825cd71cfd3364938e5ef1",
+    "/root/sheng-lineage/hardware-diagnostics/r35-policy-candidates-20261108/precompiled_sepolicy": "4ad365f8228429c4444a4d6491cb45ffb9d0001363958050c88ffe017e395f44",
+    "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/bin/checkpolicy": "3bb602c5dc4a00a2df4720627b3e5c04e071a97b08989904ec8fc8cae66b66fe",
+    "/root/sheng-lineage/hardware-diagnostics/r35-policy-delta-20261108/baseline.cil": "b05c273de8588bc2348df538db2aa93a0557bcc93afb7c575e751dbbc1f2efea",
+    "/root/sheng-lineage/hardware-diagnostics/r35-policy-delta-20261108/candidate.cil": "01d0b07642c1a7a066c3f323f069c3cbedd96c9ea7baa896c52f44070ed78204"
+  },
+  "builder_sha256": "bbc9a65d05763db1eb132d5af4336db920b0a5b42a7eb4c9e2d23cbccf6c0789",
+  "compared_existing_types": 3674,
+  "added_types": [],
+  "removed_types": [],
+  "added_existing_type_permissions": [
+    {
+      "kind": "allow",
+      "source": "cameraserver",
+      "target": "hal_miface_default",
+      "tclass": "binder",
+      "permission": "call"
+    }
+  ],
+  "removed_existing_type_permissions": [],
+  "existing_type_attribute_membership_changes": {},
+  "existing_type_non_av_rule_forms_added": [],
+  "existing_type_non_av_rule_forms_removed": [],
+  "existing_role_type_statements_added": [],
+  "existing_role_type_statements_removed": [],
+  "other_statements_added": [],
+  "other_statements_removed": [],
+  "baseline_permissive_domains": [
+    "aoncameraservice_app",
+    "backuptool",
+    "qti-testscripts",
+    "su",
+    "vendor-qti-testscripts",
+    "vendor_cta_app",
+    "vendor_hal_debugutils_default",
+    "vendor_logkit_app",
+    "vendor_pdt_app"
+  ],
+  "candidate_permissive_domains": [
+    "aoncameraservice_app",
+    "backuptool",
+    "qti-testscripts",
+    "su",
+    "vendor-qti-testscripts",
+    "vendor_cta_app",
+    "vendor_hal_debugutils_default",
+    "vendor_logkit_app",
+    "vendor_pdt_app"
+  ],
+  "installed": false,
+  "camera_opened": false,
+  "scope": "Exact ordinary AV permissions between existing types; normalized extended and transition rule forms; new-type permissions still require separate review."
+}
