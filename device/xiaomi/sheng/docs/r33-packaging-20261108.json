@@ -1,0 +1,39 @@
+{
+  "revision": 33,
+  "spec_sha256": "851182d422a818fa3b8bb7d7ecbbeca2c71f6449e5ff0b14e5ddd0332edab50d",
+  "files": [
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "9f9d1b85de4fb25883d889845e76209357be91dc5311451dd6d9b4f3431e4d27"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 352321536,
+      "sha256": "820a2cf157199372c4e267e905e8cbadff284ab1fe89857d8b0e095bf347cc37"
+    }
+  ],
+  "partition_reports": {
+    "vendor": {
+      "changed_files": [
+        "etc/init/init.sm8550.rc"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "e0bc7ea7-6ad2-53bd-8343-db3cd56b720c",
+      "apk_certificates": {},
+      "created_symlinks": {},
+      "baseline_entries": {
+        "etc/init/init.sm8550.rc": [
+          "file",
+          "021e9c5be5871089c51ae1ba62ab42a0e7b97e9cef064d75d11244c8e75956de"
+        ]
+      },
+      "partition_size": 352321536,
+      "raw_filesystem_bytes": 298684416,
+      "avb_max_filesystem_bytes": 346681344,
+      "free_payload_bytes": 47996928
+    }
+  }
+}
