@@ -1,0 +1,35 @@
+{
+  "revision": 37,
+  "scoped_configuration_assembly_passed": true,
+  "platform_build_property_validation_passed": true,
+  "native_secure_heap_probe_passed": true,
+  "full_product_build_passed": false,
+  "normal_product_module_build_passed": false,
+  "baseline_vendor_build_prop_sha256": "264883ef0a6486d9861ec1d94db4fb7f0d6a639d242184be66064ca79bba8834",
+  "property_delta": {
+    "added": {
+      "vendor.gralloc.use_dma_buf_heaps": "true"
+    },
+    "removed": [],
+    "changed": []
+  },
+  "reviewed_sha256": {
+    "vendor": {
+      "build.prop": "a5a66eaf8fb0fe722623c10d34b7229bc96cb777b92b2645789bf3b9a1f1a5b9"
+    }
+  },
+  "source_sha256": {
+    "properties/vendor.prop": "abbe6dde04c69d6931b16d47fde20e7f5c89deab980c6b9aa16474d6bfd70986",
+    "tools/assemble_sheng_native_dma_r37.py": "1213e9d4d9ede9770bacda230df9104a7577a6addc18797da59d5e59cd0126b9"
+  },
+  "native_probe_review_sha256": "0ae6be1dcf886efbbc0190c38a52ff24e2326ec7864b777b57d3862176321ea4",
+  "prebuild_public_audit_sha256": "2722f41cad6cafa28ed47505edbbaa5a26b641986212de000fbd927b716c4dd0",
+  "public_repositories_fresh_audited": 25,
+  "all_project_status_checked": 1243,
+  "property_validation_source_sha256": "c572650b58630fc26998281960fa821feba7f643fcb4f4aba387608ee6a6aa23",
+  "postbuild_public_audit_passed": true,
+  "installed": false,
+  "runtime_verified": false,
+  "systemui_changed": false,
+  "postbuild_public_audit_sha256": "2f3d6e636df998c19b08ff20ef331f6301faba6c9503ca9ecd8d449088a4656f"
+}

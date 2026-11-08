@@ -1,0 +1,37 @@
+{
+  "native_secure_heap_probe_passed": true,
+  "native_secure_allocations": 2,
+  "camera_opened": false,
+  "protected_pixels_mapped": false,
+  "serial": "ca10ede3",
+  "slot": "b",
+  "revision_running": 36,
+  "diagnostic_domain": "su",
+  "allocator_domain_permission_tested": false,
+  "legacy_ion_flags": [
+    "0x80200000",
+    "0x88200000"
+  ],
+  "native_vm_permissions": [
+    {
+      "camera": "read/write"
+    },
+    {
+      "camera_preview": "read",
+      "camera": "read/write"
+    }
+  ],
+  "allocation_lend_release_results": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "probe_sha256": "d6b99a947c5447fafc51d0b2b8f7c2ce7a1d8ab104f3f7a1c6cccea7154457f5",
+  "raw_evidence": "reports/device/r36-face-runtime-20261108/secure-heap-probe-runtime.txt",
+  "runtime_evidence_sha256": "41478d32ca1078f93e3a8afe8499d53be26894ba2aed19b0266d33534dd8b51f",
+  "enrollment_passed": false,
+  "authentication_passed": false
+}
