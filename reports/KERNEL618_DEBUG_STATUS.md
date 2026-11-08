@@ -548,3 +548,25 @@ ams_ready=50.219秒、enable_screen=52.724秒。首个运行时标记到enable_s
 后续需保留早期显示交接日志并对照实际屏幕，不能只加固定延时掩盖。
 本轮没有修改内核、刷分区或重启设备，测试自动重启保持关闭。
 记录见kernel618-tablet-r20-startup.json；输入、手写笔、键盘、触摸板、扬声器仍待修。
+
+### peripherals-r21：补齐 NT36532/THP、笔充电通知和六功放路由，待实机
+
+复用MiCode公开touch-driver piano-w-oss 6957f6b6中的NT36532及小米THP核心，
+仅允许本机N81A面板ID，坐标2032×3048、超分倍率10、40×60矩阵和内存页配置
+均对照实际原厂Recovery。只请求sheng原厂CSOT固件/配置，不导入piano固件。
+移植SPI、netlink、llseek、命名空间和remove API；保留M80p/P81c输入实现。
+反汇编原厂与新模块确认HARDWARE_PARAM_CMD均检查214字节，未盲改用户空间长度。
+Lockdown按MiCode本机显示实现从SMEM项500读取，限长8字节；不是硬编码识别数据。
+
+充电模块使用真实XM hall3/hall4属性与原厂布尔规则发出笔吸附状态通知；
+显示模块保留手势模式下的TDDI共享供电及复位信号，恢复时平衡供电引用。
+音频按原厂sheng msm_dailink.h将六颗CS35L43同时接到secondary TDM RX/TX，
+等待实际六颗DAI就绪，使用L43自身的时钟/格式设置，保留本机固件与校准路径。
+不运行手机L41专用hw_params。键盘/触摸板未在此候选中接入。
+
+340模块共20783项版本化导入通过，18008项内核导出不变；归档原有文件权限保持，
+新增xiaomi_touch/nt36532_touch，实际depmod重建依赖、别名与加载表。
+原厂boot模板封包、AVB、解包回读通过，仅计划写boot_a，自动测试复位关闭。
+Image f8be54c9e983080ddae8872c9a92b35199d9d4b0cfee1ceb2e17a2737c337987，
+boot a08e1957001c771f88d2e0b7b30fa8548d584d5fb0c006ef9a0b5dbd332da464。
+以上是构建结果，硬件功能仍待验证；开机白闪尚未修复。

@@ -1,0 +1,80 @@
+{
+  "source_repository": "https://github.com/MiCode/vendor_xiaomi_proprietary_touch-driver",
+  "revision": "6957f6b646d1c919e175e6f9000eb50c8635273c",
+  "branch": "piano-w-oss",
+  "files": {
+    "xiaomi/xiaomi_touch.h": {
+      "source_sha256": "3edf6fdd2f74f1fa98c8a42a1f31795195f2c820ee0bbddd823d459f86972e97",
+      "staged_sha256": "3edf6fdd2f74f1fa98c8a42a1f31795195f2c820ee0bbddd823d459f86972e97"
+    },
+    "xiaomi/xiaomi_touch_core.c": {
+      "source_sha256": "0340c6a6592c219bdfd8c19f594bdc37a3e3c7568e2da8a85bbd6d41970c3ee6",
+      "staged_sha256": "721e22eb73d617656950b87054be3382f2c88719ebd2cdc69af385d164d28de9"
+    },
+    "xiaomi/xiaomi_touch_device.c": {
+      "source_sha256": "699c1561e5d1c03ec6db79f977af4ea00d37ca5fec6d0213e5b5b18d5be65bcf",
+      "staged_sha256": "699c1561e5d1c03ec6db79f977af4ea00d37ca5fec6d0213e5b5b18d5be65bcf"
+    },
+    "xiaomi/xiaomi_touch_evdev.c": {
+      "source_sha256": "d588b70402766e55bd2fdb9fbb897f7335a1245f8605fcf3abd18efb303b52d6",
+      "staged_sha256": "d588b70402766e55bd2fdb9fbb897f7335a1245f8605fcf3abd18efb303b52d6"
+    },
+    "xiaomi/xiaomi_touch_knock_data.c": {
+      "source_sha256": "61c7b46f84cd9b2d628c69756c6603ce7a68ca4449043e00b2bdeae24b445fcf",
+      "staged_sha256": "61c7b46f84cd9b2d628c69756c6603ce7a68ca4449043e00b2bdeae24b445fcf"
+    },
+    "xiaomi/xiaomi_touch_mode.c": {
+      "source_sha256": "bbb0f1029a1ae8cf21fb98f75492a0b422b6edbd5069c8b2b6a4cdf2127f28b2",
+      "staged_sha256": "bbb0f1029a1ae8cf21fb98f75492a0b422b6edbd5069c8b2b6a4cdf2127f28b2"
+    },
+    "xiaomi/xiaomi_touch_operations.c": {
+      "source_sha256": "f2d6e660129fe4a2b20c026ce70f0edda8d4d2d74ed4a9c9fc649e35bb3ed11e",
+      "staged_sha256": "94c86cf654a10b9b0af3bef0a1febab500fc7cf5da291fdc640344f7541d8191"
+    },
+    "xiaomi/xiaomi_touch_proc.c": {
+      "source_sha256": "d693f1549199a009bf9bbf80fb52cef24ecf408868de9292b488607858b00516",
+      "staged_sha256": "d693f1549199a009bf9bbf80fb52cef24ecf408868de9292b488607858b00516"
+    },
+    "xiaomi/xiaomi_touch_sys.c": {
+      "source_sha256": "6df8db2582d3c1d7d94776418bb3234251a1ce19c256a6b00aba7ad775eaea48",
+      "staged_sha256": "6df8db2582d3c1d7d94776418bb3234251a1ce19c256a6b00aba7ad775eaea48"
+    },
+    "xiaomi/xiaomi_touch_type_common.h": {
+      "source_sha256": "b9549f374385bd89098d67eb300c2bd71e22fe79dcec965ab0474b382246f348",
+      "staged_sha256": "b9549f374385bd89098d67eb300c2bd71e22fe79dcec965ab0474b382246f348"
+    },
+    "p81/nt36532/nt36xxx.c": {
+      "source_sha256": "a15a6571ecd817f5c0029c104fe840948743a89040b0bff818aefdc0e7427bfd",
+      "staged_sha256": "cc6e76967b21c52fddc82a307cfbbc0920ced85eab4e04a455b3c037660caa62"
+    },
+    "p81/nt36532/nt36xxx.h": {
+      "source_sha256": "aa72d7149ac71a1953196fa8d7b680b1990ec3c226df16a2469f4c452541bdd2",
+      "staged_sha256": "c128a105b20c41212ec1a2bcab0ccbcb6179d5348c76eb3efcdcd10dc2a817e1"
+    },
+    "p81/nt36532/nt36xxx_ext_proc.c": {
+      "source_sha256": "0e8c501f22243472ca5596a2e6b2a6436baef237612410f99b54ef57949b6058",
+      "staged_sha256": "0e8c501f22243472ca5596a2e6b2a6436baef237612410f99b54ef57949b6058"
+    },
+    "p81/nt36532/nt36xxx_fw_update.c": {
+      "source_sha256": "8928b4d0d448e0de9a48ea5e40b82ef9a42d4247e31c8ca10970bbde3515d976",
+      "staged_sha256": "8928b4d0d448e0de9a48ea5e40b82ef9a42d4247e31c8ca10970bbde3515d976"
+    },
+    "p81/nt36532/nt36xxx_mem_map.h": {
+      "source_sha256": "dd9eb861cef1ac86c83ee4a99c311d708cf0286d08949048dc1b118f7792f9f0",
+      "staged_sha256": "dd9eb861cef1ac86c83ee4a99c311d708cf0286d08949048dc1b118f7792f9f0"
+    },
+    "p81/nt36532/nt36xxx_mp_ctrlram.c": {
+      "source_sha256": "1d9f83f62c28dea38d9166bff8d0f46110a2d6c1bbbf32e3e357311450df76bd",
+      "staged_sha256": "1d9f83f62c28dea38d9166bff8d0f46110a2d6c1bbbf32e3e357311450df76bd"
+    },
+    "p81/nt36532/nt36xxx_mp_ctrlram.h": {
+      "source_sha256": "8896de4a0d232541a4cdd0ca8130579f5babf9a06f27287e78f4474d8519e2a0",
+      "staged_sha256": "8896de4a0d232541a4cdd0ca8130579f5babf9a06f27287e78f4474d8519e2a0"
+    }
+  },
+  "scope": "Public NT36532 THP and M80p/P81c implementation adapted to stock sheng ABI",
+  "parameters_reference": "reports/device/kernel618-input-stock-reference",
+  "lockdown_reference": "MiCode sheng display 6461221b SMEM item 500; bounded eight-byte read",
+  "firmware": "Only verified sheng CSOT filenames; no other-device firmware imported",
+  "runtime_verified": false
+}

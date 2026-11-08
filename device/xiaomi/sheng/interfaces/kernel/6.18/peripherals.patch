@@ -1,0 +1,252 @@
+--- a/soc/drivers/power/supply/qti_battery_charger.c
++++ b/soc/drivers/power/supply/qti_battery_charger.c
+@@ -558,6 +558,9 @@
+ 	int			thermal_board_temp;	/* 0.1 degC, last value sent (XM 8) */
+ 	struct work_struct	blank_work;		/* XM_PROP_BLANK_STATUS off the display thread */
+ 	struct delayed_work	k618_panel_dw;		/* k618: panel events once msm_drm is up */
++	struct work_struct sheng_pen_work;
++	int sheng_pen_last;
++	bool sheng_has_pen;
+ 	int			k618_panel_tries;
+ };
+ 
+@@ -1280,6 +1283,56 @@
+ 	kernel_power_off();*/
+ }
+ 
++/* sheng: MiCode pen docking notifications (real XM hall properties). */
++static ATOMIC_NOTIFIER_HEAD(pen_charge_state_notifier);
++int pen_charge_state_notifier_register_client(struct notifier_block *nb);
++int pen_charge_state_notifier_unregister_client(struct notifier_block *nb);
++
++static void sheng_pen_notifier_work(struct work_struct *work)
++{
++	struct battery_chg_dev *bcdev = container_of(work, struct battery_chg_dev,
++		sheng_pen_work);
++	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_XM];
++	int rc, attached;
++
++	rc = read_property_id(bcdev, pst, XM_PROP_PEN_HALL3);
++	if (rc)
++		return;
++	rc = read_property_id(bcdev, pst, XM_PROP_PEN_HALL4);
++	if (rc)
++		return;
++	attached = !(!!pst->prop[XM_PROP_PEN_HALL3] & !!pst->prop[XM_PROP_PEN_HALL4]);
++	if (attached != bcdev->sheng_pen_last) {
++		bcdev->sheng_pen_last = attached;
++		atomic_notifier_call_chain(&pen_charge_state_notifier, attached, NULL);
++	}
++}
++
++int pen_charge_state_notifier_register_client(struct notifier_block *nb)
++{
++	struct power_supply *psy;
++	struct battery_chg_dev *bcdev;
++	int ret = atomic_notifier_chain_register(&pen_charge_state_notifier, nb);
++
++	if (ret)
++		return ret;
++	psy = power_supply_get_by_name("battery");
++	if (psy) {
++		bcdev = power_supply_get_drvdata(psy);
++		if (bcdev && bcdev->sheng_has_pen)
++			schedule_work(&bcdev->sheng_pen_work);
++		power_supply_put(psy);
++	}
++	return 0;
++}
++EXPORT_SYMBOL(pen_charge_state_notifier_register_client);
++
++int pen_charge_state_notifier_unregister_client(struct notifier_block *nb)
++{
++	return atomic_notifier_chain_unregister(&pen_charge_state_notifier, nb);
++}
++EXPORT_SYMBOL(pen_charge_state_notifier_unregister_client);
++
+ static void handle_notification(struct battery_chg_dev *bcdev, void *data,
+ 				size_t len)
+ {
+@@ -1317,6 +1370,8 @@
+ 		break;
+ 	case BC_XM_STATUS_GET:
+ 		schedule_delayed_work(&bcdev->xm_prop_change_work, 0);
++		if (bcdev->sheng_has_pen)
++			schedule_work(&bcdev->sheng_pen_work);
+ 		break;
+ 	default:
+ 		break;
+@@ -6268,6 +6323,21 @@
+ 	init_completion(&bcdev->ack);
+ 	init_completion(&bcdev->fw_buf_ack);
+ 	init_completion(&bcdev->fw_update_ack);
++	INIT_WORK(&bcdev->sheng_pen_work, sheng_pen_notifier_work);
++	bcdev->sheng_pen_last = -1;
++	/* Identify sheng by its unique panel, not a phone root compatible. */
++	{
++		struct device_node *np;
++		u64 id;
++		for_each_node_with_property(np, "mi,panel-id") {
++			if (!of_property_read_u64(np, "mi,panel-id", &id) &&
++			    id == 0x4e38316150360200ULL) {
++				bcdev->sheng_has_pen = true;
++				of_node_put(np);
++				break;
++			}
++		}
++	}
+ 	INIT_WORK(&bcdev->subsys_up_work, battery_chg_subsys_up_work);
+ 	INIT_WORK(&bcdev->usb_type_work, battery_chg_update_usb_type_work);
+ 	INIT_WORK(&bcdev->battery_check_work, battery_chg_check_status_work);
+@@ -6396,6 +6466,7 @@
+ 	rc = pmic_glink_unregister_client(bcdev->client);
+ 	if (rc < 0)
+ 		pr_err("Error unregistering from pmic_glink, rc=%d\n", rc);
++	cancel_work_sync(&bcdev->sheng_pen_work);
+ 
+ }
+ 
+--- a/vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.h
++++ b/vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.h
+@@ -291,6 +291,7 @@
+ 
+ 	bool skip_panel_off;
+ 	bool panel_initialized;
++	bool sheng_power_retained;
+ 	u32 k618_sheng_last_fps;
+ 	bool te_using_watchdog_timer;
+ 	bool disable_cesta_hw_sleep;
+@@ -334,6 +335,7 @@
+ }
+ 
+ bool dsi_panel_is_sheng(struct dsi_panel *panel);
++void dsi_panel_gesture_enable(bool on);
+ int dsi_panel_tx_cmd_set(struct dsi_panel *panel, enum dsi_cmd_set_type type,
+ 		bool do_peripheral_flush);
+ 
+--- a/vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.c
++++ b/vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.c
+@@ -538,6 +538,14 @@
+ 	return rc;
+ }
+ 
++/* TDDI gesture mode keeps the touch controller's shared supply alive. */
++static bool sheng_gesture_enabled;
++void dsi_panel_gesture_enable(bool on)
++{
++	WRITE_ONCE(sheng_gesture_enabled, on);
++}
++EXPORT_SYMBOL(dsi_panel_gesture_enable);
++
+ int dsi_panel_power_on(struct dsi_panel *panel)
+ {
+ 	int rc = 0;
+@@ -550,7 +558,9 @@
+ 		}
+ 	}
+ #else /* OPLUS_FEATURE_DISPLAY */
+-	rc = dsi_pwr_enable_regulator(&panel->power_info, true);
++	if (!panel->sheng_power_retained)
++		rc = dsi_pwr_enable_regulator(&panel->power_info, true);
++	panel->sheng_power_retained = false;
+ 	if (rc) {
+ 		DSI_ERR("[%s] failed to enable vregs, rc=%d\n",
+ 				panel->name, rc);
+@@ -592,6 +602,8 @@
+ int dsi_panel_power_off(struct dsi_panel *panel)
+ {
+ 	int rc = 0;
++	bool keep_touch = dsi_panel_is_sheng(panel) && READ_ONCE(sheng_gesture_enabled) &&
++		!atomic_read(&panel->esd_recovery_pending);
+ 
+ 	if (panel->skip_panel_off) {
+ 		DSI_DEBUG("skip panel power off\n");
+@@ -601,7 +613,7 @@
+ 	if (gpio_is_valid(panel->reset_config.disp_en_gpio))
+ 		gpio_set_value(panel->reset_config.disp_en_gpio, 0);
+ 
+-	if (gpio_is_valid(panel->reset_config.reset_gpio) &&
++	if (!keep_touch && gpio_is_valid(panel->reset_config.reset_gpio) &&
+ 					!panel->reset_gpio_always_on)
+ 		gpio_set_value(panel->reset_config.reset_gpio, 0);
+ 
+@@ -629,7 +641,10 @@
+ 		       rc);
+ 	}
+ 
+-	rc = dsi_pwr_enable_regulator(&panel->power_info, false);
++	if (keep_touch)
++		panel->sheng_power_retained = true;
++	else
++		rc = dsi_pwr_enable_regulator(&panel->power_info, false);
+ 	if (rc)
+ 		DSI_ERR("[%s] failed to enable vregs, rc=%d\n",
+ 				panel->name, rc);
+--- a/vendor/qcom/opensource/audio-kernel/asoc/kalama.c
++++ b/vendor/qcom/opensource/audio-kernel/asoc/kalama.c
+@@ -362,6 +362,52 @@
+ 	return of_device_is_available(np) && snd_soc_find_dai_with_mutex(&dlc);
+ }
+ 
++/* MiCode sheng msm_dailink.h: the same six CS35L43 on secondary RX and TX.
++ * CS35L43's own hw_params selects I2S/DSP_A and the PLL; do not run L41 setup.
++ */
++static int sheng_link_spk_amps(struct device *dev, struct snd_soc_card *card)
++{
++	struct snd_soc_dai_link_component *codecs;
++	struct device_node *np;
++	int i, n = 0;
++
++	for_each_compatible_node(np, NULL, "cirrus,cs35l43")
++		if (of_device_is_available(np))
++			n++;
++	if (!n)
++		return 0;
++	if (n != 6)
++		return -EINVAL;
++	codecs = devm_kcalloc(dev, n, sizeof(*codecs), GFP_KERNEL);
++	if (!codecs)
++		return -ENOMEM;
++	i = 0;
++	for_each_compatible_node(np, NULL, "cirrus,cs35l43") {
++		struct snd_soc_dai_link_component dlc = {
++			.of_node = np, .dai_name = "cs35l43-pcm",
++		};
++		if (!of_device_is_available(np))
++			continue;
++		if (!snd_soc_find_dai_with_mutex(&dlc)) {
++			of_node_put(np);
++			return -EPROBE_DEFER;
++		}
++		/* DT nodes are static for the lifetime of this board. */
++		codecs[i++] = dlc;
++	}
++	for (i = 0; i < card->num_links; i++) {
++		struct snd_soc_dai_link *link = &card->dai_link[i];
++		if (link->name && (!strcmp(link->name, LPASS_BE_SEC_TDM_RX_0) ||
++		    !strcmp(link->name, LPASS_BE_SEC_TDM_TX_0))) {
++			link->codecs = codecs;
++			link->num_codecs = n;
++			link->ops = &msm_common_be_ops;
++			dev_info(dev, "sheng: %d CS35L43 on %s\n", n, link->name);
++		}
++	}
++	return n;
++}
++
+ static void k618_link_spk_amps(struct device *dev, struct snd_soc_card *card)
+ {
+ 	struct snd_soc_dai_link *link = NULL;
+@@ -2092,7 +2138,11 @@
+ 		ret = -EINVAL;
+ 		goto err;
+ 	}
+-	k618_link_spk_amps(&pdev->dev, card);
++	ret = sheng_link_spk_amps(&pdev->dev, card);
++	if (ret < 0)
++		return ret;
++	if (!ret)
++		k618_link_spk_amps(&pdev->dev, card);
+ 
+ 	match = of_match_node(kalama_asoc_machine_of_match, pdev->dev.of_node);
+ 	if (!match) {

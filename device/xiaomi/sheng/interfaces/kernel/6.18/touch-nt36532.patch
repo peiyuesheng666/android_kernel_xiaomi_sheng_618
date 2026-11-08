@@ -1,0 +1,168 @@
+--- a/xiaomi/xiaomi_touch_core.c
++++ b/xiaomi/xiaomi_touch_core.c
+@@ -79,7 +79,6 @@
+ 	netlink_cfg.groups = 0;
+ 	netlink_cfg.flags = 0;
+ 	netlink_cfg.input = nl_data_ready;
+-	netlink_cfg.cb_mutex = NULL;
+ 	nl_sk = netlink_kernel_create(&init_net, NETLINK_TEST, &netlink_cfg);
+ 
+ 	if (!nl_sk) {
+@@ -991,7 +990,7 @@
+ 	return 0;
+ }
+ 
+-static int xiaomi_touch_remove(struct platform_device *pdev)
++static void xiaomi_touch_remove(struct platform_device *pdev)
+ {
+ 	LOG_INFO("enter");
+ 	xiaomi_touch_evdev_remove();
+@@ -1004,7 +1003,6 @@
+ 	knock_node_release();
+ #endif
+ 	LOG_INFO("over");
+-	return 0;
+ }
+ 
+ #if defined(TOUCH_PLATFORM_XRING)
+--- a/xiaomi/xiaomi_touch_operations.c
++++ b/xiaomi/xiaomi_touch_operations.c
+@@ -321,7 +321,7 @@
+ 	.unlocked_ioctl = xiaomi_touch_dev_ioctl,
+ 	.compat_ioctl = xiaomi_touch_dev_ioctl,
+ 	.release = xiaomi_touch_dev_release,
+-	.llseek = no_llseek,
++	.llseek = NULL,
+ };
+ 
+ static struct miscdevice misc_dev = {
+--- a/p81/nt36532/nt36xxx.c
++++ b/p81/nt36532/nt36xxx.c
+@@ -68,7 +68,23 @@
+ 
+ extern int pen_charge_state_notifier_register_client(struct notifier_block *nb);
+ extern int pen_charge_state_notifier_unregister_client(struct notifier_block *nb);
+-extern ssize_t mi_dsi_panel_lockdown_info_read(unsigned char *plockdowninfo);
++/* N81A's bootloader publishes these bytes in SMEM item 500 (MiCode parser). */
++#include <linux/soc/qcom/smem.h>
++static ssize_t mi_dsi_panel_lockdown_info_read(unsigned char *info)
++{
++	size_t size;
++	const void *data;
++
++	if (!info)
++		return -EINVAL;
++	data = qcom_smem_get(QCOM_SMEM_HOST_ANY, 500, &size);
++	if (IS_ERR(data))
++		return PTR_ERR(data);
++	if (size < 8)
++		return -EINVAL;
++	memcpy(info, data, 8);
++	return info[0];
++}
+ static int32_t nvt_ts_suspend(struct device *dev);
+ static int32_t nvt_ts_resume(struct device *dev);
+ static int32_t nvt_ts_resume_suspend(bool is_resume, u8 gesture_type);
+@@ -2236,12 +2252,8 @@
+ 	ts->pen_support = of_property_read_bool(np, "novatek,pen-support");
+ 	NVT_LOG("novatek,pen-support=%d\n", ts->pen_support);
+ 
+-	ts->lcd_id_gpio = of_get_named_gpio(np, "novatek,lcd_id-gpio", 0);
+-	NVT_LOG("novatek,lcd_id-gpio=%d\n", ts->lcd_id_gpio);
+-	gpio_direction_input(ts->lcd_id_gpio);
+-	/* read id pin value, 0 is CSOT, 1 is BOE */
+-	ts->lcd_id_value = gpio_get_value(ts->lcd_id_gpio);
+-	NVT_LOG("lcd_id_value = %d, this panel is %s", ts->lcd_id_value, ts->lcd_id_value ? "BOE" : "CSOT");
++	/* sheng N81A CSOT, verified by panel-id above. */
++	ts->lcd_id_value = 0;
+ 
+ 	ret = of_property_read_u32(np, "novatek,spi-rd-fast-addr", &SPI_RD_FAST_ADDR);
+ 	if (ret) {
+@@ -4717,10 +4729,19 @@
+ 	/*set priority to 99*/
+ 	struct sched_param par = { .sched_priority = MAX_RT_PRIO -1 };
+ 
+-	NVT_LOG("start\n");
++	struct device_node *panel;
++	u64 panel_id = 0;
++
++	panel = of_parse_phandle(client->dev.of_node, "panel", 0);
++	if (panel)
++		of_property_read_u64(panel, "mi,panel-id", &panel_id);
++	of_node_put(panel);
++	if (panel_id != 0x4e38316150360200ULL)
++		return -ENODEV;
++	NVT_LOG("start sheng N81A\n");
+ 
+ 	/*set spi controller rt thread priority to 99*/
+-	if(client->controller) {
++	if (client->controller && client->controller->kworker) {
+ 		ret = sched_setscheduler_nocheck(client->controller->kworker->task, SCHED_FIFO, &par);
+ 		if(ret < 0) {
+ 			NVT_ERR("Failed to improve SPI thread prio\n");
+@@ -4776,7 +4797,7 @@
+ 	spi_set_drvdata(client, ts);
+ 
+ 	//---prepare for spi parameter---
+-	if (ts->client->master->flags & SPI_MASTER_HALF_DUPLEX) {
++	if (ts->client->controller->flags & SPI_CONTROLLER_HALF_DUPLEX) {
+ 		NVT_ERR("Full duplex not supported by master\n");
+ 		ret = -EIO;
+ 		goto err_ckeck_full_duplex;
+@@ -5919,5 +5940,5 @@
+ MODULE_DESCRIPTION("Novatek Touchscreen Driver");
+ MODULE_LICENSE("GPL");
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 4, 0)
+-MODULE_IMPORT_NS(VFS_internal_I_am_really_a_filesystem_and_am_NOT_a_driver);
+-#endif
++MODULE_IMPORT_NS("VFS_internal_I_am_really_a_filesystem_and_am_NOT_a_driver");
++#endif
+--- a/p81/nt36532/nt36xxx.h
++++ b/p81/nt36532/nt36xxx.h
+@@ -138,10 +138,10 @@
+ #define NVT_M80P_PEN_NAME "NVTCapacitivePenM80p"
+ #define NVT_P81C_PEN_NAME "NVTCapacitivePenP81c"
+ //---Touch info.---3200*2136
+-#define TOUCH_MAX_WIDTH 2136
+-#define TOUCH_MAX_HEIGHT 3200
+-#define PEN_MAX_WIDTH 2136
+-#define PEN_MAX_HEIGHT 3200
++#define TOUCH_MAX_WIDTH 2032
++#define TOUCH_MAX_HEIGHT 3048
++#define PEN_MAX_WIDTH 2032
++#define PEN_MAX_HEIGHT 3048
+ #define TOUCH_RX_NUM 40
+ #define TOUCH_TX_NUM 60
+ #define TOUCH_MAX_FINGER_NUM 10
+@@ -151,7 +151,7 @@
+ #endif
+ #define TOUCH_FORCE_NUM 1
+ //thp start 6.8
+-#define SUPER_RESOLUTION_FACOTR 100
++#define SUPER_RESOLUTION_FACOTR 10
+ //thp end 6.8
+ 
+ //---for Pen---
+@@ -176,16 +176,16 @@
+ #endif
+ #define BOOT_UPDATE_FIRMWARE 1
+ #define BOOT_UPDATE_FIRMWARE_NAME		  "novatek_ts_fw.bin"
+-#define BOOT_UPDATE_FIRMWARE_NAME_CSOT    "novatek_nt36532_piano_fw_csot.bin"
+-#define BOOT_UPDATE_FIRMWARE_NAME_BOE      "novatek_nt36532_piano_fw_boe.bin"
++#define BOOT_UPDATE_FIRMWARE_NAME_CSOT    "novatek_nt36532_n81a_fw_csot.bin"
++#define BOOT_UPDATE_FIRMWARE_NAME_BOE      "sheng-unsupported-panel.bin"
+ #define MP_UPDATE_FIRMWARE_NAME			  "novatek_ts_mp.bin"
+-#define MP_UPDATE_FIRMWARE_NAME_CSOT      "novatek_nt36532_piano_mp_csot.bin"
+-#define MP_UPDATE_FIRMWARE_NAME_BOE        "novatek_nt36532_piano_mp_boe.bin"
++#define MP_UPDATE_FIRMWARE_NAME_CSOT      "novatek_nt36532_n81a_mp_csot.bin"
++#define MP_UPDATE_FIRMWARE_NAME_BOE        "sheng-unsupported-panel-mp.bin"
+ #define NVT36532_DRIVER_VERSION	"nvt_version_2025.08.28-001"
+ 
+ //thp start 6.8
+-#define BOOT_UPDATE_CONFIG_NAME_CSOT  "piano_nova_csot_thp_config.ini"
+-#define BOOT_UPDATE_CONFIG_NAME_BOE    "piano_nova_boe_thp_config.ini"
++#define BOOT_UPDATE_CONFIG_NAME_CSOT  "n81a_nova_thp_config.ini"
++#define BOOT_UPDATE_CONFIG_NAME_BOE    "sheng-unsupported-panel.ini"
+ //thp end 6.8
+ 
+ #define TOUCH_ID 0
