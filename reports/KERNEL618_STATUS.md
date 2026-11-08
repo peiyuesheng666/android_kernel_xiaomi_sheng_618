@@ -3,9 +3,16 @@
 2026-11-08 最新用户指令：直接使用 JiaqiLi404/android_kernel_618_for_sm8550
 作为主底座，仅补小米平板 6S Pro 的板级差异，保留此前有用的移植成果。
 此任务仅支持原厂澎湃 HyperOS，取消类原生目标，不再独立重做上游已有的
-澎湃适配。用户只要原始 `Image` 二进制，并自行测试，无须制作刷机包。
+澎湃适配。最初交付原始 `Image`；用户随后授权封包、刷入并直接调试。
 
-首轮测试产物现已生成：`artifacts/sheng-6.18-first-boot/Image`，
+2026-11-08 实机调试更新：disklog-r5 的内核日志落盘已验证，Recovery
+读回两份 CRC 有效快照，最新记录至 13.273 秒。第一处明确异常发生在
+12.378560 秒，`msm_drm` 的 `dsi_display_get_default_lms()` 空指针访问。
+该证据来自本机 6.18 运行；不能用其他版本 Recovery 日志替代。
+封包与 USB 尝试、落盘区域、校验结果和限制见
+[KERNEL618_DEBUG_STATUS.md](KERNEL618_DEBUG_STATUS.md)。尚未正常进入系统。
+
+首轮测试产物曾导出为 `artifacts/sheng-6.18-first-boot/Image`，
 64,506,368 字节（约 61.5 MiB），SHA256 为
 `32afc9fa288989a949e8d5c6e83c159110d9ea62e60bd016efde7de7e7c58b70`。
 来源为用户指定仓库固定提交 c3956156ce7c4193c451dfda531fad72d35bfebb。
@@ -18,13 +25,16 @@
 337 模块依赖覆盖、20,544 项真实版本化导入、module_layout、缺失提供者与重复
 导出核查通过；内置模块层前后 18,008 项内核导出及 CRC 完全一致。
 结果见 `kernel618-upstream-image.json` 和 `kernel618-upstream-layer.json`；
-可用 `python3.11 scripts/verify_sheng618_image.py` 重验。
+原首版目录已按最多五版的约定清理；同一 Image 仍在 baseline-r2 的 boot 内。
+原验证脚本固定引用首版目录，后续诊断版须使用各自的构建、解包与 ABI 检查，
+不能直接用该脚本把新的 native 输出当作首版。
 
 这是首轮开机测试候选，不能视为全部功能移植完成。NT36532 触控/笔、metis、
 Nanosic 键盘、xiaomi_keyboard_driver、hall 等平板来源缺口仍在；充电整链、
 LCD/音频/相机等板级行为及加密 userdata 均未实机验证。原首阶段清单有 28 个
 名字未同名提供，其中包含已内置/合并/其他 SoC 候选和仍待补齐项，不能将这个
-数量当作最终缺失模块数。未执行设备操作，也未将原厂 5.15 模块混入 Image。
+数量当作最终缺失模块数。上述首版检查时尚未执行设备操作；现已测试 boot_a。
+未将原厂 5.15 模块混入 Image。
 
 新入口 `python3.11 scripts/prepare_sheng618_upstream.py --only soc` 已重建
 原仓库固定提交的 ACK 和 SoC 集成补丁，SoC tree 校验为

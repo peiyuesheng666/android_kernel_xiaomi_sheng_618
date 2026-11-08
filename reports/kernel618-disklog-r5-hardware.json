@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-08",
+  "revision": "disklog-r5",
+  "device": "sheng",
+  "serial": "ca10ede3",
+  "flashed_partition": "boot_a",
+  "temporary_recovery_kernel": "5.15.220-gf9ca2b71f672",
+  "rawdump_partition_bytes": 314572800,
+  "region_offset": 301989888,
+  "region_bytes": 2097152,
+  "before_sha256": "5647f05ec18958947d32874eeb788fa396a05d0bab7c1b71f112ceb7e9b31eee",
+  "after_sha256": "0440d8b4e6995a1beca9989aaa33852590a00fca2692207d1bc3efaca60311cd",
+  "decoded": {
+    "raw_sha256": "0440d8b4e6995a1beca9989aaa33852590a00fca2692207d1bc3efaca60311cd",
+    "valid_snapshots": [
+      {
+        "slot": 0,
+        "run": "22f635d504b39522",
+        "sequence": 30,
+        "uptime_ms": 13273,
+        "bytes": 261644,
+        "file": "reports/device/kernel618-disklog-r5/bootlog-22f635d504b39522-30.txt"
+      },
+      {
+        "slot": 1,
+        "run": "22f635d504b39522",
+        "sequence": 29,
+        "uptime_ms": 12419,
+        "bytes": 251998,
+        "file": "reports/device/kernel618-disklog-r5/bootlog-22f635d504b39522-29.txt"
+      }
+    ],
+    "valid_snapshot_found": true
+  },
+  "first_oops_seconds": 12.37856,
+  "exception": "NULL pointer dereference at virtual address 0xa50",
+  "pc": "dsi_display_get_default_lms+0x70/0xdc [msm_drm]",
+  "call_chain": [
+    "_sde_connector_lm_preference",
+    "sde_connector_init",
+    "_sde_kms_hw_init_blocks",
+    "sde_kms_hw_init",
+    "msm_drm_bind"
+  ],
+  "original_boot_backed_up": false,
+  "official_firmware_read_only": true,
+  "android_boot_completed": false,
+  "usb_serial_received": false,
+  "hardware_log_received": true
+}

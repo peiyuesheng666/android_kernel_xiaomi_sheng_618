@@ -1,6 +1,7 @@
 param(
     [string]$Port = '',
     [int]$TimeoutMinutes = 120,
+    [ValidatePattern('^[A-Za-z0-9_-]+$')][string]$Label = 'sheng-r3',
     [switch]$Hold,
     [switch]$ContinueNow
 )
@@ -9,8 +10,8 @@ $taskWorkspace = Split-Path -Parent $PSScriptRoot
 $taskFolder = Join-Path $taskWorkspace 'reports\serial'
 New-Item -ItemType Directory -Path $taskFolder -Force | Out-Null
 $taskStamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-$taskOutput = Join-Path $taskFolder ('sheng-r3-' + $taskStamp + '.log')
-$taskEvents = Join-Path $taskFolder ('sheng-r3-' + $taskStamp + '.events.txt')
+$taskOutput = Join-Path $taskFolder ($Label + '-' + $taskStamp + '.log')
+$taskEvents = Join-Path $taskFolder ($Label + '-' + $taskStamp + '.events.txt')
 $taskStatePath = Join-Path $taskFolder 'capture-state.json'
 if (Test-Path -LiteralPath $taskStatePath) {
     try {
@@ -32,7 +33,7 @@ function Task-Event([string]$Message) {
     ((Get-Date -Format o) + ' ' + $Message) | Add-Content -LiteralPath $taskEvents
 }
 Save-TaskState
-Task-Event 'Collector started; device must be temporarily booted manually. No fastboot or flash commands are executed.'
+Task-Event 'Collector started. This process only captures the diagnostic ACM port; boot/flash is managed separately.'
 $taskDeadline = (Get-Date).AddMinutes($TimeoutMinutes)
 while ((Get-Date) -lt $taskDeadline) {
     $taskSelected = $Port
@@ -74,7 +75,7 @@ while ((Get-Date) -lt $taskDeadline) {
             if (-not $Hold -and -not $taskGoSent -and ($taskSawHold -or $ContinueNow) -and ((Get-Date) - $taskConnectedAt).TotalSeconds -ge 5) {
                 $taskSerial.Write("GO`n")
                 $taskGoSent=$true
-                Task-Event 'Sent GO: continue from diagnostic PID1 to the original Lineage init.'
+                Task-Event 'Sent GO: continue from diagnostic PID1 to the original Android init.'
             }
             if (((Get-Date) - $taskLastState).TotalSeconds -ge 2) { Save-TaskState; $taskLastState=Get-Date }
         }

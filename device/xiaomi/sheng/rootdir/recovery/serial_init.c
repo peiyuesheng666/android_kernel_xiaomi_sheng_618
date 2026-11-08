@@ -22,12 +22,20 @@
 #include <time.h>
 #include <unistd.h>
 
+#ifndef SHENG_DIAG_INIT
+#define SHENG_DIAG_INIT "/system/bin/init"
+#endif
+#ifndef SHENG_DIAG_SERIAL
+#define SHENG_DIAG_SERIAL "SHENG-DIAG-R3"
+#endif
+
 #define GADGET "/config/usb_gadget/sheng_diag"
 #define CACHE_SIZE (8 * 1024 * 1024)
 static int kernel_log = -1;
 static int report_reader = -1;
 static int report_writer = -1;
 static bool gadget_bound;
+static bool peripheral_mode_set;
 
 static void report(const char *format, ...) {
     char data[2048];
@@ -92,14 +100,23 @@ static bool first_entry(const char *path, char *name, size_t size) {
 
 static bool setup_usb(void) {
     if (gadget_bound) return true;
+    // sheng's Qualcomm glue may not create its child UDC until peripheral
+    // mode is requested. Check this before waiting for /sys/class/udc.
+    // Reference: anyhmos_xiaomi_sheng 8095782b, usb_setup(), USB portion only.
+    const char *mode = "/sys/bus/platform/devices/a600000.ssusb/mode";
+    if (!peripheral_mode_set && !access(mode, W_OK) && put(mode, "peripheral")) {
+        peripheral_mode_set = true;
+        report("USB Qualcomm controller switched to peripheral before UDC lookup");
+    }
     char controller[256];
     if (!first_entry("/sys/class/udc", controller, sizeof(controller))) return false;
     report("UDC available: %s", controller);
     directory(GADGET);
     if (!put(GADGET "/idVendor", "0x1d6b") || !put(GADGET "/idProduct", "0x0104")) return false;
     if (!put(GADGET "/bDeviceClass", "0x02")) return false;
+    if (!put(GADGET "/bcdUSB", "0x0200") || !put(GADGET "/bcdDevice", "0x0100")) return false;
     directory(GADGET "/strings/0x409");
-    if (!put(GADGET "/strings/0x409/serialnumber", "SHENG-DIAG-R3") ||
+    if (!put(GADGET "/strings/0x409/serialnumber", SHENG_DIAG_SERIAL) ||
         !put(GADGET "/strings/0x409/manufacturer", "sheng development") ||
         !put(GADGET "/strings/0x409/product", "sheng early recovery serial")) return false;
     directory(GADGET "/configs/c.1");
@@ -377,7 +394,7 @@ int main(int argc, char **argv) {
     report("HOLD before Android init. Serial collector sends GO after opening the COM port.");
     // Never blindly continue/reboot before a host has had a chance to capture.
     while (access("/diag-run/continue", F_OK)) sleep(1);
-    report("HANDOFF to original Lineage /system/bin/init; early logger remains attached");
+    report("HANDOFF to original %s; early logger remains attached", SHENG_DIAG_INIT);
     // Android first-stage mounts sysfs itself and treats EBUSY as fatal. Its
     // diagnostic predecessor must detach its mounts before transferring PID1.
     struct statfs remaining;
@@ -396,7 +413,7 @@ int main(int argc, char **argv) {
     signal(SIGPIPE, SIG_DFL);
     char *const args[] = { "/init", NULL };
     char *const environment[] = { "PATH=/system/bin:/system/xbin", "SHENG_DIAG=1", NULL };
-    execve("/system/bin/init", args, environment);
-    report("exec Lineage init FAILED: %s", strerror(errno));
+    execve(SHENG_DIAG_INIT, args, environment);
+    report("exec original init FAILED: %s", strerror(errno));
     for (;;) sleep(1);
 }

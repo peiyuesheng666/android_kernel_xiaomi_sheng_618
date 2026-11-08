@@ -1,0 +1,51 @@
+{
+  "repository": "https://github.com/AnyHarmonyOSNext/anyhmos_xiaomi_sheng",
+  "revision": "8095782bddbb9e9a74a4b5aaf9b9aef82c743ebb",
+  "files": {
+    "compat/bootstrap/init_entry.c": {
+      "sha256": "c91a57cafbaca13348cc6fc284667a7591803ffeaa9635fe870995af2c536505"
+    },
+    "compat/bootstrap/hmos_probe_v121.c": {
+      "sha256": "e10246b131deec076acb8f03e14f37720eeaeec6ff737f6066fd6641a2b4cea8"
+    },
+    "compat/bootstrap/probe_serial_v121.inc": {
+      "sha256": "3835dc47955a9024fccd64f38160e88d231eabaec02bac7ab42548ffe991b1d3"
+    },
+    "output/Flash-Current.ps1": {
+      "sha256": "9cb880d6b554eedaa4925592a4ca6d7b3fa920285c0d8ec12a0ab2562c02ea4a"
+    },
+    "output/Capture-Serial.ps1": {
+      "sha256": "e45b635a5276892bd5d448a1d7e21b329820f62c3855f6f1d701a0bed9b55463"
+    },
+    "tools/build_promax_ramdisk.py": {
+      "sha256": "c78e27034ffb7fd3caf46e5a9c922e470930cfc19c77e8819f93ded48f2fadeb"
+    },
+    "README.md": {
+      "sha256": "e054d7c431bf00b4d4a4d7f8b1bb2e315b332040d194391f40eb0778c11af6a1"
+    }
+  },
+  "usb_boot_chain": {
+    "init_boot": "/init minimal PID1 entry transfers to /sheng-compat-v118/hmos-probe",
+    "vendor_boot": "ramdisk holds hmos-probe; USB portion sets peripheral mode and creates ACM gadget",
+    "boot": "kernel/USB support; supplied Desktop boot has no ramdisk and no built-in initramfs",
+    "latest_flash_script": "writes vendor_boot_a only; requires previously installed matching init_boot entry"
+  },
+  "usb": {
+    "vendor_id": "1d6b",
+    "product_id": "0104",
+    "function": "acm.usb0",
+    "device_tty": "/dev/ttyGS0",
+    "windows_port": "COM port",
+    "controller_mode_before_waiting_for_udc": true,
+    "history_replay": "reference collector sends replay; our collector streams backlog directly"
+  },
+  "applied_reference_scope": "USB peripheral-before-UDC ordering and standard ACM descriptors only",
+  "hmos_bootstrap_or_services_imported": false,
+  "supplied_boot_live_test": {
+    "kernel": "5.15.178-android13-8-00021-g6f2f96be86b9-ab13729987",
+    "android_boot_completed": true,
+    "observed_usb": "18d1:4e11 ADB; no COM observed with stock init_boot/vendor_boot"
+  },
+  "six_eighteen_crash_location_known": false,
+  "reference_is_not_six_eighteen_runtime_evidence": true
+}

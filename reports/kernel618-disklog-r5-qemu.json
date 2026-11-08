@@ -1,0 +1,39 @@
+{
+  "real_aarch64_kernel": true,
+  "real_gpt_block_io_and_fsync": true,
+  "image_sha256": "9d05882de4ac066f8fa1b7fa20b78602b364187bf4b79d32fca1299491eaf8b0",
+  "cases": [
+    {
+      "case": "valid",
+      "gpt_name": "rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 2,
+      "expected_write": true,
+      "uptime_ms": [
+        10334,
+        10047
+      ],
+      "qemu_log": "/root/sheng-618/diagnostic/disklog-r5/qemu/valid.log"
+    },
+    {
+      "case": "wrong-name",
+      "gpt_name": "not-rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 0,
+      "expected_write": false,
+      "uptime_ms": [],
+      "qemu_log": "/root/sheng-618/diagnostic/disklog-r5/qemu/wrong-name.log"
+    },
+    {
+      "case": "wrong-size",
+      "gpt_name": "rawdump",
+      "partition_mib": 299,
+      "valid_snapshots": 0,
+      "expected_write": false,
+      "uptime_ms": [],
+      "qemu_log": "/root/sheng-618/diagnostic/disklog-r5/qemu/wrong-size.log"
+    }
+  ],
+  "torn_copy_rejected_other_copy_readable": true,
+  "hardware_ufs_tested": false
+}

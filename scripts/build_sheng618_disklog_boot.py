@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+"""Build the original module layer plus a bounded, built-in rawdump logger."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import shlex
+import shutil
+import subprocess
+import sys
+
+from build_sheng618_upstream import ACK, K618, LOGS, ROOT, TOOLS, environment
+
+work = Path(__file__).resolve().parents[1]
+rom = Path('/root/sheng-lineage/lineage-24.0')
+stock = Path('/mnt/e/6/玩机资源/XiaomiPad6SPro12.4刷机资源/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images/boot.img')
+tag = 'disklog-r5'
+native = ROOT / 'diagnostic' / tag
+dest = work / 'artifacts' / ('sheng-6.18-' + tag)
+assert not dest.exists(), 'Preserve tested revisions'
+native.mkdir(parents=True, exist_ok=True)
+
+
+def sha(path):
+    with Path(path).open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+
+def run(args, **kwargs):
+    return subprocess.run(list(map(str, args)), check=True, **kwargs)
+
+
+assert sha(stock) == '4156a2369f78bc5df61b6a521b07a508dedf20d5e63c207d30986ae37df3eaea'
+misc = ACK / 'drivers/misc'
+source = work / 'device/xiaomi/sheng/interfaces/kernel/6.18/sheng_bootlog.c'
+shutil.copyfile(source, misc / 'sheng_bootlog.c')
+makefile = misc / 'Makefile'
+line = 'obj-$(CONFIG_SHENG_BOOTLOG) += sheng_bootlog.o\n'
+if line not in makefile.read_text():
+    with makefile.open('a') as stream:
+        stream.write('\n' + line)
+kconfig = misc / 'Kconfig'
+if 'config SHENG_BOOTLOG\n' not in kconfig.read_text():
+    with kconfig.open('a') as stream:
+        stream.write('\nconfig SHENG_BOOTLOG\n\tbool "Bounded sheng rawdump boot logger"\n'
+                     '\tdepends on BLOCK && PRINTK\n\tselect CRC32\n')
+oi = K618 / 'out-gki-ir'
+config = oi / '.config'
+saved = config.read_bytes()
+env = environment(os.cpu_count())
+env.update(KBUILD_BUILD_HOST='build-host', KBUILD_BUILD_USER='build-user', KBUILD_BUILD_VERSION='1')
+make = ['make', '-C', ACK, 'O=' + str(oi), 'ARCH=arm64', 'LLVM=1', 'LLVM_IAS=1',
+        'PAHOLE=' + str(TOOLS / 'kernel-build-tools/linux_musl-x86/bin/pahole')]
+log = LOGS / ('upstream-' + tag + '-image.log')
+try:
+    run([ACK / 'scripts/config', '--file', config, '--enable', 'SHENG_BOOTLOG',
+         '--set-val', 'LOG_BUF_SHIFT', '22', '--set-str', 'INITRAMFS_SOURCE',
+         K618 / 'boot-test/stage/overlay.cpio', '--disable', 'INITRAMFS_FORCE'])
+    print('Building built-in disk logger: ' + str(log), flush=True)
+    with log.open('w') as stream:
+        run([*make, 'olddefconfig'], env=env, stdout=stream, stderr=subprocess.STDOUT)
+        run([*make, '-j' + str(os.cpu_count()), 'Image'], env=env, stdout=stream, stderr=subprocess.STDOUT)
+    (native / 'kernel.config').write_bytes(config.read_bytes())
+    expected = sorted(line for line in (K618 / 'out-gki/Module.symvers').read_text().splitlines()
+                      if line.split('\t')[2] == 'vmlinux')
+    actual = sorted((oi / 'vmlinux.symvers').read_text().splitlines())
+    assert expected == actual, 'Kernel module ABI changed'
+finally:
+    config.write_bytes(saved)
+image = oi / 'arch/arm64/boot/Image'
+assert image.read_bytes()[56:60] == b'ARM\x64'
+unpack = rom / 'system/tools/mkbootimg/unpack_bootimg.py'
+parts = native / 'stock-parts'
+args = shlex.split(run([sys.executable, unpack, '--boot_img', stock, '--out', parts,
+                       '--format=mkbootimg'], capture_output=True, text=True).stdout)
+assert (parts / 'ramdisk').read_bytes() == b''
+args[args.index('--kernel') + 1] = str(image)
+cmdline = 'printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=disklog-r5'
+args[args.index('--cmdline') + 1] = cmdline
+packed = native / 'boot.img'
+run([sys.executable, rom / 'system/tools/mkbootimg/mkbootimg.py', *args, '--output', packed])
+avb = rom / 'out/host/linux-x86/bin/avbtool'
+run([avb, 'add_hash_footer', '--image', packed, '--partition_name', 'boot',
+     '--partition_size', stock.stat().st_size, '--algorithm', 'NONE'])
+run([avb, 'verify_image', '--image', packed], capture_output=True)
+verify = native / 'verified'
+header = run([sys.executable, unpack, '--boot_img', packed, '--out', verify], capture_output=True, text=True).stdout
+assert sha(verify / 'kernel') == sha(image) and (verify / 'ramdisk').read_bytes() == b''
+assert cmdline in header and 'rdinit=' not in header
+dest.mkdir()
+shutil.copyfile(image, dest / 'Image')
+shutil.copyfile(packed, dest / 'boot.img')
+report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256': sha(dest / 'Image'),
+          'boot_bytes': packed.stat().st_size, 'image_bytes': image.stat().st_size,
+          'logger_source_sha256': sha(source), 'kernel_exports_unchanged': len(actual),
+          'original_android_init_and_module_layer': True, 'usb_preinit_added': False,
+          'kernel_log_buffer_bytes': 4 * 1024**2, 'writer_is_built_in': True,
+          'destination': {'gpt_name': 'rawdump', 'required_partition_bytes': 300 * 1024**2,
+                          'offset': 288 * 1024**2, 'span': 2 * 1024**2,
+                          'slots': 2, 'slot_bytes': 1024**2},
+          'interval_ms': 250, 'maximum_duration_ms': 120000, 'crc32_and_footer': True,
+          'does_not_require_sysfs_or_device_nodes': True,
+          'requires_ufs_partition_registration': True, 'hardware_log_received': False,
+          'cmdline': cmdline, 'build_log': str(log), 'maximum_retained_versions': 5}
+(dest / 'build-result.json').write_text(json.dumps(report, indent=2) + '\n')
+(dest / 'SHA256SUMS').write_text(report['boot_sha256'] + '  boot.img\n' + report['image_sha256'] + '  Image\n')
+(work / 'reports/kernel618-disklog-r5-boot.json').write_text(json.dumps(report, indent=2) + '\n')
+versions = sorted((p for p in (work / 'artifacts').glob('sheng-6.18-*') if p.is_dir()),
+                  key=lambda p: p.stat().st_mtime, reverse=True)
+for old in versions[5:]:
+    assert old.parent.resolve() == (work / 'artifacts').resolve() and not old.is_symlink()
+    shutil.rmtree(old)
+print(json.dumps(report, indent=2), flush=True)

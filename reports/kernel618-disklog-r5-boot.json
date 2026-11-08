@@ -1,0 +1,30 @@
+{
+  "revision": "disklog-r5",
+  "boot_sha256": "087931065a9be5d93a64f1605e5c066df78d1aa3bffb03b7e631db0cc9a3be84",
+  "image_sha256": "9d05882de4ac066f8fa1b7fa20b78602b364187bf4b79d32fca1299491eaf8b0",
+  "boot_bytes": 100663296,
+  "image_bytes": 78727680,
+  "logger_source_sha256": "01b8acc4e61b22950ef3b3ad6359573291fba09a8f3449bacdbddebb3d627b32",
+  "kernel_exports_unchanged": 18008,
+  "original_android_init_and_module_layer": true,
+  "usb_preinit_added": false,
+  "kernel_log_buffer_bytes": 4194304,
+  "writer_is_built_in": true,
+  "destination": {
+    "gpt_name": "rawdump",
+    "required_partition_bytes": 314572800,
+    "offset": 301989888,
+    "span": 2097152,
+    "slots": 2,
+    "slot_bytes": 1048576
+  },
+  "interval_ms": 250,
+  "maximum_duration_ms": 120000,
+  "crc32_and_footer": true,
+  "does_not_require_sysfs_or_device_nodes": true,
+  "requires_ufs_partition_registration": true,
+  "hardware_log_received": false,
+  "cmdline": "printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=disklog-r5",
+  "build_log": "/root/sheng-618/logs/upstream-disklog-r5-image.log",
+  "maximum_retained_versions": 5
+}

@@ -1,0 +1,15 @@
+{
+  "revision": "baseline-r2",
+  "boot_sha256": "c799eb756238304e8a797bb6cba1920f39769d9d132e88222071943b4b10b975",
+  "boot_bytes": 100663296,
+  "kernel_sha256": "32afc9fa288989a949e8d5c6e83c159110d9ea62e60bd016efde7de7e7c58b70",
+  "official_boot_sha256": "4156a2369f78bc5df61b6a521b07a508dedf20d5e63c207d30986ae37df3eaea",
+  "original_header_arguments_preserved": true,
+  "original_empty_ramdisk_preserved": true,
+  "diagnostic_preinit_added": false,
+  "additional_cmdline": "",
+  "avb_self_verification_passed": true,
+  "avb_algorithm": "NONE",
+  "boot_test_result": "pending",
+  "maximum_retained_versions": 5
+}
