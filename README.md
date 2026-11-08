@@ -34,7 +34,9 @@ display-r8 已加入显示 probe 分阶段落盘检查点，编译、337 模块 
 display-r9 沿用完全相同的 Image，仅用底座已有 k618_cont_splash=0 开关对照
 旧画面接管路径；实机确认开关生效，但仍停在同一检查点，最新快照至 22.329 秒。
 fault-r10 已补上异常后的跨 CPU 日志写入，QEMU 真正触发 BUG/panic 后读回完整
-寄存器和调用栈，正常落盘及错误分区名称/大小拒写也通过；已刷入 boot_a，实机结果待确认。
+寄存器和调用栈，正常落盘及错误分区名称/大小拒写也通过。实机已抓到约 22.5 秒
+延迟探测线程在 devices_kset_move_last 因设备链表损坏触发 BUG；显示线程当时仍在继续。
+跨 CPU 异常落盘实机有效，破坏链表的分配/释放路径尚待定位，仍未正常开机。
 详见 [reports/KERNEL618_DEBUG_STATUS.md](reports/KERNEL618_DEBUG_STATUS.md)。
 尚未正常开机，平板功能适配与验证仍未完成。
 

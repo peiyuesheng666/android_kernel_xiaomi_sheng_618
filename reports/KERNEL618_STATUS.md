@@ -342,3 +342,20 @@ python3 scripts/audit_kernel618_modules.py \
 
 候选检查时再提供 `--kernel-out`、两个 `--gki-module`，默认要求 6.18。
 现有 5.15/6.12 对照必须明确设置 `--expect-series`，不会冒充 6.18 结果。
+
+
+### fault-r10 实机结果：取得真实终止异常
+
+用户反馈仍失败并返回 Fastboot。临时启动已验证的 r13 Recovery，仅读取 rawdump
+288..290 MiB；两份 CRC/尾标记有效，run 0e81e82e6a32bec4，seq68/69 分别至
+22.365/23.278 秒，实际 cmdline 为 sheng_test=fault-r10。
+22.511149 秒 devices kset 链表 prev->next 为 NULL，lib/list_debug.c:34 触发 BUG。
+CPU6/PID222 为 events_unbound deferred_probe_work_func，调用链为
+device_pm_move_to_tail → device_reorder_to_tail → devices_kset_move_last →
+__list_add_valid_or_report。损坏 entry 位于 kmalloc-2k 对象偏移 480。
+最新快照保存了 PC、寄存器、完整调用栈及跨 CPU 抓取窗口标记，异常落盘实机通过。
+显示线程 PID611 在异常期间仍记录了 23.229868 秒 cont_splash_config begin，
+因此前几轮的最后显示检查点不能作为实际终止位置。
+目前只证明设备链表损坏，尚不能确定哪个驱动写坏或释放了对象；不删除链表校验，
+不将 DP/HFI 错误当作此异常的已证根因。下一步追踪 kset 对象和 slab 分配/释放来源。
+原始日志 reports/device/kernel618-fault-r10/，整理见 kernel618-fault-r10-hardware.json。

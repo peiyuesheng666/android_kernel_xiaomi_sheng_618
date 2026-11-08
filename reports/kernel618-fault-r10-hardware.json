@@ -9,10 +9,45 @@
   "image_sha256": "99d34cdb44cf1174c23451aad863adbc459d728268c509ca4905c632285e8f6a",
   "flash_succeeded": true,
   "reboot_command_succeeded": true,
-  "hardware_log_received": false,
-  "android_boot_completed": null,
+  "hardware_log_received": true,
+  "android_boot_completed": false,
   "original_boot_backed_up": false,
   "diagnostic_only": true,
   "control_revision": "display-r8",
-  "current_state": "Flashed and rebooted; waiting for feedback and persistent logs"
+  "current_state": "Known-good temporary Recovery; rawdump read back; boot_a still fault-r10",
+  "user_result": "Still failed; returned to Fastboot",
+  "raw_region_sha256": "fccf101a925f3ecc0e26126d4cd92c3ba147d48981aefed3e68d5dfebac73da7",
+  "run": "0e81e82e6a32bec4",
+  "valid_crc_snapshots": [
+    {
+      "sequence": 68,
+      "uptime_ms": 22365
+    },
+    {
+      "sequence": 69,
+      "uptime_ms": 23278
+    }
+  ],
+  "latest_log": "reports/device/kernel618-fault-r10/bootlog-0e81e82e6a32bec4-69.txt",
+  "fault": {
+    "time_seconds": 22.511149,
+    "cpu": 6,
+    "pid": 222,
+    "workqueue": "events_unbound deferred_probe_work_func",
+    "type": "list_add corruption: prev->next is NULL",
+    "pc": "__list_add_valid_or_report+0x104/0x10c",
+    "stack": [
+      "devices_kset_move_last+0xb8/0xc0",
+      "device_reorder_to_tail+0x48/0x104",
+      "device_pm_move_to_tail+0x30/0x68",
+      "deferred_probe_work_func+0x9c/0xf4"
+    ],
+    "corrupted_prev": "ffffff802dc5b9e0",
+    "slab": "kmalloc-2k",
+    "slab_object": "ffffff802dc5b800",
+    "pointer_offset": 480
+  },
+  "exception_capture_hardware_passed": true,
+  "display_continued_during_fault": "cont_splash_config begin at 23.229868 seconds",
+  "cause_status": "Corrupted devices kset list proven; allocating/freeing writer not yet identified"
 }

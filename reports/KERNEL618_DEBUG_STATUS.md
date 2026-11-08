@@ -110,7 +110,7 @@ boot SHA256: b28a199244fa644433ba8acbcc2f7c9da711ed7d684cce2151c4f5ae0b56a09d。
 均确认开关生效，但最后阶段仍为 22.113900 秒 mode_config_reset returned。
 该选项未解决启动失败；不能据此补造最终崩溃位置或认定已经完成正常冷点屏。
 
-### r10 异常寄存器/调用栈落盘（已刷入，实机结果待确认）
+### r10 异常寄存器/调用栈落盘（实机已抓到终止异常）
 
 r8/r9 都缺少最终故障栈。保留 r8 的显示模块、权限和阶段检查点，ARM64 __die
 打印 show_regs/dump_kernel_instr 后调用一次有界抓取窗口；此处只排队另一颗在线
@@ -133,7 +133,7 @@ CPU 的高优先级工作并等待 1500 ms，不在异常上下文做块 I/O 或
 arm64-fault-capture.patch。boot 封包、解包回读、AVB 自校验、原模块层哈希核对通过。
 boot SHA256: bcdef4a1f306623ee176b3f54ed94693a1bfa6ef135a361bebc1b3c48c2fee9f。
 Image SHA256: 99d34cdb44cf1174c23451aad863adbc459d728268c509ca4905c632285e8f6a。
-已刷入 boot_a 并 reboot，等待本轮反馈及实际日志，尚未正常开机。
+已刷入 boot_a，实机已保存设备链表 BUG 的完整异常栈，见下方结果；尚未正常开机。
 
 ## 内核直接落盘
 
@@ -186,3 +186,20 @@ init_boot 的 /init 转交 vendor_boot 的探测程序，再由其设置 USB ACM
 当前五版保留为 display-r6、display-r7、display-r8、display-r9、fault-r10。
 首版及 baseline-r2 交付目录已清理，原始 Image 仍保留在 WSL
 /root/sheng-618/diagnostic/baseline-r2/verified/kernel。
+
+
+### fault-r10 实机结果：取得真实终止异常
+
+用户反馈仍失败并返回 Fastboot。临时启动已验证的 r13 Recovery，仅读取 rawdump
+288..290 MiB；两份 CRC/尾标记有效，run 0e81e82e6a32bec4，seq68/69 分别至
+22.365/23.278 秒，实际 cmdline 为 sheng_test=fault-r10。
+22.511149 秒 devices kset 链表 prev->next 为 NULL，lib/list_debug.c:34 触发 BUG。
+CPU6/PID222 为 events_unbound deferred_probe_work_func，调用链为
+device_pm_move_to_tail → device_reorder_to_tail → devices_kset_move_last →
+__list_add_valid_or_report。损坏 entry 位于 kmalloc-2k 对象偏移 480。
+最新快照保存了 PC、寄存器、完整调用栈及跨 CPU 抓取窗口标记，异常落盘实机通过。
+显示线程 PID611 在异常期间仍记录了 23.229868 秒 cont_splash_config begin，
+因此前几轮的最后显示检查点不能作为实际终止位置。
+目前只证明设备链表损坏，尚不能确定哪个驱动写坏或释放了对象；不删除链表校验，
+不将 DP/HFI 错误当作此异常的已证根因。下一步追踪 kset 对象和 slab 分配/释放来源。
+原始日志 reports/device/kernel618-fault-r10/，整理见 kernel618-fault-r10-hardware.json。
