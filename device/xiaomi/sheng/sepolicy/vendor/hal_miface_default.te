@@ -14,6 +14,9 @@ binder_call(hal_miface_server, hal_miface_client)
 # Match the original implementation's camera/graphics and secure-buffer paths.
 allow hal_miface_default fwk_camera_hwservice:hwservice_manager find;
 binder_call(hal_miface_default, cameraserver)
+# Camera device/session and buffer-queue callbacks return to this HAL.
+# The existing forward binder_call already grants reverse transfer.
+allow cameraserver hal_miface_default:binder call;
 binder_call(hal_miface_default, system_server)
 allow hal_miface_default hidl_token_hwservice:hwservice_manager find;
 allow hal_miface_default hal_graphics_mapper_hwservice:hwservice_manager find;
