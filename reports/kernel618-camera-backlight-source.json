@@ -22,7 +22,7 @@
     },
     "vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c": {
       "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "after": "a0380c75141a743b8d156af081c327c1a04a784850383769cbe9fae74cd609a7",
+      "after": "d6c47721c1d019983c317d35babf503321f4bcf29160fb679d60d9d810b72639",
       "added": true
     },
     "vendor/qcom/opensource/display-drivers/msm/Kbuild": {

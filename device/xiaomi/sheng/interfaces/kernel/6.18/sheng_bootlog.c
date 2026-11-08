@@ -192,7 +192,9 @@ static void capture_early_trace(void)
         if (strstr(line, "NVT-ts") || strstr(line, "ktz8866") ||
             strstr(line, "sheng_backlight") || strstr(line, "fpc1020") ||
             strstr(line, "sheng-hall") || strstr(line, "xiaomi_hall") ||
-            strstr(line, "nanosic") ||
+            strstr(line, "nanosic_driver 5-004c:") || strstr(line, "sheng_nanosic") ||
+            strstr(line, "k618_load:") || strstr(line, "init first stage") ||
+            strstr(line, "init second stage") || strstr(line, "Wait for '") ||
             strstr(line, "Direct firmware load") ||
             strstr(line, "SHENG_EARLY_TRACE_TEST")) {
             bytes = min(bytes, sizeof(line) - 1);

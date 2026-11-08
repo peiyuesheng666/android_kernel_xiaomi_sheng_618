@@ -379,7 +379,7 @@
 +int ktz8866_backlight_update_status(unsigned int level);
 --- /dev/null
 +++ b/vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c
-@@ -0,0 +1,239 @@
+@@ -0,0 +1,260 @@
 +#include <linux/ratelimit.h>
 +#include <linux/timekeeping.h>
 +/*
@@ -579,6 +579,27 @@
 +	pdata->dev = &i2c->dev;
 +	i2c_set_clientdata(i2c, pdata);
 +	pdata->ops = &ops;
++	/* Continuous splash may skip dsi_panel_reset entirely. Darken the LEDs
++	 * at their own probe, before display reconfiguration; keep LCD bias on.
++	 * Normal N81A backlight updates restore the user's requested level. */
++	{
++		const char *model;
++		if (!of_property_read_string(of_root, "model", &model) &&
++		    !strcmp(model, "Qualcomm Technologies, Inc. 8550 sheng")) {
++			unsigned int lsb, msb, current_enable;
++			ret = ktz_update_status(pdata, 0);
++			if (!ret)
++				ret = regmap_read(pdata->regmap, KTZ8866_DISP_BB_LSB, &lsb);
++			if (!ret)
++				ret = regmap_read(pdata->regmap, KTZ8866_DISP_BB_MSB, &msb);
++			if (!ret)
++				ret = regmap_read(pdata->regmap, KTZ8866_DISP_BL_ENABLE, &current_enable);
++			if (ret)
++				return ret;
++			dev_info(&i2c->dev, "sheng_backlight boot_dark actual=%u enable=0x%x previous_enable=0x%x\n",
++				 ((msb & 0xff) << 3) | (lsb & 7), current_enable, enable);
++		}
++	}
 +	mutex_lock(&ktz8866_dev_list_mutex);
 +	list_add(&pdata->entry, &ktz8866_dev_list);
 +	mutex_unlock(&ktz8866_dev_list_mutex);

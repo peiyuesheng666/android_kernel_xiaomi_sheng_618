@@ -1,0 +1,123 @@
+{
+  "revision": "hardware-r31",
+  "run": "e3165fec9c4df2a1",
+  "evidence": "reports/device/kernel618-hardware-r31/bootlog-e3165fec9c4df2a1-392.txt",
+  "sha256": "656bd264dd9ad52ea005bfcaa1d4cada6bb0353c056525f6f3db70af6f94104c",
+  "batch": {
+    "start_seconds": 1.108421,
+    "finish_seconds": 29.149512,
+    "summary": "240 loaded, 0 refused, 0 died, 0 not tried of 240, at 29149 ms",
+    "elapsed_seconds": 28.041091
+  },
+  "measured_module_count": 240,
+  "measured_module_duration_ms": 24894,
+  "slowest_modules": [
+    {
+      "index": 229,
+      "name": "msm_drm.ko",
+      "duration_ms": 13959,
+      "uptime": 26.78694
+    },
+    {
+      "index": 12,
+      "name": "pinctrl-spmi-gpio.ko",
+      "duration_ms": 3332,
+      "uptime": 4.463567
+    },
+    {
+      "index": 73,
+      "name": "frpc-adsprpc.ko",
+      "duration_ms": 1497,
+      "uptime": 7.173168
+    },
+    {
+      "index": 240,
+      "name": "nt36532_touch.ko",
+      "duration_ms": 1196,
+      "uptime": 29.142489
+    },
+    {
+      "index": 234,
+      "name": "msm_kgsl.ko",
+      "duration_ms": 899,
+      "uptime": 27.838582
+    },
+    {
+      "index": 215,
+      "name": "ipam.ko",
+      "duration_ms": 534,
+      "uptime": 12.369579
+    },
+    {
+      "index": 176,
+      "name": "wcd9xxx_dlkm.ko",
+      "duration_ms": 328,
+      "uptime": 9.975989
+    },
+    {
+      "index": 193,
+      "name": "cs35l43_dlkm.ko",
+      "duration_ms": 289,
+      "uptime": 10.510214
+    },
+    {
+      "index": 212,
+      "name": "camera.ko",
+      "duration_ms": 252,
+      "uptime": 11.699543
+    },
+    {
+      "index": 205,
+      "name": "cnss2.ko",
+      "duration_ms": 219,
+      "uptime": 11.007678
+    },
+    {
+      "index": 208,
+      "name": "btpower.ko",
+      "duration_ms": 176,
+      "uptime": 11.25052
+    },
+    {
+      "index": 103,
+      "name": "ps5169.ko",
+      "duration_ms": 165,
+      "uptime": 8.086642
+    }
+  ],
+  "boot_dark_readbacks": [
+    {
+      "chip": "0-0011",
+      "uptime": 13.339959,
+      "actual": 0,
+      "enable": 63,
+      "previous_enable": 127
+    },
+    {
+      "chip": "4-0011",
+      "uptime": 13.354622,
+      "actual": 0,
+      "enable": 63,
+      "previous_enable": 127
+    }
+  ],
+  "first_nonzero_backlights": [
+    {
+      "chip": "4-0011",
+      "uptime": 53.25835,
+      "requested": 4095,
+      "actual": 2047,
+      "enable": 127,
+      "write_rc": 0
+    },
+    {
+      "chip": "0-0011",
+      "uptime": 53.259417,
+      "requested": 4095,
+      "actual": 2047,
+      "enable": 127,
+      "write_rc": 0
+    }
+  ],
+  "limitation": "Kernel uptime only; module init timing does not include all asynchronous probe work. Visual white flash and perceived boot time require physical acceptance."
+}

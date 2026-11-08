@@ -1,0 +1,42 @@
+{
+  "revision": "hardware-r31",
+  "evidence": "reports/device/kernel618-hardware-r31/keyboard-1794164075689891860",
+  "files": {
+    "kernel": {
+      "returncode": 0,
+      "sha256": "d3055535b23806676a8d264e057e25bbb12a18c9e3abdaa6fcd5f042e41f4766"
+    },
+    "binding": {
+      "returncode": 0,
+      "sha256": "0f8af7d7c781c3c920459ddc4d7b2e38dc77053b31680bda43f0c3d8fb450b54"
+    },
+    "node": {
+      "returncode": 0,
+      "sha256": "1cc5eee63ed957739dac26aed52dcfcac246587458d020647c6c37bfcfc8d20a"
+    },
+    "service": {
+      "returncode": 0,
+      "sha256": "05d4da2bf772043d31aee4ec434c7722f4ac15279e2f57683d5af275392a933c"
+    },
+    "input": {
+      "returncode": 0,
+      "sha256": "e34a6b77304f6b4eedd5dbe3ba61112f5bb31275d6427cb40f70a0b1be090f78"
+    }
+  },
+  "driver_bound": true,
+  "stock_node_labeled": true,
+  "stock_service_running": true,
+  "versions": {
+    "keyboardVersion": "0141",
+    "MCUVersion": "XM_N81A-125-1107",
+    "TouchPadVersion": "0e9c"
+  },
+  "keyboard_connected": true,
+  "keyboard_enabled": true,
+  "keyboard_input_registered": true,
+  "touchpad_input_registered": true,
+  "identity_state_reported": true,
+  "input_injected": false,
+  "physical_keypress_and_touchpad_verified": false,
+  "limitations": "Metadata and real stock HAL replies only; no physical keypress, pointer movement, hotplug or battery/charging acceptance"
+}

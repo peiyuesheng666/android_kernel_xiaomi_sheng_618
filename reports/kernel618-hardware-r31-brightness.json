@@ -1,0 +1,27 @@
+{
+  "revision": "hardware-r31",
+  "samples": [
+    {
+      "requested": 0.15,
+      "framework": "0.07641671",
+      "0-0011": "cat: /sys/bus/i2c/devices/0-0011/register_brightness: Permission denied",
+      "4-0011": "cat: /sys/bus/i2c/devices/4-0011/register_brightness: Permission denied"
+    },
+    {
+      "requested": 0.6,
+      "framework": "0.30053738",
+      "0-0011": "cat: /sys/bus/i2c/devices/0-0011/register_brightness: Permission denied",
+      "4-0011": "cat: /sys/bus/i2c/devices/4-0011/register_brightness: Permission denied"
+    },
+    {
+      "requested": 0.15,
+      "framework": "0.07641671",
+      "0-0011": "cat: /sys/bus/i2c/devices/0-0011/register_brightness: Permission denied",
+      "4-0011": "cat: /sys/bus/i2c/devices/4-0011/register_brightness: Permission denied"
+    }
+  ],
+  "restored": true,
+  "original_brightness": 0.007774848,
+  "original_mode": "1",
+  "evidence": "reports/device/kernel618-hardware-r31/brightness-1794164085820047154"
+}
