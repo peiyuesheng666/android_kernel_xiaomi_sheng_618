@@ -1,0 +1,92 @@
+{
+  "revision": "tablet-r20",
+  "boot_sha256": "fdeef6c7c3c6ffbd5add64e9f348d30cea8e78cc7688abb1949fe5f329d72ead",
+  "image_sha256": "a743221cbde012c268ce5c9ac8ee012162e475ab88f37bb68a47d31c92d9241a",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T00:28:22+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T00:28:23+0800",
+      "elapsed_seconds": 0.04
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T00:28:53+0800",
+      "elapsed_seconds": 30.65
+    },
+    {
+      "event": "candidate_adb_connected",
+      "time": "2026-11-09T00:29:18+0800",
+      "elapsed_seconds": 55.22
+    },
+    {
+      "event": "android_boot_completed",
+      "time": "2026-11-09T00:29:26+0800",
+      "elapsed_seconds": 63.25
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "candidate_adb_connected": true,
+  "kernel": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "android_boot_completed": true,
+  "legacy_fastrpc": {
+    "nodes_present": [
+      "/dev/adsprpc-smd",
+      "/dev/adsprpc-smd-secure"
+    ],
+    "legacy_compute_context_banks_bound": true
+  },
+  "sensors": {
+    "enumerated_count": 54,
+    "actual_samples_seen": [
+      "accelerometer",
+      "gyroscope",
+      "device_orientation"
+    ],
+    "window_orientation_listener_subscription_seen": true,
+    "physical_rotation_user_verified": false
+  },
+  "display": {
+    "user_video_sha256": "a11345c3f3aae2063cca070f6889e986078f17d3e5af05d9df62366242fb303c",
+    "screenshot_composition_looks_normal": true,
+    "panel_stripes_fixed_verified": false,
+    "user_feedback": "pending",
+    "timing_command_runtime_log_received": false
+  },
+  "touch": {
+    "working": false,
+    "spi_device_has_no_driver": true,
+    "xiaomi_touch_node_present": false
+  },
+  "audio": {
+    "speakers_verified": false,
+    "remaining": "Machine driver only links phone CS35L41; sheng has six CS35L43 amps"
+  },
+  "usb": {
+    "initial_adb_connected": true,
+    "stable": false,
+    "disconnected_observed": "2026-11-09T00:31:48+0800",
+    "latest_adb_and_fastboot_both_absent": true,
+    "cause": "unknown: no device response; screen state and persistent logs pending"
+  },
+  "persistent_log_readback": {
+    "succeeded": false,
+    "reason": "Device already absent before ADB reboot command; no recovery started",
+    "receipt": "kernel618-tablet-r20-automation.json"
+  },
+  "diagnostic_evidence": {
+    "board-nodes.txt": "a8ee38c70b846d1d6fb6a33729796d9167334d6487e7609986ffd675c5c5a6fc",
+    "sensors-awake.txt": "2fffe7fd9e9b2a24ad59e3330b78f4adc69dca54035c3ce493839f067468d1aa",
+    "window-awake.txt": "dca9875c68a9934b296feeaa70a93c59d38deeb1134d7d8ca6fd3e184a871b5d",
+    "display-awake.txt": "54a443c9619deb0a42d4cd84826d5ee3817710fd6eeb62bab24860f067edc1be",
+    "screenshot-awake.png": "251a5e1fb39e0c573fa6f7014f9b84f5c75275f17477508e6ee15c25d2a29a95",
+    "logcat-awake.txt": "b37cb34621e2c961b1884a4ba5f55db26dcf4b41714c806a80f81a3bc8a9a1f2"
+  }
+}

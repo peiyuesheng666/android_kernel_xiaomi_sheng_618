@@ -1,0 +1,19 @@
+{
+  "revision": "tablet-r20",
+  "serial": "ca10ede3",
+  "boot_sha256": "fdeef6c7c3c6ffbd5add64e9f348d30cea8e78cc7688abb1949fe5f329d72ead",
+  "image_sha256": "a743221cbde012c268ce5c9ac8ee012162e475ab88f37bb68a47d31c92d9241a",
+  "test_timeout_seconds": null,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "failed",
+      "wall_time": "2026-11-09T00:31:48+0800",
+      "error": "error: device 'ca10ede3' not found"
+    }
+  ]
+}

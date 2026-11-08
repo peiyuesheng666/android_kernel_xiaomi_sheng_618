@@ -513,3 +513,16 @@ msm_drm/frpc-adsprpc/msm-eva 三项负载变化。18008内核导出不变，
 官方boot封包、AVB和解包回读通过，测试自动重启关闭，交付最多五版。
 DSC 原始 C 数学对照重新执行通过。实机显示、传感器、音频结果待验证。
 触摸驱动与 CS35L43 音频路由未在本版补齐，不能声明全部硬件已恢复。
+
+
+### tablet-r20 实机：传感器恢复，USB 再次断开
+
+2026-11-09 00:28:22 +0800刷入boot_a，55.22秒ADB连通，63.25秒完成Android启动。
+旧adsprpc-smd/secure节点和compute上下文均出现，SensorService枚举54项，
+加速度计/陀螺仪有真实采样，device_orient有两次事件，WindowOrientationListener
+成功订阅方向传感器；实际旋转效果仍待用户验收。锁屏系统截图合成正常，
+不能据此证明物理面板横条已修好，N81A命令执行日志尚未读回。触摸仍无驱动。
+00:31:48回读前发现USB再次离线，电脑无ADB/Fastboot，未执行reboot或临时Recovery。
+不能认定USB稳定或内核死机，正等待屏幕状态与手动Fastboot以读持久日志。
+扬声器仍待六路CS35L43机器驱动路由适配；本轮未更改原厂系统和其他分区。
+证据及限制见kernel618-tablet-r20-hardware.json，测试自动重启保持关闭。
