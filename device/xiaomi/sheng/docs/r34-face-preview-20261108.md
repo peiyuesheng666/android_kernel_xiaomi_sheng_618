@@ -26,3 +26,18 @@ acceptance are pending.
 
 Raw evidence: reports/device/r33-face-failure-20261108 and WSL
 /root/sheng-lineage/hardware-diagnostics/r33-face-aidl-disassembly.txt.
+
+## Built and installed candidate
+
+Scoped overlay compilation, signing and enforced host/device idmap checks passed.
+Two real-device locale probes verified HAL-owned 640x480 preview and preserved
+identity/color resources. Only resources.arsc differs inside the APK. Fresh
+pre/post audits passed for 21 public repositories and 1243 project statuses.
+ODM packaging changed only SettingsResOverlaySheng.apk; metadata, filesystem
+UUID, AVB signature and other descriptors passed verification. All seven live
+r33 partition hashes and original SystemUI were checked before writing odm_b
+and vbmeta_b. r34 was written and rebooted; actual postboot readback and user
+enrollment/authentication are still pending. Full product build has not passed.
+
+Build: r34-face-preview-build-review-20261108.json; package: r34-packaging-20261108.json.
+Flash operations: reports/device/r34-20261108-125225.
