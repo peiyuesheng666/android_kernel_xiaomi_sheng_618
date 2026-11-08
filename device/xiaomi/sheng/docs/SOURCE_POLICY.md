@@ -7,9 +7,27 @@ using unique binary/RC filenames; PAL uses preferred-prebuilt selection with a
 device-compiled ELF input. Package `overrides` alone cannot prevent same-path
 Make installation collisions. No normal build patches a public repository.
 
-The `seventeen` piano tree is an organizational reference, at revision
-`3f10fc25273b42d18d0bd533551a0a5c3dda0094`. Its board values and firmware are
-not sheng inputs. The sheng tree uses `aidl/sensors`, `configs/`,
+For every bug fix, first inspect piano, LineageOS nuwa and the relevant
+dependency repositories, as requested by the user on 2026-11-08. Pin the
+reviewed commits and record what is applicable, already present or incompatible.
+Prefer a suitable established ROM implementation over further stock-specific
+workarounds; keep OEM components where required for hardware or supported by
+clear evidence. A reference does not authorize copying another device's board
+values or firmware. Any adapted source retains provenance and licensing, and
+board-specific changes remain in this device tree. Existing manifest-pinned
+public repositories are not patched or silently advanced.
+
+The `seventeen` piano tree was reviewed at
+`3f10fc25273b42d18d0bd533551a0a5c3dda0094`; nuwa lineage-24.0 at
+`8e2b6ca4375919035587115189760eed64f14b8d`, with sm8550-common at
+`63da741c41384a23416159f148f7ef7c85c8ea61`. Refresh relevant references for
+subsequent fixes rather than assuming these tips remain current. Face-specific
+reviews are in piano-face-reference-review-20261108.md and
+nuwa-face-reference-review-20261108.md. The user has requested pursuing a ROM
+FaceUnlock replacement rather than continuing the stock miface path; this is
+not yet a built or validated replacement.
+
+The sheng tree uses `aidl/sensors`, `configs/`,
 `interfaces/{audio,display,compat,location,kernel}`, `dolby/`, `overlay/`,
 `properties/`, `rootdir/`, `sepolicy/`, `tools/` and `docs/` for its own components.
 Recovery sources live in `rootdir/recovery/`. Unintegrated input and SystemUI
