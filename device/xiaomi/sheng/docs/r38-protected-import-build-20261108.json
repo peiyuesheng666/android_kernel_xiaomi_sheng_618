@@ -1,0 +1,32 @@
+{
+  "scoped_diagnostic_build_passed": true,
+  "full_product_build_passed": false,
+  "source_sha256": "cd76a74d546c56404dc02fdd7dac22c5886cb8a95e365c5c435c1c37bae0bbe5",
+  "builder_sha256": "50a0ea7cf433a2131ff2a8d2a601b114688ee668f20052cca9cc8333d608db2d",
+  "template_sha256": "fd49731a606f47dd3028d1a7175c9acee8b096d56b44f267323ad281dc3ecc1a",
+  "audit_sha256": "a85077cfbc603b71933260844062716387aac47ee7524b8a7e64dc7121534cb4",
+  "public_repositories": 22,
+  "output": {
+    "path": "/root/sheng-lineage/hardware-diagnostics/r38-protected-import-probe/sheng-protected-import-probe",
+    "sha256": "2474c2029d1e78a9f432bb90dd4d2a8dc56439bc7cd1e29ae1827695d1d362c3",
+    "bytes": 100016
+  },
+  "camera_opened": false,
+  "pixels_read": false,
+  "installed_in_product": false,
+  "input_sha256": {
+    "prebuilts/clang/host/linux-x86/clang-r596125/lib/clang/22/lib/linux/libclang_rt.builtins-aarch64-android.a": "4023fd367bc053e2cd5a7b0603220bcf5071e3aad0dacebd83b8f6ff57b7a0f6",
+    "/root/sheng-lineage/lineage-24.0/prebuilts/clang/host/linux-x86/clang-r596125/lib/clang/22/lib/linux/libclang_rt.ubsan_minimal-aarch64-android.a": "93c7671fba44ed69e0b7cb29c0eb03120f590fdbe442d692ea156f3284bad72e",
+    "out/soong/.intermediates/system/logging/liblog/liblog/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/liblog.so": "f58cb2a2b3f403d92f3968436024a48abf61491ae55ac9364e9c870efe336143",
+    "out/soong/.intermediates/system/core/libutils/libutils/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libutils.so": "9f1d44137327a90689848c0a58e1bf3d70c3ad3b2f7a53de470ab8298d984309",
+    "out/soong/.intermediates/prebuilts/clang/host/linux-x86/libc++/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libc++.so": "b3f9261acf0dc87a012eb19a1d632dab5a78a0991aa3c0ff7af351b28eb38953",
+    "out/soong/.intermediates/bionic/libc/libc/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libc.so": "07a2e0eb65c7e7900f04954c12409e0695093852ac90c47a360b059bdd9a52a4",
+    "out/soong/.intermediates/bionic/libm/libm/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libm.so": "67d3313f44b1e07464f6acae71aec69b89009f6072ea99692d306bb2cd24193d",
+    "out/soong/.intermediates/bionic/libdl/libdl/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libdl.so": "a706aee66743c05b11a8ff5a9e226ee7d2393619de351ebcb893e1d1f4a94c82",
+    "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/frameworks/native/libs/ui/libui/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libui.so": "5d6f48b97bbcbf79ce805f96e7d7043597154dbd8c615a8a4dfcaf8b916bf3f1",
+    "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/frameworks/native/opengl/libs/libEGL/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libEGL.so": "3bca51954b92684128838f912069b12f59b2b0f5097504ad9f478657fc4aab45"
+  },
+  "postbuild_public_audit_passed": true,
+  "postbuild_public_audit_sha256": "37df9f183d0acdfbc54146ed817e113b20531960343e57e4c12540f4a743d38a",
+  "all_project_status_checked": 1243
+}

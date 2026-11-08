@@ -1,0 +1,56 @@
+{
+  "revision_running": 38,
+  "serial": "ca10ede3",
+  "slot": "b",
+  "probe_sha256": "2474c2029d1e78a9f432bb90dd4d2a8dc56439bc7cd1e29ae1827695d1d362c3",
+  "diagnostic_domain": "su",
+  "camera_opened": false,
+  "cpu_mapping": false,
+  "texture_sampled": false,
+  "pixels_read": false,
+  "cases_completed": 4,
+  "returncode": 0,
+  "results": [
+    {
+      "case": "ordinary_rgba",
+      "allocated": true,
+      "egl_import": "accepted",
+      "egl_error": "0x3000"
+    },
+    {
+      "case": "protected_rgba",
+      "allocated": true,
+      "egl_import": "accepted",
+      "egl_error": "0x3000"
+    },
+    {
+      "case": "protected_ubwc",
+      "allocated": true,
+      "egl_import": "accepted",
+      "egl_error": "0x3000"
+    },
+    {
+      "case": "protected_camera_ubwc",
+      "allocated": true,
+      "egl_import": "rejected",
+      "egl_error": "0x3002"
+    }
+  ],
+  "format": "0x7fa30c06",
+  "observation": "The protected camera usage combination fails EGL import; the tested protected non-camera UBWC combination imports. This does not establish successful sampling or per-domain allocator permissions.",
+  "user_enrollment_passed": false,
+  "user_attempt_crash_times_utc": [
+    "2026-11-08 08:46:28.740",
+    "2026-11-08 08:55:27.211"
+  ],
+  "sleep_request_precedes_both_crashes": true,
+  "boot_id": "f526546c-dd24-4dde-9d91-d6a50dd02cd6",
+  "evidence_sha256": {
+    "crash.txt": "d68e4bcd2bd0ab342504cc9768203b6598d14047debbdae8c9e1dc67bfcd96a6",
+    "crash-second-attempt.txt": "e9ed712d9a37416c6042a81b2d063489fb982e0be2f1d2fd1a3bc58332b7ac2f",
+    "logcat-after-attempt.txt": "7a98681bd044246401ae04d5b10bf35b6e631f8cd1599461c23b21c1033b58d4",
+    "logcat-second-attempt-all.txt": "1dd11d6ee314d9a0d22977d048c54b14110f582ce0bd7df36a839ebef1008432",
+    "surfaceflinger-tombstone.txt": "0b39ed74ec734c67160de828b6e76351042009c4b5aeb4340bfef39248c070f1",
+    "import-probe-runtime.txt": "f791cd451701473be6448767436adc5017682bd53ec78b5acffb25900af9bc7c"
+  }
+}
