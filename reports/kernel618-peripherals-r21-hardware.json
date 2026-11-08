@@ -1,0 +1,77 @@
+{
+  "revision": "peripherals-r21",
+  "boot_sha256": "a08e1957001c771f88d2e0b7b30fa8548d584d5fb0c006ef9a0b5dbd332da464",
+  "image_sha256": "f8be54c9e983080ddae8872c9a92b35199d9d4b0cfee1ceb2e17a2737c337987",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T01:03:20+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:03:20+0800",
+      "elapsed_seconds": 0.04
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:03:50+0800",
+      "elapsed_seconds": 30.68
+    },
+    {
+      "event": "candidate_adb_connected",
+      "time": "2026-11-09T01:04:17+0800",
+      "elapsed_seconds": 57.34
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:04:21+0800",
+      "elapsed_seconds": 61.62
+    },
+    {
+      "event": "android_boot_completed",
+      "time": "2026-11-09T01:04:25+0800",
+      "elapsed_seconds": 65.22
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "candidate_adb_connected": true,
+  "kernel": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "android_boot_completed": true,
+  "touch": {
+    "driver_registered": true,
+    "xiaomi_touch_node_present": true,
+    "spi_device_bound": false,
+    "nt36532_input_present": false,
+    "user_verified_working": false,
+    "root_cause": "Probe checked only panel[0] (generic Visionox); sheng N81A is panel[1] and panel[2]",
+    "dt_evidence": "/root/sheng-618/diagnostic/disklog-r5/live.dts"
+  },
+  "stylus": {
+    "user_verified_working": false,
+    "blocked_by_touch_probe": true
+  },
+  "audio": {
+    "six_cs35l43_linked_on_secondary_rx_tx": true,
+    "firmware_load_seen_for_all_six": true,
+    "user_feedback": "Speaker playback sometimes stutters",
+    "stutter_fixed": false,
+    "evidence": "AudioFlinger fast mixer underruns=105 overruns=972; logcat AudioOut_D Xrun cycle=65.66ms expected=20ms"
+  },
+  "persistent_log_readback": {
+    "succeeded": true,
+    "run": "dd9aec1354313193",
+    "uptime_ms": 120601,
+    "receipt": "kernel618-peripherals-r21-automation.json"
+  },
+  "diagnostic_evidence": {
+    "audio-flinger.txt": "efba4dce24b7fe4d7464b46cebc6c99abba2298f1170349232c64cb08b1f300e",
+    "board-nodes.txt": "0c2d390bb1562dff0357776f4b58922acb5f3a326be6f4f85f9345ac6c1e98d7",
+    "bootlog-dd9aec1354313193-392.txt": "45a222c98e77e128066b442e73d464b1f1e07e9a005dd6970dc6453415156258",
+    "input.txt": "a1d1673e5eb43122b77f49ed1470b47ddb7a8ea516fda6b8ced0cd6c9a34cc6f",
+    "logcat.txt": "aa8a0384c7e6477c53794b033a0e4c975c10e5aef876019bb5be33d78f184e8d"
+  }
+}

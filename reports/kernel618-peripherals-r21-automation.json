@@ -1,0 +1,66 @@
+{
+  "revision": "peripherals-r21",
+  "serial": "ca10ede3",
+  "boot_sha256": "a08e1957001c771f88d2e0b7b30fa8548d584d5fb0c006ef9a0b5dbd332da464",
+  "image_sha256": "f8be54c9e983080ddae8872c9a92b35199d9d4b0cfee1ceb2e17a2737c337987",
+  "test_timeout_seconds": null,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-09T01:08:05+0800"
+    },
+    {
+      "event": "log_readback_complete",
+      "wall_time": "2026-11-09T01:08:19+0800",
+      "run": "dd9aec1354313193",
+      "uptime_ms": 120601
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T01:08:20+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "finished_in_fastboot",
+      "wall_time": "2026-11-09T01:08:25+0800"
+    }
+  ],
+  "previous_control_receipt": {
+    "revision": "peripherals-r21",
+    "serial": "ca10ede3",
+    "boot_sha256": "a08e1957001c771f88d2e0b7b30fa8548d584d5fb0c006ef9a0b5dbd332da464",
+    "image_sha256": "f8be54c9e983080ddae8872c9a92b35199d9d4b0cfee1ceb2e17a2737c337987",
+    "test_timeout_seconds": null,
+    "writes": [
+      "boot_a"
+    ],
+    "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+    "original_boot_backed_up": false,
+    "events": [
+      {
+        "event": "failed",
+        "wall_time": "2026-11-09T01:05:45+0800",
+        "error": "Command '['/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/tools/platform-tools/adb.exe', '-s', 'ca10ede3', 'reboot', 'bootloader']' timed out after 15 seconds"
+      }
+    ]
+  },
+  "raw_sha256": "68df75cabc84307c45f8a5f3818f8f74618d60107dfb013d8cc573020105b965",
+  "run": "dd9aec1354313193",
+  "valid_snapshots": [
+    {
+      "sequence": 392,
+      "uptime_ms": 120601
+    },
+    {
+      "sequence": 391,
+      "uptime_ms": 120336
+    }
+  ],
+  "log_readback_succeeded": true,
+  "latest_log": "reports/device/kernel618-peripherals-r21/bootlog-dd9aec1354313193-392.txt"
+}
