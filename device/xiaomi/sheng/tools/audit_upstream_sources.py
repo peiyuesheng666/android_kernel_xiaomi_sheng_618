@@ -27,6 +27,7 @@ OWNED_PUBLIC_REPOS = [
     'build/soong', 'lineage-sdk',
     'packages/modules/common', 'packages/modules/SdkExtensions', 'art',
     'external/google-smali',
+    'packages/modules/Bluetooth',
 ]
 
 def run(repo, *args, check=True):
