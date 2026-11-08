@@ -1,0 +1,41 @@
+{
+  "bp_syntax_checked": true,
+  "init_scripts_checked": 2,
+  "vintf_fragments_schema_and_merge_checked": 2,
+  "standard_face_aidl_version": 2,
+  "xiaomi_miface_hidl_version": "1.0",
+  "miface_hwservice_finders": [
+    "hal_face_default",
+    "hal_miface_default"
+  ],
+  "miface_domain_permissive": false,
+  "declared_shared_libraries_match_elf": true,
+  "candidate_dependency_elf_checks_previously_passed": 5,
+  "normal_product_module_build_passed": false,
+  "framework_vintf_compatibility_tested": false,
+  "installed": false,
+  "camera_opened": false,
+  "device_operated": false,
+  "command_log_sha256": "f32b4268a0e87d7fae672b8ef3c545777691abf62ec33c08d215284c369c1896",
+  "date": "2026-11-08",
+  "source_sha256": {
+    "device.mk": "7a3c6a44f6d462a97834226a91d317ac0f57bdb60d53b69821ce0dca822d50b0",
+    "sepolicy/vendor/attributes": "ff0bf7a0c22467e4a91729cafb8f4ed89ab77d8847ffbc19951caac343780b96",
+    "sepolicy/vendor/file_contexts": "7104b2fffc3d3d6a1e4278dd531b3bb5a5ca091f78b8ec7f7a4c98df15a04528",
+    "sepolicy/vendor/hwservice_contexts": "8a10005086db18077e548cf8fe33640fb77c2c727b7274b3225c613036a8bd2c",
+    "sepolicy/vendor/hal_miface_default.te": "da659b574839776d077389e3ef750853715ae84287eedf9a9d942c4e566e411b",
+    "interfaces/biometrics/face/Android.bp": "cbee1fabc07b4878e7064a485e80eca68a269f7c4796e51fe2a3100acd29a63e",
+    "interfaces/biometrics/face/SOURCE_SHA256.json": "c0429dc0f2951be336b1981123bca94f521f39d7f48c5f5b80e02d6b06a8fb2c",
+    "interfaces/biometrics/face/bin/mifaced@1.0": "5d67fb682672516424c5cd12fa65dea134fd64145da1496e5e39a540a05f1127",
+    "interfaces/biometrics/face/bin/hw/android.hardware.biometrics.face-aidl-service": "8b6f903a3551ed949bf0ddfac8d75546687601e8173ae0cfe6418ce821006c73",
+    "interfaces/biometrics/face/etc/init/android.hardware.biometrics.face-aidl-service.rc": "9241b85dab846093f1bccb090e5c8b837c3670feba068ffde63c4818382c2b86",
+    "interfaces/biometrics/face/etc/init/vendor.xiaomi.hardware.miface@1.0-service.rc": "0cb530db49c16e23dffea1ab5ea3a505d14c90d4558a469baa2aa3bb35362278",
+    "interfaces/biometrics/face/etc/vintf/manifest/face-default.xml": "de63fa045bd5724174394b344aa1bc992aaf02fb08da40d623be1dbb0be28245",
+    "interfaces/biometrics/face/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.miface.xml": "ce46a37bd43d89c3c4a59460e2e63808f368f32a8858aed33d4ca4f82509cd04"
+  },
+  "raw_source_checks_sha256": "c10aa0d1f653be5e00f4b0652e7edb0f32d774b1b94e2c5f8fa8e4f44b70be3e",
+  "raw_source_checks_path": "/root/sheng-lineage/hardware-diagnostics/r32-face-source-checks-20261108/source-checks.json",
+  "six_original_files_preserved": true,
+  "source_integration_prepared": true,
+  "runtime_accepted": false
+}

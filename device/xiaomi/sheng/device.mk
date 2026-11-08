@@ -176,6 +176,15 @@ PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint-service.xiaomi \
     sheng_fingerprint_fpc_default_symlink
 
+# Face: the original sheng AIDL frontend and Xiaomi implementation must both
+# be installed. Their V2 NDK dependencies use the existing public AIDL modules.
+PRODUCT_PACKAGES += \
+    sheng-face-aidl-service \
+    sheng-miface-service
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.biometrics.face.xml
+
 ifeq ($(TARGET_HAS_UDFPS),true)
 PRODUCT_PACKAGES += \
     FrameworkResOverlayUdfps

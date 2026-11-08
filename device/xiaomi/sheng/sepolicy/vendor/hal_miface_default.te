@@ -1,0 +1,27 @@
+# Original sheng HIDL implementation behind the standard AIDL face frontend.
+type hal_miface_default, domain;
+type hal_miface_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_miface_default)
+hal_server_domain(hal_miface_default, hal_miface)
+
+type hal_miface_hwservice, hwservice_manager_type, protected_hwservice;
+hal_attribute_hwservice(hal_miface, hal_miface_hwservice)
+hal_client_domain(hal_face_default, hal_miface)
+hwbinder_use(hal_miface_default)
+binder_call(hal_miface_client, hal_miface_server)
+binder_call(hal_miface_server, hal_miface_client)
+
+# Match the original implementation's camera/graphics and secure-buffer paths.
+allow hal_miface_default fwk_camera_hwservice:hwservice_manager find;
+binder_call(hal_miface_default, cameraserver)
+binder_call(hal_miface_default, system_server)
+allow hal_miface_default hidl_token_hwservice:hwservice_manager find;
+allow hal_miface_default hal_graphics_mapper_hwservice:hwservice_manager find;
+allow hal_miface_default hal_graphics_allocator_default:fd use;
+allow hal_miface_default tee_device:chr_file rw_file_perms;
+allow hal_miface_default ion_device:chr_file rw_file_perms;
+allow hal_miface_default vendor_dmabuf_qseecom_heap_device:chr_file { ioctl read open };
+allow hal_miface_default vendor_dmabuf_qseecom_ta_heap_device:chr_file { ioctl read open };
+allow hal_miface_default vendor_sysfs_displayfeature:file r_file_perms;
+get_prop(hal_miface_default, vendor_fp_prop)
+get_prop(hal_miface_default, camera_config_prop)

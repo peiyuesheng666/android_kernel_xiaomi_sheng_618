@@ -79,3 +79,39 @@ face-v2-candidate-build-20261108.json. These libraries remain uninstalled. Norma
 product module integration, precise SELinux policy, service registration, linker
 namespace behavior and runtime ABI still require validation. No service, camera,
 enrollment or authentication was started by this candidate build.
+
+## Device-tree service integration candidate
+
+The device tree now contains both original executables, their unchanged init
+scripts and both required VINTF fragments. Further inspection found a sixth
+missing original file: vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.miface.xml.
+It declares vendor.xiaomi.hardware.miface@1.0::IMiFace/default. The AIDL frontend
+declaration alone does not register that HIDL implementation.
+
+Device-owned cc_prebuilt_binary modules install both executables under their
+original ODM paths, declare every non-default DT_NEEDED dependency and depend on
+the existing public frozen V2 modules. The original HIDL fragment is attached to
+the ODM implementation module; the combined device manifest includes both HALs.
+The standard face feature XML is installed from unchanged framework data.
+All six original files are pinned by interfaces/biometrics/face/SOURCE_SHA256.json.
+
+The standard hal_face_default domain consumes a protected Xiaomi miface
+hwservice in a separate hal_miface_default domain. The candidate grants only
+the original implementation's camera/graphics, secure-buffer and property paths,
+without the stock direct application permissions. Compiled policy confirms that
+only hal_face_default and hal_miface_default may find this named HIDL service;
+the new domain is not permissive. Both init scripts, Blueprint syntax, manifest
+schema/merge and exact executable context matches passed host checks.
+
+The isolated policy build reproduces the unchanged r31 binary before compiling
+the candidate, with neverallow checks enabled. Existing-type permission changes
+are limited to the independently reviewed thermal chown/fowner capabilities and
+the face frontend finding hidl_manager_hwservice. Extended ioctl/netlink rules,
+existing-type transitions and other policy statements are unchanged in the
+reviewed comparisons. The baseline's existing debug/permissive domains are
+reported explicitly; none is newly introduced by this candidate.
+
+Normal product module build, complete framework VINTF compatibility, installed
+namespace behavior, service startup, secure-camera ABI and enrollment remain
+unverified. No candidate service was installed or started and no camera was
+opened. Do not count this integration candidate as a working face repair.

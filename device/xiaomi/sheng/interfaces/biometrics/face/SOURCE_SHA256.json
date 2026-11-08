@@ -1,0 +1,35 @@
+{
+  "original_sheng_firmware_files": {
+    "bin/hw/android.hardware.biometrics.face-aidl-service": {
+      "stock_path": "odm/bin/hw/android.hardware.biometrics.face-aidl-service",
+      "bytes": 59984,
+      "sha256": "8b6f903a3551ed949bf0ddfac8d75546687601e8173ae0cfe6418ce821006c73"
+    },
+    "bin/mifaced@1.0": {
+      "stock_path": "odm/bin/mifaced@1.0",
+      "bytes": 15728,
+      "sha256": "5d67fb682672516424c5cd12fa65dea134fd64145da1496e5e39a540a05f1127"
+    },
+    "etc/init/android.hardware.biometrics.face-aidl-service.rc": {
+      "stock_path": "odm/etc/init/android.hardware.biometrics.face-aidl-service.rc",
+      "bytes": 134,
+      "sha256": "9241b85dab846093f1bccb090e5c8b837c3670feba068ffde63c4818382c2b86"
+    },
+    "etc/init/vendor.xiaomi.hardware.miface@1.0-service.rc": {
+      "stock_path": "odm/etc/init/vendor.xiaomi.hardware.miface@1.0-service.rc",
+      "bytes": 98,
+      "sha256": "0cb530db49c16e23dffea1ab5ea3a505d14c90d4558a469baa2aa3bb35362278"
+    },
+    "etc/vintf/manifest/face-default.xml": {
+      "stock_path": "odm/etc/vintf/manifest/face-default.xml",
+      "bytes": 208,
+      "sha256": "de63fa045bd5724174394b344aa1bc992aaf02fb08da40d623be1dbb0be28245"
+    },
+    "etc/vintf/manifest/manifest_vendor.xiaomi.hardware.miface.xml": {
+      "stock_path": "vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.miface.xml",
+      "bytes": 1848,
+      "sha256": "ce46a37bd43d89c3c4a59460e2e63808f368f32a8858aed33d4ca4f82509cd04"
+    }
+  },
+  "modified": false
+}
