@@ -111,7 +111,34 @@ existing-type transitions and other policy statements are unchanged in the
 reviewed comparisons. The baseline's existing debug/permissive domains are
 reported explicitly; none is newly introduced by this candidate.
 
-Normal product module build, complete framework VINTF compatibility, installed
-namespace behavior, service startup, secure-camera ABI and enrollment remain
-unverified. No candidate service was installed or started and no camera was
-opened. Do not count this integration candidate as a working face repair.
+At that policy-candidate stage, complete framework VINTF compatibility and
+runtime behavior had not been verified. The assembly checks below supersede
+only the compatibility part of that historical status.
+
+## Scoped r32 assembly
+
+Complete VINTF metadata pulled from the running r31 device exposed the missing
+framework matrix entry for the protected Xiaomi HIDL service. The device-owned
+framework_face_matrix.xml now declares that optional service. The normal matrix
+assembly command first reproduced the installed matrix byte for byte, including
+its SELinux and AVB requirements; the candidate adds only the miface HAL entry.
+
+The complete candidate VINTF check passed with all five live partition metadata
+sets, actual APEX metadata, the device's 5.15.220 kernel configuration, first API
+level 34 and the sheng/kalama SKUs. An earlier attempt omitted normal matrix
+environment variables and failed baseline reproduction before changing product
+outputs. Failed host root-directory mappings and the missing-matrix candidate
+check are retained in the review rather than counted as passes.
+
+The scoped assembly passed context type/path checks and copied only 14 reviewed
+outputs into the host product staging tree. This includes the two source-built
+V2 libraries, six original service files, face feature, policy/context files and
+the generated system matrix. The generated global packaging contexts include
+the two new executable labels. Fresh pre/post upstream audits passed for 22
+public repositories with all 1243 project statuses clean.
+
+See r32-face-assembly-build-review-20261108.json for exact hashes and limitations.
+Full product and normal product module builds have not passed. No candidate was
+installed on the device, no service or camera was started, and no enrollment or
+authentication was attempted. Namespace behavior, startup and runtime ABI still
+need device checks; working face enrollment is not yet established.
