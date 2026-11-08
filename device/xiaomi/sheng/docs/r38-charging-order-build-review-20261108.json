@@ -1,0 +1,31 @@
+{
+  "revision": 38,
+  "scoped_configuration_assembly_passed": true,
+  "host_init_verifier_passed": true,
+  "exact_action_move_verified": true,
+  "permission_commands_and_timeout_unchanged": true,
+  "charging_value_written": false,
+  "full_product_build_passed": false,
+  "normal_product_module_build_passed": false,
+  "prebuild_public_audit_passed": true,
+  "postbuild_public_audit_passed": true,
+  "public_repositories_fresh_audited": 28,
+  "all_project_status_checked": 1243,
+  "source_sha256": {
+    "rootdir/etc/init.sm8550.rc": "e827847387a788149543b31f93561c5724bda71b792649add79788445189e645",
+    "tools/build_sheng_charging_order_r38.py": "f856debf9eb77bd44012c3f2f94652a8776a5bdfcc6fc93db48fcc8bc8ae26c1"
+  },
+  "reviewed_sha256": {
+    "vendor": {
+      "etc/init/init.sm8550.rc": "e827847387a788149543b31f93561c5724bda71b792649add79788445189e645"
+    }
+  },
+  "baseline_rc_sha256": "e95aff62e4d5b5d296707afaa150d2f61c6131b9c3eb2ee7cd1eddc44f9c41e4",
+  "prebuild_audit_sha256": "bd92c546697ad56fe5c3841a95c21bd79629e0c0afbab7cc79368a72ff766f4d",
+  "command_log_sha256": "613ff57ccb3adba4f5f376937fa3baeb7df4161e6ef985d859c5a3370b4ebc7a",
+  "work": "/root/sheng-lineage/hardware-diagnostics/r38-charging-order-build-20261108",
+  "systemui_changed": false,
+  "installed": false,
+  "runtime_verified": false,
+  "postbuild_public_audit_sha256": "7885e028f948a55d84292863efc323e1d44b7f4171303e06095bbcdd81876805"
+}
