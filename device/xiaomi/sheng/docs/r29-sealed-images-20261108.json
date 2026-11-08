@@ -1,0 +1,39 @@
+{
+  "revision": 29,
+  "sealed_manifest_sha256": "6a92821ed518bc6cd75ec20a95897ae6e4ba64b4ab5c26313677f94d97c51272",
+  "frozen_spec_sha256": "04577bdee77e963a58121b28cdfb9d45638aa8f5bdb23a616da1aeabc8bfab8e",
+  "sealed_files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "0cc66aff362a3f567c4ef39f46f8920069ca16f58cf5c18d67f8c75e6cdbe6bf"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "ff42293ee57b3cc469affabb5e2a7c195307c6bee76c2c07b5a834581bf37d9c"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "b0e5ff1c8b259a66a7e2907ee6d22121cd1094a6ecc4c82e467decab25462184"
+    }
+  ],
+  "packaging_attempts": [
+    {
+      "attempt": 1,
+      "result": "interrupted; process handle missing, WSL restarted, no published or publishing directory remained",
+      "root_cause_proven": false
+    },
+    {
+      "attempt": 2,
+      "result": "published and independently validated",
+      "console": "artifacts/r29-packaging-attempt2-console.txt"
+    }
+  ],
+  "runtime_verified": false,
+  "full_product_build_passed": false
+}
