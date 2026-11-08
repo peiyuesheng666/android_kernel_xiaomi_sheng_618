@@ -399,3 +399,22 @@ run 7c9c618cd9fdeff7，seq152/153 至 43.564/43.826 秒，CRC 有效。
 因此超时、Android 主动重启、实际内核 panic 三种回 Fastboot 路径均已实机验证。
 全 SoC 硬锁或极早复位仍不能保证。保留测试模式，ADB 连通后的下一版关闭。
 详见 kernel618-wrapped-r16-{hardware,automation}.json。
+
+
+### firmware-r17：恢复原厂 firmware SELinux 加载接口
+
+官方 modem 镜像提取目录存在 kiwi/amss20.bin，原厂 ueventd 指定了 firmware_mnt/image
+与小米 Wi-Fi APEX 搜索目录。r16 在 modem_a 挂载完成后直读 ENOENT，用户态补载被
+SELinux 的 system:firmware_load 拒绝，随后 CNSS panic；不是固件缺失。
+对照固定提交的 LOS 与 MiCode 5.15，两者的 SELinux read/load hooks 只检查模块，
+没有 6.18 新增的 firmware_load 检查。CONFIG_SHENG_LEGACY_FIRMWARE_LSM 仅恢复
+READING_FIRMWARE/LOADING_FIRMWARE 的旧行为，正常文件与 sysfs 权限、其他加载类型、
+其他 LSM 和 IMA 检查继续运行。SELinux 强制模式及原厂策略不修改。
+
+真实 AArch64 QEMU 对照：使用相同的强制策略明确拒绝 firmware_load；r16 直读返回
+EACCES、补载被拒，r17 直读与 sysfs 补载均成功且数据逐字节一致；缺失固件仍 ENOENT。
+两版均验证专门拒绝的 sysfs 文件读取 EACCES、finit_module 的 module_load EACCES。
+各三例 firmware 请求与两例权限拒绝全部通过，标记落入 CRC 有效日志。
+不是关闭 SELinux，不禁用 Wi-Fi，不改原厂固件。18,008 导出不变，337 模块继续复用 r12。
+官方 boot 封包、AVB 和解包回读通过，保留 180 秒测试模式；实机启动待本轮自动验证。
+当前五版 auto-r13、modules-r14、crypto-r15、wrapped-r16、firmware-r17。

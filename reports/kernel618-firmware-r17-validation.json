@@ -1,0 +1,13 @@
+{
+  "boot_sha256": "facbfc13c7eb7aab68f4f575d2b5d59321170887c1ba8d819592425e0995088d",
+  "image_sha256": "50ff1bd70e97ae9a6df3bebd97cecc5e5dc91f9eab78534d340b72ee37222047",
+  "hardware_pending": true,
+  "source_receipt": "kernel618-firmware-lsm-source.json",
+  "positive_receipt": "kernel618-firmware-r17-qemu-firmware-legacy.json",
+  "negative_control_receipt": "kernel618-wrapped-r16-qemu-firmware-native.json",
+  "selinux_enforcing": true,
+  "direct_and_fallback_success_candidate": true,
+  "original_firmware_denial_reproduced": true,
+  "file_and_module_denials_retained": true,
+  "no_stock_userspace_modification": true
+}

@@ -1,0 +1,18 @@
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -4305 +4305,6 @@
+-		rc = selinux_kernel_load_from_file(file, SYSTEM__FIRMWARE_LOAD);
++		/* Stock sheng 5.15 policy predates system:firmware_load.
++		 * Ordinary file/sysfs access and other LSMs still apply.
++		 */
++		if (!IS_ENABLED(CONFIG_SHENG_LEGACY_FIRMWARE_LSM))
++			rc = selinux_kernel_load_from_file(file,
++						   SYSTEM__FIRMWARE_LOAD);
+@@ -4341 +4346,6 @@
+-		rc = selinux_kernel_load_from_file(NULL, SYSTEM__FIRMWARE_LOAD);
++		/* Stock sheng 5.15 policy predates system:firmware_load.
++		 * Ordinary file/sysfs access and other LSMs still apply.
++		 */
++		if (!IS_ENABLED(CONFIG_SHENG_LEGACY_FIRMWARE_LSM))
++			rc = selinux_kernel_load_from_file(NULL,
++						   SYSTEM__FIRMWARE_LOAD);

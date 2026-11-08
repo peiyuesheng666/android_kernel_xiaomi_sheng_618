@@ -1,0 +1,31 @@
+{
+  "before": "91980e971efcd91bb5906e7fb54603164d5f4dd450c6d8901adb85d691ce60ca",
+  "after": "bdfe7bb236cb6e486358845a6bc91e473b5ea9734d6da5bd996e826b435e9d89",
+  "hardware_evidence": "wrapped-r16 43.638825s kernel->kernel system:firmware_load denial prevents ueventd fallback; modem_a is already mounted at 39.886148s",
+  "firmware_present": "/root/sheng-lineage/firmware-dump/hardware/firmware-files/modem/image/kiwi/amss20.bin",
+  "stock_ueventd_directories": [
+    "/apex/com.xiaomi.wifi/etc/firmware/",
+    "/vendor/firmware_mnt/image/",
+    "/apex/com.xiaomi.wifi/etc/"
+  ],
+  "scope": "Only READING_FIRMWARE and LOADING_FIRMWARE SELinux load-hook checks match 5.15. Normal file/sysfs access checks, all other load classes, and other LSM/IMA hooks remain.",
+  "references": [
+    {
+      "commit": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+      "path": "security/selinux/hooks.c",
+      "behavior": "6.18 adds firmware_load check in file and data hooks"
+    },
+    {
+      "commit": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "path": "security/selinux/hooks.c",
+      "behavior": "5.15 SELinux read/load hooks only handle modules"
+    },
+    {
+      "commit": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "security/selinux/hooks.c",
+      "behavior": "MiCode 5.15 has same firmware contract"
+    }
+  ],
+  "changes_stock_firmware": false,
+  "selinux_enforcing_retained": true
+}

@@ -36,6 +36,8 @@ parser.add_argument('--legacy-reuse', action='store_true',
                     help='Real finit_module duplicate and missing legacy ABI regression')
 parser.add_argument('--fscrypt-provisioning', action='store_true',
                     help='Synthetic keys through real add_key and ext4 FS_IOC_ADD_ENCRYPTION_KEY')
+parser.add_argument('--firmware-policy', choices=['legacy', 'native'],
+                    help='Real firmware direct/fallback load under enforcing SELinux; native is failing control')
 options = parser.parse_args()
 if options.auto_return in ('fault', 'panic', 'emergency'):
     options.fault_after_log = True
@@ -44,6 +46,7 @@ assert not options.slab_tracking or options.fault_after_log
 assert bool(options.extra_test_module) == bool(options.require_marker)
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
 root = Path('/root/sheng-618/diagnostic') / options.revision / (
+    'qemu-firmware-' + options.firmware_policy if options.firmware_policy else
     'qemu-fscrypt' if options.fscrypt_provisioning else
     'qemu-module-reuse' if options.legacy_reuse else
     'qemu-auto-' + options.auto_return if options.auto_return else
@@ -175,6 +178,9 @@ MODULE_DESCRIPTION("Disposable QEMU-only fault capture probe");
                        env=environment(8), stdout=stream, stderr=subprocess.STDOUT, check=True)
     shutil.copyfile(fault / 'sheng_fault_probe.ko', rd / 'sheng_fault_probe.ko')
 program = root / 'test-init.c'
+if options.firmware_policy:
+    from sheng618_firmware_policy_test import prepare
+    prepare(root, rd, out, options.firmware_policy)
 cryptfs = root / 'ext4-disposable.img'
 if options.fscrypt_provisioning:
     from build_sheng618_upstream import ACK
@@ -183,6 +189,7 @@ if options.fscrypt_provisioning:
     subprocess.run(['mkfs.ext4', '-q', '-F', '-O', 'encrypt', str(cryptfs)], check=True)
     shutil.copyfile(ACK / 'include/uapi/linux/fscrypt.h', root / 'test-fscrypt.h')
 program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n'
+                   '#define TEST_FIRMWARE ' + str(int(bool(options.firmware_policy))) + '\n'
                    '#define TEST_FSCRYPT ' + str(int(options.fscrypt_provisioning)) + '\n'
                    '#define TEST_REUSE ' + str(int(options.legacy_reuse)) + '\n'
                    '#define TEST_DEADLINE ' + str(int(options.auto_return == 'deadline')) + '\n'
@@ -202,7 +209,11 @@ program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n'
 #include <errno.h>
 #include <sched.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
+#if TEST_FIRMWARE
+#include "test-firmware.h"
+#endif
 #if TEST_FSCRYPT
 #include "test-fscrypt.h"
 static int test_fscrypt(int log, int console) {
@@ -292,6 +303,10 @@ int main(void) {
 #if TEST_FSCRYPT
     int crypto_result=test_fscrypt(log,console);
     if(crypto_result) { dprintf(console,"SHENG_FSCRYPT_FAILED code=%d\n",crypto_result); return crypto_result; }
+#endif
+#if TEST_FIRMWARE
+    int firmware_result=test_firmware(log,console);
+    if(firmware_result) { dprintf(console,"SHENG_FIRMWARE_FAILED code=%d errno=%d\n",firmware_result,errno); return firmware_result; }
 #endif
     if(TEST_REUSE) {
         const char *paths[] = {"/testmods/sheng_reuse_live.ko", "/legacy-sheng_reuse_live.ko",
@@ -452,6 +467,10 @@ for label, name, mib, expected in inputs:
         assert 'SHENG_FSCRYPT_REGRESSION_PASS' in console, transcript
         assert console.count('SHENG_FSCRYPT_IOCTL ') == 7
         assert console.count('SHENG_FSCRYPT_ADD ') == 7
+    if options.firmware_policy:
+        assert 'SHENG_FIRMWARE_POLICY_PASS mode=' + options.firmware_policy in console, transcript
+        assert console.count('SHENG_FIRMWARE_CASE command=') == 3
+        assert 'SHENG_FIRMWARE_GUARDS denied_file=EACCES module_load=-1 errno=13' in console
     if options.fault_after_log and options.auto_return not in ('fault', 'emergency'):
         assert 'Kernel panic - not syncing:' in console, transcript
         assert 'FAULT TEST unexpectedly survived' not in console, transcript
@@ -469,6 +488,8 @@ for label, name, mib, expected in inputs:
             assert any('SHENG_REUSE_REGRESSION_PASS' in s['text'] for s in slots)
         if options.fscrypt_provisioning:
             assert any('SHENG_FSCRYPT_REGRESSION_PASS' in s['text'] for s in slots)
+        if options.firmware_policy:
+            assert any('SHENG_FIRMWARE_POLICY_PASS mode=' + options.firmware_policy in s['text'] for s in slots)
         if options.auto_return:
             assert 'TEST_ONLY automatic bootloader return at uptime 15 seconds' in console
             assert any(e.get('event') == 'SHUTDOWN' and e.get('data', {}).get('reason') == 'guest-reset'
@@ -527,7 +548,14 @@ if options.fscrypt_provisioning:
     report['public_synthetic_key_bytes_only'] = True
     report['hardware_wrapped_key_derivation_tested'] = False
     report['old_and_new_wrapped_formats_reach_unsupported_virtual_hardware'] = True
-suffix = ('-qemu-fscrypt.json' if options.fscrypt_provisioning else
+if options.firmware_policy:
+    report.update(firmware_policy_mode=options.firmware_policy,
+                  selinux_enforcing=True, actual_request_firmware_cases=3,
+                  file_and_module_load_denials_retained=True,
+                  direct_and_sysfs_fallback_tested=True,
+                  real_hardware_firmware_tested=False)
+suffix = ('-qemu-firmware-' + options.firmware_policy + '.json' if options.firmware_policy else
+          '-qemu-fscrypt.json' if options.fscrypt_provisioning else
           '-qemu-module-reuse.json' if options.legacy_reuse else
           '-qemu-auto-' + options.auto_return + '.json' if options.auto_return else
           '-qemu-regression.json' if options.extra_test_module else '-qemu-slab.json'

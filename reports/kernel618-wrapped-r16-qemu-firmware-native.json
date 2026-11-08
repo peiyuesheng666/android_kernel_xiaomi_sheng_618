@@ -1,0 +1,44 @@
+{
+  "real_aarch64_kernel": true,
+  "real_gpt_block_io_and_fsync": true,
+  "image_sha256": "e9b4ea0629a33dd5bf3e3a0c5f48b0c1e0549eb34d3f5ae0ee24cc5869fc63c6",
+  "cases": [
+    {
+      "case": "valid",
+      "gpt_name": "rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 2,
+      "expected_write": true,
+      "uptime_ms": [
+        16226,
+        16517
+      ],
+      "qemu_log": "/root/sheng-618/diagnostic/wrapped-r16/qemu-firmware-native/valid.log",
+      "qmp_shutdown_events": [
+        {
+          "timestamp": {
+            "seconds": 1794151755,
+            "microseconds": 765789
+          },
+          "event": "SHUTDOWN",
+          "data": {
+            "guest": true,
+            "reason": "guest-shutdown"
+          }
+        }
+      ]
+    }
+  ],
+  "torn_copy_rejected_other_copy_readable": true,
+  "hardware_ufs_tested": false,
+  "embedded_helper_exec_and_finit_module_tested": true,
+  "partition_guard_cases_run": false,
+  "fault_injection_case_run": false,
+  "exception_stack_persisted_before_panic": null,
+  "firmware_policy_mode": "native",
+  "selinux_enforcing": true,
+  "actual_request_firmware_cases": 3,
+  "file_and_module_load_denials_retained": true,
+  "direct_and_sysfs_fallback_tested": true,
+  "real_hardware_firmware_tested": false
+}

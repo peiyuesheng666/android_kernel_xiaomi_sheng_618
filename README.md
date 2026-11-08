@@ -202,3 +202,6 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 
 2026-11-08 wrapped-r16 实机通过加密初始化；下一卡点是 Wi-Fi 固件加载兼容。
 真实 panic 自动回 Fastboot 并读日志成功，三种测试回退路径均已实机验证，尚无候选 ADB。
+
+2026-11-08 firmware-r17 恢复原厂 5.15 的 firmware SELinux 加载接口，强制模式保持；
+新旧 Image 实际固件加载与权限拒绝对照通过，实机待验证。
