@@ -1,0 +1,73 @@
+{
+  "revision": 31,
+  "scoped_configuration_assembly_passed": true,
+  "full_product_build_passed": false,
+  "property_info_checker_passed": true,
+  "original_library_elf_check_passed": true,
+  "required_camx_exports": [
+    "CamxFormatUtil_GetBpp",
+    "CamxFormatUtil_GetBufferSize",
+    "CamxFormatUtil_GetPerPlaneBpp",
+    "CamxFormatUtil_GetPixelIncrement",
+    "CamxFormatUtil_GetPlaneAlignment",
+    "CamxFormatUtil_GetPlaneCount",
+    "CamxFormatUtil_GetPlaneOffset",
+    "CamxFormatUtil_GetPlaneSize",
+    "CamxFormatUtil_GetPlaneStartAddressAlignment",
+    "CamxFormatUtil_GetPlaneTypes",
+    "CamxFormatUtil_GetScanline",
+    "CamxFormatUtil_GetStrideInBytes",
+    "CamxFormatUtil_GetStrideInPixels",
+    "CamxFormatUtil_GetSubsamplingFactor",
+    "CamxFormatUtil_GetUBWCInfo",
+    "CamxFormatUtil_IsPerPlaneFdNeeded"
+  ],
+  "diagnostic_native_build_passed": true,
+  "systemui_changed": false,
+  "prebuild_audit_sha256": "e69a5fabf743ca84a76eff9de356c2629188d52bb83f064e05cf190d2a8a71c3",
+  "command_log_sha256": "e4d35989d7e07b7bffffe2bb8e08150655d581fd8c3f92510cbb1c3dfcc3e958",
+  "original_context_sha256": "a56641111bb09bac804d983aaba98fbacd7322b69fce7163270d65e6b1ad8499",
+  "unchanged_policy_sha256": "ccb422e37de241d4da50eb1ae8890cf1fe3fe895677658932b861d2de7e6471b",
+  "source_sha256": {
+    "device.mk": "773258e7e33e483ae7fc26dbc0d729c04aed2065f2db482847d0a897fdff5c07",
+    "sepolicy/vendor/property_contexts": "08b54f5177b00b728fe6bfcd6419bbcaad5931b2e76e7f39ff872aa7ea882391",
+    "sepolicy/vendor/mi_thermald.te": "406d1bd9a45abb0c5402958a349e13b278cb81706fc7b0121491a6ec7d3b3c4d",
+    "interfaces/compat/camera-format/Android.bp": "07e771009cf73a3d55e7320dc689dd5a2ac9c9c3aa927c76e2577c066976e6c2",
+    "interfaces/compat/camera-format/libcamxexternalformatutils.so": "7a1affdcba4a1dc835e5ac1944bbea864056fb38bec45c87538ef4df9a2be599",
+    "tools/ShengCameraFormatProbe.cpp": "fac4895457be6d9b3418df9b554592ff51047c96dee046c8ce1b46efe59285dd",
+    "tools/build_sheng_thermal_format_r31.py": "c846d3be010749d948189c0c78037051db50558eb692cfe5ba023e790e6f5e82"
+  },
+  "dependencies_sha256": {
+    "out/target/product/sheng/vendor/lib64/libcutils.so": "90f7d1af761599610aa5589efda394aeb1035cbb539e4d3b175c483a4ce8fd95",
+    "out/soong/.intermediates/system/logging/liblog/liblog/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/liblog.so": "f58cb2a2b3f403d92f3968436024a48abf61491ae55ac9364e9c870efe336143",
+    "out/soong/.intermediates/system/core/libsync/libsync/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libsync.so": "07c081881b3168438c77f108c73331dc68a145eb5e7b1b032d37f3a0a9f54cc1",
+    "out/soong/.intermediates/prebuilts/clang/host/linux-x86/libc++/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libc++.so": "b3f9261acf0dc87a012eb19a1d632dab5a78a0991aa3c0ff7af351b28eb38953",
+    "out/target/product/sheng/vendor/lib64/libz.so": "f2f634a537af0ef63268830e282d7372496c6679e41efedc19bdecd6c2051848",
+    "out/soong/.intermediates/bionic/libc/libc/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libc.so": "07a2e0eb65c7e7900f04954c12409e0695093852ac90c47a360b059bdd9a52a4",
+    "out/soong/.intermediates/bionic/libm/libm/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libm.so": "67d3313f44b1e07464f6acae71aec69b89009f6072ea99692d306bb2cd24193d",
+    "out/soong/.intermediates/bionic/libdl/libdl/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/libdl.so": "a706aee66743c05b11a8ff5a9e226ee7d2393619de351ebcb893e1d1f4a94c82"
+  },
+  "reviewed_sha256": {
+    "vendor": {
+      "etc/selinux/vendor_property_contexts": "f07db61960d8aa6e0a09207f0910c080af407ad36d1584d358e423f32156903f",
+      "lib64/libcamxexternalformatutils.so": "7a1affdcba4a1dc835e5ac1944bbea864056fb38bec45c87538ef4df9a2be599"
+    }
+  },
+  "native_probe_sha256": "44067d8483c028335b86b65bdf0391932ae55b955de32e8c06f64843079927a5",
+  "installed": false,
+  "runtime_verified": false,
+  "postbuild_public_audit_passed": true,
+  "postbuild_public_audit_sha256": "213888f807a3fe23986c74772dbba77b632f68e4f7e27a0708485601fde49793",
+  "preseal_public_audit_passed": true,
+  "preseal_public_audit_sha256": "991f5fa3459a1b4e14cdbf36a9c22fe9fa017f21fce6d68ff1a2757f2577a06d",
+  "preseal_fresh_fetch_passed": true,
+  "target_original_library_probe_passed": true,
+  "target_original_library_probe_serial": "ca10ede3",
+  "target_original_library_probe_evidence_sha256": "c47350fe8f9cb1483042841b1c527abee9de0be69078317d2b7d586ce36ec5c0",
+  "target_installed_library_missing_evidence_sha256": "d741204b31041ba540ed8bf83b2d88f767fa6bfba73d752ce446114c40e2a4a9",
+  "packaging_source_sha256": {
+    "tools/package_sheng_thermal_format_r31.py": "92c824c2ef62c5895bf7adedf004738b135d31c964463d9a63c7cffb7ea7f542",
+    "tools/flash_sheng_thermal_format_r31.ps1": "1902979b3e0982c891193783d9e7e9d84106073c23b8b584b987be7b17d0a54b"
+  },
+  "rollback_baselines_directory": "artifacts/system-hardware-followup-sheng-r30"
+}
