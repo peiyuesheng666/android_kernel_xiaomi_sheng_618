@@ -1,0 +1,72 @@
+{
+  "revision": 36,
+  "spec_sha256": "5551220c5ed114f6fa908196bfa2f230554b1a3279931dada0f27e78ac512970",
+  "files": [
+    {
+      "partition": "odm",
+      "name": "odm.img",
+      "bytes": 1141067776,
+      "sha256": "56ab11ae8b2ad2de585799d21c9e19fccb9922485b524bff3ed130794e440396"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "638740e4db02c106be449b5af5a734e89cfc3b2a2c84e58a0b3748969045cb4c"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 352321536,
+      "sha256": "7fe34372bec33708d3bc9ccdb816a9c99a5979e639878b2d6da728989971bf41"
+    }
+  ],
+  "partition_reports": {
+    "vendor": {
+      "changed_files": [
+        "etc/selinux/vendor_sepolicy.cil"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "e0bc7ea7-6ad2-53bd-8343-db3cd56b720c",
+      "apk_certificates": {},
+      "created_symlinks": {},
+      "baseline_entries": {
+        "etc/selinux/vendor_sepolicy.cil": [
+          "file",
+          "74737f6c5e782fd470ffe9e5f1dc1ea0ca0ce3ab60d6494df1537692d9ef8a32"
+        ]
+      },
+      "partition_size": 352321536,
+      "raw_filesystem_bytes": 298684416,
+      "avb_max_filesystem_bytes": 346681344,
+      "free_payload_bytes": 47996928
+    },
+    "odm": {
+      "changed_files": [
+        "etc/selinux/precompiled_sepolicy"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "0aa7b969-4e53-581b-b90a-26e09cf8d195",
+      "apk_certificates": {},
+      "created_symlinks": {},
+      "baseline_entries": {
+        "etc/selinux/precompiled_sepolicy": [
+          "file",
+          "4ad365f8228429c4444a4d6491cb45ffb9d0001363958050c88ffe017e395f44"
+        ]
+      },
+      "partition_size": 1141067776,
+      "raw_filesystem_bytes": 1119764480,
+      "avb_max_filesystem_bytes": 1122971648,
+      "free_payload_bytes": 3207168
+    }
+  },
+  "exact_baselines_verified": true,
+  "all_filesystem_stages_verified": true,
+  "root_signature_verified": true,
+  "root_other_descriptors_unchanged": true,
+  "original_systemui_required": true,
+  "system_ext_and_vbmeta_system_unchanged": true,
+  "full_product_build_passed": false,
+  "runtime_verified": false
+}
