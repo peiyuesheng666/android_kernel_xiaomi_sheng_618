@@ -9,9 +9,36 @@
   "image_sha256": "a0105e5f72fdb5ae4e665c6e9befdb3f54c3b27b1e97e3a88c97b7024ddea047",
   "flash_succeeded": true,
   "reboot_command_succeeded": true,
-  "hardware_log_received": false,
+  "hardware_log_received": true,
   "previous_crash_fixed": null,
-  "android_boot_completed": null,
-  "current_state": "Awaiting Fastboot return to read persistent snapshots",
-  "original_boot_backed_up": false
+  "android_boot_completed": false,
+  "current_state": "Returned to verified temporary Recovery; 120-second log decoded",
+  "original_boot_backed_up": false,
+  "persistent_log": {
+    "raw_sha256": "e715ecfb4b33ec9ed0e599a31b496c997a6f990a0416acb7af79f159e831e239",
+    "valid_snapshots": [
+      {
+        "slot": 0,
+        "run": "a960f7dc90f51988",
+        "sequence": 444,
+        "uptime_ms": 120242,
+        "bytes": 387082,
+        "file": "reports/device/kernel618-display-r6/bootlog-a960f7dc90f51988-444.txt"
+      },
+      {
+        "slot": 1,
+        "run": "a960f7dc90f51988",
+        "sequence": 445,
+        "uptime_ms": 120494,
+        "bytes": 387082,
+        "file": "reports/device/kernel618-display-r6/bootlog-a960f7dc90f51988-445.txt"
+      }
+    ],
+    "valid_snapshot_found": true
+  },
+  "batch_helper_error": "-13",
+  "batch_modules_loaded": 0,
+  "batch_modules_not_tried": 233,
+  "archive_helper_mode": "0100644",
+  "diagnosis": "mkbootfs applied fs_config defaults and removed /k618_umh execute bits; display module never loaded, so original display fix remains unverified"
 }

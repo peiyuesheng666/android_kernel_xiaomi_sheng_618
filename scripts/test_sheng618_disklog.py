@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
 """Run the real debug kernel against disposable GPT disks in AArch64 QEMU."""
+import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 import shutil
 import struct
@@ -14,10 +16,16 @@ import zlib
 from read_sheng618_disklog import decode
 
 work = Path(__file__).resolve().parents[1]
-root = Path('/root/sheng-618/diagnostic/disklog-r5/qemu')
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--revision', default='disklog-r5')
+parser.add_argument('--helper-exec', action='store_true')
+parser.add_argument('--positive-only', action='store_true')
+options = parser.parse_args()
+assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
+root = Path('/root/sheng-618/diagnostic') / options.revision / 'qemu'
 root.mkdir(parents=True, exist_ok=True)
 out = Path('/root/sheng-618/upstream-build/k618/out-gki')
-image = work / 'artifacts/sheng-6.18-disklog-r5/Image'
+image = work / 'artifacts' / ('sheng-6.18-' + options.revision) / 'Image'
 assert image.is_file(), 'Build the disk logger Image first'
 rd = root / 'rd'
 (rd / 'testmods').mkdir(parents=True, exist_ok=True)
@@ -49,7 +57,7 @@ for name in ('virtio_pci_modern_dev', 'virtio_pci_legacy_dev', 'virtio_pci', 'vi
 assert any('virtio_blk' in p for p in order)
 (rd / 'test-order').write_text('\n'.join(order) + '\n')
 program = root / 'test-init.c'
-program.write_text(r'''
+program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n' + r'''
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <unistd.h>
@@ -59,6 +67,7 @@ program.write_text(r'''
 #include <sys/sysmacros.h>
 #include <sys/syscall.h>
 #include <sys/reboot.h>
+#include <sys/wait.h>
 #include <string.h>
 #include <errno.h>
 int main(void) {
@@ -74,10 +83,24 @@ int main(void) {
     char path[512];
     while(f && fgets(path,sizeof(path),f)) {
         path[strcspn(path,"\r\n")]=0;
-        int fd=open(path,O_RDONLY);
-        int r=fd<0?-1:(int)syscall(SYS_finit_module,fd,"",0);
-        dprintf(log,"<5>SHENG_DISKLOG_QEMU module %s result=%d errno=%d\n",path,r,r?errno:0);
-        if(fd>=0)close(fd);
+        int r;
+        if(TEST_HELPER) {
+            pid_t child=fork();
+            if(child==0) {
+                execl("/k618_umh","/k618_umh",path,"",(char *)NULL);
+                _exit(111);
+            }
+            int status=0;
+            if(child<0 || waitpid(child,&status,0)!=child || !WIFEXITED(status))
+                return 22;
+            r=WEXITSTATUS(status);
+            dprintf(console,"TEST embedded helper exec %s result=%d\n",path,r);
+        } else {
+            int fd=open(path,O_RDONLY);
+            r=fd<0?-1:(int)syscall(SYS_finit_module,fd,"",0);
+            if(fd>=0)close(fd);
+        }
+        if(r) return 23;
     }
     if(f)fclose(f);
     for(int i=0;i<80;i++) {
@@ -137,9 +160,10 @@ def disk(path, name, mib):
 
 
 cases = []
-for label, name, mib, expected in [('valid', 'rawdump', 300, True),
-                                   ('wrong-name', 'not-rawdump', 300, False),
-                                   ('wrong-size', 'rawdump', 299, False)]:
+inputs = [('valid', 'rawdump', 300, True)]
+if not options.positive_only:
+    inputs += [('wrong-name', 'not-rawdump', 300, False), ('wrong-size', 'rawdump', 299, False)]
+for label, name, mib, expected in inputs:
     path = root / (label + '.img')
     disk(path, name, mib)
     transcript = root / (label + '.log')
@@ -155,6 +179,9 @@ for label, name, mib, expected in [('valid', 'rawdump', 300, True),
     assert result.returncode == 0, transcript
     console = transcript.read_text()
     assert 'Unresolved symbol' not in console, transcript
+    if options.helper_exec:
+        assert console.count('TEST embedded helper exec ') == len(order), transcript
+        assert 'result=111' not in console, transcript
     with path.open('rb') as stream:
         stream.seek((1 + 288) * 1024**2)
         raw = stream.read(2 * 1024**2)
@@ -176,6 +203,8 @@ for label, name, mib, expected in [('valid', 'rawdump', 300, True),
 report = {'real_aarch64_kernel': True, 'real_gpt_block_io_and_fsync': True,
           'image_sha256': hashlib.sha256(image.read_bytes()).hexdigest(),
           'cases': cases, 'torn_copy_rejected_other_copy_readable': True,
-          'hardware_ufs_tested': False}
-(work / 'reports/kernel618-disklog-r5-qemu.json').write_text(json.dumps(report, indent=2) + '\n')
+          'hardware_ufs_tested': False,
+          'embedded_helper_exec_and_finit_module_tested': options.helper_exec,
+          'partition_guard_cases_run': not options.positive_only}
+(work / ('reports/kernel618-' + options.revision + '-qemu.json')).write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

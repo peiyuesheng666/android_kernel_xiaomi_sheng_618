@@ -11,8 +11,11 @@
 该证据来自本机 6.18 运行；不能用其他版本 Recovery 日志替代。
 封包与 USB 尝试、落盘区域、校验结果和限制见
 [KERNEL618_DEBUG_STATUS.md](KERNEL618_DEBUG_STATUS.md)。尚未正常进入系统。
-display-r6 已恢复 MiCode 的 DT 多时序选择，337 模块/20,544 项导入与
-18,008 项内核导出检查通过，已刷入 boot_a，待读回日志确认运行结果。
+display-r6 的 mkbootfs 封包丢失 /k618_umh 执行权限，导致 233 个后续模块未加载。
+display-r7 已保留完整归档权限，337 模块/20,544 项导入与 18,008 项内核导出
+检查通过，QEMU 已实际执行内嵌助手加载模块。实机模式表为三组时序、七项模式，
+越过 r5 的空指针位置，但仍未开机；最新快照至 12.516 秒，无新的 Oops 栈。
+DP PLL 报缺少 qcom,dp-pll，新驱动与原厂旧式内联 PLL 绑定不同；尚未认定其为停机原因。
 
 首轮测试产物曾导出为 `artifacts/sheng-6.18-first-boot/Image`，
 64,506,368 字节（约 61.5 MiB），SHA256 为
@@ -27,7 +30,8 @@ display-r6 已恢复 MiCode 的 DT 多时序选择，337 模块/20,544 项导入
 337 模块依赖覆盖、20,544 项真实版本化导入、module_layout、缺失提供者与重复
 导出核查通过；内置模块层前后 18,008 项内核导出及 CRC 完全一致。
 结果见 `kernel618-upstream-image.json` 和 `kernel618-upstream-layer.json`；
-原首版目录已按最多五版的约定清理；同一 Image 仍在 baseline-r2 的 boot 内。
+原首版及 baseline-r2 交付目录已按最多五版的约定清理；同一 Image 仍保留在
+WSL /root/sheng-618/diagnostic/baseline-r2/verified/kernel。
 原验证脚本固定引用首版目录，后续诊断版须使用各自的构建、解包与 ABI 检查，
 不能直接用该脚本把新的 native 输出当作首版。
 

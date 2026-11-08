@@ -20,11 +20,14 @@ JiaqiLi404/android_kernel_618_for_sm8550 的通用 SM8550/澎湃集成，
 只补 sheng 板级差异，不再重复开发上游已有功能。首轮 Image 内置 337 个模块，
 20,544 项模块导入及内置模块前后 18,008 项内核导出一致性检查通过。
 用户随后授权以只读官方 boot 为模板封包并刷入测试，不备份当前 boot；
-生成版本最多保留五版。首版 Image 已按此保留规则清理，baseline-r2 boot
-内仍保留同一 Image。当前 disklog-r5 已实机验证内核直接保存日志：
+生成版本最多保留五版。首版和 baseline-r2 交付目录已按此规则清理，原始
+Image 仍保留在 WSL diagnostic/baseline-r2/verified/kernel。disklog-r5 已实机验证内核直接保存日志：
 从 rawdump 读回两份 CRC 有效记录，确认显示驱动在约 12.38 秒发生空指针异常。
-display-r6 已补上本机屏幕的多时序/刷新率映射，编译与完整模块 ABI 检查通过，
-已刷入 boot_a；是否越过该异常仍需读取这轮实机日志确认。
+display-r6 的封包工具误将模块加载助手改为不可执行，实机 233 个后续模块均未加载。
+display-r7 已改用保留权限的 newc 封包，完整归档权限/负载、ABI 和实际内核
+执行助手的 QEMU 检查通过。实机成功建立三组时序对应的七项模式表，越过 r5
+空指针位置；仍未开机，最新有效日志至 12.516 秒，未抓到新的 Oops。
+当前进一步排查显示初始化的 DP PLL 旧绑定和缺失的最后阶段日志。
 详见 [reports/KERNEL618_DEBUG_STATUS.md](reports/KERNEL618_DEBUG_STATUS.md)。
 尚未正常开机，平板功能适配与验证仍未完成。
 

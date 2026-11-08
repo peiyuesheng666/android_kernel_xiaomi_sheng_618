@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-08",
+  "revision": "display-r7",
+  "serial": "ca10ede3",
+  "product": "sheng",
+  "active_slot": "a",
+  "flashed_partition": "boot_a",
+  "boot_sha256": "d900994c0761f7688b9cedb7115cbca0232b1d887628475efa8fc2393ee1df01",
+  "image_sha256": "9223ea8fd41f4d209b38da503ee0472f36118c52bd4301c4a558b82e646de311",
+  "flash_succeeded": true,
+  "reboot_command_succeeded": true,
+  "hardware_log_received": true,
+  "android_boot_completed": false,
+  "current_state": "Verified temporary r13 Recovery; rawdump snapshots decoded",
+  "original_boot_backed_up": false,
+  "persistent_log": {
+    "raw_sha256": "8c17dc2b79eed041c6170036277d9d35ce7caf5afe3b5294de546981d7959ce2",
+    "valid_snapshots": [
+      {
+        "slot": 0,
+        "run": "e406b6c7f30277d3",
+        "sequence": 32,
+        "uptime_ms": 12516,
+        "bytes": 253710,
+        "file": "reports/device/kernel618-display-r7/bootlog-e406b6c7f30277d3-32.txt"
+      },
+      {
+        "slot": 1,
+        "run": "e406b6c7f30277d3",
+        "sequence": 31,
+        "uptime_ms": 12215,
+        "bytes": 246961,
+        "file": "reports/device/kernel618-display-r7/bootlog-e406b6c7f30277d3-31.txt"
+      }
+    ],
+    "valid_snapshot_found": true
+  },
+  "batch_helper_execute_error_seen": false,
+  "batch_last_attempt": "228/233 msm_drm.ko",
+  "mode_table_timings": 3,
+  "mode_table_entries": 7,
+  "previous_crash_location_passed": true,
+  "new_oops_captured": false,
+  "display_initialization_completed": false,
+  "observed_errors": [
+    "DP PLL missing qcom,dp-pll phandle",
+    "HFI shared buffer allocation -22",
+    "SPR version 0"
+  ],
+  "diagnosis": "Module execution permissions restored; mode table constructed and original fault location passed. No final Oops or shutdown captured; DP binding mismatch confirmed by source comparison, causality not established."
+}

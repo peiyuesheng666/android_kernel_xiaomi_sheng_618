@@ -45,7 +45,30 @@ disklog-r5 已成功把本机 6.18 日志写入 rawdump，并经 Recovery 读回
 
 来源与源码前后哈希：`kernel618-display-multitiming-source.json`；实际 DT
 只读审计：`kernel618-display-multitiming-dt.json`；337 个模块和 20,544 项
-导入 CRC 检查通过：`kernel618-display-r6-layer.json`。实际启动结果待下一轮读取。
+导入 CRC 检查通过：`kernel618-display-r6-layer.json`。
+
+### r6 封包错误与 r7 实机结果
+
+r6 运行至 120 秒，但 /k618_umh 以 -13（权限拒绝）执行失败：233 个后续模块
+全部未尝试，不能用于判断显示修复。mkbootfs 的 Android fs_config 将助手
+0755 改成 0644。r7 改用 GNU newc cpio；349 项路径和权限全部与原模块层相同，
+337 个模块中仅 msm_drm.ko 负载改变，助手字节完全一致、权限 0100755。
+
+r7 复用 r6 已构建的显示模块，未重复编译。QEMU 使用实际 r7 内核解出并执行
+内嵌助手、加载 virtio 模块和真实写盘，两份 CRC 快照通过；负面分区测试沿用
+未改变日志实现的 r5 结果。见 `kernel618-display-r7-layer.json` 和
+`kernel618-display-r7-qemu.json`。
+
+r7 已刷入 boot_a。经临时 r13 Recovery 读回 run e406b6c7f30277d3 的 seq31/32，
+分别至 12.215/12.516 秒，CRC/尾标记有效，cmdline 确认为 sheng_test=display-r7。
+模块加载不再报权限错误，已到第 228/233 项 msm_drm；12.324783 秒成功建立
+7 modes from 3 timings，随后继续初始化，越过 r5 的 get_default_lms 空指针位置。
+仍未正常开机，快照没有新的 Oops/panic；不能认定显示整体功能已恢复。
+
+日志包含 DP PLL 缺失 qcom,dp-pll phandle、HFI shared buffer -22 和 SPR version 0。
+只读对照原厂/LOS 源码及正常 Recovery：原厂 DP 使用同节点 qcom,pll-revision，
+Recovery 正常识别 DP_PLL_4NM_V1_1。这证明绑定不一致，但不足以断定停机原因。
+原始日志在 reports/device/kernel618-display-r7/；下一步细化显示初始化检查点。
 
 ## 内核直接落盘
 
@@ -95,5 +118,6 @@ init_boot 的 /init 转交 vendor_boot 的探测程序，再由其设置 USB ACM
 本任务仅参考 USB 顺序和描述符，没有引入 HarmonyOS 服务。
 文件与哈希见 `kernel618-anyhmos-usb-reference.json`。
 
-当前五版保留为 baseline-r2、serial-r3、serial-r4、disklog-r5、display-r6。
-首版独立 Image 目录已清理，其相同二进制仍包含在 baseline-r2 boot 中。
+当前五版保留为 serial-r3、serial-r4、disklog-r5、display-r6、display-r7。
+首版及 baseline-r2 交付目录已清理，原始 Image 仍保留在 WSL
+/root/sheng-618/diagnostic/baseline-r2/verified/kernel。
