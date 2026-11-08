@@ -1,0 +1,30 @@
+{
+  "revision": 31,
+  "packaging_manifest_sha256": "8435c5ca95c315e725dda7f9f80939811b02615c99fbd666bb0a1e4c6a91a038",
+  "frozen_spec_sha256": "afe1a4b51702390f9cfd9f646f3f8bc0a9a14748ba5436b457fdf0c0461141d0",
+  "files": [
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "f6ba37f234fcdacbd36b7837e1d6f6a3ecd6cb147269291548089e626fb9a834"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "033fdfcc1100e8d504739c43442a6b4e57e73088b938d2f9a9bff9369702217f"
+    }
+  ],
+  "only_vendor_and_vbmeta_changed": true,
+  "vendor_file_delta": [
+    "etc/selinux/vendor_property_contexts",
+    "lib64/libcamxexternalformatutils.so"
+  ],
+  "inode_metadata_verified": true,
+  "original_systemui_required": true,
+  "full_product_build_passed": false,
+  "preflash_local_gate_passed": true,
+  "hardware_boot_tested": false,
+  "runtime_verified": false
+}
