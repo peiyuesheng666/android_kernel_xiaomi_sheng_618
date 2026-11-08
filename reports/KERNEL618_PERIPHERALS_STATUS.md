@@ -1,5 +1,51 @@
 # 6.18 sheng 外围实机修复
 
+## 2026-11-09 r33 USB 时钟、键盘恢复与持续日志候选
+
+r32 有线 USB 在旧内核上自行恢复，不视为新修复生效。当前内核证据确认
+EUSB2 PHY 的 ref_clk_src 从未赋值，clk_get_rate(NULL) 得到 0。对照固定
+LOS f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d 与 MiCode sheng
+29db5d592c5b577aa9d9611da988a5e071d100dd，恢复原本必需的时钟获取和
+包括 EPROBE_DEFER 的失败传播；不猜测频率。独立重放脚本与补丁、前后
+哈希见 kernel618-usb-refclock-source.json。SS PHY set_parent 告警未宣称修复。
+
+键盘旧日志在 643 秒 resume 时重新请求 MCU_Upgrade.bin 返回 EAGAIN，
+传输停留 not ready；框架仍报告 connected。r33 保留首次 request_firmware
+通过原厂 ueventd 找到 /odm/firmware 的路径，缓存固件到传输最后释放，
+resume 复用缓存并延迟 100ms 调度，恢复被 suspend 取消的 12 秒保活，
+MCU RAM 重置后恢复已连接触控板设置。固件仅下载 RAM，不刷配件存储。
+ENOENT/EAGAIN 最多重试 60 次；未宣称实体输入和长期休眠恢复已通过。
+不可读 HID 描述符现记 unknown，不能将 SELinux 拒读当成描述符缺失。
+
+正常日志此前 120 秒关闭目标并释放缓冲，现改为前 120 秒每 250ms、之后
+每 10 秒持续双槽记录，保留晚发异常入口与普通 panic 抓取；没有自动重启。
+QEMU 实际 GPT/块 I/O、CRC 双槽、破损副本检测、125 秒额外延迟后的 BUG
+调用栈及普通 panic 均通过；末次 137985ms。该测试不证明实机 UFS 或硬锁死
+一定能落盘。报告 kernel618-hardware-r33-qemu-late-fault.json 与
+kernel618-hardware-r33-qemu-direct-panic.json。
+
+按用户要求实际重编内核和全部 344 个模块，统一 release 为
+6.18.32-peiyuesheng-sheng-kernel、peiyuesheng@MiFans。EVA 使用实际
+5.15 FastRPC 提供者的头文件与 Module.symvers 重编，未改二进制 CRC。
+20957 项版本化导入、18008 项内核导出、归档执行权限与原厂 boot 解包回读
+通过。Image SHA256=26f3bf8b25723631542027edcf5a43e50d6ac60e70df51e598876bd705edaec5；
+boot SHA256=58455657cd0bf08f8605b81e78f5af0915d975a0eec3259f6a007ade759a373a。
+07:11 已仅刷入 boot_a；无自动重启。初次 180 秒有线 ADB 检测超时；用户
+确认系统正常运行。07:17 通过 WLAN 上的 mDNS 查询重新发现已配对设备端口，
+无需重新配对，确认实际 release 与 boot_completed=1。原控制超时记录保留。
+当前 bugreport 的真实 KERNEL LOG 确认 ref_clk_freq:0 已消失，PHY 重复器
+初始化返回 OK，但用户和 dumpsys usb 均确认尚未连接，SS PHY 的 pipe_clk
+set_parent 仍报错。不能将零频率告警消失当成 USB 已修复。
+键盘 MCU 21.53 秒就绪，原厂 HAL 有真实固件版本回复；物理输入与休眠恢复
+未验收。采样 CPU 三簇均为 performance，桌面累计1129帧、25次deadline
+miss（2.21%），P90=36ms、P99=129ms；不是可比较的优化效果测试。
+FastRPC lpass 会话返回 EUSERS 并伴随监听线程反复恢复，根因继续排查。
+见 kernel618-hardware-r33-followup.json。
+
+用户补充：卡的是相机录像，拍照可用；开机白闪后黑屏、运行卡顿、充电音效
+卡顿仍在排查。新增 capture_sheng618_performance.py，只读收集 CPU/GPU
+调频、热状态、负载及帧数据，不预设提频或关闭温控。白闪和录像本轮未改动。
+
 ## 2026-11-09 r32 后续启动确认与崩溃日志读回
 
 初次检测的 180 秒 ADB 超时记录保留，但后续 06:10 已通过 ADB 确认仍运行

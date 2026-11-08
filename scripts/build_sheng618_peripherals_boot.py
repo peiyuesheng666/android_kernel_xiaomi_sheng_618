@@ -8,13 +8,16 @@ import os
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 from build_sheng618_upstream import CLANG, K618, OUT, PROJECT, ROOT
 from audit_kernel618_modules import ElfModule, check_candidate
 from audit_sheng618_overlay import audit, entries
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', default='peripherals-r21')
-parser.add_argument('--base', choices=['tablet-r20', 'peripherals-r21'], default='tablet-r20')
+parser.add_argument('--base', choices=['tablet-r20', 'peripherals-r21', 'hardware-r32'], default='tablet-r20')
+parser.add_argument('--all-modules-manifest', type=Path,
+                    help='Replace every preserved module using a verified, rebuilt source manifest')
 parser.add_argument('--replace-untested', action='store_true')
 options = parser.parse_args()
 import re
@@ -77,6 +80,24 @@ for name, expected in expected_sources.items():
     assert hashlib.sha256((K618/name).read_bytes()).hexdigest() == expected, name
 for name, hashes in json.loads((PROJECT/'reports/kernel618-touch-source.json').read_text())['files'].items():
     assert hashlib.sha256((K618/'sheng-ports/touch'/name).read_bytes()).hexdigest() == hashes['staged_sha256'], name
+all_modules = None
+if options.all_modules_manifest:
+    all_modules = json.loads(options.all_modules_manifest.read_text())
+    release = (OUT/'include/config/kernel.release').read_text().strip()
+    assert all_modules['release'] == release
+    assert all_modules['module_count'] == len(list(modules.glob('*.ko'))) == 344
+    assert set(all_modules['modules']) == {p.name for p in modules.glob('*.ko')}
+    replacements = {}
+    for name, entry in all_modules['modules'].items():
+        source = Path(entry['source'])
+        assert hashlib.sha256(source.read_bytes()).hexdigest() == entry['sha256'], name
+        assert entry['vermagic'].split()[0] == release, name
+        replacements[name] = source
+    usb_receipt = json.loads((PROJECT/'reports/kernel618-usb-refclock-source.json').read_text())
+    for name, hashes in usb_receipt['files'].items():
+        assert hashlib.sha256((K618/name).read_bytes()).hexdigest() == hashes['after'], name
+    source_receipts.append('kernel618-usb-refclock-source.json')
+    source_snapshots['kernel618-usb-refclock-source.json'] = usb_receipt
 for name, source in replacements.items():
     shutil.copyfile(source, modules/name)
     subprocess.run([CLANG/'llvm-strip','--strip-debug',modules/name],check=True)
@@ -132,6 +153,8 @@ metadata = audit(overlay)
 expected_count = sum(name.endswith('.ko') for name in baseline) + len(expected_added)
 assert metadata['helper_executable'] and metadata['module_count'] == expected_count
 report = dict(revision=tag,base_revision=options.base,checks=checked,archive=metadata,
+    all_modules_rebuilt=all_modules is not None,
+    all_modules_manifest_sha256=hashlib.sha256(options.all_modules_manifest.read_bytes()).hexdigest() if all_modules else None,
     changed_payloads=changed,added_payloads=added,source_receipts=source_receipts,
     source_snapshots=source_snapshots,
     replacement_module_sha256={name:hashlib.sha256((modules/name).read_bytes()).hexdigest()

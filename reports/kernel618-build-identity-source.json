@@ -1,0 +1,13 @@
+{
+  "localversion": "-peiyuesheng-sheng-kernel",
+  "localversion_auto": false,
+  "localversion_environment": "",
+  "build_user": "peiyuesheng",
+  "build_host": "MiFans",
+  "source": "scripts/mkcompile_h",
+  "before_sha256": "90168d5d196c13754ce9ee3ad6abdd258ec4cab3fd2b70993f74b60308bd79fd",
+  "after_sha256": "2ca11bc3ddf4b5dfe4ec929f5590854c1a364e201e4ee1398cdfe65cd3628320",
+  "compiler_selection_changed": false,
+  "full_compiler_provenance_preserved_in_build_report": true,
+  "reference": "Selected ACK ff4a6c3bb0f471a9dd186293a47b62c83829b97d scripts/mkcompile_h; user-requested display formatting"
+}

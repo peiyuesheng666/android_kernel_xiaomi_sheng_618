@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-09",
+  "running_revision": "hardware-r32",
+  "release": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "wireless_adb_confirmed": true,
+  "usb_evidence": "reports/device/kernel618-usb-wireless-20261109-065205",
+  "keyboard_evidence": "reports/device/kernel618-keyboard-intermittent-20261109-070013",
+  "bugreport_sha256": "352bee4ad5c0ae9a1d431ec3f5d910661585b73efeaa015fbcc67ceba5c149c4",
+  "usb_phy_clock_bug": "Required ref_clk_src acquisition missing; clk_get_rate(NULL)=0",
+  "usb_fix_applied_to_running_device": false,
+  "usb_returned_with_old_kernel": true,
+  "usb_stability_verified": false,
+  "keyboard_user_result": "Intermittently works, then both keyboard and touchpad stop",
+  "keyboard_hal": "Writes return EAGAIN while framework retains connected=true",
+  "keyboard_fix_hardware_verified": false,
+  "camera_user_clarification": "Stock camera video recording hangs; not Android screen recording",
+  "photo_user_accepted": true,
+  "video_recording_fixed": false,
+  "speaker_user_result": "Still faulty; intermittent stutter especially charging",
+  "candidate": "hardware-r33 built and flashed; later wireless ADB confirms boot; USB still unavailable"
+}

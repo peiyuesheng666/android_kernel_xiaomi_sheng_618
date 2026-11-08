@@ -18,7 +18,10 @@ struct sheng_nano_client {
 
 static void sheng_nano_free(struct kref *ref)
 {
-	kfree(container_of(ref, struct nanosic_wn8030, refs));
+	struct nanosic_wn8030 *nano = container_of(ref, struct nanosic_wn8030, refs);
+
+	release_firmware(nano->ram_firmware);
+	kfree(nano);
 }
 
 static void sheng_nano_broadcast(struct nanosic_wn8030 *nano,

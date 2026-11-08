@@ -1,0 +1,28 @@
+{
+  "files": {
+    "soc/drivers/usb/phy/phy-msm-snps-eusb2.c": {
+      "before": "97dfaac7908d41ed90b867ade62a3b8fd1465b010f91afdbf85653ca26056363",
+      "after": "2a8921b46acd2a70814ff77875d57407727b2ead6aee56f3b966f469b57cd3e3"
+    }
+  },
+  "references": [
+    {
+      "repository": "lineage-kernel",
+      "commit": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "file": "drivers/usb/phy/phy-msm-snps-eusb2.c",
+      "sha256": "431a289fef3250f3d6a1e11926df85a819be476c00851d2a9148ce00ba1b567c"
+    },
+    {
+      "repository": "micode-kernel",
+      "commit": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "file": "drivers/usb/phy/phy-msm-snps-eusb2.c",
+      "sha256": "a57c624e6b0040af0bedd5851bafcfd5d40873bced73dcafa900f95934ee9499"
+    }
+  ],
+  "cause": "ref_clk was acquired twice; ref_clk_src remained NULL, making clk_get_rate return 0",
+  "change": "Acquire the required ref_clk_src and propagate its errors, including EPROBE_DEFER",
+  "dt_binding": "sheng hsphy@88e3000: ref_clk_src = RPMH_CXO_PAD_CLK; ref_clk remains separate",
+  "guessed_clock_rate": false,
+  "shared_clock_tree_changed": false,
+  "hardware_result": "pending"
+}

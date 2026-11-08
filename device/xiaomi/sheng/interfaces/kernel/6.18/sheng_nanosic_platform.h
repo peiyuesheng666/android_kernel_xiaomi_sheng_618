@@ -29,11 +29,18 @@ static void sheng_nano_firmware_worker(struct work_struct *work)
 	if (!ret) {
 		nano->suspended = false;
 		nano->ready = true;
+		/* A reset loses MCU settings while the HID devices may survive. */
+		if (nano->keyboard_attached) {
+			nanosic_wn8030_set_touchpad(nano, true);
+			nanosic_wn8030_set_kb_power(nano, true);
+			mod_delayed_work(system_wq, &nano->wake_worker,
+				msecs_to_jiffies(12000));
+		}
 		enable_irq(nano->client->irq);
 		dev_info(nano->dev, "sheng_nanosic MCU RAM firmware ready, attempt=%u\n",
 			 nano->fw_attempts);
-	} else if (ret == -ENOENT && nano->fw_attempts < 60) {
-		/* Same stock /odm mount race as the touch firmware. */
+	} else if ((ret == -ENOENT || ret == -EAGAIN) && nano->fw_attempts < 60) {
+		/* /odm may not be mounted, or PM may still block firmware requests. */
 		schedule_delayed_work(&nano->fw_worker, HZ);
 	} else {
 		dev_err(nano->dev, "sheng_nanosic MCU firmware failed: %d attempt=%u\n",
@@ -178,7 +185,7 @@ static int nanosic_wn8030_resume(struct device *dev)
 
 	if (!nano->ready) {
 		nano->fw_attempts = 0;
-		schedule_delayed_work(&nano->fw_worker, 0);
+		schedule_delayed_work(&nano->fw_worker, msecs_to_jiffies(100));
 		return 0;
 	}
 	enable_irq(nano->client->irq);
@@ -192,10 +199,14 @@ static int nanosic_wn8030_resume(struct device *dev)
 		nano->ready = false;
 		nano->fw_attempts = 0;
 		mutex_unlock(&nano->io_lock);
-		schedule_delayed_work(&nano->fw_worker, 0);
+		schedule_delayed_work(&nano->fw_worker, msecs_to_jiffies(100));
 	} else {
 		mutex_lock(&nano->io_lock);
 		nanosic_wn8030_set_kb_power(nano, true);
+		/* suspend cancels this keepalive; resume must start it again. */
+		if (nano->keyboard_attached)
+			mod_delayed_work(system_wq, &nano->wake_worker,
+				msecs_to_jiffies(12000));
 		mutex_unlock(&nano->io_lock);
 	}
 	return 0;

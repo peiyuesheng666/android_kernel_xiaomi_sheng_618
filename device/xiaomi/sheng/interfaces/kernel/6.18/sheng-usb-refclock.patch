@@ -1,0 +1,17 @@
+--- a/drivers/usb/phy/phy-msm-snps-eusb2.c
++++ b/drivers/usb/phy/phy-msm-snps-eusb2.c
+@@ -1085,10 +1085,10 @@
+ 		}
+ 	} else {
+ 
+-		phy->ref_clk = devm_clk_get(dev, "ref_clk");
+-		if (IS_ERR(phy->ref_clk)) {
+-			dev_err(dev, "clk get failed for ref_clk\n");
+-			ret = PTR_ERR(phy->ref_clk);
++		phy->ref_clk_src = devm_clk_get(dev, "ref_clk_src");
++		if (IS_ERR(phy->ref_clk_src)) {
++			dev_err(dev, "clk get failed for ref_clk_src\n");
++			ret = PTR_ERR(phy->ref_clk_src);
+ 			goto err_ret;
+ 		}
+ 

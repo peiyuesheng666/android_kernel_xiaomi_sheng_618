@@ -49,6 +49,7 @@ text = text[:a]+'''\t/* Stock HAL owns authentication; kernel only transports re
 \tstruct delayed_work fw_worker;
 \tunsigned int fw_attempts;
 \tbool ready, removing;
+\tconst struct firmware *ram_firmware;
 '''+text[b:]
 once('static const struct regmap_config', '#include "sheng_nanosic_bridge.h"\n\nstatic const struct regmap_config')
 # Stock report 0x06 carries media/brightness keys. The sheng reference only
@@ -145,6 +146,16 @@ function('nanosic_wn8030_handler', '''static irqreturn_t nanosic_wn8030_handler(
 }''')
 # Validate all host-side firmware lengths before computing checksums or sending.
 once('"nanosic/MCU_Upgrade.bin"', '"MCU_Upgrade.bin"')
+once('ret = request_firmware(&firmware, "MCU_Upgrade.bin", nanosic->dev);',
+'''/* Keep the verified RAM image across suspend. Stock ueventd resolves
+\t * /odm/firmware on the first load; direct-only requests cannot find it.
+\t * Resume reuses this cache without entering the firmware fallback. */
+\tfirmware = nanosic->ram_firmware;
+\tret = firmware ? 0 : request_firmware(&firmware, "MCU_Upgrade.bin", nanosic->dev);
+\tif (!ret && !nanosic->ram_firmware)
+\t\tnanosic->ram_firmware = firmware;''')
+once('\trelease_firmware(firmware);',
+     '\t/* Released with the transport lifetime, after all workers stop. */')
 once('ret = nanosic_wn8030_send_header(nanosic, firmware->data, &ram_code_size);',
 '''ram_code_size = get_unaligned_le32(firmware->data + WN8030_HEADER_ADDR +
 \t\toffsetof(struct wn8030_bin_header, ram_code_size));
@@ -185,6 +196,7 @@ report = dict(files=files, reference=dict(repository='https://github.com/map220v
     firmware='Existing stock MCU_Upgrade.bin, checked length/header and chip verification; volatile RAM download only, no keyboard upgrade files replaced',
     consumer_descriptor=dict(symbol='HID_ConsumerReportDescriptor', section='.data', offset='0xb1a', length=len(consumer),
         sha256=hashlib.sha256(consumer).hexdigest(), report_id=6),
+    resume_fix='Cache verified MCU RAM image for transport lifetime; retain stock ueventd /odm/firmware lookup for initial load; resume reuses cache without firmware fallback; bounded ENOENT/EAGAIN retry; restart cancelled keepalive and restore attached touchpad after MCU reset',
     hardware_result='pending', limitations='Vendor charger injection, edge filtering and relative mouse report0x02 not yet implemented; physical keyboard acceptance required')
 (PROJECT/'reports/kernel618-keyboard-source.json').write_text(json.dumps(report,indent=2)+'\n')
 print('Staged stock-HyperOS sheng keyboard transport')

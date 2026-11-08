@@ -10,6 +10,7 @@ import shutil
 import subprocess
 
 from audit_kernel618_modules import ElfModule, check_candidate
+from sheng618_build_identity import BUILD_HOST, BUILD_USER
 
 PROJECT = Path(__file__).resolve().parents[1]
 PLAN = json.loads((PROJECT / 'device/xiaomi/sheng/interfaces/kernel/6.18/source-plan.json').read_text())
@@ -40,7 +41,9 @@ def environment(jobs):
             'JOBS': str(jobs), 'TAG': 'sheng', 'KBUILD_GENDWARFKSYMS_STABLE': '1',
             'LIBCLANG_PATH': str(CLANG.parent / 'lib'), 'RUSTC_BOOTSTRAP': '1',
             'RUST_LIB_SRC': str(RUST / 'lib/rustlib/src/rust/library'),
-            'MAKEFLAGS': flags,
+            'MAKEFLAGS': flags, 'LOCALVERSION': '',
+            'KBUILD_BUILD_USER': BUILD_USER, 'KBUILD_BUILD_HOST': BUILD_HOST,
+            'KBUILD_BUILD_VERSION': '1',
             'PATH': ':'.join(map(str, [CLANG, RUST / 'bin', TOOLS / 'clang-tools/linux-x86/bin',
                                       TOOLS / 'kernel-build-tools/linux_musl-x86/bin',
                                       TOOLS / 'build-tools/linux-x86/bin'])) + ':/usr/sbin:/usr/bin:/sbin:/bin'}

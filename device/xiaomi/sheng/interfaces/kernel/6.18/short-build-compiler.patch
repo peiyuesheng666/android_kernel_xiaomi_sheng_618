@@ -1,0 +1,21 @@
+--- a/scripts/mkcompile_h
++++ b/scripts/mkcompile_h
+@@ -19,6 +19,18 @@
+ LD_VERSION=$(LC_ALL=C $LD -v | head -n1 |
+ 		sed -e 's/(compatible with [^)]*)//' -e 's/[[:space:]]*$//')
+ 
++# SHENG_SHORT_COMPILER: display the real tool versions, omitting repository URLs.
++# CC_VERSION_TEXT and compiler detection remain unchanged in Kbuild/Kconfig.
++case "$CC_VERSION" in
++    *"clang version "*)
++        CC_VERSION=$(printf '%s\n' "$CC_VERSION" |
++            sed -n 's/.*clang version \([^ ]*\).*/Clang \1/p')
++        ;;
++esac
++case "$LD_VERSION" in
++    "LLD "*) LD_VERSION=$(printf '%s\n' "$LD_VERSION" | awk '{print $1 " " $2}') ;;
++esac
++
+ cat <<EOF
+ #define UTS_MACHINE		"${UTS_MACHINE}"
+ #define LINUX_COMPILE_BY	"${LINUX_COMPILE_BY}"

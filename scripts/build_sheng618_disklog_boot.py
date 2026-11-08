@@ -13,6 +13,7 @@ import subprocess
 import sys
 
 from build_sheng618_upstream import ACK, K618, LOGS, ROOT, TOOLS, environment
+from sheng618_build_identity import configure as configure_identity, verify as verify_identity
 
 work = Path(__file__).resolve().parents[1]
 rom = Path('/root/sheng-lineage/lineage-24.0')
@@ -83,11 +84,11 @@ oi = K618 / 'out-gki-ir'
 config = oi / '.config'
 saved = config.read_bytes()
 env = environment(os.cpu_count())
-env.update(KBUILD_BUILD_HOST='build-host', KBUILD_BUILD_USER='build-user', KBUILD_BUILD_VERSION='1')
 make = ['make', '-C', ACK, 'O=' + str(oi), 'ARCH=arm64', 'LLVM=1', 'LLVM_IAS=1',
         'PAHOLE=' + str(TOOLS / 'kernel-build-tools/linux_musl-x86/bin/pahole')]
 log = LOGS / ('upstream-' + tag + '-image.log')
 try:
+    configure_identity(ACK, oi, work)
     run([ACK / 'scripts/config', '--file', config, '--enable', 'SHENG_BOOTLOG',
          '--set-val', 'LOG_BUF_SHIFT', '22', '--set-str', 'INITRAMFS_SOURCE',
          options.overlay.resolve(), '--disable', 'INITRAMFS_FORCE'])
@@ -102,6 +103,7 @@ try:
         run([*make, 'olddefconfig'], env=env, stdout=stream, stderr=subprocess.STDOUT)
         run([*make, '-j' + str(os.cpu_count()), 'Image'], env=env, stdout=stream, stderr=subprocess.STDOUT)
     (native / 'kernel.config').write_bytes(config.read_bytes())
+    identity = verify_identity(oi, (K618 / 'out-gki/include/config/kernel.release').read_text().strip())
     expected = sorted(line for line in (K618 / 'out-gki/Module.symvers').read_text().splitlines()
                       if line.split('\t')[2] == 'vmlinux')
     actual = sorted((oi / 'vmlinux.symvers').read_text().splitlines())
@@ -137,6 +139,8 @@ shutil.copyfile(packed, dest / 'boot.img')
 report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256': sha(dest / 'Image'),
           'boot_bytes': packed.stat().st_size, 'image_bytes': image.stat().st_size,
           'logger_source_sha256': sha(source), 'kernel_exports_unchanged': len(actual),
+          'build_identity': identity,
+          'compiler_version_full': run([env['PATH'].split(':')[0] + '/clang', '--version'], capture_output=True, text=True).stdout,
           'original_android_init_preserved': True,
           'module_overlay': str(options.overlay.resolve()),
           'module_overlay_sha256': sha(options.overlay), 'usb_preinit_added': False,
@@ -147,7 +151,10 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
           'destination': {'gpt_name': 'rawdump', 'required_partition_bytes': 300 * 1024**2,
                           'offset': 288 * 1024**2, 'span': 2 * 1024**2,
                           'slots': 2, 'slot_bytes': 1024**2},
-          'interval_ms': 250, 'maximum_duration_ms': (options.test_timeout + 20) * 1000 if options.test_timeout else 120000,
+          'interval_ms': 250, 'maximum_duration_ms': None,
+          'fast_capture_duration_ms': (options.test_timeout + 20) * 1000 if options.test_timeout else 120000,
+          'steady_interval_ms': 10000, 'late_exception_capture_retained': True,
+          'normal_panic_capture_enabled': True,
           'test_timeout_seconds': options.test_timeout, 'crc32_and_footer': True,
           'legacy_live_module_reuse': options.legacy_module_reuse,
           'fscrypt_metadata_trace': 'sheng_fscrypt_abi: provisioning' in (ACK / 'fs/crypto/keyring.c').read_text(),

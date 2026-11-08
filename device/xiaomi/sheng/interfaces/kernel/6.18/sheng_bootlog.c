@@ -35,6 +35,7 @@
 #define LOG_OFFSET (288ULL * 1024 * 1024)
 #define SLOT_BYTES (1024U * 1024)
 #define LIFE_MS 120000
+#define STEADY_INTERVAL_MS 10000
 #define EARLY_TRACE_BYTES (128U * 1024)
 
 struct bootlog_header {
@@ -86,8 +87,8 @@ bool sheng_bootlog_test_mode(void)
 
 void sheng_bootlog_panic_pause(void)
 {
-    if (sheng_bootlog_test_mode())
-        sheng_bootlog_fault_pause();
+    /* Normal builds also need panic logs; automatic reset stays test-only. */
+    sheng_bootlog_fault_pause();
 }
 
 /* Same DT cell and value as the board's qcom-reboot-reason driver. No raw
@@ -358,20 +359,18 @@ static enum hrtimer_restart test_restart_fallback(struct hrtimer *timer)
 
 static void save_snapshot(struct work_struct *work)
 {
+    bool fast;
+    unsigned int interval;
+
     mutex_lock(&snapshot_lock);
     capture_snapshot();
-    if (time_before(jiffies, began + msecs_to_jiffies(
-            test_timeout ? (test_timeout + 20) * 1000 : LIFE_MS)))
-        queue_delayed_work(system_unbound_wq, &snapshot_work,
-                           msecs_to_jiffies(destination ? 250 : 100));
-    else {
-        if (destination)
-            fput(destination);
-        destination = NULL;
-        vfree(snapshot);
-        snapshot = NULL;
-        pr_notice("sheng_bootlog: capture finished\n");
-    }
+    fast = time_before(jiffies, began + msecs_to_jiffies(
+            test_timeout ? (test_timeout + 20) * 1000 : LIFE_MS));
+    /* Keep the bounded slots and exception writer available after boot.
+     * Slow down steady-state I/O instead of losing every late fault.
+     */
+    interval = fast ? (destination ? 250 : 100) : STEADY_INTERVAL_MS;
+    queue_delayed_work(system_unbound_wq, &snapshot_work, msecs_to_jiffies(interval));
     mutex_unlock(&snapshot_lock);
 }
 

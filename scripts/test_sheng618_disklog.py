@@ -24,6 +24,10 @@ parser.add_argument('--helper-exec', action='store_true')
 parser.add_argument('--positive-only', action='store_true')
 parser.add_argument('--fault-after-log', action='store_true',
                     help='On CPU 1, BUG in a disposable module and require its stack in disk snapshots')
+parser.add_argument('--fault-delay-seconds', type=int, default=0,
+                    help='Wait this many extra seconds before the disposable fault to verify post-boot capture')
+parser.add_argument('--direct-panic', action='store_true',
+                    help='Exercise the normal panic hook, without automatic test reboot')
 parser.add_argument('--slab-tracking', action='store_true',
                     help='Verify kmalloc-2k allocation provenance using the exact candidate cmdline')
 parser.add_argument('--extra-test-module', type=Path,
@@ -44,6 +48,9 @@ if options.auto_return in ('fault', 'panic', 'emergency'):
     options.fault_after_log = True
 assert not options.fault_after_log or options.positive_only
 assert not options.slab_tracking or options.fault_after_log
+assert 0 <= options.fault_delay_seconds <= 600
+assert not options.fault_delay_seconds or options.fault_after_log
+assert not options.direct_panic or (options.fault_after_log and not options.auto_return)
 assert bool(options.extra_test_module) == bool(options.require_marker)
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
 root = Path('/root/sheng-618/diagnostic') / options.revision / (
@@ -53,7 +60,10 @@ root = Path('/root/sheng-618/diagnostic') / options.revision / (
     'qemu-module-reuse' if options.legacy_reuse else
     'qemu-auto-' + options.auto_return if options.auto_return else
     'qemu-regression' if options.extra_test_module else
-    'qemu-slab' if options.slab_tracking else 'qemu-fault' if options.fault_after_log else 'qemu')
+    'qemu-slab' if options.slab_tracking else
+    'qemu-direct-panic' if options.direct_panic else
+    'qemu-late-fault' if options.fault_delay_seconds else
+    'qemu-fault' if options.fault_after_log else 'qemu')
 root.mkdir(parents=True, exist_ok=True)
 out = Path('/root/sheng-618/upstream-build/k618/out-gki')
 image = work / 'artifacts' / ('sheng-6.18-' + options.revision) / 'Image'
@@ -169,7 +179,7 @@ MODULE_DESCRIPTION("Disposable QEMU-only fault capture probe");
     pr_emerg("SHENG_SLAB_PROVENANCE_TEST: freed object provenance\\n");
     kmem_dump_obj(probe);''')
     (fault / 'sheng_fault_probe.c').write_text(fault_source)
-    if options.auto_return == 'panic':
+    if options.auto_return == 'panic' or options.direct_panic:
         fault_source = fault_source.replace('    BUG();', '    panic("SHENG_DISKLOG_DIRECT_PANIC");')
     if options.auto_return == 'emergency':
         fault_source = fault_source.replace('    BUG();', '    emergency_restart();')
@@ -191,6 +201,7 @@ if options.fscrypt_provisioning:
     subprocess.run(['mkfs.ext4', '-q', '-F', '-O', 'encrypt', str(cryptfs)], check=True)
     shutil.copyfile(ACK / 'include/uapi/linux/fscrypt.h', root / 'test-fscrypt.h')
 program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n'
+                   '#define TEST_FAULT_DELAY ' + str(options.fault_delay_seconds) + '\n'
                    '#define TEST_LOG_WRAP ' + str(int(options.log_wrap)) + '\n'
                    '#define TEST_FIRMWARE ' + str(int(bool(options.firmware_policy))) + '\n'
                    '#define TEST_FSCRYPT ' + str(int(options.fscrypt_provisioning)) + '\n'
@@ -349,6 +360,11 @@ int main(void) {
         usleep(100000);
     }
     if(TEST_FAULT) {
+        if(TEST_FAULT_DELAY) {
+            sleep(TEST_FAULT_DELAY);
+            const char late[]="<5>SHENG_LATE_FAULT_TEST after_delay\n";
+            if(write(log,late,sizeof(late)-1)!=(ssize_t)(sizeof(late)-1)) return 77;
+        }
         sleep(3);
         pid_t child=fork();
         if(child==0) {
@@ -443,7 +459,7 @@ for label, name, mib, expected in inputs:
                                 stdout=stream, stderr=subprocess.STDOUT)
         try:
             with socket.socket(socket.AF_UNIX) as monitor:
-                monitor.settimeout(60)
+                monitor.settimeout(60 + options.fault_delay_seconds)
                 for attempt in range(100):
                     try:
                         monitor.connect(str(qmp_path))
@@ -505,6 +521,9 @@ for label, name, mib, expected in inputs:
             assert all('sheng_bootlog: identity revision=' + options.revision + ' run=' + s['run'] + '\n' in s['text'] for s in slots)
             assert all(s['text'].endswith('sheng_bootlog: identity revision=' + options.revision +
                                          ' run=' + s['run'] + '\n') for s in slots)
+        if options.fault_delay_seconds:
+            assert max(s['uptime_ms'] for s in slots) > options.fault_delay_seconds * 1000
+            assert any('SHENG_LATE_FAULT_TEST after_delay' in s['text'] for s in slots)
         if options.require_marker:
             assert any(options.require_marker in s['text'] for s in slots), transcript
         if options.legacy_reuse:
@@ -522,7 +541,12 @@ for label, name, mib, expected in inputs:
                 assert max(s['uptime_ms'] for s in slots) >= 14000
             if options.auto_return == 'reboot':
                 assert "reboot: Restarting system with command 'bootloader'" in console
-        if options.fault_after_log and options.auto_return not in ('panic', 'emergency'):
+        if options.direct_panic:
+            assert any(all(marker in s['text'] for marker in (
+                'Kernel panic - not syncing: SHENG_DISKLOG_DIRECT_PANIC',
+                'sheng_fault_probe', 'Call trace:', '1500 ms capture window'))
+                for s in slots), transcript
+        elif options.fault_after_log and options.auto_return not in ('panic', 'emergency'):
             assert any(all(marker in s['text'] for marker in (
                 'SHENG_DISKLOG_FAULT_INJECT', 'sheng_fault_probe', 'Call trace:',
                 'pc :', '1500 ms capture window')) for s in slots), transcript
@@ -554,7 +578,9 @@ if options.log_wrap:
     report['periodic_identity_matches_revision_and_header_run'] = True
     report['crc_covered_identity_trailer_verified'] = True
 report['exception_stack_persisted_before_panic'] = (
-    True if options.fault_after_log and options.auto_return != 'emergency' else None)
+    True if options.fault_after_log and not options.direct_panic and options.auto_return != 'emergency' else None)
+report['normal_direct_panic_persisted'] = options.direct_panic
+report['fault_delay_seconds'] = options.fault_delay_seconds
 if options.slab_tracking:
     report['kmalloc_2k_allocation_and_free_stacks_persisted'] = True
     report['stock_stack_depot_disable_overridden'] = True
@@ -587,6 +613,8 @@ suffix = ('-qemu-log-wrap.json' if options.log_wrap else
           '-qemu-module-reuse.json' if options.legacy_reuse else
           '-qemu-auto-' + options.auto_return + '.json' if options.auto_return else
           '-qemu-regression.json' if options.extra_test_module else '-qemu-slab.json'
-          if options.slab_tracking else '-qemu-fault.json' if options.fault_after_log else '-qemu.json')
+          if options.slab_tracking else '-qemu-direct-panic.json' if options.direct_panic else
+          '-qemu-late-fault.json' if options.fault_delay_seconds else
+          '-qemu-fault.json' if options.fault_after_log else '-qemu.json')
 (work / ('reports/kernel618-' + options.revision + suffix)).write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

@@ -1,0 +1,40 @@
+{
+  "real_aarch64_kernel": true,
+  "real_gpt_block_io_and_fsync": true,
+  "image_sha256": "26f3bf8b25723631542027edcf5a43e50d6ac60e70df51e598876bd705edaec5",
+  "cases": [
+    {
+      "case": "valid",
+      "gpt_name": "rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 2,
+      "expected_write": true,
+      "uptime_ms": [
+        137985,
+        132063
+      ],
+      "qemu_log": "/root/sheng-618/diagnostic/hardware-r33/qemu-late-fault/valid.log",
+      "qmp_shutdown_events": [
+        {
+          "timestamp": {
+            "seconds": 1794179403,
+            "microseconds": 904047
+          },
+          "event": "SHUTDOWN",
+          "data": {
+            "guest": true,
+            "reason": "guest-reset"
+          }
+        }
+      ]
+    }
+  ],
+  "torn_copy_rejected_other_copy_readable": true,
+  "hardware_ufs_tested": false,
+  "embedded_helper_exec_and_finit_module_tested": false,
+  "partition_guard_cases_run": false,
+  "fault_injection_case_run": true,
+  "exception_stack_persisted_before_panic": true,
+  "normal_direct_panic_persisted": false,
+  "fault_delay_seconds": 125
+}

@@ -1,10 +1,10 @@
 {
   "files": {
     "sheng_nanosic.c": {
-      "staged_sha256": "8a93c2c8fc1f8ab595a3e710ba8879d1cb7131d41175b5678c26c322d4df0238"
+      "staged_sha256": "96cd113b78a884bb92c55dae719f7ccafd4849d9062f77643607f0d247c18a1b"
     },
     "sheng_nanosic_bridge.h": {
-      "staged_sha256": "acdd87aa467450c68051262761f71c5f323909b26176be2a8a2bb85910ec2f0c"
+      "staged_sha256": "c726f500611921b19257b2ee376b722d7c584c855469778a4364485585751806"
     },
     "Kbuild": {
       "staged_sha256": "0c0739d4b109cdc3e4a917e72dc5fc87e1a65ead2ff91fbd8fb68d75be5c57c0"
@@ -35,6 +35,7 @@
     "sha256": "5921bb8886eb856cc783787d1d778ce46fe8f49856eadc7ee39e3ec971b82fd0",
     "report_id": 6
   },
+  "resume_fix": "Cache verified MCU RAM image for transport lifetime; retain stock ueventd /odm/firmware lookup for initial load; resume reuses cache without firmware fallback; bounded ENOENT/EAGAIN retry; restart cancelled keepalive and restore attached touchpad after MCU reset",
   "hardware_result": "pending",
   "limitations": "Vendor charger injection, edge filtering and relative mouse report0x02 not yet implemented; physical keyboard acceptance required"
 }

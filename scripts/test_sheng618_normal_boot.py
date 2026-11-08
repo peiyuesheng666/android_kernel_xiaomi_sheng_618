@@ -17,6 +17,7 @@ delivery = ROOT / ('artifacts/sheng-6.18-' + tag)
 build = json.loads((delivery / 'build-result.json').read_text())
 assert build['revision'] == tag and build['test_timeout_seconds'] is None
 assert sha(delivery / 'boot.img') == build['boot_sha256']
+assert sha(delivery / 'Image') == build['image_sha256']
 folder = ROOT / ('reports/device/kernel618-' + tag)
 folder.mkdir(parents=True, exist_ok=True)
 assert not (folder / 'flash.txt').exists(), 'Preserve previous flash records'
@@ -59,6 +60,12 @@ try:
         if re.search(SERIAL + r'\s+device\b', devices):
             kernel = call('adb', 'shell', 'uname -r').strip()
             assert kernel.startswith('6.18.')
+            if build.get('build_identity'):
+                assert kernel == build['build_identity']['release'], kernel
+            cmdline = call('adb', 'shell', 'cat /proc/cmdline', check=False).strip()
+            receipt['live_cmdline_readable'] = 'Permission denied' not in cmdline and bool(cmdline)
+            if receipt['live_cmdline_readable']:
+                assert 'sheng_test=' + tag in cmdline.split(), cmdline
             if not receipt.get('candidate_adb_connected'):
                 receipt['candidate_adb_connected'] = True
                 receipt['kernel'] = kernel
