@@ -328,3 +328,17 @@ kernel618-module-reuse-source.json。选定上游 k618_insmod 的泛化错误容
 337 模块 overlay 与 r12 相同，18,008 导出一致，官方 boot 封包/AVB/解包回读通过。
 仍启用 180 秒测试模式（候选 ADB 尚未连接）；此修复实机验证待本轮刷入。
 当前五版：fault-r10、slab-r11、aux-r12、auto-r13、modules-r14。
+
+
+### modules-r14 实机越过模块等待，自动重启重定向有效
+
+run a6d371991c93cd3b，seq132/133 至 43.268/43.552 秒，两份 CRC 有效。
+vendor.modprobe 在 39.335 秒以 0 退出，模块就绪属性已置位；init 越过原卡点，
+late-fs 成功挂载 /data，40.828 秒进入 post-fs-data。
+41.066 秒 vold 的 add_key("fscrypt-provisioning") 返回 EINVAL，per-boot key 安装失败，
+init 因 enablefilecrypto_failed 主动请求 reboot,recovery。未见新的 Oops/panic。
+测试内核把这次软件重启自动转到 Fastboot，电脑于 55.10 秒收到设备，自动读回再返回。
+因此实机已验证超时与软件主动重启两个 Fastboot 入口；异常/panic 仍只有 QEMU 验证。
+ADB 尚未连接，保留测试模式。下一步修复 fscrypt ABI 兼容，保持系统包不变，
+只诊断负载大小/标志而不记录密钥内容。
+详见 kernel618-modules-r14-{hardware,automation}.json。

@@ -189,3 +189,6 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 
 2026-11-08 modules-r14 修复原厂重复加载 5.15 模块时已就绪替代驱动的识别，
 同一 Image 的 QEMU 重复/缺失回归通过，实机待验证；原厂系统包不修改。
+
+2026-11-08 modules-r14 实机解除模块就绪等待，已进入 post-fs-data；现在因 fscrypt-provisioning
+密钥负载接口返回 EINVAL 被原厂 init 重启，已自动转 Fastboot 并读回日志。尚无候选 ADB。

@@ -1,0 +1,43 @@
+{
+  "revision": "modules-r14",
+  "serial": "ca10ede3",
+  "flashed_partition": "boot_a",
+  "boot_sha256": "0915f741d4f306d032029d3b6d118a31af04db5d18803bb86057bcb7add690ef",
+  "image_sha256": "9c3a940982ae0fb2d7d4c465bd82dd9ad1467088c99b549337c9f5483960e5ef",
+  "flash_succeeded": true,
+  "hardware_log_received": true,
+  "automatic_fastboot_return": true,
+  "host_elapsed_seconds": 55.1,
+  "run": "a6d371991c93cd3b",
+  "valid_snapshots": [
+    {
+      "sequence": 132,
+      "uptime_ms": 43268
+    },
+    {
+      "sequence": 133,
+      "uptime_ms": 43552
+    }
+  ],
+  "raw_sha256": "01727c5636e6fdd953e151d679503ed329319366ce57e10c208f50bca788557c",
+  "latest_log": "reports/device/kernel618-modules-r14/bootlog-a6d371991c93cd3b-133.txt",
+  "android_boot_completed": false,
+  "candidate_adb_connected": false,
+  "manual_reboot_needed": false,
+  "temporary_recovery_and_readback_automatic": true,
+  "original_boot_backed_up": false,
+  "current_state": "Fastboot after automatic log readback",
+  "previous_block_resolved": true,
+  "proof": [
+    "vendor.modprobe exit 0 at 39.334732 s",
+    "module ready property already set at 39.812306 s",
+    "late-fs data mount succeeded at 40.809084 s",
+    "post-fs-data at 40.827839 s"
+  ],
+  "next_failure": "fscrypt-provisioning add_key returns EINVAL at 41.066110 s; per-boot key installation aborts enablefilecrypto",
+  "reboot_reason": "Android init requests reboot,recovery at 41.126700 s after enablefilecrypto_failed; test kernel redirects to Fastboot",
+  "kernel_oops_or_panic_detected": false,
+  "automatic_software_reboot_redirection_hardware_verified": true,
+  "exception_fastboot_hardware_tested": false,
+  "next": "Compare stock 5.15 and selected 6.18 fscrypt key payload validation; capture sizes/flags only, never key material"
+}

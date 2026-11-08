@@ -4,7 +4,8 @@
   "kernel_exports_unchanged": 18008,
   "same_overlay_as": "aux-r12",
   "qemu_receipt": "kernel618-modules-r14-qemu-module-reuse.json",
-  "hardware_pending": true,
+  "hardware_pending": false,
   "test_mode_remains_until_candidate_adb_available": true,
-  "source_receipt": "kernel618-module-reuse-source.json"
+  "source_receipt": "kernel618-module-reuse-source.json",
+  "hardware_receipt": "kernel618-modules-r14-hardware.json"
 }
