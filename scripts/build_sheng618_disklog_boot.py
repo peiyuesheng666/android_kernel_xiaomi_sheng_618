@@ -20,8 +20,8 @@ stock = Path('/mnt/e/6/玩机资源/XiaomiPad6SPro12.4刷机资源/sheng_images_
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', default='disklog-r5')
 parser.add_argument('--overlay', type=Path, default=K618 / 'boot-test/stage/overlay.cpio')
-parser.add_argument('--test-timeout', type=int, choices=[180],
-                    help='Test only: return to bootloader at uptime 180 seconds')
+parser.add_argument('--test-timeout', type=int, choices=[180, 600],
+                    help='Test only: return to bootloader at the selected uptime in seconds')
 parser.add_argument('--legacy-module-reuse', action='store_true',
                     help='Recognize live replacements for stock 5.15 module duplicates')
 parser.add_argument('--fscrypt-trace', action='store_true', help='Print only provisioning length/type/flags')
@@ -117,8 +117,9 @@ args = shlex.split(run([sys.executable, unpack, '--boot_img', stock, '--out', pa
 assert (parts / 'ramdisk').read_bytes() == b''
 args[args.index('--kernel') + 1] = str(image)
 cmdline = 'printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=' + tag
+cmdline += ' sheng_bootlog.revision=' + tag
 if options.test_timeout:
-    cmdline += ' sheng_bootlog.test_timeout=180 panic=5'
+    cmdline += f' sheng_bootlog.test_timeout={options.test_timeout} panic=5'
 args[args.index('--cmdline') + 1] = cmdline
 packed = native / 'boot.img'
 run([sys.executable, rom / 'system/tools/mkbootimg/mkbootimg.py', *args, '--output', packed])
@@ -140,10 +141,11 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
           'module_overlay': str(options.overlay.resolve()),
           'module_overlay_sha256': sha(options.overlay), 'usb_preinit_added': False,
           'kernel_log_buffer_bytes': 4 * 1024**2, 'writer_is_built_in': True,
+          'periodic_log_identity': True,
           'destination': {'gpt_name': 'rawdump', 'required_partition_bytes': 300 * 1024**2,
                           'offset': 288 * 1024**2, 'span': 2 * 1024**2,
                           'slots': 2, 'slot_bytes': 1024**2},
-          'interval_ms': 250, 'maximum_duration_ms': 200000 if options.test_timeout else 120000,
+          'interval_ms': 250, 'maximum_duration_ms': (options.test_timeout + 20) * 1000 if options.test_timeout else 120000,
           'test_timeout_seconds': options.test_timeout, 'crc32_and_footer': True,
           'legacy_live_module_reuse': options.legacy_module_reuse,
           'fscrypt_metadata_trace': 'sheng_fscrypt_abi: provisioning' in (ACK / 'fs/crypto/keyring.c').read_text(),

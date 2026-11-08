@@ -1,0 +1,50 @@
+{
+  "source_repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource",
+  "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+  "source_files": {
+    "drivers/usb/redriver/ps5169.c": "ae5ab96b3b406405f7465f67c2da1ef2a9236f56a3ab0f2530e2ebcc941ab1b0",
+    "drivers/usb/redriver/ps5169.h": "d1585220b5141ceaa6c795a0d294a48fcb53056d9cbbed6ed1b67f85de59044f"
+  },
+  "adapted_source_sha256": "5e927117f415af719ee993343c7389fd3f3d4e319324e11855e3957a855933de",
+  "module_sha256": "3b8dc9f112412f9308d0aad5fdc1f75f89e2615db8cc0dc580f792a113d9c16e",
+  "overlay_sha256": "d4508fec48d5989f96379db2cbb08d513051dfa31fc508438629c33568892c24",
+  "checks": {
+    "release": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+    "expected_series": "6.18",
+    "symvers_sha256": "f145e6a36d7f7dc574acbf4cd6dd11ebf3f6597f723d7099d4fb27de4c9fe373",
+    "effective_module_count": 338,
+    "versioned_imports_checked": 20574,
+    "issue_counts": {},
+    "issue_count": 0,
+    "issues": [],
+    "issues_truncated": false,
+    "warnings": [],
+    "abi_passed": true,
+    "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+  },
+  "archive": {
+    "archive": "/root/sheng-618/diagnostic/usb-r18/overlay.cpio",
+    "sha256": "d4508fec48d5989f96379db2cbb08d513051dfa31fc508438629c33568892c24",
+    "entry_count": 350,
+    "module_count": 338,
+    "helper_mode": "0o100755",
+    "helper_is_regular": true,
+    "helper_executable": true,
+    "helper_sha256": "7e8efddffe6700c7799d4d0434135e7e04bbb14ffdcc3aa0aeafda4c3c547283"
+  },
+  "changed_existing_payloads": [
+    "lib/modules/k618_batch.load",
+    "lib/modules/modules.alias",
+    "lib/modules/modules.dep"
+  ],
+  "evidence": "Live sheng DT ssusb_redriver phandle 0x5d7 -> mi,ps5169 at a80000.i2c/ps5169@28; old 337-module overlay has no matching driver. Core returns EPROBE_DEFER until this provider registers.",
+  "adaptations": [
+    "6.18 I2C and const class APIs",
+    "Controller-provided CC1/CC2 orientation maps to PS5169 flip 1/2; wired GPIO fallback",
+    "Three-argument DP release callback; no obsolete battery charger property ABI",
+    "New redriver disconnect semantics follow selected NB7VPQ904M implementation"
+  ],
+  "license": "GPL-2.0-only (source MODULE_LICENSE GPL v2)",
+  "hardware_result": "pending",
+  "usb_or_displayport_functionality_claimed": false
+}

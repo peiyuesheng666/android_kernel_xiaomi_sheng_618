@@ -1,0 +1,17 @@
+{
+  "boot_sha256": "8a657ee9ab511be335fb58ae97952767802399b393cfdd4842e1dd363fd46f11",
+  "image_sha256": "b58de52c4492cdb3a315823b77bde4b710715bd8d8fa9508d3b5bc4bdc50bf72",
+  "hardware_pending": true,
+  "source_receipt": "kernel618-ps5169-source.json",
+  "qemu_receipt": "kernel618-usb-r18-qemu-log-wrap.json",
+  "module_count": 338,
+  "module_crc_imports": 20574,
+  "unchanged_kernel_exports": 18008,
+  "test_timeout_seconds": 600,
+  "bounded_host_wait_seconds": 655,
+  "periodic_identity_matches_crc_header_run": true,
+  "original_android_init_preserved": true,
+  "candidate_adb_diagnostics_every_seconds": 60,
+  "disable_test_mode_after_adb_in_next_build": true,
+  "full_hardware_functionality_verified": false
+}

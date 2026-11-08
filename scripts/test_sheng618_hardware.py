@@ -40,7 +40,8 @@ def main():
     tag = options.revision
     delivery = ROOT / ('artifacts/sheng-6.18-' + tag)
     build = json.loads((delivery / 'build-result.json').read_text())
-    assert build['revision'] == tag and build['test_timeout_seconds'] == 180
+    assert build['revision'] == tag and build['test_timeout_seconds'] in (180, 600)
+    test_timeout = build['test_timeout_seconds']
     assert sha(delivery / 'boot.img') == build['boot_sha256']
     assert sha(RECOVERY) == RECOVERY_SHA
     folder = ROOT / ('reports/device/kernel618-' + tag)
@@ -49,7 +50,7 @@ def main():
     if not options.readback_only:
         assert not (folder / 'flash.txt').exists(), 'Already flashed; use --readback-only'
     receipt = dict(revision=tag, serial=SERIAL, boot_sha256=build['boot_sha256'],
-                   image_sha256=build['image_sha256'], test_timeout_seconds=180,
+                   image_sha256=build['image_sha256'], test_timeout_seconds=test_timeout,
                    writes=['boot_a'], temporary_recovery_sha256=RECOVERY_SHA,
                    original_boot_backed_up=False, events=[])
     report = ROOT / ('reports/kernel618-' + tag + '-automation.json')
@@ -85,6 +86,7 @@ def main():
 
     def wait_fastboot(seconds, monitor_adb=False):
         deadline, next_notice, next_adb = time.monotonic() + seconds, 0, 0
+        next_capture = 0
         while time.monotonic() < deadline:
             if fastboot_present():
                 return
@@ -99,7 +101,21 @@ def main():
                             receipt['candidate_adb_connected'] = True
                             receipt['disable_test_mode_next_revision'] = True
                             record('candidate_adb_connected', kernel=release.strip())
-                            call('adb', 'shell', 'getprop', check=False)
+                        if now >= next_capture:
+                            next_capture = now + 60
+                            stamp = str(round(now))
+                            for name, command in (
+                                ('properties', 'getprop'),
+                                ('dmesg', 'dmesg'),
+                                ('logcat', 'logcat -b all -d -t 2500'),
+                                ('usb', 'cat /proc/uptime; ls -l /sys/class/udc; '
+                                 'cat /sys/kernel/debug/devices_deferred; '
+                                 'cat /sys/class/drm/card*-DSI-*/status; '
+                                 'cat /sys/class/drm/card*-DSI-*/modes'),
+                            ):
+                                output = call('adb', 'shell', command, check=False, quiet=True, timeout=20)
+                                (folder / f'adb-{stamp}-{name}.txt').write_text(output)
+                            record('candidate_diagnostics_saved', prefix='adb-' + stamp)
             if now >= next_notice:
                 next_notice = now + 30
                 record('waiting_for_fastboot', seconds_remaining=round(deadline - now))
@@ -128,7 +144,7 @@ def main():
                     raise TimeoutError('USB never departed Fastboot after reboot')
                 time.sleep(0.5)
             record('candidate_started')
-            wait_fastboot(235, monitor_adb=True)
+            wait_fastboot(test_timeout + 55, monitor_adb=True)
             receipt['automatic_fastboot_return'] = True
             record('automatic_fastboot_received', elapsed_seconds=round(time.monotonic() - start, 2))
             verify_fastboot()
@@ -149,7 +165,11 @@ def main():
         raw = (folder / 'region-after.bin').read_bytes()
         assert len(raw) == 2 * 1024**2
         logs = decode(raw)
-        current = [s for s in logs if 'sheng_test=' + tag + ' ' in s['text']]
+        if build.get('periodic_log_identity'):
+            current = [s for s in logs if
+                       'sheng_bootlog: identity revision=' + tag + ' run=' + s['run'] + '\n' in s['text']]
+        else:
+            current = [s for s in logs if 'sheng_test=' + tag + ' ' in s['text']]
         assert current, 'No CRC-valid snapshot from the requested revision; preserve for diagnosis'
         assert len({s['run'] for s in current}) == 1
         for log in current:

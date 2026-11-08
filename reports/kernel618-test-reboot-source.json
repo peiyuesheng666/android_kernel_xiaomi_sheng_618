@@ -9,7 +9,7 @@
       "after": "4dab8155bb7b46ae8c0dc3b4d54b9c268bdb9ee4ed3f8c088f7dd3dc3ce0202f"
     }
   },
-  "enabled_only_by": "sheng_bootlog.test_timeout=180 (valid range 10..600 for QEMU)",
+  "enabled_only_by": "sheng_bootlog.test_timeout=180 or 600 for hardware tests (10..600 accepted; 15 for QEMU)",
   "reference": "ACK ff4a6c3bb0f471a9dd186293a47b62c83829b97d normal/emergency restart and panic before other CPUs stop; selected qcom-reboot-reason DT cell writes 0x02",
   "default_enabled": false,
   "preserves_exported_function_signatures": true,

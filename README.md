@@ -208,3 +208,6 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 
 2026-11-08 firmware-r17 实机在 79.076 秒完成 HyperOS 启动，用户确认进入系统；
 花屏与 USB 无可用 UDC 尚待修，ADB 未通，180 秒回 Fastboot 已触发，日志已保留。
+
+2026-11-08 usb-r18 补齐 DT 依赖的 PS5169，测试超时改为十分钟；
+338 模块 ABI 与日志回卷身份 QEMU 检查通过，实机 USB/显示待验证。

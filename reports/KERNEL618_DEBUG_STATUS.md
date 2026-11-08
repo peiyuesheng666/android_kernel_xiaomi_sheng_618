@@ -432,3 +432,24 @@ sys.boot_completed=1，原卡住的固件补载恢复，GPU/ADSP/Wi-Fi 配置已
 run668e360a40eda214，seq576/577，uptime179.234/179.539 秒。版本归属依据本轮唯一受控
 flash 的哈希、全新 run 与超时范围，快照本身没有版本标记；下一版增加持续版本身份。
 详见 kernel618-firmware-r17-{hardware,automation}.json。
+
+
+### usb-r18：补齐 sheng PS5169，测试窗口延长至十分钟
+
+r17 实际 DT 的 ssusb_redriver 指向 mi,ps5169（a80000.i2c/ps5169@28），
+原 337 模块包没有此驱动，redriver core 因找不到 provider 返回 EPROBE_DEFER。
+选定 6.18 底座的 NB7VPQ904M 只参考新回调语义；LOS SM8550 无此平板驱动，
+使用获授权的 MiCode sheng 29db5d59 的 PS5169 原寄存器配置，适配 I2C/class API、
+控制器方向和三参数 DP release 回调，不导入已不存在的充电属性 ABI。
+外接 DP 功能不作可用声明。保留 r12 显示模块及原有 337 模块，仅增加 PS5169。
+338 模块共 20,574 项版本化导入通过，18,008 内核导出保持不变。
+
+按用户要求设置 600 秒测试超时，日志生命周期 620 秒，主机等候上限 655 秒；
+已有异常/软件重启回 Fastboot 行为保留。候选 6.18 ADB 连通后每 60 秒读取
+属性、dmesg、logcat 和 USB/DRM 状态；下一版取消测试模式。
+原厂系统和固件树未修改，仅封包 boot_a，原厂 boot 解包回读和 AVB 验证通过。
+同时为每秒快照补版本和 run 身份，读取时必须与 CRC 头部 run 匹配。
+真实 AArch64 QEMU 已写入超过 1 MiB 日志，确认最初命令行被挤出后，
+两份 CRC 有效快照仍保留匹配身份；真实 helper 执行和模块装载通过。
+实机 USB、花屏和十分钟超时结果仍待本轮验证。
+交付目录最多五版：modules-r14、crypto-r15、wrapped-r16、firmware-r17、usb-r18。

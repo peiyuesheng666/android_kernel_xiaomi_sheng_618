@@ -42,7 +42,7 @@ for relative, replacements in changes.items():
                  fromfile='a/' + relative, tofile='b/' + relative, n=0))
 (PROJECT / 'device/xiaomi/sheng/interfaces/kernel/6.18/test-reboot.patch').write_text(''.join(patch))
 receipt.write_text(json.dumps(dict(files=hashes,
-    enabled_only_by='sheng_bootlog.test_timeout=180 (valid range 10..600 for QEMU)',
+    enabled_only_by='sheng_bootlog.test_timeout=180 or 600 for hardware tests (10..600 accepted; 15 for QEMU)',
     reference='ACK ff4a6c3bb0f471a9dd186293a47b62c83829b97d normal/emergency restart and panic before other CPUs stop; selected qcom-reboot-reason DT cell writes 0x02',
     default_enabled=False, preserves_exported_function_signatures=True,
     limits='Requires scheduled CPU, restart provider and PMIC reason support; hardware reset before provider probe is not guaranteed'), indent=2) + '\n')

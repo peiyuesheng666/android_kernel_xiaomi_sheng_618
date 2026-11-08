@@ -54,6 +54,9 @@ module_param_named(enable, enabled, bool, 0400);
 /* Test builds opt in on the command line; normal builds never reboot here. */
 static unsigned int test_timeout;
 module_param(test_timeout, uint, 0400);
+static char revision[65] = "unspecified";
+module_param_string(revision, revision, sizeof(revision), 0400);
+static unsigned long next_identity;
 static atomic_t restart_requested = ATOMIC_INIT(0);
 static struct task_struct *test_reset_task;
 static struct hrtimer restart_guard;
@@ -178,6 +181,10 @@ static void capture_snapshot(void)
         open_destination();
     if (!destination)
         return;
+    if (time_after_eq(jiffies, next_identity)) {
+        pr_notice("sheng_bootlog: identity revision=%s run=%016llx\n", revision, run_id);
+        next_identity = jiffies + msecs_to_jiffies(1000);
+    }
     memset(snapshot, 0, SLOT_BYTES);
     kmsg_dump_rewind(&iter);
     kmsg_dump_get_buffer(&iter, true, snapshot + sizeof(*header),

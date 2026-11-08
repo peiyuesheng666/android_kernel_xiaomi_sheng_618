@@ -1,0 +1,171 @@
+--- a/drivers/usb/redriver/ps5169.c
++++ b/drivers/usb/redriver/ps5169.c
+@@ -0,0 +1,2 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// MiCode sheng PS5169, adapted to the 6.18 redriver API.
+@@ -19,2 +21 @@
+-#include <linux/usb/ucsi_glink.h>
+-#include <linux/soc/qcom/battery_charger.h>
++#include <linux/pinctrl/consumer.h>
+@@ -108,6 +109,2 @@
+-	if(info->ps5169_redriver.usb_mode != HOST) {
+-		ps5169_err("%s: Device.\n", __func__);
+-		ret |= ps5169_update_reg(info, 0x04, 0x44);		//disable U1 status Rx_Det
+-	} else {
+-		ps5169_err("%s: Host.\n", __func__);
+-	}
++	/* Stock probe initializes usb_mode=false before this initial tuning. */
++	ret |= ps5169_update_reg(info, 0x04, 0x44);	/* disable U1 status Rx_Det */
+@@ -183,24 +180,4 @@
+-// gpio_get_value(info->cc_gpio): only 0 or 1 ?
+-static int ps5169_get_CCorientation(void)
+-{
+-	int ret = 0, cc = 0;
+-	ret = qti_battery_charger_get_prop("battery", USB_CC_ORIENTATION, &cc);
+-	if (ret < 0) {
+-		ps5169_err("%s: get cc orientation is fail.\n", __func__);
+-		return ret;
+-	}
+-	ps5169_info("%s: cc orientation: %d.\n", __func__, cc);
+-	return cc;
+-}
+-
+-// Has_DP: DBG
+-static int ps5169_get_has_dp(void)
+-{
+-	int ret = 0, has_dp = 0;
+-	ret = qti_battery_charger_get_prop("battery", HAS_DP_PS5169, &has_dp);
+-	if (ret < 0) {
+-		ps5169_err("%s: get has_dp is fail.\n", __func__);
+-		return ret;
+-	}
+-	ps5169_info("%s: has_dp: %d.\n", __func__, has_dp);
+-	return has_dp;
++/* Controller callbacks provide orientation; the board also wires a CC GPIO. */
++static int ps5169_get_CCorientation(struct ps5169_info *info)
++{
++	return gpio_get_value(info->cc_gpio) + 1;
+@@ -232 +209 @@
+-void ps5169_get_chipcfg_and_modeselection(struct ps5169_info *info)
++static void ps5169_get_chipcfg_and_modeselection(struct ps5169_info *info)
+@@ -258 +235 @@
+-		info->flip = ps5169_get_CCorientation();
++		info->flip = ps5169_get_CCorientation(info);
+@@ -278 +255 @@
+-		info->flip = ps5169_get_CCorientation();
++		info->flip = ps5169_get_CCorientation(info);
+@@ -299 +276 @@
+-		info->flip = ps5169_get_CCorientation();
++		info->flip = ps5169_get_CCorientation(info);
+@@ -383 +360 @@
+-static int ps5169_get_orientation(struct usb_redriver *ps5169_redriver)
++static int ps5169_notify_connect(struct usb_redriver *ps5169_redriver, int ort)
+@@ -390,11 +367,3 @@
+-
+-	return gpio_get_value(info->cc_gpio);
+-}
+-
+-static int ps5169_notify_connect(struct usb_redriver *ps5169_redriver, int ort)
+-{
+-	struct ps5169_info *info =
+-		container_of(ps5169_redriver, struct ps5169_info, ps5169_redriver);
+-
+-	if (!ps5169_present_check())
+-		return 0;
++	if (ort != ORIENTATION_CC1 && ort != ORIENTATION_CC2)
++		return -EINVAL;
++	info->flip = ort + 1;
+@@ -425 +393,0 @@
+-	ps5169_get_has_dp();	//dbg
+@@ -439,8 +407,4 @@
+-		if(ps5169_get_CCorientation()) {
+-			ps5169_info("%s: dp_only_mode and cc, 4lane DP flow, keep ps5169.\n", __func__);
+-		} else {
+-			ps5169_info("%s: dp_only_mode but no cc, disable ps5169.\n", __func__);
+-			ps5169_remove_dp(info);
+-			info->op_mode = OP_MODE_NONE;
+-			ps5169_enable_work(info, 0);
+-		}
++		/* New redriver core calls disconnect for cable removal. */
++		ps5169_remove_dp(info);
++		info->op_mode = OP_MODE_NONE;
++		ps5169_enable_work(info, 0);
+@@ -454 +418 @@
+-static int ps5169_release_usb_lanes(struct usb_redriver *ps5169_redriver, int num)
++static int ps5169_release_usb_lanes(struct usb_redriver *ps5169_redriver, int ort, int num)
+@@ -460,0 +425,3 @@
++	if (ort != ORIENTATION_CC1 && ort != ORIENTATION_CC2)
++		return -EINVAL;
++	info->flip = ort + 1;
+@@ -464 +430,0 @@
+-	ps5169_get_has_dp();	//dbg
+@@ -626,2 +592,2 @@
+-static ssize_t ps5169_dump_show(struct class *c,
+-					struct class_attribute *attr, char *buf)
++static ssize_t ps5169_dump_show(const struct class *c,
++					const struct class_attribute *attr, char *buf)
+@@ -637,2 +603,2 @@
+-static ssize_t tx_gain_show(struct class *c,
+-					struct class_attribute *attr, char *buf)
++static ssize_t tx_gain_show(const struct class *c,
++					const struct class_attribute *attr, char *buf)
+@@ -647,2 +613,2 @@
+-static ssize_t tx_gain_store(struct class *c,
+-					struct class_attribute *attr,
++static ssize_t tx_gain_store(const struct class *c,
++					const struct class_attribute *attr,
+@@ -661,2 +627,2 @@
+-static ssize_t eq0_tx_show(struct class *c,
+-					struct class_attribute *attr, char *buf)
++static ssize_t eq0_tx_show(const struct class *c,
++					const struct class_attribute *attr, char *buf)
+@@ -671,2 +637,2 @@
+-static ssize_t eq0_tx_store(struct class *c,
+-					struct class_attribute *attr,
++static ssize_t eq0_tx_store(const struct class *c,
++					const struct class_attribute *attr,
+@@ -685,2 +651,2 @@
+-static ssize_t eq1_tx_show(struct class *c,
+-					struct class_attribute *attr, char *buf)
++static ssize_t eq1_tx_show(const struct class *c,
++					const struct class_attribute *attr, char *buf)
+@@ -695,2 +661,2 @@
+-static ssize_t eq1_tx_store(struct class *c,
+-					struct class_attribute *attr,
++static ssize_t eq1_tx_store(const struct class *c,
++					const struct class_attribute *attr,
+@@ -709,2 +675,2 @@
+-static ssize_t eq2_tx_show(struct class *c,
+-					struct class_attribute *attr, char *buf)
++static ssize_t eq2_tx_show(const struct class *c,
++					const struct class_attribute *attr, char *buf)
+@@ -719,2 +685,2 @@
+-static ssize_t eq2_tx_store(struct class *c,
+-					struct class_attribute *attr,
++static ssize_t eq2_tx_store(const struct class *c,
++					const struct class_attribute *attr,
+@@ -789 +755 @@
+-	ret = devm_gpio_request(dev, info->cc_gpio, "redriver");
++	ret = devm_gpio_request_one(dev, info->cc_gpio, GPIOF_IN, "redriver");
+@@ -795 +760,0 @@
+-	info->ps5169_redriver.has_orientation = true;
+@@ -873,2 +838 @@
+-static int ps5169_probe(struct i2c_client *client,
+-		const struct i2c_device_id *id)
++static int ps5169_probe(struct i2c_client *client)
+@@ -947 +910,0 @@
+-	info->ps5169_redriver.usb_mode = false ;
+@@ -953 +915,0 @@
+-	info->ps5169_redriver.get_orientation = ps5169_get_orientation ;
+@@ -969,4 +931,4 @@
+-static int ps5169_remove(struct i2c_client *client)
+-{
+-	if (!ps5169_present_check())
+-		return -EINVAL;
++static void ps5169_remove(struct i2c_client *client)
++{
++	if (!ps5169_present_check())
++		return;
+@@ -977 +939 @@
+-	return 0;
++	return;

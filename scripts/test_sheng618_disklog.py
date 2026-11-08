@@ -38,6 +38,7 @@ parser.add_argument('--fscrypt-provisioning', action='store_true',
                     help='Synthetic keys through real add_key and ext4 FS_IOC_ADD_ENCRYPTION_KEY')
 parser.add_argument('--firmware-policy', choices=['legacy', 'native'],
                     help='Real firmware direct/fallback load under enforcing SELinux; native is failing control')
+parser.add_argument('--log-wrap', action='store_true', help='Overflow the 1 MiB log tail and verify periodic identity')
 options = parser.parse_args()
 if options.auto_return in ('fault', 'panic', 'emergency'):
     options.fault_after_log = True
@@ -46,6 +47,7 @@ assert not options.slab_tracking or options.fault_after_log
 assert bool(options.extra_test_module) == bool(options.require_marker)
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
 root = Path('/root/sheng-618/diagnostic') / options.revision / (
+    'qemu-log-wrap' if options.log_wrap else
     'qemu-firmware-' + options.firmware_policy if options.firmware_policy else
     'qemu-fscrypt' if options.fscrypt_provisioning else
     'qemu-module-reuse' if options.legacy_reuse else
@@ -189,6 +191,7 @@ if options.fscrypt_provisioning:
     subprocess.run(['mkfs.ext4', '-q', '-F', '-O', 'encrypt', str(cryptfs)], check=True)
     shutil.copyfile(ACK / 'include/uapi/linux/fscrypt.h', root / 'test-fscrypt.h')
 program.write_text('#define TEST_HELPER ' + str(int(options.helper_exec)) + '\n'
+                   '#define TEST_LOG_WRAP ' + str(int(options.log_wrap)) + '\n'
                    '#define TEST_FIRMWARE ' + str(int(bool(options.firmware_policy))) + '\n'
                    '#define TEST_FSCRYPT ' + str(int(options.fscrypt_provisioning)) + '\n'
                    '#define TEST_REUSE ' + str(int(options.legacy_reuse)) + '\n'
@@ -324,6 +327,14 @@ int main(void) {
         const char marker[]="<5>SHENG_REUSE_REGRESSION_PASS duplicate_live_EEXIST missing_ENOEXEC\n";
         if(write(log,marker,sizeof(marker)-1)!=(ssize_t)(sizeof(marker)-1)) return 44;
     }
+    if(TEST_LOG_WRAP) {
+        char record[256];
+        memset(record,'z',sizeof(record));
+        memcpy(record,"<6>SHENG_LOG_WRAP ",sizeof("<6>SHENG_LOG_WRAP ")-1);
+        record[sizeof(record)-1]='\n';
+        for(int i=0;i<6000;i++)
+            if(write(log,record,sizeof(record))!=(ssize_t)sizeof(record)) return 76;
+    }
     for(int i=0;i<80;i++) {
         char record[100];
         int n=snprintf(record,sizeof(record),"<5>SHENG_DISKLOG_QEMU_ACTUAL record=%d\n",i);
@@ -421,6 +432,7 @@ for label, name, mib, expected in inputs:
                                  *(['-drive', f'if=none,id=cryptfs,file={cryptfs},format=raw',
                                     '-device', 'virtio-blk-pci,drive=cryptfs'] if options.fscrypt_provisioning else []),
                                  '-append', 'console=ttyAMA0 earlycon=pl011,0x9000000 rdinit=/init panic=-1 printk.devkmsg=on sheng_bootlog.enable=1'
+                                 + ' sheng_bootlog.revision=' + options.revision
                                  + (' panic_on_oops=1 irqaffinity=0' if options.fault_after_log else '')
                                  + (' stack_depot_disable=on stack_depot_disable=off slab_debug=U,kmalloc-2k'
                                     if options.slab_tracking else '')
@@ -482,6 +494,10 @@ for label, name, mib, expected in inputs:
         assert len(slots) == 2, transcript
         assert all('SHENG_DISKLOG_QEMU_ACTUAL' in s['text'] for s in slots)
         assert max(s['uptime_ms'] for s in slots) >= 5000
+        if options.log_wrap:
+            assert all('Kernel command line:' not in s['text'] for s in slots)
+            assert all('SHENG_LOG_WRAP ' in s['text'] for s in slots)
+            assert all('sheng_bootlog: identity revision=' + options.revision + ' run=' + s['run'] + '\n' in s['text'] for s in slots)
         if options.require_marker:
             assert any(options.require_marker in s['text'] for s in slots), transcript
         if options.legacy_reuse:
@@ -526,6 +542,9 @@ report = {'real_aarch64_kernel': True, 'real_gpt_block_io_and_fsync': True,
           'embedded_helper_exec_and_finit_module_tested': options.helper_exec,
           'partition_guard_cases_run': not options.positive_only}
 report['fault_injection_case_run'] = options.fault_after_log
+if options.log_wrap:
+    report['original_commandline_rolled_out'] = True
+    report['periodic_identity_matches_revision_and_header_run'] = True
 report['exception_stack_persisted_before_panic'] = (
     True if options.fault_after_log and options.auto_return != 'emergency' else None)
 if options.slab_tracking:
@@ -554,7 +573,8 @@ if options.firmware_policy:
                   file_and_module_load_denials_retained=True,
                   direct_and_sysfs_fallback_tested=True,
                   real_hardware_firmware_tested=False)
-suffix = ('-qemu-firmware-' + options.firmware_policy + '.json' if options.firmware_policy else
+suffix = ('-qemu-log-wrap.json' if options.log_wrap else
+          '-qemu-firmware-' + options.firmware_policy + '.json' if options.firmware_policy else
           '-qemu-fscrypt.json' if options.fscrypt_provisioning else
           '-qemu-module-reuse.json' if options.legacy_reuse else
           '-qemu-auto-' + options.auto_return + '.json' if options.auto_return else
