@@ -1,0 +1,136 @@
+{
+  "review_date": "2026-11-08",
+  "scope": "Read-only reference review; no firmware changes",
+  "sources": {
+    "android_device_xiaomi_piano-patches": {
+      "commit": "d8aaa1ef6f31f8f0fed2dd39926fbd0357314f9c",
+      "tree": "3e05fc62a0aea5bc856e3578691792cc20d49ba8"
+    },
+    "local_manifests": {
+      "commit": "c262e7cddba6c797a724db45feade2cc64692906",
+      "tree": "e400b267da3edbb1a6490d510360c91d9f794680"
+    },
+    "android_vendor_xiaomi_piano": {
+      "commit": "c1e5a318cfe41b5c7cef74385b376fd0c2527c49",
+      "tree": "16c91d0b950724e944045c23a1cedd743b1a19df",
+      "recursive_entries": 2875,
+      "truncated": false
+    },
+    "android_device_xiaomi_piano": {
+      "commit": "3f10fc25273b42d18d0bd533551a0a5c3dda0094",
+      "tree": "e1ce2aaf31337d922a9ff25903fdd58d91a0add0"
+    }
+  },
+  "reviewed_blobs": [
+    {
+      "repository": "android_device_xiaomi_piano-patches",
+      "path": "patches/packages_apps_FaceUnlock/0001-FaceUnlock-Fit-enrollment-to-tablets.patch",
+      "git_blob_sha1": "6d7cf3b0ca55795f8a228db5361de3c6cfb192bc",
+      "sha256": "c5e231433a26f7d3eade49c208385689e5465329eae39a8dcb84417bb83ccd8c",
+      "bytes": 6376,
+      "evidence_file": "piano-face-enrollment.patch"
+    },
+    {
+      "repository": "android_device_xiaomi_piano-patches",
+      "path": "README.md",
+      "git_blob_sha1": "51c107eb635958f451d30b087defc88238b2f3a5",
+      "sha256": "83f0c9190dc0b3f8d2c1b0328c00c4c45c1d119d5dbd50419da212b8c2694aa1",
+      "bytes": 817,
+      "evidence_file": "piano-patches-README.md"
+    },
+    {
+      "repository": "android_device_xiaomi_piano-patches",
+      "path": "patches.mk",
+      "git_blob_sha1": "50a7400f3843ca05c5205ace5487c3c53ce624f7",
+      "sha256": "25cbd6a379eccf7c42f87a5798f5ea89b0255c1f8354e3a5c498666e80d117c8",
+      "bytes": 286,
+      "evidence_file": "piano-patches.mk"
+    },
+    {
+      "repository": "android_device_xiaomi_piano-patches",
+      "path": "vendorsetup.sh",
+      "git_blob_sha1": "f73457d108ff768764225941a163fc53bbcfa005",
+      "sha256": "cabee876eb564cc249b136de6c55232ee0ca577bfbc84064bfae7047cdefa86e",
+      "bytes": 703,
+      "evidence_file": "piano-vendorsetup.sh"
+    },
+    {
+      "repository": "android_device_xiaomi_piano-patches",
+      "path": "patches/apply-patches.sh",
+      "git_blob_sha1": "6cd131a0ccb85f730193c2cb17d76cf7aed69e83",
+      "sha256": "f4385fe19c4a294bfa03a1de8172552c72ab3d8a82594fb044cf8263f50e4d4e",
+      "bytes": 3426,
+      "evidence_file": "piano-apply-patches.sh"
+    },
+    {
+      "repository": "local_manifests",
+      "path": "README.md",
+      "git_blob_sha1": "cae39dbc5cd8b903d57ff17963f07de7a088622a",
+      "sha256": "aa2b7cb58b8dc8b95c2cf9e5b0430c291dd07956398234854a55d5da9d70eb95",
+      "bytes": 644,
+      "evidence_file": "piano-manifests-README.md"
+    },
+    {
+      "repository": "local_manifests",
+      "path": "piano.xml",
+      "git_blob_sha1": "366a1f1a497ad773867d79d55d77cd0e9c73b7db",
+      "sha256": "7ee944e1f83e9a6b69156e4ad406132942920a3d4607fe2aeab2bd9980e43b7c",
+      "bytes": 918,
+      "evidence_file": "piano-manifest.xml"
+    },
+    {
+      "repository": "local_manifests",
+      "path": "optional/piano-patches.xml",
+      "git_blob_sha1": "3544e26e081083eabbe537061a70c7e46b433424",
+      "sha256": "4a352f7828a04fb8c1e711bf7ee808da281454d5cb2829d5bedf211c57e37cf2",
+      "bytes": 265,
+      "evidence_file": "piano-patches-manifest.xml"
+    }
+  ],
+  "reference_check": {
+    "checked_at_utc": "2026-11-08T09:15:04.326064+00:00",
+    "remote_refs": "3f10fc25273b42d18d0bd533551a0a5c3dda0094\trefs/heads/seventeen\n3f10fc25273b42d18d0bd533551a0a5c3dda0094\trefs/heads/seventeen-fw\n",
+    "reference_worktree_head": "82adb0a5e072aeb90292ad4adff1d92a21580f12",
+    "reference_worktree_status": ""
+  },
+  "evidence_directory": "reports/device/r38-face-runtime-20261108",
+  "findings": {
+    "patch_target": "packages/apps/FaceUnlock (co.aospa.sense)",
+    "modified_files": 5,
+    "added_lines": 34,
+    "removed_lines": 3,
+    "orientation": "sensorLandscape",
+    "preview_bounds_dp": [
+      320,
+      320
+    ],
+    "preview_aspect_ratio_after_rotation": true,
+    "patch_optional": true,
+    "absent_source_projects_skipped": true,
+    "main_tree_stock_face_service_registered": false,
+    "vendor_tree_stock_face_service_payload_found": false,
+    "reference_enrollment_runtime_verified": false,
+    "reference_authentication_runtime_verified": false,
+    "sheng_faceunlock_project_present": false,
+    "sheng_faceunlock_manifest_project_found": false,
+    "sheng_uses": "stock sheng AIDL face frontend and Xiaomi miface implementation",
+    "sheng_current_settings_revision": "2f16bfe2c784623a324350cd19dae7f6066e2cfb",
+    "same_protected_contents_property": true,
+    "direct_patch_applicable": false,
+    "protected_camera_egl_fix_in_reviewed_face_patch": false
+  },
+  "actions": {
+    "production_files_changed": [],
+    "public_sources_patched": false,
+    "face_implementation_replaced": false,
+    "camera_opened": false,
+    "device_images_written": false,
+    "r39_protected_context_disable_implemented": false
+  },
+  "limitations": [
+    "Repository configuration and patch contents do not establish that face enrollment works in a shipped piano ROM.",
+    "The optional patch does not change HAL, gralloc, EGL import or protected-camera VM permissions.",
+    "The local enrollment stall remains unresolved; orientation is a separate candidate after secure preview is stable.",
+    "Disabling protected client composition globally remains an unimplemented mitigation with DRM and preview effects."
+  ]
+}

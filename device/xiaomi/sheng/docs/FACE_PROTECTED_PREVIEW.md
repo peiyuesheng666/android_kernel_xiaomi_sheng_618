@@ -40,3 +40,12 @@ buffers directly. It would affect all protected client composition, so
 protected video, hardware preview and sleep/wake regressions are required.
 Neither the candidate nor this investigation constitutes accepted enrollment
 or authentication.
+
+The user's piano reference was reviewed on 2026-11-08, including its optional
+FaceUnlock patch, patch runner, manifests and vendor payload paths. The patch
+changes the co.aospa.sense application's tablet orientation and preview aspect
+ratio; it does not repair protected Xiaomi camera-buffer imports. That app is
+absent from the current sheng LineageOS checkout. No implementation was copied
+and no protected-composition property was changed. See
+[piano-face-reference-review-20261108.md](piano-face-reference-review-20261108.md)
+and its exact-source JSON receipt for the applicable ideas and limitations.
