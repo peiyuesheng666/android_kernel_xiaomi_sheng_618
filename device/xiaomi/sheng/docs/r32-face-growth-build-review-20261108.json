@@ -1,0 +1,266 @@
+{
+  "revision": 32,
+  "scoped_configuration_assembly_passed": true,
+  "full_product_build_passed": false,
+  "normal_product_module_build_passed": false,
+  "baseline_matrix_byte_reproduced": true,
+  "only_miface_matrix_hal_added": true,
+  "complete_live_vintf_compatibility_passed": true,
+  "actual_kernel_config_checked": true,
+  "kernel_release": "5.15.220-gf9ca2b71f672",
+  "exact_face_context_and_policy_checks_passed": true,
+  "payload_changes": {
+    "odm/bin/hw/android.hardware.biometrics.face-aidl-service": {
+      "before_sha256": null,
+      "sha256": "8b6f903a3551ed949bf0ddfac8d75546687601e8173ae0cfe6418ce821006c73",
+      "bytes": 59984
+    },
+    "odm/bin/mifaced@1.0": {
+      "before_sha256": null,
+      "sha256": "5d67fb682672516424c5cd12fa65dea134fd64145da1496e5e39a540a05f1127",
+      "bytes": 15728
+    },
+    "odm/etc/init/android.hardware.biometrics.face-aidl-service.rc": {
+      "before_sha256": null,
+      "sha256": "9241b85dab846093f1bccb090e5c8b837c3670feba068ffde63c4818382c2b86",
+      "bytes": 134
+    },
+    "odm/etc/init/vendor.xiaomi.hardware.miface@1.0-service.rc": {
+      "before_sha256": null,
+      "sha256": "0cb530db49c16e23dffea1ab5ea3a505d14c90d4558a469baa2aa3bb35362278",
+      "bytes": 98
+    },
+    "odm/etc/selinux/precompiled_sepolicy": {
+      "before_sha256": "ccb422e37de241d4da50eb1ae8890cf1fe3fe895677658932b861d2de7e6471b",
+      "sha256": "85b032453940d401a69b216a5af221c35d9473d3bb825cd71cfd3364938e5ef1",
+      "bytes": 1741079
+    },
+    "odm/etc/vintf/manifest/face-default.xml": {
+      "before_sha256": null,
+      "sha256": "de63fa045bd5724174394b344aa1bc992aaf02fb08da40d623be1dbb0be28245",
+      "bytes": 208
+    },
+    "odm/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.miface.xml": {
+      "before_sha256": null,
+      "sha256": "ce46a37bd43d89c3c4a59460e2e63808f368f32a8858aed33d4ca4f82509cd04",
+      "bytes": 1848
+    },
+    "system/etc/vintf/compatibility_matrix.device.xml": {
+      "before_sha256": "0ee417f7902898e885c3227f7a5690af3126d8eceed4c9083239c038bf0c464e",
+      "sha256": "06d4de762b9b8788235ff433404ae3c9621cac9c133bd097e163a2ac9bee6714",
+      "bytes": 68277
+    },
+    "vendor/etc/permissions/android.hardware.biometrics.face.xml": {
+      "before_sha256": null,
+      "sha256": "ce384468004540fb7a67b85825d1e9a91d48d993dd227f7f7796ed4a75b3b238",
+      "bytes": 846
+    },
+    "vendor/etc/selinux/vendor_file_contexts": {
+      "before_sha256": "8378fbe17737d5b36f168efd982cb7859d4d102fe197c7ee2efd55a1ac991dcf",
+      "sha256": "d53e85229030be80e99275d132f87b01443c9a0e748fe9d5e9e2b03fe2e1476f",
+      "bytes": 123623
+    },
+    "vendor/etc/selinux/vendor_hwservice_contexts": {
+      "before_sha256": "7741771847a4ad111fbf90c7595d8ea749da70bd9e107e3009722ae46e127549",
+      "sha256": "26ca338eb1c991fc22736fc12b5f05c85191ca032d1a009f93cbbb9cb3071fc3",
+      "bytes": 12208
+    },
+    "vendor/etc/selinux/vendor_sepolicy.cil": {
+      "before_sha256": "b9849a0178c4c35bdc09e2d4d8aa87181c8421dd5a8cc2ab532c1403f4f7221a",
+      "sha256": "529d61219505e173d04e10d617a6349e3d77c97fcd13a28e7ffb0da0cbb4ce07",
+      "bytes": 1979487
+    },
+    "vendor/lib64/android.hardware.biometrics.common-V2-ndk.so": {
+      "before_sha256": null,
+      "sha256": "3ac655b7182bef7d9744df03071f2f4801b2aa5680accb2e4723d2644a8ed672",
+      "bytes": 68832
+    },
+    "vendor/lib64/android.hardware.biometrics.face-V2-ndk.so": {
+      "before_sha256": null,
+      "sha256": "c195b65b77e29ad76bb74df9eb50437377e381aeddbaba9d8857687ad01d0c96",
+      "bytes": 134816
+    }
+  },
+  "global_contexts_before_sha256": "7d286d7f6bee5c0cf20b84fd7e3b231942faa3ccb3fc7773f63d0da3b62da9ed",
+  "global_contexts_sha256": "a0c3dda1770aa228cd48f9b7e788c3d2cc5e4c7ce05db7c3b5b4d048e5d6de13",
+  "inputs_sha256": {
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/docs/r32-policy-candidate-build-review-20261108.json": "9407a6a85efe544608897b2c4d9fb00c88a59012c70a7faec45ad673d0538b42",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/docs/face-v2-candidate-build-20261108.json": "c711c7d5dc49c4a7f3aad141aed6afc1eeda1205ace2ba07c817f66434398191",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/docs/face-source-integration-review-20261108.json": "995dbcc54534c6ff2a36115e289f0989b8f682695ec1c1bc4993220c28bbecd6",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/face/bin/hw/android.hardware.biometrics.face-aidl-service": "8b6f903a3551ed949bf0ddfac8d75546687601e8173ae0cfe6418ce821006c73",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/face/bin/mifaced@1.0": "5d67fb682672516424c5cd12fa65dea134fd64145da1496e5e39a540a05f1127",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/face/etc/init/android.hardware.biometrics.face-aidl-service.rc": "9241b85dab846093f1bccb090e5c8b837c3670feba068ffde63c4818382c2b86",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/face/etc/init/vendor.xiaomi.hardware.miface@1.0-service.rc": "0cb530db49c16e23dffea1ab5ea3a505d14c90d4558a469baa2aa3bb35362278",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/face/etc/vintf/manifest/face-default.xml": "de63fa045bd5724174394b344aa1bc992aaf02fb08da40d623be1dbb0be28245",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/face/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.miface.xml": "ce46a37bd43d89c3c4a59460e2e63808f368f32a8858aed33d4ca4f82509cd04",
+    "/root/sheng-lineage/lineage-24.0/hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml": "3553c5e6c34ed8c8a3ee3736a180b877ba90c03ecc9a287bb16260b280612b43",
+    "/root/sheng-lineage/lineage-24.0/hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml": "c38b4ffbf73f6971e924113b9673f6186961cbea911a0b5695c90af8d31b8ea1",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/configs/vintf/framework_dolby_matrix.xml": "7beb392431858f878ca63f6ad2e61675443764d17f8cbb51f8753d3188c89df8",
+    "/root/sheng-lineage/lineage-24.0/out/target/product/sheng/vendor/etc/selinux/plat_sepolicy_vers.txt": "9ccf1380024ff3eada859a5835f3358166aa75c36cb0b2c16dcfccad7131940a",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/configs/vintf/framework_face_matrix.xml": "340db59fa3230b5ea55dfc35707e184955b7366e4e21af5b7170e3b0c8bf3c8a",
+    "/root/sheng-lineage/hardware-diagnostics/r32-vintf-live-20261108/results.json": "d4fab4ecaccf66522317f52a76514f290d54a83c59abe659056f28fff8501150",
+    "/root/sheng-lineage/hardware-diagnostics/r32-vintf-baseline-20261108/kernel.config": "b6445fd0419630319f9d8794b98b1e6732a2de40d2ab3e3ce2f70efffbc34a36",
+    "/root/sheng-lineage/hardware-diagnostics/face-v2-candidates-20261108/android.hardware.biometrics.common/android.hardware.biometrics.common-V2-ndk.so": "1f9eed50fb13990b117aaae6685c2bfb851cead85f5ae758da0ea1a70d4732ca",
+    "/root/sheng-lineage/hardware-diagnostics/face-v2-candidates-20261108/android.hardware.biometrics.face/android.hardware.biometrics.face-V2-ndk.so": "5b5d20bc7933dce9aaa292e1962b7c31bf49a3db7c6e4f60b2a20ab768be063e",
+    "/root/sheng-lineage/hardware-diagnostics/r32-policy-candidates-20261108-attempt2/vendor_sepolicy.cil": "529d61219505e173d04e10d617a6349e3d77c97fcd13a28e7ffb0da0cbb4ce07",
+    "/root/sheng-lineage/hardware-diagnostics/r32-policy-candidates-20261108-attempt2/precompiled_sepolicy": "85b032453940d401a69b216a5af221c35d9473d3bb825cd71cfd3364938e5ef1",
+    "/root/sheng-lineage/lineage-24.0/frameworks/native/data/etc/android.hardware.biometrics.face.xml": "ce384468004540fb7a67b85825d1e9a91d48d993dd227f7f7796ed4a75b3b238",
+    "/root/sheng-lineage/hardware-diagnostics/r32-face-assembly-20261108-attempt2/candidate-device-matrix.xml": "06d4de762b9b8788235ff433404ae3c9621cac9c133bd097e163a2ac9bee6714",
+    "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/sepolicy/vendor/file_contexts": "7104b2fffc3d3d6a1e4278dd531b3bb5a5ca091f78b8ec7f7a4c98df15a04528"
+  },
+  "replaced_build_inputs_before_sha256": {
+    "/root/sheng-lineage/lineage-24.0/out/target/product/sheng/vendor/etc/selinux/vendor_file_contexts": "8378fbe17737d5b36f168efd982cb7859d4d102fe197c7ee2efd55a1ac991dcf",
+    "/root/sheng-lineage/lineage-24.0/out/soong/.intermediates/system/sepolicy/file_contexts.concat.tmp/android_common/gen/file_contexts.concat.tmp": "7d286d7f6bee5c0cf20b84fd7e3b231942faa3ccb3fc7773f63d0da3b62da9ed",
+    "/root/sheng-lineage/lineage-24.0/out/target/product/sheng/vendor/etc/selinux/vendor_hwservice_contexts": "7741771847a4ad111fbf90c7595d8ea749da70bd9e107e3009722ae46e127549"
+  },
+  "prebuild_audit_sha256": "e6dc5effe55839237beb9ef6b671d7d4e9c30e8e5fb22b9289400b3578e1703a",
+  "builder_sha256": "dc9aff4b513ebf4bfe91df3f787c5df2dcdc789b2921ad611502b66275d65d67",
+  "commands_sha256": "144ca5394c376e2b722608f5cc595fb2d1a1a8dd884699635bb19934a1828637",
+  "installed_on_device": false,
+  "device_operated": false,
+  "camera_opened": false,
+  "postbuild_public_audit_passed": true,
+  "postbuild_public_audit_path": "/root/sheng-lineage/hardware-diagnostics/r32-reserve-postbuild-audit-20261108.json",
+  "postbuild_public_audit_sha256": "842959d6b3e2957bb7c6b5890e49a2995529ae9f3bee4f8ade6d5dcc56ebf4c1",
+  "build_report_path": "/root/sheng-lineage/hardware-diagnostics/r32-face-assembly-20261108-attempt2/build-result.json",
+  "build_report_sha256": "b408fd844d069dfdb50a1230f69c122c4468ed3a43cb3ac4a0fb991f13fa7d42",
+  "reviewed_sha256": {
+    "odm": {
+      "bin/hw/android.hardware.biometrics.face-aidl-service": "8b6f903a3551ed949bf0ddfac8d75546687601e8173ae0cfe6418ce821006c73",
+      "bin/mifaced@1.0": "5d67fb682672516424c5cd12fa65dea134fd64145da1496e5e39a540a05f1127",
+      "etc/init/android.hardware.biometrics.face-aidl-service.rc": "9241b85dab846093f1bccb090e5c8b837c3670feba068ffde63c4818382c2b86",
+      "etc/init/vendor.xiaomi.hardware.miface@1.0-service.rc": "0cb530db49c16e23dffea1ab5ea3a505d14c90d4558a469baa2aa3bb35362278",
+      "etc/selinux/precompiled_sepolicy": "85b032453940d401a69b216a5af221c35d9473d3bb825cd71cfd3364938e5ef1",
+      "etc/vintf/manifest/face-default.xml": "de63fa045bd5724174394b344aa1bc992aaf02fb08da40d623be1dbb0be28245",
+      "etc/vintf/manifest/manifest_vendor.xiaomi.hardware.miface.xml": "ce46a37bd43d89c3c4a59460e2e63808f368f32a8858aed33d4ca4f82509cd04"
+    },
+    "system": {
+      "etc/vintf/compatibility_matrix.device.xml": "06d4de762b9b8788235ff433404ae3c9621cac9c133bd097e163a2ac9bee6714"
+    },
+    "vendor": {
+      "etc/permissions/android.hardware.biometrics.face.xml": "ce384468004540fb7a67b85825d1e9a91d48d993dd227f7f7796ed4a75b3b238",
+      "etc/selinux/vendor_file_contexts": "d53e85229030be80e99275d132f87b01443c9a0e748fe9d5e9e2b03fe2e1476f",
+      "etc/selinux/vendor_hwservice_contexts": "26ca338eb1c991fc22736fc12b5f05c85191ca032d1a009f93cbbb9cb3071fc3",
+      "etc/selinux/vendor_sepolicy.cil": "529d61219505e173d04e10d617a6349e3d77c97fcd13a28e7ffb0da0cbb4ce07",
+      "lib64/android.hardware.biometrics.common-V2-ndk.so": "3ac655b7182bef7d9744df03071f2f4801b2aa5680accb2e4723d2644a8ed672",
+      "lib64/android.hardware.biometrics.face-V2-ndk.so": "c195b65b77e29ad76bb74df9eb50437377e381aeddbaba9d8857687ad01d0c96"
+    }
+  },
+  "source_sha256": {
+    "BoardConfig.mk": "ec23a6b7194d79c19e3b1067861ca2360970ac4f2cbff66fa57b3cb68681a9e1",
+    "configs/vintf/framework_face_matrix.xml": "340db59fa3230b5ea55dfc35707e184955b7366e4e21af5b7170e3b0c8bf3c8a",
+    "tools/build_sheng_face_assembly_r32.py": "dc9aff4b513ebf4bfe91df3f787c5df2dcdc789b2921ad611502b66275d65d67",
+    "tools/strip_sheng_face_candidates_r32.py": "94db9e6a360d5f4ac17a8698a363192607dfc2aea3bd78df08c8801104b357d5",
+    "tools/package_sheng_face_thermal_r32.py": "e634d1c1c40f2b4fd61e32054112c3c0ce0f61b8f7ace6e69c66427a4c609adc",
+    "tools/flash_sheng_face_thermal_r32.ps1": "7d4ff75f02299e1d233097e6a5d2f82c61439350c94e88dd0183e9c72d2e1c5b",
+    "tools/package_sheng_batch_helpers.py": "4d520327d9416011ce15ebb32b43e6fc42f34f6705abf602c4200794599154d4",
+    "tools/assemble_sheng_vendor_reserve_r32.py": "40d1a64ec68a72bc6940c390fae94c19e3aaa9a069c8af3f354fc75a74d39609"
+  },
+  "limitations": [
+    "Full product and normal product module builds have not passed.",
+    "No candidate service has been installed or started on the device.",
+    "Namespace behavior, service startup, runtime ABI and enrollment require device verification.",
+    "Scoped vendor image uses 336 MiB; normal product builds calculate dynamic size with the configured 32 MiB reserve. Full product build remains unverified."
+  ],
+  "retained_failures": [
+    "r32-vintf-baseline-20261108/baseline-result.json: checkvintf --rootdir host mapping failure",
+    "r32-vintf-baseline-20261108/baseline-dirmap-result.json: root prefix mapping failure",
+    "r32-vintf-live-20261108/results.json: candidate missing miface framework matrix HAL",
+    "r32-face-assembly-20261108/commands.json: omitted normal matrix environment, baseline mismatch; no product mutation",
+    "r32-packaging-ax6r54vd: unstripped vendor payload 299089920 exceeds AVB maximum 298647552; no device operation",
+    "r32-strip-console-20261108.txt: syntax failure before tool execution",
+    "r32-face-stripped-20261108: parser rejected Ninja escaped strip args; no product mutation",
+    "r32-packaging-6rl58re3: stripped vendor payload 298684416 still exceeds old AVB maximum 298647552; level12 size-only candidate was not selected; final plan grows vendor and keeps lz4hc,9"
+  ],
+  "normal_strip_rule_reused": true,
+  "normal_strip_args": "--keep-mini-debug-info",
+  "all_runtime_elf_sections_preserved": true,
+  "five_stripped_candidate_elf_checks_passed": true,
+  "strip_build_report_path": "/root/sheng-lineage/hardware-diagnostics/r32-face-stripped-20261108-attempt2/build-result.json",
+  "strip_build_report_sha256": "fa870a679144289b94ed952711ee07921047185409abed7faebc554441b34a8b",
+  "strip_build_result": {
+    "normal_strip_rule_reused": true,
+    "normal_strip_args": "--keep-mini-debug-info",
+    "all_runtime_elf_sections_preserved": true,
+    "five_candidate_elf_checks_passed": true,
+    "full_product_build_passed": false,
+    "normal_product_module_build_passed": false,
+    "outputs": {
+      "android.hardware.biometrics.common": {
+        "path": "/root/sheng-lineage/hardware-diagnostics/r32-face-stripped-20261108-attempt2/android.hardware.biometrics.common-V2-ndk.so",
+        "sha256": "3ac655b7182bef7d9744df03071f2f4801b2aa5680accb2e4723d2644a8ed672",
+        "bytes": 68832,
+        "unstripped_sha256": "1f9eed50fb13990b117aaae6685c2bfb851cead85f5ae758da0ea1a70d4732ca",
+        "allocated_sections_and_program_headers_preserved": true
+      },
+      "android.hardware.biometrics.face": {
+        "path": "/root/sheng-lineage/hardware-diagnostics/r32-face-stripped-20261108-attempt2/android.hardware.biometrics.face-V2-ndk.so",
+        "sha256": "c195b65b77e29ad76bb74df9eb50437377e381aeddbaba9d8857687ad01d0c96",
+        "bytes": 134816,
+        "unstripped_sha256": "5b5d20bc7933dce9aaa292e1962b7c31bf49a3db7c6e4f60b2a20ab768be063e",
+        "allocated_sections_and_program_headers_preserved": true
+      }
+    },
+    "strip_edges": {
+      "common": {
+        "build": "build         out/soong/.intermediates/hardware/interfaces/biometrics/common/aidl/android.hardware.biometrics.common-V4-ndk/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/before_final_validations/android.hardware.biometrics.common-V4-ndk.so:         g.cc.strip         out/soong/.intermediates/hardware/interfaces/biometrics/common/aidl/android.hardware.biometrics.common-V4-ndk/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/unstripped/android.hardware.biometrics.common-V4-ndk.so         | ${g.cc.stripPath} ${g.cc.xzCmd} ${g.cc.createMiniDebugInfo}",
+        "args": "$ --keep-mini-debug-info"
+      },
+      "face": {
+        "build": "build         out/soong/.intermediates/hardware/interfaces/biometrics/face/aidl/android.hardware.biometrics.face-V5-ndk/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/before_final_validations/android.hardware.biometrics.face-V5-ndk.so:         g.cc.strip         out/soong/.intermediates/hardware/interfaces/biometrics/face/aidl/android.hardware.biometrics.face-V5-ndk/android_vendor_arm64_armv8-2a-dotprod_kryo_shared/unstripped/android.hardware.biometrics.face-V5-ndk.so         | ${g.cc.stripPath} ${g.cc.xzCmd} ${g.cc.createMiniDebugInfo}",
+        "args": "$ --keep-mini-debug-info"
+      }
+    },
+    "strip_environment": {
+      "XZ": "/root/sheng-lineage/lineage-24.0/prebuilts/build-tools/linux-x86/bin/xz",
+      "CREATE_MINIDEBUGINFO": "/root/sheng-lineage/lineage-24.0/prebuilts/build-tools/linux-x86/bin/create_minidebuginfo",
+      "CLANG_BIN": "/root/sheng-lineage/lineage-24.0/prebuilts/clang/host/linux-x86/clang-r596125/bin"
+    },
+    "inputs_sha256": {
+      "/root/sheng-lineage/lineage-24.0/out/soong/build.lineage_sheng.ninja": "177b02887a99be349f76942b4703800299b1088a5e8af0db3106c5cd837c0b39",
+      "/root/sheng-lineage/lineage-24.0/out/soong/build.lineage_sheng.2.ninja": "9b209142d5299c40328f2ede2ab92ab5ba750df5897e32dd856bfef22fa7e571",
+      "/root/sheng-lineage/lineage-24.0/build/soong/scripts/strip.sh": "934890f3475ac4dc18a7f076987ea355b362961a6984b4f2540119fe8c105584",
+      "/root/sheng-lineage/lineage-24.0/prebuilts/clang/host/linux-x86/clang-r596125/bin/llvm-strip": "6e4db490930a65bf95b677527f15aaec1eb89f3ff826b86ca5ab42c4af43bc4d",
+      "/root/sheng-lineage/hardware-diagnostics/face-v2-candidates-20261108/rebuilt-interface-complete-elf-checks.json": "1eb79e36588d1c52b533a86f4b45ef4371b79a8754de6c472cd6d1a53089482a",
+      "/root/sheng-lineage/hardware-diagnostics/r32-strip-prebuild-audit-20261108.json": "67c42a05eed708c7a9708a0508bf67a4fc4857e375e3efbb44cfd216a00c45a9",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/tools/strip_sheng_face_candidates_r32.py": "94db9e6a360d5f4ac17a8698a363192607dfc2aea3bd78df08c8801104b357d5"
+    },
+    "commands_sha256": "70814d463a1c05b4d44c653e73d9b53edfad17eb0cac10db58e8350641c88d3f",
+    "installed_on_device": false,
+    "camera_opened": false
+  },
+  "intermediate_assembly_review_sha256": "1dbc0a94fc6f5f6931d2c933fa0ab6eadb2664e81b3eb18c108d148a71cd7af3",
+  "vendor_reserve_configuration_checked": true,
+  "vendor_reserve_build_result": {
+    "vendor_reserve_configuration_checked": true,
+    "normal_make_property_mapping_passed": true,
+    "reserved_bytes": 33554432,
+    "compressor": "lz4hc,9",
+    "scoped_configuration_assembly_only": true,
+    "full_product_build_passed": false,
+    "normal_product_module_build_passed": false,
+    "device_operated": false,
+    "normal_make_mapping": "$(if $(BOARD_$(_var)IMAGE_PARTITION_RESERVED_SIZE),$(hide) echo \"$(1)_reserved_size=$(BOARD_$(_var)IMAGE_PARTITION_RESERVED_SIZE)\" >> $(2))",
+    "property_before_sha256": "39d3792605d8dbf99d8ad2d8b714725b07867ce6ba688cf15e1b9e4122d863bf",
+    "property_after_sha256": "06a1c25828677a747a12556adc60c114856e78aa7ad4d9c851d20b3ad17598e3",
+    "inputs_sha256": {
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/BoardConfig.mk": "ec23a6b7194d79c19e3b1067861ca2360970ac4f2cbff66fa57b3cb68681a9e1",
+      "/root/sheng-lineage/lineage-24.0/build/make/core/Makefile": "9eb413b3ac0eea5f111698495c8ea8d9631f76f5e6f5a8fe99647ee17d071be2",
+      "/root/sheng-lineage/hardware-diagnostics/r32-compression-prebuild-audit-20261108.json": "7eb5b0a29a2547ec61e1043f6f14fe32bd5e9693d028c3ee1bfc669aecc34c30",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/tools/assemble_sheng_vendor_reserve_r32.py": "40d1a64ec68a72bc6940c390fae94c19e3aaa9a069c8af3f354fc75a74d39609",
+      "/root/sheng-lineage/hardware-diagnostics/r32-vendor-reserve-20261108/property-mapping.mk": "8dc8efa274832025cc999e387a5a66bdebb2f6fd6e236568ea9f001391431675"
+    },
+    "make_stdout": "echo \"vendor_reserved_size=33554432\" >> /root/sheng-lineage/hardware-diagnostics/r32-vendor-reserve-20261108/normal-reserved-property.txt\n",
+    "make_stderr": ""
+  },
+  "vendor_reserve_build_report_sha256": "69adf8ad76b05b1470f8e5aa0832a80906dfb04a74d2ec4db2f6c859e53cabed",
+  "live_super_space_checked": true,
+  "live_super_free_bytes": 6226018304,
+  "live_snapshot_update_state": "none",
+  "live_layout_path": "reports/device/r32-preflash-20261108/super-slot-b.txt",
+  "live_layout_sha256": "d6e9eb8f390c32e3f62ab0eae3c76401b8a7f442a7e16ae8844611f57e4060ee",
+  "vendor_scoped_image_bytes": 352321536,
+  "vendor_normal_build_reserved_bytes": 33554432,
+  "vendor_scoped_image_size_is_fixed_development_choice": true,
+  "shared_packaging_fixture_tests_passed": 15
+}
