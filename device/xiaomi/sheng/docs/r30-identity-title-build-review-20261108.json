@@ -1,0 +1,38 @@
+{
+  "revision": 30,
+  "scoped_module_build_passed": true,
+  "full_product_build_passed": false,
+  "host_idmap_overlayable_enforced": true,
+  "systemui_changed": false,
+  "source_sha256": {
+    "overlay/SettingsResOverlaySheng/AndroidManifest.xml": "6878933b35932e1753bd98a56741b987774ae006a03f27da674ab62be74dbc00",
+    "overlay/SettingsResOverlaySheng/res/values/config.xml": "ad39d384c5709da0080a2988d887bda6b72e996eeed6daf70943c3ac8d8e3943",
+    "overlay/SettingsResOverlaySheng/res/values/lineage.xml": "011c0e82d76883755c625e4a4bd28c05314cd249aa7e5bd9c82b8712d0240c70",
+    "overlay/SettingsResOverlaySheng/res/values-zh/strings.xml": "f20f1c578a1d06d288a5b97be6578c844a43703cac919cfb84394ac130a84c14",
+    "overlay/SettingsResOverlaySheng/res/xml/hardware_info.xml": "2bafcfeca127d0d74d532a888eff5f04d05119d5063dea93c9ee494a4ff9880e",
+    "overlay/SettingsResOverlaySheng/res/xml/my_device_info.xml": "f997b20081bb5f9fdc6b32c0f06e615d5d2950ed5e9bc92fec66b50b704aecd2",
+    "overlay/SettingsResOverlaySheng/res/xml-zh/hardware_info.xml": "026c4b81283b0f1c292329bbe5b2e7d49a5a58a7ab63cd793c495cd365127acc",
+    "overlay/SettingsResOverlaySheng/res/xml-zh/my_device_info.xml": "6f1e7c8061f9b7e7303a72ff93dd96c8e4653c12474fbde776049546a14dd10d",
+    "overlay/SettingsResOverlaySheng/Android.bp": "c9bb21c4ba7b641f0f52d7abc75ac9265e7e7abfc7923cb8d1fbe27258c229a3",
+    "tools/tablet_probe/ResourceProbe.java": "f8118b574ab19275aaccc353b38d2052c6de1691e935c3615062453dac716d5f",
+    "tools/build_sheng_identity_titles_r30.py": "f676fb9a8a47a3f94519018dc164127d7cbb8133e471daa268eb58f29dbb14ee"
+  },
+  "reviewed_sha256": {
+    "odm": {
+      "overlay/SettingsResOverlaySheng.apk": "c660a53eb7dc10cff7813175d6e3a4f9ff817aa72dee4e8de85b2a9a39fbed22"
+    }
+  },
+  "prebuild_audit_sha256": "5bfbfb0d550e31cbe55a0398ed47f4644f6f207f2acec8481d412c5d0b6f784b",
+  "command_log_sha256": "a5d2d20a92d3ad32c31c2bb0d0d4884b29add6762189030e7b6406fa78042575",
+  "source_command_log_sha256": "d0f22dcc46d0d029e30cf034fd9c84fe1c51d5474995e36bc6e9ce970770ff5d",
+  "installed": false,
+  "runtime_verified": false,
+  "target_resource_probe_passed": true,
+  "target_resource_probe_serial": "ca10ede3",
+  "target_resource_probe_sha256": {
+    "en-US.txt": "8ff59839cae34882bba6df0f028c0c3894dc17b08f1f2777445f3c088cd72d69",
+    "zh-CN.txt": "023b4003592d5cfa00063bc11d28cfe03f6a8d39996794ece8e0fe7dd310cbfc"
+  },
+  "postbuild_public_audit_passed": true,
+  "postbuild_audit_sha256": "3e6295ba9fe565b18d84a82105a5abd76e20e3d9099f8f8f016a13c90cee7d9f"
+}
