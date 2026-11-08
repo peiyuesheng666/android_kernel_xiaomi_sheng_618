@@ -128,6 +128,7 @@ $(call soong_config_set_bool,camera,override_format_from_reserved,true)
 
 PRODUCT_PACKAGES += \
     camera.sheng \
+    libcamxexternalformatutils \
     sheng_aon_front_vendor_symlink
 
 PRODUCT_COPY_FILES += \

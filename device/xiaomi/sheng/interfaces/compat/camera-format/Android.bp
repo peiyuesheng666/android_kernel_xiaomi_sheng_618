@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: Apache-2.0
+cc_prebuilt_library_shared {
+    name: "libcamxexternalformatutils",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: ["libcamxexternalformatutils.so"],
+    shared_libs: [
+        "libcutils",
+        "liblog",
+        "libsync",
+        "libc++",
+        "libz",
+    ],
+    stl: "none",
+    strip: { none: true },
+}
