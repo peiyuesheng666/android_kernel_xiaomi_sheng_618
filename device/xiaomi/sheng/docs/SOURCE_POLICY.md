@@ -10,9 +10,12 @@ Make installation collisions. No normal build patches a public repository.
 For every bug fix, first inspect piano, LineageOS nuwa and the relevant
 dependency repositories, as requested by the user on 2026-11-08. Pin the
 reviewed commits and record what is applicable, already present or incompatible.
-Prefer a suitable established ROM implementation over further stock-specific
-workarounds; keep OEM components where required for hardware or supported by
-clear evidence. A reference does not authorize copying another device's board
+Use established ROM designs as references when suitable. The user's subsequent
+clarification is authoritative: newly developed software is written in this
+device tree, rather than importing those applications, private recognition
+libraries or models. References guide the design, not source transplantation.
+Keep OEM components where required for hardware or supported by clear evidence.
+A reference does not authorize copying another device's board
 values or firmware. Any adapted source retains provenance and licensing, and
 board-specific changes remain in this device tree. Existing manifest-pinned
 public repositories are not patched or silently advanced.
