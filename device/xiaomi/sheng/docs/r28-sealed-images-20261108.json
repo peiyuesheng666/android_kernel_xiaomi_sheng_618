@@ -1,0 +1,44 @@
+{
+  "revision": 28,
+  "manifest_sha256": "1f89b10dac6b387ba0dd5923f169050298c8501006d67b6ef45fe29d9d64d3ce",
+  "spec_sha256": "539fc6ce3091f1d0b418d0c73bb49430f9e9c02e61b254a7795c8f10bdc48f86",
+  "source_commit": "a2924097908cae423b184139f7e4623bab703850",
+  "files": [
+    {
+      "partition": "system_ext",
+      "name": "system_ext.img",
+      "bytes": 572813312,
+      "sha256": "ccda96e9d2590f4aebf8327e9d2fa1f21ec4358cdd4d78add1557d3d0443263c"
+    },
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "5e1f25d4f6fcdf143a6433855573f1af262a9b4932cfb4ee7c93548f39a33cca"
+    },
+    {
+      "partition": "vbmeta_system",
+      "name": "vbmeta_system.img",
+      "bytes": 4096,
+      "sha256": "7f3c4603e9fc7fedd923b074c9086c2d3520d7b375add56bbbb3d32f7a07411c"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 303517696,
+      "sha256": "71149cdbad9548ca34ef0ac7f9c59ca3207022471e7d09eed40df281b299352d"
+    }
+  ],
+  "filesystem_scope": {
+    "vendor": [
+      "build.prop",
+      "usr/idc/NVTCapacitivePenM80p.idc",
+      "usr/idc/NVTCapacitivePenP81c.idc"
+    ],
+    "system_ext": [
+      "etc/build.prop"
+    ]
+  },
+  "original_systemui_sha256": "33017b0d59e28da5db3e089a98f49601de508228a012392ee2d04c82cda3ccb1",
+  "runtime_installed": false
+}
