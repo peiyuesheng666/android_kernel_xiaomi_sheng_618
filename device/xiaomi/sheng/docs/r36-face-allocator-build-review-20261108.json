@@ -1,0 +1,35 @@
+{
+  "revision": 36,
+  "scoped_module_build_passed": true,
+  "scoped_policy_build_passed": true,
+  "full_product_build_passed": false,
+  "normal_product_module_build_passed": false,
+  "neverallow_checks_enabled": true,
+  "allocator_client_permission_delta_reviewed": true,
+  "source_sha256": {
+    "sepolicy/vendor/hal_miface_default.te": "037b27a36c3af51bea900b3474dd045d3a188b484de4887ff4273e35ff29f8d2",
+    "tools/build_sheng_policy_candidates.py": "55b44e93a5063817307771094984b3bcfa56c41b5d857b2157c55be5d6bf80ed",
+    "tools/review_sheng_policy_delta.py": "bbc9a65d05763db1eb132d5af4336db920b0a5b42a7eb4c9e2d23cbccf6c0789",
+    "tools/assemble_sheng_face_allocator_r36.py": "21308aed60414afc2536c5246864f83a74b5d19c46e60e6f3efb198ca879c465"
+  },
+  "reviewed_sha256": {
+    "vendor": {
+      "etc/selinux/vendor_sepolicy.cil": "d48137a75c2c38a12b9e552106a5e6851d006882c6e154bc6b281577884640dd"
+    },
+    "odm": {
+      "etc/selinux/precompiled_sepolicy": "6864e00882f97e879bf8ac97da7f86c07236261f68f93a378a66d652a04c890e"
+    }
+  },
+  "prebuild_audit_sha256": "f9e79bb3d1d923bb5f6d32c81a86d01a8a3506f1bdd49f641e7ed0f4ba4a5dd6",
+  "policy_build_report_sha256": "e0eb2de530aabcd2b9ea90684e449d64630966fa87db6d70d5742d80539cb8d4",
+  "policy_command_log_sha256": "01724e2ce9e63b089a08879c4f4bfa7d890133bafe3c35c66708d92473e24654",
+  "policy_delta_sha256": "f4cfa6f2c2419437d1eb3a4612bdd54693d0418a5f40fecf82e54e732ca86c29",
+  "baseline_policy_sha256": "4ad365f8228429c4444a4d6491cb45ffb9d0001363958050c88ffe017e395f44",
+  "systemui_changed": false,
+  "installed": false,
+  "runtime_verified": false,
+  "postbuild_public_audit_passed": true,
+  "postbuild_audit_sha256": "267adc06d54977f41d9270501262dbb763119039db22f1b9d8faa2b8529568c7",
+  "public_repositories_fresh_audited": 22,
+  "all_project_status_checked": 1243
+}
