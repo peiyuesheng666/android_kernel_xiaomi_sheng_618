@@ -1,0 +1,47 @@
+{
+  "revision": 26,
+  "installed": true,
+  "seven_partition_readback_passed": true,
+  "compiled_file_hashes_passed": true,
+  "systemui_original_and_stable": true,
+  "root_performed_with_prior_notice": true,
+  "kernel_touch_firmware_ready_seconds": 3.259608,
+  "boot_animation_exit_seconds": 15.169,
+  "firmware_ready_before_animation_exit_seconds": 11.909392,
+  "fixed_touch_wait_ms": 0,
+  "camera_orientations": [
+    0,
+    180,
+    0,
+    0,
+    0,
+    180,
+    180,
+    0,
+    0
+  ],
+  "camera_provider_pid": 1537,
+  "systemui_pid": 3522,
+  "dolby_pids": [
+    1393,
+    1404
+  ],
+  "camera_client_was_user_opened": true,
+  "agent_opened_camera": false,
+  "crash_buffer_empty": true,
+  "camera_front_user_passed": false,
+  "camera_front_user_feedback": "front image is inverted by 180 degrees; change r26 front 180 to 0",
+  "runtime_evidence": "reports/device/r26-20261108-085804",
+  "raw_evidence_sha256": {
+    "camera-state.txt": "864eec1a7fe8b4fd2da32a00c95aedd698934ddb936062d2358dd8b4258b89a8",
+    "crash.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "device-operations.txt": "3eecc790013b86021eaa54630a94d0d63b1aaec28e3681f236b5ffeda53b8154",
+    "dmesg.txt": "0f34750de685f1231f9befc7e217713988aa69610bb811dabec55036e46f794a",
+    "events.txt": "f134f06b0039a9df29b04d4f64f74e801269f574019c4da763cf4ee86b1f7ed2",
+    "followup-health.txt": "76c7b68f6bff99a1f6ddc3de84d44fdee3a3f0913acc47ffc1c26c451608be74",
+    "input-and-processes.txt": "8815054df2af41910b50e8b3a3be240b255c82121e3b2a267363813e83f29706",
+    "packaging-manifest.json": "62965ac513706cfaa996ce249f775b8cced56a0a4f6fb9334164f5adf078e0fe",
+    "startup-logcat.txt": "df0c715505f9434c37ffc4ae3a569a46e9a093d2d6892bbd570d5cb46df6a387"
+  },
+  "overall_acceptance": false
+}
