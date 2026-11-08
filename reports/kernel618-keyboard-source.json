@@ -1,0 +1,32 @@
+{
+  "files": {
+    "sheng_nanosic.c": {
+      "staged_sha256": "f1a7faa02ff9e98efc8bba7df7b9fe9614217891b73a08f3622e51998f5b1f15"
+    },
+    "sheng_nanosic_bridge.h": {
+      "staged_sha256": "acdd87aa467450c68051262761f71c5f323909b26176be2a8a2bb85910ec2f0c"
+    },
+    "Kbuild": {
+      "staged_sha256": "0c0739d4b109cdc3e4a917e72dc5fc87e1a65ead2ff91fbd8fb68d75be5c57c0"
+    }
+  },
+  "reference": {
+    "repository": "https://github.com/map220v/sm8550-mainline",
+    "revision": "f273227fab85e2ad8391c61c21b3556bd017a726",
+    "license": "GPL-2.0-only"
+  },
+  "inputs": {
+    "/root/sheng-618/diagnostic/keyboard-audit/hid-nanosic-wn8030.c": "e6ee04ddf3a8b8c70337913dd0b3ed5829c6d38659ea5fd363b997052615c3c3",
+    "/root/sheng-618/diagnostic/keyboard-audit/sm8550-xiaomi-sheng.dts": "7e4e7ab7651314329e683785e3f41bf50983ca241c60af4761536d7d4948df53",
+    "/root/sheng-618/diagnostic/disklog-r5/live.dts": "8c4459a39446641a67877a9e007492a4b106b4a24664ef34b01523702c16a5d9",
+    "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/nanosic_driver.ko": "3e6a7409b9bf87a1f7a8c10f3b5e42d4d9ec862ba7f3b9c3c0d9a614bf0081b4",
+    "/root/sheng-lineage/firmware-dump/partitions/odm/firmware/MCU_Upgrade.bin": "9eb7213603474d926d3af1124d3c14d63cbfc58ea2f7f7d9fedc088093fd63c5",
+    "/root/sheng-lineage/firmware-dump/partitions/odm/bin/hw/vendor.xiaomi.hardware.keyboardnanoapp@1.0-service": "d6ee2628057bd50186393e53831fb03c0171933bbbf2f936d2a5bd39cf38df1e"
+  },
+  "prior_sources": "MiCode sheng only provides charger companion, LOS nuwa has no sheng MCU transport; reference targets sheng explicitly",
+  "adaptation": "Stock GPIO/supply property names, original 66-byte write and stripped vendor-packet read ABI on nanodev0; stock HAL owns authentication",
+  "binary_evidence": "write0x2950 truncates66 and invokes I2C; read0x1ef0 ring72-byte entries and copies data+4; parse0xe314 strips3 bytes, fixed report lengths from switch at rodata0x19580; poll/ioctl return ENOSYS",
+  "firmware": "Existing stock MCU_Upgrade.bin, checked length/header and chip verification; volatile RAM download only, no keyboard upgrade files replaced",
+  "hardware_result": "pending",
+  "limitations": "Vendor charger injection, edge filtering and extra HID report types not yet implemented; physical keyboard acceptance required"
+}

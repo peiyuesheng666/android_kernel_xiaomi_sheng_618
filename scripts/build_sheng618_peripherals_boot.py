@@ -45,6 +45,7 @@ if followup.exists():
 extra_groups = {
     'fingerprint': ('fpc1552.ko', 'xiaomifp.ko'),
     'hall': ('xiaomi_hall.ko',),
+    'keyboard': ('nanosic_driver.ko',),
 }
 for group, names in extra_groups.items():
     receipt = PROJECT/'reports'/('kernel618-'+group+'-source.json')

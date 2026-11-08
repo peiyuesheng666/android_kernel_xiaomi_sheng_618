@@ -5,7 +5,7 @@ import argparse
 from build_sheng618_upstream import ACK, K618, command, environment, make_args
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('group', choices=['touch', 'audio', 'battery', 'display', 'camera', 'fingerprint', 'hall'])
+parser.add_argument('group', choices=['touch', 'audio', 'battery', 'display', 'camera', 'fingerprint', 'hall', 'keyboard'])
 parser.add_argument('--jobs', type=int, default=24)
 options = parser.parse_args()
 assert 1 <= options.jobs <= 128
@@ -13,7 +13,7 @@ jobs = options.jobs
 env = environment(jobs)
 soc = K618 / 'soc'
 
-if options.group in ('touch', 'fingerprint', 'hall'):
+if options.group in ('touch', 'fingerprint', 'hall', 'keyboard'):
     stage = K618 / 'sheng-ports' / options.group
     symbols = [soc / 'Module.symvers']
     symbols += sorted((K618 / 'vendor').rglob('Module.symvers'))

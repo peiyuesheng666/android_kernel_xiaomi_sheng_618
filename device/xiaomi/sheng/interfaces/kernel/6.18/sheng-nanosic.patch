@@ -1,0 +1,800 @@
+--- a/drivers/hid/hid-nanosic-wn8030.c
++++ b/drivers/hid/hid-nanosic-wn8030.c
+@@ -5,6 +5,14 @@
+  * Copyright (c) 2025 map220v <map220v300@gmail.com>
+  */
+ 
++#include <linux/gpio.h>
++#include <linux/gpio/consumer.h>
++#include <linux/of_gpio.h>
++#include <linux/kref.h>
++#include <linux/poll.h>
++#include <linux/regulator/consumer.h>
++#include <linux/uaccess.h>
++#include <linux/unaligned.h>
+ #include <linux/delay.h>
+ #include <linux/firmware.h>
+ #include <linux/hid.h>
+@@ -24,8 +32,9 @@
+ #define XM_WN8030_I2C_WRITE (66)
+ 
+ static const char * const nanosic_wn8030_supply_names[] = {
+-	"vddio",	/* I/O power supply (1.8V) */
+-	"dvdd",		/* Digital power supply (3.3V) */
++	"vdd",		/* Stock sheng phandle: L13B. */
++	"dvdd",		/* Stock sheng phandle: L6B. */
++	"dvdd-another",	/* Stock sheng phandle: L12B. */
+ };
+ 
+ struct nanosic_wn8030 {
+@@ -46,16 +55,19 @@
+ 	bool suspended;
+ 	bool keyboard_attached;
+ 
+-	/* Authentication */
+-	struct miscdevice auth_misc;
+-	wait_queue_head_t auth_read_wq;
+-	struct completion auth_token_ready;
+-	bool auth_open;
+-	bool auth_request_pending;
+-	u8 auth_uid[16];
+-	u8 auth_challenge[16];
+-	u8 auth_token[16];
++	/* Stock HAL owns authentication; kernel only transports real messages. */
++	struct miscdevice raw_misc;
++	struct kref refs;
++	struct mutex clients_lock;
++	struct list_head clients;
++	struct mutex io_lock;
++	struct delayed_work fw_worker;
++	unsigned int fw_attempts;
++	bool ready, removing;
++
+ };
++
++#include "sheng_nanosic_bridge.h"
+ 
+ static const struct regmap_config nanosic_wn8030_regmap_config = {
+ 	.reg_bits = 8,
+@@ -325,7 +337,7 @@
+ 	u32 checksum = 0;
+ 
+ 	for (u32 i = 0; i < size; i += 4)
+-		checksum += data[i] + (data[i+1] << 8) + (data[i+2] << 16) + (data[i+3] << 24);
++		checksum += get_unaligned_le32(data + i);
+ 
+ 	return checksum;
+ }
+@@ -373,51 +385,11 @@
+ 	return regmap_bulk_write(nanosic->regmap, 0x5c, buf, sizeof(buf));
+ }
+ 
+-static int nanosic_wn8030_xm_auth_init(struct nanosic_wn8030 *nanosic)
+-{
+-	u8 buf[XM_WN8030_I2C_WRITE] = { 0x32, 0x00, 0x4F, 0x31,
+-					0x80, 0x38, 0x31, 0x06,
+-					0x4d, 0x49, 0x41, 0x55, 0x54, 0x48,
+-					0x00 };
+-
+-	buf[14] = nanosic_wn8030_checksum8(&buf[2], 13);
+-
+-	return regmap_bulk_write(nanosic->regmap, 0x5c, buf, sizeof(buf));
+-}
+-
+-static int nanosic_wn8030_xm_auth_s3t1(struct nanosic_wn8030 *nanosic, u8 *key_meta, u8 *challenge)
+-{
+-	u8 buf[XM_WN8030_I2C_WRITE] = { 0x32, 0x00, 0x4f, 0x31,
+-					0x80, 0x38, 0x32, 0x14,
+-					0x00, 0x00, 0x00, 0x00,
+-					0x00, 0x00, 0x00, 0x00,
+-					0x00, 0x00, 0x00, 0x00,
+-					0x00, 0x00, 0x00, 0x00,
+-					0x00, 0x00, 0x00, 0x00,
+-					0x00 };
+-
+-	memcpy(&buf[8], key_meta, 4);
+-	memcpy(&buf[12], challenge, 16);
+-	buf[28] = nanosic_wn8030_checksum8(&buf[2], 26);
+-
+-	return regmap_bulk_write(nanosic->regmap, 0x5c, buf, sizeof(buf));
+-}
+-
+-static int nanosic_wn8030_xm_auth_s5t1(struct nanosic_wn8030 *nanosic, u8 *token)
+-{
+-	u8 buf[XM_WN8030_I2C_WRITE] = { 0x32, 0x00, 0x4f, 0x31,
+-					0x80, 0x38, 0x33, 0x10,
+-					0x00, 0x00, 0x00, 0x00,
+-					0x00, 0x00, 0x00, 0x00,
+-					0x00, 0x00, 0x00, 0x00,
+-					0x00, 0x00, 0x00, 0x00,
+-					0x00 };
+-
+-	memcpy(&buf[8], token, 16);
+-	buf[24] = nanosic_wn8030_checksum8(&buf[2], 22);
+-
+-	return regmap_bulk_write(nanosic->regmap, 0x5c, buf, sizeof(buf));
+-}
++
++
++
++
++
+ 
+ static int nanosic_wn8030_output_report(struct hid_device *hid, u8 *buf, size_t count)
+ {
+@@ -428,8 +400,17 @@
+ 	if (!count)
+ 		return -EINVAL;
+ 
+-	if (buf[0] == 0x5)
+-		nanosic_wn8030_set_caps_led(nanosic, buf[1]);
++	if (buf[0] == 0x5) {
++		int ret;
++		if (count < 2)
++			return -EINVAL;
++		mutex_lock(&nanosic->io_lock);
++		ret = nanosic->removing ? -ENODEV : !nanosic->ready ? -EAGAIN :
++			nanosic_wn8030_set_caps_led(nanosic, buf[1]);
++		mutex_unlock(&nanosic->io_lock);
++		if (ret)
++			return ret;
++	}
+ 
+ 	return count;
+ }
+@@ -516,7 +497,7 @@
+ 			nanosic->keyboard_attached = true;
+ 			schedule_delayed_work(&nanosic->wake_worker, msecs_to_jiffies(12000));
+ 		} else if (((buf[12] & 0x3) == 0x0) && nanosic->keyboard_attached) {
+-			cancel_delayed_work_sync(&nanosic->wake_worker);
++			cancel_delayed_work(&nanosic->wake_worker);
+ 			if (nanosic->hid_keyboard) {
+ 				hid_destroy_device(nanosic->hid_keyboard);
+ 				nanosic->hid_keyboard = NULL;
+@@ -529,84 +510,66 @@
+ 		}
+ 		mutex_unlock(&nanosic->conn_mutex);
+ 	}
+-	/* WN8012(KB) -> HOST, kb auth */
+-	/* 0x0/0x1 - init auth, 0x64 - repeat request auth */
+-	else if (buf[5] == 0x38 && buf[6] == 0x80 && buf[7] == 0x24) {
+-		if (nanosic->auth_open)
+-			nanosic_wn8030_xm_auth_init(nanosic);
+-	}
+-	/* WN8012(KB) -> HOST, kb auth init */
+-	else if (buf[5] == 0x38 && buf[6] == 0x80 && buf[7] == 0x31) {
+-		/* Use offline auth */
+-		u8 key_meta[4] = { 0x00, 0x00, 0x00, 0x02 };
+-		u8 challenge[16] = { 0x80, 0x3d, 0x84, 0x36,
+-				     0x29, 0x82, 0xde, 0x6a,
+-				     0x0e, 0x68, 0x1d, 0x3d,
+-				     0x6b, 0x32, 0xa5, 0xa6 };
+-
+-		reinit_completion(&nanosic->auth_token_ready);
+-		memcpy(nanosic->auth_uid, &buf[11], 16);
+-
+-		nanosic_wn8030_xm_auth_s3t1(nanosic, key_meta, challenge);
+-	}
+-	/* WN8012(KB) -> HOST, kb auth s3t1 */
+-	else if (buf[5] == 0x38 && buf[6] == 0x80 && buf[7] == 0x32) {
+-		memcpy(nanosic->auth_challenge, &buf[25], 16);
+-		nanosic->auth_request_pending = true;
+-		wake_up_interruptible(&nanosic->auth_read_wq);
+-		if (wait_for_completion_interruptible_timeout(&nanosic->auth_token_ready,
+-							      msecs_to_jiffies(5000)) <= 0) {
+-			dev_err(nanosic->dev, "timeout waiting for keyboard auth token\n");
+-		} else {
+-			nanosic_wn8030_xm_auth_s5t1(nanosic, nanosic->auth_token);
++	/* Vendor reports, including auth challenges/replies, go to stock HAL. */
++
++}
++
++static irqreturn_t nanosic_wn8030_handler(int irq, void *data)
++{
++	struct nanosic_wn8030 *nano = data;
++	u8 buf[XM_WN8030_I2C_READ], *p;
++	size_t left, len;
++	int ret;
++
++	mutex_lock(&nano->io_lock);
++	if (!nano->ready || nano->removing) {
++		mutex_unlock(&nano->io_lock);
++		return IRQ_HANDLED;
++	}
++	if (nano->suspended) {
++		nano->suspended = false;
++		mutex_unlock(&nano->io_lock);
++		return IRQ_HANDLED;
++	}
++	ret = regmap_bulk_read(nano->regmap, 0x4c, buf, sizeof(buf));
++	mutex_unlock(&nano->io_lock);
++	if (ret) {
++		dev_warn_ratelimited(nano->dev, "MCU read failed: %d\n", ret);
++		return IRQ_HANDLED;
++	}
++	if ((buf[0] & 0x7f) != 0x57 ||
++	    (buf[2] != 0x39 && buf[2] != 0x4a && buf[2] != 0x5b && buf[2] != 0x6c))
++		return IRQ_HANDLED;
++	p = buf + 3;
++	left = sizeof(buf) - 3;
++	while (left) {
++		switch (*p) {
++		case 0x02: len = 8; break;
++		case 0x05: len = 9; break;
++		case 0x06: len = 5; break;
++		case 0x19: len = 21; break;
++		case 0x22: len = 16; break;
++		case 0x23: len = 32; break;
++		case 0x24: case 0x26: len = left; break;
++		default: return IRQ_HANDLED;
+ 		}
+-	}
+-}
+-
+-static irqreturn_t nanosic_wn8030_handler(int irq, void *data)
+-{
+-	int ret;
+-	struct nanosic_wn8030 *nanosic = data;
+-	u8 buf[XM_WN8030_I2C_READ];
+-
+-	/* After sleep pin deactivated, fw will trigger irq to notify about
+-	 * successful resume, second irq will tell about kb connection state
+-	 */
+-	if (nanosic->suspended) {
+-		nanosic->suspended = false;
+-		return IRQ_HANDLED;
+-	}
+-
+-	ret = regmap_bulk_read(nanosic->regmap, 0x4c, buf, sizeof(buf));
+-	if (ret) {
+-		dev_warn(nanosic->dev, "failed to read data on irq %d\n", ret);
+-		return IRQ_HANDLED;
+-	}
+-
+-	/* Bad data */
+-	if (buf[0] != 0x57 || buf[2] == 0x0)
+-		return IRQ_HANDLED;
+-
+-	switch (buf[3]) {
+-	case 0x5:
+-		if (nanosic->hid_keyboard)
+-			hid_input_report(nanosic->hid_keyboard, HID_INPUT_REPORT,
+-					 &buf[3], 9, 0);
+-		break;
+-	case 0x19:
+-		if (nanosic->hid_touchpad)
+-			hid_input_report(nanosic->hid_touchpad, HID_INPUT_REPORT,
+-					 &buf[3], 21, 0);
+-		break;
+-	case 0x22:
+-	case 0x23:
+-	case 0x24:
+-		nanosic_wn8030_handle_vendor(nanosic, buf);
+-		break;
+-	}
+-
+-	//print_hex_dump(KERN_INFO, "", DUMP_PREFIX_OFFSET, 16, 1, buf, sizeof(buf), false);
+-
++		if (len > left)
++			return IRQ_HANDLED;
++		if (*p == 0x05 && nano->hid_keyboard)
++			hid_input_report(nano->hid_keyboard, HID_INPUT_REPORT, p, len, 0);
++		else if (*p == 0x19 && nano->hid_touchpad)
++			hid_input_report(nano->hid_touchpad, HID_INPUT_REPORT, p, len, 0);
++		else if (*p >= 0x22) {
++			sheng_nano_broadcast(nano, p, len);
++			if (*p == 0x22 || *p == 0x23 || *p == 0x24) {
++				u8 vendor[XM_WN8030_I2C_READ] = {0};
++				memcpy(vendor + 3, p, len);
++				nanosic_wn8030_handle_vendor(nano, vendor);
++			}
++		}
++		p += len;
++		left -= len;
++	}
+ 	return IRQ_HANDLED;
+ }
+ 
+@@ -735,7 +698,7 @@
+ 	const struct firmware *firmware;
+ 	unsigned int ram_code_size;
+ 
+-	ret = request_firmware(&firmware, "nanosic/MCU_Upgrade.bin", nanosic->dev);
++	ret = request_firmware(&firmware, "MCU_Upgrade.bin", nanosic->dev);
+ 	if (ret) {
+ 		dev_err(nanosic->dev, "failed to load MCU firmware\n");
+ 		return ret;
+@@ -753,6 +716,13 @@
+ 		goto exit;
+ 	}
+ 
++	ram_code_size = get_unaligned_le32(firmware->data + WN8030_HEADER_ADDR +
++		offsetof(struct wn8030_bin_header, ram_code_size));
++	if (!ram_code_size || (ram_code_size & 3) ||
++	    ram_code_size > firmware->size - WN8030_CODE_ADDR) {
++		ret = -EINVAL;
++		goto exit;
++	}
+ 	ret = nanosic_wn8030_send_header(nanosic, firmware->data, &ram_code_size);
+ 	if (ret)
+ 		goto exit;
+@@ -824,263 +794,236 @@
+ 	struct nanosic_wn8030 *nanosic =
+ 		container_of(data, struct nanosic_wn8030, wake_worker.work);
+ 
+-	nanosic_wn8030_set_kb_power(nanosic, true);
+-	schedule_delayed_work(&nanosic->wake_worker, msecs_to_jiffies(12000));
+-}
+-
+-struct nanosic_auth_req {
+-	u8 uid[16];
+-	u8 challenge[16];
+-};
+-
+-static int nanosic_auth_open(struct inode *inode, struct file *file)
+-{
+-	struct nanosic_wn8030 *nanosic =
+-		container_of(file->private_data, struct nanosic_wn8030, auth_misc);
+-
+-	if (nanosic->auth_open)
+-		return -EBUSY;
+-	nanosic->auth_open = true;
+-	file->private_data = nanosic;
++	mutex_lock(&nanosic->io_lock);
++	if (nanosic->ready && !nanosic->removing && nanosic->keyboard_attached && !nanosic->suspended) {
++		nanosic_wn8030_set_kb_power(nanosic, true);
++		schedule_delayed_work(&nanosic->wake_worker, msecs_to_jiffies(12000));
++	}
++	mutex_unlock(&nanosic->io_lock);
++}
++
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Replaces reference probe/PM code; uses the original sheng DT unchanged. */
++static void sheng_nano_firmware_worker(struct work_struct *work)
++{
++	struct nanosic_wn8030 *nano =
++		container_of(work, struct nanosic_wn8030, fw_worker.work);
++	int ret;
++
++	mutex_lock(&nano->io_lock);
++	if (nano->removing) {
++		mutex_unlock(&nano->io_lock);
++		return;
++	}
++	nano->fw_attempts++;
++	/* Firmware is volatile; resetting the MCU does not flash its storage. */
++	gpiod_set_value_cansleep(nano->reset_gpio, 1);
++	msleep(10);
++	gpiod_set_value_cansleep(nano->sleep_gpio, 0);
++	gpiod_set_value_cansleep(nano->reset_gpio, 0);
++	msleep(20);
++	ret = nanosic_wn8030_check_boot_id(nano);
++	if (!ret) {
++		ret = nanosic_wn8030_get_boot_state(nano);
++		if (ret > 0)
++			ret = -EINVAL;
++	}
++	if (!ret)
++		ret = nanosic_wn8030_load_fw(nano);
++	if (!ret) {
++		nano->suspended = false;
++		nano->ready = true;
++		enable_irq(nano->client->irq);
++		dev_info(nano->dev, "sheng_nanosic MCU RAM firmware ready, attempt=%u\n",
++			 nano->fw_attempts);
++	} else if (ret == -ENOENT && nano->fw_attempts < 60) {
++		/* Same stock /odm mount race as the touch firmware. */
++		schedule_delayed_work(&nano->fw_worker, HZ);
++	} else {
++		dev_err(nano->dev, "sheng_nanosic MCU firmware failed: %d attempt=%u\n",
++			ret, nano->fw_attempts);
++	}
++	mutex_unlock(&nano->io_lock);
++}
++
++static int nanosic_wn8030_probe(struct i2c_client *client)
++{
++	struct nanosic_wn8030 *nano;
++	struct device *dev = &client->dev;
++	struct gpio_desc *irq_gpio;
++	const char *model;
++	int ret, i;
++
++	if (of_property_read_string(of_root, "model", &model) ||
++	    strcmp(model, "Qualcomm Technologies, Inc. 8550 sheng"))
++		return -ENODEV;
++	nano = kzalloc(sizeof(*nano), GFP_KERNEL);
++	if (!nano)
++		return -ENOMEM;
++	nano->dev = dev;
++	nano->client = client;
++	kref_init(&nano->refs);
++	mutex_init(&nano->io_lock);
++	mutex_init(&nano->conn_mutex);
++	mutex_init(&nano->clients_lock);
++	INIT_LIST_HEAD(&nano->clients);
++	INIT_DELAYED_WORK(&nano->wake_worker, nanosic_wn8030_wake_worker);
++	INIT_DELAYED_WORK(&nano->fw_worker, sheng_nano_firmware_worker);
++
++	/* Reference DTS confirms reset and sleep are physically active-low. */
++	nano->reset_gpio = sheng_nano_gpio(dev, "reset_pin", GPIOF_OUT_INIT_HIGH, true);
++	if (IS_ERR(nano->reset_gpio)) {
++		ret = PTR_ERR(nano->reset_gpio);
++		goto free;
++	}
++	nano->sleep_gpio = sheng_nano_gpio(dev, "sleep_pin", GPIOF_OUT_INIT_HIGH, true);
++	if (IS_ERR(nano->sleep_gpio)) {
++		ret = PTR_ERR(nano->sleep_gpio);
++		goto free;
++	}
++	nano->status_gpio = sheng_nano_gpio(dev, "status_pin", GPIOF_IN, false);
++	if (IS_ERR(nano->status_gpio)) {
++		ret = PTR_ERR(nano->status_gpio);
++		goto free;
++	}
++	irq_gpio = sheng_nano_gpio(dev, "irq_pin", GPIOF_IN, false);
++	if (IS_ERR(irq_gpio)) {
++		ret = PTR_ERR(irq_gpio);
++		goto free;
++	}
++	client->irq = gpiod_to_irq(irq_gpio);
++	if (client->irq < 0) {
++		ret = client->irq;
++		goto free;
++	}
++	for (i = 0; i < ARRAY_SIZE(nano->supplies); i++)
++		nano->supplies[i].supply = nanosic_wn8030_supply_names[i];
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(nano->supplies), nano->supplies);
++	if (ret)
++		goto free;
++	nano->regmap = devm_regmap_init_i2c(client, &nanosic_wn8030_regmap_config);
++	if (IS_ERR(nano->regmap)) {
++		ret = PTR_ERR(nano->regmap);
++		goto free;
++	}
++	ret = nanosic_wn8030_power_on(nano);
++	if (ret)
++		goto free;
++	i2c_set_clientdata(client, nano);
++	ret = devm_request_threaded_irq(dev, client->irq, NULL,
++		nanosic_wn8030_handler, IRQF_ONESHOT | IRQF_TRIGGER_RISING |
++		IRQF_NO_AUTOEN, "sheng_nanosic", nano);
++	if (ret)
++		goto power_off;
++	nano->raw_misc.minor = MISC_DYNAMIC_MINOR;
++	nano->raw_misc.name = "nanodev0";
++	nano->raw_misc.fops = &sheng_nano_fops;
++	nano->raw_misc.parent = dev;
++	/* Stock init assigns system ownership/mode on boot. */
++	ret = misc_register(&nano->raw_misc);
++	if (ret)
++		goto free_irq;
++	dev_info(dev, "sheng_nanosic registered stock nanodev0 transport irq=%d\n", client->irq);
++	schedule_delayed_work(&nano->fw_worker, HZ);
+ 	return 0;
+-}
+-
+-static int nanosic_auth_release(struct inode *inode, struct file *file)
+-{
+-	struct nanosic_wn8030 *nanosic = file->private_data;
+-
+-	nanosic->auth_open = false;
++
++free_irq:
++	devm_free_irq(dev, client->irq, nano);
++power_off:
++	nanosic_wn8030_power_off(nano);
++free:
++	dev_err_probe(dev, ret, "sheng_nanosic probe failed\n");
++	kref_put(&nano->refs, sheng_nano_free);
++	return ret;
++}
++
++static void nanosic_wn8030_remove(struct i2c_client *client)
++{
++	struct nanosic_wn8030 *nano = i2c_get_clientdata(client);
++	bool ready;
++
++	mutex_lock(&nano->io_lock);
++	sheng_nano_disconnect_clients(nano);
++	ready = nano->ready;
++	nano->ready = false;
++	mutex_unlock(&nano->io_lock);
++	misc_deregister(&nano->raw_misc);
++	cancel_delayed_work_sync(&nano->fw_worker);
++	if (ready && !nano->suspended)
++		disable_irq(client->irq);
++	devm_free_irq(&client->dev, client->irq, nano);
++	cancel_delayed_work_sync(&nano->wake_worker);
++	if (nano->hid_keyboard)
++		hid_destroy_device(nano->hid_keyboard);
++	if (nano->hid_touchpad)
++		hid_destroy_device(nano->hid_touchpad);
++	nanosic_wn8030_power_off(nano);
++	kref_put(&nano->refs, sheng_nano_free);
++}
++
++static int nanosic_wn8030_suspend(struct device *dev)
++{
++	struct nanosic_wn8030 *nano = dev_get_drvdata(dev);
++
++	cancel_delayed_work_sync(&nano->fw_worker);
++	if (nano->ready)
++		disable_irq(nano->client->irq);
++	cancel_delayed_work_sync(&nano->wake_worker);
++	mutex_lock(&nano->io_lock);
++	nano->suspended = true;
++	gpiod_set_value_cansleep(nano->sleep_gpio, 1);
++	mutex_unlock(&nano->io_lock);
+ 	return 0;
+ }
+ 
+-static ssize_t nanosic_auth_read(struct file *file, char __user *buf,
+-				 size_t count, loff_t *off)
+-{
+-	struct nanosic_wn8030 *nanosic = file->private_data;
+-	struct nanosic_auth_req req;
+-	int ret;
+-
+-	if (count != sizeof(req))
+-		return -EINVAL;
+-
+-	ret = wait_event_interruptible(nanosic->auth_read_wq,
+-				       nanosic->auth_request_pending);
+-	if (ret)
+-		return ret;
+-
+-	memcpy(req.uid, nanosic->auth_uid, sizeof(req.uid));
+-	memcpy(req.challenge, nanosic->auth_challenge, sizeof(req.challenge));
+-	nanosic->auth_request_pending = false;
+-
+-	if (copy_to_user(buf, &req, sizeof(req)))
+-		return -EFAULT;
+-
+-	return sizeof(req);
+-}
+-
+-static ssize_t nanosic_auth_write(struct file *file, const char __user *buf,
+-				  size_t count, loff_t *off)
+-{
+-	struct nanosic_wn8030 *nanosic = file->private_data;
+-	u8 token[16];
+-
+-	if (count != sizeof(token))
+-		return -EINVAL;
+-
+-	if (copy_from_user(token, buf, sizeof(token)))
+-		return -EFAULT;
+-
+-	memcpy(nanosic->auth_token, token, sizeof(token));
+-	complete(&nanosic->auth_token_ready);
+-
+-	return sizeof(token);
+-}
+-
+-static const struct file_operations nanosic_auth_fops = {
+-	.owner = THIS_MODULE,
+-	.open = nanosic_auth_open,
+-	.release = nanosic_auth_release,
+-	.read = nanosic_auth_read,
+-	.write = nanosic_auth_write,
+-};
+-
+-static int nanosic_wn8030_probe(struct i2c_client *client)
+-{
+-	struct nanosic_wn8030 *nanosic;
+-	int ret;
+-
+-	nanosic = devm_kzalloc(&client->dev, sizeof(*nanosic), GFP_KERNEL);
+-	if (!nanosic)
+-		return -ENOMEM;
+-
+-	nanosic->dev = &client->dev;
+-	nanosic->client = client;
+-
+-	nanosic->reset_gpio = devm_gpiod_get(nanosic->dev, "reset", GPIOD_OUT_LOW);
+-	if (IS_ERR(nanosic->reset_gpio))
+-		return dev_err_probe(nanosic->dev, PTR_ERR(nanosic->reset_gpio),
+-				     "failed to get reset gpio\n");
+-
+-	nanosic->status_gpio = devm_gpiod_get(nanosic->dev, "status", GPIOD_IN);
+-	if (IS_ERR(nanosic->status_gpio))
+-		return dev_err_probe(nanosic->dev, PTR_ERR(nanosic->status_gpio),
+-				     "failed to get status gpio\n");
+-
+-	nanosic->sleep_gpio = devm_gpiod_get(nanosic->dev, "sleep", GPIOD_OUT_LOW);
+-	if (IS_ERR(nanosic->sleep_gpio))
+-		return dev_err_probe(nanosic->dev, PTR_ERR(nanosic->sleep_gpio),
+-				     "failed to get sleep gpio\n");
+-
+-	for (u32 i = 0; i < ARRAY_SIZE(nanosic_wn8030_supply_names); i++)
+-		nanosic->supplies[i].supply = nanosic_wn8030_supply_names[i];
+-
+-	ret = devm_regulator_bulk_get(nanosic->dev, ARRAY_SIZE(nanosic_wn8030_supply_names),
+-				      nanosic->supplies);
+-	if (ret)
+-		return dev_err_probe(nanosic->dev, ret, "failed to get regulators\n");
+-
+-	ret = nanosic_wn8030_power_on(nanosic);
+-	if (ret)
+-		return ret;
+-
+-	nanosic->regmap = devm_regmap_init_i2c(client, &nanosic_wn8030_regmap_config);
+-	if (IS_ERR(nanosic->regmap)) {
+-		ret = dev_err_probe(nanosic->dev, ret, "failed to init regmap\n");
+-		goto err;
+-	}
+-
+-	mutex_init(&nanosic->conn_mutex);
+-
+-	dev_set_drvdata(nanosic->dev, nanosic);
+-	i2c_set_clientdata(client, nanosic);
+-
+-	INIT_DELAYED_WORK(&nanosic->wake_worker, nanosic_wn8030_wake_worker);
+-
+-	init_waitqueue_head(&nanosic->auth_read_wq);
+-	init_completion(&nanosic->auth_token_ready);
+-
+-	nanosic->auth_open = false;
+-	nanosic->auth_misc.minor = MISC_DYNAMIC_MINOR;
+-	nanosic->auth_misc.name = "nanosic_auth";
+-	nanosic->auth_misc.fops = &nanosic_auth_fops;
+-	nanosic->auth_misc.parent = nanosic->dev;
+-	ret = misc_register(&nanosic->auth_misc);
+-	if (ret) {
+-		dev_err(nanosic->dev, "failed to register misc device\n");
+-		goto err;
+-	}
+-
+-	ret = nanosic_wn8030_check_boot_id(nanosic);
+-	if (ret)
+-		goto err_misc;
+-
+-	ret = nanosic_wn8030_get_boot_state(nanosic);
+-	if (ret < 0)
+-		goto err_misc;
+-
+-	if (ret) {
+-		ret = dev_err_probe(nanosic->dev, -EINVAL, "unexpected initial bootloader state %d\n", ret);
+-		goto err_misc;
+-	}
+-
+-	ret = nanosic_wn8030_load_fw(nanosic);
+-	if (ret)
+-		goto err_misc;
+-
+-	ret = devm_request_threaded_irq(&client->dev, client->irq,
+-					NULL, nanosic_wn8030_handler,
+-					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
+-					"nanosic_wn8030_irq", nanosic);
+-	if (ret) {
+-		ret = dev_err_probe(nanosic->dev, ret, "failed to request irq %d\n", client->irq);
+-		goto err_misc;
+-	}
+-
++static int nanosic_wn8030_resume(struct device *dev)
++{
++	struct nanosic_wn8030 *nano = dev_get_drvdata(dev);
++
++	if (!nano->ready) {
++		nano->fw_attempts = 0;
++		schedule_delayed_work(&nano->fw_worker, 0);
++		return 0;
++	}
++	enable_irq(nano->client->irq);
++	mutex_lock(&nano->io_lock);
++	gpiod_set_value_cansleep(nano->sleep_gpio, 0);
++	mutex_unlock(&nano->io_lock);
++	msleep(25);
++	if (READ_ONCE(nano->suspended)) {
++		disable_irq(nano->client->irq);
++		mutex_lock(&nano->io_lock);
++		nano->ready = false;
++		nano->fw_attempts = 0;
++		mutex_unlock(&nano->io_lock);
++		schedule_delayed_work(&nano->fw_worker, 0);
++	} else {
++		mutex_lock(&nano->io_lock);
++		nanosic_wn8030_set_kb_power(nano, true);
++		mutex_unlock(&nano->io_lock);
++	}
+ 	return 0;
+-
+-err_misc:
+-	misc_deregister(&nanosic->auth_misc);
+-err:
+-	nanosic_wn8030_power_off(nanosic);
+-
+-	return ret;
+-}
+-
+-static void nanosic_wn8030_remove(struct i2c_client *client)
+-{
+-	struct nanosic_wn8030 *nanosic = i2c_get_clientdata(client);
+-
+-	disable_irq(nanosic->client->irq);
+-	cancel_delayed_work_sync(&nanosic->wake_worker);
+-
+-	misc_deregister(&nanosic->auth_misc);
+-
+-	if (nanosic->hid_keyboard)
+-		hid_destroy_device(nanosic->hid_keyboard);
+-	if (nanosic->hid_touchpad)
+-		hid_destroy_device(nanosic->hid_touchpad);
+-	nanosic_wn8030_power_off(nanosic);
+-}
+-
+-static int nanosic_wn8030_resume(struct device *dev)
+-{
+-	struct nanosic_wn8030 *nanosic = dev_get_drvdata(dev);
+-
+-	enable_irq(nanosic->client->irq);
+-
+-	gpiod_set_value_cansleep(nanosic->sleep_gpio, 0);
+-	msleep(25);
+-
+-	if (nanosic->suspended) {
+-		dev_warn(dev, "timeout waiting for chip resume. Reseting chip...\n");
+-		gpiod_set_value_cansleep(nanosic->reset_gpio, 1);
+-		msleep(10);
+-		gpiod_set_value_cansleep(nanosic->reset_gpio, 0);
+-		msleep(20);
+-		nanosic->suspended = false;
+-		return nanosic_wn8030_load_fw(nanosic);
+-	}
+-
+-	/* Wake up keyboard after MCU exits sleep */
+-	nanosic_wn8030_set_kb_power(nanosic, true);
+-
+-	return 0;
+-}
+-
+-static int nanosic_wn8030_suspend(struct device *dev)
+-{
+-	struct nanosic_wn8030 *nanosic = dev_get_drvdata(dev);
+-
+-	disable_irq(nanosic->client->irq);
+-	cancel_delayed_work_sync(&nanosic->wake_worker);
+-
+-	gpiod_set_value_cansleep(nanosic->sleep_gpio, 1);
+-	msleep(10);
+-	nanosic->suspended = true;
+-
+-	return 0;
+-}
+-
+-static DEFINE_SIMPLE_DEV_PM_OPS(nanosic_wn8030_pm_ops, nanosic_wn8030_suspend, nanosic_wn8030_resume);
+-
+-static const struct of_device_id __maybe_unused nanosic_wn8030_of_match[] = {
+-	{ .compatible = "nanosic,wn8030-sheng", },
+-	{ },
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(nanosic_wn8030_pm_ops,
++	nanosic_wn8030_suspend, nanosic_wn8030_resume);
++
++static const struct of_device_id nanosic_wn8030_of_match[] = {
++	{ .compatible = "nanosic,803" },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(of, nanosic_wn8030_of_match);
+ 
+ static struct i2c_driver nanosic_wn8030_driver = {
+-	.driver	= {
+-		.name = "nanosic_wn8030",
+-		.of_match_table = of_match_ptr(nanosic_wn8030_of_match),
++	.driver = {
++		.name = "nanosic_driver",
++		.of_match_table = nanosic_wn8030_of_match,
+ 		.pm = pm_sleep_ptr(&nanosic_wn8030_pm_ops),
+ 	},
+ 	.probe = nanosic_wn8030_probe,
+ 	.remove = nanosic_wn8030_remove,
+ };
+-
+ module_i2c_driver(nanosic_wn8030_driver);
+-
+ MODULE_AUTHOR("map220v <map220v300@gmail.com>");
+-MODULE_DESCRIPTION("HID driver for Nanosic WN8030 keyboard MCU");
++MODULE_DESCRIPTION("Sheng WN8030 keyboard MCU with stock HyperOS transport");
+ MODULE_LICENSE("GPL v2");

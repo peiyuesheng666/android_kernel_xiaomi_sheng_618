@@ -1,0 +1,66 @@
+{
+  "revision": "hardware-r30",
+  "serial": "ca10ede3",
+  "boot_sha256": "ed1cdf1961e55b5950191842595e812f215936fec6d492effb6b1657f985f90f",
+  "image_sha256": "5c063f7911e3632f4cecd36b52bc4fd79f8f376688c3ba635817deeea9acce42",
+  "test_timeout_seconds": null,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-09T02:46:47+0800"
+    },
+    {
+      "event": "log_readback_complete",
+      "wall_time": "2026-11-09T02:47:02+0800",
+      "run": "a73ad38fc4b5c247",
+      "uptime_ms": 120549
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T02:47:02+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "finished_in_fastboot",
+      "wall_time": "2026-11-09T02:47:08+0800"
+    }
+  ],
+  "previous_control_receipt": {
+    "revision": "hardware-r30",
+    "serial": "ca10ede3",
+    "boot_sha256": "ed1cdf1961e55b5950191842595e812f215936fec6d492effb6b1657f985f90f",
+    "image_sha256": "5c063f7911e3632f4cecd36b52bc4fd79f8f376688c3ba635817deeea9acce42",
+    "test_timeout_seconds": null,
+    "writes": [
+      "boot_a"
+    ],
+    "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+    "original_boot_backed_up": false,
+    "events": [
+      {
+        "event": "failed",
+        "wall_time": "2026-11-09T02:46:33+0800",
+        "error": "error: device 'ca10ede3' not found"
+      }
+    ]
+  },
+  "raw_sha256": "4455d37752e856aa1a194eee6007bc4adb05c130f6797385b815c03b25ce1ee8",
+  "run": "a73ad38fc4b5c247",
+  "valid_snapshots": [
+    {
+      "sequence": 386,
+      "uptime_ms": 120273
+    },
+    {
+      "sequence": 387,
+      "uptime_ms": 120549
+    }
+  ],
+  "log_readback_succeeded": true,
+  "latest_log": "reports/device/kernel618-hardware-r30/bootlog-a73ad38fc4b5c247-387.txt"
+}

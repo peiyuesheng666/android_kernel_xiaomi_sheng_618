@@ -1,5 +1,35 @@
 # 6.18 sheng 外围实机修复
 
+## 2026-11-09 r30 键盘 MCU 与原厂服务通信
+
+新增 nanosic_driver 原生模块，344 模块20965项版本化导入及18008内核导出
+一致性通过，归档权限、官方 boot 封包/AVB/解包检查通过。02:43:38+0800仅刷
+boot_a；59.50秒收到6.18 ADB，64.98秒系统完成。无自动重启，最多五版。
+Image SHA256=5c063f7911e3632f4cecd36b52bc4fd79f8f376688c3ba635817deeea9acce42，
+boot SHA256=ed1cdf1961e55b5950191842595e812f215936fec6d492effb6b1657f985f90f。
+
+源自 map220v/sm8550-mainline 固定提交 f273227fab85e2ad8391c61c21b3556bd017a726
+的 sheng WN8030 实现，保留GPL声明。MiCode sheng只公开charger companion，
+LOS nuwa没有本机MCU传输。对照原厂DT、模块反汇编和nanoapp服务，适配GPIO
+属性及极性、三路原厂电源、66字节命令写入和去掉3字节包头的vendor报告读取。
+接口是原厂实际打开的/dev/nanodev0；没有采用参考实现的独立认证daemon接口，
+认证消息原样交给原厂HAL。增加有界队列、文件生命周期、固件边界检查及异步
+等待原厂/odm挂载。只下载既有MCU固件到RAM，没有替换或刷写键盘升级文件。
+
+实机27.91秒注册主传输，35.39秒MCU RAM固件就绪；前几次ENOENT后重试恢复。
+原厂SELinux标签nano_device及init权限已自然生效。nanoapp正常运行，真实读取
+MCUVersion=XM_N81A-125-1107、keyboardVersion=0141、TouchPadVersion=0e9c，
+connect/enable均true。Android已注册Xiaomi Keyboard和Xiaomi Touchpad输入；
+mIdentityPass=true仅记录框架状态，不单独视为完成认证流程的证明。
+没有注入按键，也没有替用户确认物理按键/指针效果。
+
+rawdump两槽身份/CRC有效，run=a73ad38fc4b5c247，末次120549ms。
+首次读取发生在ADB退出、Fastboot尚未枚举的窗口，重试后读回成功；控制记录保留。
+原厂第二阶段加载器仍会因未移植的nanosic_platform依赖报告旧模块加载失败，
+这不推翻已运行的主传输；charger注入、电量/充电、边缘过滤及额外HID报告尚待补全。
+键盘实体输入、拔插和休眠验收留待用户醒后，不宣称配件完整无故障。
+源码与运行核验见kernel618-keyboard-source.json、kernel618-hardware-r30-keyboard.json。
+
 ## 2026-11-09 r29 原厂相机预览与面板复位候选
 
 r29 已刷 boot_a 并正常启动；59.26 秒连接实际 6.18 ADB，64.58 秒记录系统

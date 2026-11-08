@@ -1,0 +1,315 @@
+{
+  "revision": "hardware-r30",
+  "base_revision": "peripherals-r21",
+  "checks": {
+    "release": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+    "expected_series": "6.18",
+    "symvers_sha256": "f145e6a36d7f7dc574acbf4cd6dd11ebf3f6597f723d7099d4fb27de4c9fe373",
+    "effective_module_count": 344,
+    "versioned_imports_checked": 20965,
+    "issue_counts": {},
+    "issue_count": 0,
+    "issues": [],
+    "issues_truncated": false,
+    "warnings": [],
+    "abi_passed": true,
+    "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+  },
+  "archive": {
+    "archive": "/root/sheng-618/diagnostic/hardware-r30/overlay.cpio",
+    "sha256": "71e76ef3d6c307dd6f423f0b77e45b1b7e2e04627e4cad3f7ab9b32b567679e5",
+    "entry_count": 356,
+    "module_count": 344,
+    "helper_mode": "0o100755",
+    "helper_is_regular": true,
+    "helper_executable": true,
+    "helper_sha256": "7e8efddffe6700c7799d4d0434135e7e04bbb14ffdcc3aa0aeafda4c3c547283"
+  },
+  "changed_payloads": [
+    "lib/modules/camera.ko",
+    "lib/modules/k618_batch.load",
+    "lib/modules/modules.alias",
+    "lib/modules/modules.dep",
+    "lib/modules/msm_drm.ko",
+    "lib/modules/nt36532_touch.ko",
+    "lib/modules/xiaomi_touch.ko"
+  ],
+  "added_payloads": [
+    "lib/modules/fpc1552.ko",
+    "lib/modules/nanosic_driver.ko",
+    "lib/modules/xiaomi_hall.ko",
+    "lib/modules/xiaomifp.ko"
+  ],
+  "source_receipts": [
+    "kernel618-peripherals-source.json",
+    "kernel618-touch-source.json",
+    "kernel618-camera-backlight-source.json",
+    "kernel618-fingerprint-source.json",
+    "kernel618-hall-source.json",
+    "kernel618-keyboard-source.json"
+  ],
+  "source_snapshots": {
+    "kernel618-peripherals-source.json": {
+      "references": {
+        "kernel": "MiCode sheng 29db5d59",
+        "display": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+        "audio": "MiCode sheng msm_dailink.h CONFIG_TARGET_PRODUCT_SHENG"
+      },
+      "files": {
+        "soc/drivers/power/supply/qti_battery_charger.c": {
+          "before": "33312677a37a5f0709fc245fcb6a0d71cea7c483af0c4e0f16c20a0f9bcdfba0",
+          "after": "13c35b340cb1c68054f8e12ecebe5c290b851af7b0b3af5c21939e32a05e4d18"
+        },
+        "vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.h": {
+          "before": "be53d0b25f30e747064e3b6d48e0176b2ff191b570050c04789fa940e287c49a",
+          "after": "b459397cff49d2a3bca72e8f4d037c5eb3c3d19d005c78e635674da50d40980e"
+        },
+        "vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.c": {
+          "before": "fd47fa42d06956e33ef9a02c639498d7a4aab67120c51bd750477516e96dfce2",
+          "after": "3fcf80fca60f831e964abdf8705091eeb28d3a62aa56ccc0f8229608ce6d6db0"
+        },
+        "vendor/qcom/opensource/audio-kernel/asoc/kalama.c": {
+          "before": "81bb6dc488a85ad0ed3de1d830401b503d074f953c26b721e86189b18d43679f",
+          "after": "720d55c19e9e13a22094f04b49a3a5d694c3a227d80627477f9f50dbfb1ffecd"
+        }
+      },
+      "runtime_verified": false
+    },
+    "kernel618-touch-source.json": {
+      "source_repository": "https://github.com/MiCode/vendor_xiaomi_proprietary_touch-driver",
+      "revision": "6957f6b646d1c919e175e6f9000eb50c8635273c",
+      "branch": "piano-w-oss",
+      "files": {
+        "xiaomi/xiaomi_touch.h": {
+          "source_sha256": "3edf6fdd2f74f1fa98c8a42a1f31795195f2c820ee0bbddd823d459f86972e97",
+          "staged_sha256": "3edf6fdd2f74f1fa98c8a42a1f31795195f2c820ee0bbddd823d459f86972e97"
+        },
+        "xiaomi/xiaomi_touch_core.c": {
+          "source_sha256": "0340c6a6592c219bdfd8c19f594bdc37a3e3c7568e2da8a85bbd6d41970c3ee6",
+          "staged_sha256": "c6cf68d6330b646d2d0f67cee0066d0769dcc070db9cd1ba661eb51ca538e605"
+        },
+        "xiaomi/xiaomi_touch_device.c": {
+          "source_sha256": "699c1561e5d1c03ec6db79f977af4ea00d37ca5fec6d0213e5b5b18d5be65bcf",
+          "staged_sha256": "699c1561e5d1c03ec6db79f977af4ea00d37ca5fec6d0213e5b5b18d5be65bcf"
+        },
+        "xiaomi/xiaomi_touch_evdev.c": {
+          "source_sha256": "d588b70402766e55bd2fdb9fbb897f7335a1245f8605fcf3abd18efb303b52d6",
+          "staged_sha256": "d588b70402766e55bd2fdb9fbb897f7335a1245f8605fcf3abd18efb303b52d6"
+        },
+        "xiaomi/xiaomi_touch_knock_data.c": {
+          "source_sha256": "61c7b46f84cd9b2d628c69756c6603ce7a68ca4449043e00b2bdeae24b445fcf",
+          "staged_sha256": "61c7b46f84cd9b2d628c69756c6603ce7a68ca4449043e00b2bdeae24b445fcf"
+        },
+        "xiaomi/xiaomi_touch_mode.c": {
+          "source_sha256": "bbb0f1029a1ae8cf21fb98f75492a0b422b6edbd5069c8b2b6a4cdf2127f28b2",
+          "staged_sha256": "77d3e5db4fe321e607f8bcf55c7d04d121ba18ab4cd03f773090684058c444db"
+        },
+        "xiaomi/xiaomi_touch_operations.c": {
+          "source_sha256": "f2d6e660129fe4a2b20c026ce70f0edda8d4d2d74ed4a9c9fc649e35bb3ed11e",
+          "staged_sha256": "ae34ce818bc732783fda9b3b128ba0f1ecfc95c3efd1040c4575ce7c79e57c6f"
+        },
+        "xiaomi/xiaomi_touch_proc.c": {
+          "source_sha256": "d693f1549199a009bf9bbf80fb52cef24ecf408868de9292b488607858b00516",
+          "staged_sha256": "d693f1549199a009bf9bbf80fb52cef24ecf408868de9292b488607858b00516"
+        },
+        "xiaomi/xiaomi_touch_sys.c": {
+          "source_sha256": "6df8db2582d3c1d7d94776418bb3234251a1ce19c256a6b00aba7ad775eaea48",
+          "staged_sha256": "6df8db2582d3c1d7d94776418bb3234251a1ce19c256a6b00aba7ad775eaea48"
+        },
+        "xiaomi/xiaomi_touch_type_common.h": {
+          "source_sha256": "b9549f374385bd89098d67eb300c2bd71e22fe79dcec965ab0474b382246f348",
+          "staged_sha256": "3bd555820073fee45e1016a2d0f813dab79e6b20427b07a907d806d0b380d476"
+        },
+        "p81/nt36532/nt36xxx.c": {
+          "source_sha256": "a15a6571ecd817f5c0029c104fe840948743a89040b0bff818aefdc0e7427bfd",
+          "staged_sha256": "a248d1f3a6c2dd813fd979d9df4149bdd4980a88153aeaa9128543146ffb503f"
+        },
+        "p81/nt36532/nt36xxx.h": {
+          "source_sha256": "aa72d7149ac71a1953196fa8d7b680b1990ec3c226df16a2469f4c452541bdd2",
+          "staged_sha256": "c128a105b20c41212ec1a2bcab0ccbcb6179d5348c76eb3efcdcd10dc2a817e1"
+        },
+        "p81/nt36532/nt36xxx_ext_proc.c": {
+          "source_sha256": "0e8c501f22243472ca5596a2e6b2a6436baef237612410f99b54ef57949b6058",
+          "staged_sha256": "0e8c501f22243472ca5596a2e6b2a6436baef237612410f99b54ef57949b6058"
+        },
+        "p81/nt36532/nt36xxx_fw_update.c": {
+          "source_sha256": "8928b4d0d448e0de9a48ea5e40b82ef9a42d4247e31c8ca10970bbde3515d976",
+          "staged_sha256": "dbd4ebbdc638a535ac6007a9e4937a3f215ae035b516dea05a4e9996d60f2788"
+        },
+        "p81/nt36532/nt36xxx_mem_map.h": {
+          "source_sha256": "dd9eb861cef1ac86c83ee4a99c311d708cf0286d08949048dc1b118f7792f9f0",
+          "staged_sha256": "dd9eb861cef1ac86c83ee4a99c311d708cf0286d08949048dc1b118f7792f9f0"
+        },
+        "p81/nt36532/nt36xxx_mp_ctrlram.c": {
+          "source_sha256": "1d9f83f62c28dea38d9166bff8d0f46110a2d6c1bbbf32e3e357311450df76bd",
+          "staged_sha256": "1d9f83f62c28dea38d9166bff8d0f46110a2d6c1bbbf32e3e357311450df76bd"
+        },
+        "p81/nt36532/nt36xxx_mp_ctrlram.h": {
+          "source_sha256": "8896de4a0d232541a4cdd0ca8130579f5babf9a06f27287e78f4474d8519e2a0",
+          "staged_sha256": "8896de4a0d232541a4cdd0ca8130579f5babf9a06f27287e78f4474d8519e2a0"
+        }
+      },
+      "scope": "Public NT36532 THP and M80p/P81c implementation adapted to stock sheng ABI",
+      "parameters_reference": "reports/device/kernel618-input-stock-reference",
+      "lockdown_reference": "MiCode sheng display 6461221b SMEM item 500; bounded eight-byte read",
+      "firmware": "Only verified sheng CSOT filenames; no other-device firmware imported",
+      "userspace_abi": {
+        "common_data_bytes": 520,
+        "command_values": 128,
+        "hardware_param_bytes": 214,
+        "evidence": "Stock xiaomi_touch_dev_read cmp 0x208; r22 actual read requests 520"
+      },
+      "packet_word_counts": {
+        "finger": 1211,
+        "stylus": 1285,
+        "evidence": "Stock nvt_ts_work_func cmp 0x505 at 0x9664, cmp 0x4bb at 0x966c; r23 packets report 0x4bb"
+      },
+      "runtime_verified": false
+    },
+    "kernel618-camera-backlight-source.json": {
+      "references": {
+        "display": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+        "camera": "ad342a26a37e9fabc2f626a6622b788bf9aa546b",
+        "los_nuwa_camera": "92a9fde479d3262da080cfd28bab0775b0da500a"
+      },
+      "files": {
+        "vendor/qcom/opensource/camera-kernel/drivers/cam_sensor_module/cam_sensor_utils/cam_sensor_cmn_header.h": {
+          "before": "cab2e40a6ff0c37724e33f56afd3def29ace2f88228d4c4e1fd39e0de63ac50a",
+          "after": "b3d44a64232a9ce6ec9b5524a24d092a8a0a4b936d38f941e6b054c49aec1bc3",
+          "added": false
+        },
+        "vendor/qcom/opensource/camera-kernel/drivers/cam_sensor_module/cam_sensor_utils/cam_sensor_util.c": {
+          "before": "c1d4fac540efa6ffde07aa5cf5151e717db30e351286472df43758fff927bf28",
+          "after": "a033f897a00d3d592b3c61cf68997a9a20783e6b696604ee922418d7c2ba159d",
+          "added": false
+        },
+        "vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.h": {
+          "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "after": "8a392c93d7636da4f4240b99fa10d3ff500f34393d84f2592caa9133bbac24ea",
+          "added": true
+        },
+        "vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c": {
+          "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "after": "a0380c75141a743b8d156af081c327c1a04a784850383769cbe9fae74cd609a7",
+          "added": true
+        },
+        "vendor/qcom/opensource/display-drivers/msm/Kbuild": {
+          "before": "fdfe9e97c56923f6580eec6a82f575317476f39890b33904aa474943254c5356",
+          "after": "1152875d8fda8c2a38f084fc26fb6452b2ed72b734da4a3d5b6488c9181bd32f",
+          "added": false
+        },
+        "vendor/qcom/opensource/display-drivers/msm/msm_drv.c": {
+          "before": "7840e083b7a844f2ced6618ed9949881fc27417a08c52f3abefcc4398291e9da",
+          "after": "18e92e8cb59db439afc5d60d4ee98fccc1937ecf53b576de67652a1dd36739ca",
+          "added": false
+        },
+        "vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.c": {
+          "before": "3fcf80fca60f831e964abdf8705091eeb28d3a62aa56ccc0f8229608ce6d6db0",
+          "after": "a675c06604bb38390490cbbd615166814a106c9a65e4e5558ca369c144973d6c",
+          "added": false
+        }
+      },
+      "evidence": "r24 CAM Invalid Seq type 14; stock N81A external backlight with two ktz,ktz8866 nodes",
+      "applicability": "LOS nuwa and MiCode sheng agree BOB=13 BOB2=14; reuse same regulator path. LCD external backlight differs from phone DCS.",
+      "preserved": "Official 2048-entry brightness remap, bias bits and voltage validation; stock DT and firmware unchanged",
+      "adaptation": "6.18 I2C API, locked list lifetime, error propagation, program brightness before enabling LEDs",
+      "hardware_result": "pending"
+    },
+    "kernel618-fingerprint-source.json": {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "files": {
+        "fpc1020_tee.c": {
+          "original": "2928c39263ebaa6f8022ebc0555c5571dbf6af70f1e4f53828677083623b1cc3",
+          "staged_sha256": "6cc0da6a87f3662462339cd8a740148b79db339d466d10f22297e27a03aa6303",
+          "source": "fpc_1553/fpc1020_tee.c"
+        },
+        "xiaomi_fingerprint.c": {
+          "original": "44e12fa0700d4ed5dca4c0442c1b3f56dc28338537187daf0273395d4c1854b4",
+          "staged_sha256": "06b21212691eb8a288272e5d8c7701de8cc0e0046ddda1bad058acc35f96cd0e",
+          "source": "xiaomi_fp/xiaomi_fingerprint.c"
+        },
+        "Kbuild": {
+          "staged_sha256": "4b9f2bee84292e3e50e6670b46660a794045ab2389c9d063a65e1855f88ee75a"
+        }
+      },
+      "stage": "/root/sheng-618/upstream-build/k618/sheng-ports/fingerprint",
+      "applicability": "Original sheng fpc,fpc1020 and xiaomi-fingerprint nodes; side-mounted FPC, not phone in-display FOD",
+      "alternatives": "Selected SM8550 integration and local LOS sources lack this sheng FPC platform implementation",
+      "preserved": "Original sysfs request/power/IRQ interface and pinctrl names; biometric matching and enrolled data stay in stock HAL/TEE",
+      "adaptations": "6.18 platform remove and GPIO API, typed retry counter, OF reference and regulator error checks",
+      "hardware_result": "pending"
+    },
+    "kernel618-hall-source.json": {
+      "files": {
+        "sheng_hall.c": {
+          "staged_sha256": "6670d2deb3291edf355165a6ca1befd8d8a87a5c2f05acdf6ac8e8fbe9a92e63"
+        },
+        "Kbuild": {
+          "staged_sha256": "c020e0ef35f9d3adfae80af412dc00afdfd550c545859738cc8ef4f530a54056"
+        }
+      },
+      "implementation": "Native Linux input switches, Linux 6.18 gpio-keys/PM API conventions",
+      "kernel_reference": "ACK ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+      "applicability": "No matching sheng-hall implementation in selected integration or local LOS/MiCode sources",
+      "binding_reference": {
+        "path": "/root/sheng-618/diagnostic/disklog-r5/live.dts",
+        "sha256": "8c4459a39446641a67877a9e007492a4b106b4a24664ef34b01523702c16a5d9"
+      },
+      "binary_reference": {
+        "path": "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/xiaomi_hall.ko",
+        "sha256": "935f4e5fb6a65d62afd7dacb0dfc9d2423cde99931758f6dd0045ef0daacecae",
+        "observations": "irq_handler 0x1700..0x1794: open=!active_low, close=active_low; probe requests named open/close SMP2P IRQs with RISING|ONESHOT"
+      },
+      "preserved": "Live DT GPIO171/172, EV_SW codes0/1, active-low polarity, two named SMP2P IRQs per child",
+      "limitations": "Private character-device algorithm switching not implemented; physical cover operation still requires user acceptance",
+      "hardware_result": "pending"
+    },
+    "kernel618-keyboard-source.json": {
+      "files": {
+        "sheng_nanosic.c": {
+          "staged_sha256": "f1a7faa02ff9e98efc8bba7df7b9fe9614217891b73a08f3622e51998f5b1f15"
+        },
+        "sheng_nanosic_bridge.h": {
+          "staged_sha256": "acdd87aa467450c68051262761f71c5f323909b26176be2a8a2bb85910ec2f0c"
+        },
+        "Kbuild": {
+          "staged_sha256": "0c0739d4b109cdc3e4a917e72dc5fc87e1a65ead2ff91fbd8fb68d75be5c57c0"
+        }
+      },
+      "reference": {
+        "repository": "https://github.com/map220v/sm8550-mainline",
+        "revision": "f273227fab85e2ad8391c61c21b3556bd017a726",
+        "license": "GPL-2.0-only"
+      },
+      "inputs": {
+        "/root/sheng-618/diagnostic/keyboard-audit/hid-nanosic-wn8030.c": "e6ee04ddf3a8b8c70337913dd0b3ed5829c6d38659ea5fd363b997052615c3c3",
+        "/root/sheng-618/diagnostic/keyboard-audit/sm8550-xiaomi-sheng.dts": "7e4e7ab7651314329e683785e3f41bf50983ca241c60af4761536d7d4948df53",
+        "/root/sheng-618/diagnostic/disklog-r5/live.dts": "8c4459a39446641a67877a9e007492a4b106b4a24664ef34b01523702c16a5d9",
+        "/root/sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/nanosic_driver.ko": "3e6a7409b9bf87a1f7a8c10f3b5e42d4d9ec862ba7f3b9c3c0d9a614bf0081b4",
+        "/root/sheng-lineage/firmware-dump/partitions/odm/firmware/MCU_Upgrade.bin": "9eb7213603474d926d3af1124d3c14d63cbfc58ea2f7f7d9fedc088093fd63c5",
+        "/root/sheng-lineage/firmware-dump/partitions/odm/bin/hw/vendor.xiaomi.hardware.keyboardnanoapp@1.0-service": "d6ee2628057bd50186393e53831fb03c0171933bbbf2f936d2a5bd39cf38df1e"
+      },
+      "prior_sources": "MiCode sheng only provides charger companion, LOS nuwa has no sheng MCU transport; reference targets sheng explicitly",
+      "adaptation": "Stock GPIO/supply property names, original 66-byte write and stripped vendor-packet read ABI on nanodev0; stock HAL owns authentication",
+      "binary_evidence": "write0x2950 truncates66 and invokes I2C; read0x1ef0 ring72-byte entries and copies data+4; parse0xe314 strips3 bytes, fixed report lengths from switch at rodata0x19580; poll/ioctl return ENOSYS",
+      "firmware": "Existing stock MCU_Upgrade.bin, checked length/header and chip verification; volatile RAM download only, no keyboard upgrade files replaced",
+      "hardware_result": "pending",
+      "limitations": "Vendor charger injection, edge filtering and extra HID report types not yet implemented; physical keyboard acceptance required"
+    }
+  },
+  "replacement_module_sha256": {
+    "qti_battery_charger.ko": "66c443a9c767f3999bc1788d83be48a3a5c82660ec961154e184e783710c07f6",
+    "msm_drm.ko": "b985b43c253d997f1e44d4f0b6b7e31fa05dbfcdc1c37f5b7371053d535744ff",
+    "machine_dlkm.ko": "015b1898168a6b15089d05c2528093364a16149b663cd45a6c10dda967358989",
+    "xiaomi_touch.ko": "1af7298c08db86ce315c6cb0d88eb877fe9b97a06cd7c066801d410768b7cff4",
+    "nt36532_touch.ko": "340acf7240538fcade1712e64fc9e0fd7341ddb22c69fab076362f34505cb5ee",
+    "camera.ko": "58bd700efde803075faaf9c118fe758ab1a0946fe991676f20d3eae9a2db5cdd",
+    "fpc1552.ko": "10c83c11c335b2a758845734b294a0f4fda85fbe62b84351c7c95b744bf2f1c4",
+    "xiaomifp.ko": "c8e2bedde418fee6ee218dcf5d760c6784b5897280d3dd1568c00b0db0853b33",
+    "xiaomi_hall.ko": "4f6d9040d0df357f4cd81e001482aefdd70d876fb110a928e640808b00310ec5",
+    "nanosic_driver.ko": "638de0bf29d7703ed4e1a1c71e3ff9414bde9c53a122659672f16dca6f356cf5"
+  },
+  "test_mode_enabled": false,
+  "hardware_result": "pending"
+}
