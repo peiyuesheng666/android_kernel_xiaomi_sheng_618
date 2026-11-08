@@ -8,11 +8,13 @@ from pathlib import Path
 import shutil
 import struct
 
+from touch_boot_delay import patch_bytes
+
 
 class Module:
-    def __init__(self, path):
+    def __init__(self, path, data=None):
         self.path = Path(path)
-        self.data = self.path.read_bytes()
+        self.data = self.path.read_bytes() if data is None else data
         assert self.data[:6] == b'\x7fELF\x02\x01', f'Expected ELF64 little endian: {path}'
         assert struct.unpack_from('<H', self.data, 18)[0] == 183, f'Expected AArch64: {path}'
         shoff = struct.unpack_from('<Q', self.data, 40)[0]
@@ -66,6 +68,13 @@ def stage_stock_bsp(args, release, target):
     assert set(stock) == set(plan['stock_modules_sha256'])
     for name, module in stock.items():
         assert hashlib.sha256(module.data).hexdigest() == plan['stock_modules_sha256'][name], f'Stock input changed: {name}'
+    # Only transform a distribution copy after validating every OEM input. The
+    # callback and module ABI stay identical; this removes a fixed 14-second wait.
+    config = (args.kernel_out / '.config').read_text().splitlines()
+    assert config.count('CONFIG_HZ=250') == 1, 'Touch boot delay requires audited HZ=250'
+    touch = stock['nt36532_touch.ko']
+    patched, touch_report = patch_bytes(touch.data, Module)
+    stock['nt36532_touch.ko'] = Module(touch.path, data=patched)
     output = target / 'extra/sheng'
     source_files = [p for p in target.rglob('*.ko') if not p.is_relative_to(output)]
     source = {}
@@ -77,6 +86,7 @@ def stage_stock_bsp(args, release, target):
     effective = {name: source[name] for name in plan['source_keep_modules']}
     effective.update(stock)
     report = {'release': release, 'strategy': plan['strategy'], 'modules': sorted(stock),
+              'board_module_transforms': [touch_report],
               'source_modules_checked': sorted(plan['source_keep_modules']),
               'effective_modules_checked': len(effective), 'errors': [],
               'pruned_generated_source_modules': sorted(set(source) - set(plan['source_keep_modules']))}
@@ -101,7 +111,8 @@ def stage_stock_bsp(args, release, target):
             elif exports[symbol][0] != crc:
                 report['errors'].append(f'{name}: CRC mismatch for {symbol}: stock={crc:#x}, built={exports[symbol][0]:#x}')
     for file in output.glob('*.ko'):
-        if file.name not in stock or file.read_bytes() != stock[file.name].data:
+        if file.name not in stock or hashlib.sha256(file.read_bytes()).hexdigest() not in (
+                plan['stock_modules_sha256'][file.name], hashlib.sha256(stock[file.name].data).hexdigest()):
             report['errors'].append(f'{file.name}: stale or modified previous stock staging output')
     report_path = args.kernel_out / 'sheng-stock-module-compatibility.json'
     report_path.write_text(json.dumps(report, indent=2) + '\n')
@@ -117,7 +128,7 @@ def stage_stock_bsp(args, release, target):
             module.path.unlink()
     output.mkdir(parents=True, exist_ok=True)
     for name, module in stock.items():
-        shutil.copyfile(module.path, output / name)
+        (output / name).write_bytes(module.data)
     print(f'Validated {len(effective)} effective modules; staged {len(stock)} stock BSP modules and retained source GKI modules')
 
 

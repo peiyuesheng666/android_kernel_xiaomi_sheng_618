@@ -104,6 +104,9 @@ r25's two independent
 camera and Dolby GraphicBuffer allocation repairs passed the formal build,
 binary review, flashing and six-partition readback. The user confirmed working
 camera preview; a 90-degree counterclockwise orientation correction is pending.
+The r26 touch candidate queues firmware at the successful probe tail without a
+fixed timer; its real modules_install flow and all 419 module ABI checks passed.
+It is not yet installed; see [docs/r26-touch-zero-wait-20261108.md](docs/r26-touch-zero-wait-20261108.md).
 Two 60-frame profile-5 decode sessions passed; profile 8.1 timed out, so full
 video acceptance remains pending. See [docs/r25-runtime-20261108.md](docs/r25-runtime-20261108.md). The later
 stylus direction configs passed the platform parser, but a complete new product

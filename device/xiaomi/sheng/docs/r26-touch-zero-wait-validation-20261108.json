@@ -1,0 +1,95 @@
+{
+  "module": "nt36532_touch.ko",
+  "kind": "guarded-probe-tail-immediate-firmware-work",
+  "original_sha256": "a1f3f907f4519eaf3d63243561fc32c7f75337188a3953b3857bcad60135233f",
+  "patched_sha256": "edf8001b0965f0e6d5005a7d8605a1b77d1d2949049c7ee5ef13a23a045db9e1",
+  "symbol": "nvt_ts_probe",
+  "old_queue_address": "0x7028",
+  "new_queue_address": "0x7fbc",
+  "changed_file_ranges": [
+    [
+      323608,
+      323628
+    ],
+    [
+      327588,
+      327684
+    ],
+    [
+      537104,
+      537128
+    ],
+    [
+      537128,
+      537152
+    ],
+    [
+      545912,
+      545936
+    ],
+    [
+      545936,
+      545960
+    ],
+    [
+      545960,
+      545984
+    ],
+    [
+      545984,
+      546008
+    ],
+    [
+      546008,
+      546032
+    ],
+    [
+      546032,
+      546056
+    ],
+    [
+      546056,
+      546080
+    ],
+    [
+      546080,
+      546104
+    ],
+    [
+      546104,
+      546128
+    ],
+    [
+      546128,
+      546152
+    ]
+  ],
+  "kernel_hz": 250,
+  "old_delay_jiffies": 3500,
+  "new_delay_jiffies": 0,
+  "old_delay_ms": 14000,
+  "new_delay_ms": 0,
+  "unchanged": [
+    "firmware callback",
+    "firmware bytes",
+    "locking",
+    "vermagic",
+    "module metadata",
+    "import CRCs",
+    "export CRCs",
+    "fatal probe exits",
+    "ELF section layout"
+  ],
+  "removed_diagnostic": "final probe timestamp printk only",
+  "validation": {
+    "unknown_input_rejected": true,
+    "double_patch_rejected": true,
+    "nonzero_wait_rejected": true,
+    "wrong_hz_rejected": true,
+    "oem_input_still_exact": true,
+    "all_419_module_abis_passed": true,
+    "modules_install_contains_candidate": true
+  },
+  "runtime_installed": false,
+  "prebuild_audit": "/root/sheng-lineage/hardware-diagnostics/r26-prebuild-audit-20261108.json"
+}
