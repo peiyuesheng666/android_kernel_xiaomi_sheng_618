@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "upstream": {
+    "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550.git",
+    "revision": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+    "ack_revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+    "ack_version": "6.18.32",
+    "strategy": "recompiled SoC/techpack/device modules plus selected madrid 6.18 binaries; embedded replacement module layer",
+    "physical_device_validation": "pending according to upstream README",
+    "direct_nuwa_image_use": false,
+    "role": "selected primary 6.18 build and common SM8550 integration; adapt tablet differences only",
+    "reuse_earlier_ports": true
+  },
+  "build_root": "/root/sheng-618/upstream-build",
+  "operation": "sources",
+  "repositories": [
+    {
+      "name": "ACK",
+      "path": "/root/sheng-618/upstream-build/k618/ws/common",
+      "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+      "tree": "332a2a26ca1491360a8e7e57d5f164da9af05275"
+    },
+    {
+      "name": "SoC",
+      "path": "/root/sheng-618/upstream-build/k618/soc",
+      "revision": "b1916e6fb00018222d54469e507a729e5e9291bf",
+      "tree": "3ddaf72a978d520b5ce6aa5e25d5a21d13f9787f"
+    },
+    {
+      "name": "KernelSU",
+      "path": "/root/sheng-618/upstream-build/k618/KernelSU",
+      "revision": "0c0fdb960178fa12d80d6cbcfdcb6ad8be6a865d",
+      "tree": "05b76dcc21b876b8e4003c324f3b505d76072564"
+    },
+    {
+      "name": "SUSFS",
+      "path": "/root/sheng-618/upstream-build/k618/susfs4ksu",
+      "revision": "5e0b2b925865000ca7dce993ecf1d281ee312887",
+      "tree": "778cd4438a6612f4d8cbe74ccf48a506a85e929f"
+    },
+    {
+      "name": "MiCode device",
+      "path": "/root/sheng-618/upstream-build/k618/src/fuxi",
+      "revision": "7fad87dc178d09489b74a714e4a525d56f546855",
+      "tree": "2ddb8b1e1f984e8a43ce01872d22d05d32c7d07d"
+    },
+    {
+      "name": "MiCode touch",
+      "path": "/root/sheng-618/upstream-build/k618/src/zeus-touch/repo",
+      "revision": "7d10d738b2c4299f3b8549c61a01ece39f19c788",
+      "tree": "25cdc647f8a2400cd0a5320c58bf954da37cabeb"
+    },
+    {
+      "name": "MiCode 13 Ultra ToF",
+      "path": "/root/sheng-618/upstream-build/k618/src/ishtar/tree",
+      "revision": "16c625d2e63c5c38370f00fdff5e44be217ff6d5",
+      "tree": "17188115fb43e5ea16e5f813ce9cf60048b1e06f"
+    },
+    {
+      "name": "kernel/prebuilts/build-tools",
+      "path": "/root/sheng-618/upstream-build/k618/ws/prebuilts/kernel-build-tools",
+      "revision": "78af2daf5d9d36fc6e1ddb28ee0d7b6516709eb4",
+      "tree": "148d0db62428e730afd623dcf07c00c3da6c0138"
+    },
+    {
+      "name": "platform/prebuilts/build-tools",
+      "path": "/root/sheng-618/upstream-build/k618/ws/prebuilts/build-tools",
+      "revision": "e25d4821f50af3f6e0b87d7751dfd27037445fe5",
+      "tree": "4e4fbb105a399e0a48a34efacb31b671ad1eff94"
+    },
+    {
+      "name": "platform/prebuilts/clang-tools",
+      "path": "/root/sheng-618/upstream-build/k618/ws/prebuilts/clang-tools",
+      "revision": "4155cb466dcd9b53c6f873829c53aa6f905449dd",
+      "tree": "8664a6563faf0c5453589b9e4a3f9c2f1dc4cd9b"
+    },
+    {
+      "name": "platform/prebuilts/clang/host/linux-x86",
+      "path": "/root/sheng-618/upstream-build/k618/ws/prebuilts/clang/host/linux-x86",
+      "revision": "4a7d0a5e443c27d8f68fbd46abfab464e1355a69",
+      "tree": "be9c8bb702740cf8f21aee92552179d08206b7ed"
+    },
+    {
+      "name": "platform/prebuilts/rust-toolchain/linux-x86",
+      "path": "/root/sheng-618/upstream-build/k618/ws/prebuilts/rust-toolchain/linux-x86",
+      "revision": "a04f70c5179f23eff11c58cb480acee4afb1334b",
+      "tree": "d1ba9ffa5d6458a1e9ac296d64b46e9624ed4ba6"
+    },
+    {
+      "name": "LZ4",
+      "path": "/root/sheng-618/upstream-build/lz4-dev",
+      "revision": "83376b665fe6742171407350bb51e963215d6088",
+      "tree": "605d246bcf223ddeb4daa50b5d6fd0e34a991059"
+    },
+    {
+      "name": "mkbootimg",
+      "path": "/root/sheng-618/upstream-build/home/mkbootimg",
+      "revision": "f5c284e8998dd8a085cf027bb518b6c2b84cf744",
+      "tree": "f4914bb90e8c68de25f0fabb021e00fc126b73b2"
+    },
+    {
+      "name": "AnyKernel3",
+      "path": "/root/sheng-618/upstream-build/AnyKernel3",
+      "revision": "020dfeccf9d7e962a48400fc94d3e451df92eead",
+      "tree": "373e25c483bf3db5e0a80b43e5a69112946de6b4"
+    }
+  ],
+  "rom_target": "HyperOS",
+  "output_target": "Image",
+  "earlier_port_root_preserved": "/root/sheng-618/ports",
+  "hardware_validated": false
+}

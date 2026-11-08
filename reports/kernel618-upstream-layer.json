@@ -1,0 +1,14 @@
+{
+  "release": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "expected_series": "6.18",
+  "symvers_sha256": "f145e6a36d7f7dc574acbf4cd6dd11ebf3f6597f723d7099d4fb27de4c9fe373",
+  "effective_module_count": 337,
+  "versioned_imports_checked": 20544,
+  "issue_counts": {},
+  "issue_count": 0,
+  "issues": [],
+  "issues_truncated": false,
+  "warnings": [],
+  "abi_passed": true,
+  "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+}

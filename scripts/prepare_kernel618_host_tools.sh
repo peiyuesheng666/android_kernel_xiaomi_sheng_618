@@ -5,7 +5,7 @@ set -euo pipefail
 root=/root/sheng-618
 version=0.193
 sha=7857f44b624f4d8d421df851aaae7b1402cfe6bcdd2d8049f15fc07d3dde7635
-prefix="$root/host-tools/elfutils-$version"
+prefix="${SHENG_ELFUTILS_PREFIX:-$root/host-tools/elfutils-$version}"
 archive="$root/host-tools/src/elfutils-$version.tar.bz2"
 source_dir="${archive%.tar.bz2}"
 mkdir -p "$(dirname "$archive")" "$root/logs"

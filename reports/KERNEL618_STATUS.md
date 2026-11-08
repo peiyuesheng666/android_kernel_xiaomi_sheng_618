@@ -5,6 +5,27 @@
 此任务仅支持原厂澎湃 HyperOS，取消类原生目标，不再独立重做上游已有的
 澎湃适配。用户只要原始 `Image` 二进制，并自行测试，无须制作刷机包。
 
+首轮测试产物现已生成：`artifacts/sheng-6.18-first-boot/Image`，
+64,506,368 字节（约 61.5 MiB），SHA256 为
+`32afc9fa288989a949e8d5c6e83c159110d9ea62e60bd016efde7de7e7c58b70`。
+来源为用户指定仓库固定提交 c3956156ce7c4193c451dfda531fad72d35bfebb。
+249 个 SoC 模块和 30 组 techpack 构建全部通过（techpack 导出 81 个模块），
+此前 CS35L43 和 POGO 公共模块源码已复用并按新底座重编。最终 Image 的模块层
+共 337 个模块，采用 sheng 原厂第一/第二阶段清单，并按实际依赖排序；
+生成依赖信息时修正宿主 PATH 缺少 /usr/sbin 导致找不到 depmod 的问题。
+
+实际导出文件与 WSL 构建文件及 SHA256SUMS 一致；ARM64 Image 头、内置 cpio、
+337 模块依赖覆盖、20,544 项真实版本化导入、module_layout、缺失提供者与重复
+导出核查通过；内置模块层前后 18,008 项内核导出及 CRC 完全一致。
+结果见 `kernel618-upstream-image.json` 和 `kernel618-upstream-layer.json`；
+可用 `python3.11 scripts/verify_sheng618_image.py` 重验。
+
+这是首轮开机测试候选，不能视为全部功能移植完成。NT36532 触控/笔、metis、
+Nanosic 键盘、xiaomi_keyboard_driver、hall 等平板来源缺口仍在；充电整链、
+LCD/音频/相机等板级行为及加密 userdata 均未实机验证。原首阶段清单有 28 个
+名字未同名提供，其中包含已内置/合并/其他 SoC 候选和仍待补齐项，不能将这个
+数量当作最终缺失模块数。未执行设备操作，也未将原厂 5.15 模块混入 Image。
+
 新入口 `python3.11 scripts/prepare_sheng618_upstream.py --only soc` 已重建
 原仓库固定提交的 ACK 和 SoC 集成补丁，SoC tree 校验为
 `3ddaf72a978d520b5ce6aa5e25d5a21d13f9787f`。源码和后续构建位于
@@ -13,6 +34,25 @@
 后续只在新底座需要时复用平板驱动、修复和构建生成器。
 `--only sources` 继续获取上游固定的工具链与 techpack；不获取 nuwa 手机
 固件用于平板启动，不执行原仓库的刷机入口。
+
+上游固定的 15 个源码/工具输入和两份 techpack Git 引用现已准备完成，见
+`kernel618-upstream-sources.json`。原仓库通用内核编译已通过；配套新版 Rust
+默认生成 ZSTD 压缩调试信息，已为本机私有 elfutils 补齐解压支持，安装的
+`libzstd-dev` 仅新增开发包，没有升级或移除系统包；早先 elfutils 前缀保留。
+`build_sheng618_upstream.py` 依次调用原仓库 kernel / SoC / techpack 构建，
+将旧的 POGO、CS35L43 适配源码复制到独立目录重编。最终沿用原仓库模块层
+生成和 Image 重链接机制，改用 sheng 的加载清单与 init_boot 输入，只导出
+内置模块层的 `Image`。导出前检查真实符号 CRC、缺失提供者和 module_layout；
+不会把原有纯 ACK Image 当作已移植产物交付。
+
+重跑（Ubuntu 22.04 已安装 libzstd-dev）：
+
+```bash
+python3.11 scripts/prepare_sheng618_upstream.py --only sources
+SHENG_ELFUTILS_PREFIX=/root/sheng-618/host-tools/elfutils-0.193-zstd bash scripts/prepare_kernel618_host_tools.sh
+python3.11 scripts/build_sheng618_upstream.py all
+python3.11 scripts/verify_sheng618_image.py
+```
 
 下述是此前独立移植路线的历史结果：105 个 ACK 基线模块加 82 个移植模块通过
 编译及联合静态核查；尚无完成板级适配的 sheng 内核、boot 镜像或可刷包。
