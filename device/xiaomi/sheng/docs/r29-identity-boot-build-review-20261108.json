@@ -1,0 +1,64 @@
+{
+  "revision": 29,
+  "scoped_module_build_passed": true,
+  "full_product_build_passed": false,
+  "host_init_verifier_passed": true,
+  "host_idmap_overlayable_enforced": true,
+  "source_sha256": {
+    "overlay/SettingsResOverlaySheng/AndroidManifest.xml": "6878933b35932e1753bd98a56741b987774ae006a03f27da674ab62be74dbc00",
+    "overlay/SettingsResOverlaySheng/res/values/config.xml": "ad39d384c5709da0080a2988d887bda6b72e996eeed6daf70943c3ac8d8e3943",
+    "overlay/SettingsResOverlaySheng/res/values/lineage.xml": "011c0e82d76883755c625e4a4bd28c05314cd249aa7e5bd9c82b8712d0240c70",
+    "overlay/SettingsResOverlaySheng/res/values-zh/strings.xml": "f20f1c578a1d06d288a5b97be6578c844a43703cac919cfb84394ac130a84c14",
+    "overlay/SettingsResOverlaySheng/res/xml/hardware_info.xml": "1a80e8b4048921157b0e5d245dbfe75cacbd1f4ef3e42247ef1104f65b474f14",
+    "overlay/SettingsResOverlaySheng/res/xml/my_device_info.xml": "b98a1eeddae9b07fa94ac3095be813530f61e6aa186f9e885407be77f143511f",
+    "overlay/SettingsResOverlaySheng/res/xml-zh/hardware_info.xml": "0458dbb325b16e92efe3fb4c7618c6713726e7168e569ff9d26e67140e6b9c78",
+    "overlay/SettingsResOverlaySheng/res/xml-zh/my_device_info.xml": "8229f91921c7464b7683d5be5a7cb9f7d1faffa03823c5d70379171409298456",
+    "overlay/SettingsResOverlaySheng/Android.bp": "c9bb21c4ba7b641f0f52d7abc75ac9265e7e7abfc7923cb8d1fbe27258c229a3",
+    "rootdir/etc/init.sm8550.rc": "021e9c5be5871089c51ae1ba62ab42a0e7b97e9cef064d75d11244c8e75956de",
+    "tools/tablet_probe/ResourceProbe.java": "39d36292ebc32afafbebab1f506fd9fab40a54ba95374170dd4c8b969dc48d2b",
+    "tools/build_sheng_identity_boot_r29.py": "f248a22d394e9a3daa23882b9c24fb2d4dbc65e77d8546fbd107275ba61b4c68"
+  },
+  "reviewed_sha256": {
+    "odm": {
+      "overlay/SettingsResOverlaySheng.apk": "17baf7023d79b2d3cf214a3e15d0bbc13786ca3837831b0249ecc57c3a8a9935"
+    },
+    "vendor": {
+      "etc/init/init.sm8550.rc": "021e9c5be5871089c51ae1ba62ab42a0e7b97e9cef064d75d11244c8e75956de"
+    }
+  },
+  "prebuild_audit_sha256": "04e5c940291c2a61a794bf13ce1f33161efef45174654ee6e234906a7b14156c",
+  "supplemental_audit_sha256": "4414b98facffd45aa803e1f1f648875a3adc94836a95f9f5954269a0d40b223d",
+  "generated_ninja_sha256": "c971f0ad437e5c60f9118b9c670ddc9a4fae30926d0dfba3898ca0114a4102ab",
+  "command_log_sha256": "d0f22dcc46d0d029e30cf034fd9c84fe1c51d5474995e36bc6e9ce970770ff5d",
+  "previous_attempts": [
+    {
+      "path": "/root/sheng-lineage/hardware-diagnostics/r29-identity-boot-build",
+      "failure": "host_init_verifier help advertised an underscore; actual option uses a hyphen",
+      "product_files_changed": false
+    },
+    {
+      "path": "/root/sheng-lineage/hardware-diagnostics/r29-identity-boot-build-attempt2",
+      "failure": "report source glob also matched the res/xml directory",
+      "build_and_parser_checks_passed": true,
+      "product_files_changed": true
+    }
+  ],
+  "systemui_changed": false,
+  "installed": false,
+  "runtime_verified": false,
+  "postbuild_public_audit_passed": true,
+  "postbuild_audit_sha256": "9ac1bc094fcfe6971b53297d553080a04a612bbeb04f1697c7fdf28c738f7b88",
+  "supplemental_postbuild_audit_sha256": "8140400e11e2d5abbfee18f08176d9b623dafa44fbdfc83317c0bc463f396b05",
+  "target_resource_probe_passed": true,
+  "target_resource_probe_serial": "ca10ede3",
+  "target_resource_probe_locales": [
+    "zh-CN",
+    "en-US"
+  ],
+  "target_resource_probe_sha256": {
+    "en-US.txt": "8ff59839cae34882bba6df0f028c0c3894dc17b08f1f2777445f3c088cd72d69",
+    "thermal-before.txt": "1063ee757d3eaa685addec0cfe9fca8dd59ed5f9f3b85f9933389999a531708d",
+    "zh-CN.txt": "023b4003592d5cfa00063bc11d28cfe03f6a8d39996794ece8e0fe7dd310cbfc"
+  },
+  "target_static_overlay_replaced_during_probe": false
+}
