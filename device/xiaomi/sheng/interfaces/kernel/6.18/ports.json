@@ -11,6 +11,10 @@
     "ufs-phy": ["phy-qcom-ufs.ko", "phy-qcom-ufs-qmp-v4-kalama.ko"],
     "ipc": ["qcom_glink.ko", "qcom_glink_smem.ko", "rproc_qcom_common.ko", "qmi_helpers.ko", "pdr_interface.ko", "pmic_glink.ko", "glink_probe.ko", "glink_pkt.ko"],
     "remoteproc": ["qcom_q6v5.ko", "qcom_q6v5_pas.ko", "qcom_sysmon.ko", "qcom_pil_info.ko", "mdt_loader.ko", "secure_buffer.ko", "qcom_ramdump.ko"],
+    "buses": ["i2c-msm-geni.ko", "spi-msm-geni.ko", "msm_gpi.ko"],
+    "cpufreq": ["qcom-cpufreq-hw.ko"],
+    "thermal": ["qcom_tsens.ko", "qcom-spmi-adc-tm5.ko", "qcom-spmi-temp-alarm.ko", "lmh.ko", "qcom-spmi-adc5.ko", "qcom-vadc-common.ko"],
+    "cooling": ["qti_cpufreq_cdev.ko", "qti_devfreq_cdev.ko", "qti_userspace_cdev.ko", "qti_qmi_cdev.ko", "ddr_cdev.ko", "regulator_cdev.ko"],
     "pogo": ["xm_utils.ko"],
     "cs35l43": ["cs35l43_dlkm.ko"]
   },

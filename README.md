@@ -11,8 +11,9 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 
 2026-11-08 全量迁移继续推进：LOS Kalama 全套时钟/VDD、SCM/QTEE、RPMh、
 SMEM/SOCINFO/SMP2P/AOSS、TLMM、NoC/QoS、PMIC、UFS PHY、GLINK/QMI/PDR、
-Q6/PAS/SYSMON/MDT 和安全内存驱动已编译；105 个基线加 54 个移植模块通过
-联合符号与 CRC 核查，共 8,338 项版本化导入。完整平板内核和硬件验证尚未完成。
+Q6/PAS/SYSMON/MDT、安全内存、I2C/SPI/GPI、CPU 调频、温度采集/阈值和冷却
+驱动已编译；105 个基线加 70 个移植模块通过联合符号与 CRC 核查，
+共 9,024 项版本化导入。完整平板内核和硬件验证尚未完成。
 
 ## 工作记录与 Git 提交规则
 

@@ -17,8 +17,8 @@
     "CONFIG_ANDROID_BINDER_IPC_RUST=m"
   ],
   "baseline_module_count": 105,
-  "port_module_count": 54,
-  "versioned_imports_checked": 8338,
+  "port_module_count": 70,
+  "versioned_imports_checked": 9024,
   "this_module_bytes": 1664,
   "static_module_closure_passed": true,
   "issue_counts": {},
@@ -48,7 +48,7 @@
   "host_elfutils": {
     "version": "0.193",
     "system_libraries_changed": false,
-    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x00007366d3780000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x00007366d3621000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x00007366d3606000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007366d35df000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007366d3200000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007366d35b4000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007366d3782000)"
+    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x0000761377a8b000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x000076137792c000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x0000761377911000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007613778ea000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000761377600000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007613778bf000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000761377a8d000)"
   },
   "artifacts": {
     "Image": {
@@ -1972,6 +1972,559 @@
         "mdt_loader.ko",
         "secure_buffer.ko",
         "qcom_ramdump.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "buses": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/i2c/busses/i2c-msm-geni.c",
+          "source_sha256": "73c49f9b0b8edb4e120560ead2d5b8b91a5d12725a8d4a75ea5b76e2731a9178",
+          "staged_path": "i2c-msm-geni.c",
+          "staged_sha256": "5f5f1d8e8cc8e3d521f008662860476761cfc0e54abb38f2963e351200d0e778"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/i2c/busses/i2c-qup-trace.h",
+          "source_sha256": "538774ac8756021e76f369167dda763627ea7a5875d668dc9382001e6d53b70e",
+          "staged_path": "i2c-qup-trace.h",
+          "staged_sha256": "c4fca550629a290b2799f5256e55101b0b2958e6353bf2844e8e7daa9b3b8280"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/spi/spi-msm-geni.c",
+          "source_sha256": "101a5c4967309a1a163fe32a07115663632fc9be26ba628fb50101df3863a82e",
+          "staged_path": "spi-msm-geni.c",
+          "staged_sha256": "dbf55dd237b6106c25504c2b702bf33b67ff9ad78fdc9a73a03f3b0bbd994724"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/spi/spi-qup-trace.h",
+          "source_sha256": "ae07a2f3ff9efd9203e068982c8a3cc83323c941fee40d4c5840a7c9f1b2dcb8",
+          "staged_path": "spi-qup-trace.h",
+          "staged_sha256": "522b34148619a90350ba74a9c84f2e9e4e34238a2c7606f30a94dc919d5ad1ad"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/dma/qcom/msm_gpi.c",
+          "source_sha256": "83306d05128d45cde4ee8ee878151d14feb72f8a1bd2f968139099f34389a160",
+          "staged_path": "msm_gpi.c",
+          "staged_sha256": "5ffe7c9522933fd9e651de6a2ee8a012e344456d71789a6a12796fab5bc8da17"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/dma/qcom/msm_gpi_mmio.h",
+          "source_sha256": "d66408b99ea217c8962eb2c239ec498239f31b56f20f8a9bc91342f4848b8101",
+          "staged_path": "msm_gpi_mmio.h",
+          "staged_sha256": "d66408b99ea217c8962eb2c239ec498239f31b56f20f8a9bc91342f4848b8101"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qcom-geni-se.h",
+          "source_sha256": "b50626e80fb4497fb3f60ef860673964167aa2cfa803ce930799b92e2e1f5149",
+          "staged_path": "include/linux/qcom-geni-se.h",
+          "staged_sha256": "b50626e80fb4497fb3f60ef860673964167aa2cfa803ce930799b92e2e1f5149"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qcom-geni-se-common.h",
+          "source_sha256": "155bc4e5ec538039aa1df420cc597ea33c140c41e028cd33a030d456fa91dc80",
+          "staged_path": "include/linux/qcom-geni-se-common.h",
+          "staged_sha256": "ae1579fdda14fead0fc8b94cfd523adad2929350c6ad8219100c195fdcf7014a"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/msm_gpi.h",
+          "source_sha256": "be7923ba71c8dcde140d8c4b62070b7d7f5f030d0b93636967fa0f442d20be8f",
+          "staged_path": "include/linux/msm_gpi.h",
+          "staged_sha256": "be7923ba71c8dcde140d8c4b62070b7d7f5f030d0b93636967fa0f442d20be8f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/boot_stats.h",
+          "source_sha256": "93764ca5a34933a2eb00154d33b7ea7d05ec74791c6cb6b5c7076670d576d510",
+          "staged_path": "include/soc/qcom/boot_stats.h",
+          "staged_sha256": "93764ca5a34933a2eb00154d33b7ea7d05ec74791c6cb6b5c7076670d576d510"
+        }
+      ],
+      "generated_sha256": {
+        "i2c-msm-geni.c": "5f5f1d8e8cc8e3d521f008662860476761cfc0e54abb38f2963e351200d0e778",
+        "i2c-qup-trace.h": "c4fca550629a290b2799f5256e55101b0b2958e6353bf2844e8e7daa9b3b8280",
+        "spi-msm-geni.c": "dbf55dd237b6106c25504c2b702bf33b67ff9ad78fdc9a73a03f3b0bbd994724",
+        "spi-qup-trace.h": "522b34148619a90350ba74a9c84f2e9e4e34238a2c7606f30a94dc919d5ad1ad",
+        "msm_gpi.c": "5ffe7c9522933fd9e651de6a2ee8a012e344456d71789a6a12796fab5bc8da17",
+        "msm_gpi_mmio.h": "d66408b99ea217c8962eb2c239ec498239f31b56f20f8a9bc91342f4848b8101",
+        "include/linux/qcom-geni-se.h": "b50626e80fb4497fb3f60ef860673964167aa2cfa803ce930799b92e2e1f5149",
+        "include/linux/qcom-geni-se-common.h": "ae1579fdda14fead0fc8b94cfd523adad2929350c6ad8219100c195fdcf7014a",
+        "include/linux/msm_gpi.h": "be7923ba71c8dcde140d8c4b62070b7d7f5f030d0b93636967fa0f442d20be8f",
+        "include/soc/qcom/boot_stats.h": "93764ca5a34933a2eb00154d33b7ea7d05ec74791c6cb6b5c7076670d576d510",
+        "Kbuild": "9bd41143b788814d70be15a4e88630318e7d7d9f8f99416c4dd08dcbf3d10a93"
+      },
+      "modules": [
+        "i2c-msm-geni.ko",
+        "spi-msm-geni.ko",
+        "msm_gpi.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "cpufreq": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/cpufreq/qcom-cpufreq-hw.c",
+          "source_sha256": "6e335705ff9789c6aded250346b7620b6c235d3defa936cd3a9cd13ceca53fbd",
+          "staged_path": "qcom-cpufreq-hw.c",
+          "staged_sha256": "0c543d43f2df68d56ed1e26ee4ff52fe9f64aa38674ceb8ff2c1e4696924cb06"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qcom-cpufreq-hw.h",
+          "source_sha256": "cd1466864153395be64cf266826c44b8fe34ae83460b5e9a1dcb4676fd37dfc1",
+          "staged_path": "include/linux/qcom-cpufreq-hw.h",
+          "staged_sha256": "cd1466864153395be64cf266826c44b8fe34ae83460b5e9a1dcb4676fd37dfc1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/trace/events/dcvsh.h",
+          "source_sha256": "635cdd05943aa88e957b9dc51a6c1e6d4cbc2f750bf2d1bbd2ff40611bd4f4b7",
+          "staged_path": "include/trace/events/dcvsh.h",
+          "staged_sha256": "635cdd05943aa88e957b9dc51a6c1e6d4cbc2f750bf2d1bbd2ff40611bd4f4b7"
+        }
+      ],
+      "generated_sha256": {
+        "qcom-cpufreq-hw.c": "0c543d43f2df68d56ed1e26ee4ff52fe9f64aa38674ceb8ff2c1e4696924cb06",
+        "include/linux/qcom-cpufreq-hw.h": "cd1466864153395be64cf266826c44b8fe34ae83460b5e9a1dcb4676fd37dfc1",
+        "include/trace/events/dcvsh.h": "635cdd05943aa88e957b9dc51a6c1e6d4cbc2f750bf2d1bbd2ff40611bd4f4b7",
+        "Kbuild": "3c70b87643fa6bcc9e609d1992a89df24784c40dd4fe4b664f049740a7edaa71"
+      },
+      "modules": [
+        "qcom-cpufreq-hw.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "thermal": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/tsens.c",
+          "source_sha256": "2a2d0019ed5ff5444c3e6b3d583dda87d7b4d9e898d61bd473bb08d966a55552",
+          "staged_path": "tsens.c",
+          "staged_sha256": "4581256ae35ca625301e148ab1e6eca41f688f0a3ea58e878aa2eff803e30649"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/tsens.h",
+          "source_sha256": "1d00d6b7a5c6a8ae5c22771eaeabe2cb52d62ea5d1c985a0dd7901beabbcbaa7",
+          "staged_path": "tsens.h",
+          "staged_sha256": "1d00d6b7a5c6a8ae5c22771eaeabe2cb52d62ea5d1c985a0dd7901beabbcbaa7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/tsens-v2.c",
+          "source_sha256": "5c044e741c2aac157de81f7ddbec3e706d71f2f2ddafe8245a883689140ece32",
+          "staged_path": "tsens-v2.c",
+          "staged_sha256": "5c044e741c2aac157de81f7ddbec3e706d71f2f2ddafe8245a883689140ece32"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/tsens-v1.c",
+          "source_sha256": "9cfb1e631dfbacbf4e4b6f5c9b0e56bdf3c18f5e5c8e28301a91ece6cfbf8707",
+          "staged_path": "tsens-v1.c",
+          "staged_sha256": "9cfb1e631dfbacbf4e4b6f5c9b0e56bdf3c18f5e5c8e28301a91ece6cfbf8707"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/tsens-v0_1.c",
+          "source_sha256": "a042284062020f1e2c0a51668c32175aae77d9966ef6cbe558a2e371759571e1",
+          "staged_path": "tsens-v0_1.c",
+          "staged_sha256": "a042284062020f1e2c0a51668c32175aae77d9966ef6cbe558a2e371759571e1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/tsens-8960.c",
+          "source_sha256": "338583b3313c6dd3fa50add266362e518ee90decf650ed0d4d7ba468939d6b37",
+          "staged_path": "tsens-8960.c",
+          "staged_sha256": "338583b3313c6dd3fa50add266362e518ee90decf650ed0d4d7ba468939d6b37"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/qcom-spmi-adc-tm5.c",
+          "source_sha256": "d6e9b4fceddb9d2dc19474490fa3c88a5218172676a8ee8c098b63d981764fe8",
+          "staged_path": "qcom-spmi-adc-tm5.c",
+          "staged_sha256": "cc28c1d3ae43a71a2911f80455bdb5e2af597eab453c2504fefbec85d78e222b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/qcom-spmi-temp-alarm.c",
+          "source_sha256": "fb661f69790ce9d5401536fa2c2b7a87805d5783ac0f61307b78d1cefd3b355e",
+          "staged_path": "qcom-spmi-temp-alarm.c",
+          "staged_sha256": "76882a8732e5265f423a2f88ec95e0f866a8432d4a3086d584fda02d6f4c1fdd"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/lmh.c",
+          "source_sha256": "ac90ed1b6d536f4cac2861b4aae74ad0a542ce780ce987b846355fcab0e1cd28",
+          "staged_path": "lmh.c",
+          "staged_sha256": "32d2c9658d5eda716b84de8db13142951a75eba47a9e7ac83659ce8edb2e00a8"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/iio/adc/qcom-spmi-adc5.c",
+          "source_sha256": "3ec9efdfd3237819f5e0fa3025543760d65226821a7cd01d0865e430318f1327",
+          "staged_path": "qcom-spmi-adc5.c",
+          "staged_sha256": "2cdb7fd5cc0a03917717b3a9fb83d86a849b071c84dda4f2f6b82e3ea5676e2b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/iio/adc/qcom-vadc-common.c",
+          "source_sha256": "c701a667fc6c17003c0c27c9a35641855965e7e980dbd3fb4284fafc39765aa7",
+          "staged_path": "qcom-vadc-common.c",
+          "staged_sha256": "c701a667fc6c17003c0c27c9a35641855965e7e980dbd3fb4284fafc39765aa7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/iio/adc/qcom-vadc-common.h",
+          "source_sha256": "b275388e2cfa5fb3a2b6604f8a8fb5eb06bfda88f828538afe7c48e9179df956",
+          "staged_path": "include/linux/iio/adc/qcom-vadc-common.h",
+          "staged_sha256": "b275388e2cfa5fb3a2b6604f8a8fb5eb06bfda88f828538afe7c48e9179df956"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/adc-tm-clients.h",
+          "source_sha256": "ccdd21d92034237b3da5af99b4145fac20ded27a850e1a0b066a6d58cdaa6a16",
+          "staged_path": "include/linux/adc-tm-clients.h",
+          "staged_sha256": "ccdd21d92034237b3da5af99b4145fac20ded27a850e1a0b066a6d58cdaa6a16"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/thermal_minidump.h",
+          "source_sha256": "021ba19c32763358b16bf4002d9d9ed0f793b3994939bcf8c4cf5de85f0545c0",
+          "staged_path": "include/linux/thermal_minidump.h",
+          "staged_sha256": "021ba19c32763358b16bf4002d9d9ed0f793b3994939bcf8c4cf5de85f0545c0"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8550.h",
+          "source_sha256": "6fb33bdd2710585753ae29dc32280e865d998cb31b8cbcf89e165a52ceffdaff",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8550.h",
+          "staged_sha256": "6fb33bdd2710585753ae29dc32280e865d998cb31b8cbcf89e165a52ceffdaff"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc7-smb139x.h",
+          "source_sha256": "113548998aee99b21df554eb16f1c56d1bc4f8b56d2ce4036fa2aaf10a8c7bfb",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc7-smb139x.h",
+          "staged_sha256": "113548998aee99b21df554eb16f1c56d1bc4f8b56d2ce4036fa2aaf10a8c7bfb"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8550b.h",
+          "source_sha256": "0a286d7eb595e8161662052c2fd828aebac3ab1da34855cb205878f8dba8bce7",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8550b.h",
+          "staged_sha256": "0a286d7eb595e8161662052c2fd828aebac3ab1da34855cb205878f8dba8bce7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmk8550.h",
+          "source_sha256": "5ed7efcae1e66544198e4df33b80e10e58b45303b646844544cee462f6a9078d",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmk8550.h",
+          "staged_sha256": "5ed7efcae1e66544198e4df33b80e10e58b45303b646844544cee462f6a9078d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc7-pm8350b.h",
+          "source_sha256": "b63418c925ecf59850e2a499b297bfa477eec4da99e18634047fede041d901b2",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc7-pm8350b.h",
+          "staged_sha256": "b63418c925ecf59850e2a499b297bfa477eec4da99e18634047fede041d901b2"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8550vx.h",
+          "source_sha256": "28d97833b8a1e08315f104760a6950e4fa29984e8f947e1a5643375fdb2cb0de",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8550vx.h",
+          "staged_sha256": "28d97833b8a1e08315f104760a6950e4fa29984e8f947e1a5643375fdb2cb0de"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm7550ba.h",
+          "source_sha256": "53e7b4dbbf332c1f86abf43f5a86a971f08877138cf8645682017e2dc38f1f58",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm7550ba.h",
+          "staged_sha256": "53e7b4dbbf332c1f86abf43f5a86a971f08877138cf8645682017e2dc38f1f58"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm5100.h",
+          "source_sha256": "d1e210634d57c494592262ee635bc4620c2cbae77b0a63785706d7aed7ab3c87",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm5100.h",
+          "staged_sha256": "d1e210634d57c494592262ee635bc4620c2cbae77b0a63785706d7aed7ab3c87"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmx35.h",
+          "source_sha256": "9d5baf2c9faf857d0501963bc8c20ff5969126746e63e23b8a22c17789068cf5",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmx35.h",
+          "staged_sha256": "9d5baf2c9faf857d0501963bc8c20ff5969126746e63e23b8a22c17789068cf5"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmxr2230.h",
+          "source_sha256": "0f7c54d130c54bb8055521089f3a4f4bb357c01119bff1afa70f6055a2f8c711",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmxr2230.h",
+          "staged_sha256": "0f7c54d130c54bb8055521089f3a4f4bb357c01119bff1afa70f6055a2f8c711"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8775.h",
+          "source_sha256": "d74a2cd72fd61ac1299210c2dffc55a36dfc54b40f5b9921d9b4e703e06fe8e2",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8775.h",
+          "staged_sha256": "d74a2cd72fd61ac1299210c2dffc55a36dfc54b40f5b9921d9b4e703e06fe8e2"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc7-pmr735b.h",
+          "source_sha256": "9d0dcc2517069bb95f83714a2fdc55683f48ba1368bbe1f0b37ebea584b2ea18",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc7-pmr735b.h",
+          "staged_sha256": "9d0dcc2517069bb95f83714a2fdc55683f48ba1368bbe1f0b37ebea584b2ea18"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc7-pmk8350.h",
+          "source_sha256": "c238f8662a8ab727deac7bef08994d0e5ffb2aed057000d76a3b19b275bdc230",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc7-pmk8350.h",
+          "staged_sha256": "c238f8662a8ab727deac7bef08994d0e5ffb2aed057000d76a3b19b275bdc230"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc7-pm8350.h",
+          "source_sha256": "5e9bccb02eaedf1962b142f305f286dd71ed3661c9185652655528644f8ddf8d",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc7-pm8350.h",
+          "staged_sha256": "5e9bccb02eaedf1962b142f305f286dd71ed3661c9185652655528644f8ddf8d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc7-pmr735a.h",
+          "source_sha256": "dcafa79aab238d05a7af7af603e641791341a25665aa1c3885502612a7e127d9",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc7-pmr735a.h",
+          "staged_sha256": "dcafa79aab238d05a7af7af603e641791341a25665aa1c3885502612a7e127d9"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-smb139x.h",
+          "source_sha256": "84484ad6922d5bc8e099e2bb8d4e978c38335efc5cdd77312dea43fd755065ae",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-smb139x.h",
+          "staged_sha256": "84484ad6922d5bc8e099e2bb8d4e978c38335efc5cdd77312dea43fd755065ae"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-vadc.h",
+          "source_sha256": "f902ae6e5f9d1ff10263748003c38cfb6d51e20ba1045c9803f9ed7bec7ba83a",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-vadc.h",
+          "staged_sha256": "f902ae6e5f9d1ff10263748003c38cfb6d51e20ba1045c9803f9ed7bec7ba83a"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmx75.h",
+          "source_sha256": "9b73667e5d089f164b45eb553af4db50043ca9137adde0236b52265334864381",
+          "staged_path": "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmx75.h",
+          "staged_sha256": "9b73667e5d089f164b45eb553af4db50043ca9137adde0236b52265334864381"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/thermal_zone_internal.h",
+          "source_sha256": "529a4f2fe784cda72e1bca245cb4f44180b1d460e7e75cacf5ba66a958731072",
+          "staged_path": "sheng-thermal-mode.inc",
+          "staged_sha256": "b36b6a6396eefad7e45d768a8a2e3e9445e84576375ab425e085134ce07ba880"
+        }
+      ],
+      "generated_sha256": {
+        "tsens.c": "4581256ae35ca625301e148ab1e6eca41f688f0a3ea58e878aa2eff803e30649",
+        "tsens.h": "1d00d6b7a5c6a8ae5c22771eaeabe2cb52d62ea5d1c985a0dd7901beabbcbaa7",
+        "tsens-v2.c": "5c044e741c2aac157de81f7ddbec3e706d71f2f2ddafe8245a883689140ece32",
+        "tsens-v1.c": "9cfb1e631dfbacbf4e4b6f5c9b0e56bdf3c18f5e5c8e28301a91ece6cfbf8707",
+        "tsens-v0_1.c": "a042284062020f1e2c0a51668c32175aae77d9966ef6cbe558a2e371759571e1",
+        "tsens-8960.c": "338583b3313c6dd3fa50add266362e518ee90decf650ed0d4d7ba468939d6b37",
+        "qcom-spmi-adc-tm5.c": "cc28c1d3ae43a71a2911f80455bdb5e2af597eab453c2504fefbec85d78e222b",
+        "qcom-spmi-temp-alarm.c": "76882a8732e5265f423a2f88ec95e0f866a8432d4a3086d584fda02d6f4c1fdd",
+        "lmh.c": "32d2c9658d5eda716b84de8db13142951a75eba47a9e7ac83659ce8edb2e00a8",
+        "qcom-spmi-adc5.c": "2cdb7fd5cc0a03917717b3a9fb83d86a849b071c84dda4f2f6b82e3ea5676e2b",
+        "qcom-vadc-common.c": "c701a667fc6c17003c0c27c9a35641855965e7e980dbd3fb4284fafc39765aa7",
+        "include/linux/iio/adc/qcom-vadc-common.h": "b275388e2cfa5fb3a2b6604f8a8fb5eb06bfda88f828538afe7c48e9179df956",
+        "include/linux/adc-tm-clients.h": "ccdd21d92034237b3da5af99b4145fac20ded27a850e1a0b066a6d58cdaa6a16",
+        "include/linux/thermal_minidump.h": "021ba19c32763358b16bf4002d9d9ed0f793b3994939bcf8c4cf5de85f0545c0",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8550.h": "6fb33bdd2710585753ae29dc32280e865d998cb31b8cbcf89e165a52ceffdaff",
+        "include/dt-bindings/iio/qcom,spmi-adc7-smb139x.h": "113548998aee99b21df554eb16f1c56d1bc4f8b56d2ce4036fa2aaf10a8c7bfb",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8550b.h": "0a286d7eb595e8161662052c2fd828aebac3ab1da34855cb205878f8dba8bce7",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmk8550.h": "5ed7efcae1e66544198e4df33b80e10e58b45303b646844544cee462f6a9078d",
+        "include/dt-bindings/iio/qcom,spmi-adc7-pm8350b.h": "b63418c925ecf59850e2a499b297bfa477eec4da99e18634047fede041d901b2",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8550vx.h": "28d97833b8a1e08315f104760a6950e4fa29984e8f947e1a5643375fdb2cb0de",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm7550ba.h": "53e7b4dbbf332c1f86abf43f5a86a971f08877138cf8645682017e2dc38f1f58",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm5100.h": "d1e210634d57c494592262ee635bc4620c2cbae77b0a63785706d7aed7ab3c87",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmx35.h": "9d5baf2c9faf857d0501963bc8c20ff5969126746e63e23b8a22c17789068cf5",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmxr2230.h": "0f7c54d130c54bb8055521089f3a4f4bb357c01119bff1afa70f6055a2f8c711",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pm8775.h": "d74a2cd72fd61ac1299210c2dffc55a36dfc54b40f5b9921d9b4e703e06fe8e2",
+        "include/dt-bindings/iio/qcom,spmi-adc7-pmr735b.h": "9d0dcc2517069bb95f83714a2fdc55683f48ba1368bbe1f0b37ebea584b2ea18",
+        "include/dt-bindings/iio/qcom,spmi-adc7-pmk8350.h": "c238f8662a8ab727deac7bef08994d0e5ffb2aed057000d76a3b19b275bdc230",
+        "include/dt-bindings/iio/qcom,spmi-adc7-pm8350.h": "5e9bccb02eaedf1962b142f305f286dd71ed3661c9185652655528644f8ddf8d",
+        "include/dt-bindings/iio/qcom,spmi-adc7-pmr735a.h": "dcafa79aab238d05a7af7af603e641791341a25665aa1c3885502612a7e127d9",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-smb139x.h": "84484ad6922d5bc8e099e2bb8d4e978c38335efc5cdd77312dea43fd755065ae",
+        "include/dt-bindings/iio/qcom,spmi-vadc.h": "f902ae6e5f9d1ff10263748003c38cfb6d51e20ba1045c9803f9ed7bec7ba83a",
+        "include/dt-bindings/iio/qcom,spmi-adc5-gen3-pmx75.h": "9b73667e5d089f164b45eb553af4db50043ca9137adde0236b52265334864381",
+        "sheng-thermal-mode.inc": "b36b6a6396eefad7e45d768a8a2e3e9445e84576375ab425e085134ce07ba880",
+        "sheng-thermal-trip.h": "64c16aa419689d3c8d06fb1e83e7ffe13973a3a5d8bf124acef85993492a8ad9",
+        "Kbuild": "39fc3887f20121551765cad4159871ce1e6cad2a04deae012b8ec300c650957f"
+      },
+      "modules": [
+        "qcom_tsens.ko",
+        "qcom-spmi-adc-tm5.ko",
+        "qcom-spmi-temp-alarm.ko",
+        "lmh.ko",
+        "qcom-spmi-adc5.ko",
+        "qcom-vadc-common.ko"
+      ],
+      "runtime_validated": false,
+      "limits": [
+        "Thermal minidump is not enabled."
+      ]
+    },
+    "cooling": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/qti_cpufreq_cdev.c",
+          "source_sha256": "abfeb5b8e7c0e10618483898e4a396e6215fcbcd9d894dc477098cbb1faa5e73",
+          "staged_path": "qti_cpufreq_cdev.c",
+          "staged_sha256": "7775a2b43ea356de498818dc68fec8e22ebe5426e099bdff690502476b8f4bdc"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/qti_devfreq_cdev.c",
+          "source_sha256": "d57801a70df848aa6a1bb029bb076a07e7a9e83096b600f71f2b25021e978bc9",
+          "staged_path": "qti_devfreq_cdev.c",
+          "staged_sha256": "ffa95b8e9917a37c685ab585e959aa5ed97f4498611d386c8846546774a1cc94"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/qti_userspace_cdev.c",
+          "source_sha256": "197c962556fc5456a24364bf081b69d4c17d5838892301a7971f66c0fb375cae",
+          "staged_path": "qti_userspace_cdev.c",
+          "staged_sha256": "46224eb86681cf99b8f82e709c1e6129f044ad5cd037fee952b39f7c2e9364ef"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/qmi_cooling.c",
+          "source_sha256": "e8f99de801174d162b34bcea2efb52a969fda68a9b44d0e46381fded42b05d76",
+          "staged_path": "qmi_cooling.c",
+          "staged_sha256": "e0f41b047f7b0e9712232f29225ae975f9d2dee069bd046005917c3aa401ebdf"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/thermal_mitigation_device_service_v01.c",
+          "source_sha256": "ac82cea2b29c24f950b012843fb58beeacdafc4e1b908fd9b13b0078c5775e26",
+          "staged_path": "thermal_mitigation_device_service_v01.c",
+          "staged_sha256": "ac82cea2b29c24f950b012843fb58beeacdafc4e1b908fd9b13b0078c5775e26"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/thermal_mitigation_device_service_v01.h",
+          "source_sha256": "3f86e6b16a73730630754ed9b32bd37f9190e9c635d88816ecbf3587ed19309a",
+          "staged_path": "thermal_mitigation_device_service_v01.h",
+          "staged_sha256": "3f86e6b16a73730630754ed9b32bd37f9190e9c635d88816ecbf3587ed19309a"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/ddr_cdev.c",
+          "source_sha256": "8fc22ad8f6d6de106e2f9960944dab47c9b0b44dfca89d7fb07d95d6ac3b1393",
+          "staged_path": "ddr_cdev.c",
+          "staged_sha256": "59a39b09cfc499f627a47a244b6470f786dcbc932994b499f7a703ba1c4c948e"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/thermal/qcom/regulator_cdev.c",
+          "source_sha256": "97a27c647aab4fcf39cd441b58cb9c782c5f524f8714a19a6e6607bfc3ee2d94",
+          "staged_path": "regulator_cdev.c",
+          "staged_sha256": "97a27c647aab4fcf39cd441b58cb9c782c5f524f8714a19a6e6607bfc3ee2d94"
+        }
+      ],
+      "generated_sha256": {
+        "qti_cpufreq_cdev.c": "7775a2b43ea356de498818dc68fec8e22ebe5426e099bdff690502476b8f4bdc",
+        "qti_devfreq_cdev.c": "ffa95b8e9917a37c685ab585e959aa5ed97f4498611d386c8846546774a1cc94",
+        "qti_userspace_cdev.c": "46224eb86681cf99b8f82e709c1e6129f044ad5cd037fee952b39f7c2e9364ef",
+        "qmi_cooling.c": "e0f41b047f7b0e9712232f29225ae975f9d2dee069bd046005917c3aa401ebdf",
+        "thermal_mitigation_device_service_v01.c": "ac82cea2b29c24f950b012843fb58beeacdafc4e1b908fd9b13b0078c5775e26",
+        "thermal_mitigation_device_service_v01.h": "3f86e6b16a73730630754ed9b32bd37f9190e9c635d88816ecbf3587ed19309a",
+        "ddr_cdev.c": "59a39b09cfc499f627a47a244b6470f786dcbc932994b499f7a703ba1c4c948e",
+        "regulator_cdev.c": "97a27c647aab4fcf39cd441b58cb9c782c5f524f8714a19a6e6607bfc3ee2d94",
+        "Kbuild": "6f3cb4adb568a838a30b4966f2fa0d6978e5d2b75066594598b512a80ed7f599"
+      },
+      "modules": [
+        "qti_cpufreq_cdev.ko",
+        "qti_devfreq_cdev.ko",
+        "qti_userspace_cdev.ko",
+        "qti_qmi_cdev.ko",
+        "ddr_cdev.ko",
+        "regulator_cdev.ko"
       ],
       "runtime_validated": false,
       "limits": []
@@ -5611,6 +6164,212 @@
       "aliases": [],
       "signed_trailer_present": false
     },
+    "i2c_msm_geni": {
+      "path": "/root/sheng-618/ports/buses/i2c-msm-geni.ko",
+      "sha256": "7f7eaffda7ff86e9dfbf7560a88234dec53345d1a434e0c6da77f66e4d560e87",
+      "versioned_imports": 99,
+      "depends": [
+        "ipc_logging"
+      ],
+      "aliases": [
+        "platform:i2c_geni",
+        "of:N*T*Cqcom,i2c-geni",
+        "of:N*T*Cqcom,i2c-geniC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "spi_msm_geni": {
+      "path": "/root/sheng-618/ports/buses/spi-msm-geni.ko",
+      "sha256": "75d060082de86266ee8196b7170159359b6df809a2117ed9cc2803abb655fc66",
+      "versioned_imports": 108,
+      "depends": [
+        "ipc_logging"
+      ],
+      "aliases": [
+        "platform:spi_geni"
+      ],
+      "signed_trailer_present": false
+    },
+    "msm_gpi": {
+      "path": "/root/sheng-618/ports/buses/msm_gpi.ko",
+      "sha256": "bf9ebfc97694b9596da73b89efc92a1ce99c1d5b3954082131016daf90eda105",
+      "versioned_imports": 77,
+      "depends": [
+        "ipc_logging"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,gpi-dma",
+        "of:N*T*Cqcom,gpi-dmaC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_cpufreq_hw": {
+      "path": "/root/sheng-618/ports/cpufreq/qcom-cpufreq-hw.ko",
+      "sha256": "6dc53da6cd5033178d05e3c474fbf6a99f40785179743b2d79351b9b6cfe19aa",
+      "versioned_imports": 93,
+      "depends": [],
+      "aliases": [
+        "of:N*T*Cqcom,cpufreq-hw",
+        "of:N*T*Cqcom,cpufreq-hwC*",
+        "of:N*T*Cqcom,cpufreq-epss",
+        "of:N*T*Cqcom,cpufreq-epssC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_tsens": {
+      "path": "/root/sheng-618/ports/thermal/qcom_tsens.ko",
+      "sha256": "9a1255cd96156762008c1c3709d651c7d04cc29af2ed7e7df2dc4dccdb7ff5ce",
+      "versioned_imports": 54,
+      "depends": [
+        "ipc_logging"
+      ],
+      "aliases": [
+        "platform:qcom-tsens",
+        "of:N*T*Cqcom,ipq8064-tsens",
+        "of:N*T*Cqcom,ipq8064-tsensC*",
+        "of:N*T*Cqcom,mdm9607-tsens",
+        "of:N*T*Cqcom,mdm9607-tsensC*",
+        "of:N*T*Cqcom,msm8916-tsens",
+        "of:N*T*Cqcom,msm8916-tsensC*",
+        "of:N*T*Cqcom,msm8939-tsens",
+        "of:N*T*Cqcom,msm8939-tsensC*",
+        "of:N*T*Cqcom,msm8956-tsens",
+        "of:N*T*Cqcom,msm8956-tsensC*",
+        "of:N*T*Cqcom,msm8960-tsens",
+        "of:N*T*Cqcom,msm8960-tsensC*",
+        "of:N*T*Cqcom,msm8974-tsens",
+        "of:N*T*Cqcom,msm8974-tsensC*",
+        "of:N*T*Cqcom,msm8976-tsens",
+        "of:N*T*Cqcom,msm8976-tsensC*",
+        "of:N*T*Cqcom,msm8996-tsens",
+        "of:N*T*Cqcom,msm8996-tsensC*",
+        "of:N*T*Cqcom,tsens-v1",
+        "of:N*T*Cqcom,tsens-v1C*",
+        "of:N*T*Cqcom,tsens-v2",
+        "of:N*T*Cqcom,tsens-v2C*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_spmi_adc_tm5": {
+      "path": "/root/sheng-618/ports/thermal/qcom-spmi-adc-tm5.ko",
+      "sha256": "521ec8c9ecd328641f9e957b3d3e1de49f35ee9e06acc0ea203d7cf7fa403627",
+      "versioned_imports": 29,
+      "depends": [
+        "qcom_vadc_common"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,spmi-adc-tm5",
+        "of:N*T*Cqcom,spmi-adc-tm5C*",
+        "of:N*T*Cqcom,spmi-adc-tm5-iio",
+        "of:N*T*Cqcom,spmi-adc-tm5-iioC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_spmi_temp_alarm": {
+      "path": "/root/sheng-618/ports/thermal/qcom-spmi-temp-alarm.ko",
+      "sha256": "2c313c8caff8bea0078b9f29d9dc35f969bba6459655b53bac17683ad35286e4",
+      "versioned_imports": 24,
+      "depends": [],
+      "aliases": [
+        "platform:spmi-temp-alarm",
+        "of:N*T*Cqcom,spmi-temp-alarm",
+        "of:N*T*Cqcom,spmi-temp-alarmC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "lmh": {
+      "path": "/root/sheng-618/ports/thermal/lmh.ko",
+      "sha256": "ecfb1ac4eaf68f0fb66c616399e33b18a373456b409132ef4017f543fef57450",
+      "versioned_imports": 31,
+      "depends": [
+        "qcom_scm"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,sdm845-lmh",
+        "of:N*T*Cqcom,sdm845-lmhC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_spmi_adc5": {
+      "path": "/root/sheng-618/ports/thermal/qcom-spmi-adc5.ko",
+      "sha256": "b092efd954ebff11111a9acbcbf7f5d35b3fe985ed9e93ff05bfda95a5ce3641",
+      "versioned_imports": 37,
+      "depends": [
+        "qcom_vadc_common"
+      ],
+      "aliases": [
+        "platform:qcom-spmi-adc5",
+        "of:N*T*Cqcom,spmi-adc5",
+        "of:N*T*Cqcom,spmi-adc5C*",
+        "of:N*T*Cqcom,spmi-adc7",
+        "of:N*T*Cqcom,spmi-adc7C*",
+        "of:N*T*Cqcom,spmi-adc7-sw-calib",
+        "of:N*T*Cqcom,spmi-adc7-sw-calibC*",
+        "of:N*T*Cqcom,spmi-adc-rev2",
+        "of:N*T*Cqcom,spmi-adc-rev2C*",
+        "of:N*T*Cqcom,spmi-adc5-lite",
+        "of:N*T*Cqcom,spmi-adc5-liteC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_vadc_common": {
+      "path": "/root/sheng-618/ports/thermal/qcom-vadc-common.ko",
+      "sha256": "10717ff36d93e2bab0aa68e80fd5dcae6ff876438fbf603a33983b03f1b7f025",
+      "versioned_imports": 2,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qti_cpufreq_cdev": {
+      "path": "/root/sheng-618/ports/cooling/qti_cpufreq_cdev.ko",
+      "sha256": "c3a29d31654b680c67e6c2985d107b92e01cae73079630f53047dff398ea56c5",
+      "versioned_imports": 31,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qti_devfreq_cdev": {
+      "path": "/root/sheng-618/ports/cooling/qti_devfreq_cdev.ko",
+      "sha256": "e1ba40f989930f715d60d5a692c75ed3b059dacdd38f372166ba055b93c2b0ff",
+      "versioned_imports": 23,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qti_userspace_cdev": {
+      "path": "/root/sheng-618/ports/cooling/qti_userspace_cdev.ko",
+      "sha256": "93810c4db3d0f72465c6beb8baa09c5fcf34caec44a1182efed8c57a6a9b4f4d",
+      "versioned_imports": 13,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qti_qmi_cdev": {
+      "path": "/root/sheng-618/ports/cooling/qti_qmi_cdev.ko",
+      "sha256": "024b475402804fbb00affe15f4283a2c640caf464a60884bcfddd4d430160c00",
+      "versioned_imports": 37,
+      "depends": [
+        "qmi_helpers"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "ddr_cdev": {
+      "path": "/root/sheng-618/ports/cooling/ddr_cdev.ko",
+      "sha256": "3834b3de59cf7087f193bd861c29470beed8c1c6ceee94c77d3182823f80f02c",
+      "versioned_imports": 13,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "regulator_cdev": {
+      "path": "/root/sheng-618/ports/cooling/regulator_cdev.ko",
+      "sha256": "1263959dc3d0a412e2e5e786d274d80cec82fb4c6b8eeea8365c8efe98c09ace",
+      "versioned_imports": 15,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
     "xm_utils": {
       "path": "/root/sheng-618/ports/pogo/xm_utils.ko",
       "sha256": "0a415c760822c8ad6249693b989734fac14b3c01f66bc4a776f1c1bd84b5c019",
@@ -5790,6 +6549,22 @@
     "secure_buffer",
     "mdt_loader",
     "qcom_q6v5_pas",
+    "i2c_msm_geni",
+    "spi_msm_geni",
+    "msm_gpi",
+    "qcom_cpufreq_hw",
+    "qcom_tsens",
+    "qcom_vadc_common",
+    "qcom_spmi_adc_tm5",
+    "qcom_spmi_temp_alarm",
+    "lmh",
+    "qcom_spmi_adc5",
+    "qti_cpufreq_cdev",
+    "qti_devfreq_cdev",
+    "qti_userspace_cdev",
+    "qti_qmi_cdev",
+    "ddr_cdev",
+    "regulator_cdev",
     "xm_utils",
     "cs35l43_dlkm"
   ],

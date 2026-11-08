@@ -7,6 +7,29 @@ LOS kalama TCSR、官方 sheng 电池管理工具和 CS35L43 功放模块，尚�
 
 ### 用户要求全量推进后的平台阶段
 
+2026-11-08 总线与温控批次：在前一批次上新增 16 个模块，现为 105 个基线
+加 70 个移植模块；9,024 项版本化导入的联合核查通过。
+
+- LOS I2C/SPI/GPI 三个模块直接使用 ACK 已内置的 GENI 核心，公共结构和真实
+  符号 CRC 一致，未引入第二套 wrapper 驱动。更新 SPI controller、target_abort
+  和多片选访问接口。I2C remove 先删除 adapter/client 并同步标记 suspended，
+  再释放 DMA/时钟，避免新版 void remove 下遇到传输仍直接返回。
+  I2C test-bus 诊断显式映射父设备寄存器，修复旧 helper 把 geni_wrapper 的私有
+  数据误当 geni_se 访问的问题，保留原诊断寄存器和功能。
+- LOS CPUFreq HW 保留 LUT、boost 和 LMH 逻辑，改用 ACK 按频率上限计算的
+  HW pressure 接口；退出时清除 pressure。Boost 支持改接当前 per-policy 核心
+  流程和 cpufreq_boost_set_sw，频率列表 sysfs 由当前核心提供。
+- TSENS、SPMI ADC5、VADC common、ADC TM5、PMIC temp alarm 和 LMH 六模块
+  通过。温区回调用 adapter 获取当前 zone 私有数据；trip 索引显式转换为 ACK
+  descriptor 中的真实 trip，不假定 trip 数组连续。保留模式切换的阈值重置和
+  冷却实例释放，更新为每个 trip 的实例链。IIO 使用 fwnode xlate/channel API。
+  完整 thermal minidump 仍未启用，未验证设备树温区绑定及实际温度值。
+- CPUFreq、devfreq、userspace、QMI、DDR 和 regulator 冷却六模块通过，保留
+  QoS、QMI 和供电控制；未修改硬件限温参数，也未证明整机温控策略完整可用。
+
+重跑组名为 `buses`、`cpufreq`、`thermal`、`cooling`。这些结果只覆盖源码编译与
+静态 ABI 闭合，尚无 sheng 启动镜像或硬件验收结果。
+
 2026-11-08 后续批次：PMIC、UFS PHY、IPC 和 remoteproc 共新增 25 个模块，
 现为 105 个基线加 54 个移植模块；8,338 项版本化导入的联合检查通过，
 无缺失提供者、CRC 差异、重复导出、命名空间或依赖环错误。

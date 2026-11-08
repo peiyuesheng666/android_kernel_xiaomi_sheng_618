@@ -425,6 +425,252 @@ def ipc():
     return port.build(['rpmh', 'soc'])
 
 
+def cooling():
+    port = Port('cooling')
+    names = ['qti_cpufreq_cdev.c', 'qti_devfreq_cdev.c', 'qti_userspace_cdev.c',
+             'qmi_cooling.c', 'thermal_mitigation_device_service_v01.c',
+             'thermal_mitigation_device_service_v01.h', 'ddr_cdev.c', 'regulator_cdev.c']
+    for name in names:
+        def transform(text):
+            import re
+            for function in re.findall(r'\.remove\s*=\s*(\w+)', text):
+                text = void_remove(text, function)
+            if name == 'ddr_cdev.c':
+                text = replace(text, '#include <linux/module.h>', '#include <linux/module.h>\n#include <linux/platform_device.h>')
+            if name == 'qti_devfreq_cdev.c':
+                text = replace(text, 'Error placing qos request:%u', 'Error placing qos request:%lu')
+                text = replace(text, '%d. freq table:%d', '%d. freq table:%lu')
+                text = replace(text, 'Cdev register failed for gpu, ret:%d', 'Cdev register failed for gpu, ret:%ld')
+            if name == 'qti_userspace_cdev.c':
+                text = replace(text, 'Error registering cdev:%s err:%d', 'Error registering cdev:%s err:%ld')
+            if name == 'qti_cpufreq_cdev.c':
+                text = replace(text, 'Cdev register failed for %s, ret:%d', 'Cdev register failed for %s, ret:%ld')
+            return text
+        port.copy('lineage-kernel', 'drivers/thermal/qcom/' + name, name, transform)
+    port.write('Kbuild', '# SPDX-License-Identifier: GPL-2.0-only\n'
+               'LINUXINCLUDE := -I$(src)/../ipc/include $(LINUXINCLUDE)\n'
+               'ccflags-y += -I$(src) -DCONFIG_QCOM_QMI_HELPERS_MODULE=1 -ferror-limit=0\n'
+               'obj-m += qti_cpufreq_cdev.o qti_devfreq_cdev.o qti_userspace_cdev.o qti_qmi_cdev.o ddr_cdev.o regulator_cdev.o\n'
+               'qti_qmi_cdev-y := qmi_cooling.o thermal_mitigation_device_service_v01.o\n')
+    port.finish(['qti_cpufreq_cdev.ko', 'qti_devfreq_cdev.ko', 'qti_userspace_cdev.ko',
+                 'qti_qmi_cdev.ko', 'ddr_cdev.ko', 'regulator_cdev.ko'])
+    return port.build(['ipc'])
+
+
+def thermal():
+    port = Port('thermal')
+    names = ['tsens.c', 'tsens.h', 'tsens-v2.c', 'tsens-v1.c', 'tsens-v0_1.c', 'tsens-8960.c',
+             'qcom-spmi-adc-tm5.c', 'qcom-spmi-temp-alarm.c', 'lmh.c']
+    paths = ['drivers/thermal/qcom/' + n for n in names]
+    paths += ['drivers/iio/adc/qcom-spmi-adc5.c', 'drivers/iio/adc/qcom-vadc-common.c',
+              'include/linux/iio/adc/qcom-vadc-common.h', 'include/linux/adc-tm-clients.h',
+              'include/linux/thermal_minidump.h']
+    paths += [str(p.relative_to(ROOT / 'src/lineage-kernel')) for p in
+              (ROOT / 'src/lineage-kernel/include/dt-bindings/iio').glob('qcom,*.h')]
+    for path in paths:
+        target = path if path.startswith('include/') else path.rsplit('/', 1)[-1]
+        def transform(text):
+            if target in ['tsens.c', 'qcom-spmi-adc-tm5.c', 'qcom-spmi-temp-alarm.c']:
+                text = text.replace('thermal_zone_of_device_ops', 'thermal_zone_device_ops')
+                text = text.replace('devm_thermal_zone_of_sensor_register(', 'devm_thermal_of_zone_register(')
+                text = text.replace('#include "../thermal_core.h"', '#include "thermal_core.h"')
+                text = text.replace('#include "thermal_zone_internal.h"', '#include "sheng-thermal-mode.inc"')
+                text = text.replace('#include <linux/thermal.h>', '#include <linux/thermal.h>\n#include "thermal_core.h"')
+                # Keep helpers called directly by the driver; adapt only the framework callbacks.
+                import re
+                adapters = []
+                for op, func in sorted(set(re.findall(r'\.(get_temp|get_trend|set_trips|change_mode|set_trip_temp)\s*=\s*(\w+)', text))):
+                    args = {'get_temp': ('int *temp', 'temp'), 'set_trips': ('int low, int high', 'low, high'),
+                            'change_mode': ('enum thermal_device_mode mode', 'mode'),
+                            'get_trend': ('const struct thermal_trip *trip, enum thermal_trend *trend', '0, trend'),
+                            'set_trip_temp': ('const struct thermal_trip *trip, int temp', 'sheng_thermal_trip_id(tz, trip), temp')}
+                    signature, call = args[op]
+                    if op == 'set_trip_temp':
+                        adapters.append(f'static int {func}(void *data, int trip, int temp);\n')
+                    adapters.append(f'static int sheng_{func}(struct thermal_zone_device *tz, {signature})\n'
+                                    '{\n\treturn ' + func + '(thermal_zone_device_priv(tz), ' + call + ');\n}\n')
+                    text = re.sub(r'(\.' + op + r'\s*=\s*)' + func + r'\b', r'\1sheng_' + func, text)
+                # The helpers must be declared before the first adapted ops table, after implementations.
+                pos = text.rfind('static ', 0, text.index('struct thermal_zone_device_ops'))
+                text = text[:pos] + '\n'.join(adapters) + '\n' + text[pos:]
+            if target == 'tsens.c':
+                text = void_remove(text, 'tsens_remove')
+                text = replace(text, 'irqreturn_t tsens_cold_irq_thread(', 'static irqreturn_t tsens_cold_irq_thread(')
+            if target == 'qcom-spmi-temp-alarm.c':
+                text = text.replace('of_thermal_get_ntrips(chip->tz_dev)', 'chip->tz_dev->num_trips')
+                text = text.replace('of_thermal_get_trip_points(chip->tz_dev)', 'sheng_thermal_trip(chip->tz_dev, 0)')
+                text = text.replace('trip_points[trip].', 'sheng_thermal_trip(chip->tz_dev, trip)->')
+                text = text.replace('trips[i].', 'sheng_thermal_trip(chip->tz_dev, i)->')
+                text = text.replace('of_thermal_is_trip_valid(chip->tz_dev, i)',
+                                    '(sheng_thermal_trip(chip->tz_dev, i)->temperature != THERMAL_TEMP_INVALID)')
+            if target == 'lmh.c':
+                text = replace(text, '#include <linux/of_platform.h>', '#include <linux/of_platform.h>\n#include <linux/of.h>')
+            if target == 'qcom-spmi-adc5.c':
+                text = text.replace('const struct of_phandle_args *iiospec', 'const struct fwnode_reference_args *iiospec')
+                text = text.replace('.of_xlate =', '.fwnode_xlate =')
+            if target == 'qcom-spmi-adc-tm5.c':
+                text = replace(text, 'devm_of_iio_channel_get_by_name(adc_tm->dev, node, NULL)',
+                               'devm_fwnode_iio_channel_get_by_name(adc_tm->dev, of_fwnode_handle(node), NULL)')
+            return text
+        port.copy('lineage-kernel', path, target, transform)
+    def mode_helper(text):
+        start = text.index('static inline __maybe_unused int qti_tz_change_mode(')
+        end = text.index('\nstatic void disable_cdev_stats', start)
+        text = text[start:end]
+        text = replace(text, '\tstruct thermal_instance *instance;',
+                       '\tstruct thermal_instance *instance;\n\tstruct thermal_trip_desc *td;')
+        text = replace(text, '\tlist_for_each_entry(instance, &tz->thermal_instances, tz_node) {',
+                       '\tfor_each_trip_desc(tz, td) {\n'
+                       '\tlist_for_each_entry(instance, &td->thermal_instances, trip_node) {')
+        text = replace(text, '\n\treturn 0;\n}', '\n\t}\n\treturn 0;\n}')
+        return '#include "thermal_core.h"\n' + text
+    port.copy('lineage-kernel', 'drivers/thermal/qcom/thermal_zone_internal.h', 'sheng-thermal-mode.inc', mode_helper)
+    port.write('sheng-thermal-trip.h', '#include "thermal_core.h"\n'
+               'static inline const struct thermal_trip *sheng_thermal_trip(struct thermal_zone_device *tz, int id)\n'
+               '{\n\tif (id < 0 || id >= tz->num_trips)\n\t\treturn NULL;\n\treturn &tz->trips[id].trip;\n}\n'
+               'static inline int sheng_thermal_trip_id(struct thermal_zone_device *tz, const struct thermal_trip *trip)\n'
+               '{\n\tstruct thermal_trip_desc *td;\n\tint id = 0;\n'
+               '\tfor_each_trip_desc(tz, td) {\n\t\tif (&td->trip == trip)\n\t\t\treturn id;\n\t\tid++;\n\t}\n'
+               '\treturn -EINVAL;\n}\n')
+    port.write('Kbuild', '# SPDX-License-Identifier: GPL-2.0-only\n'
+               'LINUXINCLUDE := -I$(src)/include -I$(src)/../rpmh/include -I$(src)/../firmware/include $(LINUXINCLUDE)\n'
+               'ccflags-y += -I$(src) -I$(srctree)/drivers/thermal -DCONFIG_IPC_LOGGING=1 -DCONFIG_QCOM_SCM_MODULE=1 '
+               '-include $(src)/sheng-thermal-trip.h -ferror-limit=0\n'
+               'obj-m += qcom_tsens.o qcom-spmi-adc-tm5.o qcom-spmi-temp-alarm.o lmh.o qcom-spmi-adc5.o qcom-vadc-common.o\n'
+               'qcom_tsens-y := tsens.o tsens-v2.o tsens-v1.o tsens-v0_1.o tsens-8960.o\n')
+    port.finish(['qcom_tsens.ko', 'qcom-spmi-adc-tm5.ko', 'qcom-spmi-temp-alarm.ko', 'lmh.ko',
+                 'qcom-spmi-adc5.ko', 'qcom-vadc-common.ko'], ['Thermal minidump is not enabled.'])
+    return port.build(['firmware', 'rpmh'])
+
+
+def cpufreq():
+    port = Port('cpufreq')
+    for path in ['drivers/cpufreq/qcom-cpufreq-hw.c', 'include/linux/qcom-cpufreq-hw.h',
+                 'include/trace/events/dcvsh.h']:
+        target = path if path.startswith('include/') else path.rsplit('/', 1)[-1]
+        def transform(text):
+            import re
+            if target.endswith('.h'):
+                text = re.sub(r'__assign_str\((\w+), [^;]+\);', r'__assign_str(\1);', text)
+            if target == 'qcom-cpufreq-hw.c':
+                text = replace(text, '#include <linux/of_platform.h>', '#include <linux/of_platform.h>\n#include <linux/platform_device.h>')
+                text = replace(text, 'max_capacity, capacity, freq_hz, throttled_freq, freq_limit',
+                               'freq_hz, throttled_freq, freq_limit')
+                text = replace(text, '\tmax_capacity = arch_scale_cpu_capacity(cpu);\n\tcapacity = max_capacity;\n', '')
+                text = replace(text, '\t\t\tcapacity = mult_frac(max_capacity, throttled_freq,\n'
+                               '\t\t\t\t\t     policy->cpuinfo.max_freq);\n\n'
+                               '\t\t\t/* Don\'t pass boost capacity to scheduler */\n'
+                               '\t\t\tif (capacity > max_capacity)\n\t\t\t\tcapacity = max_capacity;\n\n', '')
+                text = replace(text, 'arch_set_thermal_pressure(policy->related_cpus, max_capacity - capacity)',
+                               'arch_update_hw_pressure(policy->related_cpus, freq_limit)')
+                text = replace(text, 'arch_set_thermal_pressure(policy->related_cpus, 0)',
+                               'arch_update_hw_pressure(policy->related_cpus, UINT_MAX)')
+                text = replace(text, '\tif (policy_has_boost_freq(policy)) {\n'
+                               '\t\tret = cpufreq_enable_boost_support();\n\t\tif (ret)\n'
+                               '\t\t\tdev_warn(cpu_dev, "failed to enable boost: %d\\n", ret);\n\t}\n\n', '')
+                text = replace(text, '\t.boost_enabled\t= true,',
+                               '\t.boost_enabled\t= true,\n\t.set_boost = cpufreq_boost_set_sw,')
+                text = replace(text, 'static struct freq_attr *qcom_cpufreq_hw_attr[] = {\n'
+                               '\t&cpufreq_freq_attr_scaling_available_freqs,\n'
+                               '\t&cpufreq_freq_attr_scaling_boost_freqs,\n\tNULL\n};\n\n', '')
+                text = replace(text, '\t.attr\t\t= qcom_cpufreq_hw_attr,\n', '')
+                text = replace(text, 'static int qcom_cpufreq_hw_cpu_exit(', 'static void qcom_cpufreq_hw_cpu_exit(')
+                text = replace(text, '\tkfree(policy->freq_table);\n\n\treturn 0;', '\tkfree(policy->freq_table);')
+                text = replace(text, 'static int qcom_cpufreq_hw_driver_remove(', 'static void qcom_cpufreq_hw_driver_remove(')
+                text = replace(text, 'return cpufreq_unregister_driver(&cpufreq_qcom_hw_driver);',
+                               'cpufreq_unregister_driver(&cpufreq_qcom_hw_driver);')
+            return text
+        port.copy('lineage-kernel', path, target, transform)
+    port.write('Kbuild', '# SPDX-License-Identifier: GPL-2.0-only\n'
+               'LINUXINCLUDE := -I$(src)/include $(LINUXINCLUDE)\n'
+               'ccflags-y += -I$(src) -DCONFIG_ARM_QCOM_CPUFREQ_HW_MODULE=1 -ferror-limit=0\n'
+               'obj-m += qcom-cpufreq-hw.o\n')
+    port.finish(['qcom-cpufreq-hw.ko'])
+    return port.build()
+
+
+def buses():
+    port = Port('buses')
+    paths = ['drivers/i2c/busses/i2c-msm-geni.c', 'drivers/i2c/busses/i2c-qup-trace.h',
+             'drivers/spi/spi-msm-geni.c', 'drivers/spi/spi-qup-trace.h',
+             'drivers/dma/qcom/msm_gpi.c', 'drivers/dma/qcom/msm_gpi_mmio.h',
+             'include/linux/qcom-geni-se.h', 'include/linux/qcom-geni-se-common.h',
+             'include/linux/msm_gpi.h', 'include/soc/qcom/boot_stats.h']
+    for path in paths:
+        target = path if path.startswith('include/') else path.rsplit('/', 1)[-1]
+        def transform(text):
+            import re
+            text = text.replace('"../dmaengine.h"', '"dmaengine.h"').replace('"../virt-dma.h"', '"virt-dma.h"')
+            if target.endswith('trace.h'):
+                text = re.sub(r'__assign_str\((\w+), [^;]+\);', r'__assign_str(\1);', text)
+                text = re.sub(r'#define TRACE_INCLUDE_PATH [^\n]+', '#define TRACE_INCLUDE_PATH .', text)
+            callbacks = {'i2c-msm-geni.c': 'geni_i2c_remove', 'spi-msm-geni.c': 'spi_geni_remove',
+                         'msm_gpi.c': 'gpi_remove'}
+            if target == 'i2c-msm-geni.c':
+                for func in ['i2c_trace_log', 'geni_i2c_se_dump_dbg_regs', 'gi2c_gsi_tx_unmap',
+                             'geni_i2c_get_immediate_dma_data']:
+                    text = replace(text, 'void ' + func + '(', 'static void ' + func + '(')
+                text = replace(text, 'us:%d jiffies:%d', 'us:%zu jiffies:%u')
+                text = replace(text, 'SDA Line stuck\\n', 'SDA Line stuck err=%d\\n')
+                text = replace(text, '%s: gpi terminate failed\\n', '%s: gpi terminate failed: %d\\n')
+                text = replace(text, '\tstruct device *wrapper_dev;',
+                               '\tstruct device *wrapper_dev;\n\tvoid __iomem *wrapper_debug_base;')
+                text = replace(text, '\tgi2c->wrapper_dev = dev->parent;',
+                               '\tgi2c->wrapper_dev = dev->parent;\n'
+                               '\tif (gi2c->i2c_test_dev) {\n'
+                               '\t\tstruct resource *res = platform_get_resource(to_platform_device(dev->parent), IORESOURCE_MEM, 0);\n'
+                               '\t\tif (!res)\n\t\t\treturn -EINVAL;\n'
+                               '\t\tgi2c->wrapper_debug_base = devm_ioremap(dev, res->start, resource_size(res));\n'
+                               '\t\tif (!gi2c->wrapper_debug_base)\n\t\t\treturn -ENOMEM;\n\t}')
+                for func in ['test_bus_enable_per_qupv3', 'test_bus_select_per_qupv3', 'test_bus_read_per_qupv3']:
+                    text = text.replace(func + '(gi2c->wrapper_dev,', func + '(gi2c->wrapper_dev, gi2c->wrapper_debug_base,')
+                text = replace(text, '\tif (atomic_read(&gi2c->is_xfer_in_progress)) {\n'
+                               '\t\tI2C_LOG_ERR(gi2c->ipcl, true, gi2c->dev,\n'
+                               '\t\t\t    "%s: Xfer is in progress\\n", __func__);\n\t\treturn -EBUSY;\n\t}',
+                               '\ti2c_del_adapter(&gi2c->adap);\n'
+                               '\ti2c_mark_adapter_suspended(&gi2c->adap);')
+                # Delete clients before removing the underlying DMA/clock resources.
+                text = replace(text, '\tpm_runtime_disable(gi2c->dev);\n\ti2c_del_adapter(&gi2c->adap);',
+                               '\tpm_runtime_disable(gi2c->dev);')
+            if target == 'spi-msm-geni.c':
+                text = re.sub(r'\bspi_master\b', 'spi_controller', text)
+                for old, new in [('spi_master_get_devdata', 'spi_controller_get_devdata'),
+                                 ('spi_master_put', 'spi_controller_put'),
+                                 ('spi_register_master', 'spi_register_controller'),
+                                 ('spi_unregister_master', 'spi_unregister_controller')]:
+                    text = text.replace(old, new)
+                text = text.replace('spi_slv->chip_select', 'spi_get_chipselect(spi_slv, 0)')
+                text = replace(text, 'spi->slave_abort', 'spi->target_abort')
+                for func in ['spi_trace_log', 'geni_spi_se_dump_dbg_regs', '__spi_dump_ipc', 'create_ipc_context']:
+                    text = replace(text, 'void ' + func + '(', 'static void ' + func + '(')
+            if target == 'msm_gpi.c':
+                for ret, func in [('void', 'gpi_mark_stale_events'), ('int', 'gpi_terminate_all'),
+                                  ('void', 'gpi_desc_free'), ('struct dma_async_tx_descriptor *', 'gpi_prep_slave_sg')]:
+                    text = replace(text, ret + (' ' if not ret.endswith('*') else '') + func + '(',
+                                   'static ' + ret + (' ' if not ret.endswith('*') else '') + func + '(')
+                text = replace(text, 'local_rp:0x%011x', 'local_rp:0x%011llx')
+            if target == 'include/linux/qcom-geni-se-common.h':
+                text = replace(text, '#include <linux/clk.h>', '#include <linux/clk.h>\n#include <linux/platform_device.h>')
+                text = replace(text, '@address:0x%x', '@address:%p', 2)
+                # The wrapper's drvdata is a private geni_wrapper, never a geni_se.
+                text = replace(text, '\tstruct geni_se *geni_se_dev;\n\n'
+                               '\tgeni_se_dev = dev_get_drvdata(wrapper_dev);\n', '', 3)
+                text = text.replace('geni_se_dev->base', 'wrapper_base').replace('geni_se_dev->dev', 'wrapper_dev')
+                for func in ['test_bus_enable_per_qupv3', 'test_bus_select_per_qupv3', 'test_bus_read_per_qupv3']:
+                    text = replace(text, func + '(struct device *wrapper_dev,',
+                                   func + '(struct device *wrapper_dev, void __iomem *wrapper_base,')
+            if target in callbacks:
+                text = void_remove(text, callbacks[target])
+            return text
+        port.copy('lineage-kernel', path, target, transform)
+    port.write('Kbuild', '# SPDX-License-Identifier: GPL-2.0-only\n'
+               'LINUXINCLUDE := -I$(src)/include -I$(src)/../rpmh/include $(LINUXINCLUDE)\n'
+               'ccflags-y += -I$(src) -I$(srctree)/drivers/dma -DCONFIG_IPC_LOGGING=1 -ferror-limit=0\n'
+               'obj-m += i2c-msm-geni.o spi-msm-geni.o msm_gpi.o\n')
+    port.finish(['i2c-msm-geni.ko', 'spi-msm-geni.ko', 'msm_gpi.ko'])
+    return port.build(['rpmh'])
+
+
 def remoteproc():
     port = Port('remoteproc')
     paths = ['drivers/remoteproc/' + n for n in
@@ -482,7 +728,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     groups = {'clocks': clocks, 'firmware': firmware, 'pinctrl': pinctrl, 'rpmh': rpmh,
               'interconnect': interconnect, 'soc': soc, 'pmic': pmic, 'ufs-phy': ufs_phy, 'ipc': ipc,
-              'remoteproc': remoteproc}
+              'remoteproc': remoteproc, 'buses': buses, 'cpufreq': cpufreq, 'thermal': thermal,
+              'cooling': cooling}
     parser.add_argument('group', choices=groups)
     args = parser.parse_args()
     raise SystemExit(groups[args.group]())
