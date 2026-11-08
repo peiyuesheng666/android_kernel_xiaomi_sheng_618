@@ -11,13 +11,19 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
-2026-11-09 当前 6.18 已在原厂 HyperOS 正常开机；r31 是最近已确认启动的版本。
+2026-11-09 当前 6.18 已在原厂 HyperOS 正常开机；r32 已通过后续 ADB 确认启动。
 触摸/笔基本输入获用户确认，前后原厂相机预览有连续实际帧，双背光寄存器调节、
 键盘 MCU/原厂 HAL 通信、指纹 HAL 初始化及霍尔输入注册已验证。
 实体键盘/触摸板、合盖、指纹认证、白闪及插电音效仍需验收或排查。
-最新 r32 移除显示诊断等待并补媒体键报告，编译和静态检查通过，但实机
-180 秒内未连接 ADB，尚未取得这轮日志，不能作为可启动版本交付。
-当前 ADB/Fastboot 均不可见，后续须恢复 Fastboot 才能读回日志。
+最新 r32 初次检测在 180 秒内未连接 ADB，但 06:10 后续读取已确认 Android
+完成启动；06:19 成功读回同版日志，显示模块初始化由 13.959 秒降至 1.350 秒。
+用户随后报告崩溃，06:31 临时启动已验证 Recovery，另存新 run 的两份有效日志，
+最新仅至 120.417 秒，尚未取得最后崩溃栈。当前记录器在 120 秒后释放缓冲，
+属于晚发异常抓取缺口；GPU/Wi-Fi 早期告警不能直接认定为崩溃根因。
+设备留在 Recovery；本轮未刷入新版本。详见
+[r32 崩溃读回记录](reports/kernel618-hardware-r32-crash-readback.json)。
+用户已确认拍照可用，录像卡死、键盘/触控板及插电音频卡顿仍在排查；
+下次构建要求固定版本为 6.18.32-peiyuesheng-sheng-kernel，尚未构建。
 NFC 审计见 [reports/kernel618-nfc-audit.json](reports/kernel618-nfc-audit.json)：
 官方描述为 NFC 标签触发分享，未发现本机应补的主动 NFC 控制器。
 

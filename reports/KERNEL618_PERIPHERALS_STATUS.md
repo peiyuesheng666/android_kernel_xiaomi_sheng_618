@@ -1,6 +1,41 @@
 # 6.18 sheng 外围实机修复
 
-## 2026-11-09 r32 诊断等待清理候选未通过启动测试
+## 2026-11-09 r32 后续启动确认与崩溃日志读回
+
+初次检测的 180 秒 ADB 超时记录保留，但后续 06:10 已通过 ADB 确认仍运行
+6.18 且 Android 启动完成，不能再把该超时等同于无法启动。06:19 经临时
+Recovery 读取 run=9090d66d828ac02d，两槽身份和 CRC 有效。实测 msm_drm
+初始化从 r31 的 13959ms 降为 1350ms，240 项模块批次从 28.041 秒降为
+12.189 秒，首次非零双背光为 38.611/38.613 秒。尚未量化完整开机时间。
+证据见 kernel618-hardware-r32-automation.json 与 kernel618-hardware-r32-progress.json。
+
+用户报告随后一次崩溃并手动进入 Fastboot。本轮 06:31 校验 sheng、a 槽、
+unlocked 与已验证 Recovery 哈希后，仅用 fastboot boot 临时启动 Recovery。
+新建独立目录保存 rawdump，未覆盖 06:19 的记录；新 run=66c06b6a58ad0988，
+两槽序号 384/385、时间 120139/120417ms，版本和 CRC 均有效。
+其中 32.072 秒有 GPU 缺少 DDR 通道配置告警，33.798 秒起有六次 Wi-Fi
+dp_rx_tm_deinit → __netif_napi_del_locked 告警。后者对应 ACK net/core/dev.c
+7604 行的 NAPI 删除前状态检查。这些记录后日志仍继续，未抓到本次最终
+Oops/panic，不能凭启动告警判定最后崩溃原因。
+
+Recovery 中 pstore 为空，last_kmsg 不存在。rescue 以 ro,noload 挂载，logfs
+以 ro 挂载，读后均已卸载；android-kmsg.txt 属于 modules-r14/crypto-r15 的
+enablefilecrypto_failed 历史记录，oops 分区出现的是 5.15 内核记录，未找到
+本次 r32 崩溃栈。未挂载 userdata，未执行格式化或分区刷写。设备留在 Recovery。
+完整哈希和读回限制见 kernel618-hardware-r32-crash-readback.json。
+
+源码确认正常构建的 sheng_bootlog 在 120 秒后关闭 destination 并释放 snapshot，
+之后异常入口也因 destination 为空直接返回。因此晚发异常无法由现有记录器
+落盘，下一轮需补持续低频记录与晚发异常抓取，同时保持自动重启关闭；本轮
+尚未修改记录器、构建或刷入新镜像。
+
+用户已验收拍照；录像卡死、实体键盘/触控板及插电音频卡顿仍未修复。
+此前 bugreport 还显示键盘 resume 固件请求返回 EAGAIN，暂存的固件缓存和重试
+候选尚未封包/实机验证，不作为已修复。物理输入抓取与用户操作时间未可靠
+同步，不能声称已证明无事件。下次构建需按用户要求改为
+6.18.32-peiyuesheng-sheng-kernel，并真实重编全部配套模块；尚未完成。
+
+### r32 初次检测记录（已被上述后续证据补充）
 
 核对 r8 生成器及固定上游/LOS 对照来源，确认 sheng_probe_checkpoint 内
 350ms 和 CRTC 循环两处 350ms 均为本项目加入的诊断等待。新增可重放脚本
@@ -16,15 +51,13 @@ patch_sheng618_display_latency.py，仅去掉这三处等待，保留所有检�
 display/keyboard 两组模块编译通过；344模块20966项版本化导入、18008内核
 导出不变、归档权限、原厂 boot 模板/AVB/解包回读通过。相关 Python 语法检查
 通过。03:03:46+0800仅刷boot_a，未启用自动重启。03:06:48启动检测以
-180秒超时失败，期间没有收到ADB；当前Fastboot亦不可见。未取得r32原始
-日志，不能归因死机位置，也不能声称启动已提速或r32可正常开机。
+180秒超时失败，期间没有收到ADB，当时Fastboot亦不可见。该结果仅描述
+初次检测窗口；后续启动确认和读回结果见上文。
 
 Image SHA256=80be4ce96640526d9ef5c2e66c76a0dd3cd6561b389ededaec5f90f7f82a3c48，
 boot SHA256=955e8f7b9a57683fb66aba4e1c69e56c584c4025954f079ccec432de90a4bf43。
-artifacts/sheng-6.18-hardware-r32 仅作为失败候选保留，最近确认可启动的版本
-仍为r31。交付目录总数五版，原厂包未写入，没有备份当前boot。
-用户正在休息，未发起要求操作的询问；设备恢复Fastboot后先读这轮rawdump，
-再决定修复时序还是回退r31，不无依据继续刷写。
+artifacts/sheng-6.18-hardware-r32 保留为可启动但仍存在功能和稳定性问题的
+调试版本。原厂包未写入，没有备份当前boot。本轮崩溃排查未交付新版本。
 
 NFC继续沿用原厂DT、实机与小米官方网页的联合结论：功能描述是NFC标签触发
 分享，没有发现应补的主动控制器。未增加虚假设备绑定；碰一碰及跨设备传输

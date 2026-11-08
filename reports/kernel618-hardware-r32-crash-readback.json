@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "revision": "hardware-r32",
+  "captured_at": "2026-11-09T06:37:10+08:00",
+  "requested_action": "Temporary verified Recovery boot and crash log readback after user reported crash",
+  "recovery": {
+    "temporary_boot": true,
+    "image_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+    "kernel": "5.15.220-gf9ca2b71f672",
+    "product": "sheng",
+    "slot": "a"
+  },
+  "partition_flashes": [],
+  "partitions_erased": [],
+  "userdata_mounted": false,
+  "normal_kernel_automatic_reboot_enabled": false,
+  "raw": {
+    "path": "reports/device/kernel618-hardware-r32-crash-20261109-063156/region-after.bin",
+    "bytes": 2097152,
+    "sha256": "83126368c62dbc2758dbb3dc05ffff19ebb00f0073aef773559b2b6790b1e068"
+  },
+  "run": "66c06b6a58ad0988",
+  "snapshots": [
+    {
+      "slot": 0,
+      "sequence": 384,
+      "uptime_ms": 120139,
+      "bytes": 1044039
+    },
+    {
+      "slot": 1,
+      "sequence": 385,
+      "uptime_ms": 120417,
+      "bytes": 1044056
+    }
+  ],
+  "latest_log": {
+    "path": "reports/device/kernel618-hardware-r32-crash-20261109-063156/bootlog-66c06b6a58ad0988-385.txt",
+    "bytes": 1044056,
+    "sha256": "a7d2a141d51f6efe9d624b2343d4d0060da4fad5ead5770ce06712dad0adb6be"
+  },
+  "prior_readback_preserved": "reports/device/kernel618-hardware-r32/region-after.bin",
+  "warnings": [
+    "<4>[   32.071713][ T2469] WARNING: CPU: 5 PID: 2469 at adreno_gen7_hwsched.c:254 gen7_hwsched_gmu_first_boot+0x2b8/0x340 [msm_kgsl]",
+    "<4>[   33.798143][  T200] WARNING: CPU: 5 PID: 200 at net/core/dev.c:7604 __netif_napi_del_locked+0xe0/0x13c",
+    "<4>[   33.804557][  T200] WARNING: CPU: 5 PID: 200 at net/core/dev.c:7604 __netif_napi_del_locked+0xe0/0x13c",
+    "<4>[   33.810829][  T200] WARNING: CPU: 5 PID: 200 at net/core/dev.c:7604 __netif_napi_del_locked+0xe0/0x13c",
+    "<4>[   33.817102][  T200] WARNING: CPU: 5 PID: 200 at net/core/dev.c:7604 __netif_napi_del_locked+0xe0/0x13c",
+    "<4>[   33.823334][  T200] WARNING: CPU: 5 PID: 200 at net/core/dev.c:7604 __netif_napi_del_locked+0xe0/0x13c",
+    "<4>[   33.829562][  T200] WARNING: CPU: 6 PID: 200 at net/core/dev.c:7604 __netif_napi_del_locked+0xe0/0x13c"
+  ],
+  "confirmed_terminal_kernel_fault": false,
+  "interpretation": "Early GPU and Wi-Fi warnings are present; logs continue afterwards. No final fault stack from the reported crash was recovered.",
+  "capture_gap": {
+    "source": {
+      "path": "device/xiaomi/sheng/interfaces/kernel/6.18/sheng_bootlog.c",
+      "bytes": 14941,
+      "sha256": "ae8393c4b159fc74f0e66d280f49b3acb6d886f1822fa5f1f15b59461af976f2"
+    },
+    "normal_periodic_lifetime_ms": 120000,
+    "buffers_and_destination_released": true,
+    "late_exception_capture_disabled_by_closed_destination": true,
+    "change_implemented": false,
+    "next_required_work": "Keep low-frequency periodic capture and exception writer available after boot without enabling automatic reboot; validate late fault capture in disposable QEMU before flashing"
+  },
+  "persistent_logs": {
+    "pstore_empty": true,
+    "proc_last_kmsg_present": false,
+    "mounts": [
+      {
+        "partition": "rescue",
+        "options": "ro,noload,nodev,nosuid,noexec",
+        "unmounted_after_read": true
+      },
+      {
+        "partition": "logfs",
+        "options": "ro,nodev,nosuid,noexec",
+        "unmounted_after_read": true
+      }
+    ],
+    "rescue_android_kmsg": {
+      "path": "reports/device/kernel618-hardware-r32-crash-20261109-063156/mqsas/android-kmsg.txt",
+      "bytes": 1631377,
+      "sha256": "d16d1f17e79c50dfdea045497ce85863ea10519cf4926016191b6b265d878d48",
+      "identified_revisions": [
+        "modules-r14",
+        "crypto-r15"
+      ],
+      "current_crash_evidence": false
+    },
+    "oops": {
+      "path": "reports/device/kernel618-hardware-r32-crash-20261109-063156/oops.bin",
+      "bytes": 16777216,
+      "sha256": "e048640047deb6304c89c26e668bc92d82ea7f4fd512c697a15a7e726bdc2647",
+      "bytes_read": 16777216,
+      "identified_kernel_series": "5.15",
+      "current_r32_marker_found": false
+    },
+    "uefi": {
+      "files": [
+        {
+          "path": "reports/device/kernel618-hardware-r32-crash-20261109-063156/uefi/UefiLog0.txt",
+          "bytes": 65536,
+          "sha256": "300ac10ae65a2bdc570fcd97e80b7b7fb7eb2205784925809e5fb2cb05b48c3f"
+        },
+        {
+          "path": "reports/device/kernel618-hardware-r32-crash-20261109-063156/uefi/UefiLog1.txt",
+          "bytes": 65536,
+          "sha256": "ab3edb532e55fd277b54199e26dc2dfc1da0a9cb1186521952ecc89eb36db9d1"
+        },
+        {
+          "path": "reports/device/kernel618-hardware-r32-crash-20261109-063156/uefi/UefiLog2.txt",
+          "bytes": 65536,
+          "sha256": "f1485e69a968fb6fee6b524793edd470b4e9ec4d75873554b417a1e24e606f7a"
+        },
+        {
+          "path": "reports/device/kernel618-hardware-r32-crash-20261109-063156/uefi/UefiLog3.txt",
+          "bytes": 65536,
+          "sha256": "09ad43412ce6d2325ff8293c7739f47da7325d83c7de7c9468bef7e2267b4305"
+        },
+        {
+          "path": "reports/device/kernel618-hardware-r32-crash-20261109-063156/uefi/UefiLog4.txt",
+          "bytes": 65536,
+          "sha256": "0fdd0d0a658c38cf0b254cf3727bd379176fcef277a7450682afbe6fa854626e"
+        }
+      ],
+      "limitation": "Rotating bootloader logs include deliberate fastboot/recovery transitions; not a kernel crash stack"
+    }
+  },
+  "device_left_in": "temporary Recovery",
+  "new_kernel_built_or_flashed": false,
+  "remaining_issues": [
+    "Crash root cause not established",
+    "Video recording hang",
+    "Keyboard and touchpad resume/input",
+    "Charging-associated audio stutter",
+    "Boot white flash"
+  ],
+  "next_build_required_release": "6.18.32-peiyuesheng-sheng-kernel"
+}
