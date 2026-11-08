@@ -17,3 +17,11 @@ establish a five-second improvement in the earlier boot animation or touch laten
 Validation pending: host init parser, scoped vendor packaging, installed file hash,
 boot completion, absence of the exact wait timeout, unchanged thermal services and
 sconfig, and existing functionality regression checks. No runtime fix is claimed yet.
+
+## r29 runtime verification
+
+r29 booted on ca10ede3/b and all seven partition/file hashes passed. The exact
+boot_complete wait timeout is absent from the new kernel log. mi_thermald and
+vendor.thermal-hal remain running, sconfig remains 19, thermalservice reports
+temperatures, and the captured crash buffer is empty. No claim is made about
+total boot-animation duration. Evidence: runtime-r29-identity-boot-20261108.json.

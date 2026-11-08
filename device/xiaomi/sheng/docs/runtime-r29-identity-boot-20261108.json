@@ -1,0 +1,33 @@
+{
+  "revision": 29,
+  "date": "2026-11-08",
+  "serial": "ca10ede3",
+  "slot": "b",
+  "user_confirmed_boot": true,
+  "seven_partition_and_scoped_file_hashes_passed": true,
+  "boot_completed": true,
+  "selinux": "Enforcing",
+  "systemui_original": true,
+  "camera_provider_alive": true,
+  "crash_buffer_empty": true,
+  "thermal_boot_complete_wait_timeout_present": false,
+  "mi_thermald": "running",
+  "thermal_hal": "running",
+  "thermal_sconfig": 19,
+  "settings_resource_probe_locales": [
+    "zh-CN",
+    "en-US"
+  ],
+  "codename_installed": "sheng",
+  "title_color_user_feedback": "Model name and codename title are grey; follow-up required",
+  "full_product_build_passed": false,
+  "raw_evidence_directory": "reports/device/r29-20261108-095828",
+  "evidence_sha256": {
+    "crash-buffer.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "device-operations.txt": "02036fe76224c219b6a43aad435e833d559d3434ec8c10ae92d117e3e74f9915",
+    "identity-state.txt": "318bd36be0a53473704dcdc350101f830791d36b781e36dfb9603a3619d3cc68",
+    "input-state.txt": "72e95751d64aadd7743eb11954a75442ee65c1769ed99f57372804448f4ed492",
+    "kernel.txt": "7231bb948f7cdc3d29eb1ac5e4776654de94f4971276309054e44c3d967555da",
+    "thermal-state.txt": "02b83c5b3943d5edae38f75763d80a9250591df81e5561a0cf24bf802930e4a9"
+  }
+}
