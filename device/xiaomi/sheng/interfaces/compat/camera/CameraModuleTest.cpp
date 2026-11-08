@@ -58,7 +58,7 @@ int main() {
             CHECK(!correctedMetadata(metadata, &output));
             int32_t expected = before;
             if ((facing == ANDROID_LENS_FACING_BACK && before == 90) ||
-                (facing == ANDROID_LENS_FACING_FRONT && before == 270)) expected = (before + 270) % 360;
+                (facing == ANDROID_LENS_FACING_FRONT && before == 270)) expected = 0;
             CHECK(angle(output) == expected);
             CHECK(angle(metadata) == before);
             CHECK(get_camera_metadata_entry_count(metadata) == get_camera_metadata_entry_count(output));

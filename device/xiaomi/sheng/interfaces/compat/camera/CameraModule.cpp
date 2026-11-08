@@ -28,7 +28,9 @@ camera_module_t* original = nullptr;
 bool correctedOrientation(uint8_t facing, int32_t old, int32_t* corrected) {
     if ((facing == ANDROID_LENS_FACING_BACK && old == 90) ||
         (facing == ANDROID_LENS_FACING_FRONT && old == 270)) {
-        *corrected = (old + 270) % 360;
+        // Both observed mounts must report zero in the tablet's natural
+        // landscape frame. The mirrored front path needs +90, back needs -90.
+        *corrected = 0;
         return true;
     }
     return false;
