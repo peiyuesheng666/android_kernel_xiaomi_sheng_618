@@ -21,7 +21,7 @@ foreach ($key in @('exact_baselines_verified', 'all_filesystem_stages_verified',
     'original_systemui_required', 'system_ext_and_vendor_dlkm_unchanged')) {
     if ($manifest.$key -ne $true) { throw "Missing packaging review: $key" }
 }
-$specPath = Join-Path $workspace 'device/xiaomi/sheng/docs/batch-r32-final-inputs-20261108.json'
+$specPath = Join-Path $workspace 'device/xiaomi/sheng/docs/batch-r32-growth-inputs-20261108.json'
 if ((Get-FileHash -LiteralPath $specPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $manifest.spec_sha256) {
     throw 'Frozen specification changed.'
 }
@@ -31,12 +31,13 @@ foreach ($entry in $manifest.frozen_spec.reviews_sha256.PSObject.Properties) {
         throw "Review changed: $($entry.Name)"
     }
 }
-$reviewPath = Join-Path $workspace 'device/xiaomi/sheng/docs/r32-face-final-build-review-20261108.json'
+$reviewPath = Join-Path $workspace 'device/xiaomi/sheng/docs/r32-face-growth-build-review-20261108.json'
 $review = Get-Content -Raw -LiteralPath $reviewPath | ConvertFrom-Json
 foreach ($key in @('scoped_configuration_assembly_passed','baseline_matrix_byte_reproduced',
     'only_miface_matrix_hal_added','complete_live_vintf_compatibility_passed',
     'actual_kernel_config_checked','exact_face_context_and_policy_checks_passed','postbuild_public_audit_passed',
-    'normal_strip_rule_reused','all_runtime_elf_sections_preserved','five_stripped_candidate_elf_checks_passed')) {
+    'normal_strip_rule_reused','all_runtime_elf_sections_preserved','five_stripped_candidate_elf_checks_passed',
+    'vendor_reserve_configuration_checked','live_super_space_checked')) {
     if ($review.$key -ne $true) { throw "Missing build review: $key" }
 }
 if ($review.full_product_build_passed -ne $false) { throw 'Do not claim a full product build.' }
@@ -97,7 +98,11 @@ foreach ($p in @('vbmeta','vbmeta_system')) {
         throw 'Wrong AVB parent baseline.'
     }
 }
-$sizes = @{system=1005133824; vendor=303517696; odm=1141067776; vbmeta=8192; vbmeta_system=4096}
+$sizes = @{system=1005133824; vendor=352321536; odm=1141067776; vbmeta=8192; vbmeta_system=4096}
+if ($manifest.vendor_logical_partition_growth.before -ne 303517696 -or
+    $manifest.vendor_logical_partition_growth.after -ne $sizes.vendor -or
+    $manifest.vendor_logical_partition_growth.required_payload_reserve -ne 33554432 -or
+    $manifest.partition_reports.vendor.free_payload_bytes -lt 33554432) { throw 'Unreviewed vendor growth.' }
 if (@($manifest.files).Count -ne 5 -or (($manifest.files.partition | Sort-Object) -join ',') -ne 'odm,system,vbmeta,vbmeta_system,vendor') {
     throw 'Unexpected image set.'
 }
@@ -181,6 +186,21 @@ if ($VerifyRuntime) {
     Write-Output "Seven partition/file hashes verified; evidence: $evidence"
     return
 }
+$layout = Invoke-Target $adb @('shell','lpdump --slot=1 /dev/block/by-name/super')
+Set-Content -LiteralPath (Join-Path $evidence 'super-before-resize.txt') -Value $layout -Encoding utf8
+if ($layout -notmatch 'Update state:\s*none' -or $layout -notmatch 'Using snapuserd:\s*0' -or
+    $layout -notmatch 'Current slot:\s*_b' -or $layout -notmatch 'Name:\s*qti_dynamic_partitions_b\s+Maximum size:\s*(\d+) bytes') {
+    throw 'Unexpected snapshot, slot or dynamic partition group.'
+}
+$groupMaximum = [long]$Matches[1]
+$partitionTable = ($layout -split 'Super partition layout:')[0]
+$sectors = [long]0
+foreach ($extent in [regex]::Matches($partitionTable,'(?m)^\s+(\d+) \.\. (\d+) linear super \d+\s*$')) {
+    $sectors += [long]$extent.Groups[2].Value - [long]$extent.Groups[1].Value + 1
+}
+if ($sectors -le 0 -or $groupMaximum - $sectors * 512 -lt ($sizes.vendor - 303517696 + 33554432)) {
+    throw 'Insufficient checked group space for vendor growth.'
+}
 Invoke-Target $adb @('reboot','fastboot') | Write-Output
 $deadline = (Get-Date).AddSeconds(90)
 $ready = $false
@@ -191,6 +211,10 @@ do {
 } until ($ready -or (Get-Date) -gt $deadline)
 if (-not $ready -or (Invoke-Target $fastboot @('getvar','product')) -notmatch '(?m)^product:\s*sheng\s*$' -or
     (Invoke-Target $fastboot @('getvar','current-slot')) -notmatch '(?m)^current-slot:\s*b\s*$') { throw 'Target fastbootd identity mismatch.' }
+Invoke-Target $fastboot @('resize-logical-partition','vendor_b',[string]$sizes.vendor) | Write-Output
+$vendorSize = Invoke-Target $fastboot @('getvar','partition-size:vendor_b')
+if ($vendorSize -notmatch 'partition-size:vendor_b:\s*(0x[0-9a-fA-F]+)' -or
+    [Convert]::ToInt64($Matches[1].Substring(2),16) -ne $sizes.vendor) { throw 'Vendor resize size mismatch.' }
 foreach ($p in @('system','vendor','odm','vbmeta_system','vbmeta')) {
     Invoke-Target $fastboot @('flash',($p + '_b'),(Join-Path $images ($p + '.img'))) | Write-Output
 }

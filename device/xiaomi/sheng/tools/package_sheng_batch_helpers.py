@@ -158,11 +158,13 @@ def tree_descriptor(avb, avbtool, image, partition):
     return footer, header, descriptors, selected[0]
 
 
-def verify_seal(avb, avbtool, base, image, partition, fixed_payload=False):
+def verify_seal(avb, avbtool, base, image, partition, fixed_payload=False, expected_partition_size=None):
     old_footer, old_header, old_descriptors, old_tree = tree_descriptor(avb, avbtool, base, partition)
     new_footer, new_header, new_descriptors, new_tree = tree_descriptor(avb, avbtool, image, partition)
     run([HOST / 'avbtool', 'verify_image', '--image', image], capture_output=True)
-    assert image.stat().st_size == base.stat().st_size
+    expected_size = base.stat().st_size if expected_partition_size is None else expected_partition_size
+    assert expected_size >= base.stat().st_size and expected_size % 4096 == 0
+    assert image.stat().st_size == expected_size
     for field in ('flags', 'rollback_index', 'rollback_index_location', 'algorithm_type',
                   'required_libavb_version_major', 'required_libavb_version_minor', 'release_string'):
         assert getattr(old_header, field) == getattr(new_header, field), field
@@ -191,7 +193,7 @@ def new_metadata(value, directory=False, nlink=1, symlink=False):
 
 
 def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_certificates=None,
-                external_symlink_targets=None):
+                external_symlink_targets=None, partition_size=None):
     """Update only declared paths; preserve original EROFS metadata and UUID."""
     sources = validate_inputs(partition, entries, allow_symlinks=True)
     new_apk_certificates = new_apk_certificates or {}
@@ -285,6 +287,11 @@ def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_cer
     run([HOST / 'sefcontext_compile', '-o', contexts_bin, contexts])
     props_path = PRODUCT / f'obj/PACKAGING/{partition}_intermediates/{partition}_image_info.txt'
     props = dict(line.split('=', 1) for line in props_path.read_text().splitlines() if '=' in line)
+    target_size = base.stat().st_size if partition_size is None else partition_size
+    assert target_size >= base.stat().st_size and target_size % 4096 == 0
+    if partition_size is not None:
+        assert partition == 'vendor' and props.get('use_dynamic_partition_size') == 'true'
+        assert props.get('vendor_reserved_size') == '33554432'
     _, image_header, descriptors, tree = tree_descriptor(avb, avbtool, base, partition)
     args = ['--hash_algorithm', tree.hash_algorithm, '--salt', tree.salt.hex(),
             '--block_size', str(tree.data_block_size), '--fec_num_roots', str(tree.fec_num_roots),
@@ -300,11 +307,18 @@ def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_cer
     with (work / f'{partition}-build.log').open('w') as log:
         run(erofs_command(partition, props, root, image, config, contexts_bin, old_uuid),
             stdout=log, stderr=subprocess.STDOUT)
+    raw_bytes = image.stat().st_size
+    max_bytes = int(run([HOST / 'avbtool', 'add_hashtree_footer', '--partition_size', target_size,
+                         '--calc_max_image_size', '--hash_algorithm', tree.hash_algorithm,
+                         '--block_size', tree.data_block_size, '--fec_num_roots', tree.fec_num_roots],
+                        capture_output=True, text=True).stdout)
+    if partition_size is not None:
+        assert max_bytes - raw_bytes >= int(props['vendor_reserved_size'])
     run([HOST / 'avbtool', 'add_hashtree_footer', '--image', image,
-         '--partition_name', partition, '--partition_size', base.stat().st_size,
+         '--partition_name', partition, '--partition_size', target_size,
          '--algorithm', 'NONE', '--internal_release_string', image_header.release_string] + args,
         capture_output=True)
-    descriptor = verify_seal(avb, avbtool, base, image, partition)
+    descriptor = verify_seal(avb, avbtool, base, image, partition, expected_partition_size=target_size)
     readback = work / f'{partition}-readback'
     run([HOST / 'fsck.erofs', '-d0', '--extract=' + str(readback), '--preserve', image],
         stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
@@ -315,7 +329,10 @@ def stage_erofs(partition, base, entries, nodes, work, avb, avbtool, new_apk_cer
     validate_inputs(partition, entries, allow_symlinks=True)
     return image, descriptor, dict(changed_files=sorted(changed), metadata_preserved=True,
                                   erofs_uuid=old_uuid, apk_certificates=signer_digests, created_symlinks=aliases,
-                                  baseline_entries={p: before.get(p) for p in sources})
+                                  baseline_entries={p: before.get(p) for p in sources},
+                                  partition_size=target_size, raw_filesystem_bytes=raw_bytes,
+                                  avb_max_filesystem_bytes=max_bytes,
+                                  free_payload_bytes=max_bytes - raw_bytes)
 
 
 def inode_number(image, name):

@@ -19,7 +19,8 @@ from package_sheng_model_followup import PRODUCT, ROM, parse_image, sha
 
 DEVICE = Path(__file__).resolve().parents[1]
 DIAG = Path('/root/sheng-lineage/hardware-diagnostics')
-REVIEW = 'docs/r32-face-final-build-review-20261108.json'
+REVIEW = 'docs/r32-face-growth-build-review-20261108.json'
+VENDOR_BYTES = 352321536  # Scoped raw development image; normal builds size dynamically.
 PINNED = {
     'system': ('r30', 1005133824, '0f9c8ad6341faae4abaa9c080614d6d879aa62e85e36383086bb0333adfb4dce'),
     'vendor': ('r31', 303517696, '033fdfcc1100e8d504739c43442a6b4e57e73088b938d2f9a9bff9369702217f'),
@@ -63,7 +64,8 @@ def validate(spec, workspace):
                 'only_miface_matrix_hal_added', 'complete_live_vintf_compatibility_passed',
                 'actual_kernel_config_checked', 'exact_face_context_and_policy_checks_passed',
                 'postbuild_public_audit_passed', 'normal_strip_rule_reused',
-                'all_runtime_elf_sections_preserved', 'five_stripped_candidate_elf_checks_passed'):
+                'all_runtime_elf_sections_preserved', 'five_stripped_candidate_elf_checks_passed',
+                'vendor_reserve_configuration_checked', 'live_super_space_checked'):
         assert review[key] is True, key
     assert review['full_product_build_passed'] is False
     assert review['normal_product_module_build_passed'] is False
@@ -155,7 +157,7 @@ def main():
             # No APK is added or replaced in this exact system scope.
             image, tree, report = stage_ext4(*arguments, platform_certificate=[])
         else:
-            image, tree, report = stage_erofs(*arguments)
+            image, tree, report = stage_erofs(*arguments, partition_size=VENDOR_BYTES if p == 'vendor' else None)
         prefix = 'system/' if p == 'system' else ''
         assert set(report['changed_files']) == {prefix + r for r in SCOPE[p]}
         assert report['metadata_preserved']
@@ -187,6 +189,8 @@ def main():
         both_parent_chains_verified=True, both_parent_signatures_verified=True,
         other_avb_descriptors_unchanged=True, original_systemui_required=True,
         system_ext_and_vendor_dlkm_unchanged=True, full_product_build_passed=False,
+        vendor_logical_partition_growth=dict(before=PINNED['vendor'][1], after=VENDOR_BYTES,
+                                            required_payload_reserve=33554432),
         persistent_build_evidence_dir=str(evidence), temporary_work_on_tmpfs=False,
         hardware_boot_tested=False, runtime_verified=False))
     assert work.resolve().parent == DIAG and work.name.startswith('r32-packaging-') and not work.is_symlink()
