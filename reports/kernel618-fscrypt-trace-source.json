@@ -1,0 +1,30 @@
+{
+  "before": "5f48936ebbc9b19cd0436934edb98574b127c4786833d8ea3bcbddc9c700bde3",
+  "after": "cd2c46474d32f176100226bff7e786ed5e53e0db6ac429d15e255f555513555b",
+  "key_material_recorded": false,
+  "behavior": "Metadata-only diagnostics, original validation and return values unchanged",
+  "fields": [
+    "total length",
+    "header length",
+    "key spec type",
+    "flags",
+    "raw length"
+  ],
+  "references": [
+    {
+      "commit": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+      "path": "fs/crypto/keyring.c",
+      "difference": "Provisioning size validation depends on new payload flags; get_keyring_key requires exact requested flags"
+    },
+    {
+      "commit": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "path": "fs/crypto/keyring.c",
+      "difference": "LOS 5.15 permits up to 128 bytes regardless of reserved field and has no wrapped flag in provisioning payload"
+    },
+    {
+      "commit": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "fs/crypto/keyring.c",
+      "difference": "MiCode stock uses old zero-reserved provisioning ABI; compare actual payload metadata before changing semantics"
+    }
+  ]
+}

@@ -342,3 +342,16 @@ init 因 enablefilecrypto_failed 主动请求 reboot,recovery。未见新的 Oop
 ADB 尚未连接，保留测试模式。下一步修复 fscrypt ABI 兼容，保持系统包不变，
 只诊断负载大小/标志而不记录密钥内容。
 详见 kernel618-modules-r14-{hardware,automation}.json。
+
+
+### crypto-r15：保持返回值不变，只读取 fscrypt 负载元数据
+
+对照 ACK ff4a6c3、LOS f9ca2b71、MiCode 29db5d59：5.15 provisioning 负载第二字段是
+reserved，允许至 128 字节；所选 6.18 将该字段定义为 flags，未标 wrapped 时最多 64 字节，
+get_keyring_key 还要求 payload.flags 与 ioctl flags 一致。实际负载尚未确认，不能先放宽校验。
+新增长度、头长度、type、flags、raw 长度的诊断，无密钥、标识符或原始负载打印；
+所有原校验和返回值保持不变。source receipt 为 kernel618-fscrypt-trace-source.json。
+复用 r12 模块和 r14 兼容修复，18,008 导出、官方 boot 封包及解包回读通过。
+不重复与纯诊断打印无关的 QEMU 生命周期测试；接下来实际读回元数据，再决定 ABI 修复。
+仍保留 180 秒测试模式，实机结果待本轮自动读取。
+当前五版：slab-r11、aux-r12、auto-r13、modules-r14、crypto-r15。

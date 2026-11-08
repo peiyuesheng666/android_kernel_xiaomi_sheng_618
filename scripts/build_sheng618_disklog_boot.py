@@ -24,6 +24,7 @@ parser.add_argument('--test-timeout', type=int, choices=[180],
                     help='Test only: return to bootloader at uptime 180 seconds')
 parser.add_argument('--legacy-module-reuse', action='store_true',
                     help='Recognize live replacements for stock 5.15 module duplicates')
+parser.add_argument('--fscrypt-trace', action='store_true', help='Print only provisioning length/type/flags')
 parser.add_argument('--replace-untested', action='store_true',
                     help='Replace only this unflashed candidate, preserving its directory')
 options = parser.parse_args()
@@ -59,6 +60,8 @@ if 'sheng_bootlog_test_mode' in source.read_text():
     run([sys.executable, work / 'scripts/patch_sheng618_test_reboot.py'])
 if options.legacy_module_reuse:
     run([sys.executable, work / 'scripts/patch_sheng618_module_reuse.py'])
+if options.fscrypt_trace:
+    run([sys.executable, work / 'scripts/patch_sheng618_fscrypt_trace.py'])
 shutil.copyfile(source, misc / 'sheng_bootlog.c')
 makefile = misc / 'Makefile'
 line = 'obj-$(CONFIG_SHENG_BOOTLOG) += sheng_bootlog.o\n'
@@ -133,6 +136,7 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
           'interval_ms': 250, 'maximum_duration_ms': 200000 if options.test_timeout else 120000,
           'test_timeout_seconds': options.test_timeout, 'crc32_and_footer': True,
           'legacy_live_module_reuse': options.legacy_module_reuse,
+          'fscrypt_metadata_trace': options.fscrypt_trace,
           'does_not_require_sysfs_or_device_nodes': True,
           'requires_ufs_partition_registration': True, 'hardware_log_received': False,
           'cmdline': cmdline, 'build_log': str(log), 'maximum_retained_versions': 5}

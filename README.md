@@ -192,3 +192,5 @@ ARM64 `Image`、`Image.gz` 和通用 GKI 模块。它不是 Google 认证的 GKI
 
 2026-11-08 modules-r14 实机解除模块就绪等待，已进入 post-fs-data；现在因 fscrypt-provisioning
 密钥负载接口返回 EINVAL 被原厂 init 重启，已自动转 Fastboot 并读回日志。尚无候选 ADB。
+
+2026-11-08 crypto-r15 只加入 fscrypt 负载大小/标志诊断，保持原校验，待实机确认旧 ABI 差异。

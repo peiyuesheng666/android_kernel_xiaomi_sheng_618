@@ -1,0 +1,12 @@
+--- a/fs/crypto/keyring.c
++++ b/fs/crypto/keyring.c
+@@ -602,0 +603,3 @@
++	pr_notice("sheng_fscrypt_abi: provisioning len=%zu header=%zu type=%u flags=0x%x raw=%zu\n",
++		  prep->datalen, sizeof(*payload), payload->type, payload->flags,
++		  prep->datalen - sizeof(*payload));
+@@ -604 +607,2 @@
+-				    payload->flags))
++				    payload->flags)) {
++		pr_notice("sheng_fscrypt_abi: rejected provisioning key size\n");
+@@ -605,0 +610 @@
++	}
