@@ -1,0 +1,47 @@
+{
+  "revision": 37,
+  "spec_sha256": "51162aec502f62ff8dc517e40f06e24bfdd0285526f09f17e2043ecac0e2b606",
+  "files": [
+    {
+      "partition": "vbmeta",
+      "name": "vbmeta.img",
+      "bytes": 8192,
+      "sha256": "75b740055de5cb55ee5e5d47d80f003ae7215bc376a1a2d048d07b747d9bf6fc"
+    },
+    {
+      "partition": "vendor",
+      "name": "vendor.img",
+      "bytes": 352321536,
+      "sha256": "3d6fa51b783c96c7ad8d45bea1dcd5ad6cf9fca9dcf80c5cec6fe56898fd4663"
+    }
+  ],
+  "partition_reports": {
+    "vendor": {
+      "changed_files": [
+        "build.prop"
+      ],
+      "metadata_preserved": true,
+      "erofs_uuid": "e0bc7ea7-6ad2-53bd-8343-db3cd56b720c",
+      "apk_certificates": {},
+      "created_symlinks": {},
+      "baseline_entries": {
+        "build.prop": [
+          "file",
+          "264883ef0a6486d9861ec1d94db4fb7f0d6a639d242184be66064ca79bba8834"
+        ]
+      },
+      "partition_size": 352321536,
+      "raw_filesystem_bytes": 298684416,
+      "avb_max_filesystem_bytes": 346681344,
+      "free_payload_bytes": 47996928
+    }
+  },
+  "exact_baselines_verified": true,
+  "all_filesystem_stages_verified": true,
+  "root_signature_verified": true,
+  "root_other_descriptors_unchanged": true,
+  "original_systemui_required": true,
+  "system_ext_and_vbmeta_system_unchanged": true,
+  "full_product_build_passed": false,
+  "runtime_verified": false
+}
