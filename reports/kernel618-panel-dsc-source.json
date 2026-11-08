@@ -1,0 +1,28 @@
+{
+  "reference_repository": "https://github.com/MiCode/vendor_opensource_display-drivers",
+  "reference_revision": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+  "reference_functions": [
+    "sde_dsc_populate_dsc_config",
+    "is_use_nt37705_dsc_config"
+  ],
+  "panel_id": "0x4e38316150360200",
+  "live_dtb": "diagnostic/disklog-r5/live.dts",
+  "observed_difference": "DSC 1.1 first_line_bpg_offset 12 -> stock NT37705 13 before derived RC calculations",
+  "generic_dsi_and_dp_entry_preserved": true,
+  "files": {
+    "msm/sde_dsc_helper.h": {
+      "before": "44433f31ead9a34a9a32c8a439ffbfd6d7a31bd087316c27d61bbfef66541afe",
+      "after": "6a184d98e4559ef68d19f906f144fed247ede810ee0cca5e1cadfbac18f1c917"
+    },
+    "msm/sde_dsc_helper.c": {
+      "before": "f81d0faf2cfc209806730fd32433c20b7cecee79e0d8262660ddd385bb90b676",
+      "after": "a98ff506733af3e120c910e47573f36ea497f3a9e2933b654a79922c2c13cd30"
+    },
+    "msm/dsi/dsi_panel.c": {
+      "before": "bfd23db427fb292d1f15189226c3796be5c99974d31ae65afeb5410c10835bae",
+      "after": "96db0b3daeb51cc19bc8ddedbde2d11c5924b437b9411801555e0088ce0c85ad"
+    }
+  },
+  "hardware_result": "pending",
+  "screen_corruption_fixed_claimed": false
+}

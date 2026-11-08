@@ -1,0 +1,34 @@
+{
+  "revision": "panel-r19",
+  "checks": {
+    "release": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+    "expected_series": "6.18",
+    "symvers_sha256": "f145e6a36d7f7dc574acbf4cd6dd11ebf3f6597f723d7099d4fb27de4c9fe373",
+    "effective_module_count": 338,
+    "versioned_imports_checked": 20574,
+    "issue_counts": {},
+    "issue_count": 0,
+    "issues": [],
+    "issues_truncated": false,
+    "warnings": [],
+    "abi_passed": true,
+    "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+  },
+  "archive": {
+    "archive": "/root/sheng-618/diagnostic/panel-r19/overlay.cpio",
+    "sha256": "10d14efcb092410d1418185a12a3c52f4bb0e1e4671a201647265114fc1ee23a",
+    "entry_count": 350,
+    "module_count": 338,
+    "helper_mode": "0o100755",
+    "helper_is_regular": true,
+    "helper_executable": true,
+    "helper_sha256": "7e8efddffe6700c7799d4d0434135e7e04bbb14ffdcc3aa0aeafda4c3c547283"
+  },
+  "changed_payloads": [
+    "lib/modules/msm_drm.ko"
+  ],
+  "source_receipt": "kernel618-panel-dsc-source.json",
+  "msm_drm_sha256": "1bf0aaef2e513bb09cbe10b28a22e60ba17f90b22cf66c2a5f3e00d063d07f6e",
+  "test_mode_disabled_because": "usb-r18 candidate 6.18 ADB connected on hardware",
+  "hardware_result": "pending"
+}

@@ -1,0 +1,45 @@
+--- a/msm/sde_dsc_helper.h
++++ b/msm/sde_dsc_helper.h
+@@ -14,0 +15,2 @@
++int sde_dsc_populate_dsc_config_with_panel(struct drm_dsc_config *dsc,
++		int scr_ver, u64 panel_id);
+--- a/msm/sde_dsc_helper.c
++++ b/msm/sde_dsc_helper.c
+@@ -266 +266,2 @@
+-int sde_dsc_populate_dsc_config(struct drm_dsc_config *dsc, int scr_ver) {
++int sde_dsc_populate_dsc_config_with_panel(struct drm_dsc_config *dsc,
++		int scr_ver, u64 panel_id) {
+@@ -286,0 +288,3 @@
++		/* MiCode sheng: NT37705 needs 13, including derived RC fields. */
++		if (panel_id == 0x4e38316150360200ULL)
++			dsc->first_line_bpg_offset = 13;
+@@ -395,0 +400,5 @@
++}
++
++int sde_dsc_populate_dsc_config(struct drm_dsc_config *dsc, int scr_ver)
++{
++	return sde_dsc_populate_dsc_config_with_panel(dsc, scr_ver, 0);
+--- a/msm/dsi/dsi_panel.c
++++ b/msm/dsi/dsi_panel.c
+@@ -3697 +3697 @@
+-static int dsi_panel_parse_dsc_params(struct dsi_display_mode *mode,
++static int dsi_panel_parse_dsc_params(struct dsi_panel *panel, struct dsi_display_mode *mode,
+@@ -3851,2 +3851,13 @@
+-	rc = sde_dsc_populate_dsc_config(&priv_info->dsc.config,
+-			priv_info->dsc.scr_rev);
++	{
++		u64 panel_id = 0;
++
++		of_property_read_u64(panel->panel_of_node, "mi,panel-id", &panel_id);
++		rc = sde_dsc_populate_dsc_config_with_panel(&priv_info->dsc.config,
++				priv_info->dsc.scr_rev, panel_id);
++		if (!rc && panel_id == 0x4e38316150360200ULL)
++			DSI_INFO("sheng DSC: first_line=%u dec_delay=%u nfl_bpg=%u scale_inc=%u\n",
++				priv_info->dsc.config.first_line_bpg_offset,
++				priv_info->dsc.config.initial_dec_delay,
++				priv_info->dsc.config.nfl_bpg_offset,
++				priv_info->dsc.config.scale_increment_interval);
++	}
+@@ -5489 +5500 @@
+-		rc = dsi_panel_parse_dsc_params(mode, utils);
++		rc = dsi_panel_parse_dsc_params(panel, mode, utils);

@@ -453,3 +453,33 @@ r17 实际 DT 的 ssusb_redriver 指向 mi,ps5169（a80000.i2c/ps5169@28），
 两份 CRC 有效快照仍保留匹配身份；真实 helper 执行和模块装载通过。
 实机 USB、花屏和十分钟超时结果仍待本轮验证。
 交付目录最多五版：modules-r14、crypto-r15、wrapped-r16、firmware-r17、usb-r18。
+
+
+### usb-r18 实机 ADB 连通，新增板级故障与十分钟复位限制
+
+实机 6.18 ADB 于 2026-11-08 23:52:04 +0800 连通，sys.boot_completed=1，
+USB service 回读 connected/configured=true，已保存六轮属性和 logcat。
+后续连接中断，不能认定 USB 稳定。用户明确反馈色块/乱码/撕裂、触摸失效、
+自动旋转失效和扬声器无声。InputManager 没有触摸屏，SensorService 没有实体传感器，
+FastRPC 旧节点缺失；这些均未适配完成。不能把启动成功当作全部硬件通过。
+600.079 秒确实执行测试复位，但主机 655 秒未收到 Fastboot，需用户手动进入。
+日志停在600.108秒的充电驱动 shutdown 阶段，未证明十分钟自动复位成功。
+临时 Recovery 读回两份 CRC 有效日志，run7d62ad27af00f00e，seq2096/2097。
+持续版本身份有效，读取后自动返回 Fastboot。后续按约定取消测试模式。
+详见 kernel618-usb-r18-hardware.json；原启动控制失败输出保留于本会话，
+automation.json 是手动返回后的 readback-only 回执，不应当作原轮完整控制记录。
+
+
+### panel-r19：N81A DSC 首行参数恢复，取消测试复位
+
+MiCode sheng 6461221b 的 is_use_nt37705_dsc_config 对本机 mi,panel-id
+0x4e38316150360200 选择 first_line_bpg_offset=13，通用底座为12。
+在派生 RC 参数计算之前恢复该板级分支；其他面板和 DP 保留原入口与行为。
+实际编译执行两套公开 C helper，以本机1524x2032/762x16、8bpc/8bpp输入，
+scr0/scr1均得到与 MiCode 逐字节一致的完整 drm_dsc_config，
+包括dec_delay=669、nfl_bpg=1775和scale_inc=433。不是只改最终PPS一字节。
+338模块导入检查通过，只替换显示模块，PS5169和此前修复保留。
+原厂boot封包、AVB、解包回读和18008导出一致性检查通过。
+因为r18候选ADB已实机连通，本版不传test_timeout和panic测试参数，
+保留120秒诊断日志，不再自动重启或把正常软件重启转Fastboot。
+实机花屏是否改善尚待刷入验证，触摸/传感器/音频问题未在本版修复。

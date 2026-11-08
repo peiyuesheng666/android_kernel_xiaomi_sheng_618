@@ -1,0 +1,46 @@
+{
+  "revision": "usb-r18",
+  "boot_sha256": "8a657ee9ab511be335fb58ae97952767802399b393cfdd4842e1dd363fd46f11",
+  "image_sha256": "b58de52c4492cdb3a315823b77bde4b710715bd8d8fa9508d3b5bc4bdc50bf72",
+  "hardware_log_received": true,
+  "candidate_adb_connected": true,
+  "android_boot_completed": true,
+  "kernel": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "adb_confirmed_at": "2026-11-08T23:52:04+0800",
+  "adb_diagnostic_batches": 6,
+  "usb_device_configured": true,
+  "usb_disconnect_later_observed": true,
+  "usb_full_stability_verified": false,
+  "user_reported_issues": [
+    "corrupted display (blocks/garbage/tearing)",
+    "touch not working",
+    "automatic rotation not working",
+    "speaker silent"
+  ],
+  "runtime_evidence": {
+    "touch": "No touchscreen in Android InputManager; module still missing",
+    "rotation": "SensorService exposes only Dynamic Sensor Manager; no accelerometer",
+    "rpc": "No /dev/*adsprpc* or /dev/*fastrpc*; userspace RPC opens fail ENOENT"
+  },
+  "timeout_seconds": 600,
+  "timeout_request_logged_at_seconds": 600.079403,
+  "automatic_fastboot_return": false,
+  "controller_timeout_seconds": 655,
+  "manual_fastboot_reentry_required": true,
+  "readback_after_manual_reentry": true,
+  "run": "7d62ad27af00f00e",
+  "raw_sha256": "9cf154988e08a24fa132916dcdd7c3b015505ca81b3530c8ca0317fb2dc1fdb0",
+  "valid_snapshots": [
+    {
+      "sequence": 2096,
+      "uptime_ms": 599811
+    },
+    {
+      "sequence": 2097,
+      "uptime_ms": 600108
+    }
+  ],
+  "latest_log": "reports/device/kernel618-usb-r18/bootlog-7d62ad27af00f00e-2097.txt",
+  "full_hardware_functionality_verified": false,
+  "next_build_disables_test_mode": true
+}

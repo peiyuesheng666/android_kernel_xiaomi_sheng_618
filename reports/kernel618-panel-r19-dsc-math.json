@@ -1,0 +1,23 @@
+{
+  "actual_c_helpers_executed": true,
+  "full_drm_dsc_config_bytes_match": true,
+  "sources_sha256": {
+    "micode": "80cb39364fdc7429efeb37311d3ba0de4531780e2466762e74364ce12d26b269",
+    "candidate": "a98ff506733af3e120c910e47573f36ea497f3a9e2933b654a79922c2c13cd30"
+  },
+  "modes": {
+    "width_per_dsi": 1524,
+    "height": 2032,
+    "slice_width": 762,
+    "slice_height": 16,
+    "bpc": 8,
+    "bpp": 8,
+    "dsc_version": "1.1"
+  },
+  "scr_revisions_tested": [
+    0,
+    1
+  ],
+  "hardware_scanout_tested": false,
+  "candidate_results": "scr=0 first_line=13 dec_delay=669 nfl_bpg=1775 scale_inc=433\nscr=1 first_line=13 dec_delay=669 nfl_bpg=1775 scale_inc=433\n"
+}

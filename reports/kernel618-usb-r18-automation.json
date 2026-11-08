@@ -1,0 +1,47 @@
+{
+  "revision": "usb-r18",
+  "serial": "ca10ede3",
+  "boot_sha256": "8a657ee9ab511be335fb58ae97952767802399b393cfdd4842e1dd363fd46f11",
+  "image_sha256": "b58de52c4492cdb3a315823b77bde4b710715bd8d8fa9508d3b5bc4bdc50bf72",
+  "test_timeout_seconds": 600,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-09T00:03:45+0800"
+    },
+    {
+      "event": "log_readback_complete",
+      "wall_time": "2026-11-09T00:03:59+0800",
+      "run": "7d62ad27af00f00e",
+      "uptime_ms": 600108
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T00:04:00+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "finished_in_fastboot",
+      "wall_time": "2026-11-09T00:04:05+0800"
+    }
+  ],
+  "raw_sha256": "9cf154988e08a24fa132916dcdd7c3b015505ca81b3530c8ca0317fb2dc1fdb0",
+  "run": "7d62ad27af00f00e",
+  "valid_snapshots": [
+    {
+      "sequence": 2096,
+      "uptime_ms": 599811
+    },
+    {
+      "sequence": 2097,
+      "uptime_ms": 600108
+    }
+  ],
+  "log_readback_succeeded": true,
+  "latest_log": "reports/device/kernel618-usb-r18/bootlog-7d62ad27af00f00e-2097.txt"
+}

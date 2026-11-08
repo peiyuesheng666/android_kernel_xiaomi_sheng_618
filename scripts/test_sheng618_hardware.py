@@ -40,7 +40,8 @@ def main():
     tag = options.revision
     delivery = ROOT / ('artifacts/sheng-6.18-' + tag)
     build = json.loads((delivery / 'build-result.json').read_text())
-    assert build['revision'] == tag and build['test_timeout_seconds'] in (180, 600)
+    assert build['revision'] == tag
+    assert build['test_timeout_seconds'] in (180, 600) or (options.readback_only and build['test_timeout_seconds'] is None)
     test_timeout = build['test_timeout_seconds']
     assert sha(delivery / 'boot.img') == build['boot_sha256']
     assert sha(RECOVERY) == RECOVERY_SHA
@@ -54,6 +55,10 @@ def main():
                    writes=['boot_a'], temporary_recovery_sha256=RECOVERY_SHA,
                    original_boot_backed_up=False, events=[])
     report = ROOT / ('reports/kernel618-' + tag + '-automation.json')
+    if options.readback_only and report.exists():
+        prior = json.loads(report.read_text())
+        assert prior['boot_sha256'] == build['boot_sha256']
+        receipt['previous_control_receipt'] = prior
     transcript = folder / ('readback-control.txt' if options.readback_only else 'control.txt')
 
     def record(event, **data):

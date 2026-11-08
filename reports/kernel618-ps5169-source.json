@@ -45,6 +45,6 @@
     "New redriver disconnect semantics follow selected NB7VPQ904M implementation"
   ],
   "license": "GPL-2.0-only (source MODULE_LICENSE GPL v2)",
-  "hardware_result": "pending",
-  "usb_or_displayport_functionality_claimed": false
+  "hardware_result": "USB controller and ADB connected; later disconnect, stability pending",
+  "usb_or_displayport_functionality_claimed": "ADB/device mode only; no DP or stability claim"
 }
