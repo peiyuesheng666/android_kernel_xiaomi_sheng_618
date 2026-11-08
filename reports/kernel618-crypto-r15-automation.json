@@ -1,0 +1,71 @@
+{
+  "revision": "crypto-r15",
+  "serial": "ca10ede3",
+  "boot_sha256": "7a50ffbd0f5c16539f3ecc676ea4f1778cda182b4953d4ed3e48fe7f737793a0",
+  "image_sha256": "94abf0dad38e13abf971b6857aa10bf265683c22d868c14060ad50ecdf253303",
+  "test_timeout_seconds": 180,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "wall_time": "2026-11-08T23:09:24+0800"
+    },
+    {
+      "event": "candidate_started",
+      "wall_time": "2026-11-08T23:09:25+0800"
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:09:25+0800",
+      "seconds_remaining": 235
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:09:55+0800",
+      "seconds_remaining": 205
+    },
+    {
+      "event": "automatic_fastboot_received",
+      "wall_time": "2026-11-08T23:10:20+0800",
+      "elapsed_seconds": 55.28
+    },
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-08T23:10:23+0800"
+    },
+    {
+      "event": "log_readback_complete",
+      "wall_time": "2026-11-08T23:10:36+0800",
+      "run": "a293e563889714e0",
+      "uptime_ms": 44453
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-08T23:10:37+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "finished_in_fastboot",
+      "wall_time": "2026-11-08T23:10:41+0800"
+    }
+  ],
+  "automatic_fastboot_return": true,
+  "raw_sha256": "de31279b157d5abb4f86b585687fe5ce5293c5d3fbf179175b23590d5916561d",
+  "run": "a293e563889714e0",
+  "valid_snapshots": [
+    {
+      "sequence": 142,
+      "uptime_ms": 44453
+    },
+    {
+      "sequence": 141,
+      "uptime_ms": 44193
+    }
+  ],
+  "log_readback_succeeded": true,
+  "latest_log": "reports/device/kernel618-crypto-r15/bootlog-a293e563889714e0-142.txt"
+}

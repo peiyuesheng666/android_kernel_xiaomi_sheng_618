@@ -355,3 +355,13 @@ get_keyring_key 还要求 payload.flags 与 ioctl flags 一致。实际负载尚
 不重复与纯诊断打印无关的 QEMU 生命周期测试；接下来实际读回元数据，再决定 ABI 修复。
 仍保留 180 秒测试模式，实机结果待本轮自动读取。
 当前五版：slab-r11、aux-r12、auto-r13、modules-r14、crypto-r15。
+
+
+### crypto-r15 实机确认旧 wrapped 负载 ABI
+
+自动读回 run a293e563889714e0，实际元数据：len=108、header=8、type=2、flags=0、raw=100。
+这是旧 5.15 的零 reserved 头表示的 100 字节硬件封装密钥，新 6.18 把它按普通原始密钥
+64 字节上限拒绝，实机证据与源码差异吻合。未打印密钥内容。
+下一修复只兼容旧 provisioning 表示；取用时仍要求旧 ioctl wrapped 标志，
+新接口的 raw/wrapped 区分与尺寸校验保持严格。当前 ADB 未连通、系统尚未开机。
+此次自动返回 Fastboot、临时 Recovery、读取日志和返回 Fastboot 再次完成。
