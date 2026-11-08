@@ -1,0 +1,43 @@
+{
+  "revision": 34,
+  "scoped_module_build_passed": true,
+  "full_product_build_passed": false,
+  "host_idmap_overlayable_enforced": true,
+  "systemui_changed": false,
+  "source_sha256": {
+    "overlay/SettingsResOverlaySheng/AndroidManifest.xml": "6878933b35932e1753bd98a56741b987774ae006a03f27da674ab62be74dbc00",
+    "overlay/SettingsResOverlaySheng/res/values/config.xml": "ad39d384c5709da0080a2988d887bda6b72e996eeed6daf70943c3ac8d8e3943",
+    "overlay/SettingsResOverlaySheng/res/values/face.xml": "91cbf5046162802dfe9c08051326ff3aa473afd76aee2231c6a9a31b40335043",
+    "overlay/SettingsResOverlaySheng/res/values/lineage.xml": "011c0e82d76883755c625e4a4bd28c05314cd249aa7e5bd9c82b8712d0240c70",
+    "overlay/SettingsResOverlaySheng/res/values-zh/strings.xml": "f20f1c578a1d06d288a5b97be6578c844a43703cac919cfb84394ac130a84c14",
+    "overlay/SettingsResOverlaySheng/res/xml/hardware_info.xml": "2bafcfeca127d0d74d532a888eff5f04d05119d5063dea93c9ee494a4ff9880e",
+    "overlay/SettingsResOverlaySheng/res/xml/my_device_info.xml": "f997b20081bb5f9fdc6b32c0f06e615d5d2950ed5e9bc92fec66b50b704aecd2",
+    "overlay/SettingsResOverlaySheng/res/xml-zh/hardware_info.xml": "026c4b81283b0f1c292329bbe5b2e7d49a5a58a7ab63cd793c495cd365127acc",
+    "overlay/SettingsResOverlaySheng/res/xml-zh/my_device_info.xml": "6f1e7c8061f9b7e7303a72ff93dd96c8e4653c12474fbde776049546a14dd10d",
+    "overlay/SettingsResOverlaySheng/Android.bp": "c9bb21c4ba7b641f0f52d7abc75ac9265e7e7abfc7923cb8d1fbe27258c229a3",
+    "tools/tablet_probe/ResourceProbe.java": "f8118b574ab19275aaccc353b38d2052c6de1691e935c3615062453dac716d5f",
+    "tools/tablet_probe/FacePreviewProbe.java": "bf8c58a72890b9a91ee98e966d8c9b3cdb3444e775efc8ef1f9d22a8924ad040",
+    "tools/build_sheng_face_preview_r34.py": "b72fd5bc032748c961ae1aff7a70c2d70603794cee571edeb9c0bdc2b83d5612"
+  },
+  "reviewed_sha256": {
+    "odm": {
+      "overlay/SettingsResOverlaySheng.apk": "8a1b704b3df2a68a6542450bba2ce4878eba0b8a595343749ecf7304c68b6ec5"
+    }
+  },
+  "prebuild_audit_sha256": "0443cba67e90a8bf0f1ae0139cf186ec91f08b95993c17ed64c8ce763f68cf36",
+  "command_log_sha256": "c865db5e10ba1a0742d2d815705e664463fd6d0d1a83b5a823b3c785f99bcab0",
+  "source_command_log_sha256": "d0f22dcc46d0d029e30cf034fd9c84fe1c51d5474995e36bc6e9ce970770ff5d",
+  "installed": false,
+  "runtime_verified": false,
+  "postbuild_public_audit_passed": true,
+  "postbuild_audit_sha256": "c56b2ab7d0f870029e27b1111cd39cf0c055d68278a579ae28975ca1e71dcd42",
+  "public_repositories_fresh_audited": 21,
+  "all_project_status_checked": 1243,
+  "only_resource_table_changed": true,
+  "target_resource_probe_passed": true,
+  "target_resource_probe_serial": "ca10ede3",
+  "target_resource_probe_sha256": {
+    "en-US.txt": "046c3c055002db6702e55a6e19c18ea316820ab9e448eab7cc26c57e9a373f36",
+    "zh-CN.txt": "af465dee2d24d4c6546ac5e25c0568a67e00462e9bfb51bc8c6b3c6985415e86"
+  }
+}
