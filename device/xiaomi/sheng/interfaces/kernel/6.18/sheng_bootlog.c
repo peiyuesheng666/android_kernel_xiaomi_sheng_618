@@ -188,8 +188,12 @@ static void capture_snapshot(void)
     memset(snapshot, 0, SLOT_BYTES);
     kmsg_dump_rewind(&iter);
     kmsg_dump_get_buffer(&iter, true, snapshot + sizeof(*header),
-                        SLOT_BYTES - sizeof(*header) - sizeof(*end) - 4095,
+                        SLOT_BYTES - sizeof(*header) - sizeof(*end) - 4095 - 256,
                         &text_bytes);
+    /* Keep identity inside the CRC-covered payload even under a printk storm. */
+    text_bytes += scnprintf(snapshot + sizeof(*header) + text_bytes, 256,
+                           "\nsheng_bootlog: identity revision=%s run=%016llx\n",
+                           revision, run_id);
     total = ALIGN(sizeof(*header) + text_bytes + sizeof(*end), 4096);
     header = (struct bootlog_header *)snapshot;
     memcpy(header->magic, "SH618LOG", 8);

@@ -1,0 +1,28 @@
+{
+  "revision": "touch-r22",
+  "serial": "ca10ede3",
+  "boot_sha256": "a3b288600070a4fec730f3279dde9186f12d442f6bd5240526bd8bda79953a0b",
+  "image_sha256": "dac3d4585be9ca8a5f9c82b5c4ecd8e52766754f2a392b6432bae97ed47d40f7",
+  "test_timeout_seconds": null,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T01:14:02+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-09T01:14:12+0800"
+    },
+    {
+      "event": "failed",
+      "wall_time": "2026-11-09T01:14:29+0800",
+      "error": "No CRC-valid snapshot from the requested revision; preserve for diagnosis"
+    }
+  ]
+}

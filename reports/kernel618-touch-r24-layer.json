@@ -1,0 +1,165 @@
+{
+  "revision": "touch-r24",
+  "base_revision": "peripherals-r21",
+  "checks": {
+    "release": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+    "expected_series": "6.18",
+    "symvers_sha256": "f145e6a36d7f7dc574acbf4cd6dd11ebf3f6597f723d7099d4fb27de4c9fe373",
+    "effective_module_count": 340,
+    "versioned_imports_checked": 20784,
+    "issue_counts": {},
+    "issue_count": 0,
+    "issues": [],
+    "issues_truncated": false,
+    "warnings": [],
+    "abi_passed": true,
+    "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+  },
+  "archive": {
+    "archive": "/root/sheng-618/diagnostic/touch-r24/overlay.cpio",
+    "sha256": "7ff702a55ddd6a68427da74e2e957864328a2620db89f7c59e2f59c800b5f042",
+    "entry_count": 352,
+    "module_count": 340,
+    "helper_mode": "0o100755",
+    "helper_is_regular": true,
+    "helper_executable": true,
+    "helper_sha256": "7e8efddffe6700c7799d4d0434135e7e04bbb14ffdcc3aa0aeafda4c3c547283"
+  },
+  "changed_payloads": [
+    "lib/modules/nt36532_touch.ko",
+    "lib/modules/xiaomi_touch.ko"
+  ],
+  "added_payloads": [],
+  "source_receipts": [
+    "kernel618-peripherals-source.json",
+    "kernel618-touch-source.json"
+  ],
+  "source_snapshots": {
+    "kernel618-peripherals-source.json": {
+      "references": {
+        "kernel": "MiCode sheng 29db5d59",
+        "display": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+        "audio": "MiCode sheng msm_dailink.h CONFIG_TARGET_PRODUCT_SHENG"
+      },
+      "files": {
+        "soc/drivers/power/supply/qti_battery_charger.c": {
+          "before": "33312677a37a5f0709fc245fcb6a0d71cea7c483af0c4e0f16c20a0f9bcdfba0",
+          "after": "13c35b340cb1c68054f8e12ecebe5c290b851af7b0b3af5c21939e32a05e4d18"
+        },
+        "vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.h": {
+          "before": "be53d0b25f30e747064e3b6d48e0176b2ff191b570050c04789fa940e287c49a",
+          "after": "b459397cff49d2a3bca72e8f4d037c5eb3c3d19d005c78e635674da50d40980e"
+        },
+        "vendor/qcom/opensource/display-drivers/msm/dsi/dsi_panel.c": {
+          "before": "fd47fa42d06956e33ef9a02c639498d7a4aab67120c51bd750477516e96dfce2",
+          "after": "3fcf80fca60f831e964abdf8705091eeb28d3a62aa56ccc0f8229608ce6d6db0"
+        },
+        "vendor/qcom/opensource/audio-kernel/asoc/kalama.c": {
+          "before": "81bb6dc488a85ad0ed3de1d830401b503d074f953c26b721e86189b18d43679f",
+          "after": "720d55c19e9e13a22094f04b49a3a5d694c3a227d80627477f9f50dbfb1ffecd"
+        }
+      },
+      "runtime_verified": false
+    },
+    "kernel618-touch-source.json": {
+      "source_repository": "https://github.com/MiCode/vendor_xiaomi_proprietary_touch-driver",
+      "revision": "6957f6b646d1c919e175e6f9000eb50c8635273c",
+      "branch": "piano-w-oss",
+      "files": {
+        "xiaomi/xiaomi_touch.h": {
+          "source_sha256": "3edf6fdd2f74f1fa98c8a42a1f31795195f2c820ee0bbddd823d459f86972e97",
+          "staged_sha256": "3edf6fdd2f74f1fa98c8a42a1f31795195f2c820ee0bbddd823d459f86972e97"
+        },
+        "xiaomi/xiaomi_touch_core.c": {
+          "source_sha256": "0340c6a6592c219bdfd8c19f594bdc37a3e3c7568e2da8a85bbd6d41970c3ee6",
+          "staged_sha256": "c6cf68d6330b646d2d0f67cee0066d0769dcc070db9cd1ba661eb51ca538e605"
+        },
+        "xiaomi/xiaomi_touch_device.c": {
+          "source_sha256": "699c1561e5d1c03ec6db79f977af4ea00d37ca5fec6d0213e5b5b18d5be65bcf",
+          "staged_sha256": "699c1561e5d1c03ec6db79f977af4ea00d37ca5fec6d0213e5b5b18d5be65bcf"
+        },
+        "xiaomi/xiaomi_touch_evdev.c": {
+          "source_sha256": "d588b70402766e55bd2fdb9fbb897f7335a1245f8605fcf3abd18efb303b52d6",
+          "staged_sha256": "d588b70402766e55bd2fdb9fbb897f7335a1245f8605fcf3abd18efb303b52d6"
+        },
+        "xiaomi/xiaomi_touch_knock_data.c": {
+          "source_sha256": "61c7b46f84cd9b2d628c69756c6603ce7a68ca4449043e00b2bdeae24b445fcf",
+          "staged_sha256": "61c7b46f84cd9b2d628c69756c6603ce7a68ca4449043e00b2bdeae24b445fcf"
+        },
+        "xiaomi/xiaomi_touch_mode.c": {
+          "source_sha256": "bbb0f1029a1ae8cf21fb98f75492a0b422b6edbd5069c8b2b6a4cdf2127f28b2",
+          "staged_sha256": "77d3e5db4fe321e607f8bcf55c7d04d121ba18ab4cd03f773090684058c444db"
+        },
+        "xiaomi/xiaomi_touch_operations.c": {
+          "source_sha256": "f2d6e660129fe4a2b20c026ce70f0edda8d4d2d74ed4a9c9fc649e35bb3ed11e",
+          "staged_sha256": "ae34ce818bc732783fda9b3b128ba0f1ecfc95c3efd1040c4575ce7c79e57c6f"
+        },
+        "xiaomi/xiaomi_touch_proc.c": {
+          "source_sha256": "d693f1549199a009bf9bbf80fb52cef24ecf408868de9292b488607858b00516",
+          "staged_sha256": "d693f1549199a009bf9bbf80fb52cef24ecf408868de9292b488607858b00516"
+        },
+        "xiaomi/xiaomi_touch_sys.c": {
+          "source_sha256": "6df8db2582d3c1d7d94776418bb3234251a1ce19c256a6b00aba7ad775eaea48",
+          "staged_sha256": "6df8db2582d3c1d7d94776418bb3234251a1ce19c256a6b00aba7ad775eaea48"
+        },
+        "xiaomi/xiaomi_touch_type_common.h": {
+          "source_sha256": "b9549f374385bd89098d67eb300c2bd71e22fe79dcec965ab0474b382246f348",
+          "staged_sha256": "3bd555820073fee45e1016a2d0f813dab79e6b20427b07a907d806d0b380d476"
+        },
+        "p81/nt36532/nt36xxx.c": {
+          "source_sha256": "a15a6571ecd817f5c0029c104fe840948743a89040b0bff818aefdc0e7427bfd",
+          "staged_sha256": "a248d1f3a6c2dd813fd979d9df4149bdd4980a88153aeaa9128543146ffb503f"
+        },
+        "p81/nt36532/nt36xxx.h": {
+          "source_sha256": "aa72d7149ac71a1953196fa8d7b680b1990ec3c226df16a2469f4c452541bdd2",
+          "staged_sha256": "c128a105b20c41212ec1a2bcab0ccbcb6179d5348c76eb3efcdcd10dc2a817e1"
+        },
+        "p81/nt36532/nt36xxx_ext_proc.c": {
+          "source_sha256": "0e8c501f22243472ca5596a2e6b2a6436baef237612410f99b54ef57949b6058",
+          "staged_sha256": "0e8c501f22243472ca5596a2e6b2a6436baef237612410f99b54ef57949b6058"
+        },
+        "p81/nt36532/nt36xxx_fw_update.c": {
+          "source_sha256": "8928b4d0d448e0de9a48ea5e40b82ef9a42d4247e31c8ca10970bbde3515d976",
+          "staged_sha256": "8928b4d0d448e0de9a48ea5e40b82ef9a42d4247e31c8ca10970bbde3515d976"
+        },
+        "p81/nt36532/nt36xxx_mem_map.h": {
+          "source_sha256": "dd9eb861cef1ac86c83ee4a99c311d708cf0286d08949048dc1b118f7792f9f0",
+          "staged_sha256": "dd9eb861cef1ac86c83ee4a99c311d708cf0286d08949048dc1b118f7792f9f0"
+        },
+        "p81/nt36532/nt36xxx_mp_ctrlram.c": {
+          "source_sha256": "1d9f83f62c28dea38d9166bff8d0f46110a2d6c1bbbf32e3e357311450df76bd",
+          "staged_sha256": "1d9f83f62c28dea38d9166bff8d0f46110a2d6c1bbbf32e3e357311450df76bd"
+        },
+        "p81/nt36532/nt36xxx_mp_ctrlram.h": {
+          "source_sha256": "8896de4a0d232541a4cdd0ca8130579f5babf9a06f27287e78f4474d8519e2a0",
+          "staged_sha256": "8896de4a0d232541a4cdd0ca8130579f5babf9a06f27287e78f4474d8519e2a0"
+        }
+      },
+      "scope": "Public NT36532 THP and M80p/P81c implementation adapted to stock sheng ABI",
+      "parameters_reference": "reports/device/kernel618-input-stock-reference",
+      "lockdown_reference": "MiCode sheng display 6461221b SMEM item 500; bounded eight-byte read",
+      "firmware": "Only verified sheng CSOT filenames; no other-device firmware imported",
+      "userspace_abi": {
+        "common_data_bytes": 520,
+        "command_values": 128,
+        "hardware_param_bytes": 214,
+        "evidence": "Stock xiaomi_touch_dev_read cmp 0x208; r22 actual read requests 520"
+      },
+      "packet_word_counts": {
+        "finger": 1211,
+        "stylus": 1285,
+        "evidence": "Stock nvt_ts_work_func cmp 0x505 at 0x9664, cmp 0x4bb at 0x966c; r23 packets report 0x4bb"
+      },
+      "runtime_verified": false
+    }
+  },
+  "replacement_module_sha256": {
+    "qti_battery_charger.ko": "66c443a9c767f3999bc1788d83be48a3a5c82660ec961154e184e783710c07f6",
+    "msm_drm.ko": "bed614a30106373132fcb030c3cb616cbfd069bca178b2611a5f80f6aaa7132b",
+    "machine_dlkm.ko": "015b1898168a6b15089d05c2528093364a16149b663cd45a6c10dda967358989",
+    "xiaomi_touch.ko": "8a1d2c723f631f07735bdc586a0f0cbb15fb51fe1e38b7d845312688d2bd6729",
+    "nt36532_touch.ko": "93675909152fec4bb1901aeec9c7536e8a4c810fc4a39c4b14b88ecf9fa9b595"
+  },
+  "test_mode_enabled": false,
+  "hardware_result": "pending"
+}

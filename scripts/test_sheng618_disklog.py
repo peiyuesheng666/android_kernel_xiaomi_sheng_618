@@ -498,6 +498,8 @@ for label, name, mib, expected in inputs:
             assert all('Kernel command line:' not in s['text'] for s in slots)
             assert all('SHENG_LOG_WRAP ' in s['text'] for s in slots)
             assert all('sheng_bootlog: identity revision=' + options.revision + ' run=' + s['run'] + '\n' in s['text'] for s in slots)
+            assert all(s['text'].endswith('sheng_bootlog: identity revision=' + options.revision +
+                                         ' run=' + s['run'] + '\n') for s in slots)
         if options.require_marker:
             assert any(options.require_marker in s['text'] for s in slots), transcript
         if options.legacy_reuse:
@@ -545,6 +547,7 @@ report['fault_injection_case_run'] = options.fault_after_log
 if options.log_wrap:
     report['original_commandline_rolled_out'] = True
     report['periodic_identity_matches_revision_and_header_run'] = True
+    report['crc_covered_identity_trailer_verified'] = True
 report['exception_stack_persisted_before_panic'] = (
     True if options.fault_after_log and options.auto_return != 'emergency' else None)
 if options.slab_tracking:

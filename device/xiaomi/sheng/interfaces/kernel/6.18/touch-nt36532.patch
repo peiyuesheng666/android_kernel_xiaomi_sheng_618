@@ -8,7 +8,17 @@
  	nl_sk = netlink_kernel_create(&init_net, NETLINK_TEST, &netlink_cfg);
  
  	if (!nl_sk) {
-@@ -991,7 +990,7 @@
+@@ -184,6 +183,9 @@
+ 	xiaomi_touch_data_t *xiaomi_touch_data = get_xiaomi_touch_data(touch_id);
+ 
+ 	common_data_t *common_data = NULL;
++
++	if (length < 0 || length > CMD_DATA_BUF_SIZE || (length && !data))
++		return;
+ 
+ 	if (!xiaomi_touch_data)
+ 		return;
+@@ -991,7 +993,7 @@
  	return 0;
  }
  
@@ -17,7 +27,7 @@
  {
  	LOG_INFO("enter");
  	xiaomi_touch_evdev_remove();
-@@ -1004,7 +1003,6 @@
+@@ -1004,7 +1006,6 @@
  	knock_node_release();
  #endif
  	LOG_INFO("over");
@@ -25,9 +35,32 @@
  }
  
  #if defined(TOUCH_PLATFORM_XRING)
+--- a/xiaomi/xiaomi_touch_mode.c
++++ b/xiaomi/xiaomi_touch_mode.c
+@@ -653,6 +653,11 @@
+ 			LOG_ERROR("copy cmd from user failed, return! value %d", copy_size);
+ 			mutex_unlock(&ioctl_operation_mutex);
+ 			return -1;
++		}
++
++		if (common_data.data_len > CMD_DATA_BUF_SIZE) {
++			mutex_unlock(&ioctl_operation_mutex);
++			return -EINVAL;
+ 		}
+ 
+ 		if (client_private_data->touch_id != common_data.touch_id) {
 --- a/xiaomi/xiaomi_touch_operations.c
 +++ b/xiaomi/xiaomi_touch_operations.c
-@@ -321,7 +321,7 @@
+@@ -18,6 +18,8 @@
+ static int xiaomi_touch_dev_open(struct inode *inode, struct file *file)
+ {
+ 	private_data_t *client_private_data = kzalloc_retry(sizeof(private_data_t), 3);
++	static_assert(sizeof(common_data_t) == 520);
++	static_assert(sizeof(hardware_param_t) == 214);
+ 	if (!client_private_data) {
+ 		LOG_ERROR("alloc private memory failed!");
+ 		return -1;
+@@ -321,7 +323,7 @@
  	.unlocked_ioctl = xiaomi_touch_dev_ioctl,
  	.compat_ioctl = xiaomi_touch_dev_ioctl,
  	.release = xiaomi_touch_dev_release,
@@ -36,6 +69,17 @@
  };
  
  static struct miscdevice misc_dev = {
+--- a/xiaomi/xiaomi_touch_type_common.h
++++ b/xiaomi/xiaomi_touch_type_common.h
+@@ -3,7 +3,7 @@
+ 
+ #include <linux/types.h>
+ 
+-#define CMD_DATA_BUF_SIZE	256
++#define CMD_DATA_BUF_SIZE	128
+ #define FOD_VALUE_LEN 5
+ /*
+ typedef uint32_t u32;
 --- a/p81/nt36532/nt36xxx.c
 +++ b/p81/nt36532/nt36xxx.c
 @@ -68,7 +68,23 @@
@@ -78,21 +122,46 @@
  
  	ret = of_property_read_u32(np, "novatek,spi-rd-fast-addr", &SPI_RD_FAST_ADDR);
  	if (ret) {
-@@ -4717,10 +4729,19 @@
+@@ -3071,8 +3083,8 @@
+ }
+ #endif //NVT_PARSE_DATA_ENABLE
+ 
+-#define XM_HTC_DEFAULT_FINGER_PACKET_LEN   0x04C3
+-#define XM_HTC_DEFAULT_STYLUS_PACKET_LEN   0x050D
++#define XM_HTC_DEFAULT_FINGER_PACKET_LEN   0x04BB
++#define XM_HTC_DEFAULT_STYLUS_PACKET_LEN   0x0505
+ 
+ static irqreturn_t nvt_ts_work_func_irq_handler(int irq, void *data)
+ {
+@@ -4717,10 +4729,33 @@
  	/*set priority to 99*/
  	struct sched_param par = { .sched_priority = MAX_RT_PRIO -1 };
  
 -	NVT_LOG("start\n");
 +	struct device_node *panel;
-+	u64 panel_id = 0;
++	u64 panel_id;
++	int panel_index;
++	bool sheng_panel = false;
 +
-+	panel = of_parse_phandle(client->dev.of_node, "panel", 0);
-+	if (panel)
-+		of_property_read_u64(panel, "mi,panel-id", &panel_id);
-+	of_node_put(panel);
-+	if (panel_id != 0x4e38316150360200ULL)
++	/* Stock sheng lists a generic panel before its two N81A variants. */
++	for (panel_index = 0; ; panel_index++) {
++		panel = of_parse_phandle(client->dev.of_node, "panel", panel_index);
++		if (!panel)
++			break;
++		panel_id = 0;
++		if (of_device_is_available(panel) &&
++		    !of_property_read_u64(panel, "mi,panel-id", &panel_id) &&
++		    panel_id == 0x4e38316150360200ULL)
++			sheng_panel = true;
++		of_node_put(panel);
++		if (sheng_panel)
++			break;
++	}
++	if (!sheng_panel) {
++		dev_err(&client->dev, "no supported sheng N81A in panel list\n");
 +		return -ENODEV;
-+	NVT_LOG("start sheng N81A\n");
++	}
++	NVT_LOG("start sheng N81A panel index=%d\n", panel_index);
  
  	/*set spi controller rt thread priority to 99*/
 -	if(client->controller) {
@@ -100,7 +169,7 @@
  		ret = sched_setscheduler_nocheck(client->controller->kworker->task, SCHED_FIFO, &par);
  		if(ret < 0) {
  			NVT_ERR("Failed to improve SPI thread prio\n");
-@@ -4776,7 +4797,7 @@
+@@ -4776,7 +4811,7 @@
  	spi_set_drvdata(client, ts);
  
  	//---prepare for spi parameter---
@@ -109,7 +178,7 @@
  		NVT_ERR("Full duplex not supported by master\n");
  		ret = -EIO;
  		goto err_ckeck_full_duplex;
-@@ -5919,5 +5940,5 @@
+@@ -5919,5 +5954,5 @@
  MODULE_DESCRIPTION("Novatek Touchscreen Driver");
  MODULE_LICENSE("GPL");
  #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 4, 0)

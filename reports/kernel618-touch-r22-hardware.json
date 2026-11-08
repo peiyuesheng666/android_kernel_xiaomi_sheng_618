@@ -1,0 +1,76 @@
+{
+  "revision": "touch-r22",
+  "boot_sha256": "a3b288600070a4fec730f3279dde9186f12d442f6bd5240526bd8bda79953a0b",
+  "image_sha256": "dac3d4585be9ca8a5f9c82b5c4ecd8e52766754f2a392b6432bae97ed47d40f7",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T01:11:36+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:11:36+0800",
+      "elapsed_seconds": 0.03
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:12:07+0800",
+      "elapsed_seconds": 30.73
+    },
+    {
+      "event": "candidate_adb_connected",
+      "time": "2026-11-09T01:12:33+0800",
+      "elapsed_seconds": 57.32
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:12:38+0800",
+      "elapsed_seconds": 61.75
+    },
+    {
+      "event": "android_boot_completed",
+      "time": "2026-11-09T01:12:41+0800",
+      "elapsed_seconds": 65.18
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "candidate_adb_connected": true,
+  "kernel": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "android_boot_completed": true,
+  "touch": {
+    "spi_bound": true,
+    "input_devices": [
+      "NVTCapacitiveTouchScreen",
+      "NVTCapacitivePenM80p",
+      "NVTCapacitivePenP81c"
+    ],
+    "user_verified_working": false,
+    "user_feedback": "Touch and pen still unusable",
+    "root_cause": "Stock read requests 520 bytes; newer core requires 1032 bytes"
+  },
+  "persistent_log_readback": {
+    "crc_valid": true,
+    "run": "eb423662157b76ca",
+    "sequences": [
+      395,
+      396
+    ],
+    "uptime_ms": [
+      120310,
+      120600
+    ],
+    "inband_revision_present": false,
+    "automatic_attribution_rejected": true,
+    "attribution_basis": "Unique controlled r22 flash and ensuing run; no revision marker survived read retry storm"
+  },
+  "diagnostic_evidence": {
+    "board-nodes.txt": "697b5ad116dedacef3baac7971d1bed2fd7315bb24293a8d363fd9adeebdfbde",
+    "input.txt": "89530f572b0ad0cfa051470b073a351c3d792581adc77101d9cb2aec35d1a145",
+    "logcat.txt": "3b29b2bbcc7b748ddd09061259b24d1421d33a94236d057c1cba7557177a2c45",
+    "region-after.bin": "a4add7bdc5036c551517220ffdc931c0eec55ba9f99ea0cec6fd589828c7d35b"
+  }
+}

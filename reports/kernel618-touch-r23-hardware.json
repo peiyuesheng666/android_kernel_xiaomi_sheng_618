@@ -1,0 +1,69 @@
+{
+  "revision": "touch-r23",
+  "boot_sha256": "a8632ec7bab25dd2825eddd51ccf101674955f722212cee67aea65a04d493089",
+  "image_sha256": "ba6bf9d100a8b3df185a5d16be07e140edd1d2664223e4e582d8af583461ea00",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T01:18:53+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:18:53+0800",
+      "elapsed_seconds": 0.04
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:19:24+0800",
+      "elapsed_seconds": 30.63
+    },
+    {
+      "event": "candidate_adb_connected",
+      "time": "2026-11-09T01:19:53+0800",
+      "elapsed_seconds": 59.66
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T01:19:55+0800",
+      "elapsed_seconds": 61.87
+    },
+    {
+      "event": "android_boot_completed",
+      "time": "2026-11-09T01:20:00+0800",
+      "elapsed_seconds": 67.04
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "candidate_adb_connected": true,
+  "kernel": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+  "android_boot_completed": true,
+  "touch": {
+    "spi_bound": true,
+    "user_verified_working": false,
+    "common_read_abi_mismatch_resolved": true,
+    "commands_processed_by_stock_hal": true,
+    "irq_events_seen": 1201,
+    "kernel_frame_rejection": "Stock firmware finger packet length 0x4bb rejected by newer piano check for 0x4c3 or 0x50d",
+    "firmware_load_success_uptime": 70.193221,
+    "firmware_version": "0x13",
+    "firmware_pid": "0x5981"
+  },
+  "persistent_log_readback": {
+    "succeeded": true,
+    "receipt": "kernel618-touch-r23-automation.json",
+    "run": "836f66062bced21a",
+    "uptime_ms": 120578,
+    "identity_trailer_crc_verified": true
+  },
+  "diagnostic_evidence": {
+    "audio-flinger.txt": "76424b636c476205a6f6093216d10c9c6537f982acdffcda57827215d51e3fb8",
+    "board-nodes.txt": "a16f9c229dc7dfbf2797e30ade1a4bab5a98271073370ebd03b4802c1b2a5e5a",
+    "input.txt": "84cc3ee6480524f70fe2871cd9035d43f087f76ea529bc3fb4344ca9ef2adf16",
+    "logcat.txt": "a81720f2551417db90292c52b5d0399d3566799723682acb29e1318e5d81cc81",
+    "region-after.bin": "202079a95c833c45b7d57f7a7f82bfbb07365909982446b9d96a95e09b013862"
+  }
+}

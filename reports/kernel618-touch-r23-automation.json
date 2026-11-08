@@ -1,0 +1,52 @@
+{
+  "revision": "touch-r23",
+  "serial": "ca10ede3",
+  "boot_sha256": "a8632ec7bab25dd2825eddd51ccf101674955f722212cee67aea65a04d493089",
+  "image_sha256": "ba6bf9d100a8b3df185a5d16be07e140edd1d2664223e4e582d8af583461ea00",
+  "test_timeout_seconds": null,
+  "writes": [
+    "boot_a"
+  ],
+  "temporary_recovery_sha256": "738556589abb2c35047879f14cfed63a05a6ed25c7c418a0209709622312376f",
+  "original_boot_backed_up": false,
+  "events": [
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T01:21:13+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "temporary_recovery_started",
+      "wall_time": "2026-11-09T01:21:23+0800"
+    },
+    {
+      "event": "log_readback_complete",
+      "wall_time": "2026-11-09T01:21:37+0800",
+      "run": "836f66062bced21a",
+      "uptime_ms": 120578
+    },
+    {
+      "event": "waiting_for_fastboot",
+      "wall_time": "2026-11-09T01:21:37+0800",
+      "seconds_remaining": 60
+    },
+    {
+      "event": "finished_in_fastboot",
+      "wall_time": "2026-11-09T01:21:43+0800"
+    }
+  ],
+  "raw_sha256": "202079a95c833c45b7d57f7a7f82bfbb07365909982446b9d96a95e09b013862",
+  "run": "836f66062bced21a",
+  "valid_snapshots": [
+    {
+      "sequence": 408,
+      "uptime_ms": 120578
+    },
+    {
+      "sequence": 407,
+      "uptime_ms": 120290
+    }
+  ],
+  "log_readback_succeeded": true,
+  "latest_log": "reports/device/kernel618-touch-r23/bootlog-836f66062bced21a-408.txt"
+}

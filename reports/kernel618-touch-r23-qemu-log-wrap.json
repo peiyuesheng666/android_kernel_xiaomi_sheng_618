@@ -1,0 +1,41 @@
+{
+  "real_aarch64_kernel": true,
+  "real_gpt_block_io_and_fsync": true,
+  "image_sha256": "ba6bf9d100a8b3df185a5d16be07e140edd1d2664223e4e582d8af583461ea00",
+  "cases": [
+    {
+      "case": "valid",
+      "gpt_name": "rawdump",
+      "partition_mib": 300,
+      "valid_snapshots": 2,
+      "expected_write": true,
+      "uptime_ms": [
+        10246,
+        10564
+      ],
+      "qemu_log": "/root/sheng-618/diagnostic/touch-r23/qemu-log-wrap/valid.log",
+      "qmp_shutdown_events": [
+        {
+          "timestamp": {
+            "seconds": 1794158339,
+            "microseconds": 978267
+          },
+          "event": "SHUTDOWN",
+          "data": {
+            "guest": true,
+            "reason": "guest-shutdown"
+          }
+        }
+      ]
+    }
+  ],
+  "torn_copy_rejected_other_copy_readable": true,
+  "hardware_ufs_tested": false,
+  "embedded_helper_exec_and_finit_module_tested": false,
+  "partition_guard_cases_run": false,
+  "fault_injection_case_run": false,
+  "original_commandline_rolled_out": true,
+  "periodic_identity_matches_revision_and_header_run": true,
+  "crc_covered_identity_trailer_verified": true,
+  "exception_stack_persisted_before_panic": null
+}

@@ -40,7 +40,11 @@ def call(tool, *args, timeout=20, check=True):
     return text
 
 try:
-    assert re.search(SERIAL + r'\s+fastboot', call('fastboot', 'devices'))
+    deadline = time.monotonic() + 60
+    while not re.search(SERIAL + r'\s+fastboot', call('fastboot', 'devices')):
+        if time.monotonic() >= deadline:
+            raise TimeoutError('Fastboot missing after 60 seconds; no partition written')
+        time.sleep(1)
     for name, expected in [('product', 'sheng'), ('current-slot', 'a'), ('unlocked', 'yes'), ('is-userspace', 'no')]:
         assert re.search(name + r':\s*' + expected + r'\b', call('fastboot', 'getvar', name))
     flash = call('fastboot', 'flash', 'boot_a', win(delivery / 'boot.img'), timeout=180)

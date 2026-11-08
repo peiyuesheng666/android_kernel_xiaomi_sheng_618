@@ -1,0 +1,39 @@
+{
+  "revision": "touch-r22",
+  "base_revision": "peripherals-r21",
+  "checks": {
+    "release": "6.18.32-4k-gff4a6c3bb0f4-dirty",
+    "expected_series": "6.18",
+    "symvers_sha256": "f145e6a36d7f7dc574acbf4cd6dd11ebf3f6597f723d7099d4fb27de4c9fe373",
+    "effective_module_count": 340,
+    "versioned_imports_checked": 20785,
+    "issue_counts": {},
+    "issue_count": 0,
+    "issues": [],
+    "issues_truncated": false,
+    "warnings": [],
+    "abi_passed": true,
+    "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+  },
+  "archive": {
+    "archive": "/root/sheng-618/diagnostic/touch-r22/overlay.cpio",
+    "sha256": "f0572e4088ab6f20a7ad1f83d9e70b084c21b25cb844ba37b92f60a73bb5bd05",
+    "entry_count": 352,
+    "module_count": 340,
+    "helper_mode": "0o100755",
+    "helper_is_regular": true,
+    "helper_executable": true,
+    "helper_sha256": "7e8efddffe6700c7799d4d0434135e7e04bbb14ffdcc3aa0aeafda4c3c547283"
+  },
+  "changed_payloads": [
+    "lib/modules/nt36532_touch.ko",
+    "lib/modules/xiaomi_touch.ko"
+  ],
+  "added_payloads": [],
+  "source_receipts": [
+    "kernel618-peripherals-source.json",
+    "kernel618-touch-source.json"
+  ],
+  "test_mode_enabled": false,
+  "hardware_result": "pending"
+}

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-"""Package the verified r20 layer with native THP/pen and six-amp routing."""
+"""Package a preserved tablet layer with native THP/pen and six-amp routing."""
+import argparse
 import hashlib
 import json
 import os
@@ -11,12 +12,22 @@ from build_sheng618_upstream import CLANG, K618, OUT, PROJECT, ROOT
 from audit_kernel618_modules import ElfModule, check_candidate
 from audit_sheng618_overlay import audit, entries
 
-tag = 'peripherals-r21'
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--tag', default='peripherals-r21')
+parser.add_argument('--base', choices=['tablet-r20', 'peripherals-r21'], default='tablet-r20')
+parser.add_argument('--replace-untested', action='store_true')
+options = parser.parse_args()
+import re
+assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.tag)
+tag = options.tag
 native = ROOT/'diagnostic'/tag
 rd = native/'layer'
 delivery = PROJECT/('artifacts/sheng-6.18-'+tag)
-assert not delivery.exists(), 'Preserve existing candidate'
-base = ROOT/'diagnostic/tablet-r20/layer'
+assert not delivery.exists() or options.replace_untested, 'Preserve existing candidate'
+if options.replace_untested:
+    assert not (PROJECT/('reports/kernel618-'+tag+'-hardware.json')).exists()
+    assert not (PROJECT/('reports/device/kernel618-'+tag)/'flash.txt').exists()
+base = ROOT/'diagnostic'/options.base/'layer'
 shutil.copytree(base, rd, dirs_exist_ok=True)
 modules = rd/'lib/modules'
 replacements = {
@@ -27,6 +38,9 @@ replacements = {
     'nt36532_touch.ko': K618/'sheng-ports/touch/nt36532_touch.ko',
 }
 source_receipts = ['kernel618-peripherals-source.json','kernel618-touch-source.json']
+source_snapshots = {}
+for receipt_name in source_receipts:
+    source_snapshots[receipt_name] = json.loads((PROJECT/'reports'/receipt_name).read_text())
 for name, hashes in json.loads((PROJECT/'reports/kernel618-peripherals-source.json').read_text())['files'].items():
     assert hashlib.sha256((K618/name).read_bytes()).hexdigest() == hashes['after'], name
 for name, hashes in json.loads((PROJECT/'reports/kernel618-touch-source.json').read_text())['files'].items():
@@ -60,8 +74,10 @@ for name in ('modules.dep','modules.alias','modules.softdep'):
     (modules/name).write_text(data)
 load = modules/'k618_batch.load'
 text = load.read_text()
-assert 'xiaomi_touch.ko' not in text and 'nt36532_touch.ko' not in text
-load.write_text(text.rstrip()+'\nxiaomi_touch.ko\nnt36532_touch.ko\n')
+for name in ('xiaomi_touch.ko', 'nt36532_touch.ko'):
+    if name not in text.splitlines():
+        text = text.rstrip()+'\n'+name+'\n'
+load.write_text(text)
 assert (modules/'k618_batch.load').read_text().splitlines()[-2:] == ['xiaomi_touch.ko','nt36532_touch.ko']
 
 overlay = native/'overlay.cpio'
@@ -70,19 +86,27 @@ with overlay.open('wb') as stream:
     subprocess.run(['cpio','--null','-o','-H','newc','-R','0:0','--quiet'],
         input=('\0'.join(names)+'\0').encode(),cwd=rd,stdout=stream,check=True)
 packed = {name:(mode,data) for name,mode,data in entries(overlay.read_bytes())}
-baseline = {name:(mode,data) for name,mode,data in entries((ROOT/'diagnostic/tablet-r20/overlay.cpio').read_bytes())}
+baseline = {name:(mode,data) for name,mode,data in entries((ROOT/'diagnostic'/options.base/'overlay.cpio').read_bytes())}
 assert all(packed[n][0] == baseline[n][0] for n in baseline)
 added = sorted(packed.keys()-baseline.keys())
-assert added == ['lib/modules/nt36532_touch.ko','lib/modules/xiaomi_touch.ko'],added
+expected_added = sorted('lib/modules/'+n for n in ('nt36532_touch.ko','xiaomi_touch.ko')
+                        if 'lib/modules/'+n not in baseline)
+assert added == expected_added,added
 changed = sorted(n for n in baseline if packed[n][1] != baseline[n][1])
 allowed = {'lib/modules/'+name for name in replacements}
 allowed |= {'lib/modules/'+name for name in ['modules.dep','modules.alias','modules.softdep','k618_batch.load']}
 assert set(changed) <= allowed, changed
 metadata = audit(overlay)
 assert metadata['helper_executable'] and metadata['module_count'] == 340
-report = dict(revision=tag,base_revision='tablet-r20',checks=checked,archive=metadata,
+report = dict(revision=tag,base_revision=options.base,checks=checked,archive=metadata,
     changed_payloads=changed,added_payloads=added,source_receipts=source_receipts,
+    source_snapshots=source_snapshots,
+    replacement_module_sha256={name:hashlib.sha256((modules/name).read_bytes()).hexdigest()
+                               for name in replacements},
     test_mode_enabled=False,hardware_result='pending')
 (PROJECT/('reports/kernel618-'+tag+'-layer.json')).write_text(json.dumps(report,indent=2)+'\n')
-subprocess.run([sys.executable,PROJECT/'scripts/build_sheng618_disklog_boot.py',
-    '--tag',tag,'--overlay',overlay,'--legacy-module-reuse','--legacy-fscrypt','--legacy-firmware-lsm'],check=True)
+args = [sys.executable,PROJECT/'scripts/build_sheng618_disklog_boot.py',
+    '--tag',tag,'--overlay',overlay,'--legacy-module-reuse','--legacy-fscrypt','--legacy-firmware-lsm']
+if options.replace_untested:
+    args.append('--replace-untested')
+subprocess.run(args,check=True)
