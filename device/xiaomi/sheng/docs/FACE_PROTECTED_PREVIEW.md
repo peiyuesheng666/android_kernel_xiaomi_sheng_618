@@ -49,3 +49,10 @@ absent from the current sheng LineageOS checkout. No implementation was copied
 and no protected-composition property was changed. See
 [piano-face-reference-review-20261108.md](piano-face-reference-review-20261108.md)
 and its exact-source JSON receipt for the applicable ideas and limitations.
+
+The additional LineageOS nuwa reference and its sm8550-common dependency were
+also reviewed across their five published branches. They retain miface
+libraries but do not register a stock face HAL. Their camera libui-v34 fixup
+does not target miface, and their reserved-format camera setting is already
+present in sheng. See
+[nuwa-face-reference-review-20261108.md](nuwa-face-reference-review-20261108.md).

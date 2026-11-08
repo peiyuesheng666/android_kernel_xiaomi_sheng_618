@@ -1,0 +1,191 @@
+{
+  "checked_at_utc": "2026-11-08T09:33:04.507682+00:00",
+  "sources": [
+    {
+      "repository": "LineageOS/android_device_xiaomi_nuwa",
+      "branch": "lineage-24.0",
+      "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+      "tree": "ee8a21883019d71bfd877e9586660e5051630bcc",
+      "branch_scans": [
+        {
+          "branch": "lineage-22.2",
+          "commit": "68dd54f141c82fc77bf74e232d13d20319766ffa",
+          "face_matches": [
+            "68dd54f141c82fc77bf74e232d13d20319766ffa:proprietary-files.txt:758:odm/lib64/libmiface.so",
+            "68dd54f141c82fc77bf74e232d13d20319766ffa:proprietary-files.txt:883:vendor/lib64/vendor.xiaomi.hardware.miface@1.0.so"
+          ]
+        },
+        {
+          "branch": "lineage-23.0",
+          "commit": "2feb68cb61a51247d2e47ff89a95e55e7db2239d",
+          "face_matches": [
+            "2feb68cb61a51247d2e47ff89a95e55e7db2239d:proprietary-files.txt:758:odm/lib64/libmiface.so",
+            "2feb68cb61a51247d2e47ff89a95e55e7db2239d:proprietary-files.txt:883:vendor/lib64/vendor.xiaomi.hardware.miface@1.0.so"
+          ]
+        },
+        {
+          "branch": "lineage-23.1",
+          "commit": "2feb68cb61a51247d2e47ff89a95e55e7db2239d",
+          "face_matches": [
+            "2feb68cb61a51247d2e47ff89a95e55e7db2239d:proprietary-files.txt:758:odm/lib64/libmiface.so",
+            "2feb68cb61a51247d2e47ff89a95e55e7db2239d:proprietary-files.txt:883:vendor/lib64/vendor.xiaomi.hardware.miface@1.0.so"
+          ]
+        },
+        {
+          "branch": "lineage-23.2",
+          "commit": "5b6d498f9303c952b6e2fd655ee42a1a95d86b9e",
+          "face_matches": [
+            "5b6d498f9303c952b6e2fd655ee42a1a95d86b9e:proprietary-files.txt:761:odm/lib64/libmiface.so",
+            "5b6d498f9303c952b6e2fd655ee42a1a95d86b9e:proprietary-files.txt:886:vendor/lib64/vendor.xiaomi.hardware.miface@1.0.so"
+          ]
+        },
+        {
+          "branch": "lineage-24.0",
+          "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+          "face_matches": [
+            "8e2b6ca4375919035587115189760eed64f14b8d:proprietary-files.txt:761:odm/lib64/libmiface.so",
+            "8e2b6ca4375919035587115189760eed64f14b8d:proprietary-files.txt:886:vendor/lib64/vendor.xiaomi.hardware.miface@1.0.so"
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "LineageOS/android_device_xiaomi_sm8550-common",
+      "branch": "lineage-24.0",
+      "commit": "63da741c41384a23416159f148f7ef7c85c8ea61",
+      "tree": "79a7f63d8053007237bc6e01eb8d4cb850c01b8c",
+      "branch_scans": [
+        {
+          "branch": "lineage-22.2",
+          "commit": "dc3b268ee2548009e660ca2010e39e95531870f6",
+          "face_matches": []
+        },
+        {
+          "branch": "lineage-23.0",
+          "commit": "32ccd57e7b7921a444c474bd114d5eff267a65b9",
+          "face_matches": []
+        },
+        {
+          "branch": "lineage-23.1",
+          "commit": "438097e9b570ecd9820929318b19c91af4e74c34",
+          "face_matches": []
+        },
+        {
+          "branch": "lineage-23.2",
+          "commit": "dfb9e56a0d9c38742ec569471d25657f91a4a38b",
+          "face_matches": []
+        },
+        {
+          "branch": "lineage-24.0",
+          "commit": "63da741c41384a23416159f148f7ef7c85c8ea61",
+          "face_matches": []
+        }
+      ]
+    }
+  ],
+  "evidence_directory": "reports/device/nuwa-face-reference-20261108",
+  "reviewed_files": [
+    {
+      "repository": "LineageOS/android_device_xiaomi_nuwa",
+      "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+      "path": "lineage.dependencies",
+      "git_blob_sha1": "b5af9adae157a42957b0bb7f36b1e7a9a966e638",
+      "sha256": "3544a38ffde296dca47f514f870b19d2761839124057b4fd8a53af9760bc2570",
+      "evidence_file": "android_device_xiaomi_nuwa-lineage.dependencies"
+    },
+    {
+      "repository": "LineageOS/android_device_xiaomi_nuwa",
+      "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+      "path": "device.mk",
+      "git_blob_sha1": "8a7374b52f2ab69caf5c0305ceb51bfd752720e5",
+      "sha256": "a044281bd413cc131e61d614c5e134e22df3200d15a53e4fdc8414c7450e444d",
+      "evidence_file": "android_device_xiaomi_nuwa-device.mk"
+    },
+    {
+      "repository": "LineageOS/android_device_xiaomi_nuwa",
+      "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+      "path": "extract-files.py",
+      "git_blob_sha1": "0ae05bb54aba70cb468d584f413b2b0e2ed54532",
+      "sha256": "aaf104046d78772af2f905a7b62f96cf07472e5d77fb8a2be69752d2b8459444",
+      "evidence_file": "android_device_xiaomi_nuwa-extract-files.py"
+    },
+    {
+      "repository": "LineageOS/android_device_xiaomi_nuwa",
+      "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+      "path": "proprietary-files.txt",
+      "git_blob_sha1": "56717d1aa7623950f0f7f0c3471a0c84803d3faf",
+      "sha256": "190b7e7342c91f19b062667979624cc63d9b00db255449b33dbb041893bceddf",
+      "evidence_file": "android_device_xiaomi_nuwa-proprietary-files.txt"
+    },
+    {
+      "repository": "LineageOS/android_device_xiaomi_sm8550-common",
+      "commit": "63da741c41384a23416159f148f7ef7c85c8ea61",
+      "path": "common.mk",
+      "git_blob_sha1": "095dc9250f563ab0eb26c89a638d98cb629ba67f",
+      "sha256": "682f89b2dabc4b5efe48defb01df93cacd05cd4b23a72700efb8bc4219794413",
+      "evidence_file": "android_device_xiaomi_sm8550-common-common.mk"
+    },
+    {
+      "repository": "LineageOS/android_device_xiaomi_sm8550-common",
+      "commit": "63da741c41384a23416159f148f7ef7c85c8ea61",
+      "path": "configs/properties/vendor.prop",
+      "git_blob_sha1": "e54628e4a6445523bed1d072f40320f3244424f7",
+      "sha256": "e79925ccbedb6cd5f3ed391f618403a160053aa1db8d7686479a2c69c8d4fec8",
+      "evidence_file": "android_device_xiaomi_sm8550-common-configs_properties_vendor.prop"
+    },
+    {
+      "repository": "LineageOS/android_device_xiaomi_sm8550-common",
+      "commit": "63da741c41384a23416159f148f7ef7c85c8ea61",
+      "path": "configs/vintf/framework_manifest.xml",
+      "git_blob_sha1": "d4a70e40f1aa3afbfcf0e4f15060d529c2e0d5ff",
+      "sha256": "0a864413633900220dbd5d422d67705a11aa3912dc6dcaf50814df0e577cdbc5",
+      "evidence_file": "android_device_xiaomi_sm8550-common-configs_vintf_framework_manifest.xml"
+    },
+    {
+      "repository": "LineageOS/android_device_xiaomi_sm8550-common",
+      "commit": "63da741c41384a23416159f148f7ef7c85c8ea61",
+      "path": "configs/vintf/manifest_kalama.xml",
+      "git_blob_sha1": "dd6c21475585e034edfce6bae3d41bc75306a412",
+      "sha256": "d24d9a1ded373b70fb5b2e2225d8c58426d5684d161365f0e62335632049fbbc",
+      "evidence_file": "android_device_xiaomi_sm8550-common-configs_vintf_manifest_kalama.xml"
+    },
+    {
+      "repository": "LineageOS/android_device_xiaomi_sm8550-common",
+      "commit": "63da741c41384a23416159f148f7ef7c85c8ea61",
+      "path": "configs/vintf/manifest_xiaomi.xml",
+      "git_blob_sha1": "2ce065dd1ccde609c1935dbe0c0d71ccc2b77186",
+      "sha256": "858eb00b565783200431f0b856fc7c7d1b4cf8f576e7236df1a483a268337447",
+      "evidence_file": "android_device_xiaomi_sm8550-common-configs_vintf_manifest_xiaomi.xml"
+    }
+  ],
+  "findings": {
+    "stock_face_service_registration_found": false,
+    "stock_face_client_libraries_listed": true,
+    "face_settings_override_found": false,
+    "common_tree_face_policy_found": false,
+    "camera_override_format_from_reserved": true,
+    "camera_blob_libui_dependency": "libui-v34.so",
+    "miface_libui_fixup_found": false,
+    "protected_contents_property": "true",
+    "runtime_face_success_established": false
+  },
+  "sheng_comparison": {
+    "camera_override_format_from_reserved_already_enabled": true,
+    "graphicbuffer_allocation_compatibility_already_integrated": "r25",
+    "new_miface_dependency_swap_justified": false,
+    "r38_failure": "protected camera EGL import rejects 0x3002",
+    "candidate_r39": "Disable protected GPU client composition; retain HWC eligibility and platform blackout"
+  },
+  "actions": {
+    "reference_sources_modified": false,
+    "foreign_vendor_blobs_imported": false,
+    "device_images_written": false,
+    "camera_opened": false
+  },
+  "limits": [
+    "Presence of libmiface and its interface library is not a face HAL registration or proof of enrollment.",
+    "The camera libui-v34 dependency fixup is not applied to libmiface in this reference.",
+    "Reference branch scans describe source state; shipped ROM runtime behavior was not tested.",
+    "The r39 property candidate is an independent mitigation, not a nuwa face fix or accepted enrollment."
+  ]
+}
