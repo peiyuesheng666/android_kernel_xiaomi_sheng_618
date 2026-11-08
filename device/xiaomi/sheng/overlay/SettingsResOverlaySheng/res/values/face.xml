@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <!-- The sheng AIDL frontend rejects enrollment without a preview handle.
+         Let the existing Settings HAL-owned mode supply one before enrollment. -->
+    <bool name="config_face_enroll_hal_owns_camera">true</bool>
+    <!-- MiSecureCamera creates its YUV image reader at 640 x 480. -->
+    <integer name="face_preview_width">640</integer>
+    <integer name="face_preview_height">480</integer>
+</resources>
