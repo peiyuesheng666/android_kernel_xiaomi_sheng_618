@@ -93,10 +93,12 @@ Details and remaining items are in [docs/HARDWARE_STATUS.md](docs/HARDWARE_STATU
 
 r24 reached framework boot completion but SystemUI repeatedly crashed due to
 instance fields lost by the device-owned APK transform. The accepted r22
-system_ext and vbmeta_system were restored and reboot requested; rollback
-startup/readback still await reconnection. The source correction passed an
-incremental module build, direct field checks and signed-APK review, and has
-not been installed. See
+system_ext and vbmeta_system were restored. The user confirmed reaching the
+lock screen/launcher, all six partition hashes match and original SystemUI
+remained stable during automatic checks. The user prohibits SystemUI changes;
+the replacement module and transform tools are withdrawn. Power-button animation
+is excluded from the repair target at the user's request. See
+[docs/POWER_BUTTON_ANIMATION.md](docs/POWER_BUTTON_ANIMATION.md) and
 [docs/r24-systemui-boot-regression-20261108.md](docs/r24-systemui-boot-regression-20261108.md).
 r25's two independent
 camera and Dolby GraphicBuffer allocation repairs passed the formal build,
@@ -108,8 +110,9 @@ after r25 installation and basic runtime checks. See
 [docs/offline-validation-20261108.json](docs/offline-validation-20261108.json)
 for exact evidence hashes and validation boundaries. Local r25 image and pinned
 decode-fixture validation were rerun successfully after that record was committed.
-Those sealed r25 images assume the original r24 system_ext; preserve their
-baseline guard and prepare a new reviewed chain after confirming the rollback.
+Those sealed r25 images were reviewed against the original r24 baseline;
+preserve their guards until a supplemental review explicitly verifies the
+restored upstream SystemUI partition chain.
 
 The final color request keeps 自适应/生动/鲜艳 visible order and swaps the latter
 two functions; r18 passed the user check and 鲜艳 selection reads actual mode1. Source/build/package milestones remain

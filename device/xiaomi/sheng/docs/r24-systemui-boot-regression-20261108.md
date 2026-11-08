@@ -18,9 +18,10 @@ After announcing the adbd restart, adb root was executed only for ca10ede3.
 rollback_sheng_r24.ps1 verifies all six installed r24 partition hashes and the
 accepted r22 restoration images before entering fastbootd. It restores only
 system_ext_b and vbmeta_system_b, keeping the r24 vendor repair, data and slot.
-Both flash commands and the reboot command completed successfully. ADB has
-not yet returned after this rollback, so restored boot and partition readback
-are still pending. No recovery or other connected tablet was operated.
+Both flash commands and the reboot command completed successfully. ADB returned,
+the user confirmed reaching the lock screen/launcher and all six partition hashes
+matched the restored chain. Original SystemUI PID 3539 remained stable during
+automatic regression. No recovery or other connected tablet was operated.
 
 Evidence is in workspace reports/device/r24-boot-stuck-20261108 and
 reports/device/rollback-r24-20261108-071109. The source correction and stronger
@@ -55,5 +56,7 @@ These attempts are retained under hardware-diagnostics/systemui-field-formal-mod
 Fresh-fetch prebuild and postbuild physical audits passed for 20 public
 repositories, with the same heads and all 1,243 repo projects clean. This is a
 module build, not a completed full product build or a runtime pass. No fixed
-APK has been flashed; rollback startup still needs target reconnection.
+APK has been flashed. The user then prohibited SystemUI changes and excluded
+power-button animation from the bug list. The module and transform tools have
+been removed; the correction described above is historical evidence only.
 Exact evidence hashes are in systemui-field-fix-validation-20261108.json.

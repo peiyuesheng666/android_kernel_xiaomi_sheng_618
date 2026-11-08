@@ -1,5 +1,6 @@
 param([switch]$Flash)
 $ErrorActionPreference = 'Stop'
+if ($Flash) { throw 'r24 SystemUI replacement was withdrawn: the user forbids modifying SystemUI.' }
 $workspace = (Resolve-Path (Join-Path $PSScriptRoot '../../../..')).Path
 $images = Join-Path $workspace 'artifacts/system-hardware-followup-sheng-r24'
 $serial = 'ca10ede3'
