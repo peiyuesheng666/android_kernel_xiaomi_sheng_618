@@ -5,6 +5,37 @@
 LOS kalama TCSR、官方 sheng 电池管理工具和 CS35L43 功放模块，尚无完成板级
 适配的 sheng 内核、boot 镜像或可刷包。
 
+### 用户要求全量推进后的平台阶段
+
+2026-11-08：继续源码迁移，新增 `build_kernel618_platform.py` 和共享的
+`kernel618_portlib.py`。各组独立暂存，输入固定且干净，所有转换先生成再写入，
+失败的转换不会覆盖上一次有效暂存；记录源码/生成文件/编译结果与模块哈希。
+
+- `clock-los` 替换先前仅 TCSR 的实验组：公共 LOS 时钟库、dummy clock 及
+  GCC/CAMCC/DISPCC/GPUCC/TCSR/VIDEOCC/DEBUGCC 共九个模块通过编译。
+  保留 LOS 的 PLL、VDD vote、proxy vote、OPP、PM 和 critical clock 处理；
+  适配 OF 属性迭代、trace string、日志和 remove 接口，没有删除电压管理。
+- LOS SCM 与 QTEE shared-memory bridge 编译通过，保留安全调用和共享内存路径。
+  三个仅文件内使用的函数改 static，删除一个未使用的 ION include。
+- LOS RPMh/RSC、command DB、IPC logging、RPMh 时钟和 regulator 共五个模块通过。
+  使用 LOS 头文件中的 fast-path 和 clock ID，避免被 ACK 同名头文件覆盖。
+  IPC minidump buffer 数取其原 Kconfig 默认值 0，完整 minidump 尚未迁移。
+- SMEM、SOCINFO、SMP2P、AOSS、硬件自旋锁及 IPCC 共六个模块通过。
+  SOCINFO 保留按版本累加 sysfs 属性的行为，显式标注 fallthrough。
+- TLMM core 与 Kalama pinctrl 两个模块通过；GPIO set 返回状态、fwnode、
+  valid-mask 查询及 pinconf LEVEL 接口已按 6.18 适配，保留 GPIO/唤醒表。
+- Kalama NoC、RPMh ICC、BCM voter、QoS 共四个模块通过。ICC provider 改为
+  init → 创建节点/配置 QoS → register，卸载先 deregister；删除 devm clocks
+  的重复释放，移除 probe list 项。LOS 的 translator 改为独立符号，避免与 ACK
+  已内置的同名导出冲突。没有移除原有带宽投票或 QoS 实现。
+- `ports.json` 明确选择有效模块组，并排除被替代的旧 `clock` 组。联合核查
+  105 个基线与 29 个移植模块（合计 134 个）、7,218 项版本化导入通过，未发现
+  缺失符号、CRC 冲突、重复导出、命名空间或依赖环问题。完整报告已重生成。
+
+这些是编译和静态闭合结果；存储、IOMMU、USB、显示、完整音频、GPU、无线、
+充电、触摸/笔/键盘等仍需继续迁移。尚未形成完整可启动的板级模块集合。
+新模块尚未安装或签名，无刷机和硬件验证。
+
 ## 选定来源
 
 2026-11-08 用户最新确认：SM8550 驱动以 LOS 官方三仓库为主，缺失的平板驱动
@@ -141,6 +172,12 @@ bash scripts/build_kernel618_baseline.sh
 bash scripts/build_kernel618_clock_port.sh
 bash scripts/build_kernel618_pogo_port.sh
 python3 scripts/build_kernel618_cs35l43.py
+python3 scripts/build_kernel618_platform.py clocks
+python3 scripts/build_kernel618_platform.py firmware
+python3 scripts/build_kernel618_platform.py rpmh
+python3 scripts/build_kernel618_platform.py soc
+python3 scripts/build_kernel618_platform.py pinctrl
+python3 scripts/build_kernel618_platform.py interconnect
 python3 scripts/verify_kernel618_build.py
 
 # 检查原厂 BSP 原始文件哈希和 ELF 信息；成功只是清单核查成功。

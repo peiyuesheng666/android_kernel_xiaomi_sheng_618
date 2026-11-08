@@ -47,8 +47,8 @@ def main():
     module_paths = sorted(installed.rglob('*.ko'))
     assert module_paths
     baseline_count = len(module_paths)
-    ports = {'clock': ['clk-qcom.ko', 'tcsrcc-kalama.ko'],
-             'pogo': ['xm_utils.ko'], 'cs35l43': ['cs35l43_dlkm.ko']}
+    registry = json.loads((project / 'device/xiaomi/sheng/interfaces/kernel/6.18/ports.json').read_text())
+    ports = registry['verified_groups']
     port_sources = {}
     source_specs = plan['board_sources'] + plan.get('supplemental_board_sources', [])
     source_paths = {x['url']: root / 'src' / x['name'] for x in source_specs}
@@ -56,6 +56,14 @@ def main():
     for group, names in ports.items():
         port_dir = root / 'ports' / group
         receipt = json.loads((port_dir / 'source-receipt.json').read_text())
+        if 'modules' in receipt:
+            assert names == receipt['modules'], f'Module registry differs from receipt: {group}'
+            built = json.loads((port_dir / 'build-result.json').read_text())
+            assert built['exit_code'] == 0
+            assert built['source_receipt_sha256'] == sha(port_dir / 'source-receipt.json')
+            assert set(built['modules']) == set(names)
+            for name, expected in built['modules'].items():
+                assert sha(port_dir / name) == expected
         for name, expected in receipt['generated_sha256'].items():
             assert sha(port_dir / name) == expected
         for record in receipt['source_files']:

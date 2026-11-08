@@ -17,8 +17,8 @@
     "CONFIG_ANDROID_BINDER_IPC_RUST=m"
   ],
   "baseline_module_count": 105,
-  "port_module_count": 4,
-  "versioned_imports_checked": 6330,
+  "port_module_count": 29,
+  "versioned_imports_checked": 7218,
   "this_module_bytes": 1664,
   "static_module_closure_passed": true,
   "issue_counts": {},
@@ -48,7 +48,7 @@
   "host_elfutils": {
     "version": "0.193",
     "system_libraries_changed": false,
-    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x000078c186434000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x000078c1862d5000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x000078c1862ba000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x000078c186293000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000078c186000000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x000078c186268000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000078c186436000)"
+    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x00007f5b873c8000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x00007f5b87269000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x00007f5b8724e000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f5b87227000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f5b86e00000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007f5b871fc000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f5b873ca000)"
   },
   "artifacts": {
     "Image": {
@@ -78,291 +78,1304 @@
     }
   },
   "port_source_receipts": {
-    "clock": {
+    "clock-los": {
       "schema": 1,
-      "scope": "LOS TCSR Kalama port and unmodified ACK clock helpers",
       "source_files": [
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/common.c",
-          "source_sha256": "803e0f09194777208b64a56ec3a5451aadfc6232464ef80961ac75f25fcadc8e",
+          "source_sha256": "39c3c587758a0f1be521a56bcef81ae401198fd23113a81ae9862b4c1baf6bf3",
           "staged_path": "common.c",
-          "staged_sha256": "803e0f09194777208b64a56ec3a5451aadfc6232464ef80961ac75f25fcadc8e"
+          "staged_sha256": "a17de2d6f9f4fa57e58400ae46f639f03b3dca8312cf976c26451d104b1014c7"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-class.c",
+          "source_sha256": "b126f48fe748e3b8727540b06ab6a888ef54928ecd53c7c28cbb2989bdacacf3",
+          "staged_path": "vdd-class.c",
+          "staged_sha256": "b126f48fe748e3b8727540b06ab6a888ef54928ecd53c7c28cbb2989bdacacf3"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-regmap.c",
-          "source_sha256": "2438f057d67c3cd0229e710494dcf0a381bc69021591fe9cb89219734b8e633d",
+          "source_sha256": "69f7a88cf1cc991f2ba95868af0507c96164c95dc2eaa30521022ff695897e15",
           "staged_path": "clk-regmap.c",
-          "staged_sha256": "2438f057d67c3cd0229e710494dcf0a381bc69021591fe9cb89219734b8e633d"
+          "staged_sha256": "69f7a88cf1cc991f2ba95868af0507c96164c95dc2eaa30521022ff695897e15"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-alpha-pll.c",
-          "source_sha256": "a27a1c6a3e8343759bbd5345caa0bf9511259ec704fbfc2856891a65ca5e269e",
+          "source_sha256": "897bd2d5b1062905277ec8e33fd728d062fc98d273f07a289824704d180bdb65",
           "staged_path": "clk-alpha-pll.c",
-          "staged_sha256": "a27a1c6a3e8343759bbd5345caa0bf9511259ec704fbfc2856891a65ca5e269e"
+          "staged_sha256": "fa16a1251b29efe47ae05ff8662d30f293d1d50aa19928e9cf9236e81cf00069"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/clk-opp.c",
+          "source_sha256": "6170c5c583f1b5bc13aeca0e300743c712a7d0857e5b8f07fe0059ec19a84b10",
+          "staged_path": "clk-opp.c",
+          "staged_sha256": "9c8bd90459b829e780fdaa5dbd6f6b35e133eb5e5ace49093860851b96721acd"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-pll.c",
-          "source_sha256": "b12e945d1f142101c28d33cf465095a247b560c2255f12fb1b8a224f49db8c30",
+          "source_sha256": "87c127dbd830d587cbe8a6b8acf4566379c2f31b1b753faf707730965e70f15f",
           "staged_path": "clk-pll.c",
-          "staged_sha256": "b12e945d1f142101c28d33cf465095a247b560c2255f12fb1b8a224f49db8c30"
+          "staged_sha256": "87c127dbd830d587cbe8a6b8acf4566379c2f31b1b753faf707730965e70f15f"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-rcg.c",
-          "source_sha256": "54f09b586c5433c38e3749f59856d57c1122d42258f5c47cfc11c6d696e1c777",
+          "source_sha256": "2e96db36e0882fa8d90d2288457fbf61bbdcc8e56c1ca6abac6e43f8c2751768",
           "staged_path": "clk-rcg.c",
-          "staged_sha256": "54f09b586c5433c38e3749f59856d57c1122d42258f5c47cfc11c6d696e1c777"
+          "staged_sha256": "2e96db36e0882fa8d90d2288457fbf61bbdcc8e56c1ca6abac6e43f8c2751768"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-rcg2.c",
-          "source_sha256": "28d570df7a3af481da5e88af29aca161c597d00f0991d6fca4f445a6c0491a1d",
+          "source_sha256": "7edb223af576a0ed4f68335cf88aafcd8d66c7dea03410f646e8f1f995d8b265",
           "staged_path": "clk-rcg2.c",
-          "staged_sha256": "28d570df7a3af481da5e88af29aca161c597d00f0991d6fca4f445a6c0491a1d"
+          "staged_sha256": "7edb223af576a0ed4f68335cf88aafcd8d66c7dea03410f646e8f1f995d8b265"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-branch.c",
-          "source_sha256": "a0840dff3927c93b5ece621cd799415d3827428fdb8c67e3ac682561d30efc72",
+          "source_sha256": "66853f40607605cbb460bd817856207ea79e3afcb50202158c57ef4004e408c2",
           "staged_path": "clk-branch.c",
-          "staged_sha256": "a0840dff3927c93b5ece621cd799415d3827428fdb8c67e3ac682561d30efc72"
+          "staged_sha256": "66853f40607605cbb460bd817856207ea79e3afcb50202158c57ef4004e408c2"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-regmap-divider.c",
-          "source_sha256": "34261ec016413f96a7482fdca6d0f4c6de52703e51968a2d5bebd9eb2af5d04e",
+          "source_sha256": "83d9e35c5b288ce0f4a74c6af82185394f9f0ebb2069d2890069929da5eb0d48",
           "staged_path": "clk-regmap-divider.c",
-          "staged_sha256": "34261ec016413f96a7482fdca6d0f4c6de52703e51968a2d5bebd9eb2af5d04e"
+          "staged_sha256": "83d9e35c5b288ce0f4a74c6af82185394f9f0ebb2069d2890069929da5eb0d48"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-regmap-mux.c",
-          "source_sha256": "ce97dcf91932dca63a961abbfe3a60500ec523475d819f738fb55decab55d85a",
+          "source_sha256": "8fab0909f989fbae3b877f51bcc8157de1ac23bb382aea10161b877e2da03e98",
           "staged_path": "clk-regmap-mux.c",
-          "staged_sha256": "ce97dcf91932dca63a961abbfe3a60500ec523475d819f738fb55decab55d85a"
+          "staged_sha256": "8fab0909f989fbae3b877f51bcc8157de1ac23bb382aea10161b877e2da03e98"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-regmap-mux-div.c",
-          "source_sha256": "f4bfcc8a91a2fbd097352cea21b3c6f9e2f81ef25be7bd4878f8cab037412653",
+          "source_sha256": "6c5f02d7014ba7d11014b02cc57e497273653ffe94040e60f0bcd39c4c2da2af",
           "staged_path": "clk-regmap-mux-div.c",
-          "staged_sha256": "f4bfcc8a91a2fbd097352cea21b3c6f9e2f81ef25be7bd4878f8cab037412653"
+          "staged_sha256": "6c5f02d7014ba7d11014b02cc57e497273653ffe94040e60f0bcd39c4c2da2af"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-regmap-phy-mux.c",
           "source_sha256": "76be83dfd9ad18692d3f09d85589be6cff60cec62573344bdf2fd4eb47357380",
           "staged_path": "clk-regmap-phy-mux.c",
           "staged_sha256": "76be83dfd9ad18692d3f09d85589be6cff60cec62573344bdf2fd4eb47357380"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-hfpll.c",
-          "source_sha256": "db5fe959a97f12cd9e74c8e73d7e255ed3c775f11f473924c693b52cedc14f8d",
+          "source_sha256": "ab8b9546c89da7494355dc2ff45fe32760696522ad0443c4f1307cff02a85f8e",
           "staged_path": "clk-hfpll.c",
-          "staged_sha256": "db5fe959a97f12cd9e74c8e73d7e255ed3c775f11f473924c693b52cedc14f8d"
+          "staged_sha256": "ab8b9546c89da7494355dc2ff45fe32760696522ad0443c4f1307cff02a85f8e"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/reset.c",
-          "source_sha256": "434e63a159118f20a49114f5b184f405739e5ba4cda4148f4e101bf6b36326e8",
+          "source_sha256": "81ae46702ef813006d252fda3a50be6dff547c02beaab260d08fc21f1191a2df",
           "staged_path": "reset.c",
-          "staged_sha256": "434e63a159118f20a49114f5b184f405739e5ba4cda4148f4e101bf6b36326e8"
+          "staged_sha256": "81ae46702ef813006d252fda3a50be6dff547c02beaab260d08fc21f1191a2df"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/clk-pm.c",
+          "source_sha256": "18c78c48452476c8d8c0ecb92dab5431910cd27f797d67c574e1d3e87bf43f6f",
+          "staged_path": "clk-pm.c",
+          "staged_sha256": "18c78c48452476c8d8c0ecb92dab5431910cd27f797d67c574e1d3e87bf43f6f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/clk-debug.c",
+          "source_sha256": "6f96c82460a1aa58b0c61ef8ffb7c200a945cb244364c0c6b669cdb62175fbb3",
+          "staged_path": "clk-debug.c",
+          "staged_sha256": "6f96c82460a1aa58b0c61ef8ffb7c200a945cb244364c0c6b669cdb62175fbb3"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/gdsc.c",
-          "source_sha256": "7a7d49dd634aed099b5707ff3adab7bb0b4751dbbf19fa8cf234688fd329f093",
+          "source_sha256": "ee374d86f74f12b22c8b266adae053389ef6263f868abc8c3adc34c8b17289dc",
           "staged_path": "gdsc.c",
-          "staged_sha256": "7a7d49dd634aed099b5707ff3adab7bb0b4751dbbf19fa8cf234688fd329f093"
+          "staged_sha256": "ee374d86f74f12b22c8b266adae053389ef6263f868abc8c3adc34c8b17289dc"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/gcc-kalama.c",
+          "source_sha256": "e0d79c7de944f707d33216f49bfc5ac46729dc5d34a86f40ed029b42a24692a5",
+          "staged_path": "gcc-kalama.c",
+          "staged_sha256": "e0d79c7de944f707d33216f49bfc5ac46729dc5d34a86f40ed029b42a24692a5"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/camcc-kalama.c",
+          "source_sha256": "59aa9e689ba813ee3cd90832528f6462e22b4b6e56f0605dbcb153a64d3e1c29",
+          "staged_path": "camcc-kalama.c",
+          "staged_sha256": "59aa9e689ba813ee3cd90832528f6462e22b4b6e56f0605dbcb153a64d3e1c29"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/dispcc-kalama.c",
+          "source_sha256": "6f2ad482645c03c0b902edcc13f20dae2e359dfbb57f4383bf7cfaa6c9f5d38a",
+          "staged_path": "dispcc-kalama.c",
+          "staged_sha256": "6f2ad482645c03c0b902edcc13f20dae2e359dfbb57f4383bf7cfaa6c9f5d38a"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/gpucc-kalama.c",
+          "source_sha256": "b4e6b5855d7b40b13f687898480198d8882171e8caf0fd2ef26c57fcd7d8bdc7",
+          "staged_path": "gpucc-kalama.c",
+          "staged_sha256": "b4e6b5855d7b40b13f687898480198d8882171e8caf0fd2ef26c57fcd7d8bdc7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/tcsrcc-kalama.c",
+          "source_sha256": "8f6eeca2554081e24d8bb8764b68410ffe63c2571c336e565b2dc9577b5ae848",
+          "staged_path": "tcsrcc-kalama.c",
+          "staged_sha256": "8f6eeca2554081e24d8bb8764b68410ffe63c2571c336e565b2dc9577b5ae848"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/videocc-kalama.c",
+          "source_sha256": "6138c6dcd6007e13807a2fbd85c388a4eaeea121a7a008965d6f4dfa5947d150",
+          "staged_path": "videocc-kalama.c",
+          "staged_sha256": "6138c6dcd6007e13807a2fbd85c388a4eaeea121a7a008965d6f4dfa5947d150"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/debugcc-kalama.c",
+          "source_sha256": "b1dd07103396895bb75d0f556e7142bab44c640a4bfbe591bcc7cabd820f1acf",
+          "staged_path": "debugcc-kalama.c",
+          "staged_sha256": "f5086c6da3368d84d73e9dcdd42a5738a81143a5e4fc40e0261ad44503210fed"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/clk-dummy.c",
+          "source_sha256": "8f4444009cc85e919450ffae1866a67b275a205c84fd45a14141ab9a53161aae",
+          "staged_path": "clk-dummy.c",
+          "staged_sha256": "6eb9cf15b06a1edf3dda39c44b95626a90f84f236642a53a13179f78215241ea"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-alpha-pll.h",
-          "source_sha256": "a650f336e91466e15a8ac1809e574826081522cf12cc37e7970b84eb9fa02fdc",
+          "source_sha256": "86571cd617a9ffddf24133af6817fc923a90d7c5b937a2e44912a0a39529a0fd",
           "staged_path": "clk-alpha-pll.h",
-          "staged_sha256": "a650f336e91466e15a8ac1809e574826081522cf12cc37e7970b84eb9fa02fdc"
+          "staged_sha256": "86571cd617a9ffddf24133af6817fc923a90d7c5b937a2e44912a0a39529a0fd"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-branch.h",
-          "source_sha256": "d1cdd6eda43aaf475916c3e429ed70f83786b63a2cf1037d2639abf159b6519a",
+          "source_sha256": "1ab0fa444fc9e500dac10bcbf9ec0f38e79146482e01b678e82fb5ffcd34d3be",
           "staged_path": "clk-branch.h",
-          "staged_sha256": "d1cdd6eda43aaf475916c3e429ed70f83786b63a2cf1037d2639abf159b6519a"
+          "staged_sha256": "1ab0fa444fc9e500dac10bcbf9ec0f38e79146482e01b678e82fb5ffcd34d3be"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/clk-debug.h",
+          "source_sha256": "5ee55dc727b1a15142f261bcf4c0661a1abe9d55268c134bc5f5a2b734f16c26",
+          "staged_path": "clk-debug.h",
+          "staged_sha256": "d79a4facf1f0060e3a41bfe60d1140d3dba63c31fca89ad266b5f92913f0ef89"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-hfpll.h",
-          "source_sha256": "5b69f9614ca06439a6162cdac041fa5d8a8e681130926ae207f84bf29c1a3606",
+          "source_sha256": "18305d07ca42039cf055505e4e181514a8ff6375491fa29dbcd012b67f80c7b3",
           "staged_path": "clk-hfpll.h",
-          "staged_sha256": "5b69f9614ca06439a6162cdac041fa5d8a8e681130926ae207f84bf29c1a3606"
+          "staged_sha256": "18305d07ca42039cf055505e4e181514a8ff6375491fa29dbcd012b67f80c7b3"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-krait.h",
-          "source_sha256": "075ae44118bc9b17203704161525b36fa838481bb96b21e3b6100de0cc224f9a",
+          "source_sha256": "e204c92b3c0972bd38cfd94406b80fcfd58690f7b87509cc5265dc76d0db4139",
           "staged_path": "clk-krait.h",
-          "staged_sha256": "075ae44118bc9b17203704161525b36fa838481bb96b21e3b6100de0cc224f9a"
+          "staged_sha256": "e204c92b3c0972bd38cfd94406b80fcfd58690f7b87509cc5265dc76d0db4139"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/clk-opp.h",
+          "source_sha256": "0be8e6fd58f97429c90e29b2ab6c4fe1106aab251f9c3791b48226e047cd9812",
+          "staged_path": "clk-opp.h",
+          "staged_sha256": "0be8e6fd58f97429c90e29b2ab6c4fe1106aab251f9c3791b48226e047cd9812"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-pll.h",
-          "source_sha256": "8eca6afa9577d99872c39dba393ce7a21874f8ff899e9476718dc1e0edb821cc",
+          "source_sha256": "69f39303947e3763732c7f08cf779ae3c942087c9936400017d51fb29f4c0be1",
           "staged_path": "clk-pll.h",
-          "staged_sha256": "8eca6afa9577d99872c39dba393ce7a21874f8ff899e9476718dc1e0edb821cc"
+          "staged_sha256": "69f39303947e3763732c7f08cf779ae3c942087c9936400017d51fb29f4c0be1"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/clk-pm.h",
+          "source_sha256": "9c726c4b7fc8ee3e6c74911f81a9c4657e6adb16579d6c29dea2ccd075589bd3",
+          "staged_path": "clk-pm.h",
+          "staged_sha256": "9c726c4b7fc8ee3e6c74911f81a9c4657e6adb16579d6c29dea2ccd075589bd3"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-rcg.h",
-          "source_sha256": "128e149a3f94d356a16e294e0ba406452e2a47af0443396cc2ff078da7731e1d",
+          "source_sha256": "e8ae0f24c8957859a912fb97704db626af91c418cc12016748b30b0913de0ece",
           "staged_path": "clk-rcg.h",
-          "staged_sha256": "128e149a3f94d356a16e294e0ba406452e2a47af0443396cc2ff078da7731e1d"
+          "staged_sha256": "e8ae0f24c8957859a912fb97704db626af91c418cc12016748b30b0913de0ece"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-regmap-divider.h",
-          "source_sha256": "a7dad4fcf36cd4dae19aa712636456a053a7c8c04f6bc70283bbb23e563341ff",
+          "source_sha256": "789efc68e202e4f43df8bd6b35645265da45d33540896060ee91493020c006fe",
           "staged_path": "clk-regmap-divider.h",
-          "staged_sha256": "a7dad4fcf36cd4dae19aa712636456a053a7c8c04f6bc70283bbb23e563341ff"
+          "staged_sha256": "789efc68e202e4f43df8bd6b35645265da45d33540896060ee91493020c006fe"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-regmap-mux-div.h",
-          "source_sha256": "a51e4292681a842f02495ba470f4d20e31a890b230019390be090bb7816e6f9a",
+          "source_sha256": "87702ae70bbd2364ada0b4ca28271da9df02332870a60211d52534de3bad444f",
           "staged_path": "clk-regmap-mux-div.h",
-          "staged_sha256": "a51e4292681a842f02495ba470f4d20e31a890b230019390be090bb7816e6f9a"
+          "staged_sha256": "87702ae70bbd2364ada0b4ca28271da9df02332870a60211d52534de3bad444f"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-regmap-mux.h",
           "source_sha256": "3ada36bf130ccfc6b5de7e6cedf9fd27da88f3589ed505def758289107e8f28e",
           "staged_path": "clk-regmap-mux.h",
           "staged_sha256": "3ada36bf130ccfc6b5de7e6cedf9fd27da88f3589ed505def758289107e8f28e"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "drivers/clk/qcom/clk-regmap-phy-mux.h",
           "source_sha256": "8ed1d6af2f70ae1fcccca1e4b4b7152b53c2bbc763924c11fdcca606536bb531",
           "staged_path": "clk-regmap-phy-mux.h",
           "staged_sha256": "8ed1d6af2f70ae1fcccca1e4b4b7152b53c2bbc763924c11fdcca606536bb531"
         },
         {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
-          "path": "drivers/clk/qcom/clk-regmap.h",
-          "source_sha256": "3c8dab9af916ecc46ed515533eb2535222a2ecd172cb9f0abfcbe16ca726735a",
-          "staged_path": "clk-regmap.h",
-          "staged_sha256": "3c8dab9af916ecc46ed515533eb2535222a2ecd172cb9f0abfcbe16ca726735a"
-        },
-        {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
-          "path": "drivers/clk/qcom/common.h",
-          "source_sha256": "f704afff1e85ec09ae681f8402e179411e744d57045a0c9737a287cf667d0b1e",
-          "staged_path": "common.h",
-          "staged_sha256": "f704afff1e85ec09ae681f8402e179411e744d57045a0c9737a287cf667d0b1e"
-        },
-        {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
-          "path": "drivers/clk/qcom/gdsc.h",
-          "source_sha256": "354adcd7878a7cdeae9fc892df19f3b8b11bcfea494893f126692a0b2d5a1df1",
-          "staged_path": "gdsc.h",
-          "staged_sha256": "354adcd7878a7cdeae9fc892df19f3b8b11bcfea494893f126692a0b2d5a1df1"
-        },
-        {
-          "repository": "/root/sheng-618/src/ack",
-          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
-          "path": "drivers/clk/qcom/reset.h",
-          "source_sha256": "ee4ae7a90e5e3544ffa5335ad96511cee659bad16f09f1fa9fc28f1d10db06a3",
-          "staged_path": "reset.h",
-          "staged_sha256": "ee4ae7a90e5e3544ffa5335ad96511cee659bad16f09f1fa9fc28f1d10db06a3"
-        },
-        {
-          "repository": "/root/sheng-618/src/lineage-kernel",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
           "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
-          "path": "drivers/clk/qcom/tcsrcc-kalama.c",
-          "source_sha256": "8f6eeca2554081e24d8bb8764b68410ffe63c2571c336e565b2dc9577b5ae848",
-          "staged_path": "tcsrcc-kalama.c",
-          "staged_sha256": "9417c00a777ff9128683cdfc7f7e09d96b99454ed9e1e03606daf27fb2eca3ac"
+          "path": "drivers/clk/qcom/clk-regmap.h",
+          "source_sha256": "8e8a0495605820f331f01e864232db53a07a50c25e04a7711add1370a3ed486a",
+          "staged_path": "clk-regmap.h",
+          "staged_sha256": "8e8a0495605820f331f01e864232db53a07a50c25e04a7711add1370a3ed486a"
         },
         {
-          "repository": "/root/sheng-618/src/lineage-kernel",
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/common.h",
+          "source_sha256": "1c788633eec9ae557893c905ea48013aae1ab15ca30dca630169000869651e1d",
+          "staged_path": "common.h",
+          "staged_sha256": "1c788633eec9ae557893c905ea48013aae1ab15ca30dca630169000869651e1d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/gdsc-debug.h",
+          "source_sha256": "ef9539d22478d7203b9e9b476f935fd3a6dc053f4828ff86342e0738f5d98283",
+          "staged_path": "gdsc-debug.h",
+          "staged_sha256": "ef9539d22478d7203b9e9b476f935fd3a6dc053f4828ff86342e0738f5d98283"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/gdsc.h",
+          "source_sha256": "e0f062a142ec004d9b57edd0bca9053f90b8ce69f7f390ebe75b7b1a5b20a4b4",
+          "staged_path": "gdsc.h",
+          "staged_sha256": "e0f062a142ec004d9b57edd0bca9053f90b8ce69f7f390ebe75b7b1a5b20a4b4"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/reset.h",
+          "source_sha256": "1b8c90ffdbde2d24a8c0ff5aaa169ff01bb4da2255cebe9e30bd334b99e1064d",
+          "staged_path": "reset.h",
+          "staged_sha256": "1b8c90ffdbde2d24a8c0ff5aaa169ff01bb4da2255cebe9e30bd334b99e1064d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/trace-gdsc.h",
+          "source_sha256": "eae1f838a08190e7947f16e03e84aa36f06628dea6013c7f72b3d0dac1c80327",
+          "staged_path": "trace-gdsc.h",
+          "staged_sha256": "823df969d72d92e77a792a696ca96a1446754f10b3fa6d1a82d640ed55f17fc1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/trace.h",
+          "source_sha256": "8f6877055e6f9e9246f540a770da60ca94c88e5d59a430e69ab4398b0ccb9125",
+          "staged_path": "trace.h",
+          "staged_sha256": "1423070f66114e10cf8ebc39ccf95cbec4685ac25f680f5eddf5dadf3559a3e1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-class.h",
+          "source_sha256": "376e871cdc5f1d1c13e9aa7354c95e5ad75817e80ea0d0a427e870ef0171792f",
+          "staged_path": "vdd-class.h",
+          "staged_sha256": "376e871cdc5f1d1c13e9aa7354c95e5ad75817e80ea0d0a427e870ef0171792f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-level-404.h",
+          "source_sha256": "12c239db703fdea74f78736fdff4600626deaed934d89d7a4caa4beff4cd9974",
+          "staged_path": "vdd-level-404.h",
+          "staged_sha256": "12c239db703fdea74f78736fdff4600626deaed934d89d7a4caa4beff4cd9974"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-level-bengal.h",
+          "source_sha256": "3c7d4cc8f696a9446d303fde5c4b040b191b747082fa63288020c656c2d37650",
+          "staged_path": "vdd-level-bengal.h",
+          "staged_sha256": "3c7d4cc8f696a9446d303fde5c4b040b191b747082fa63288020c656c2d37650"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-level-cpu.h",
+          "source_sha256": "1143a44471fc32a161d171ecca77c84b1bb26f59c346ed68ccf3796f285c4ea9",
+          "staged_path": "vdd-level-cpu.h",
+          "staged_sha256": "1143a44471fc32a161d171ecca77c84b1bb26f59c346ed68ccf3796f285c4ea9"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-level-monaco.h",
+          "source_sha256": "d034991b410faa2dc21f9b397c64251ab27100ca461d6d38a096067555a9e0d3",
+          "staged_path": "vdd-level-monaco.h",
+          "staged_sha256": "d034991b410faa2dc21f9b397c64251ab27100ca461d6d38a096067555a9e0d3"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-level-scuba.h",
+          "source_sha256": "806e8bc8ffc534e5cb4ad9e85e218a519b2e54dcdffa3b29667ee0db24359181",
+          "staged_path": "vdd-level-scuba.h",
+          "staged_sha256": "806e8bc8ffc534e5cb4ad9e85e218a519b2e54dcdffa3b29667ee0db24359181"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-level-sdm845.h",
+          "source_sha256": "4b24b4d3d79cf6c5cfbdd17276d861a3e495a5541cde8a997bbe176131c9685b",
+          "staged_path": "vdd-level-sdm845.h",
+          "staged_sha256": "4b24b4d3d79cf6c5cfbdd17276d861a3e495a5541cde8a997bbe176131c9685b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-level-sm8150.h",
+          "source_sha256": "dbd79b76fac9928f3313323856dcf1c0b69ffe294d371f509a99b38d9afa5c17",
+          "staged_path": "vdd-level-sm8150.h",
+          "staged_sha256": "dbd79b76fac9928f3313323856dcf1c0b69ffe294d371f509a99b38d9afa5c17"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/vdd-level.h",
+          "source_sha256": "adbe1b8f2f087089d8868597e128022729bcceafa0ffc640daa97597da7a629c",
+          "staged_path": "vdd-level.h",
+          "staged_sha256": "adbe1b8f2f087089d8868597e128022729bcceafa0ffc640daa97597da7a629c"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/virtio_clk_common.h",
+          "source_sha256": "3221d8d32988975f318dc5f91e550d6baf285eff54fd4626a056c26c28b92c63",
+          "staged_path": "virtio_clk_common.h",
+          "staged_sha256": "3221d8d32988975f318dc5f91e550d6baf285eff54fd4626a056c26c28b92c63"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/clock/qcom,camcc-kalama.h",
+          "source_sha256": "c40a2f05ef7d5574ab9fd5561b4b88752ebd7a49adbb60fd7cb14195b77ba09f",
+          "staged_path": "include/dt-bindings/clock/qcom,camcc-kalama.h",
+          "staged_sha256": "c40a2f05ef7d5574ab9fd5561b4b88752ebd7a49adbb60fd7cb14195b77ba09f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/clock/qcom,dispcc-kalama.h",
+          "source_sha256": "33ddfe3436d77f2b6870c2ffcd2971ee624b54bd2ccb4bede7acf3b1e61dd4f1",
+          "staged_path": "include/dt-bindings/clock/qcom,dispcc-kalama.h",
+          "staged_sha256": "33ddfe3436d77f2b6870c2ffcd2971ee624b54bd2ccb4bede7acf3b1e61dd4f1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/clock/qcom,gcc-kalama.h",
+          "source_sha256": "8ed4e7420cf1defc22a69097ca24d2d4662fae375035b007a8355934bd98b826",
+          "staged_path": "include/dt-bindings/clock/qcom,gcc-kalama.h",
+          "staged_sha256": "8ed4e7420cf1defc22a69097ca24d2d4662fae375035b007a8355934bd98b826"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/clock/qcom,gpucc-kalama.h",
+          "source_sha256": "f1bc76123d7c08d92a92948f6821ec65dae9e3434f5783346d8778c789c63629",
+          "staged_path": "include/dt-bindings/clock/qcom,gpucc-kalama.h",
+          "staged_sha256": "f1bc76123d7c08d92a92948f6821ec65dae9e3434f5783346d8778c789c63629"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
           "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
           "path": "include/dt-bindings/clock/qcom,tcsrcc-kalama.h",
           "source_sha256": "e322dcae06fa902d5f96ebc96a9930372e1be07cc6134ba5245d7f5552403b89",
           "staged_path": "include/dt-bindings/clock/qcom,tcsrcc-kalama.h",
           "staged_sha256": "e322dcae06fa902d5f96ebc96a9930372e1be07cc6134ba5245d7f5552403b89"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/clock/qcom,videocc-kalama.h",
+          "source_sha256": "464db3e2ae736ba4a8a8a107ee730374ea32ba0e2b42896958bae2cc8e4048c2",
+          "staged_path": "include/dt-bindings/clock/qcom,videocc-kalama.h",
+          "staged_sha256": "464db3e2ae736ba4a8a8a107ee730374ea32ba0e2b42896958bae2cc8e4048c2"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/active-semi,8865-regulator.h",
+          "source_sha256": "e2c3115ebf65556a886380815b691dcb7cdab3df5cf6ca04605733aada655f26",
+          "staged_path": "include/dt-bindings/regulator/active-semi,8865-regulator.h",
+          "staged_sha256": "e2c3115ebf65556a886380815b691dcb7cdab3df5cf6ca04605733aada655f26"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/active-semi,8945a-regulator.h",
+          "source_sha256": "34e12af5809d34a52199eb1cab06707f0162bd91c52d2f5b6ff5ddb340542bb4",
+          "staged_path": "include/dt-bindings/regulator/active-semi,8945a-regulator.h",
+          "staged_sha256": "34e12af5809d34a52199eb1cab06707f0162bd91c52d2f5b6ff5ddb340542bb4"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/dlg,da9063-regulator.h",
+          "source_sha256": "418d3e23a6101b2856a5c860c8414022c1b22634b5ce59b3afc8948dae42e55a",
+          "staged_path": "include/dt-bindings/regulator/dlg,da9063-regulator.h",
+          "staged_sha256": "418d3e23a6101b2856a5c860c8414022c1b22634b5ce59b3afc8948dae42e55a"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/dlg,da9121-regulator.h",
+          "source_sha256": "3d62da61b9191ba6c67fdde0750233989296734cc2d3a6cedb80fc4c077901d7",
+          "staged_path": "include/dt-bindings/regulator/dlg,da9121-regulator.h",
+          "staged_sha256": "3d62da61b9191ba6c67fdde0750233989296734cc2d3a6cedb80fc4c077901d7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/dlg,da9211-regulator.h",
+          "source_sha256": "34b30ed626f77e977ca0fc94365f806c482afb9f1de6ac42d649b90be0196178",
+          "staged_path": "include/dt-bindings/regulator/dlg,da9211-regulator.h",
+          "staged_sha256": "34b30ed626f77e977ca0fc94365f806c482afb9f1de6ac42d649b90be0196178"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/maxim,max77802.h",
+          "source_sha256": "0823d25cda929c5c9e216ff2bfa700442c7e5058077989ea0628a9105d152069",
+          "staged_path": "include/dt-bindings/regulator/maxim,max77802.h",
+          "staged_sha256": "0823d25cda929c5c9e216ff2bfa700442c7e5058077989ea0628a9105d152069"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/mediatek,mt6360-regulator.h",
+          "source_sha256": "73982682107810faee4c7f23f7fe0e60572f345d59eed4debf6bc4952b365946",
+          "staged_path": "include/dt-bindings/regulator/mediatek,mt6360-regulator.h",
+          "staged_sha256": "73982682107810faee4c7f23f7fe0e60572f345d59eed4debf6bc4952b365946"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/mediatek,mt6397-regulator.h",
+          "source_sha256": "a98c3a6ee97b2d47c6de333960ab55bc76dac3c3456d4a47a2790d12832d2081",
+          "staged_path": "include/dt-bindings/regulator/mediatek,mt6397-regulator.h",
+          "staged_sha256": "a98c3a6ee97b2d47c6de333960ab55bc76dac3c3456d4a47a2790d12832d2081"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/qcom,rpm-smd-regulator.h",
+          "source_sha256": "a412f710e3b26e455a820410137d142ab8ae59dafd3bfd0afea66b4748934480",
+          "staged_path": "include/dt-bindings/regulator/qcom,rpm-smd-regulator.h",
+          "staged_sha256": "a412f710e3b26e455a820410137d142ab8ae59dafd3bfd0afea66b4748934480"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/qcom,rpmh-regulator-levels.h",
+          "source_sha256": "31236259f5019150a2a4bf225a9fed36aa91666030cd0e5024640f057df36d12",
+          "staged_path": "include/dt-bindings/regulator/qcom,rpmh-regulator-levels.h",
+          "staged_sha256": "31236259f5019150a2a4bf225a9fed36aa91666030cd0e5024640f057df36d12"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/qcom,rpmh-regulator.h",
+          "source_sha256": "9024ec736a8bca4cc31d414ea2978b237ac6c4ff0409988f8434147a29ecd622",
+          "staged_path": "include/dt-bindings/regulator/qcom,rpmh-regulator.h",
+          "staged_sha256": "9024ec736a8bca4cc31d414ea2978b237ac6c4ff0409988f8434147a29ecd622"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/clk/qcom.h",
+          "source_sha256": "bd32439169d5a847b37505a3fc1101722ee4d434fbf789e0c06c09a1dd3db90f",
+          "staged_path": "include/linux/clk/qcom.h",
+          "staged_sha256": "bd32439169d5a847b37505a3fc1101722ee4d434fbf789e0c06c09a1dd3db90f"
         }
       ],
       "generated_sha256": {
-        "common.c": "803e0f09194777208b64a56ec3a5451aadfc6232464ef80961ac75f25fcadc8e",
-        "clk-regmap.c": "2438f057d67c3cd0229e710494dcf0a381bc69021591fe9cb89219734b8e633d",
-        "clk-alpha-pll.c": "a27a1c6a3e8343759bbd5345caa0bf9511259ec704fbfc2856891a65ca5e269e",
-        "clk-pll.c": "b12e945d1f142101c28d33cf465095a247b560c2255f12fb1b8a224f49db8c30",
-        "clk-rcg.c": "54f09b586c5433c38e3749f59856d57c1122d42258f5c47cfc11c6d696e1c777",
-        "clk-rcg2.c": "28d570df7a3af481da5e88af29aca161c597d00f0991d6fca4f445a6c0491a1d",
-        "clk-branch.c": "a0840dff3927c93b5ece621cd799415d3827428fdb8c67e3ac682561d30efc72",
-        "clk-regmap-divider.c": "34261ec016413f96a7482fdca6d0f4c6de52703e51968a2d5bebd9eb2af5d04e",
-        "clk-regmap-mux.c": "ce97dcf91932dca63a961abbfe3a60500ec523475d819f738fb55decab55d85a",
-        "clk-regmap-mux-div.c": "f4bfcc8a91a2fbd097352cea21b3c6f9e2f81ef25be7bd4878f8cab037412653",
+        "common.c": "a17de2d6f9f4fa57e58400ae46f639f03b3dca8312cf976c26451d104b1014c7",
+        "vdd-class.c": "b126f48fe748e3b8727540b06ab6a888ef54928ecd53c7c28cbb2989bdacacf3",
+        "clk-regmap.c": "69f7a88cf1cc991f2ba95868af0507c96164c95dc2eaa30521022ff695897e15",
+        "clk-alpha-pll.c": "fa16a1251b29efe47ae05ff8662d30f293d1d50aa19928e9cf9236e81cf00069",
+        "clk-opp.c": "9c8bd90459b829e780fdaa5dbd6f6b35e133eb5e5ace49093860851b96721acd",
+        "clk-pll.c": "87c127dbd830d587cbe8a6b8acf4566379c2f31b1b753faf707730965e70f15f",
+        "clk-rcg.c": "2e96db36e0882fa8d90d2288457fbf61bbdcc8e56c1ca6abac6e43f8c2751768",
+        "clk-rcg2.c": "7edb223af576a0ed4f68335cf88aafcd8d66c7dea03410f646e8f1f995d8b265",
+        "clk-branch.c": "66853f40607605cbb460bd817856207ea79e3afcb50202158c57ef4004e408c2",
+        "clk-regmap-divider.c": "83d9e35c5b288ce0f4a74c6af82185394f9f0ebb2069d2890069929da5eb0d48",
+        "clk-regmap-mux.c": "8fab0909f989fbae3b877f51bcc8157de1ac23bb382aea10161b877e2da03e98",
+        "clk-regmap-mux-div.c": "6c5f02d7014ba7d11014b02cc57e497273653ffe94040e60f0bcd39c4c2da2af",
         "clk-regmap-phy-mux.c": "76be83dfd9ad18692d3f09d85589be6cff60cec62573344bdf2fd4eb47357380",
-        "clk-hfpll.c": "db5fe959a97f12cd9e74c8e73d7e255ed3c775f11f473924c693b52cedc14f8d",
-        "reset.c": "434e63a159118f20a49114f5b184f405739e5ba4cda4148f4e101bf6b36326e8",
-        "gdsc.c": "7a7d49dd634aed099b5707ff3adab7bb0b4751dbbf19fa8cf234688fd329f093",
-        "clk-alpha-pll.h": "a650f336e91466e15a8ac1809e574826081522cf12cc37e7970b84eb9fa02fdc",
-        "clk-branch.h": "d1cdd6eda43aaf475916c3e429ed70f83786b63a2cf1037d2639abf159b6519a",
-        "clk-hfpll.h": "5b69f9614ca06439a6162cdac041fa5d8a8e681130926ae207f84bf29c1a3606",
-        "clk-krait.h": "075ae44118bc9b17203704161525b36fa838481bb96b21e3b6100de0cc224f9a",
-        "clk-pll.h": "8eca6afa9577d99872c39dba393ce7a21874f8ff899e9476718dc1e0edb821cc",
-        "clk-rcg.h": "128e149a3f94d356a16e294e0ba406452e2a47af0443396cc2ff078da7731e1d",
-        "clk-regmap-divider.h": "a7dad4fcf36cd4dae19aa712636456a053a7c8c04f6bc70283bbb23e563341ff",
-        "clk-regmap-mux-div.h": "a51e4292681a842f02495ba470f4d20e31a890b230019390be090bb7816e6f9a",
+        "clk-hfpll.c": "ab8b9546c89da7494355dc2ff45fe32760696522ad0443c4f1307cff02a85f8e",
+        "reset.c": "81ae46702ef813006d252fda3a50be6dff547c02beaab260d08fc21f1191a2df",
+        "clk-pm.c": "18c78c48452476c8d8c0ecb92dab5431910cd27f797d67c574e1d3e87bf43f6f",
+        "clk-debug.c": "6f96c82460a1aa58b0c61ef8ffb7c200a945cb244364c0c6b669cdb62175fbb3",
+        "gdsc.c": "ee374d86f74f12b22c8b266adae053389ef6263f868abc8c3adc34c8b17289dc",
+        "gcc-kalama.c": "e0d79c7de944f707d33216f49bfc5ac46729dc5d34a86f40ed029b42a24692a5",
+        "camcc-kalama.c": "59aa9e689ba813ee3cd90832528f6462e22b4b6e56f0605dbcb153a64d3e1c29",
+        "dispcc-kalama.c": "6f2ad482645c03c0b902edcc13f20dae2e359dfbb57f4383bf7cfaa6c9f5d38a",
+        "gpucc-kalama.c": "b4e6b5855d7b40b13f687898480198d8882171e8caf0fd2ef26c57fcd7d8bdc7",
+        "tcsrcc-kalama.c": "8f6eeca2554081e24d8bb8764b68410ffe63c2571c336e565b2dc9577b5ae848",
+        "videocc-kalama.c": "6138c6dcd6007e13807a2fbd85c388a4eaeea121a7a008965d6f4dfa5947d150",
+        "debugcc-kalama.c": "f5086c6da3368d84d73e9dcdd42a5738a81143a5e4fc40e0261ad44503210fed",
+        "clk-dummy.c": "6eb9cf15b06a1edf3dda39c44b95626a90f84f236642a53a13179f78215241ea",
+        "clk-alpha-pll.h": "86571cd617a9ffddf24133af6817fc923a90d7c5b937a2e44912a0a39529a0fd",
+        "clk-branch.h": "1ab0fa444fc9e500dac10bcbf9ec0f38e79146482e01b678e82fb5ffcd34d3be",
+        "clk-debug.h": "d79a4facf1f0060e3a41bfe60d1140d3dba63c31fca89ad266b5f92913f0ef89",
+        "clk-hfpll.h": "18305d07ca42039cf055505e4e181514a8ff6375491fa29dbcd012b67f80c7b3",
+        "clk-krait.h": "e204c92b3c0972bd38cfd94406b80fcfd58690f7b87509cc5265dc76d0db4139",
+        "clk-opp.h": "0be8e6fd58f97429c90e29b2ab6c4fe1106aab251f9c3791b48226e047cd9812",
+        "clk-pll.h": "69f39303947e3763732c7f08cf779ae3c942087c9936400017d51fb29f4c0be1",
+        "clk-pm.h": "9c726c4b7fc8ee3e6c74911f81a9c4657e6adb16579d6c29dea2ccd075589bd3",
+        "clk-rcg.h": "e8ae0f24c8957859a912fb97704db626af91c418cc12016748b30b0913de0ece",
+        "clk-regmap-divider.h": "789efc68e202e4f43df8bd6b35645265da45d33540896060ee91493020c006fe",
+        "clk-regmap-mux-div.h": "87702ae70bbd2364ada0b4ca28271da9df02332870a60211d52534de3bad444f",
         "clk-regmap-mux.h": "3ada36bf130ccfc6b5de7e6cedf9fd27da88f3589ed505def758289107e8f28e",
         "clk-regmap-phy-mux.h": "8ed1d6af2f70ae1fcccca1e4b4b7152b53c2bbc763924c11fdcca606536bb531",
-        "clk-regmap.h": "3c8dab9af916ecc46ed515533eb2535222a2ecd172cb9f0abfcbe16ca726735a",
-        "common.h": "f704afff1e85ec09ae681f8402e179411e744d57045a0c9737a287cf667d0b1e",
-        "gdsc.h": "354adcd7878a7cdeae9fc892df19f3b8b11bcfea494893f126692a0b2d5a1df1",
-        "reset.h": "ee4ae7a90e5e3544ffa5335ad96511cee659bad16f09f1fa9fc28f1d10db06a3",
-        "tcsrcc-kalama.c": "9417c00a777ff9128683cdfc7f7e09d96b99454ed9e1e03606daf27fb2eca3ac",
+        "clk-regmap.h": "8e8a0495605820f331f01e864232db53a07a50c25e04a7711add1370a3ed486a",
+        "common.h": "1c788633eec9ae557893c905ea48013aae1ab15ca30dca630169000869651e1d",
+        "gdsc-debug.h": "ef9539d22478d7203b9e9b476f935fd3a6dc053f4828ff86342e0738f5d98283",
+        "gdsc.h": "e0f062a142ec004d9b57edd0bca9053f90b8ce69f7f390ebe75b7b1a5b20a4b4",
+        "reset.h": "1b8c90ffdbde2d24a8c0ff5aaa169ff01bb4da2255cebe9e30bd334b99e1064d",
+        "trace-gdsc.h": "823df969d72d92e77a792a696ca96a1446754f10b3fa6d1a82d640ed55f17fc1",
+        "trace.h": "1423070f66114e10cf8ebc39ccf95cbec4685ac25f680f5eddf5dadf3559a3e1",
+        "vdd-class.h": "376e871cdc5f1d1c13e9aa7354c95e5ad75817e80ea0d0a427e870ef0171792f",
+        "vdd-level-404.h": "12c239db703fdea74f78736fdff4600626deaed934d89d7a4caa4beff4cd9974",
+        "vdd-level-bengal.h": "3c7d4cc8f696a9446d303fde5c4b040b191b747082fa63288020c656c2d37650",
+        "vdd-level-cpu.h": "1143a44471fc32a161d171ecca77c84b1bb26f59c346ed68ccf3796f285c4ea9",
+        "vdd-level-monaco.h": "d034991b410faa2dc21f9b397c64251ab27100ca461d6d38a096067555a9e0d3",
+        "vdd-level-scuba.h": "806e8bc8ffc534e5cb4ad9e85e218a519b2e54dcdffa3b29667ee0db24359181",
+        "vdd-level-sdm845.h": "4b24b4d3d79cf6c5cfbdd17276d861a3e495a5541cde8a997bbe176131c9685b",
+        "vdd-level-sm8150.h": "dbd79b76fac9928f3313323856dcf1c0b69ffe294d371f509a99b38d9afa5c17",
+        "vdd-level.h": "adbe1b8f2f087089d8868597e128022729bcceafa0ffc640daa97597da7a629c",
+        "virtio_clk_common.h": "3221d8d32988975f318dc5f91e550d6baf285eff54fd4626a056c26c28b92c63",
+        "include/dt-bindings/clock/qcom,camcc-kalama.h": "c40a2f05ef7d5574ab9fd5561b4b88752ebd7a49adbb60fd7cb14195b77ba09f",
+        "include/dt-bindings/clock/qcom,dispcc-kalama.h": "33ddfe3436d77f2b6870c2ffcd2971ee624b54bd2ccb4bede7acf3b1e61dd4f1",
+        "include/dt-bindings/clock/qcom,gcc-kalama.h": "8ed4e7420cf1defc22a69097ca24d2d4662fae375035b007a8355934bd98b826",
+        "include/dt-bindings/clock/qcom,gpucc-kalama.h": "f1bc76123d7c08d92a92948f6821ec65dae9e3434f5783346d8778c789c63629",
         "include/dt-bindings/clock/qcom,tcsrcc-kalama.h": "e322dcae06fa902d5f96ebc96a9930372e1be07cc6134ba5245d7f5552403b89",
-        "Kbuild": "489130f46f5c12f77bf27a3b1e71e4ddfaf8356c9f69d389e3ed024f41315c94"
+        "include/dt-bindings/clock/qcom,videocc-kalama.h": "464db3e2ae736ba4a8a8a107ee730374ea32ba0e2b42896958bae2cc8e4048c2",
+        "include/dt-bindings/regulator/active-semi,8865-regulator.h": "e2c3115ebf65556a886380815b691dcb7cdab3df5cf6ca04605733aada655f26",
+        "include/dt-bindings/regulator/active-semi,8945a-regulator.h": "34e12af5809d34a52199eb1cab06707f0162bd91c52d2f5b6ff5ddb340542bb4",
+        "include/dt-bindings/regulator/dlg,da9063-regulator.h": "418d3e23a6101b2856a5c860c8414022c1b22634b5ce59b3afc8948dae42e55a",
+        "include/dt-bindings/regulator/dlg,da9121-regulator.h": "3d62da61b9191ba6c67fdde0750233989296734cc2d3a6cedb80fc4c077901d7",
+        "include/dt-bindings/regulator/dlg,da9211-regulator.h": "34b30ed626f77e977ca0fc94365f806c482afb9f1de6ac42d649b90be0196178",
+        "include/dt-bindings/regulator/maxim,max77802.h": "0823d25cda929c5c9e216ff2bfa700442c7e5058077989ea0628a9105d152069",
+        "include/dt-bindings/regulator/mediatek,mt6360-regulator.h": "73982682107810faee4c7f23f7fe0e60572f345d59eed4debf6bc4952b365946",
+        "include/dt-bindings/regulator/mediatek,mt6397-regulator.h": "a98c3a6ee97b2d47c6de333960ab55bc76dac3c3456d4a47a2790d12832d2081",
+        "include/dt-bindings/regulator/qcom,rpm-smd-regulator.h": "a412f710e3b26e455a820410137d142ab8ae59dafd3bfd0afea66b4748934480",
+        "include/dt-bindings/regulator/qcom,rpmh-regulator-levels.h": "31236259f5019150a2a4bf225a9fed36aa91666030cd0e5024640f057df36d12",
+        "include/dt-bindings/regulator/qcom,rpmh-regulator.h": "9024ec736a8bca4cc31d414ea2978b237ac6c4ff0409988f8434147a29ecd622",
+        "include/linux/clk/qcom.h": "bd32439169d5a847b37505a3fc1101722ee4d434fbf789e0c06c09a1dd3db90f",
+        "Kbuild": "e97ba8c38749a5599c8fc6f3e50cb82357a7391ae7d8b8b7224526e449cfb3dc"
       },
-      "preserves_downstream_binding": "qcom,kalama-tcsrcc",
+      "modules": [
+        "clk-qcom.ko",
+        "clk-dummy.ko",
+        "gcc-kalama.ko",
+        "camcc-kalama.ko",
+        "dispcc-kalama.ko",
+        "gpucc-kalama.ko",
+        "tcsrcc-kalama.ko",
+        "videocc-kalama.ko",
+        "debugcc-kalama.ko"
+      ],
       "runtime_validated": false,
-      "boot_image": false,
-      "limitations": [
-        "Downstream CONFIG_DEEPSLEEP is not implemented in ACK.",
-        "Other Kalama clock controllers still require voltage/PLL framework migration."
+      "limits": [
+        "Replaces the earlier ACK-helper/TCSR experiment; never load both clk-qcom variants.",
+        "No physical validation; downstream DEEPSLEEP is not enabled."
       ]
+    },
+    "firmware": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/firmware/qcom_scm.c",
+          "source_sha256": "dffcc00abdc48cbbc3b55442cab5fced3dbcc8c1d9979864279471c08848b806",
+          "staged_path": "qcom_scm.c",
+          "staged_sha256": "c67db064008c4abc99a2b556e8fa309b56f6e69573c67e5f7abaacec99a53dd9"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/firmware/qcom_scm-smc.c",
+          "source_sha256": "9d36ea232c1fd5b3e75c010a26226144f69fb021a95c1f5884a9692c9084e2da",
+          "staged_path": "qcom_scm-smc.c",
+          "staged_sha256": "4db6659c2720fd1dce99499c83eeec64a7fac78bfd2ece38914225db5e97280f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/firmware/qcom_scm-legacy.c",
+          "source_sha256": "4084708204cecaf4b8fac18644b4b46780af864a367e49c584055e646a6d91c7",
+          "staged_path": "qcom_scm-legacy.c",
+          "staged_sha256": "4084708204cecaf4b8fac18644b4b46780af864a367e49c584055e646a6d91c7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/firmware/qcom_scm.h",
+          "source_sha256": "03c69f1d7d132cccdc46c827e2be653beaaf4fc0400fcdfde37a7531f7be0028",
+          "staged_path": "qcom_scm.h",
+          "staged_sha256": "03c69f1d7d132cccdc46c827e2be653beaaf4fc0400fcdfde37a7531f7be0028"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/firmware/qtee_shmbridge.c",
+          "source_sha256": "a65d73cb952dcc0a9a69d81918bb06d2573dfccab81c32b533ba01de7ceee168",
+          "staged_path": "qtee_shmbridge.c",
+          "staged_sha256": "f820b1379fb1a71fdd4412b73f12d09c5a0e7889c654e922335608514890a0e6"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/firmware/qtee_shmbridge_internal.h",
+          "source_sha256": "a9d556ec88f301bff66bc775ae4da62a132751ee01449a58a56bf9f9aa81136d",
+          "staged_path": "qtee_shmbridge_internal.h",
+          "staged_sha256": "a9d556ec88f301bff66bc775ae4da62a132751ee01449a58a56bf9f9aa81136d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qcom_scm.h",
+          "source_sha256": "66844378ff2d7f25e77fa603691ce4a06b48dde0c9a841e6e3d95365b2d26690",
+          "staged_path": "include/linux/qcom_scm.h",
+          "staged_sha256": "66844378ff2d7f25e77fa603691ce4a06b48dde0c9a841e6e3d95365b2d26690"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qtee_shmbridge.h",
+          "source_sha256": "5e117264d72c99b4a601df7d35c1e5c4023d495f6ce14dfad7d126bf8c631cbb",
+          "staged_path": "include/linux/qtee_shmbridge.h",
+          "staged_sha256": "5e117264d72c99b4a601df7d35c1e5c4023d495f6ce14dfad7d126bf8c631cbb"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qcom_scm_hab.h",
+          "source_sha256": "bcdada57e91c9f2dbd4db3f79c55cb4f1d1fddde6d722106f60b7140e397153b",
+          "staged_path": "include/linux/qcom_scm_hab.h",
+          "staged_sha256": "bcdada57e91c9f2dbd4db3f79c55cb4f1d1fddde6d722106f60b7140e397153b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/uapi/linux/msm_ion.h",
+          "source_sha256": "9362cee3e3b617956f4cbe0c72a6ce3d28ddbe7fb392cac023007d8915662c28",
+          "staged_path": "include/uapi/linux/msm_ion.h",
+          "staged_sha256": "9362cee3e3b617956f4cbe0c72a6ce3d28ddbe7fb392cac023007d8915662c28"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/secure_buffer.h",
+          "source_sha256": "90a822111c2306aa98c21282bb2c0a562ebdc2b5e9b99f82ce4a0ed3546b8c61",
+          "staged_path": "include/soc/qcom/secure_buffer.h",
+          "staged_sha256": "90a822111c2306aa98c21282bb2c0a562ebdc2b5e9b99f82ce4a0ed3546b8c61"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/qseecom_scm.h",
+          "source_sha256": "5222ecaa01f1f540a486b79ce4d1c854a3b646d9ed9c5af594e4e2e4c6dbbfca",
+          "staged_path": "include/soc/qcom/qseecom_scm.h",
+          "staged_sha256": "5222ecaa01f1f540a486b79ce4d1c854a3b646d9ed9c5af594e4e2e4c6dbbfca"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/qseecomi.h",
+          "source_sha256": "617b9d429229d1caeca28c935c3a62f0fa0d609388f38e294d59018518579537",
+          "staged_path": "include/soc/qcom/qseecomi.h",
+          "staged_sha256": "617b9d429229d1caeca28c935c3a62f0fa0d609388f38e294d59018518579537"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/uapi/linux/qseecom.h",
+          "source_sha256": "528c429c54aa14fdcf88096ede090b020626444751dcb94a8c0d8c644454cadb",
+          "staged_path": "include/uapi/linux/qseecom.h",
+          "staged_sha256": "528c429c54aa14fdcf88096ede090b020626444751dcb94a8c0d8c644454cadb"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/uapi/linux/ion.h",
+          "source_sha256": "e3eab549b30a8dbff21613fa406b668f133b2406e4ea522f6211d03720fcf47f",
+          "staged_path": "include/uapi/linux/ion.h",
+          "staged_sha256": "e3eab549b30a8dbff21613fa406b668f133b2406e4ea522f6211d03720fcf47f"
+        }
+      ],
+      "generated_sha256": {
+        "qcom_scm.c": "c67db064008c4abc99a2b556e8fa309b56f6e69573c67e5f7abaacec99a53dd9",
+        "qcom_scm-smc.c": "4db6659c2720fd1dce99499c83eeec64a7fac78bfd2ece38914225db5e97280f",
+        "qcom_scm-legacy.c": "4084708204cecaf4b8fac18644b4b46780af864a367e49c584055e646a6d91c7",
+        "qcom_scm.h": "03c69f1d7d132cccdc46c827e2be653beaaf4fc0400fcdfde37a7531f7be0028",
+        "qtee_shmbridge.c": "f820b1379fb1a71fdd4412b73f12d09c5a0e7889c654e922335608514890a0e6",
+        "qtee_shmbridge_internal.h": "a9d556ec88f301bff66bc775ae4da62a132751ee01449a58a56bf9f9aa81136d",
+        "include/linux/qcom_scm.h": "66844378ff2d7f25e77fa603691ce4a06b48dde0c9a841e6e3d95365b2d26690",
+        "include/linux/qtee_shmbridge.h": "5e117264d72c99b4a601df7d35c1e5c4023d495f6ce14dfad7d126bf8c631cbb",
+        "include/linux/qcom_scm_hab.h": "bcdada57e91c9f2dbd4db3f79c55cb4f1d1fddde6d722106f60b7140e397153b",
+        "include/uapi/linux/msm_ion.h": "9362cee3e3b617956f4cbe0c72a6ce3d28ddbe7fb392cac023007d8915662c28",
+        "include/soc/qcom/secure_buffer.h": "90a822111c2306aa98c21282bb2c0a562ebdc2b5e9b99f82ce4a0ed3546b8c61",
+        "include/soc/qcom/qseecom_scm.h": "5222ecaa01f1f540a486b79ce4d1c854a3b646d9ed9c5af594e4e2e4c6dbbfca",
+        "include/soc/qcom/qseecomi.h": "617b9d429229d1caeca28c935c3a62f0fa0d609388f38e294d59018518579537",
+        "include/uapi/linux/qseecom.h": "528c429c54aa14fdcf88096ede090b020626444751dcb94a8c0d8c644454cadb",
+        "include/uapi/linux/ion.h": "e3eab549b30a8dbff21613fa406b668f133b2406e4ea522f6211d03720fcf47f",
+        "Kbuild": "32dc8e813c36dad585877d083efb3700c2259b56f8646f4e9e9f86ad23c038d4"
+      },
+      "modules": [
+        "qcom-scm.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "rpmh": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/rpmh-rsc.c",
+          "source_sha256": "377364ae666b0d9e333a47e3083293642f65cd8c5c84e391bbd268a4a585cd5a",
+          "staged_path": "rpmh-rsc.c",
+          "staged_sha256": "6e31f47d4a8d54af29117351f5f664557130553d9ee8ae1c2f14f3c36d32f22f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/rpmh.c",
+          "source_sha256": "3ffb446934add147990a5fbcc0f45c93eeb63b9cc07a709a2fde8f77ff1a0f98",
+          "staged_path": "rpmh.c",
+          "staged_sha256": "3ffb446934add147990a5fbcc0f45c93eeb63b9cc07a709a2fde8f77ff1a0f98"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/rpmh-internal.h",
+          "source_sha256": "bc2e068c846e1b453c47c217edf3753f7db12aaebbfbeb6c7715b44fba9c668c",
+          "staged_path": "rpmh-internal.h",
+          "staged_sha256": "bc2e068c846e1b453c47c217edf3753f7db12aaebbfbeb6c7715b44fba9c668c"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/cmd-db.c",
+          "source_sha256": "53eb41e187454632ce501fa5df204a213b30dc13e29dd01f3eb7b8cbb8b35cfa",
+          "staged_path": "cmd-db.c",
+          "staged_sha256": "53eb41e187454632ce501fa5df204a213b30dc13e29dd01f3eb7b8cbb8b35cfa"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/trace-rpmh.h",
+          "source_sha256": "1534dc2b6ed156513b3c8954a994a043032f64404927a75823622c680963dfc0",
+          "staged_path": "trace-rpmh.h",
+          "staged_sha256": "8bfd4b0bca4ca8be277507fd7bcd62dbf7610927f786ab007245a631bea567e7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "kernel/trace/ipc_logging.c",
+          "source_sha256": "4279823d24486487cc0738c02b2ee2bf7eac91a8b7526de8622038005b0c7c2f",
+          "staged_path": "ipc_logging.c",
+          "staged_sha256": "4279823d24486487cc0738c02b2ee2bf7eac91a8b7526de8622038005b0c7c2f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "kernel/trace/ipc_logging_private.h",
+          "source_sha256": "fd803e55632a369c0496112cc5602d1d1e133f30d89ca183b81db8b8ec2d0567",
+          "staged_path": "ipc_logging_private.h",
+          "staged_sha256": "fd803e55632a369c0496112cc5602d1d1e133f30d89ca183b81db8b8ec2d0567"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "kernel/trace/ipc_logging_debug.c",
+          "source_sha256": "f76f7b49d6e035a2084542d29878cd85c3dc5ad1424e6e431c8d5a1e0f723a64",
+          "staged_path": "ipc_logging_debug.c",
+          "staged_sha256": "f76f7b49d6e035a2084542d29878cd85c3dc5ad1424e6e431c8d5a1e0f723a64"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/clk/qcom/clk-rpmh.c",
+          "source_sha256": "32de9a68dd034b2cabfb1834c252fedad4bbf1bf9bd7bb1373d35e6b756babfc",
+          "staged_path": "clk-rpmh.c",
+          "staged_sha256": "32de9a68dd034b2cabfb1834c252fedad4bbf1bf9bd7bb1373d35e6b756babfc"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/regulator/qcom-rpmh-regulator.c",
+          "source_sha256": "c0550e41f87f23c0e472db4df27ca1948b65f1f2ef9a1dc518bc622befdcaa50",
+          "staged_path": "qcom-rpmh-regulator.c",
+          "staged_sha256": "c0550e41f87f23c0e472db4df27ca1948b65f1f2ef9a1dc518bc622befdcaa50"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/rpmh.h",
+          "source_sha256": "e728fb3ae8ecccce4987575a2b99e39812ef0b60da87e51b8aea3ab817aba88d",
+          "staged_path": "include/soc/qcom/rpmh.h",
+          "staged_sha256": "e728fb3ae8ecccce4987575a2b99e39812ef0b60da87e51b8aea3ab817aba88d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/tcs.h",
+          "source_sha256": "d82b50a214fabd4ac1f6d27d780be017f48c4d0cf844ca86aae6cea4a3c343c9",
+          "staged_path": "include/soc/qcom/tcs.h",
+          "staged_sha256": "d82b50a214fabd4ac1f6d27d780be017f48c4d0cf844ca86aae6cea4a3c343c9"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/cmd-db.h",
+          "source_sha256": "d2112e73ea142a32e118b9721c593653e882e1a60881a2276157fd5a1da9e08c",
+          "staged_path": "include/soc/qcom/cmd-db.h",
+          "staged_sha256": "d2112e73ea142a32e118b9721c593653e882e1a60881a2276157fd5a1da9e08c"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/ipc_logging.h",
+          "source_sha256": "4d2e8c530d33e297b4bf00412147c873020daabb716ee41bd7b5879579b26af8",
+          "staged_path": "include/linux/ipc_logging.h",
+          "staged_sha256": "4d2e8c530d33e297b4bf00412147c873020daabb716ee41bd7b5879579b26af8"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/soc/qcom,rpmh-rsc.h",
+          "source_sha256": "6810c83419f95e8908c1de201ccd40022c9d149ab77f54e2bb12590585370b2d",
+          "staged_path": "include/dt-bindings/soc/qcom,rpmh-rsc.h",
+          "staged_sha256": "6810c83419f95e8908c1de201ccd40022c9d149ab77f54e2bb12590585370b2d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/minidump.h",
+          "source_sha256": "ffe250941f9bdb050ed886faa72a79ac684f90643bf66b665dd2fab74a1a906b",
+          "staged_path": "include/soc/qcom/minidump.h",
+          "staged_sha256": "ffe250941f9bdb050ed886faa72a79ac684f90643bf66b665dd2fab74a1a906b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/clock/qcom,rpmh.h",
+          "source_sha256": "c74bbd4c9a15dd66489984ab22e45e4338b6aa12572bd4a91546913f5ac69642",
+          "staged_path": "include/dt-bindings/clock/qcom,rpmh.h",
+          "staged_sha256": "c74bbd4c9a15dd66489984ab22e45e4338b6aa12572bd4a91546913f5ac69642"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/regulator/qcom,rpmh-regulator.h",
+          "source_sha256": "9024ec736a8bca4cc31d414ea2978b237ac6c4ff0409988f8434147a29ecd622",
+          "staged_path": "include/dt-bindings/regulator/qcom,rpmh-regulator.h",
+          "staged_sha256": "9024ec736a8bca4cc31d414ea2978b237ac6c4ff0409988f8434147a29ecd622"
+        }
+      ],
+      "generated_sha256": {
+        "rpmh-rsc.c": "6e31f47d4a8d54af29117351f5f664557130553d9ee8ae1c2f14f3c36d32f22f",
+        "rpmh.c": "3ffb446934add147990a5fbcc0f45c93eeb63b9cc07a709a2fde8f77ff1a0f98",
+        "rpmh-internal.h": "bc2e068c846e1b453c47c217edf3753f7db12aaebbfbeb6c7715b44fba9c668c",
+        "cmd-db.c": "53eb41e187454632ce501fa5df204a213b30dc13e29dd01f3eb7b8cbb8b35cfa",
+        "trace-rpmh.h": "8bfd4b0bca4ca8be277507fd7bcd62dbf7610927f786ab007245a631bea567e7",
+        "ipc_logging.c": "4279823d24486487cc0738c02b2ee2bf7eac91a8b7526de8622038005b0c7c2f",
+        "ipc_logging_private.h": "fd803e55632a369c0496112cc5602d1d1e133f30d89ca183b81db8b8ec2d0567",
+        "ipc_logging_debug.c": "f76f7b49d6e035a2084542d29878cd85c3dc5ad1424e6e431c8d5a1e0f723a64",
+        "clk-rpmh.c": "32de9a68dd034b2cabfb1834c252fedad4bbf1bf9bd7bb1373d35e6b756babfc",
+        "qcom-rpmh-regulator.c": "c0550e41f87f23c0e472db4df27ca1948b65f1f2ef9a1dc518bc622befdcaa50",
+        "include/soc/qcom/rpmh.h": "e728fb3ae8ecccce4987575a2b99e39812ef0b60da87e51b8aea3ab817aba88d",
+        "include/soc/qcom/tcs.h": "d82b50a214fabd4ac1f6d27d780be017f48c4d0cf844ca86aae6cea4a3c343c9",
+        "include/soc/qcom/cmd-db.h": "d2112e73ea142a32e118b9721c593653e882e1a60881a2276157fd5a1da9e08c",
+        "include/linux/ipc_logging.h": "4d2e8c530d33e297b4bf00412147c873020daabb716ee41bd7b5879579b26af8",
+        "include/dt-bindings/soc/qcom,rpmh-rsc.h": "6810c83419f95e8908c1de201ccd40022c9d149ab77f54e2bb12590585370b2d",
+        "include/soc/qcom/minidump.h": "ffe250941f9bdb050ed886faa72a79ac684f90643bf66b665dd2fab74a1a906b",
+        "include/dt-bindings/clock/qcom,rpmh.h": "c74bbd4c9a15dd66489984ab22e45e4338b6aa12572bd4a91546913f5ac69642",
+        "include/dt-bindings/regulator/qcom,rpmh-regulator.h": "9024ec736a8bca4cc31d414ea2978b237ac6c4ff0409988f8434147a29ecd622",
+        "Kbuild": "6d05fc31c32b650144aff90003456ecc4e4a68fefc405274b700914ae0d0cb4c"
+      },
+      "modules": [
+        "qcom_rpmh.ko",
+        "cmd-db.ko",
+        "ipc-logging.ko",
+        "clk-rpmh.ko",
+        "qcom-rpmh-regulator.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "soc": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/smem.c",
+          "source_sha256": "4405e01437fa66a2ac253988be59fb1a216dda8cded20af6363c3f62aa9139a1",
+          "staged_path": "smem.c",
+          "staged_sha256": "47bc97b709226a4e316a004f2a19a065fb2a65f9c90b1e5dd7bdf3340c770b6d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/socinfo.c",
+          "source_sha256": "5a1f0127dce2c8dc2122c45ec2d3c0e06145e9c0c0c34c6f7efbc256136abc56",
+          "staged_path": "socinfo.c",
+          "staged_sha256": "f705d60302b742b632e590c505fc2f025221adaeb7376edc91f8101bd89f74da"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/smp2p.c",
+          "source_sha256": "feadd5cf23df9c66393669b39e85ffb79c6d8f9640fdad501a6aa8a9f8453233",
+          "staged_path": "smp2p.c",
+          "staged_sha256": "3d4db70105a8f9b1a9c0558ab4d93e5eccaa0578f2f8fa3505ad6f9d8240782c"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/qcom_aoss.c",
+          "source_sha256": "ab7cc84480526cfce77d6d912947a5a03172b010f43ed55bdc2f0ea5f05a205a",
+          "staged_path": "qcom_aoss.c",
+          "staged_sha256": "c6d4bcf9b9a2e9777adafe51bebd5bde9e143046c8fa9866c8a4c3d1a1549618"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/hwspinlock/qcom_hwspinlock.c",
+          "source_sha256": "1967c1af297b56fb792afcae110b0e245682e8feda82f11b7e71085eb7b54f01",
+          "staged_path": "qcom_hwspinlock.c",
+          "staged_sha256": "1967c1af297b56fb792afcae110b0e245682e8feda82f11b7e71085eb7b54f01"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/mailbox/qcom-ipcc.c",
+          "source_sha256": "82e626cf8ac738e9e2624d01252d9b5a3c6633eec6d4a3ae8e63b1fd903b8b28",
+          "staged_path": "qcom-ipcc.c",
+          "staged_sha256": "522a57a7d6b3df13a89b00ece04a8a25af5a20eaa37a2e874d959293c70e69d9"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/soc/qcom/smem.h",
+          "source_sha256": "dab6b4568ee8efcc021daaf13d54839e2d8a849270289e884aaf3e4832a76949",
+          "staged_path": "include/linux/soc/qcom/smem.h",
+          "staged_sha256": "dab6b4568ee8efcc021daaf13d54839e2d8a849270289e884aaf3e4832a76949"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/soc/qcom/qcom_aoss.h",
+          "source_sha256": "0596fec09fa8adba8711d0ecd52fbc7b2c38706c02b8be8fdc20740d411f57fb",
+          "staged_path": "include/linux/soc/qcom/qcom_aoss.h",
+          "staged_sha256": "0596fec09fa8adba8711d0ecd52fbc7b2c38706c02b8be8fdc20740d411f57fb"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/soc/qcom/socinfo.h",
+          "source_sha256": "747f024781d8671362486c596ecb0afecd1597f89fff46ec09bd372f4f2159fe",
+          "staged_path": "include/soc/qcom/socinfo.h",
+          "staged_sha256": "747f024781d8671362486c596ecb0afecd1597f89fff46ec09bd372f4f2159fe"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/power/qcom-aoss-qmp.h",
+          "source_sha256": "af04b36cf82432257709e07a249c7f27c2fbeb13cfef76ab3ffd5af1f489f5b5",
+          "staged_path": "include/dt-bindings/power/qcom-aoss-qmp.h",
+          "staged_sha256": "af04b36cf82432257709e07a249c7f27c2fbeb13cfef76ab3ffd5af1f489f5b5"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/mailbox/qcom-ipcc.h",
+          "source_sha256": "fa71795c1ffa347656d844e3cdf7ace5df688d7bef19266c2c08cb16eecb0fe9",
+          "staged_path": "include/dt-bindings/mailbox/qcom-ipcc.h",
+          "staged_sha256": "fa71795c1ffa347656d844e3cdf7ace5df688d7bef19266c2c08cb16eecb0fe9"
+        }
+      ],
+      "generated_sha256": {
+        "smem.c": "47bc97b709226a4e316a004f2a19a065fb2a65f9c90b1e5dd7bdf3340c770b6d",
+        "socinfo.c": "f705d60302b742b632e590c505fc2f025221adaeb7376edc91f8101bd89f74da",
+        "smp2p.c": "3d4db70105a8f9b1a9c0558ab4d93e5eccaa0578f2f8fa3505ad6f9d8240782c",
+        "qcom_aoss.c": "c6d4bcf9b9a2e9777adafe51bebd5bde9e143046c8fa9866c8a4c3d1a1549618",
+        "qcom_hwspinlock.c": "1967c1af297b56fb792afcae110b0e245682e8feda82f11b7e71085eb7b54f01",
+        "qcom-ipcc.c": "522a57a7d6b3df13a89b00ece04a8a25af5a20eaa37a2e874d959293c70e69d9",
+        "include/linux/soc/qcom/smem.h": "dab6b4568ee8efcc021daaf13d54839e2d8a849270289e884aaf3e4832a76949",
+        "include/linux/soc/qcom/qcom_aoss.h": "0596fec09fa8adba8711d0ecd52fbc7b2c38706c02b8be8fdc20740d411f57fb",
+        "include/soc/qcom/socinfo.h": "747f024781d8671362486c596ecb0afecd1597f89fff46ec09bd372f4f2159fe",
+        "include/dt-bindings/power/qcom-aoss-qmp.h": "af04b36cf82432257709e07a249c7f27c2fbeb13cfef76ab3ffd5af1f489f5b5",
+        "include/dt-bindings/mailbox/qcom-ipcc.h": "fa71795c1ffa347656d844e3cdf7ace5df688d7bef19266c2c08cb16eecb0fe9",
+        "Kbuild": "688101d07a5066faa3d5b3fdb54029fd9f0bceda71c11cc4f0edb4f75bb03bd6"
+      },
+      "modules": [
+        "smem.ko",
+        "socinfo.ko",
+        "smp2p.ko",
+        "qcom_aoss.ko",
+        "qcom_hwspinlock.ko",
+        "qcom-ipcc.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "pinctrl": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/pinctrl/qcom/pinctrl-msm.c",
+          "source_sha256": "f522173e12ebf830d724b026ae2156c41b7b3d2025c0c33aa0b209f6fbdb99ea",
+          "staged_path": "pinctrl-msm.c",
+          "staged_sha256": "911278c6651db9f7dc8ea54e6eaacb29a5adc16398ecb6021ecb3f1ea725867a"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/pinctrl/qcom/pinctrl-msm.h",
+          "source_sha256": "51a404303b263d2e7368a76bcc81b0584c2b83a9e1ff1cc8b9e6c4621acd1bc3",
+          "staged_path": "pinctrl-msm.h",
+          "staged_sha256": "dd0a90eeabf6fafeb977b9f5ff394db3433810bd463973dc426c35b06d158873"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/pinctrl/qcom/pinctrl-kalama.c",
+          "source_sha256": "d8d416b79fab46a466f130ea4f61893b93444c736d2d9b916e2678bc8c27ac48",
+          "staged_path": "pinctrl-kalama.c",
+          "staged_sha256": "d8d416b79fab46a466f130ea4f61893b93444c736d2d9b916e2678bc8c27ac48"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/pinctrl/qcom-pinctrl.h",
+          "source_sha256": "be9f53f6905f14884d4a8c619577e2aea0f868940db4a44647957e8247a335f7",
+          "staged_path": "include/linux/pinctrl/qcom-pinctrl.h",
+          "staged_sha256": "be9f53f6905f14884d4a8c619577e2aea0f868940db4a44647957e8247a335f7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/soc/qcom/irq.h",
+          "source_sha256": "7888744f9f63c1d161956fbc54b109342ded3257bf0eb4f3b72a68873c723c38",
+          "staged_path": "include/linux/soc/qcom/irq.h",
+          "staged_sha256": "7888744f9f63c1d161956fbc54b109342ded3257bf0eb4f3b72a68873c723c38"
+        }
+      ],
+      "generated_sha256": {
+        "pinctrl-msm.c": "911278c6651db9f7dc8ea54e6eaacb29a5adc16398ecb6021ecb3f1ea725867a",
+        "pinctrl-msm.h": "dd0a90eeabf6fafeb977b9f5ff394db3433810bd463973dc426c35b06d158873",
+        "pinctrl-kalama.c": "d8d416b79fab46a466f130ea4f61893b93444c736d2d9b916e2678bc8c27ac48",
+        "include/linux/pinctrl/qcom-pinctrl.h": "be9f53f6905f14884d4a8c619577e2aea0f868940db4a44647957e8247a335f7",
+        "include/linux/soc/qcom/irq.h": "7888744f9f63c1d161956fbc54b109342ded3257bf0eb4f3b72a68873c723c38",
+        "Kbuild": "eb93daecd5ef81feb41ce9c0d0edeb4f982b6c71d1b0c25fb79dd0b5a615051d"
+      },
+      "modules": [
+        "pinctrl-msm.ko",
+        "pinctrl-kalama.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "interconnect": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/interconnect/qcom/kalama.c",
+          "source_sha256": "15588e799721a550f3fb4792cd1bb1741cabf15bf08faf4c80a6e66f9f74a316",
+          "staged_path": "kalama.c",
+          "staged_sha256": "15588e799721a550f3fb4792cd1bb1741cabf15bf08faf4c80a6e66f9f74a316"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/interconnect/qcom/icc-rpmh.c",
+          "source_sha256": "29dbe8ae3f5b06d0e3cac5b83b1d1cbaff30e4f044ff533dc5df89e6120ba840",
+          "staged_path": "icc-rpmh.c",
+          "staged_sha256": "9bacfcfc04473e17a253ba1377168d064d94f633c8a8fa0c89d4941812ef2186"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/interconnect/qcom/icc-rpmh.h",
+          "source_sha256": "b53582316f97520585904f1aac3c769d1d2cea39b185ffd6031a24f57e87d507",
+          "staged_path": "icc-rpmh.h",
+          "staged_sha256": "da5d474f770b9def09b1c456cde351c4fcfcc9661cc4e3048f91b7cff0274ce0"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/interconnect/qcom/bcm-voter.c",
+          "source_sha256": "deb10b53299dd876b175b5bb642b478953c5b4140fc2382723baf029d3c3ec17",
+          "staged_path": "bcm-voter.c",
+          "staged_sha256": "cea865e3e14d4357b98de6c9b70581a4b54977e8a574d193a29f9492ed80a3ab"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/interconnect/qcom/bcm-voter.h",
+          "source_sha256": "f2f98cda9b2542a3bbb1d18b5774406bd81a4bb755784e287b9e689cf1501a97",
+          "staged_path": "bcm-voter.h",
+          "staged_sha256": "f2f98cda9b2542a3bbb1d18b5774406bd81a4bb755784e287b9e689cf1501a97"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/interconnect/qcom/qnoc-qos.c",
+          "source_sha256": "2e76ab30ce13be9d585cd0322612cdd74e07deb30a008b768d54518af3dc7f71",
+          "staged_path": "qnoc-qos.c",
+          "staged_sha256": "2e76ab30ce13be9d585cd0322612cdd74e07deb30a008b768d54518af3dc7f71"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/interconnect/qcom/qnoc-qos.h",
+          "source_sha256": "e024926b420270280e2d0822dbfda52905bde7253b1001943b98f1d755498033",
+          "staged_path": "qnoc-qos.h",
+          "staged_sha256": "e024926b420270280e2d0822dbfda52905bde7253b1001943b98f1d755498033"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/interconnect/qcom/trace.h",
+          "source_sha256": "94c1039792c2627ac9f35fdf15c897a45a3e7a9d04b90c2848d754d4f3ef3654",
+          "staged_path": "trace.h",
+          "staged_sha256": "88f776cca441bbe5ec0a7168b7d2a42dabede59f6ad78fe452c1df9e4a1f4739"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/interconnect/qcom,kalama.h",
+          "source_sha256": "f3c2858a50c81b13f6485e9311af362755b19895d5a6aa2394af8e355f55edb5",
+          "staged_path": "include/dt-bindings/interconnect/qcom,kalama.h",
+          "staged_sha256": "f3c2858a50c81b13f6485e9311af362755b19895d5a6aa2394af8e355f55edb5"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/interconnect/qcom,icc.h",
+          "source_sha256": "be95638b1305f99e014fee1b33339525cb196799a3dca957448e28975950746b",
+          "staged_path": "include/dt-bindings/interconnect/qcom,icc.h",
+          "staged_sha256": "be95638b1305f99e014fee1b33339525cb196799a3dca957448e28975950746b"
+        }
+      ],
+      "generated_sha256": {
+        "kalama.c": "15588e799721a550f3fb4792cd1bb1741cabf15bf08faf4c80a6e66f9f74a316",
+        "icc-rpmh.c": "9bacfcfc04473e17a253ba1377168d064d94f633c8a8fa0c89d4941812ef2186",
+        "icc-rpmh.h": "da5d474f770b9def09b1c456cde351c4fcfcc9661cc4e3048f91b7cff0274ce0",
+        "bcm-voter.c": "cea865e3e14d4357b98de6c9b70581a4b54977e8a574d193a29f9492ed80a3ab",
+        "bcm-voter.h": "f2f98cda9b2542a3bbb1d18b5774406bd81a4bb755784e287b9e689cf1501a97",
+        "qnoc-qos.c": "2e76ab30ce13be9d585cd0322612cdd74e07deb30a008b768d54518af3dc7f71",
+        "qnoc-qos.h": "e024926b420270280e2d0822dbfda52905bde7253b1001943b98f1d755498033",
+        "trace.h": "88f776cca441bbe5ec0a7168b7d2a42dabede59f6ad78fe452c1df9e4a1f4739",
+        "include/dt-bindings/interconnect/qcom,kalama.h": "f3c2858a50c81b13f6485e9311af362755b19895d5a6aa2394af8e355f55edb5",
+        "include/dt-bindings/interconnect/qcom,icc.h": "be95638b1305f99e014fee1b33339525cb196799a3dca957448e28975950746b",
+        "Kbuild": "b7db8f608c1ca42c78566a04db22192fc5c9193ff756a334872b81bf74f0cea8"
+      },
+      "modules": [
+        "qnoc-kalama.ko",
+        "icc-rpmh.ko",
+        "icc-bcm-voter.ko",
+        "qnoc-qos.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
     },
     "pogo": {
       "schema": 1,
@@ -2941,16 +3954,85 @@
       "signed_trailer_present": true
     },
     "clk_qcom": {
-      "path": "/root/sheng-618/ports/clock/clk-qcom.ko",
-      "sha256": "9a5607e8653c264e37e97ce9a6020a0965a5f0e2f1decc66b6e8609d2543a82e",
-      "versioned_imports": 64,
+      "path": "/root/sheng-618/ports/clock-los/clk-qcom.ko",
+      "sha256": "4139b11273fb567321d37a156084697029e0e04a91e884dcb0abcea2a4a67879",
+      "versioned_imports": 145,
       "depends": [],
       "aliases": [],
       "signed_trailer_present": false
     },
+    "clk_dummy": {
+      "path": "/root/sheng-618/ports/clock-los/clk-dummy.ko",
+      "sha256": "ae2ae0bad1c2f3c4e819f7d0f5e64fba43c8570f295b3ad5f911cdf286d06b86",
+      "versioned_imports": 14,
+      "depends": [
+        "clk_qcom"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,dummycc",
+        "of:N*T*Cqcom,dummyccC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "gcc_kalama": {
+      "path": "/root/sheng-618/ports/clock-los/gcc-kalama.ko",
+      "sha256": "5d578e61d28422883fadaa66aa9a6bb2dd8afa3c5e2d1b50c734d8f368684e4b",
+      "versioned_imports": 24,
+      "depends": [
+        "clk_qcom"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,kalama-gcc",
+        "of:N*T*Cqcom,kalama-gccC*",
+        "of:N*T*Cqcom,kalama-gcc-v2",
+        "of:N*T*Cqcom,kalama-gcc-v2C*"
+      ],
+      "signed_trailer_present": false
+    },
+    "camcc_kalama": {
+      "path": "/root/sheng-618/ports/clock-los/camcc-kalama.ko",
+      "sha256": "79fefd6ec874f0dfdf611c5fa12793d825392f58da8fbab2d9ad299800b1d807",
+      "versioned_imports": 22,
+      "depends": [
+        "clk_qcom"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,kalama-camcc",
+        "of:N*T*Cqcom,kalama-camccC*",
+        "of:N*T*Cqcom,kalama-camcc-v2",
+        "of:N*T*Cqcom,kalama-camcc-v2C*"
+      ],
+      "signed_trailer_present": false
+    },
+    "dispcc_kalama": {
+      "path": "/root/sheng-618/ports/clock-los/dispcc-kalama.ko",
+      "sha256": "f6c6022f07ce7b6b4d41886fbdc946db98c3d3070978ee2aca36fc4c74199e0a",
+      "versioned_imports": 21,
+      "depends": [
+        "clk_qcom"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,kalama-dispcc",
+        "of:N*T*Cqcom,kalama-dispccC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "gpucc_kalama": {
+      "path": "/root/sheng-618/ports/clock-los/gpucc-kalama.ko",
+      "sha256": "622509a28907f276b528d8ba052656087ea06c94fc557b1b014e98272394e7da",
+      "versioned_imports": 16,
+      "depends": [
+        "clk_qcom"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,kalama-gpucc",
+        "of:N*T*Cqcom,kalama-gpuccC*"
+      ],
+      "signed_trailer_present": false
+    },
     "tcsrcc_kalama": {
-      "path": "/root/sheng-618/ports/clock/tcsrcc-kalama.ko",
-      "sha256": "f10e0ee1fcfb97770ebd640408918d5789843e6eafac1917a346cfaa808e6f91",
+      "path": "/root/sheng-618/ports/clock-los/tcsrcc-kalama.ko",
+      "sha256": "ab56fe5f7e182648cf3fd8a94cad92a9dd45c0378a5fb18aa9aad6b6616acf8e",
       "versioned_imports": 10,
       "depends": [
         "clk_qcom"
@@ -2959,6 +4041,392 @@
         "of:N*T*Cqcom,kalama-tcsrcc",
         "of:N*T*Cqcom,kalama-tcsrccC*"
       ],
+      "signed_trailer_present": false
+    },
+    "videocc_kalama": {
+      "path": "/root/sheng-618/ports/clock-los/videocc-kalama.ko",
+      "sha256": "8f6253546850a757b52194b3ab5e304fc571d64b8eef9fa7264843be0d51f683",
+      "versioned_imports": 20,
+      "depends": [
+        "clk_qcom"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,kalama-videocc",
+        "of:N*T*Cqcom,kalama-videoccC*",
+        "of:N*T*Cqcom,kalama-videocc-v2",
+        "of:N*T*Cqcom,kalama-videocc-v2C*"
+      ],
+      "signed_trailer_present": false
+    },
+    "debugcc_kalama": {
+      "path": "/root/sheng-618/ports/clock-los/debugcc-kalama.ko",
+      "sha256": "136613f171f3d93cfb01b3deba2ce42f620e28185fbd8f51cac91b73d23a3cf1",
+      "versioned_imports": 12,
+      "depends": [
+        "clk_qcom",
+        "clk_dummy"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qcom_scm": {
+      "path": "/root/sheng-618/ports/firmware/qcom-scm.ko",
+      "sha256": "88ad47a66558ef4dc256e7598b27fbd683c5764a92dcd45f6f91c4b57fe0d497",
+      "versioned_imports": 78,
+      "depends": [],
+      "aliases": [
+        "of:N*T*Cqcom,scm-apq8064",
+        "of:N*T*Cqcom,scm-apq8064C*",
+        "of:N*T*Cqcom,scm-apq8084",
+        "of:N*T*Cqcom,scm-apq8084C*",
+        "of:N*T*Cqcom,scm-ipq4019",
+        "of:N*T*Cqcom,scm-ipq4019C*",
+        "of:N*T*Cqcom,scm-mdm9607",
+        "of:N*T*Cqcom,scm-mdm9607C*",
+        "of:N*T*Cqcom,scm-msm8660",
+        "of:N*T*Cqcom,scm-msm8660C*",
+        "of:N*T*Cqcom,scm-msm8960",
+        "of:N*T*Cqcom,scm-msm8960C*",
+        "of:N*T*Cqcom,scm-msm8916",
+        "of:N*T*Cqcom,scm-msm8916C*",
+        "of:N*T*Cqcom,scm-msm8974",
+        "of:N*T*Cqcom,scm-msm8974C*",
+        "of:N*T*Cqcom,scm-msm8994",
+        "of:N*T*Cqcom,scm-msm8994C*",
+        "of:N*T*Cqcom,scm-msm8996",
+        "of:N*T*Cqcom,scm-msm8996C*",
+        "of:N*T*Cqcom,scm",
+        "of:N*T*Cqcom,scmC*",
+        "of:N*T*Cqcom,scm-v1.1",
+        "of:N*T*Cqcom,scm-v1.1C*",
+        "of:N*T*Cqcom,tee-shared-memory-bridge",
+        "of:N*T*Cqcom,tee-shared-memory-bridgeC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_rpmh": {
+      "path": "/root/sheng-618/ports/rpmh/qcom_rpmh.ko",
+      "sha256": "c74cda47e15096fed118d6b3cfa0a2b8ef15e54ff9dac16e16c36a1bc1cce63d",
+      "versioned_imports": 89,
+      "depends": [
+        "ipc_logging",
+        "cmd_db"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,rpmh-rsc",
+        "of:N*T*Cqcom,rpmh-rscC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "cmd_db": {
+      "path": "/root/sheng-618/ports/rpmh/cmd-db.ko",
+      "sha256": "2eecb6ad22171bb8796621b8feecb88ba2b7e42622a41a6615b9db34b6c14ef7",
+      "versioned_imports": 16,
+      "depends": [],
+      "aliases": [
+        "of:N*T*Cqcom,cmd-db",
+        "of:N*T*Cqcom,cmd-dbC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "ipc_logging": {
+      "path": "/root/sheng-618/ports/rpmh/ipc-logging.ko",
+      "sha256": "dc04b2e9eba7fe59dc2bfb950234081b9b4f5456e729c507da6b52ea40c105f5",
+      "versioned_imports": 46,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "clk_rpmh": {
+      "path": "/root/sheng-618/ports/rpmh/clk-rpmh.ko",
+      "sha256": "8bc23079475eb214aff0896c93da60c6809f4f4a8bc39b26248ce9e1066e4e3d",
+      "versioned_imports": 18,
+      "depends": [
+        "qcom_rpmh",
+        "cmd_db"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,sc7180-rpmh-clk",
+        "of:N*T*Cqcom,sc7180-rpmh-clkC*",
+        "of:N*T*Cqcom,sc8180x-rpmh-clk",
+        "of:N*T*Cqcom,sc8180x-rpmh-clkC*",
+        "of:N*T*Cqcom,sdm845-rpmh-clk",
+        "of:N*T*Cqcom,sdm845-rpmh-clkC*",
+        "of:N*T*Cqcom,sdx55-rpmh-clk",
+        "of:N*T*Cqcom,sdx55-rpmh-clkC*",
+        "of:N*T*Cqcom,sm6350-rpmh-clk",
+        "of:N*T*Cqcom,sm6350-rpmh-clkC*",
+        "of:N*T*Cqcom,sm8150-rpmh-clk",
+        "of:N*T*Cqcom,sm8150-rpmh-clkC*",
+        "of:N*T*Cqcom,sm8250-rpmh-clk",
+        "of:N*T*Cqcom,sm8250-rpmh-clkC*",
+        "of:N*T*Cqcom,sm8350-rpmh-clk",
+        "of:N*T*Cqcom,sm8350-rpmh-clkC*",
+        "of:N*T*Cqcom,waipio-rpmh-clk",
+        "of:N*T*Cqcom,waipio-rpmh-clkC*",
+        "of:N*T*Cqcom,sc7280-rpmh-clk",
+        "of:N*T*Cqcom,sc7280-rpmh-clkC*",
+        "of:N*T*Cqcom,kalama-rpmh-clk",
+        "of:N*T*Cqcom,kalama-rpmh-clkC*",
+        "of:N*T*Cqcom,cinder-rpmh-clk",
+        "of:N*T*Cqcom,cinder-rpmh-clkC*",
+        "of:N*T*Cqcom,sdxpinn-rpmh-clk",
+        "of:N*T*Cqcom,sdxpinn-rpmh-clkC*",
+        "of:N*T*Cqcom,sdxbaagha-rpmh-clk",
+        "of:N*T*Cqcom,sdxbaagha-rpmh-clkC*",
+        "of:N*T*Cqcom,lemans-rpmh-clk",
+        "of:N*T*Cqcom,lemans-rpmh-clkC*",
+        "of:N*T*Cqcom,crow-rpmh-clk",
+        "of:N*T*Cqcom,crow-rpmh-clkC*",
+        "of:N*T*Cqcom,sdm670-rpmh-clk",
+        "of:N*T*Cqcom,sdm670-rpmh-clkC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_rpmh_regulator": {
+      "path": "/root/sheng-618/ports/rpmh/qcom-rpmh-regulator.ko",
+      "sha256": "b959b3e0aa3135ac09ca3343cb9790edf19541a2114c17fe0cbc531a214ae4ca",
+      "versioned_imports": 19,
+      "depends": [
+        "qcom_rpmh",
+        "cmd_db"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,pm8005-rpmh-regulators",
+        "of:N*T*Cqcom,pm8005-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm8009-rpmh-regulators",
+        "of:N*T*Cqcom,pm8009-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm8009-1-rpmh-regulators",
+        "of:N*T*Cqcom,pm8009-1-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm8150-rpmh-regulators",
+        "of:N*T*Cqcom,pm8150-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm8150l-rpmh-regulators",
+        "of:N*T*Cqcom,pm8150l-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm8350-rpmh-regulators",
+        "of:N*T*Cqcom,pm8350-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm8350c-rpmh-regulators",
+        "of:N*T*Cqcom,pm8350c-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm8998-rpmh-regulators",
+        "of:N*T*Cqcom,pm8998-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pmi8998-rpmh-regulators",
+        "of:N*T*Cqcom,pmi8998-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm6150-rpmh-regulators",
+        "of:N*T*Cqcom,pm6150-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm6150l-rpmh-regulators",
+        "of:N*T*Cqcom,pm6150l-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pmc8180-rpmh-regulators",
+        "of:N*T*Cqcom,pmc8180-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pmc8180c-rpmh-regulators",
+        "of:N*T*Cqcom,pmc8180c-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pmm8155au-rpmh-regulators",
+        "of:N*T*Cqcom,pmm8155au-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pmx55-rpmh-regulators",
+        "of:N*T*Cqcom,pmx55-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pm7325-rpmh-regulators",
+        "of:N*T*Cqcom,pm7325-rpmh-regulatorsC*",
+        "of:N*T*Cqcom,pmr735a-rpmh-regulators",
+        "of:N*T*Cqcom,pmr735a-rpmh-regulatorsC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "smem": {
+      "path": "/root/sheng-618/ports/soc/smem.ko",
+      "sha256": "cf3deb426ba202e777953753fc6cd63878c130e8037f1c5e32f1ed6615930faa",
+      "versioned_imports": 19,
+      "depends": [],
+      "aliases": [
+        "of:N*T*Cqcom,smem",
+        "of:N*T*Cqcom,smemC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "socinfo": {
+      "path": "/root/sheng-618/ports/soc/socinfo.ko",
+      "sha256": "f94c815fd7229588746522d562798a25b350efbf86d789188bdb8567e4ef8ace",
+      "versioned_imports": 37,
+      "depends": [
+        "smem"
+      ],
+      "aliases": [
+        "platform:qcom-socinfo"
+      ],
+      "signed_trailer_present": false
+    },
+    "smp2p": {
+      "path": "/root/sheng-618/ports/soc/smp2p.ko",
+      "sha256": "25484f2c188c7c6d7e15988757d3e0ba4f948017b83c425be0a11b70edaad752",
+      "versioned_imports": 60,
+      "depends": [
+        "ipc_logging",
+        "smem"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,smp2p",
+        "of:N*T*Cqcom,smp2pC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_aoss": {
+      "path": "/root/sheng-618/ports/soc/qcom_aoss.ko",
+      "sha256": "9f80ba051a1eb6f7ceaa287d857133fa8505366fe3a0db6d2610c7048ffd7de2",
+      "versioned_imports": 67,
+      "depends": [
+        "ipc_logging"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,sc7180-aoss-qmp",
+        "of:N*T*Cqcom,sc7180-aoss-qmpC*",
+        "of:N*T*Cqcom,sc7280-aoss-qmp",
+        "of:N*T*Cqcom,sc7280-aoss-qmpC*",
+        "of:N*T*Cqcom,sdm845-aoss-qmp",
+        "of:N*T*Cqcom,sdm845-aoss-qmpC*",
+        "of:N*T*Cqcom,sm8150-aoss-qmp",
+        "of:N*T*Cqcom,sm8150-aoss-qmpC*",
+        "of:N*T*Cqcom,sm8250-aoss-qmp",
+        "of:N*T*Cqcom,sm8250-aoss-qmpC*",
+        "of:N*T*Cqcom,sm8350-aoss-qmp",
+        "of:N*T*Cqcom,sm8350-aoss-qmpC*",
+        "of:N*T*Cqcom,kalama-aoss-qmp",
+        "of:N*T*Cqcom,kalama-aoss-qmpC*",
+        "of:N*T*Cqcom,aoss-qmp",
+        "of:N*T*Cqcom,aoss-qmpC*",
+        "of:N*T*Cqcom,waipio-aoss-qmp",
+        "of:N*T*Cqcom,waipio-aoss-qmpC*",
+        "of:N*T*Cqcom,cinder-aoss-qmp",
+        "of:N*T*Cqcom,cinder-aoss-qmpC*",
+        "of:N*T*Cqcom,sdxpinn-aoss-qmp",
+        "of:N*T*Cqcom,sdxpinn-aoss-qmpC*",
+        "of:N*T*Cqcom,sdxbaagha-aoss-qmp",
+        "of:N*T*Cqcom,sdxbaagha-aoss-qmpC*",
+        "of:N*T*Cqcom,kona-aoss-qmp",
+        "of:N*T*Cqcom,kona-aoss-qmpC*",
+        "of:N*T*Cqcom,qcs605-aoss-qmp",
+        "of:N*T*Cqcom,qcs605-aoss-qmpC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_hwspinlock": {
+      "path": "/root/sheng-618/ports/soc/qcom_hwspinlock.ko",
+      "sha256": "f59e73d05e16fd05e525f2617a27a07f3e46b176e62573f00d52458ade5ea78c",
+      "versioned_imports": 16,
+      "depends": [],
+      "aliases": [
+        "of:N*T*Cqcom,sfpb-mutex",
+        "of:N*T*Cqcom,sfpb-mutexC*",
+        "of:N*T*Cqcom,tcsr-mutex",
+        "of:N*T*Cqcom,tcsr-mutexC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qcom_ipcc": {
+      "path": "/root/sheng-618/ports/soc/qcom-ipcc.ko",
+      "sha256": "c37ff7982afdceb53836797f23906b53a6f51a5660c8d967113553ca41c1b5ef",
+      "versioned_imports": 26,
+      "depends": [],
+      "aliases": [
+        "of:N*T*Cqcom,ipcc",
+        "of:N*T*Cqcom,ipccC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "pinctrl_msm": {
+      "path": "/root/sheng-618/ports/pinctrl/pinctrl-msm.ko",
+      "sha256": "bd8cdf8107073895b1affb66c2924eaaaa3f9b7f2dce07d3cf0b9ac8df6010ac",
+      "versioned_imports": 97,
+      "depends": [
+        "qcom_scm"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "pinctrl_kalama": {
+      "path": "/root/sheng-618/ports/pinctrl/pinctrl-kalama.ko",
+      "sha256": "08ef719b730e30a8ca4b374f11f8767f32827c6c40fe6fd985bc89e5382578c9",
+      "versioned_imports": 6,
+      "depends": [
+        "pinctrl_msm"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,kalama-pinctrl",
+        "of:N*T*Cqcom,kalama-pinctrlC*",
+        "of:N*T*Cqcom,kalama-pinctrl-v2",
+        "of:N*T*Cqcom,kalama-pinctrl-v2C*",
+        "of:N*T*Cqcom,kalama-vm-pinctrl",
+        "of:N*T*Cqcom,kalama-vm-pinctrlC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qnoc_kalama": {
+      "path": "/root/sheng-618/ports/interconnect/qnoc-kalama.ko",
+      "sha256": "633ec82b37c15f40e85f3f3ca3e4c25aa3466a4e10839c08114ba2cd1fc09381",
+      "versioned_imports": 10,
+      "depends": [
+        "icc_rpmh",
+        "qnoc_qos"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,kalama-aggre1_noc",
+        "of:N*T*Cqcom,kalama-aggre1_nocC*",
+        "of:N*T*Cqcom,kalama-aggre2_noc",
+        "of:N*T*Cqcom,kalama-aggre2_nocC*",
+        "of:N*T*Cqcom,kalama-clk_virt",
+        "of:N*T*Cqcom,kalama-clk_virtC*",
+        "of:N*T*Cqcom,kalama-cnoc_cfg",
+        "of:N*T*Cqcom,kalama-cnoc_cfgC*",
+        "of:N*T*Cqcom,kalama-cnoc_main",
+        "of:N*T*Cqcom,kalama-cnoc_mainC*",
+        "of:N*T*Cqcom,kalama-gem_noc",
+        "of:N*T*Cqcom,kalama-gem_nocC*",
+        "of:N*T*Cqcom,kalama-lpass_ag_noc",
+        "of:N*T*Cqcom,kalama-lpass_ag_nocC*",
+        "of:N*T*Cqcom,kalama-lpass_lpiaon_noc",
+        "of:N*T*Cqcom,kalama-lpass_lpiaon_nocC*",
+        "of:N*T*Cqcom,kalama-lpass_lpicx_noc",
+        "of:N*T*Cqcom,kalama-lpass_lpicx_nocC*",
+        "of:N*T*Cqcom,kalama-mc_virt",
+        "of:N*T*Cqcom,kalama-mc_virtC*",
+        "of:N*T*Cqcom,kalama-mmss_noc",
+        "of:N*T*Cqcom,kalama-mmss_nocC*",
+        "of:N*T*Cqcom,kalama-nsp_noc",
+        "of:N*T*Cqcom,kalama-nsp_nocC*",
+        "of:N*T*Cqcom,kalama-pcie_anoc",
+        "of:N*T*Cqcom,kalama-pcie_anocC*",
+        "of:N*T*Cqcom,kalama-system_noc",
+        "of:N*T*Cqcom,kalama-system_nocC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "icc_rpmh": {
+      "path": "/root/sheng-618/ports/interconnect/icc-rpmh.ko",
+      "sha256": "75b974c2cccd22b363d8db9fb01065a4062c76dcf3135b9efef34bf3c9bcfe5c",
+      "versioned_imports": 40,
+      "depends": [
+        "icc_bcm_voter",
+        "cmd_db",
+        "socinfo"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "icc_bcm_voter": {
+      "path": "/root/sheng-618/ports/interconnect/icc-bcm-voter.ko",
+      "sha256": "7ab13ed4ee61c3eca8054293b1901afb5a905641a1920d213f5c6a36886c3fe3",
+      "versioned_imports": 32,
+      "depends": [
+        "qcom_rpmh"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,bcm-voter",
+        "of:N*T*Cqcom,bcm-voterC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qnoc_qos": {
+      "path": "/root/sheng-618/ports/interconnect/qnoc-qos.ko",
+      "sha256": "ef60f3ca4b56373c08a6ce90b9e756345e0306c8620b3a94192ebebe839b0fbc",
+      "versioned_imports": 2,
+      "depends": [],
+      "aliases": [],
       "signed_trailer_present": false
     },
     "xm_utils": {
@@ -3089,7 +4557,32 @@
     "soc_topology_test",
     "soc_utils_test",
     "clk_qcom",
+    "clk_dummy",
+    "gcc_kalama",
+    "camcc_kalama",
+    "dispcc_kalama",
+    "gpucc_kalama",
     "tcsrcc_kalama",
+    "videocc_kalama",
+    "debugcc_kalama",
+    "qcom_scm",
+    "ipc_logging",
+    "cmd_db",
+    "qcom_rpmh",
+    "clk_rpmh",
+    "qcom_rpmh_regulator",
+    "smem",
+    "socinfo",
+    "smp2p",
+    "qcom_aoss",
+    "qcom_hwspinlock",
+    "qcom_ipcc",
+    "pinctrl_msm",
+    "pinctrl_kalama",
+    "icc_bcm_voter",
+    "icc_rpmh",
+    "qnoc_qos",
+    "qnoc_kalama",
     "xm_utils",
     "cs35l43_dlkm"
   ],

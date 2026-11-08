@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "verified_groups": {
+    "clock-los": ["clk-qcom.ko", "clk-dummy.ko", "gcc-kalama.ko", "camcc-kalama.ko", "dispcc-kalama.ko", "gpucc-kalama.ko", "tcsrcc-kalama.ko", "videocc-kalama.ko", "debugcc-kalama.ko"],
+    "firmware": ["qcom-scm.ko"],
+    "rpmh": ["qcom_rpmh.ko", "cmd-db.ko", "ipc-logging.ko", "clk-rpmh.ko", "qcom-rpmh-regulator.ko"],
+    "soc": ["smem.ko", "socinfo.ko", "smp2p.ko", "qcom_aoss.ko", "qcom_hwspinlock.ko", "qcom-ipcc.ko"],
+    "pinctrl": ["pinctrl-msm.ko", "pinctrl-kalama.ko"],
+    "interconnect": ["qnoc-kalama.ko", "icc-rpmh.ko", "icc-bcm-voter.ko", "qnoc-qos.ko"],
+    "pogo": ["xm_utils.ko"],
+    "cs35l43": ["cs35l43_dlkm.ko"]
+  },
+  "superseded_groups": {
+    "clock": "clock-los supplies the common clock library and all seven LOS Kalama controllers"
+  }
+}

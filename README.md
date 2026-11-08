@@ -7,6 +7,10 @@ LineageOS 官方 SM8550 5.15 内核。2026-11-08 新增独立的 6.18 移植调�
 piano 仅作组织方式参考，硬件配置以 sheng 原厂固件核对结果为准。
 
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
+
+2026-11-08 全量迁移继续推进：LOS Kalama 全套时钟/VDD、SCM/QTEE、RPMh、
+SMEM/SOCINFO/SMP2P/AOSS、TLMM 和 NoC/QoS 已编译；105 个基线加 29 个移植模块
+通过联合符号与 CRC 核查。此为平台阶段进展，完整平板内核和硬件验证尚未完成。
 当前已编译 ACK 6.18.32 基线、LOS kalama TCSR 时钟、官方 sheng 电池管理工具
 和 CS35L43 功放驱动。109 个模块的 6,330 项版本化导入检查通过；尚无完成板级
 适配或实机验证的 sheng 6.18 包。
