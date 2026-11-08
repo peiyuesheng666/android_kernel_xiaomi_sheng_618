@@ -183,7 +183,7 @@ init_boot 的 /init 转交 vendor_boot 的探测程序，再由其设置 USB ACM
 本任务仅参考 USB 顺序和描述符，没有引入 HarmonyOS 服务。
 文件与哈希见 `kernel618-anyhmos-usb-reference.json`。
 
-当前五版保留为 display-r6、display-r7、display-r8、display-r9、fault-r10。
+当前五版保留为 display-r7、display-r8、display-r9、fault-r10、slab-r11。
 首版及 baseline-r2 交付目录已清理，原始 Image 仍保留在 WSL
 /root/sheng-618/diagnostic/baseline-r2/verified/kernel。
 
@@ -203,3 +203,29 @@ __list_add_valid_or_report。损坏 entry 位于 kmalloc-2k 对象偏移 480。
 目前只证明设备链表损坏，尚不能确定哪个驱动写坏或释放了对象；不删除链表校验，
 不将 DP/HFI 错误当作此异常的已证根因。下一步追踪 kset 对象和 slab 分配/释放来源。
 原始日志 reports/device/kernel618-fault-r10/，整理见 kernel618-fault-r10-hardware.json。
+
+
+### slab-r11：只对已证损坏的内存池记录来源（已刷入，实机待确认）
+
+复用 fault-r10 的相同 Image 和全部模块，不重新编译。仅 boot cmdline 新增
+stack_depot_disable=off slab_debug=U,kmalloc-2k，用 ACK 原生 SLAB_STORE_USER
+在 list_debug 的既有 kmem_dump_obj 输出中显示分配/释放栈。
+只跟踪 r10 已确认的 kmalloc-2k 池，不更改设备链表校验或绕过 BUG。
+依据固定 ACK ff4a6c3bb0f471a9dd186293a47b62c83829b97d 的 mm/slub.c、
+lib/stackdepot.c、mm/slab_common.c；原厂早期 stack_depot_disable=on 由后续 off 覆盖。
+这会改变该池的对象布局和时序，抓到分配者仍不一定等于证明了破坏者。
+
+QEMU 用交付 Image 和仅测试 initrd 的临时模块分配/释放 1900 字节对象并 BUG，
+实际读回两份 CRC 有效快照至 12.471/13.410 秒，包含 allocation/free 栈及异常栈；
+命令行 on→off 覆盖实测生效，真实内嵌助手执行成功。首次验证的断言误用了
+静态函数名 fault_init，而模块符号实际为 init_module；修正断言后重跑通过。
+故障模块不在交付 Image 中。未重复与此次参数无关、r10 已通过的分区拒写测试。
+官方 boot 只读封包、AVB 自校验、解包 kernel/空 ramdisk 回读通过。
+
+boot SHA256: 478233b98b5af557fd4a1c0bbc0206e12fb7ed05dfbe2c76fe4452767722914c。
+Image SHA256: 99d34cdb44cf1174c23451aad863adbc459d728268c509ca4905c632285e8f6a。
+Recovery ADB 重启到 Fastboot，核对 sheng/slot a 后已刷 boot_a 并 reboot 成功。
+实机是否获得来源栈待下一轮读取，尚未正常开机。
+整理见 kernel618-slab-r11-{boot,qemu-slab,hardware}.json。
+当前五版为 display-r7、display-r8、display-r9、fault-r10、slab-r11；
+仅清理旧 display-r6 交付目录，原始日志及源码记录保留。

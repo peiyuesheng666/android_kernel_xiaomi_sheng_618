@@ -37,6 +37,8 @@ fault-r10 已补上异常后的跨 CPU 日志写入，QEMU 真正触发 BUG/pani
 寄存器和调用栈，正常落盘及错误分区名称/大小拒写也通过。实机已抓到约 22.5 秒
 延迟探测线程在 devices_kset_move_last 因设备链表损坏触发 BUG；显示线程当时仍在继续。
 跨 CPU 异常落盘实机有效，破坏链表的分配/释放路径尚待定位，仍未正常开机。
+slab-r11 复用完全相同的 r10 Image，只开启 kmalloc-2k 分配/释放来源跟踪；
+QEMU 已验证分配、释放栈和异常栈都能落盘，已刷入 boot_a，实机结果待确认。
 详见 [reports/KERNEL618_DEBUG_STATUS.md](reports/KERNEL618_DEBUG_STATUS.md)。
 尚未正常开机，平板功能适配与验证仍未完成。
 

@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-08",
+  "revision": "slab-r11",
+  "serial": "ca10ede3",
+  "product": "sheng",
+  "active_slot": "a",
+  "flashed_partition": "boot_a",
+  "boot_sha256": "478233b98b5af557fd4a1c0bbc0206e12fb7ed05dfbe2c76fe4452767722914c",
+  "image_sha256": "99d34cdb44cf1174c23451aad863adbc459d728268c509ca4905c632285e8f6a",
+  "same_image_as_revision": "fault-r10",
+  "compiled": false,
+  "flash_succeeded": true,
+  "reboot_command_succeeded": true,
+  "hardware_log_received": false,
+  "android_boot_completed": null,
+  "original_boot_backed_up": false,
+  "diagnostic_only": true,
+  "current_state": "Flashed boot_a and rebooted; awaiting hardware result"
+}

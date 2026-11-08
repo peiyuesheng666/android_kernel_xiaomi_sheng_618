@@ -22,10 +22,14 @@ parser.add_argument('--helper-exec', action='store_true')
 parser.add_argument('--positive-only', action='store_true')
 parser.add_argument('--fault-after-log', action='store_true',
                     help='On CPU 1, BUG in a disposable module and require its stack in disk snapshots')
+parser.add_argument('--slab-tracking', action='store_true',
+                    help='Verify kmalloc-2k allocation provenance using the exact candidate cmdline')
 options = parser.parse_args()
 assert not options.fault_after_log or options.positive_only
+assert not options.slab_tracking or options.fault_after_log
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', options.revision)
-root = Path('/root/sheng-618/diagnostic') / options.revision / ('qemu-fault' if options.fault_after_log else 'qemu')
+root = Path('/root/sheng-618/diagnostic') / options.revision / (
+    'qemu-slab' if options.slab_tracking else 'qemu-fault' if options.fault_after_log else 'qemu')
 root.mkdir(parents=True, exist_ok=True)
 out = Path('/root/sheng-618/upstream-build/k618/out-gki')
 image = work / 'artifacts' / ('sheng-6.18-' + options.revision) / 'Image'
@@ -64,12 +68,14 @@ if options.fault_after_log:
     fault = root / 'fault-module'
     fault.mkdir(exist_ok=True)
     (fault / 'Makefile').write_text('obj-m := sheng_fault_probe.o\n')
-    (fault / 'sheng_fault_probe.c').write_text('''// SPDX-License-Identifier: GPL-2.0-only
+    fault_source = '''// SPDX-License-Identifier: GPL-2.0-only
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/bug.h>
+#include <linux/slab.h>
 static int __init fault_init(void)
 {
+    /* SLAB_PROVENANCE_TEST */
     pr_emerg("SHENG_DISKLOG_FAULT_INJECT: deliberate QEMU-only BUG\\n");
     BUG();
     return 0;
@@ -77,7 +83,18 @@ static int __init fault_init(void)
 module_init(fault_init);
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Disposable QEMU-only fault capture probe");
-''')
+'''
+    if options.slab_tracking:
+        fault_source = fault_source.replace('    /* SLAB_PROVENANCE_TEST */', '''
+    void *probe = kzalloc(1900, GFP_KERNEL);
+    if (!probe)
+        return -ENOMEM;
+    pr_emerg("SHENG_SLAB_PROVENANCE_TEST: allocated kmalloc-2k object\\n");
+    kmem_dump_obj(probe);
+    kfree(probe);
+    pr_emerg("SHENG_SLAB_PROVENANCE_TEST: freed object provenance\\n");
+    kmem_dump_obj(probe);''')
+    (fault / 'sheng_fault_probe.c').write_text(fault_source)
     with (root / 'fault-module-build.log').open('w') as stream:
         subprocess.run(['make', '-C', str(ACK), 'O=' + str(out), 'ARCH=arm64', 'LLVM=1',
                         'LLVM_IAS=1', 'M=' + str(fault), '-j8', 'modules'],
@@ -222,7 +239,9 @@ for label, name, mib, expected in inputs:
                                  '-drive', f'if=none,id=logdisk,file={path},format=raw',
                                  '-device', 'virtio-blk-pci,drive=logdisk',
                                  '-append', 'console=ttyAMA0 earlycon=pl011,0x9000000 rdinit=/init panic=-1 printk.devkmsg=on sheng_bootlog.enable=1'
-                                 + (' panic_on_oops=1 irqaffinity=0' if options.fault_after_log else '')],
+                                 + (' panic_on_oops=1 irqaffinity=0' if options.fault_after_log else '')
+                                 + (' stack_depot_disable=on stack_depot_disable=off slab_debug=U,kmalloc-2k'
+                                    if options.slab_tracking else '')],
                                 stdout=stream, stderr=subprocess.STDOUT, timeout=60)
     assert result.returncode == 0, transcript
     console = transcript.read_text()
@@ -245,6 +264,11 @@ for label, name, mib, expected in inputs:
             assert any(all(marker in s['text'] for marker in (
                 'SHENG_DISKLOG_FAULT_INJECT', 'sheng_fault_probe', 'Call trace:',
                 'pc :', '1500 ms capture window')) for s in slots), transcript
+        if options.slab_tracking:
+            assert any(all(marker in s['text'] for marker in (
+                'SHENG_SLAB_PROVENANCE_TEST', 'Free path:')) and
+                re.search(r'allocated at init_module\+[^\n]*\[sheng_fault_probe\]', s['text'])
+                for s in slots), transcript
         # A torn newest write must leave the other validated copy readable.
         torn = bytearray(raw)
         torn[64] ^= 1
@@ -263,6 +287,9 @@ report = {'real_aarch64_kernel': True, 'real_gpt_block_io_and_fsync': True,
           'partition_guard_cases_run': not options.positive_only}
 report['fault_injection_case_run'] = options.fault_after_log
 report['exception_stack_persisted_before_panic'] = True if options.fault_after_log else None
-suffix = '-qemu-fault.json' if options.fault_after_log else '-qemu.json'
+if options.slab_tracking:
+    report['kmalloc_2k_allocation_and_free_stacks_persisted'] = True
+    report['stock_stack_depot_disable_overridden'] = True
+suffix = '-qemu-slab.json' if options.slab_tracking else '-qemu-fault.json' if options.fault_after_log else '-qemu.json'
 (work / ('reports/kernel618-' + options.revision + suffix)).write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

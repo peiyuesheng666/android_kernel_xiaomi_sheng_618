@@ -1,0 +1,23 @@
+{
+  "revision": "slab-r11",
+  "boot_sha256": "478233b98b5af557fd4a1c0bbc0206e12fb7ed05dfbe2c76fe4452767722914c",
+  "image_sha256": "99d34cdb44cf1174c23451aad863adbc459d728268c509ca4905c632285e8f6a",
+  "boot_bytes": 100663296,
+  "image_bytes": 78858752,
+  "same_image_as_revision": "fault-r10",
+  "compiled": false,
+  "cmdline": "printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=slab-r11 stack_depot_disable=off slab_debug=U,kmalloc-2k",
+  "diagnostic_only": true,
+  "slab_scope": "kmalloc-2k only; U enables allocation/free provenance",
+  "evidence": "r10 devices kset list BUG: corrupted prev in kmalloc-2k at offset 480",
+  "references": [
+    "ACK ff4a6c3bb0f471a9dd186293a47b62c83829b97d mm/slub.c setup_slub_debug, kmem_obj_info",
+    "Same ACK lib/stackdepot.c disable_stack_depot and mm/slab_common.c kmem_dump_obj"
+  ],
+  "kernel_readback_matches": true,
+  "avb_self_verification_passed": true,
+  "original_android_init_preserved": true,
+  "hardware_log_received": false,
+  "limitation": "Changes slab placement/timing; allocation provenance is not by itself proof of the corrupting writer",
+  "maximum_retained_versions": 5
+}
