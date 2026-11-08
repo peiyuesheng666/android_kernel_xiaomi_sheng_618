@@ -11,6 +11,10 @@ hwbinder_use(hal_miface_default)
 binder_call(hal_miface_client, hal_miface_server)
 binder_call(hal_miface_server, hal_miface_client)
 
+# libmediandk/libui allocate the image-reader buffers in this process.
+# Use the platform allocator client rules for Binder discovery and HIDL calls.
+hal_client_domain(hal_miface_default, hal_graphics_allocator)
+
 # Match the original implementation's camera/graphics and secure-buffer paths.
 allow hal_miface_default fwk_camera_hwservice:hwservice_manager find;
 binder_call(hal_miface_default, cameraserver)
