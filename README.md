@@ -11,6 +11,14 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
+2026-11-09 07:56：按用户最后要求，手动重启后观察三分钟仍无法连接 ADB，
+停止本轮设备调试与刷机。无线调试开机恢复助手已构建、安装并获得一次性
+ADB 设置授权，重启前设置写入成功；重启后只有 offline 旧连接，mDNS 未发现
+新端口，不能确认开机自启动是否生效。USB/充电及其他内核问题仍未修复。
+用户先前已允许无线 ADB 可用时继续，因此下述 r34 五分钟有线停止规则仅为
+历史记录；本次以最新三分钟指令停止。未构建或刷入 r35。详见
+[助手测试记录](reports/sheng-wireless-adb-boot-test.json)。
+
 2026-11-09 r34：恢复 N81A 原厂初始亮度 307，移除 probe 时关背光造成的
 长黑屏路径；补回澎湃 USB HAL 所需的 sheng 只读 enable_msflag=0，兼容
 原厂中继器 host 调参属性名。用户实测仍白闪后进入小米 Logo，白闪未解决。

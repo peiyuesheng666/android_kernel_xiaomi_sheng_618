@@ -1,0 +1,17 @@
+{
+  "apk_sha256": "7588a8417c89ecfab6af1a7a3647682943e0d32a30f92cd359b6d50fbf06278e",
+  "bytes": 20883,
+  "package": "org.peiyuesheng.sheng.adbboot",
+  "root_required": false,
+  "public_sdk": 36,
+  "signing_key_private_local_only": true,
+  "settings_permission_requires_one_time_adb_grant": true,
+  "plain_tcp_listener_added": false,
+  "pairing_verification_changed": false,
+  "sources": {
+    "device/xiaomi/sheng/tools/WirelessAdbBoot/AndroidManifest.xml": "2efe1e88eb8fdd7bea72c3835fb5db579c363f316fff9ea0d2f9a2156e3b0f3b",
+    "device/xiaomi/sheng/tools/WirelessAdbBoot/src/org/peiyuesheng/sheng/adbboot/BootReceiver.java": "505b0bf68e58cfa753eea8da203e127d652cda4eb0cf7e04af84fa0ee54db917",
+    "device/xiaomi/sheng/tools/WirelessAdbBoot/src/org/peiyuesheng/sheng/adbboot/EnableJob.java": "61ba9c5c2d278ae5882c4abb3f1535833ec9e5145a04ea5ef88460aa1589d3cc",
+    "device/xiaomi/sheng/tools/WirelessAdbBoot/src/org/peiyuesheng/sheng/adbboot/MainActivity.java": "2edca8a20091fc307b76fda0f6a9f4b0ad04d1f2091f022a9eda9078094877ae"
+  }
+}

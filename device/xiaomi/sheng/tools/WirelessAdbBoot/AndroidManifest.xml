@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.peiyuesheng.sheng.adbboot" android:versionCode="1" android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="36" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <application android:label="无线调试开机恢复" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:allowBackup="false" android:directBootAware="true" android:defaultToDeviceProtectedStorage="true">
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".BootReceiver" android:exported="true" android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".EnableJob" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="true" android:directBootAware="true" />
+    </application>
+</manifest>

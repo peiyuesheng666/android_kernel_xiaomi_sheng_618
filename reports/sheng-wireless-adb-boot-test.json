@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-09",
+  "timezone": "Asia/Singapore",
+  "kernel": "r34",
+  "package": "org.peiyuesheng.sheng.adbboot",
+  "apk_sha256": "7588a8417c89ecfab6af1a7a3647682943e0d32a30f92cd359b6d50fbf06278e",
+  "installed_before_manual_reboot": true,
+  "write_secure_settings_granted": true,
+  "background_appop_allowed": true,
+  "deviceidle_whitelisted": true,
+  "vendor_auto_start_appop": "AUTO_START not recognized; no vendor autostart grant confirmed",
+  "pre_reboot_setting_write": "confirmed true in ShengAdbBoot logs at boot_count 25",
+  "manual_reboot_by_user": true,
+  "observation_start": "2026-11-09T07:52:17+08:00",
+  "observation_deadline": "2026-11-09T07:55:17+08:00",
+  "final_host_check": "2026-11-09T07:56:11+08:00",
+  "final_adb_state": "no usable wired or wireless transport; only offline endpoints",
+  "final_mdns_services": [],
+  "reboot_autostart_verified": false,
+  "host_discovery_verified": false,
+  "limitations": [
+    "mDNS candidate returned no services even before reboot while a known endpoint worked",
+    "host proxy caused false positive TCP probes; scan stopped; ports 32768 and 32769 not verified",
+    "no post-reboot shell or helper logs available; cannot isolate app startup from host discovery"
+  ],
+  "latest_user_stop_condition": "wait three minutes after manual reboot; stop if no usable ADB",
+  "device_work_stopped": true,
+  "new_kernel_built_or_flashed_after_reboot": false,
+  "kernel_problems_resolved_by_helper": false,
+  "root_added": false,
+  "pairing_authentication_changed": false
+}
