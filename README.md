@@ -11,6 +11,16 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
+2026-11-09 当前 6.18 已在原厂 HyperOS 正常开机；r31 是最近已确认启动的版本。
+触摸/笔基本输入获用户确认，前后原厂相机预览有连续实际帧，双背光寄存器调节、
+键盘 MCU/原厂 HAL 通信、指纹 HAL 初始化及霍尔输入注册已验证。
+实体键盘/触摸板、合盖、指纹认证、白闪及插电音效仍需验收或排查。
+最新 r32 移除显示诊断等待并补媒体键报告，编译和静态检查通过，但实机
+180 秒内未连接 ADB，尚未取得这轮日志，不能作为可启动版本交付。
+当前 ADB/Fastboot 均不可见，后续须恢复 Fastboot 才能读回日志。
+NFC 审计见 [reports/kernel618-nfc-audit.json](reports/kernel618-nfc-audit.json)：
+官方描述为 NFC 标签触发分享，未发现本机应补的主动 NFC 控制器。
+
 2026-11-08 全量迁移继续推进：LOS Kalama 全套时钟/VDD、SCM/QTEE、RPMh、
 SMEM/SOCINFO/SMP2P/AOSS、TLMM、NoC/QoS、PMIC、UFS PHY、GLINK/QMI/PDR、
 Q6/PAS/SYSMON/MDT、安全内存、I2C/SPI/GPI、CPU 调频、温度采集/阈值和冷却
@@ -42,7 +52,7 @@ slab-r11 复用完全相同的 r10 Image，只开启 kmalloc-2k 分配/释放来
 QEMU 已验证来源栈能落盘，实机确认 DP AUX 注册后在 PLL 失败路径直接释放，
 未注销的 I2C 设备留下悬空链表；内存随后被 SSPP 复用。正在验证 AUX 生命周期修复。
 详见 [reports/KERNEL618_DEBUG_STATUS.md](reports/KERNEL618_DEBUG_STATUS.md)。
-尚未正常开机，平板功能适配与验证仍未完成。
+以上为 r5–r11 的历史排查；当前启动与外围进展以开头链接的最新记录为准。
 
 ## 工作记录与 Git 提交规则
 

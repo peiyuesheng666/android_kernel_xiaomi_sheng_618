@@ -32,6 +32,12 @@ binding = call('binding', 'readlink /sys/bus/i2c/devices/5-004c/driver').strip()
 node = call('node', 'ls -lZ /dev/nanodev0')
 service = call('service', 'getprop init.svc.nanoapp').strip()
 input_text = call('input', 'dumpsys input')
+descriptor_text = call('keyboard-descriptor',
+    'for p in /sys/bus/hid/devices/0018:15D9:00A3.*/report_descriptor; do od -An -v -tx1 "$p"; done')
+descriptor = None
+if re.fullmatch(r'(?:\s*[0-9a-fA-F]{2})+\s*', descriptor_text):
+    descriptor = bytes.fromhex(descriptor_text)
+consumer = bytes.fromhex('050c0901a1018506150026800319002a8003751095018100c0')
 manager = input_text.split('MiuiKeyboardManager:', 1)[-1].split('INPUT MANAGER', 1)[0]
 versions = {}
 for name in ['keyboardVersion', 'MCUVersion', 'TouchPadVersion']:
@@ -45,6 +51,7 @@ report = dict(revision=options.revision, evidence=str(folder.relative_to(ROOT)),
     keyboard_input_registered=bool(re.search(r'^\s+\d+: Xiaomi Keyboard\s*$', input_text, re.M)),
     touchpad_input_registered=bool(re.search(r'^\s+\d+: Xiaomi Touchpad\s*$', input_text, re.M)),
     identity_state_reported=bool(re.search(r'^\s+mIdentityPass:true\s*$', manager, re.M)),
+    live_consumer_descriptor_present=descriptor is not None and consumer in descriptor,
     input_injected=False, physical_keypress_and_touchpad_verified=False,
     limitations='Metadata and real stock HAL replies only; no physical keypress, pointer movement, hotplug or battery/charging acceptance')
 (ROOT/'reports'/('kernel618-'+options.revision+'-keyboard.json')).write_text(json.dumps(report,indent=2)+'\n')

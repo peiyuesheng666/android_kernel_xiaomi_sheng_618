@@ -1,0 +1,51 @@
+{
+  "revision": "hardware-r32",
+  "boot_sha256": "955e8f7b9a57683fb66aba4e1c69e56c584c4025954f079ccec432de90a4bf43",
+  "image_sha256": "80be4ce96640526d9ef5c2e66c76a0dd3cd6561b389ededaec5f90f7f82a3c48",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T03:03:46+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T03:03:46+0800",
+      "elapsed_seconds": 0.05
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T03:04:17+0800",
+      "elapsed_seconds": 30.74
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T03:04:48+0800",
+      "elapsed_seconds": 61.38
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T03:05:18+0800",
+      "elapsed_seconds": 92.01
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T03:05:49+0800",
+      "elapsed_seconds": 122.61
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T03:06:20+0800",
+      "elapsed_seconds": 153.26
+    },
+    {
+      "event": "failed",
+      "time": "2026-11-09T03:06:48+0800",
+      "error": "Android boot completion not received within 180 seconds"
+    }
+  ],
+  "full_hardware_functionality_verified": false
+}

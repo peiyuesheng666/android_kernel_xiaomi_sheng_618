@@ -42,6 +42,9 @@ followup = PROJECT/'reports/kernel618-camera-backlight-source.json'
 if followup.exists():
     source_receipts.append(followup.name)
     replacements['camera.ko'] = K618/'vendor/qcom/opensource/camera-kernel/camera.ko'
+latency = PROJECT/'reports/kernel618-display-latency-source.json'
+if latency.exists():
+    source_receipts.append(latency.name)
 extra_groups = {
     'fingerprint': ('fpc1552.ko', 'xiaomifp.ko'),
     'hall': ('xiaomi_hall.ko',),
@@ -62,6 +65,11 @@ for receipt_name in source_receipts:
 expected_sources = {name: hashes['after'] for name, hashes in source_snapshots['kernel618-peripherals-source.json']['files'].items()}
 if followup.exists():
     for name, hashes in source_snapshots[followup.name]['files'].items():
+        if name in expected_sources:
+            assert hashes['before'] == expected_sources[name], 'Source chain mismatch: ' + name
+        expected_sources[name] = hashes['after']
+if latency.exists():
+    for name, hashes in source_snapshots[latency.name]['files'].items():
         if name in expected_sources:
             assert hashes['before'] == expected_sources[name], 'Source chain mismatch: ' + name
         expected_sources[name] = hashes['after']

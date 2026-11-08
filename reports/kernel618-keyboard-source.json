@@ -1,7 +1,7 @@
 {
   "files": {
     "sheng_nanosic.c": {
-      "staged_sha256": "f1a7faa02ff9e98efc8bba7df7b9fe9614217891b73a08f3622e51998f5b1f15"
+      "staged_sha256": "8a93c2c8fc1f8ab595a3e710ba8879d1cb7131d41175b5678c26c322d4df0238"
     },
     "sheng_nanosic_bridge.h": {
       "staged_sha256": "acdd87aa467450c68051262761f71c5f323909b26176be2a8a2bb85910ec2f0c"
@@ -27,6 +27,14 @@
   "adaptation": "Stock GPIO/supply property names, original 66-byte write and stripped vendor-packet read ABI on nanodev0; stock HAL owns authentication",
   "binary_evidence": "write0x2950 truncates66 and invokes I2C; read0x1ef0 ring72-byte entries and copies data+4; parse0xe314 strips3 bytes, fixed report lengths from switch at rodata0x19580; poll/ioctl return ENOSYS",
   "firmware": "Existing stock MCU_Upgrade.bin, checked length/header and chip verification; volatile RAM download only, no keyboard upgrade files replaced",
+  "consumer_descriptor": {
+    "symbol": "HID_ConsumerReportDescriptor",
+    "section": ".data",
+    "offset": "0xb1a",
+    "length": 25,
+    "sha256": "5921bb8886eb856cc783787d1d778ce46fe8f49856eadc7ee39e3ec971b82fd0",
+    "report_id": 6
+  },
   "hardware_result": "pending",
-  "limitations": "Vendor charger injection, edge filtering and extra HID report types not yet implemented; physical keyboard acceptance required"
+  "limitations": "Vendor charger injection, edge filtering and relative mouse report0x02 not yet implemented; physical keyboard acceptance required"
 }

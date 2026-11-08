@@ -5,7 +5,7 @@ import difflib
 import hashlib
 import json
 import shutil
-import subprocess
+from audit_kernel618_modules import ElfModule
 from build_sheng618_upstream import ROOT, PROJECT, K618
 
 revision = 'f273227fab85e2ad8391c61c21b3556bd017a726'
@@ -51,6 +51,17 @@ text = text[:a]+'''\t/* Stock HAL owns authentication; kernel only transports re
 \tbool ready, removing;
 '''+text[b:]
 once('static const struct regmap_config', '#include "sheng_nanosic_bridge.h"\n\nstatic const struct regmap_config')
+# Stock report 0x06 carries media/brightness keys. The sheng reference only
+# declares the ordinary 0x05 keyboard collection, so retain the actual stock
+# consumer descriptor alongside it, rather than guessing Linux key codes.
+stock_module = ElfModule(ROOT.parent/'sheng-lineage/firmware-dump/hardware/modules/vendor_dlkm/nanosic_driver.ko')
+assert stock_module.digest == '3e6a7409b9bf87a1f7a8c10f3b5e42d4d9ec862ba7f3b9c3c0d9a614bf0081b4'
+section = stock_module.named['.data']
+consumer = stock_module.data[section[4]+0xb1a:section[4]+0xb1a+25]
+assert consumer.hex() == '050c0901a1018506150026800319002a8003751095018100c0'
+a = text.index('static u8 hid_keyboard_descriptor[] = {')
+b = text.index('\n};', a)
+text = text[:b]+'\n\t/* Stock HID_ConsumerReportDescriptor, report ID 0x06. */\n\t'+', '.join('0x%02x'%v for v in consumer)+',\n'+text[b:]
 # The mainline authentication daemon ABI is deliberately not transplanted.
 for name in ['nanosic_wn8030_xm_auth_init', 'nanosic_wn8030_xm_auth_s3t1', 'nanosic_wn8030_xm_auth_s5t1']:
     function(name, '')
@@ -115,7 +126,7 @@ function('nanosic_wn8030_handler', '''static irqreturn_t nanosic_wn8030_handler(
 \t\t}
 \t\tif (len > left)
 \t\t\treturn IRQ_HANDLED;
-\t\tif (*p == 0x05 && nano->hid_keyboard)
+\t\tif ((*p == 0x05 || *p == 0x06) && nano->hid_keyboard)
 \t\t\thid_input_report(nano->hid_keyboard, HID_INPUT_REPORT, p, len, 0);
 \t\telse if (*p == 0x19 && nano->hid_touchpad)
 \t\t\thid_input_report(nano->hid_touchpad, HID_INPUT_REPORT, p, len, 0);
@@ -172,6 +183,8 @@ report = dict(files=files, reference=dict(repository='https://github.com/map220v
     adaptation='Stock GPIO/supply property names, original 66-byte write and stripped vendor-packet read ABI on nanodev0; stock HAL owns authentication',
     binary_evidence='write0x2950 truncates66 and invokes I2C; read0x1ef0 ring72-byte entries and copies data+4; parse0xe314 strips3 bytes, fixed report lengths from switch at rodata0x19580; poll/ioctl return ENOSYS',
     firmware='Existing stock MCU_Upgrade.bin, checked length/header and chip verification; volatile RAM download only, no keyboard upgrade files replaced',
-    hardware_result='pending', limitations='Vendor charger injection, edge filtering and extra HID report types not yet implemented; physical keyboard acceptance required')
+    consumer_descriptor=dict(symbol='HID_ConsumerReportDescriptor', section='.data', offset='0xb1a', length=len(consumer),
+        sha256=hashlib.sha256(consumer).hexdigest(), report_id=6),
+    hardware_result='pending', limitations='Vendor charger injection, edge filtering and relative mouse report0x02 not yet implemented; physical keyboard acceptance required')
 (PROJECT/'reports/kernel618-keyboard-source.json').write_text(json.dumps(report,indent=2)+'\n')
 print('Staged stock-HyperOS sheng keyboard transport')

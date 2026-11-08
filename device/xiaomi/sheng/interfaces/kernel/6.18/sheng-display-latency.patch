@@ -1,0 +1,33 @@
+--- a/vendor/qcom/opensource/display-drivers/msm/sheng_boot_trace.h
++++ b/vendor/qcom/opensource/display-drivers/msm/sheng_boot_trace.h
+@@ -1,15 +1,11 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ #ifndef SHENG_BOOT_TRACE_H
+ #define SHENG_BOOT_TRACE_H
+-#include <linux/delay.h>
+ #include <linux/printk.h>
+ 
+-/* Diagnostic image only. Call only from sleepable display probe context.
+- * Give the 250 ms rawdump worker time to persist the last completed stage.
+- */
++/* Keep diagnostic stage markers without delaying normal boot. */
+ static inline void sheng_probe_checkpoint(const char *stage)
+ {
+ 	pr_notice("sheng_display_probe: %s\n", stage);
+-	msleep(350);
+ }
+ #endif
+--- a/vendor/qcom/opensource/display-drivers/msm/sde/sde_kms.c
++++ b/vendor/qcom/opensource/display-drivers/msm/sde/sde_kms.c
+@@ -2698,11 +2698,9 @@
+ 	/* Create one CRTC per encoder */
+ 	for (i = 0; i < max_crtc_count; i++) {
+ 		pr_notice("sheng_display_probe: CRTC %d/%d begin\n", i, max_crtc_count);
+-		msleep(350);
+ 		crtc = sde_crtc_init(dev, primary_planes[i]);
+ 		pr_notice("sheng_display_probe: CRTC %d/%d returned, error=%ld\n",
+ 			i, max_crtc_count, IS_ERR(crtc) ? PTR_ERR(crtc) : 0L);
+-		msleep(350);
+ 		if (IS_ERR(crtc)) {
+ 			ret = PTR_ERR(crtc);
+ 			goto fail;

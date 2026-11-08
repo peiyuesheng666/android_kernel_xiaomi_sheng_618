@@ -56,7 +56,17 @@
  
  static const struct regmap_config nanosic_wn8030_regmap_config = {
  	.reg_bits = 8,
-@@ -325,7 +337,7 @@
+@@ -145,6 +157,9 @@
+ 	0x2A, 0xA4, 0x00,  //   Usage Maximum (0xA4)
+ 	0x81, 0x00,        //   Input (Data,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
+ 	0xC0,              // End Collection
++	/* Stock HID_ConsumerReportDescriptor, report ID 0x06. */
++	0x05, 0x0c, 0x09, 0x01, 0xa1, 0x01, 0x85, 0x06, 0x15, 0x00, 0x26, 0x80, 0x03, 0x19, 0x00, 0x2a, 0x80, 0x03, 0x75, 0x10, 0x95, 0x01, 0x81, 0x00, 0xc0,
++
+ };
+ 
+ static u8 hid_touchpad_descriptor[] = {
+@@ -325,7 +340,7 @@
  	u32 checksum = 0;
  
  	for (u32 i = 0; i < size; i += 4)
@@ -65,7 +75,7 @@
  
  	return checksum;
  }
-@@ -373,51 +385,11 @@
+@@ -373,51 +388,11 @@
  	return regmap_bulk_write(nanosic->regmap, 0x5c, buf, sizeof(buf));
  }
  
@@ -122,7 +132,7 @@
  
  static int nanosic_wn8030_output_report(struct hid_device *hid, u8 *buf, size_t count)
  {
-@@ -428,8 +400,17 @@
+@@ -428,8 +403,17 @@
  	if (!count)
  		return -EINVAL;
  
@@ -142,7 +152,7 @@
  
  	return count;
  }
-@@ -516,7 +497,7 @@
+@@ -516,7 +500,7 @@
  			nanosic->keyboard_attached = true;
  			schedule_delayed_work(&nanosic->wake_worker, msecs_to_jiffies(12000));
  		} else if (((buf[12] & 0x3) == 0x0) && nanosic->keyboard_attached) {
@@ -151,7 +161,7 @@
  			if (nanosic->hid_keyboard) {
  				hid_destroy_device(nanosic->hid_keyboard);
  				nanosic->hid_keyboard = NULL;
-@@ -529,84 +510,66 @@
+@@ -529,84 +513,66 @@
  		}
  		mutex_unlock(&nanosic->conn_mutex);
  	}
@@ -277,7 +287,7 @@
 -
 +		if (len > left)
 +			return IRQ_HANDLED;
-+		if (*p == 0x05 && nano->hid_keyboard)
++		if ((*p == 0x05 || *p == 0x06) && nano->hid_keyboard)
 +			hid_input_report(nano->hid_keyboard, HID_INPUT_REPORT, p, len, 0);
 +		else if (*p == 0x19 && nano->hid_touchpad)
 +			hid_input_report(nano->hid_touchpad, HID_INPUT_REPORT, p, len, 0);
@@ -295,7 +305,7 @@
  	return IRQ_HANDLED;
  }
  
-@@ -735,7 +698,7 @@
+@@ -735,7 +701,7 @@
  	const struct firmware *firmware;
  	unsigned int ram_code_size;
  
@@ -304,7 +314,7 @@
  	if (ret) {
  		dev_err(nanosic->dev, "failed to load MCU firmware\n");
  		return ret;
-@@ -753,6 +716,13 @@
+@@ -753,6 +719,13 @@
  		goto exit;
  	}
  
@@ -318,7 +328,7 @@
  	ret = nanosic_wn8030_send_header(nanosic, firmware->data, &ram_code_size);
  	if (ret)
  		goto exit;
-@@ -824,263 +794,236 @@
+@@ -824,263 +797,236 @@
  	struct nanosic_wn8030 *nanosic =
  		container_of(data, struct nanosic_wn8030, wake_worker.work);
  

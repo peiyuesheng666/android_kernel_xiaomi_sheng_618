@@ -1,0 +1,19 @@
+{
+  "files": {
+    "vendor/qcom/opensource/display-drivers/msm/sheng_boot_trace.h": {
+      "before": "e2cc92a14622a32006a3909c873d34a42f353d7bd53ded187edc0d175a6b08b0",
+      "after": "a4a0a179991914ce99a4e7c974f300a4727ca2debf4a7528562eb49769b09baf"
+    },
+    "vendor/qcom/opensource/display-drivers/msm/sde/sde_kms.c": {
+      "before": "ba1f6d2cfee9a089f4e1e76750f1d5a2bb1639804ba317929264b72ebecb59b2",
+      "after": "b27c19cd9ff345dfe221ea2867d79a5af334faf1be126a2e9eaedbbc164a083c"
+    }
+  },
+  "source_tree": "/root/sheng-618/upstream-build/k618",
+  "backup": "/root/sheng-618/diagnostic/hardware-r32/display-latency-before",
+  "basis": "Remove waits introduced by scripts/patch_sheng618_display_trace.py in r8; selected upstream and LOS references in kernel618-display-probe-trace-source.json do not require them.",
+  "diagnostic_delay_ms": 0,
+  "removed_sleep_sites": 3,
+  "scope": "Diagnostic checkpoint header and two CRTC-loop waits only; retain all logs, panel reset, power and hardware timing.",
+  "hardware_result": "pending"
+}
