@@ -1,11 +1,39 @@
 # sheng 6.18 移植：来源和 ABI 核查
 
-2026-11-08。主要目标为当前 LineageOS 24.0，保留原厂 HyperOS 兼容方向；
-两个系统都需要分别通过实际启动和硬件验证。当前已编译 6.18.32 开发基线、
-LOS kalama TCSR、官方 sheng 电池管理工具和 CS35L43 功放模块，尚无完成板级
-适配的 sheng 内核、boot 镜像或可刷包。
+2026-11-08。LineageOS 24.0 和原厂澎湃 HyperOS 都是必需目标，两个系统需要
+分别通过实际启动和硬件验证。当前 105 个 ACK 基线模块加 82 个移植模块通过
+编译及联合静态核查；尚无完成板级适配的 sheng 内核、boot 镜像或可刷包。
+用户要求能由 6.18 现有实现替代的组件直接复用，不能按原厂 .ko 数机械地逐个重搬。
 
 ### 用户要求全量推进后的平台阶段
+
+2026-11-08 UFS 与安全存储批次新增 12 个模块，联合核查 9,529 项版本化导入通过。
+
+- PMIC power-on、REVID、PBS、misc、PM8xxx RTC 和 QFPROM 六个外围模块编译通过。
+  更新 class 回调 const 参数与平台 remove 接口，保留原电源/时钟/熄屏控制逻辑。
+- 依照官方 sheng_GKI.config 的 HWKM 配置，使用 LOS crypto-qti-common、
+  crypto-qti-hwkm、hwkm 和 TME mailbox 接口四模块；保留原 SCM 和共享内存协议。
+  密钥字段改接 ACK blk_crypto_key.bytes，去掉原始错误路径输出密钥内容的日志。
+  补齐 TME 公共声明和内核类型头，修复寄存器转储中的格式与参数不匹配。
+- LOS UFS host/ICE 和 UFS QTI crypto profile 两模块编译通过。ACK UFS 核心继续
+  内置复用，不重编第二套核心。核心结构保持 ACK 定义，三条私有供电轨独立保留
+  旧有电压字段。查询 ioctl 0x5388 和 compat_ioctl 保留，使用模块静态生命周期
+  的 SCSI 模板副本承载回调，不修改只读核心模板。
+- 功耗参数协商迁入新 negotiate_pwr_mode，在 TX equalization 前完成；PRE_CHANGE
+  仅执行硬件前置动作，避免把降频请求覆盖为设备最高 gear。Toshiba 断电后等待
+  使用 ACK vcc_off_delay_us，实际等待由核心 VCC 关闭后执行。保留板级供电参数。
+- 加密接入真实 blk_crypto_profile，提供硬件封装密钥 program/evict/derive_sw_secret，
+  保留时钟 hold/release 和硬件 capability 检查；错误向上传递。全局 UFS hook 改为
+  模块加载时注册一次、失败时回滚、卸载时注销并等待回调，过滤其他 UFS host。
+  旧 REQ_HIPRI 的请求内修改改成 REQ_PRIO，避免把已按中断分配的请求变为轮询。
+- 新 block import/generate/prepare 操作尚不支持。ACK 与原厂 fscrypt/dm 的封装
+  密钥用户空间接口仍需适配核对，不能据此宣称澎湃能解密 userdata。原先历史
+  中断时间戳不再可用，诊断明确读取当前中断状态；完整 minidump 和 probe/remove
+  故障注入、DTB 绑定、启动和实机存储均待验证。
+
+重跑追加组名：`pmic-peripherals`、`crypto`、`ufs-host`，最后执行联合核查脚本。
+参考仍为固定 nuwa 6.18 提交 c3956156ce7c4193c451dfda531fad72d35bfebb；该项目
+替换 UFS 核心的做法仅作对照，本批使用真实 ACK 核心导出，未复制手机硬件参数。
 
 2026-11-08 总线与温控批次：在前一批次上新增 16 个模块，现为 105 个基线
 加 70 个移植模块；9,024 项版本化导入的联合核查通过。

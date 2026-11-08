@@ -17,8 +17,8 @@
     "CONFIG_ANDROID_BINDER_IPC_RUST=m"
   ],
   "baseline_module_count": 105,
-  "port_module_count": 70,
-  "versioned_imports_checked": 9024,
+  "port_module_count": 82,
+  "versioned_imports_checked": 9529,
   "this_module_bytes": 1664,
   "static_module_closure_passed": true,
   "issue_counts": {},
@@ -48,7 +48,7 @@
   "host_elfutils": {
     "version": "0.193",
     "system_libraries_changed": false,
-    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x0000761377a8b000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x000076137792c000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x0000761377911000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007613778ea000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000761377600000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007613778bf000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000761377a8d000)"
+    "gendwarfksyms_ldd": "linux-vdso.so.1 (0x00007e1b474f7000)\n\tlibdw.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libdw.so.1 (0x00007e1b47398000)\n\tlibelf.so.1 => /root/sheng-618/host-tools/elfutils-0.193/lib/libelf.so.1 (0x00007e1b4737d000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007e1b47356000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007e1b47000000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007e1b4732b000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007e1b474f9000)"
   },
   "artifacts": {
     "Image": {
@@ -1610,6 +1610,457 @@
       ],
       "runtime_validated": false,
       "limits": []
+    },
+    "pmic-peripherals": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/input/misc/qpnp-power-on.c",
+          "source_sha256": "2fa975d9e155d426ee5cf49eeda1ca8f7d66e12e378efc4ed6b3538eeecea914",
+          "staged_path": "qpnp-power-on.c",
+          "staged_sha256": "765a115f0d8441185f554402abd2afb568ff21117a53e4bb766a65dc2b53fcce"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/platform/msm/qpnp-revid.c",
+          "source_sha256": "47d8eb04a26a294fdb1d8e3edaf25159ce19df1da53d93ab59bd63575f0a9685",
+          "staged_path": "qpnp-revid.c",
+          "staged_sha256": "47d8eb04a26a294fdb1d8e3edaf25159ce19df1da53d93ab59bd63575f0a9685"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/qpnp-pbs.c",
+          "source_sha256": "69d9cfe7f587021862eae7418a52669a2073fc55701f1bc4a74c9c0c95ee6734",
+          "staged_path": "qpnp-pbs.c",
+          "staged_sha256": "69d9cfe7f587021862eae7418a52669a2073fc55701f1bc4a74c9c0c95ee6734"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/misc/qpnp-misc.c",
+          "source_sha256": "8141767e67dbc3e9c4929287c9a6d75f493ddd1c2fc0acd1551f464e09009542",
+          "staged_path": "qpnp-misc.c",
+          "staged_sha256": "67a8026063cc76b0bae28ce65e3f2dd0766f48d8735a3c53dfdf85ed4973a843"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/rtc/rtc-pm8xxx.c",
+          "source_sha256": "5eabc3b743a068d71c4b87e2bf3699f24991cc547b036bdb8dc14b02c909f6cd",
+          "staged_path": "rtc-pm8xxx.c",
+          "staged_sha256": "5eabc3b743a068d71c4b87e2bf3699f24991cc547b036bdb8dc14b02c909f6cd"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/nvmem/qfprom.c",
+          "source_sha256": "d62a9f02386d94d61d22364f82db963ff8def6904104e10ce975a978c1a948f8",
+          "staged_path": "qfprom.c",
+          "staged_sha256": "d62a9f02386d94d61d22364f82db963ff8def6904104e10ce975a978c1a948f8"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/input/qpnp-power-on.h",
+          "source_sha256": "07243aedd6896eb1f1f175c10a1362ee59c0a7ab8a07b536463d9e91f093b87c",
+          "staged_path": "include/linux/input/qpnp-power-on.h",
+          "staged_sha256": "07243aedd6896eb1f1f175c10a1362ee59c0a7ab8a07b536463d9e91f093b87c"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qpnp/qpnp-revid.h",
+          "source_sha256": "1c69656799627dd0d0b38b42115ad87e306452174a580b0948832191b5b9da2f",
+          "staged_path": "include/linux/qpnp/qpnp-revid.h",
+          "staged_sha256": "1c69656799627dd0d0b38b42115ad87e306452174a580b0948832191b5b9da2f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qpnp/qpnp-pbs.h",
+          "source_sha256": "ef9b113ccc00f485b3f44f174f8bd31d807142b2f30826d746605f0e5bde108c",
+          "staged_path": "include/linux/qpnp/qpnp-pbs.h",
+          "staged_sha256": "ef9b113ccc00f485b3f44f174f8bd31d807142b2f30826d746605f0e5bde108c"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/qpnp/qpnp-misc.h",
+          "source_sha256": "2aee614a8c378648317ae48370a12304a8b1dab57b3de984018f0d4a2af57dad",
+          "staged_path": "include/linux/qpnp/qpnp-misc.h",
+          "staged_sha256": "2aee614a8c378648317ae48370a12304a8b1dab57b3de984018f0d4a2af57dad"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/dt-bindings/input/qcom,qpnp-power-on.h",
+          "source_sha256": "c067db37a793b45277113eaeb72f8dd6826681c0169bdede471384af01fa01a6",
+          "staged_path": "include/dt-bindings/input/qcom,qpnp-power-on.h",
+          "staged_sha256": "c067db37a793b45277113eaeb72f8dd6826681c0169bdede471384af01fa01a6"
+        }
+      ],
+      "generated_sha256": {
+        "qpnp-power-on.c": "765a115f0d8441185f554402abd2afb568ff21117a53e4bb766a65dc2b53fcce",
+        "qpnp-revid.c": "47d8eb04a26a294fdb1d8e3edaf25159ce19df1da53d93ab59bd63575f0a9685",
+        "qpnp-pbs.c": "69d9cfe7f587021862eae7418a52669a2073fc55701f1bc4a74c9c0c95ee6734",
+        "qpnp-misc.c": "67a8026063cc76b0bae28ce65e3f2dd0766f48d8735a3c53dfdf85ed4973a843",
+        "rtc-pm8xxx.c": "5eabc3b743a068d71c4b87e2bf3699f24991cc547b036bdb8dc14b02c909f6cd",
+        "qfprom.c": "d62a9f02386d94d61d22364f82db963ff8def6904104e10ce975a978c1a948f8",
+        "include/linux/input/qpnp-power-on.h": "07243aedd6896eb1f1f175c10a1362ee59c0a7ab8a07b536463d9e91f093b87c",
+        "include/linux/qpnp/qpnp-revid.h": "1c69656799627dd0d0b38b42115ad87e306452174a580b0948832191b5b9da2f",
+        "include/linux/qpnp/qpnp-pbs.h": "ef9b113ccc00f485b3f44f174f8bd31d807142b2f30826d746605f0e5bde108c",
+        "include/linux/qpnp/qpnp-misc.h": "2aee614a8c378648317ae48370a12304a8b1dab57b3de984018f0d4a2af57dad",
+        "include/dt-bindings/input/qcom,qpnp-power-on.h": "c067db37a793b45277113eaeb72f8dd6826681c0169bdede471384af01fa01a6",
+        "Kbuild": "80a04693c3ecdb8c08b3ba18251f8035667f267ed6bb57634d2e276e6178363b"
+      },
+      "modules": [
+        "qpnp-power-on.ko",
+        "qpnp-revid.ko",
+        "qpnp-pbs.ko",
+        "qpnp-misc.ko",
+        "rtc-pm8xxx.ko",
+        "qfprom.ko"
+      ],
+      "runtime_validated": false,
+      "limits": []
+    },
+    "crypto": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/crypto-qti-common.c",
+          "source_sha256": "62102961eafe6e0a4ff4e3eecce10f34c90e8c2d3891b087b24e03a8a29bcfe3",
+          "staged_path": "crypto-qti-common.c",
+          "staged_sha256": "ff9a97e85346aa460dadc0563d88269fa9a3cb3946d9d2b0755f322c098c032b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/crypto-qti-hwkm.c",
+          "source_sha256": "fe86c40e141ca0a807e9251ce915196a837b45a9b455e8ad87206ea9cdf58e2d",
+          "staged_path": "crypto-qti-hwkm.c",
+          "staged_sha256": "1b182883025597e1a8e9fac4ed79cf871e13ca3567622135ca8f785a78145e1b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/hwkm.c",
+          "source_sha256": "3ad81d648d8571bf61cfcdcdf8f56382ff0041d35ad4d4d38d71d2d29c424302",
+          "staged_path": "hwkm.c",
+          "staged_sha256": "094f07447553405155c2ce6e207d1cec2651d428feb1d70bdda892dc22d8dd18"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/crypto-qti-ice-regs.h",
+          "source_sha256": "2c3eed609577cfc28ae7b9d04b02d4832c191ad7aa6d94010b8fff81514697d2",
+          "staged_path": "crypto-qti-ice-regs.h",
+          "staged_sha256": "2c3eed609577cfc28ae7b9d04b02d4832c191ad7aa6d94010b8fff81514697d2"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/crypto-qti-platform.h",
+          "source_sha256": "822b972a027a73a742683b49253708cb0709eeac37a0e9991200f738efc1cd8f",
+          "staged_path": "crypto-qti-platform.h",
+          "staged_sha256": "822b972a027a73a742683b49253708cb0709eeac37a0e9991200f738efc1cd8f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/hwkmregs.h",
+          "source_sha256": "4bd4c8f37a6285f3e9ef50d332cbdfea850c02de2539b389863847b348ebd373",
+          "staged_path": "hwkmregs.h",
+          "staged_sha256": "4bd4c8f37a6285f3e9ef50d332cbdfea850c02de2539b389863847b348ebd373"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/hwkm_serialize.h",
+          "source_sha256": "9e338d517171358135f2e5773a349faf7682b199bae36199a6413c0f8d7eb0bf",
+          "staged_path": "hwkm_serialize.h",
+          "staged_sha256": "4f4802ac59bc869944f18f8d655becff1979810cb35c14e9c17049cd698fd1e7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/crypto-qti-common.h",
+          "source_sha256": "d1f94ca8bd2db814454fa2ac1fcbdc1182396e9eabec924eeadf8b2ce8311cc7",
+          "staged_path": "include/linux/crypto-qti-common.h",
+          "staged_sha256": "6e2463718c61c68423b8e1ddad392dde1da1998577fc2bf7f309fea1b79a7e22"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/hwkm.h",
+          "source_sha256": "6a6aed15ca7ad558d56b84224aecdbdf14a69351ced6c1328b6341b3fd6b9434",
+          "staged_path": "include/linux/hwkm.h",
+          "staged_sha256": "afd826025da3957e93636c371f25398f8434323b2e056c0e4b19d4aacd57262d"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/tme_hwkm_master_defs.h",
+          "source_sha256": "a05df9e8a758bb617cd406d9b6dc470665de3807f2038a6bb933d4d884a65730",
+          "staged_path": "include/linux/tme_hwkm_master_defs.h",
+          "staged_sha256": "a05df9e8a758bb617cd406d9b6dc470665de3807f2038a6bb933d4d884a65730"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/tme_hwkm_master.h",
+          "source_sha256": "5835292e572aaf60ca5f8c310474cb6864ce5562c70fcfd73af16881fa8cbf48",
+          "staged_path": "include/linux/tme_hwkm_master.h",
+          "staged_sha256": "5835292e572aaf60ca5f8c310474cb6864ce5562c70fcfd73af16881fa8cbf48"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/tmelog.h",
+          "source_sha256": "0084e2b19c2feeb63a74707d96633af5fdf6ba5ec6ea08ff4b2f60e57758920f",
+          "staged_path": "include/linux/tmelog.h",
+          "staged_sha256": "0084e2b19c2feeb63a74707d96633af5fdf6ba5ec6ea08ff4b2f60e57758920f"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/mailbox/qmp.h",
+          "source_sha256": "e5930d839e715770a48aea7966f4cf4b2682b17b4d13852a72c57ff8503410cc",
+          "staged_path": "include/linux/mailbox/qmp.h",
+          "staged_sha256": "e5930d839e715770a48aea7966f4cf4b2682b17b4d13852a72c57ff8503410cc"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/tmecom/tme_hwkm_master.c",
+          "source_sha256": "67f7b44535a2011febb0115be96bfeea09d85395b10d37a8c5728008329ea9ad",
+          "staged_path": "tme_hwkm_master.c",
+          "staged_sha256": "777c2f5b036f71d6aae48c03adf3a2a04a87414717facf5cf0a718db01190eb7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/tmecom/tme_hwkm_master_intf.h",
+          "source_sha256": "fa989aae3a0480bdf06c67c7f8ef504d5af5d979a126ed021645e74b2d8fa119",
+          "staged_path": "tme_hwkm_master_intf.h",
+          "staged_sha256": "fa989aae3a0480bdf06c67c7f8ef504d5af5d979a126ed021645e74b2d8fa119"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/tmecom/tmecom.c",
+          "source_sha256": "1c435eb3890db05250b602df42f9b6b4e5639dd7c8f9629fe85b0488f200f6ed",
+          "staged_path": "tmecom.c",
+          "staged_sha256": "cda93e3f8b9dfcc843535dfe47da1df1104bff81dd67eb7a98a4b94ff1d523fa"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/tmecom/tmecom.h",
+          "source_sha256": "d1682421c2dbba40c2f822616229f9d92097cb941d022737dc8c989ff8e89580",
+          "staged_path": "tmecom.h",
+          "staged_sha256": "d1682421c2dbba40c2f822616229f9d92097cb941d022737dc8c989ff8e89580"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/soc/qcom/tmecom/tmelog.c",
+          "source_sha256": "2dd523be188267ddd22e7b676bdabe6e89f74acaeb5497e711231e36850d4d4c",
+          "staged_path": "tmelog.c",
+          "staged_sha256": "644e3beffa3e194fbc0f82f0ea4678638368f2726db5272c8b4af0efda9b387f"
+        }
+      ],
+      "generated_sha256": {
+        "crypto-qti-common.c": "ff9a97e85346aa460dadc0563d88269fa9a3cb3946d9d2b0755f322c098c032b",
+        "crypto-qti-hwkm.c": "1b182883025597e1a8e9fac4ed79cf871e13ca3567622135ca8f785a78145e1b",
+        "hwkm.c": "094f07447553405155c2ce6e207d1cec2651d428feb1d70bdda892dc22d8dd18",
+        "crypto-qti-ice-regs.h": "2c3eed609577cfc28ae7b9d04b02d4832c191ad7aa6d94010b8fff81514697d2",
+        "crypto-qti-platform.h": "822b972a027a73a742683b49253708cb0709eeac37a0e9991200f738efc1cd8f",
+        "hwkmregs.h": "4bd4c8f37a6285f3e9ef50d332cbdfea850c02de2539b389863847b348ebd373",
+        "hwkm_serialize.h": "4f4802ac59bc869944f18f8d655becff1979810cb35c14e9c17049cd698fd1e7",
+        "include/linux/crypto-qti-common.h": "6e2463718c61c68423b8e1ddad392dde1da1998577fc2bf7f309fea1b79a7e22",
+        "include/linux/hwkm.h": "afd826025da3957e93636c371f25398f8434323b2e056c0e4b19d4aacd57262d",
+        "include/linux/tme_hwkm_master_defs.h": "a05df9e8a758bb617cd406d9b6dc470665de3807f2038a6bb933d4d884a65730",
+        "include/linux/tme_hwkm_master.h": "5835292e572aaf60ca5f8c310474cb6864ce5562c70fcfd73af16881fa8cbf48",
+        "include/linux/tmelog.h": "0084e2b19c2feeb63a74707d96633af5fdf6ba5ec6ea08ff4b2f60e57758920f",
+        "include/linux/mailbox/qmp.h": "e5930d839e715770a48aea7966f4cf4b2682b17b4d13852a72c57ff8503410cc",
+        "tme_hwkm_master.c": "777c2f5b036f71d6aae48c03adf3a2a04a87414717facf5cf0a718db01190eb7",
+        "tme_hwkm_master_intf.h": "fa989aae3a0480bdf06c67c7f8ef504d5af5d979a126ed021645e74b2d8fa119",
+        "tmecom.c": "cda93e3f8b9dfcc843535dfe47da1df1104bff81dd67eb7a98a4b94ff1d523fa",
+        "tmecom.h": "d1682421c2dbba40c2f822616229f9d92097cb941d022737dc8c989ff8e89580",
+        "tmelog.c": "644e3beffa3e194fbc0f82f0ea4678638368f2726db5272c8b4af0efda9b387f",
+        "Kbuild": "bc0f6ee5d340a424dfc331097eb89fd68b86f904ac2122bbccf0e0e670af9703"
+      },
+      "modules": [
+        "crypto-qti-common.ko",
+        "crypto-qti-hwkm.ko",
+        "hwkm.ko",
+        "tmecom-intf.ko"
+      ],
+      "runtime_validated": false,
+      "limits": [
+        "Uses the sheng HWKM configuration, not the legacy FDE/QSEECOM path.",
+        "Secure-world key protocols and encrypted userdata require physical validation."
+      ]
+    },
+    "ufs-host": {
+      "schema": 1,
+      "source_files": [
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/scsi/ufs/ufs-qcom.c",
+          "source_sha256": "1a38d6c5c2d9901d4893d8898513b074ac56a2ee66ca48c87a5f4910f35a8df9",
+          "staged_path": "ufs-qcom.c",
+          "staged_sha256": "fbc5ee1229f3d2796abd7699babfff29b811b05b1032c3f76c10912c4e3f33d9"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/scsi/ufs/ufs-qcom.h",
+          "source_sha256": "8c8b6ef74ce6a168573eade31418953c84425ea83bbf9712bf426605913c2a9e",
+          "staged_path": "ufs-qcom.h",
+          "staged_sha256": "21922ace3138da4611997d42713fcd6a2938e1acc56d069d5d2278a9ea474e84"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/scsi/ufs/ufs-qcom-trace.h",
+          "source_sha256": "32dea138fd2d7e3b0cf14b5154d651b23c240c29a79bb2f4e1c208adc963beee",
+          "staged_path": "ufs-qcom-trace.h",
+          "staged_sha256": "1ee0bd25e461f92558554452da82ff000e1254cc3b75b1e904e77d2b71152b7b"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/scsi/ufs/ufs-qcom-ice.c",
+          "source_sha256": "fd91ffac3e4747492cdb4d41a8b8d9ae011aa9c4f97c9e430acec66efdeedcad",
+          "staged_path": "ufs-qcom-ice.c",
+          "staged_sha256": "76f85723882e7d0ad8eb4f60b35d4ebd351aa072afa015098a83dfc1fca49ee2"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/scsi/ufs/ufshcd-crypto-qti.c",
+          "source_sha256": "f487bd93ebb9c262631c0cd863134b9ac410cbff94cd6c83305d7c360dd104ca",
+          "staged_path": "ufshcd-crypto-qti.c",
+          "staged_sha256": "ba76fc5755dd25f6cc0a2ebe430f4f8843818acbea83ff9320ed552edaf2faa1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/scsi/ufs/ufshcd-crypto-qti.h",
+          "source_sha256": "76190b621b1439f29fded368fa4d06fe563a511f87e05ce339eff19a71657932",
+          "staged_path": "ufshcd-crypto-qti.h",
+          "staged_sha256": "76190b621b1439f29fded368fa4d06fe563a511f87e05ce339eff19a71657932"
+        },
+        {
+          "repository": "https://android.googlesource.com/kernel/common",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/ufs/host/ufshcd-pltfrm.h",
+          "source_sha256": "a74af48418a97a136eeb23d9ad300648671ce85f8a0732dbd9afea1bb33d4a7c",
+          "staged_path": "ufshcd-pltfrm.h",
+          "staged_sha256": "a74af48418a97a136eeb23d9ad300648671ce85f8a0732dbd9afea1bb33d4a7c"
+        },
+        {
+          "repository": "https://android.googlesource.com/kernel/common",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/ufs/core/ufshcd-crypto.h",
+          "source_sha256": "816b53f9b5d318b356a5a7a28c6f2542fd4693e75c87c60ca6e5b5ab4d0825c6",
+          "staged_path": "ufshcd-crypto.h",
+          "staged_sha256": "816b53f9b5d318b356a5a7a28c6f2542fd4693e75c87c60ca6e5b5ab4d0825c6"
+        },
+        {
+          "repository": "https://android.googlesource.com/kernel/common",
+          "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+          "path": "drivers/ufs/core/ufshcd-priv.h",
+          "source_sha256": "4d559804b06e5de181275888ce0194cebf55296de4f396e660cc4b84c08f8ac1",
+          "staged_path": "ufshcd-priv.h",
+          "staged_sha256": "4d559804b06e5de181275888ce0194cebf55296de4f396e660cc4b84c08f8ac1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/scsi/ufs/ufs.h",
+          "source_sha256": "74e735e36cd72b39e0222010b6e6da2ec8142ef23b8aadfcf3522d565797f4af",
+          "staged_path": "sheng-ufs-trace-enum.h",
+          "staged_sha256": "66fcb23552f9748b655c88b9acb7aef8ced3c498dfe7e348d0d5c51d108fa8b1"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/scsi/ufs/ufshcd.c",
+          "source_sha256": "c76dd0e6011cdddf50f8544e3b2dcc0ddea1f19a6088f999dd620c2039ecfa27",
+          "staged_path": "sheng-ufs-unipro.h",
+          "staged_sha256": "7414df22a15adcf605016c212ecafd112128a5164a312fcee74722a426b514ab"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "drivers/scsi/ufs/ufs.h",
+          "source_sha256": "74e735e36cd72b39e0222010b6e6da2ec8142ef23b8aadfcf3522d565797f4af",
+          "staged_path": "sheng-ufs-vreg.h",
+          "staged_sha256": "38631adc0c7ac29c8a2e032e9e99b169a7ef6cdf36bd04cc465eae8299f81806"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/crypto-qti-common.h",
+          "source_sha256": "d1f94ca8bd2db814454fa2ac1fcbdc1182396e9eabec924eeadf8b2ce8311cc7",
+          "staged_path": "include/linux/crypto-qti-common.h",
+          "staged_sha256": "d1f94ca8bd2db814454fa2ac1fcbdc1182396e9eabec924eeadf8b2ce8311cc7"
+        },
+        {
+          "repository": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+          "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+          "path": "include/linux/clk/qcom.h",
+          "source_sha256": "bd32439169d5a847b37505a3fc1101722ee4d434fbf789e0c06c09a1dd3db90f",
+          "staged_path": "include/linux/clk/qcom.h",
+          "staged_sha256": "bd32439169d5a847b37505a3fc1101722ee4d434fbf789e0c06c09a1dd3db90f"
+        }
+      ],
+      "generated_sha256": {
+        "ufs-qcom.c": "fbc5ee1229f3d2796abd7699babfff29b811b05b1032c3f76c10912c4e3f33d9",
+        "ufs-qcom.h": "21922ace3138da4611997d42713fcd6a2938e1acc56d069d5d2278a9ea474e84",
+        "ufs-qcom-trace.h": "1ee0bd25e461f92558554452da82ff000e1254cc3b75b1e904e77d2b71152b7b",
+        "ufs-qcom-ice.c": "76f85723882e7d0ad8eb4f60b35d4ebd351aa072afa015098a83dfc1fca49ee2",
+        "ufshcd-crypto-qti.c": "ba76fc5755dd25f6cc0a2ebe430f4f8843818acbea83ff9320ed552edaf2faa1",
+        "ufshcd-crypto-qti.h": "76190b621b1439f29fded368fa4d06fe563a511f87e05ce339eff19a71657932",
+        "ufshcd.h": "c10e5ae331f5bf9067d3ab1c8c560eb018e6fd1ac4ce46997c1fdb4213ab2cb7",
+        "unipro.h": "20f11e16e16af1902220a08d0f3562666579ab4fda58fe296981942c16c339a7",
+        "ufshci.h": "e3f4367543d4603eefd3ba6c42bad7284ea7241a33339ec2efd2c166e9705ab6",
+        "ufs_quirks.h": "333e619956ac1f40868421177c5f284f8c25c1324f8299c429f8f9a8585effea",
+        "ufshcd-pltfrm.h": "a74af48418a97a136eeb23d9ad300648671ce85f8a0732dbd9afea1bb33d4a7c",
+        "ufshcd-crypto.h": "816b53f9b5d318b356a5a7a28c6f2542fd4693e75c87c60ca6e5b5ab4d0825c6",
+        "ufshcd-priv.h": "4d559804b06e5de181275888ce0194cebf55296de4f396e660cc4b84c08f8ac1",
+        "sheng-ufs-trace-enum.h": "66fcb23552f9748b655c88b9acb7aef8ced3c498dfe7e348d0d5c51d108fa8b1",
+        "sheng-ufs-unipro.h": "7414df22a15adcf605016c212ecafd112128a5164a312fcee74722a426b514ab",
+        "sheng-ufs-vreg.h": "38631adc0c7ac29c8a2e032e9e99b169a7ef6cdf36bd04cc465eae8299f81806",
+        "sheng-ufs-private.h": "cb2044c0fe5eed284348258202619bc7d90988b93e82dec50bccfbd34efcccec",
+        "sheng-ufs-ioctl.inc": "5f5fad2474fde24f9332482f3c5fe121e5172e8557ddba2baf3bf97420157a76",
+        "include/linux/crypto-qti-common.h": "d1f94ca8bd2db814454fa2ac1fcbdc1182396e9eabec924eeadf8b2ce8311cc7",
+        "include/linux/clk/qcom.h": "bd32439169d5a847b37505a3fc1101722ee4d434fbf789e0c06c09a1dd3db90f",
+        "Kbuild": "edc0fd22825229fc7cc8d52be7cd9e6b368697987b31e882ba2c8ed147aa5c5d"
+      },
+      "modules": [
+        "ufs_qcom.ko",
+        "ufshcd-crypto-qti.ko"
+      ],
+      "runtime_validated": false,
+      "limits": [
+        "Static build and ABI checks only; not a validated storage boot candidate.",
+        "Wrapped-key program/evict/derive use LOS SCM/HWKM. New block import/generate/prepare operations are not available.",
+        "Stock fscrypt/dm wrapped-key userspace ABI still needs independent compatibility work for both ROMs.",
+        "Historical interrupt timestamps are unavailable; the dump reports current interrupt status.",
+        "Legacy REQ_HIPRI polling mutation becomes REQ_PRIO without changing request completion mode.",
+        "Full minidump and complete probe/remove fault-injection validation remain outstanding."
+      ]
     },
     "ipc": {
       "schema": 1,
@@ -5851,6 +6302,153 @@
       ],
       "signed_trailer_present": false
     },
+    "qpnp_power_on": {
+      "path": "/root/sheng-618/ports/pmic-peripherals/qpnp-power-on.ko",
+      "sha256": "743f3ccad2493df4067993c0f5050efd60ff8e53db526d5aff046b3293bfb886",
+      "versioned_imports": 65,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "qpnp_revid": {
+      "path": "/root/sheng-618/ports/pmic-peripherals/qpnp-revid.ko",
+      "sha256": "a5783a6e2cf2baf8526ef95375a842e8cd7a47a7c539633b47ee04e7c365a411",
+      "versioned_imports": 15,
+      "depends": [],
+      "aliases": [
+        "platform:qcom,qpnp-revid"
+      ],
+      "signed_trailer_present": false
+    },
+    "qpnp_pbs": {
+      "path": "/root/sheng-618/ports/pmic-peripherals/qpnp-pbs.ko",
+      "sha256": "c2ed7f452710d67b05f2882d262bbba8acccb0cc33310cc7a94136427b9e7b00",
+      "versioned_imports": 17,
+      "depends": [],
+      "aliases": [
+        "platform:qcom,qpnp-pbs"
+      ],
+      "signed_trailer_present": false
+    },
+    "qpnp_misc": {
+      "path": "/root/sheng-618/ports/pmic-peripherals/qpnp-misc.ko",
+      "sha256": "2b3d13fefca4bc5fb9e1d82e75cf2fd13a63ac50b7235246ce331c194267f9a9",
+      "versioned_imports": 25,
+      "depends": [],
+      "aliases": [
+        "platform:qcom,qpnp-misc"
+      ],
+      "signed_trailer_present": false
+    },
+    "rtc_pm8xxx": {
+      "path": "/root/sheng-618/ports/pmic-peripherals/rtc-pm8xxx.ko",
+      "sha256": "b038ff3475ca9f19944931018e6ca9ae78221d2ba13b1cbd3dfe9d08cf478dea",
+      "versioned_imports": 31,
+      "depends": [],
+      "aliases": [
+        "platform:rtc-pm8xxx",
+        "of:N*T*Cqcom,pm8921-rtc",
+        "of:N*T*Cqcom,pm8921-rtcC*",
+        "of:N*T*Cqcom,pm8018-rtc",
+        "of:N*T*Cqcom,pm8018-rtcC*",
+        "of:N*T*Cqcom,pm8058-rtc",
+        "of:N*T*Cqcom,pm8058-rtcC*",
+        "of:N*T*Cqcom,pm8941-rtc",
+        "of:N*T*Cqcom,pm8941-rtcC*",
+        "of:N*T*Cqcom,pmk8350-rtc",
+        "of:N*T*Cqcom,pmk8350-rtcC*",
+        "of:N*T*Cqcom,pm5100-rtc",
+        "of:N*T*Cqcom,pm5100-rtcC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "qfprom": {
+      "path": "/root/sheng-618/ports/pmic-peripherals/qfprom.ko",
+      "sha256": "2c526531747aa8f5cc183a00071f03702a4b1f4d2026a56412b598b232cd5286",
+      "versioned_imports": 46,
+      "depends": [],
+      "aliases": [
+        "of:N*T*Cqcom,qfprom",
+        "of:N*T*Cqcom,qfpromC*",
+        "of:N*T*Cqcom,sc7180-qfprom",
+        "of:N*T*Cqcom,sc7180-qfpromC*",
+        "of:N*T*Cqcom,sc7280-qfprom",
+        "of:N*T*Cqcom,sc7280-qfpromC*",
+        "of:N*T*Cqcom,crow-qfprom",
+        "of:N*T*Cqcom,crow-qfpromC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "crypto_qti_common": {
+      "path": "/root/sheng-618/ports/crypto/crypto-qti-common.ko",
+      "sha256": "e1580886d0117b3d0ff238a32dff3538cdbb39d453a4617c8b337d0243e34ec5",
+      "versioned_imports": 18,
+      "depends": [
+        "crypto_qti_hwkm"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,ice",
+        "of:N*T*Cqcom,iceC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "crypto_qti_hwkm": {
+      "path": "/root/sheng-618/ports/crypto/crypto-qti-hwkm.ko",
+      "sha256": "0f154f598ba201e2032a7f8ab84fe9404b11ff5581f0d94cd3fa53402e663712",
+      "versioned_imports": 18,
+      "depends": [
+        "hwkm",
+        "qcom_scm"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "hwkm": {
+      "path": "/root/sheng-618/ports/crypto/hwkm.ko",
+      "sha256": "28c082d07f251a8c259698014c94de42d5df45e9b66cf86f44277fc94d89cf78",
+      "versioned_imports": 13,
+      "depends": [
+        "tmecom_intf"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "tmecom_intf": {
+      "path": "/root/sheng-618/ports/crypto/tmecom-intf.ko",
+      "sha256": "cf6e614fa981116e98b89bba83e8e615a3e657dc24bcf3deea81b23e34240b8a",
+      "versioned_imports": 36,
+      "depends": [],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
+    "ufs_qcom": {
+      "path": "/root/sheng-618/ports/ufs-host/ufs_qcom.ko",
+      "sha256": "ee3eede93664df2f19ed6e0fdb2ad4f3dc741669f5ef88d0ae005b52c155d419",
+      "versioned_imports": 207,
+      "depends": [
+        "ipc_logging",
+        "phy_qcom_ufs",
+        "ufshcd_crypto_qti",
+        "clk_qcom",
+        "qcom_scm",
+        "crypto_qti_common"
+      ],
+      "aliases": [
+        "of:N*T*Cqcom,ufshc",
+        "of:N*T*Cqcom,ufshcC*"
+      ],
+      "signed_trailer_present": false
+    },
+    "ufshcd_crypto_qti": {
+      "path": "/root/sheng-618/ports/ufs-host/ufshcd-crypto-qti.ko",
+      "sha256": "d45cbd0c0d9bd83e0c97d431c17180a6eee27cdeecd2e678283c693b9c57b4f4",
+      "versioned_imports": 14,
+      "depends": [
+        "crypto_qti_common"
+      ],
+      "aliases": [],
+      "signed_trailer_present": false
+    },
     "qcom_glink": {
       "path": "/root/sheng-618/ports/ipc/qcom_glink.ko",
       "sha256": "a1a237cf0b57930c33b9fd1786c6c0a02544fb75be168d9be0aaaae7d3ab71a5",
@@ -6534,6 +7132,18 @@
     "gdsc_regulator",
     "phy_qcom_ufs",
     "phy_qcom_ufs_qmp_v4_kalama",
+    "qpnp_power_on",
+    "qpnp_revid",
+    "qpnp_pbs",
+    "qpnp_misc",
+    "rtc_pm8xxx",
+    "qfprom",
+    "tmecom_intf",
+    "hwkm",
+    "crypto_qti_hwkm",
+    "crypto_qti_common",
+    "ufshcd_crypto_qti",
+    "ufs_qcom",
     "qcom_glink",
     "qcom_glink_smem",
     "rproc_qcom_common",

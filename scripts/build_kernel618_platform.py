@@ -425,6 +425,46 @@ def ipc():
     return port.build(['rpmh', 'soc'])
 
 
+def ufs_host():
+    from kernel618_ufs import host
+    return host()
+
+
+def crypto():
+    from kernel618_ufs import crypto as build_crypto
+    return build_crypto()
+
+
+def pmic_peripherals():
+    port = Port('pmic-peripherals')
+    paths = ['drivers/input/misc/qpnp-power-on.c', 'drivers/platform/msm/qpnp-revid.c',
+             'drivers/soc/qcom/qpnp-pbs.c', 'drivers/misc/qpnp-misc.c',
+             'drivers/rtc/rtc-pm8xxx.c', 'drivers/nvmem/qfprom.c',
+             'include/linux/input/qpnp-power-on.h', 'include/linux/qpnp/qpnp-revid.h',
+             'include/linux/qpnp/qpnp-pbs.h', 'include/linux/qpnp/qpnp-misc.h',
+             'include/dt-bindings/input/qcom,qpnp-power-on.h']
+    for path in paths:
+        target = path if path.startswith('include/') else path.rsplit('/', 1)[-1]
+        def transform(text):
+            import re
+            for function in re.findall(r'\.remove\s*=\s*(\w+)', text):
+                text = void_remove(text, function)
+            if target == 'qpnp-misc.c':
+                text = replace(text, '#include <linux/module.h>', '#include <linux/module.h>\n#include <linux/device.h>\n#include <linux/platform_device.h>')
+                text = text.replace('struct class *c,', 'const struct class *c,').replace('struct class_attribute *attr', 'const struct class_attribute *attr')
+                text = replace(text, '\t\tmdev->twm_class.owner = THIS_MODULE,\n', '')
+            return text
+        port.copy('lineage-kernel', path, target, transform)
+    modules = [p.rsplit('/', 1)[-1][:-2] for p in paths if p.endswith('.c')]
+    port.write('Kbuild', '# SPDX-License-Identifier: GPL-2.0-only\n'
+               'LINUXINCLUDE := -I$(src)/include $(LINUXINCLUDE)\n'
+               'ccflags-y += -I$(src) -DCONFIG_INPUT_QPNP_POWER_ON_MODULE=1 -DCONFIG_QPNP_REVID_MODULE=1 '
+               '-DCONFIG_QPNP_PBS_MODULE=1 -DCONFIG_QPNP_MISC_MODULE=1 -ferror-limit=0\n'
+               'obj-m += ' + ' '.join(n + '.o' for n in modules) + '\n')
+    port.finish([n + '.ko' for n in modules])
+    return port.build()
+
+
 def cooling():
     port = Port('cooling')
     names = ['qti_cpufreq_cdev.c', 'qti_devfreq_cdev.c', 'qti_userspace_cdev.c',
@@ -729,7 +769,8 @@ if __name__ == '__main__':
     groups = {'clocks': clocks, 'firmware': firmware, 'pinctrl': pinctrl, 'rpmh': rpmh,
               'interconnect': interconnect, 'soc': soc, 'pmic': pmic, 'ufs-phy': ufs_phy, 'ipc': ipc,
               'remoteproc': remoteproc, 'buses': buses, 'cpufreq': cpufreq, 'thermal': thermal,
-              'cooling': cooling}
+              'cooling': cooling, 'pmic-peripherals': pmic_peripherals, 'ufs-host': ufs_host,
+              'crypto': crypto}
     parser.add_argument('group', choices=groups)
     args = parser.parse_args()
     raise SystemExit(groups[args.group]())

@@ -3,7 +3,9 @@
   "device": "sheng",
   "primary_rom": "LineageOS 24.0",
   "vendor_baseline": "OS3.0.303.0.WNXCNXM",
-  "secondary_rom": "HyperOS, separate runtime validation required",
+  "secondary_rom": "HyperOS (required, separate runtime validation required)",
+  "required_roms": ["LineageOS 24.0", "HyperOS OS3.0.303.0.WNXCNXM"],
+  "rom_compatibility_policy": "Both ROMs are required targets. Preserve stock vendor device nodes, ioctl layouts, sysfs semantics, firmware and secure-world protocols; validate each ROM independently. Compiled modules alone do not establish ROM compatibility.",
   "status": "baseline-build-and-driver-port; no 6.18 device boot validation yet",
   "build_root": "/root/sheng-618",
   "minimum_host_free_gib": 40,
@@ -105,6 +107,8 @@
     "Merged tablet DTB/DTBO matches enabled drivers",
     "Original init/vendor ramdisk remains in charge, with any replacement module layer explicitly audited",
     "Boot/package/AVB validation against actual sheng partitions",
-    "Authorized device boot and hardware checks on LineageOS; HyperOS tested separately"
+    "Authorized device boot and hardware checks independently on both required ROMs: LineageOS and HyperOS",
+    "HyperOS stock vendor HAL/device-node/ioctl/sysfs compatibility, encrypted userdata and wrapped-key recovery without data conversion",
+    "Independent display, audio, camera, input/pen/keyboard, charging, radio, suspend/resume and performance validation on each required ROM"
   ]
 }
