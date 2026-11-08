@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: Apache-2.0
+// Development application only; intentionally absent from PRODUCT_PACKAGES.
+package {
+    default_applicable_licenses: ["sheng_face_lab_license"],
+}
+
+license {
+    name: "sheng_face_lab_license",
+    license_kinds: ["SPDX-license-identifier-Apache-2.0"],
+    license_text: ["LICENSE"],
+}
+
+android_app {
+    name: "ShengFaceLab",
+    manifest: "AndroidManifest.xml",
+    srcs: ["src/**/*.java"],
+    sdk_version: "current",
+    min_sdk_version: "30",
+    system_ext_specific: true,
+    optimize: { enabled: false },
+}

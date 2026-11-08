@@ -12,8 +12,12 @@ dependency repositories, as requested by the user on 2026-11-08. Pin the
 reviewed commits and record what is applicable, already present or incompatible.
 Use established ROM designs as references when suitable. The user's subsequent
 clarification is authoritative: newly developed software is written in this
-device tree, rather than importing those applications, private recognition
-libraries or models. References guide the design, not source transplantation.
+device tree, rather than importing those applications. The user subsequently
+authorized open-source recognition engines as dependencies while retaining
+source-owned applications and system integration. Code, model weights and
+transitive dependencies require separate license review and preserved notices
+for a future GitHub release. Private or unclearly licensed engines/models are
+excluded. References guide the design, not application source transplantation.
 Keep OEM components where required for hardware or supported by clear evidence.
 A reference does not authorize copying another device's board
 values or firmware. Any adapted source retains provenance and licensing, and
@@ -29,6 +33,9 @@ reviews are in piano-face-reference-review-20261108.md and
 nuwa-face-reference-review-20261108.md. The user has requested pursuing a ROM
 FaceUnlock replacement rather than continuing the stock miface path; this is
 not yet a built or validated replacement.
+
+Release requirements and the distinction between source attribution and
+redistribution permission are recorded in OPEN_SOURCE_RELEASE_POLICY.md.
 
 The sheng tree uses `aidl/sensors`, `configs/`,
 `interfaces/{audio,display,compat,location,kernel}`, `dolby/`, `overlay/`,

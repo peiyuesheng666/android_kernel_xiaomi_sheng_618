@@ -1,0 +1,139 @@
+{
+  "date_utc": "2026-11-08T09:55:36.891452+00:00",
+  "status": "development capture/comparison APK; not a face HAL or accepted repair",
+  "product_registered": false,
+  "device_installed": false,
+  "camera_opened": false,
+  "raw_images_persisted": false,
+  "authentication_decision_implemented": false,
+  "core_tests": "PASS 52 synthetic core checks; no identity or liveness claim",
+  "apk": "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/ShengFaceLab.apk",
+  "apk_bytes": 33171,
+  "apk_sha256": "b40f797457f55843a00e0bd8719ebfd30228a5a4bbaca3e6c123e36db33fa95a",
+  "signature_verification": "Verifies\nVerified using v1 scheme (JAR signing): false\nVerified using v2 scheme (APK Signature Scheme v2): false\nVerified using v3 scheme (APK Signature Scheme v3): true\nVerified using v3.1 scheme (APK Signature Scheme v3.1): false\nVerified using v3.2 scheme (APK Signature Scheme v3.2): false\nVerified using v4 scheme (APK Signature Scheme v4): false\nVerified for SourceStamp: false\nNumber of signers: 1\nV3.0 Signer: certificate DN: CN=ShengFaceLab Development\nV3.0 Signer: certificate SHA-256 digest: 4a14705d41b1e65921ca04e0b4eb6e23575b1be15ac3abe320ee68d187fdc527\nV3.0 Signer: certificate SHA-1 digest: ab318b08581821ba19e5dda5e3e0c416e1c61872\nV3.0 Signer: certificate MD5 digest: 4f59d460e412f6e7d51aa1e315615d18\nV3.0 Signer: key algorithm: RSA\nV3.0 Signer: key size (bits): 3072\nV3.0 Signer: public key SHA-256 digest: 3823e91e454b4efa8d0f0bdc5d86a08908428dcb4661d7d9bb88c5578b9e8fef\nV3.0 Signer: public key SHA-1 digest: b8c37f9c3fdacf07f9ea7df7c59d080bdf14a9b3\nV3.0 Signer: public key MD5 digest: 5a434d17095c50dbaa746c5b5f2e3711\n",
+  "badging": "package: name='org.lineageos.sheng.facelab' versionCode='1' versionName='0.1' platformBuildVersionName='17' platformBuildVersionCode='37' compileSdkVersion='37' compileSdkVersionCodename='17'\nminSdkVersion:'30'\ntargetSdkVersion:'37'\nuses-permission: name='android.permission.CAMERA'\napplication: label='人脸录入测试' icon=''\nlaunchable-activity: name='org.lineageos.sheng.facelab.FaceLabActivity'  label='' icon=''\nfeature-group: label=''\n  uses-feature: name='android.hardware.camera.front'\n  uses-feature: name='android.hardware.camera'\n  uses-implied-feature: name='android.hardware.camera' reason='requested android.permission.CAMERA permission'\n  uses-feature: name='android.hardware.faketouch'\n  uses-implied-feature: name='android.hardware.faketouch' reason='default feature for all apps'\nmain\nsupports-screens: 'small' 'normal' 'large' 'xlarge'\nsupports-any-density: 'true'\nlocales:\ndensities:\n",
+  "source_sha256": {
+    "device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/FaceDescriptor.java": "30c808de9ae8720590580f7b18eb4bd7e7468b51f87ecf41e9d994ae20f483ca",
+    "device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/FaceLabActivity.java": "25b7ca2775903e7e43eaca2087d35a71d2b7c175c049c8fcf0ca77eac0809de7",
+    "device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/FrameMath.java": "edf86213ee7af018cc2aa7369c3439e98544bfa315480e1aa846d4d22acfcb9d",
+    "device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/SampleCollector.java": "0257f6af91ee30bd524ad7490f1b39336613890169696d9c7bc9bdb98322ca82",
+    "device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/TemplateStore.java": "7fdb3e6bc6eb02a1c0e131be9bebf430e944d11c76d98a98a0c32fe7413829d9",
+    "device/xiaomi/sheng/interfaces/biometrics/softwareface/tests/CoreTests.java": "9c907c5c608c56ce92545790996ea45b510225c39f2d60d8c0d5d5a176ccb20c",
+    "device/xiaomi/sheng/interfaces/biometrics/softwareface/AndroidManifest.xml": "391ce930519b79a068a693669553d438aa001563d342a2f9ade3dfcd8a8ce1c7",
+    "device/xiaomi/sheng/interfaces/biometrics/softwareface/Android.bp": "3d5a328e2f3441831189079951206e10703e579b64d558f41d0c8f60c1e47d07",
+    "device/xiaomi/sheng/tools/build_sheng_face_lab.py": "fc96d56c3861629042b228937e1303eff1f7079c3c3ab14eee60c1849906c6d5"
+  },
+  "build_inputs": {
+    "prebuilts/sdk/37.0/public/android.jar": "90bf8b80697f086b6fd7cc3956b436a34e2a6cf7193f7fed1343b63625c97ef2",
+    "prebuilts/sdk/tools/core-lambda-stubs.jar": "48ebd3b6614a8e4367d1dbda1222aed5ffb6b874214922412af5c9fbcd5e877a",
+    "out/host/linux-x86/bin/aapt2": "5d73b18046b5c038d07c058f2556c2425c490267bce8992ca58d0c5021dc376e",
+    "prebuilts/r8/r8.jar": "49a6139b96a272482570cb8f32685cc89c27f2457e5d0ec9f447689e52ec9779",
+    "out/host/linux-x86/framework/apksigner.jar": "640bdfa822122edd779f16ee7e2e5fd926c16cb5ae6dcdd2be42040b0c009a87",
+    "prebuilts/jdk/jdk21/linux-x86/bin/java": "cfa21aeadd00925925c9e1287f5c08f3e04ee7f26a9e23d9dbfb16149153d842",
+    "prebuilts/jdk/jdk21/linux-x86/bin/javac": "18351d7a271f6b8bd17f9e8fef6bb04baa7cf008cbc8a3a782a93a2f5c48ecfa"
+  },
+  "upstream_audit": {
+    "path": "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/upstream-preaudit.json",
+    "sha256": "fc777166c2817363f71d38dbdcb1cef1ec48eaf475caf965d5eeff62e91a1f23",
+    "project_count": 1243,
+    "public_repositories": 21
+  },
+  "toolchain_audit": {
+    "path": "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/toolchain-preaudit.json",
+    "sha256": "5483f2981b8391c85a909fe17fd837898e7e0eee0f71987b2acf9c0c647ec78d"
+  },
+  "commands": [
+    [
+      "/root/sheng-lineage/lineage-24.0/prebuilts/jdk/jdk21/linux-x86/bin/javac",
+      "--release",
+      "11",
+      "-encoding",
+      "UTF-8",
+      "-d",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/host-tests",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/FrameMath.java",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/FaceDescriptor.java",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/SampleCollector.java",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/tests/CoreTests.java"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/prebuilts/jdk/jdk21/linux-x86/bin/java",
+      "-cp",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/host-tests",
+      "org.lineageos.sheng.facelab.CoreTests"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/prebuilts/jdk/jdk21/linux-x86/bin/javac",
+      "-source",
+      "8",
+      "-target",
+      "8",
+      "-encoding",
+      "UTF-8",
+      "-bootclasspath",
+      "/root/sheng-lineage/lineage-24.0/prebuilts/sdk/tools/core-lambda-stubs.jar:/root/sheng-lineage/lineage-24.0/prebuilts/sdk/37.0/public/android.jar",
+      "-d",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/classes",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/FaceDescriptor.java",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/FaceLabActivity.java",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/FrameMath.java",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/SampleCollector.java",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/src/org/lineageos/sheng/facelab/TemplateStore.java"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/prebuilts/jdk/jdk21/linux-x86/bin/java",
+      "-cp",
+      "/root/sheng-lineage/lineage-24.0/prebuilts/r8/r8.jar",
+      "com.android.tools.r8.D8",
+      "--release",
+      "--min-api",
+      "30",
+      "--lib",
+      "/root/sheng-lineage/lineage-24.0/prebuilts/sdk/37.0/public/android.jar",
+      "--output",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/dex",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/classes.jar"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/bin/aapt2",
+      "link",
+      "-I",
+      "/root/sheng-lineage/lineage-24.0/prebuilts/sdk/37.0/public/android.jar",
+      "--manifest",
+      "/root/sheng-lineage/lineage-24.0/device/xiaomi/sheng/interfaces/biometrics/softwareface/AndroidManifest.xml",
+      "-o",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/resources.apk"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/prebuilts/jdk/jdk21/linux-x86/bin/java",
+      "-jar",
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/framework/apksigner.jar",
+      "sign",
+      "--ks",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/lab-signing.p12",
+      "--ks-key-alias",
+      "shengfacelab",
+      "--ks-pass",
+      "file:/root/sheng-lineage/hardware-diagnostics/sheng-software-face/lab-signing-password.txt",
+      "--out",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/ShengFaceLab.apk",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/ShengFaceLab-unsigned.apk"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/prebuilts/jdk/jdk21/linux-x86/bin/java",
+      "-jar",
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/framework/apksigner.jar",
+      "verify",
+      "--verbose",
+      "--print-certs",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/ShengFaceLab.apk"
+    ],
+    [
+      "/root/sheng-lineage/lineage-24.0/out/host/linux-x86/bin/aapt2",
+      "dump",
+      "badging",
+      "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/ShengFaceLab.apk"
+    ]
+  ],
+  "log": "/root/sheng-lineage/hardware-diagnostics/sheng-software-face/20261108T095533941175Z/build.log"
+}
