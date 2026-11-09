@@ -58,6 +58,8 @@
   },
   "build_log": "/root/sheng-618/diagnostic/hardware-r36/rebuild-logs/tp-eva515.log",
   "module_count": 344,
-  "hardware_result": "not flashed; video recording recovery not established",
-  "video_recording_fixed": false
+  "hardware_result": "Flashed only boot_a at 17:12:48+0800; user confirms video records, but green bottom is present in preview and saved video; ADB runtime identity pending",
+  "video_recording_fixed": false,
+  "user_confirmed_video_recording_works": true,
+  "video_quality_accepted": false
 }

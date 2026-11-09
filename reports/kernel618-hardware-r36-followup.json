@@ -1,0 +1,63 @@
+{
+  "revision": "hardware-r36",
+  "date": "2026-11-09",
+  "timezone": "Asia/Singapore",
+  "boot_sha256": "f7ca4c84b64d0ad2479b62f6aa93c25dfba5d56471c9399f2c18003ef25e3951",
+  "image_sha256": "6472808861c1dc1eee38d3c1aadbc5b2576bd554f7bd3705f0965e1beaea2d05",
+  "flashed_partitions": [
+    "boot_a"
+  ],
+  "flash_time": "2026-11-09T17:12:48+0800",
+  "test_timeout_seconds": null,
+  "bootloader_identity": {
+    "product": "sheng",
+    "current_slot": "a",
+    "unlocked": "yes",
+    "is_userspace": "no"
+  },
+  "wired_adb_observed": false,
+  "wired_observation_seconds": 300.36,
+  "stop_after_wired_timeout": false,
+  "built_in_root_removed": {
+    "built_in_gki_root": false,
+    "disabled_prefixes": [
+      "KSU",
+      "SUSFS"
+    ],
+    "active_root_options": [],
+    "defined_root_symbols": [],
+    "verified": true
+  },
+  "root_manager_work_performed": false,
+  "adb_startup_module_created": false,
+  "adb_5555_enabled_by_this_change": false,
+  "user_confirmed": {
+    "video_recording_works": true,
+    "green_area_when_tilting_up": true,
+    "green_area_in_preview": true,
+    "green_area_in_saved_video": true
+  },
+  "actual_runtime_kernel_identity_verified": false,
+  "android_boot_completed_verified_by_adb": false,
+  "video_recording_status": "User confirms recording now works; green output remains, so overall recording quality is not accepted",
+  "raw_evidence": "reports/device/kernel618-hardware-r36",
+  "evidence": {
+    "control.txt": {
+      "bytes": 11078,
+      "sha256": "b3dc6b5456e2e46bf83ab8ee96d10653152f0240b0f6fc93d2e71ed9598bf45a"
+    },
+    "flash.txt": {
+      "bytes": 166,
+      "sha256": "4c2ce4c018f747288160c1c9569c3d4f3aad214add512ff3f50ee836ecb2178b"
+    }
+  },
+  "remaining": [
+    "camera green bottom in preview and recorded video on upward motion",
+    "USB startup delay/unavailability",
+    "intermittent speaker distortion",
+    "white boot flash and slow startup",
+    "long-term sensors sleep/resume stability"
+  ],
+  "required_input": "Current wireless debugging endpoint and stabilization off/on comparison requested; no root-manager repair or module work",
+  "limitation": "Successful flash and user feedback are distinct from an ADB runtime identity check; no current-r36 bugreport is available yet"
+}

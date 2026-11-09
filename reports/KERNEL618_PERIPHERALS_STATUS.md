@@ -12,9 +12,12 @@ CONFIG_MSM_ADSPRPC=1，通用重编路径此前遗漏，fastrpc.h 因而内联�
 重编、清单、封包三级检查通过；旧 r35 EVA 被拒绝。
 344 模块、20975 项版本化导入、18008 项内核导出一致性、归档权限、
 来源哈希、AVB 和官方 boot 模板解包回读通过。交付仅保留 r32–r36 五版。
-r36 尚未刷入，USB、炸音、录像、白闪及启动速度不标记为修复。
+17:12:48 仅刷 boot_a，300.36 秒有线 ADB 未出现，不带定时重启。
+用户确认录像已可录制，但向上抬时相机预览与保存的视频底部均有绿色，
+录像画质仍未验收；已询问关闭防抖的对照结果与当前无线调试端口。
+实际运行内核身份待 ADB 回读，USB、炸音、白闪及启动速度不标记为修复。
 完整证据见 kernel618-root-removal-r36.json、kernel618-eva-fastrpc-config-r36.json
-及 kernel618-hardware-r36-{layer,boot}.json。
+及 kernel618-hardware-r36-{layer,boot,hardware,followup}.json。
 
 ## 2026-11-09 r35 实机与持续修复约定
 

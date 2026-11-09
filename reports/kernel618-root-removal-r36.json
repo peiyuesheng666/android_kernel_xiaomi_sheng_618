@@ -34,7 +34,7 @@
   "adb_5555_enabled": false,
   "adb_startup_module_created": false,
   "root_manager_version_work_performed": false,
-  "hardware_result": "not flashed; ADB endpoint offline",
+  "hardware_result": "Flashed only boot_a at 17:12:48+0800; user confirms video records, but green bottom is present in preview and saved video; ADB runtime identity pending",
   "original_firmware_read_only": true,
   "maximum_retained_versions": 5,
   "limitation": "Disabling the built-in GKI root does not by itself establish that another root provider is available on the device"
