@@ -35,11 +35,13 @@
     "video_recording_works": true,
     "green_area_when_tilting_up": true,
     "green_area_in_preview": true,
-    "green_area_in_saved_video": true
+    "green_area_in_saved_video": true,
+    "later_camera_freeze": true,
+    "later_full_green_screen": true
   },
   "actual_runtime_kernel_identity_verified": false,
   "android_boot_completed_verified_by_adb": false,
-  "video_recording_status": "User confirms recording now works; green output remains, so overall recording quality is not accepted",
+  "video_recording_status": "Initially could record with a green bottom strip; user later reports recurring freeze and full green screen. Recording is not fixed or accepted.",
   "raw_evidence": "reports/device/kernel618-hardware-r36",
   "evidence": {
     "control.txt": {
@@ -58,6 +60,14 @@
     "white boot flash and slow startup",
     "long-term sensors sleep/resume stability"
   ],
-  "required_input": "Current wireless debugging endpoint and stabilization off/on comparison requested; no root-manager repair or module work",
-  "limitation": "Successful flash and user feedback are distinct from an ADB runtime identity check; no current-r36 bugreport is available yet"
+  "required_input": "Confirm wireless-debug main-page port rather than pairing-popup port; reconnect device to capture freeze logs and install module",
+  "limitation": "Successful flash and user feedback are distinct from an ADB runtime identity check; no current-r36 bugreport is available yet",
+  "wireless_serial_requested": "192.168.1.153:36911",
+  "current_device_connection_available": false,
+  "wireless_connection_failure": "TCP timeout (10060); WLAN route is directly 192.168.1.0/24 and ARP entry is reachable",
+  "root_available_user_reported": true,
+  "root_shell_verified": false,
+  "adb_module_now_authorized": true,
+  "adb_module_artifact": "artifacts/sheng-adb-5555-v1/sheng-adb-5555-v1.zip",
+  "adb_module_install_result": "pending device connection"
 }

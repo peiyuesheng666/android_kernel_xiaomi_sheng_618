@@ -1,0 +1,75 @@
+{
+  "module": "sheng_adb_5555",
+  "version": "1.0",
+  "date": "2026-11-09",
+  "port": 5555,
+  "user_authorized": true,
+  "archive": "artifacts/sheng-adb-5555-v1/sheng-adb-5555-v1.zip",
+  "archive_sha256": "882d28bcf3e5e30b38cd7cdfe074b068dafbcdc1cfc31cdfac617f0db109fa5e",
+  "source_sha256": {
+    "module.prop": "e65f640f6192d82aff7ec5bfe626739c1b9d1dfdc0596eae481b06c85d658f35",
+    "customize.sh": "831f969c569614079ee6651ea26ecd159a0049bc2d688f03be7d425e24967d51",
+    "service.sh": "c162696bb3c33696ebba3466549765491e464430011c6e0797a736de2968a5ce",
+    "worker.sh": "f267c8182d31efc0766ef45b2ef7bcc92ea537effe537b505f3fd28480a535ab",
+    "restore.sh": "74157fe116c35804ae94b1817f45ae5fbd3dacc78a69be7744c22bdafdec9cd0",
+    "uninstall.sh": "729b6e082be75cf3d9efc5d618a0c7c6a0873d0b698d7fda5399a3024f271f38"
+  },
+  "shell_syntax_checked": true,
+  "zip_payload_and_permissions_checked": true,
+  "built_in_gki_root_added": false,
+  "adb_authentication_unchanged": true,
+  "selinux_mode_unchanged": true,
+  "persistent_adb_properties_written": false,
+  "watch_interval_seconds": 15,
+  "install_result": "pending device connection",
+  "boot_autostart_verified": false,
+  "references": [
+    {
+      "repository": "Android-packages-modules-adb",
+      "commit": "f83360242ba6a66ae7570e126009ab530eeef120",
+      "file": "daemon/main.cpp",
+      "applicability": "Existing runtime listen-address/port properties"
+    },
+    {
+      "repository": "KernelSU userspace reference only",
+      "commit": "0c0fdb960178fa12d80d6cbcfdcb6ad8be6a865d",
+      "files": [
+        "userspace/ksud/src/module.rs",
+        "userspace/ksud/src/installer.sh"
+      ],
+      "applicability": "Root-level module.prop/customize.sh/service.sh archive contract; no kernel integration"
+    },
+    {
+      "repository": "LineageOS-piano",
+      "commit": "3f10fc25273b42d18d0bd533551a0a5c3dda0094",
+      "applicability": "Device tree does not provide a root startup-module recipe"
+    },
+    {
+      "repository": "LineageOS-nuwa",
+      "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+      "applicability": "Device-specific tree does not provide a root startup-module recipe"
+    }
+  ],
+  "limitation": "Host checks do not prove Android property access, actual listener availability or boot execution",
+  "host_control_flow_checks": {
+    "normal": {
+      "passed": true,
+      "iterations": 1,
+      "previous_adb_restored": true,
+      "authentication_unchanged": true
+    },
+    "denied": {
+      "passed": true,
+      "iterations": 1,
+      "previous_adb_restored": true,
+      "authentication_unchanged": true
+    },
+    "early": {
+      "passed": true,
+      "iterations": 2,
+      "previous_adb_restored": true,
+      "authentication_unchanged": true
+    }
+  },
+  "control_flow_check_scope": "Host command mocks: early boot, denied properties, enable and stop/restore; not Android execution"
+}

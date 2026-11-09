@@ -1,0 +1,6 @@
+id=sheng_adb_5555
+name=Sheng ADB 5555
+version=1.0
+versionCode=1
+author=peiyuesheng
+description=开机启用无线 ADB 5555，恢复被停止的 adbd，保留 ADB 身份认证。

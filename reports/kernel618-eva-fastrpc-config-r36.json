@@ -58,8 +58,10 @@
   },
   "build_log": "/root/sheng-618/diagnostic/hardware-r36/rebuild-logs/tp-eva515.log",
   "module_count": 344,
-  "hardware_result": "Flashed only boot_a at 17:12:48+0800; user confirms video records, but green bottom is present in preview and saved video; ADB runtime identity pending",
+  "hardware_result": "Flashed boot_a; user initially could record, then reports bottom green in preview and file, followed by recurring camera freeze and full green screen. Not fixed.",
   "video_recording_fixed": false,
   "user_confirmed_video_recording_works": true,
-  "video_quality_accepted": false
+  "video_quality_accepted": false,
+  "later_camera_freeze_reported": true,
+  "later_full_green_screen_reported": true
 }

@@ -4,7 +4,8 @@
   "user_request_date": "2026-11-09",
   "disable_config_prefixes": ["KSU", "SUSFS"],
   "root_manager_version_work_authorized": false,
-  "adb_startup_module_authorized": false,
+  "adb_startup_module_authorized": true,
+  "adb_startup_module_authorized_date": "2026-11-09",
   "future_requested_adb_module_port": 5555,
-  "note": "Remove the built-in GKI root scheme from the next candidate. Defer the startup module until the user explicitly says to make it."
+  "note": "Keep built-in GKI root disabled from r36. User now explicitly authorizes a root module to start wireless ADB on port 5555 at boot; root-manager version work remains deferred."
 }
