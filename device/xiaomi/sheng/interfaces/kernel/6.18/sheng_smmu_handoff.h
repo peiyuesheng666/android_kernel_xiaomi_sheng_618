@@ -35,6 +35,28 @@ static inline bool sheng_smmu_boot_context_pinned(
 		sheng_smmu_context_has_pinned_stream(smmu, cbndx);
 }
 
+/* An allocated EARLY_MAP context still runs the firmware's bypass until
+ * Linux sets SCTLR.M. Global bypass attributes must cover that interval. */
+static inline bool sheng_smmu_firmware_bypass_active(
+		struct arm_smmu_device *smmu)
+{
+	unsigned int i;
+
+	for (i = 0; i < smmu->num_mapping_groups; i++) {
+		unsigned int cbndx = smmu->s2crs[i].cbndx;
+
+		if (!sheng_smmu_keep_firmware_smr(smmu, i) ||
+		    cbndx >= smmu->num_context_banks)
+			continue;
+		if (!smmu->cbs[cbndx].cfg ||
+		    !(smmu->cbs[cbndx].sctlr & ARM_SMMU_SCTLR_M) ||
+		    !(arm_smmu_cb_read(smmu, cbndx, ARM_SMMU_CB_SCTLR) &
+		      ARM_SMMU_SCTLR_M))
+			return true;
+	}
+	return false;
+}
+
 /* EARLY_MAP requests bypass until the display has mapped its splash image.
  * Keep the firmware's bypass memory attributes too, then install the whole
  * Linux context when stage-1 translation is explicitly enabled. */

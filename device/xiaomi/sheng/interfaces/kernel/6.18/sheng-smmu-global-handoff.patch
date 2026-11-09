@@ -1,0 +1,65 @@
+--- a/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -1163,6 +1163,33 @@
+ /* Read-only snapshots of the firmware's DT-pinned display stream.
+  * The caller already has the SMMU powered; none of these registers clear
+  * status on read. Do not dump ordinary clients or change handoff policy. */
++static bool sheng_smmu_board(void)
++{
++	struct device_node *root = of_find_node_by_path("/");
++	const char *model;
++	bool sheng = root && !of_property_read_string(root, "model", &model) &&
++		!strcmp(model, "Qualcomm Technologies, Inc. 8550 sheng");
++
++	of_node_put(root);
++	return sheng;
++}
++
++static void sheng_smmu_finish_global_handoff(struct arm_smmu_device *smmu)
++{
++	u32 reg, next;
++
++	if (!sheng_smmu_board() || sheng_smmu_firmware_bypass_active(smmu))
++		return;
++	reg = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_sCR0);
++	next = (reg & ~ARM_SMMU_sCR0_SHCFG) |
++		FIELD_PREP(ARM_SMMU_sCR0_SHCFG, ARM_SMMU_sCR0_SHCFG_NSH);
++	if (next == reg)
++		return;
++	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_sCR0, next);
++	dev_info(smmu->dev,
++		"sheng splash: Linux mapping live; global CR0=%x->%x\n", reg, next);
++}
++
+ static void sheng_smmu_trace_streams(struct arm_smmu_device *smmu,
+ 		const char *stage)
+ {
+@@ -3009,6 +3036,9 @@
+ 		dev_info(smmu->dev,
+ 			"sheng splash: mappings ready; installed CB%d SCTLR=%x\n",
+ 			idx, cb->sctlr);
++		/* Context-bank writes precede changing attributes for bypass. */
++		wmb();
++		sheng_smmu_finish_global_handoff(smmu);
+ 		sheng_smmu_trace_streams(smmu, "mappings-after-install");
+ 	} else {
+ 		arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, cb->sctlr);
+@@ -3159,9 +3189,15 @@
+ 	if (smmu->features & ARM_SMMU_FEAT_EXIDS)
+ 		reg |= ARM_SMMU_sCR0_EXIDENABLE;
+ 
+-	/* Force bypass transaction to be Non-Shareable & not io-coherent */
+-	reg &= ~ARM_SMMU_sCR0_SHCFG;
+-	reg |= FIELD_PREP(ARM_SMMU_sCR0_SHCFG, ARM_SMMU_sCR0_SHCFG_NSH);
++	/* A pinned firmware context with M=0 still scans out using bypass.
++	 * Preserve its global memory attributes even after Linux allocates an
++	 * EARLY_MAP context; switch once every pinned Linux context has M=1. */
++	if (sheng_smmu_board() && sheng_smmu_firmware_bypass_active(smmu)) {
++		dev_info(dev, "sheng splash: retain firmware global SHCFG in CR0=%x\n", reg);
++	} else {
++		reg &= ~ARM_SMMU_sCR0_SHCFG;
++		reg |= FIELD_PREP(ARM_SMMU_sCR0_SHCFG, ARM_SMMU_sCR0_SHCFG_NSH);
++	}
+ 
+ 	if (smmu->impl && smmu->impl->reset)
+ 		smmu->impl->reset(smmu);

@@ -31,9 +31,11 @@ typedef uint8_t u8;
 #define mutex_lock(p) ((void)(p))
 #define mutex_unlock(p) ((void)(p))
 #define S2CR_TYPE_TRANS 0
+#define ARM_SMMU_SCTLR_M 1U
+#define ARM_SMMU_CB_SCTLR 0U
 struct arm_smmu_smr { unsigned int id, mask; bool valid, used; };
 struct arm_smmu_s2cr { unsigned int count, type, cbndx; bool pinned; };
-struct arm_smmu_cb { void *cfg; };
+struct arm_smmu_cb { void *cfg; unsigned int sctlr; };
 struct arm_smmu_device {
     unsigned int num_mapping_groups, num_context_banks;
     struct arm_smmu_smr *smrs;
@@ -41,6 +43,10 @@ struct arm_smmu_device {
     struct arm_smmu_cb *cbs;
     int stream_map_mutex, dev;
 };
+static unsigned int arm_smmu_cb_read(struct arm_smmu_device *s,
+    unsigned int cb, unsigned int reg) {
+    (void)reg; return s->cbs[cb].sctlr;
+}
 struct iommu_fwspec { int num_ids; unsigned int ids[2]; };
 struct arm_smmu_master_cfg { struct arm_smmu_device *smmu; s16 smendx[2]; };
 struct device { struct iommu_fwspec f; struct arm_smmu_master_cfg c; bool defer; };
