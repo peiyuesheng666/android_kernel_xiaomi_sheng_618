@@ -1,0 +1,79 @@
+--- a/drivers/usb/phy/phy-msm-ssusb-qmp.c
++++ b/drivers/usb/phy/phy-msm-ssusb-qmp.c
+@@ -16,6 +16,7 @@
+ #include <linux/usb/phy.h>
+ #include <linux/usb/dwc3-msm.h>
+ #include <linux/clk.h>
++#include <linux/clk-provider.h>
+ #include <linux/extcon.h>
+ #include <linux/reset.h>
+ #include <linux/pm_domain.h>
+@@ -135,6 +136,7 @@
+ 	struct clk		*cfg_ahb_clk;
+ 	struct clk		*pipe_clk;
+ 	struct clk		*pipe_clk_mux;
++	struct clk		*pipe_clk_xo;
+ 	struct clk		*pipe_clk_ext_src;
+ 	struct reset_control	*phy_reset;
+ 	struct reset_control	*phy_phy_reset;
+@@ -874,6 +876,42 @@
+ 	return 0;
+ }
+ 
++/* sheng's PHY ref_clk_src is XO_PAD, not a parent of the GCC pipe mux.
++ * Keep that reference vote, but select the GCC mux's own bi_tcxo on suspend.
++ * Parent index 1 belongs to the fixed gcc-kalama parent_data_13, not a
++ * hardware selector value. Do not alter other boards or clock topologies.
++ */
++static int sheng_ssphy_qmp_get_pipe_xo(struct msm_ssphy_qmp *phy,
++		struct device *dev)
++{
++	struct clk_hw *mux, *xo;
++
++	phy->pipe_clk_xo = phy->ref_clk_src;
++	if (!of_root || of_property_match_string(of_root, "model",
++			"Qualcomm Technologies, Inc. 8550 sheng") < 0 ||
++			!phy->pipe_clk_mux || !phy->ref_clk_src)
++		return 0;
++
++	mux = __clk_get_hw(phy->pipe_clk_mux);
++	if (!mux || strcmp(clk_hw_get_name(mux),
++			"gcc_usb3_prim_phy_pipe_clk_src"))
++		return 0;
++	if (clk_has_parent(phy->pipe_clk_mux, phy->ref_clk_src))
++		return 0;
++	if (clk_hw_get_num_parents(mux) != 2)
++		return dev_err_probe(dev, -EINVAL, "unexpected sheng pipe mux parents\n");
++
++	xo = clk_hw_get_parent_by_index(mux, 1);
++	if (!xo)
++		return dev_err_probe(dev, -EPROBE_DEFER, "GCC pipe XO parent not ready\n");
++	phy->pipe_clk_xo = devm_clk_hw_get_clk(dev, xo, "pipe_clk_xo");
++	if (IS_ERR(phy->pipe_clk_xo))
++		return dev_err_probe(dev, PTR_ERR(phy->pipe_clk_xo),
++				"failed to get GCC pipe XO parent\n");
++	dev_info(dev, "sheng pipe suspend parent: %s\n", clk_hw_get_name(xo));
++	return 0;
++}
++
+ static int msm_ssphy_qmp_get_clks(struct msm_ssphy_qmp *phy, struct device *dev)
+ {
+ 	int ret = 0;
+@@ -937,6 +975,8 @@
+ 		}
+ 	}
+ 
++	ret = sheng_ssphy_qmp_get_pipe_xo(phy, dev);
++
+ err:
+ 	return ret;
+ }
+@@ -992,7 +1032,7 @@
+ 		clk_disable_unprepare(phy->pipe_clk);
+ 
+ 		//select XO instead of PHY pipe clock
+-		ret = clk_set_parent(phy->pipe_clk_mux, phy->ref_clk_src);
++		ret = clk_set_parent(phy->pipe_clk_mux, phy->pipe_clk_xo);
+ 		if (ret < 0)
+ 			dev_err(phy->phy.dev, "%s: pipe_clk set_parent disable failed\n", __func__);
+ 

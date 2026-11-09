@@ -14,6 +14,8 @@ from audit_kernel618_modules import ElfModule, check_candidate
 from audit_sheng618_overlay import audit, entries
 from sheng618_fastrpc_config import verify_imports as verify_rpc_imports
 from sheng618_fastrpc_config import EVA_REQUIRED_IMPORTS
+from sheng618_ssphy_pipe_xo import verify as verify_ssphy_pipe_xo
+from sheng618_camera_io_stride import verify as verify_camera_io_stride
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', default='peripherals-r21')
@@ -76,6 +78,14 @@ if followup.exists():
         if name in expected_sources:
             assert hashes['before'] == expected_sources[name], 'Source chain mismatch: ' + name
         expected_sources[name] = hashes['after']
+camera_stride = PROJECT/'reports/kernel618-camera-io-stride-source.json'
+if camera_stride.exists():
+    source_receipts.append(camera_stride.name)
+    source_snapshots[camera_stride.name] = json.loads(camera_stride.read_text())
+    for name, hashes in source_snapshots[camera_stride.name]['files'].items():
+        if name in expected_sources:
+            assert hashes['before'] == expected_sources[name], 'Source chain mismatch: ' + name
+        expected_sources[name] = hashes['after']
 if latency.exists():
     for name, hashes in source_snapshots[latency.name]['files'].items():
         if name in expected_sources:
@@ -115,11 +125,17 @@ if options.all_modules_manifest:
             assert hashlib.sha256((K618/name).read_bytes()).hexdigest() == hashes['after'], name
         source_receipts.append(repeater.name)
         source_snapshots[repeater.name] = data
+    ssphy_receipt = PROJECT/'reports/kernel618-ssphy-pipe-xo-source.json'
+    if ssphy_receipt.exists():
+        source_receipts.append(ssphy_receipt.name)
+        source_snapshots[ssphy_receipt.name] = json.loads(ssphy_receipt.read_text())
 for name, source in replacements.items():
     shutil.copyfile(source, modules/name)
     subprocess.run([CLANG/'llvm-strip','--strip-debug',modules/name],check=True)
 rpc_check = verify_rpc_imports(modules/'frpc-adsprpc.ko')
 eva_check = verify_rpc_imports(modules/'msm-eva.ko', EVA_REQUIRED_IMPORTS)
+ssphy_check = verify_ssphy_pipe_xo(modules/'phy-msm-ssusb-qmp.ko', PROJECT, K618)
+camera_check = verify_camera_io_stride(modules/'camera.ko', PROJECT, K618)
 checked = check_candidate({p.name:ElfModule(p) for p in modules.glob('*.ko')},
     {'source_keep_modules':['zram.ko','zsmalloc.ko']},OUT,
     [modules/'zram.ko',modules/'zsmalloc.ko'],'6.18')
@@ -174,6 +190,8 @@ assert metadata['helper_executable'] and metadata['module_count'] == expected_co
 report = dict(revision=tag,base_revision=options.base,checks=checked,archive=metadata,
     fastrpc_vendor_api_check=rpc_check,
     eva_fastrpc_api_check=eva_check,
+    ssphy_pipe_xo_api_check=ssphy_check,
+    camera_io_stride_check=camera_check,
     all_modules_rebuilt=all_modules is not None,
     all_modules_manifest_sha256=hashlib.sha256(options.all_modules_manifest.read_bytes()).hexdigest() if all_modules else None,
     changed_payloads=changed,added_payloads=added,source_receipts=source_receipts,

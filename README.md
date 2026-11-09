@@ -11,12 +11,24 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
+2026-11-09 r37 候选：修正 sheng USB PHY 休眠的实际 GCC 父时钟选择；
+相机按 r36 IFE_FD SMMU 越界证据恢复 VFE780 原始 plane stride（852 被错误
+写成864），保留其他硬件及 WM 覆盖值。实际代码旧/新边界对照、模块来源、
+344 模块ABI、20984项导入CRC、18008内核导出、归档及boot/AVB回读通过。
+尚待刷入实测；交付保留 r33–r37 五版。见
+[相机修补证据](reports/kernel618-camera-io-stride-source.json)及
+[USB候选证据](reports/kernel618-ssphy-pipe-xo-source.json)。
+r36 已确认实际 root 与内核身份，USB在启动约41分钟才恢复，与用户反馈吻合。
+已安装 5555 模块 v2，当前启动的固定端口root连接成功，保留认证及Enforcing；
+开机自动运行随r37重启验证。见 [模块实机记录](reports/sheng-adb-5555-module-v2.json)。
+相机、USB延迟、炸音、白闪和启动慢尚未宣称修复，持续目标仍 active。
+
 2026-11-09 r36：按最新要求关闭内置 KSU/SUSFS；核心和最终内嵌 Image 的
 配置、符号表核查通过，旧 r35 的已启用 root 配置被校验门槛拒绝。
 启动镜像已封装并回读校验，17:12:48 仅刷 boot_a；不处理 KSU 管理器版本。
 用户随后明确授权用现有 root 制作无线 ADB 5555 启动模块，安装包已生成，
-语法、归档权限及启动/失败/恢复分支的主机模拟检查通过，尚未安装或重启实测。
-新提供的 192.168.1.153:36911 连接超时；连接恢复后先抓故障日志，再安装验证。
+语法、归档权限及启动/失败/恢复分支的主机模拟检查通过，后续 v2 安装实测见上。
+最初 192.168.1.153:36911 连接超时；现已抓故障日志并安装 v2。
 详见 [模块记录](reports/sheng-adb-5555-module-v1.json)。
 去掉内置 root 本身不能证明其他 root 方案可用。详见
 [r36 root 移除记录](reports/kernel618-root-removal-r36.json)。
@@ -27,7 +39,7 @@ CONFIG_MSM_ADSPRPC，三个实际 FastRPC 导入恢复，旧 r35 占位版本被
 AVB 和解包回读通过；交付保留 r32–r36 五版。用户确认已经能录像，但向上抬
 时预览和成片底部都有绿色，随后又报告相机卡死甚至绿屏，录像仍未修复。
 300.36 秒有线 ADB 未出现，
-不因此结束持续修复；当前无线端口待重连，实际内核身份待 ADB 回读。详见
+不因此结束持续修复；后续 root 无线与有线连接已恢复，实际内核身份已回读。详见
 [EVA 构建记录](reports/kernel618-eva-fastrpc-config-r36.json)。
 实机与用户反馈见 [r36 跟进](reports/kernel618-hardware-r36-followup.json)。
 

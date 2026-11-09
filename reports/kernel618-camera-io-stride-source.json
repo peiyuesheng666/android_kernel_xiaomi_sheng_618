@@ -1,0 +1,97 @@
+{
+  "revision": "hardware-r37",
+  "date": "2026-11-09",
+  "files": {
+    "vendor/qcom/opensource/camera-kernel/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe_bus/cam_vfe_bus_ver3.c": {
+      "before": "92afdc2c5f8657961454ea9717eb2e909114d1c26f0184882534af367403f205",
+      "after": "36ab48af5ecb36e46e0844044b7d82f1b6d4fb9c735a6adcfcb4d0b4e369cbd3"
+    },
+    "vendor/qcom/opensource/camera-kernel/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe_bus/cam_vfe_bus_ver3.h": {
+      "before": "92422cfba66710d546a10abf8deee783a32c98c8fd2eb9c0cd6eb950e7ffaefb",
+      "after": "b9ecbd68763ea0f15ba1425582edbf4e04b6424e446af857ac5cd0b5b8680f3f"
+    },
+    "vendor/qcom/opensource/camera-kernel/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe17x/cam_vfe780.h": {
+      "before": "684408a247b07e76f0f442ba50409631a71438a4e07d95776b8acb94a2b618de",
+      "after": "a0cd3cfdf27ef78c55304892d7be8efbc87d0a45c861f85fcd202dc4e95b5d91"
+    }
+  },
+  "patch_sha256": "be0589f645bd714c7db34034b9159ebf30788b6210d5bdffaf414a3288dd72b4",
+  "evidence": {
+    "file": "reports/device/kernel618-hardware-r36/current-kernel-root.txt",
+    "sha256": "691b4e1507ac50b7b0716cef3cd83c446ed7f9b513d4cca656faf0ff8d5954d0",
+    "fault_iova": "0xffee96000",
+    "mapping_iova": "0xffee00000",
+    "allocation_bytes": 614400,
+    "output": "IFE_FD (0x3004)",
+    "format": "NV12",
+    "width": 852,
+    "y_height": 480,
+    "uv_height": 240,
+    "io_stride": 852,
+    "uv_offset": 409088,
+    "raw_uv_end": 613568,
+    "rounded_uv_last_write_end": 616436,
+    "error": "SMMU fault exactly at end of FD mapping; capture requests subsequently stuck"
+  },
+  "change": "Only VFE780 uses raw IO plane stride when no explicit WM stride override exists",
+  "scope": "Kalama VFE780 hardware table; other VFE versions and explicit overrides retain behavior",
+  "references": [
+    {
+      "repository": "LineageOS-sm8550-modules",
+      "commit": "92a9fde479d3262da080cfd28bab0775b0da500a",
+      "file": "qcom/opensource/camera-kernel/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe_bus/cam_vfe_bus_ver3.c",
+      "sha256": "c9334ec3d940686bc29e673cebc6725ce1bba37a4edd3740073940ebaa8d10fb",
+      "applicability": "Program raw IO stride; alignment was used only for cached comparison"
+    },
+    {
+      "repository": "MiCode-sheng-camera",
+      "commit": "ad342a26a37e9fabc2f626a6622b788bf9aa546b",
+      "file": "drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe_bus/cam_vfe_bus_ver3.c",
+      "sha256": "cfc24db7aa36bb63ef6577cec1da7b49dd4afc8ed37c27720c16562a4065b1ef",
+      "applicability": "Program raw IO stride; alignment was used only for cached comparison"
+    },
+    {
+      "repository": "selected-camera-integration",
+      "commit": "c3956156ce7c4193c451dfda531fad72d35bfebb"
+    },
+    {
+      "repository": "LineageOS-piano",
+      "commit": "3f10fc25273b42d18d0bd533551a0a5c3dda0094",
+      "applicability": "Different VFE generation; hardware table not copied"
+    },
+    {
+      "repository": "LineageOS-nuwa",
+      "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+      "applicability": "Kalama device reference; vendor buffer layout remains unchanged"
+    }
+  ],
+  "userspace_abi_changed": false,
+  "root_components_added": false,
+  "build_result": "Camera techpack compiled successfully",
+  "hardware_result": "pending",
+  "camera_fixed": false,
+  "limitation": "Explains the captured FD overrun; camera tilting, repeated recording and other fence faults require runtime verification",
+  "host_stride_regression": {
+    "old": {
+      "result": "pitch=864 last_UV_write_end=616436 allocation=614400 overflow=1",
+      "compiled_source_sha256": "97490ba05dfb1c751c25052efddab05c617346583106684d88978fdc8bdf3930",
+      "passed": true
+    },
+    "repaired": {
+      "result": "pitch=852 last_UV_write_end=613568 allocation=614400 overflow=0",
+      "compiled_source_sha256": "f6fe2bbbbc8d973f12fd2a0af6a34df2802e7e990a56ae4fdab9996ad1c2fa8a",
+      "passed": true
+    }
+  },
+  "scope_checked": [
+    "vfe17x/cam_vfe780.h"
+  ],
+  "host_check_scope": "Compiled extracted production stride-selection statements and captured buffer bounds; no hardware DMA or video-quality claim",
+  "module_sha256": "6ba9e94a5dd9d4917dc36b477d17d34c5ead67d45b9c25e9db3449aa36f053b7",
+  "module_source_check": {
+    "module": "/root/sheng-618/upstream-build/k618/vendor/qcom/opensource/camera-kernel/camera.ko",
+    "source_hashes_verified": true,
+    "vfe780_stride_initialization_present": true
+  },
+  "known_old_r36_rejected": "VFE780 supplied-stride initialization absent from camera ELF"
+}

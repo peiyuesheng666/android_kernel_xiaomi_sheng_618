@@ -1,12 +1,42 @@
 # 6.18 sheng 外围实机修复
 
+## 2026-11-09 r37 USB / 相机候选与 5555 模块实机
+
+r36 后续实际回读确认 hardware-r36，root / su 可用、Android 启动完成。
+USB 在启动经过 2458668 ms（约 41 分钟）才连接，与用户“约四十分钟”反馈
+一致；不是五分钟观察未见就停止。dmesg 单调时间不含休眠，不能用 978 秒
+替代 Android 的开机经过时间。连接恢复后 USB 为 CONFIGURED/UFP/device/sink。
+已保存故障 bugreport、完整 root 内核及 logcat 日志。
+
+相机日志在 IFE_FD (0x3004) 输出捕获到 SMMU 越界：614400 字节 NV12 映射
+末端 0xffee96000 被访问；852×480 的 Y/UV 行跨度均为 852，UV 偏移409088。
+新通用驱动把 IO stride 实际上取整为 864，UV 最后一行写到616436，超出
+分配。固定 LOS/MiCode sheng 5.15 均写原始 stride。r37 仅在 VFE780 且无
+明确 WM stride 覆盖时恢复原始 IO stride；其他型号和覆盖值保持原逻辑。
+编译实际生产选择语句的旧/新缓冲边界对照通过，旧 camera ELF 被拒绝。
+此结果尚不等于预览、反复录像或上下移动绿屏已修复。
+
+USB 候选保留原 PHY XO_PAD 参考时钟投票，只在精确 sheng 型号和 GCC 主
+pipe mux 上使用该 mux 真正的 bi_tcxo 父时钟休眠，避免已确认的选父失败。
+SoC/camera 重编、344 模块的20984项导入CRC、18008内核导出、归档权限、
+来源哈希、AVB 和 boot 解包回读通过。r37 尚待刷入；交付保留 r33–r37 五版。
+不内置 GKI KSU/SUSFS，不带定时重启，仍只刷 boot_a。
+
+已通过现有 /data/adb/ksud 安装用户授权的 5555 模块 v2（1.1），当前启动
+手动运行后 192.168.1.153:5555 已实际连接并执行 root 命令；ro.adb.secure=1，
+SELinux Enforcing。v2 移除无效的 settings Binder 操作，运行日志无相关失败。
+不写持久 ADB 属性，保留认证；开机自动执行待与 r37 重启一起验证。
+详见 kernel618-camera-io-stride-source.json、kernel618-ssphy-pipe-xo-source.json、
+sheng-adb-5555-module-v2.json 和 r36 followup。炸音、白闪/速度及长期传感器
+休眠恢复仍继续处理。
+
 ## 2026-11-09 r36 候选与 root 范围
 
 按用户最新指令去掉内置 GKI root；核心与最终内嵌 Image 都没有启用的
 KSU/SUSFS 配置或相应定义符号，已用旧 r35 的真实已启用配置验证拒绝。
 管理器版本继续暂缓；用户随后明确授权制作开机无线 ADB 5555 模块。
 安装包已构建，主机语法、归档权限和启用/权限失败/早启动/停止恢复流程检查
-通过；新端口 192.168.1.153:36911 连接超时，尚未安装或验证开机执行。
+通过；最初 192.168.1.153:36911 连接超时，后续 v2 安装和当前启动验证见上。
 模块保留 ADB 身份认证，不写 persist.adb.* 或修改 SELinux 模式。
 
 收尾已有 EVA 配置调查：选定上游 k618_rpc515.sh 明确为 EVA 传入
@@ -19,7 +49,7 @@ CONFIG_MSM_ADSPRPC=1，通用重编路径此前遗漏，fastrpc.h 因而内联�
 用户起初确认录像可录制，但向上抬时相机预览与保存的视频底部均有绿色，
 随后报告相机再次卡死甚至绿屏，录像仍未修复。关闭防抖对照没有得到有效
 结果；目前不能确认绿色来自防抖、时间戳、缓存或同步错误，须抓当次故障日志。
-实际运行内核身份待 ADB 回读，USB、炸音、白闪及启动速度不标记为修复。
+后续已回读实际 r36 身份并抓取故障日志；USB、炸音、白闪及启动速度仍未验收。
 完整证据见 kernel618-root-removal-r36.json、kernel618-eva-fastrpc-config-r36.json
 及 kernel618-hardware-r36-{layer,boot,hardware,followup}.json。
 

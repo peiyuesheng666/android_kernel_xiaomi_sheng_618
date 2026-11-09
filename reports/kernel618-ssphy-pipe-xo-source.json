@@ -1,0 +1,60 @@
+{
+  "revision": "hardware-r37",
+  "date": "2026-11-09",
+  "source": "drivers/usb/phy/phy-msm-ssusb-qmp.c",
+  "before_sha256": "dc26f187bfb7562f99ab0ed1a8c4d6fb1509eca38653f52888e3bfb61d32e060",
+  "after_sha256": "f03aad80f5cfff055cbc7b631efd028162144d2c17061b8c38cc9a37abd6045b",
+  "patch_sha256": "2c8bd9c6ffeaba161de4a8db33e0ebf94a8b5b64cbe5d74d05b1d9b190da7166",
+  "gcc_source_sha256": "e9c22360f50103189eee1ffa98bca0826b755ef668562201a90a38d74e1e8696",
+  "live_dt_sha256": "8c4459a39446641a67877a9e007492a4b106b4a24664ef34b01523702c16a5d9",
+  "scope": "Exact shipping sheng model and GCC primary pipe mux; compatible legacy fallback elsewhere",
+  "defect": "SS PHY ref_clk_src is RPMH_CXO_PAD_CLK, but GCC pipe mux accepts PHY pipe or bi_tcxo",
+  "change": "Retain PHY reference clock voting; use a managed handle to actual GCC parent index 1 for suspend",
+  "probe_defer_preserved_for_unresolved_gcc_parent": true,
+  "board_dt_changed": false,
+  "root_components_added": false,
+  "evidence": "r35 current-kernel.txt: pipe_clk set_parent disable failed; fixed source parent matrix and shipping DT",
+  "references": [
+    {
+      "repository": "selected-soc-provider",
+      "commit": "b1916e6fb00018222d54469e507a729e5e9291bf"
+    },
+    {
+      "repository": "LineageOS-sm8550-nuwa",
+      "commit": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "applicability": "Same GCC parent matrix; legacy QMP driver also selects ref_clk_src, so it does not repair this CCF identity mismatch"
+    },
+    {
+      "repository": "MiCode-sheng",
+      "commit": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "applicability": "Reference voting preserved; legacy driver made the same parent selection without checking its failure"
+    },
+    {
+      "repository": "LineageOS-piano",
+      "commit": "3f10fc25273b42d18d0bd533551a0a5c3dda0094",
+      "applicability": "Different Qualcomm platform; its board values do not apply to Kalama GCC"
+    },
+    {
+      "repository": "ACK",
+      "commit": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+      "applicability": "clk_has_parent/clk_hw_get_parent_by_index/devm_clk_hw_get_clk exported CCF interfaces"
+    }
+  ],
+  "build_result": "SoC modules compiled successfully",
+  "hardware_result": "pending",
+  "usb_fixed": false,
+  "limitation": "Repairs a proven clock-parent contract error; its role in total USB/no-charging remains to be tested",
+  "module_sha256": "8095ec5e73ed9befcc738540d24998f76b17eb41abb5c1b9c7c79ed67289657b",
+  "module_api_check": {
+    "module": "/root/sheng-618/upstream-build/k618/soc/phy-msm-ssusb-qmp.ko",
+    "required_imports": [
+      "__clk_get_hw",
+      "clk_has_parent",
+      "clk_hw_get_parent_by_index",
+      "devm_clk_hw_get_clk"
+    ],
+    "source_sha256": "f03aad80f5cfff055cbc7b631efd028162144d2c17061b8c38cc9a37abd6045b",
+    "actual_ccf_parent_api_imports_verified": true
+  },
+  "known_old_r36_rejected": "QMP pipe-parent repair absent from ELF: __clk_get_hw, clk_has_parent, clk_hw_get_parent_by_index, devm_clk_hw_get_clk"
+}

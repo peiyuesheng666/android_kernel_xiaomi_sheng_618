@@ -1,0 +1,55 @@
+--- a/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe_bus/cam_vfe_bus_ver3.c
++++ b/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe_bus/cam_vfe_bus_ver3.c
+@@ -4114,8 +4114,14 @@
+ 			CAM_DBG(CAM_ISP, "VFE:%u Warning unaligned stride %u expected %u",
+ 				bus_priv->common_data.core_index, stride, val);
+ 
++		/* VFE780 accepts the supplied plane pitch, including FD NV12
++		 * pitch 852. Rounding it changes the DMA layout and can write
++		 * past the mapped allocation. Retain explicit WM overrides.
++		 */
+ 		if (cfg->stride != 0)
+ 			val = cfg->stride;
++		else if (bus_priv->bus_hw_info->use_io_stride)
++			val = stride;
+ 
+ 		CAM_ISP_ADD_REG_VAL_PAIR(reg_val_pair, MAX_REG_VAL_PAIR_SIZE, j,
+ 			wm_data->client_base + wm_data->hw_regs->image_cfg_2, val);
+@@ -5827,6 +5833,9 @@
+ 	bus_priv->common_data.soc_info = soc_info;
+ 	bus_priv->common_data.bus_wr_base = ver3_hw_info->bus_wr_base;
+ 	bus_priv->bus_hw_info = ver3_hw_info;
++	if (ver3_hw_info->use_io_stride)
++		CAM_INFO(CAM_ISP, "VFE:%u VFE780 supplied plane stride enabled",
++			soc_info->index);
+ 
+ 	bus_priv->vfe_out = CAM_MEM_ZALLOC((sizeof(struct cam_isp_resource_node) *
+ 		CAM_VFE_BUS_VER3_VFE_OUT_MAX), GFP_KERNEL);
+--- a/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe_bus/cam_vfe_bus_ver3.h
++++ b/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe_bus/cam_vfe_bus_ver3.h
+@@ -333,6 +333,7 @@
+  * @ubwc_client_mask:                Mask for clients supporting UBWC.
+  * @bus_wr_base:                     Base address for Bus Wr.
+  * @support_dyn_offset:              Flag for supporting dynamic offset
++ * @use_io_stride:                   Program supplied plane pitch without rounding
+  */
+ struct cam_vfe_bus_ver3_hw_info {
+ 	struct cam_vfe_bus_ver3_reg_offset_common common_reg;
+@@ -369,6 +370,7 @@
+ 	uint64_t ubwc_clients_mask;
+ 	uint64_t bus_wr_base;
+ 	bool     support_dyn_offset;
++	bool     use_io_stride;
+ };
+ 
+ /**
+--- a/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe17x/cam_vfe780.h
++++ b/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe17x/cam_vfe780.h
+@@ -1457,6 +1457,7 @@
+ };
+ 
+ static struct cam_vfe_bus_ver3_hw_info vfe780_bus_hw_info = {
++	.use_io_stride = true,
+ 	.common_reg = {
+ 		.hw_version                       = 0x00000C00,
+ 		.cgc_ovd                          = 0x00000C08,

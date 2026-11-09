@@ -16,6 +16,8 @@ from sheng618_build_identity import configure, verify, LOCAL_SUFFIX
 from audit_kernel618_modules import ElfModule
 from sheng618_fastrpc_config import build_flags as rpc_build_flags, verify_imports as verify_rpc_imports
 from sheng618_fastrpc_config import EVA_REQUIRED_IMPORTS
+from sheng618_ssphy_pipe_xo import verify as verify_ssphy_pipe_xo
+from sheng618_camera_io_stride import verify as verify_camera_io_stride
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', required=True)
@@ -62,6 +64,7 @@ def kernel():
 
 def soc_modules():
     run('soc', [*make, 'M=' + str(soc), 'modules'])
+    verify_ssphy_pipe_xo(soc / 'phy-msm-ssusb-qmp.ko', PROJECT, K618)
 
 
 def techpacks():
@@ -111,6 +114,8 @@ def techpacks():
                 'KCFLAGS=-Wno-error -include ' + str(K618 / 'tp-autoconf.h') + ' ' + expand(defs),
                 *shlex.split(expand(variables))]
         run('tp-' + name, args)
+        if name == 'camera':
+            verify_camera_io_stride(stage / 'camera.ko', PROJECT, K618)
         if name == 'eva515':
             verify_rpc_imports(stage / 'msm/msm-eva.ko', EVA_REQUIRED_IMPORTS)
         shutil.copyfile(stage / 'Module.symvers', K618 / 'tp-log' / (name + '.symvers'))
@@ -141,6 +146,8 @@ def manifest():
     preferred['frpc-adsprpc.ko'] = K618 / 'vendor/xiaomi/adsprpc-515/frpc-adsprpc.ko'
     rpc_check = verify_rpc_imports(preferred['frpc-adsprpc.ko'])
     eva_check = verify_rpc_imports(tp / 'eva-kernel-515/msm/msm-eva.ko', EVA_REQUIRED_IMPORTS)
+    ssphy_check = verify_ssphy_pipe_xo(soc / 'phy-msm-ssusb-qmp.ko', PROJECT, K618)
+    camera_check = verify_camera_io_stride(tp / 'camera-kernel/camera.ko', PROJECT, K618)
     result = {}
     for old in sorted(baseline.glob('*.ko')):
         key = 'kiwi_v2.ko' if old.name == 'qca_cld3_kiwi_v2.ko' else old.name
@@ -163,6 +170,8 @@ def manifest():
                   module_count=len(result), binary_vermagic_rewriting=False,
                   fastrpc_vendor_api_check=rpc_check,
                   eva_fastrpc_api_check=eva_check,
+                  ssphy_pipe_xo_api_check=ssphy_check,
+                  camera_io_stride_check=camera_check,
                   compiler_version_full=subprocess.check_output([CLANG / 'clang', '--version'], text=True))
     destination = native / 'all-modules.json'
     destination.write_text(json.dumps(report, indent=2) + '\n')
