@@ -21,7 +21,7 @@
   "selinux_mode_unchanged": true,
   "persistent_adb_properties_written": false,
   "watch_interval_seconds": 15,
-  "install_result": "pending device connection",
+  "install_result": "Native /data/adb/ksud module install succeeded",
   "boot_autostart_verified": false,
   "references": [
     {
@@ -71,5 +71,9 @@
       "authentication_unchanged": true
     }
   },
-  "control_flow_check_scope": "Host command mocks: early boot, denied properties, enable and stop/restore; not Android execution"
+  "control_flow_check_scope": "Host command mocks: early boot, denied properties, enable and stop/restore; not Android execution",
+  "runtime_5555_connected": true,
+  "root_shell_verified": true,
+  "superseded_by": "1.1",
+  "runtime_limitation": "Settings-provider Binder operations failed; v1 stopped with original runtime properties restored before v2 install"
 }

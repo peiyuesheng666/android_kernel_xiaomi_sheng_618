@@ -10,8 +10,11 @@ import zipfile
 
 PROJECT = Path(__file__).resolve().parents[1]
 SOURCE = PROJECT / 'device/xiaomi/sheng/tools/Adb5555Module'
-OUTPUT = PROJECT / 'artifacts/sheng-adb-5555-v1'
-REPORT = PROJECT / 'reports/sheng-adb-5555-module-v1.json'
+properties = dict(line.split('=', 1) for line in (SOURCE / 'module.prop').read_text().splitlines() if '=' in line)
+version_code = int(properties['versionCode'])
+assert version_code > 0 and re.fullmatch(r'[0-9]+(?:\.[0-9]+)*', properties['version'])
+OUTPUT = PROJECT / f'artifacts/sheng-adb-5555-v{version_code}'
+REPORT = PROJECT / f'reports/sheng-adb-5555-module-v{version_code}.json'
 FILES = ('module.prop', 'customize.sh', 'service.sh', 'worker.sh', 'restore.sh', 'uninstall.sh')
 
 policy = json.loads((PROJECT / 'device/xiaomi/sheng/interfaces/kernel/6.18/root-policy.json').read_text())
@@ -29,7 +32,7 @@ for name, data in payloads.items():
         assert set(re.findall(r'\bsetprop\s+(\S+)', data.decode())) <= allowed_properties
 
 OUTPUT.mkdir(exist_ok=True)
-archive = OUTPUT / 'sheng-adb-5555-v1.zip'
+archive = OUTPUT / f'sheng-adb-5555-v{version_code}.zip'
 with zipfile.ZipFile(archive, 'w') as packed:
     for name, data in sorted(payloads.items()):
         entry = zipfile.ZipInfo(name, date_time=(2026, 11, 9, 0, 0, 0))
@@ -43,7 +46,7 @@ with zipfile.ZipFile(archive) as packed:
         assert packed.read(name) == data
         assert (packed.getinfo(name).external_attr >> 16) & 0o777 == (0o755 if name.endswith('.sh') else 0o644)
 
-report = dict(module='sheng_adb_5555', version='1.0', date='2026-11-09', port=5555,
+report = dict(module='sheng_adb_5555', version=properties['version'], version_code=version_code, date='2026-11-09', port=5555,
               user_authorized=True, archive=str(archive.relative_to(PROJECT)),
               archive_sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),
               source_sha256=hashes, shell_syntax_checked=True,

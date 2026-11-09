@@ -1,0 +1,65 @@
+{
+  "module": "sheng_adb_5555",
+  "version": "1.1",
+  "version_code": 2,
+  "date": "2026-11-09",
+  "port": 5555,
+  "user_authorized": true,
+  "archive": "artifacts/sheng-adb-5555-v2/sheng-adb-5555-v2.zip",
+  "archive_sha256": "4a364c5b6d032c461c92183c43c130921d569cbb298beeac0a8eb276ae0db60f",
+  "source_sha256": {
+    "module.prop": "60f902bd398d32135f7e9f3a5fd0273d55845865d6bc10219a72dd8b691b00f5",
+    "customize.sh": "831f969c569614079ee6651ea26ecd159a0049bc2d688f03be7d425e24967d51",
+    "service.sh": "c162696bb3c33696ebba3466549765491e464430011c6e0797a736de2968a5ce",
+    "worker.sh": "fbb2b94a164b32ccf6284ab3655202f9bae3ee28814cf1b641490286399ab06e",
+    "restore.sh": "3c0dc7c944b7ac0c49e6a617504065eaa89494a966d7287925bb56d4d4e41162",
+    "uninstall.sh": "729b6e082be75cf3d9efc5d618a0c7c6a0873d0b698d7fda5399a3024f271f38"
+  },
+  "shell_syntax_checked": true,
+  "zip_payload_and_permissions_checked": true,
+  "built_in_gki_root_added": false,
+  "adb_authentication_unchanged": true,
+  "selinux_mode_unchanged": true,
+  "persistent_adb_properties_written": false,
+  "watch_interval_seconds": 15,
+  "install_result": "Native /data/adb/ksud module install succeeded",
+  "boot_autostart_verified": false,
+  "references": [
+    {
+      "repository": "Android-packages-modules-adb",
+      "commit": "f83360242ba6a66ae7570e126009ab530eeef120",
+      "file": "daemon/main.cpp",
+      "applicability": "Existing runtime listen-address/port properties"
+    },
+    {
+      "repository": "KernelSU userspace reference only",
+      "commit": "0c0fdb960178fa12d80d6cbcfdcb6ad8be6a865d",
+      "files": [
+        "userspace/ksud/src/module.rs",
+        "userspace/ksud/src/installer.sh"
+      ],
+      "applicability": "Root-level module.prop/customize.sh/service.sh archive contract; no kernel integration"
+    },
+    {
+      "repository": "LineageOS-piano",
+      "commit": "3f10fc25273b42d18d0bd533551a0a5c3dda0094",
+      "applicability": "Device tree does not provide a root startup-module recipe"
+    },
+    {
+      "repository": "LineageOS-nuwa",
+      "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+      "applicability": "Device-specific tree does not provide a root startup-module recipe"
+    }
+  ],
+  "limitation": "Current-boot root and listener verified; boot execution still pending",
+  "runtime_5555_connected": true,
+  "root_shell_verified": true,
+  "installed_directory": "/data/adb/modules_update/sheng_adb_5555",
+  "runtime_serial": "192.168.1.153:5555",
+  "runtime_evidence": "reports/device/kernel618-hardware-r36/adb5555-module-v2-runtime.txt",
+  "runtime_evidence_sha256": "2772a6c3fcb2db180d2bfe7ddfd6dc59f98437546a3dcda78a5b6758bcb33557",
+  "runtime_settings_binder_operations": false,
+  "selinux": "Enforcing",
+  "ro_adb_secure": "1",
+  "runtime_limitation": "Manually started installer-staged module; boot autostart to be tested during r37 reboot"
+}

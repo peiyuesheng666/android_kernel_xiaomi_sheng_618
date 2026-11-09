@@ -20,12 +20,6 @@ log_event() {
 if [ ! -f "$STATE/saved" ]; then
   getprop service.adb.tcp.port > "$STATE/tcp-port"
   getprop service.adb.listen_addrs > "$STATE/listen-addrs"
-  settings get global adb_enabled > "$STATE/adb-enabled" 2>/dev/null
-  original_adb=$(cat "$STATE/adb-enabled")
-  case "$original_adb" in
-    0|1|null) ;;
-    *) rm -f "$STATE/adb-enabled" ;;
-  esac
   touch "$STATE/saved"
 fi
 
@@ -37,7 +31,6 @@ trap cleanup EXIT
 trap 'exit 0' HUP INT TERM
 
 log_event "worker started; target tcp:5555"
-settings_ready=0
 while [ -d "$MODDIR" ] && [ ! -f "$MODDIR/disable" ] && [ ! -f "$MODDIR/remove" ]; do
   changed=0
   if [ "$(getprop service.adb.tcp.port)" != 5555 ]; then
@@ -47,17 +40,6 @@ while [ -d "$MODDIR" ] && [ ! -f "$MODDIR/disable" ] && [ ! -f "$MODDIR/remove" 
   if [ "$(getprop service.adb.listen_addrs)" != tcp:5555 ]; then
     setprop service.adb.listen_addrs tcp:5555 >> "$LOG" 2>&1
     changed=1
-  fi
-
-  if [ "$(getprop sys.boot_completed)" = 1 ]; then
-    if [ "$settings_ready" = 0 ] || [ "$(settings get global adb_enabled 2>/dev/null)" != 1 ]; then
-      if [ ! -f "$STATE/adb-enabled" ]; then
-        settings get global adb_enabled > "$STATE/adb-enabled" 2>/dev/null
-      fi
-      if settings put global adb_enabled 1 >> "$LOG" 2>&1; then
-        settings_ready=1
-      fi
-    fi
   fi
 
   if [ "$(getprop service.adb.tcp.port)" = 5555 ] &&

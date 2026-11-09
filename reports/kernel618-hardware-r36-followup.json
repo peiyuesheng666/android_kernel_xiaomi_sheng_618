@@ -29,7 +29,7 @@
     "verified": true
   },
   "root_manager_work_performed": false,
-  "adb_startup_module_created": false,
+  "adb_startup_module_created": true,
   "adb_5555_enabled_by_this_change": false,
   "user_confirmed": {
     "video_recording_works": true,
@@ -37,10 +37,11 @@
     "green_area_in_preview": true,
     "green_area_in_saved_video": true,
     "later_camera_freeze": true,
-    "later_full_green_screen": true
+    "later_full_green_screen": true,
+    "usb_returns_after_about_40_minutes": true
   },
-  "actual_runtime_kernel_identity_verified": false,
-  "android_boot_completed_verified_by_adb": false,
+  "actual_runtime_kernel_identity_verified": true,
+  "android_boot_completed_verified_by_adb": true,
   "video_recording_status": "Initially could record with a green bottom strip; user later reports recurring freeze and full green screen. Recording is not fixed or accepted.",
   "raw_evidence": "reports/device/kernel618-hardware-r36",
   "evidence": {
@@ -51,6 +52,22 @@
     "flash.txt": {
       "bytes": 166,
       "sha256": "4c2ce4c018f747288160c1c9569c3d4f3aad214add512ff3f50ee836ecb2178b"
+    },
+    "adb5555-module-v2-runtime.txt": {
+      "bytes": 10635,
+      "sha256": "2772a6c3fcb2db180d2bfe7ddfd6dc59f98437546a3dcda78a5b6758bcb33557"
+    },
+    "current-kernel-root.txt": {
+      "bytes": 4288149,
+      "sha256": "691b4e1507ac50b7b0716cef3cd83c446ed7f9b513d4cca656faf0ff8d5954d0"
+    },
+    "current-logcat-root.txt": {
+      "bytes": 7363400,
+      "sha256": "d46d6fa0c413bcbf0c6a56fe8f557526dc8e161e3f507d4913345bbbf4871280"
+    },
+    "bugreport-r36.zip": {
+      "bytes": 34758357,
+      "sha256": "fada671daf887e248f46314c25b8307134a42d33d05d2bb188feac7614a9166d"
     }
   },
   "remaining": [
@@ -60,14 +77,16 @@
     "white boot flash and slow startup",
     "long-term sensors sleep/resume stability"
   ],
-  "required_input": "Confirm wireless-debug main-page port rather than pairing-popup port; reconnect device to capture freeze logs and install module",
-  "limitation": "Successful flash and user feedback are distinct from an ADB runtime identity check; no current-r36 bugreport is available yet",
+  "required_input": null,
+  "limitation": "Camera recurrent failure remains; actual r36 root/kernel and 5555 connection have now been verified",
   "wireless_serial_requested": "192.168.1.153:36911",
-  "current_device_connection_available": false,
-  "wireless_connection_failure": "TCP timeout (10060); WLAN route is directly 192.168.1.0/24 and ARP entry is reachable",
+  "current_device_connection_available": true,
   "root_available_user_reported": true,
-  "root_shell_verified": false,
+  "root_shell_verified": true,
   "adb_module_now_authorized": true,
-  "adb_module_artifact": "artifacts/sheng-adb-5555-v1/sheng-adb-5555-v1.zip",
-  "adb_module_install_result": "pending device connection"
+  "adb_module_artifact": "artifacts/sheng-adb-5555-v2/sheng-adb-5555-v2.zip",
+  "adb_module_install_result": "Installed v2 natively; current-boot 5555 tested; boot autostart pending",
+  "wired_adb_later_observed": true,
+  "wired_connection_elapsed_ms": 2458668,
+  "wired_initial_observation_seconds": 300.36
 }
