@@ -5,6 +5,8 @@ import difflib
 import hashlib
 import json
 import subprocess
+from pathlib import Path
+import sheng618_root_policy
 
 LOCAL_SUFFIX = '-peiyuesheng-sheng-kernel'
 BUILD_USER = 'peiyuesheng'
@@ -12,6 +14,7 @@ BUILD_HOST = 'MiFans'
 
 
 def configure(ack, output, project):
+    sheng618_root_policy.configure(ack, output, project)
     config = output / '.config'
     subprocess.run([ack / 'scripts/config', '--file', config,
                     '--set-str', 'LOCALVERSION', LOCAL_SUFFIX,
@@ -58,4 +61,5 @@ def verify(output, expected_release):
     text = (output / 'include/generated/compile.h').read_text()
     assert f'"{BUILD_USER}"' in text and f'"{BUILD_HOST}"' in text, text
     assert 'https://' not in text and 'http://' not in text and 'googlesource' not in text, text
-    return dict(release=release, compile_header=text)
+    return dict(release=release, compile_header=text,
+                root_policy=sheng618_root_policy.verify(output, Path(__file__).resolve().parents[1]))

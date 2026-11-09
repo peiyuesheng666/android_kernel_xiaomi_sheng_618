@@ -11,6 +11,13 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
+2026-11-09 r36：按最新要求关闭内置 KSU/SUSFS；核心和最终内嵌 Image 的
+配置、符号表核查通过，旧 r35 的已启用 root 配置被校验门槛拒绝。
+启动镜像已封装并回读校验，尚未刷入；不处理 KSU 管理器版本，不制作或
+启用无线 ADB 5555 模块，待用户明确说可以做模块后再执行。
+去掉内置 root 本身不能证明其他 root 方案可用。详见
+[r36 root 移除记录](reports/kernel618-root-removal-r36.json)。
+
 2026-11-09 下午 r35：16:41:54 仅刷 boot_a；用户确认进入桌面，五分钟有线
 ADB 未出现。用户重新开启无线调试后，确认实际 r35；传感器恢复至 54 项，
 两次采样有真实加速度、陀螺仪和方向数据，原 FastRPC 会话分配错误消失。

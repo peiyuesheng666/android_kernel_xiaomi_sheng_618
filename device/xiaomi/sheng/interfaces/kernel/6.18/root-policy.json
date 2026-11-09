@@ -1,0 +1,10 @@
+{
+  "built_in_gki_root": false,
+  "effective_from_revision": "hardware-r36",
+  "user_request_date": "2026-11-09",
+  "disable_config_prefixes": ["KSU", "SUSFS"],
+  "root_manager_version_work_authorized": false,
+  "adb_startup_module_authorized": false,
+  "future_requested_adb_module_port": 5555,
+  "note": "Remove the built-in GKI root scheme from the next candidate. Defer the startup module until the user explicitly says to make it."
+}

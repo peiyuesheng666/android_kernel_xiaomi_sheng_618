@@ -1,0 +1,41 @@
+{
+  "revision": "hardware-r36",
+  "date": "2026-11-09",
+  "user_requested_built_in_gki_root": false,
+  "scope": "Disable built-in KSU and SUSFS from r36; manager and boot ADB module deferred",
+  "implementation": "Apply root-policy.json before olddefconfig in both core and embedded Image builds; gate active config and defined System.map symbols",
+  "core_checks": {
+    "out-gki": {
+      "built_in_gki_root": false,
+      "disabled_prefixes": [
+        "KSU",
+        "SUSFS"
+      ],
+      "active_root_options": [],
+      "defined_root_symbols": [],
+      "verified": true
+    },
+    "out-gki-ir": {
+      "built_in_gki_root": false,
+      "disabled_prefixes": [
+        "KSU",
+        "SUSFS"
+      ],
+      "active_root_options": [],
+      "defined_root_symbols": [],
+      "verified": true
+    }
+  },
+  "known_rooted_r35_rejected": "Built-in root options still enabled: CONFIG_KSU, CONFIG_KSU_SUSFS, CONFIG_KSU_SUSFS_SUS_PATH, CONFIG_KSU_SUSFS_SUS_MOUNT, CONFIG_KSU_SUSFS_SUS_KSTAT, CONFIG_KSU_SUSFS_SPOOF_UNAME, CONFIG_KSU_SUSFS_ENABLE_LOG, CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS, CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG, CONFIG_KSU_SUSFS_OPEN_REDIRECT, CONFIG_KSU_SUSFS_SUS_MAP",
+  "final_embedded_config_sha256": "cc32d7020c4ded5a72cc39045f6a5375dbba7d9a1d9838b4ffe14f990ca7267b",
+  "boot_sha256": "f7ca4c84b64d0ad2479b62f6aa93c25dfba5d56471c9399f2c18003ef25e3951",
+  "image_sha256": "6472808861c1dc1eee38d3c1aadbc5b2576bd554f7bd3705f0965e1beaea2d05",
+  "official_boot_template_preserved": true,
+  "adb_5555_enabled": false,
+  "adb_startup_module_created": false,
+  "root_manager_version_work_performed": false,
+  "hardware_result": "not flashed; ADB endpoint offline",
+  "original_firmware_read_only": true,
+  "maximum_retained_versions": 5,
+  "limitation": "Disabling the built-in GKI root does not by itself establish that another root provider is available on the device"
+}
