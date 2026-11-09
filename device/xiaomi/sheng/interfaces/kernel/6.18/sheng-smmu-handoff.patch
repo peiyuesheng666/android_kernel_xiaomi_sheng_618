@@ -1,0 +1,50 @@
+--- a/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -45,6 +45,7 @@
+ #include <linux/fsl/mc.h>
+ 
+ #include "arm-smmu.h"
++#include "sheng_smmu_handoff.h"
+ 
+ #include "drivers/iommu/dma-iommu.h"
+ #include "../../iommu-logger.h"
+@@ -3020,12 +3021,23 @@
+ 	 * invalid and all S2CRn as bypass unless overridden.
+ 	 */
+ 		mutex_lock(&smmu->stream_map_mutex);
+-		for (i = 0; i < smmu->num_mapping_groups; ++i)
++		for (i = 0; i < smmu->num_mapping_groups; ++i) {
++			/* Leave the live firmware SMR/S2CR pair untouched. */
++			if (smmu->s2crs[i].pinned &&
++			    smmu->s2crs[i].type == S2CR_TYPE_TRANS &&
++			    sheng_smmu_boot_context_pinned(smmu, smmu->s2crs[i].cbndx))
++				continue;
+ 			arm_smmu_write_sme(smmu, i);
++		}
+ 		mutex_unlock(&smmu->stream_map_mutex);
+ 
+ 	/* Make sure all context banks are disabled and clear CB_FSR  */
+ 		for (i = 0; i < smmu->num_context_banks; ++i) {
++			if (sheng_smmu_boot_context_pinned(smmu, i)) {
++				dev_info(dev, "sheng splash: preserve firmware CB%d SCTLR=%x\n",
++					i, arm_smmu_cb_read(smmu, i, ARM_SMMU_CB_SCTLR));
++				continue;
++			}
+ 			arm_smmu_write_context_bank(smmu, i);
+ 			arm_smmu_cb_write(smmu, i, ARM_SMMU_CB_FSR, ARM_SMMU_CB_FSR_FAULT);
+ 		}
+@@ -3554,6 +3566,14 @@
+ 	INIT_LIST_HEAD(&rmr_list);
+ 	iort_get_rmr_sids(dev_fwnode(smmu->dev), &rmr_list);
+ 
++	/* A DT system has no ACPI RMRs. CLIENTPD would interrupt the pinned
++	 * display even though this function has no mappings to install. */
++	if (list_empty(&rmr_list)) {
++		iort_put_rmr_sids(dev_fwnode(smmu->dev), &rmr_list);
++		dev_info(smmu->dev, "sheng splash: empty RMR list; client access retained\n");
++		return;
++	}
++
+ 	/*
+ 	 * Rather than trying to look at existing mappings that
+ 	 * are setup by the firmware and then invalidate the ones

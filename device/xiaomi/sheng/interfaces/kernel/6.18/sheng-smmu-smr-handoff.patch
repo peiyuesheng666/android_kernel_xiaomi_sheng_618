@@ -1,0 +1,50 @@
+--- a/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -1892,7 +1892,12 @@
+ 			goto out_err;
+ 
+ 		idx = ret;
+-		if (smrs && smmu->s2crs[idx].count == 0) {
++		/* count==0 means no Linux owner yet, not that the firmware's
++		 * live, pinned match is free. Its mask can cover several display
++		 * SIDs (sheng: 0x1c00/0x1c02); narrowing it to this first SID
++		 * interrupts the other scanout pipe before DRM has bound. */
++		if (smrs && smmu->s2crs[idx].count == 0 &&
++		    !sheng_smmu_keep_firmware_smr(smmu, idx)) {
+ 			smrs[idx].id = sid;
+ 			smrs[idx].mask = mask;
+ 			smrs[idx].valid = config_smrs;
+@@ -1906,9 +1911,20 @@
+ 	}
+ 	mutex_unlock(&smmu->stream_map_mutex);
+ 
+-	/* It worked! Now, poke the actual hardware */
+-	for_each_cfg_sme(cfg, fwspec, i, idx)
++	/* Claim Linux references without reprogramming an unclaimed firmware
++	 * context. A same-CB attach already leaves S2CR unchanged; EARLY_MAP
++	 * installs the Linux context once splash buffers have been mapped. */
++	for_each_cfg_sme(cfg, fwspec, i, idx) {
++		if (sheng_smmu_keep_firmware_smr(smmu, idx) &&
++		    sheng_smmu_boot_context_pinned(smmu, smmu->s2crs[idx].cbndx)) {
++			dev_info(smmu->dev,
++				"sheng splash: retain SMR%d id=%x mask=%x CB%u at claim\n",
++				idx, smrs[idx].id, smrs[idx].mask,
++				smmu->s2crs[idx].cbndx);
++			continue;
++		}
+ 		arm_smmu_write_sme(smmu, idx);
++	}
+ 
+ 	return 0;
+ 
+@@ -3215,6 +3231,10 @@
+ 				smmu->s2crs[i].cbndx = FIELD_GET(ARM_SMMU_S2CR_CBNDX, s2cr);
+ 
+ 				smmu->s2crs[i].pinned = true;
++				dev_info(smmu->dev,
++					"sheng splash: handoff SMR%u raw=%x S2CR=%x id=%x mask=%x CB%u\n",
++					i, smr, s2cr, smrs.id, smrs.mask,
++					smmu->s2crs[i].cbndx);
+ 				bitmap_set(smmu->context_map, smmu->s2crs[i].cbndx, 1);
+ 				k618_pinned++;
+ 

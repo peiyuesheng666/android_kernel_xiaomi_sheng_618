@@ -16,6 +16,8 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', required=True)
 parser.add_argument('--base', required=True)
 parser.add_argument('--pre-driver-hold-ms', type=int, default=0, choices=[0, 8000])
+parser.add_argument('--post-dispcc-hold-ms', type=int, default=0, choices=[0, 8000])
+parser.add_argument('--before-display-hold-ms', type=int, default=0, choices=[0, 8000])
 parser.add_argument('--omit', action='append', default=[])
 parser.add_argument('--replace', action='append', default=[], metavar='MODULE=PATH')
 args = parser.parse_args()
@@ -87,4 +89,6 @@ print('Verified module changes: ' + ', '.join([*args.omit, *replacements]) + '; 
 subprocess.run([sys.executable, PROJECT / 'scripts/build_sheng618_disklog_boot.py',
     '--tag', args.tag, '--overlay', overlay, '--legacy-module-reuse', '--legacy-fscrypt',
     '--legacy-firmware-lsm', '--pre-driver-hold-ms', str(args.pre_driver_hold_ms),
+    '--post-dispcc-hold-ms', str(args.post_dispcc_hold_ms),
+    '--before-display-hold-ms', str(args.before_display_hold_ms),
     '--no-records'], check=True)

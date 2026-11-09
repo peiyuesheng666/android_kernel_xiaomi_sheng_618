@@ -1,0 +1,49 @@
+--- a/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -1563,9 +1563,23 @@
+ 
+ 	/* Initialise the context bank with our page table cfg */
+ 	arm_smmu_init_context_bank(smmu_domain, pgtbl_cfg);
+-	if (smmu->impl && smmu->impl->init_context_bank)
+-		smmu->impl->init_context_bank(smmu_domain, dev);
+-	arm_smmu_write_context_bank(smmu, cfg->cbndx);
++	if (sheng_smmu_defer_boot_context(smmu, cfg->cbndx,
++			smmu_domain->delayed_s1_trans_enable,
++			cfg->cbar != CBAR_TYPE_S2_TRANS)) {
++		/* Even with M=0, Linux's coherent-bypass attributes change the
++		 * firmware scanout's memory accesses. Store Linux's new tables
++		 * in RAM, but leave the live hardware context alone until the
++		 * display explicitly enables translation after mapping splash. */
++		dev_info(smmu->dev,
++			"sheng splash: defer CB%u context; firmware SCTLR=%x Linux bypass=%x\n",
++			cfg->cbndx,
++			arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR),
++			smmu->cbs[cfg->cbndx].sctlr);
++	} else {
++		if (smmu->impl && smmu->impl->init_context_bank)
++			smmu->impl->init_context_bank(smmu_domain, dev);
++		arm_smmu_write_context_bank(smmu, cfg->cbndx);
++	}
+ 
+ 	/*
+ 	 * Request context fault interrupt. Do this last to avoid the
+@@ -2928,7 +2942,18 @@
+ 	cb = &smmu->cbs[idx];
+ 	cb->sctlr = arm_smmu_lpae_sctlr(cfg);
+ 
+-	arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, cb->sctlr);
++	if (sheng_smmu_context_has_pinned_stream(smmu, idx)) {
++		/* This EARLY_MAP context was deferred at allocation. Install
++		 * CBA2R/CBAR, TCR, TTBR and MAIR before the final SCTLR.M write. */
++		if (smmu->impl && smmu->impl->init_context_bank)
++			smmu->impl->init_context_bank(smmu_domain, smmu_domain->dev);
++		arm_smmu_write_context_bank(smmu, idx);
++		dev_info(smmu->dev,
++			"sheng splash: mappings ready; installed CB%d SCTLR=%x\n",
++			idx, cb->sctlr);
++	} else {
++		arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, cb->sctlr);
++	}
+ 	arm_smmu_rpm_put(smmu);
+ 	smmu_domain->delayed_s1_trans_enable = false;
+ out:

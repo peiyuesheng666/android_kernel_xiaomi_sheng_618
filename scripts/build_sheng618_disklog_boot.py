@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 """Build the original module layer plus a bounded, built-in rawdump logger."""
 import argparse
+import gzip
 import hashlib
 import json
 import os
@@ -23,6 +24,14 @@ parser.add_argument('--tag', default='disklog-r5')
 parser.add_argument('--overlay', type=Path, default=K618 / 'boot-test/stage/overlay.cpio')
 parser.add_argument('--test-timeout', type=int, choices=[180, 600],
                     help='Test only: return to bootloader at the selected uptime in seconds')
+parser.add_argument('--pre-driver-hold-ms', type=int, default=0, choices=[0, 8000],
+                    help='Test only: isolate faults occurring before board modules load')
+parser.add_argument('--post-dispcc-hold-ms', type=int, default=0, choices=[0, 8000],
+                    help='Test only: hold after display clock registration, before later drivers')
+parser.add_argument('--before-display-hold-ms', type=int, default=0, choices=[0, 8000],
+                    help='Test only: hold at display module entry after SoC driver loading')
+parser.add_argument('--kernel-compression', choices=['gzip', 'none'], default='gzip',
+                    help='Use the sheng ABL gzip path verified by hardware-r58')
 parser.add_argument('--legacy-module-reuse', action='store_true',
                     help='Recognize live replacements for stock 5.15 module duplicates')
 parser.add_argument('--fscrypt-trace', action='store_true', help='Print only provisioning length/type/flags')
@@ -30,7 +39,17 @@ parser.add_argument('--legacy-fscrypt', action='store_true', help='Support old A
 parser.add_argument('--legacy-firmware-lsm', action='store_true', help='Match stock firmware SELinux load contract')
 parser.add_argument('--replace-untested', action='store_true',
                     help='Replace only this unflashed candidate, preserving its directory')
+parser.add_argument('--no-records', action='store_true',
+                    help='Reuse installed source adaptations and omit progress/receipt files')
 options = parser.parse_args()
+assert sum(bool(x) for x in (options.pre_driver_hold_ms, options.post_dispcc_hold_ms,
+                            options.before_display_hold_ms)) <= 1, 'Use a single stage hold'
+if options.post_dispcc_hold_ms:
+    assert b'TEST_ONLY post-clock hold begin' in options.overlay.read_bytes(), \
+        'Overlay does not implement the selected stage hold'
+if options.before_display_hold_ms:
+    assert b'TEST_ONLY before-display hold begin' in options.overlay.read_bytes(), \
+        'Overlay does not implement the selected display entry hold'
 tag = options.tag
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', tag), 'Invalid artifact label'
 assert options.overlay.is_file()
@@ -57,17 +76,17 @@ def run(args, **kwargs):
 assert sha(stock) == '4156a2369f78bc5df61b6a521b07a508dedf20d5e63c207d30986ae37df3eaea'
 misc = ACK / 'drivers/misc'
 source = work / 'device/xiaomi/sheng/interfaces/kernel/6.18/sheng_bootlog.c'
-if 'sheng_bootlog_fault_pause' in source.read_text():
+if not options.no_records and 'sheng_bootlog_fault_pause' in source.read_text():
     run([sys.executable, work / 'scripts/patch_sheng618_fault_capture.py'])
-if 'sheng_bootlog_test_mode' in source.read_text():
+if not options.no_records and 'sheng_bootlog_test_mode' in source.read_text():
     run([sys.executable, work / 'scripts/patch_sheng618_test_reboot.py'])
-if options.legacy_module_reuse:
+if options.legacy_module_reuse and not options.no_records:
     run([sys.executable, work / 'scripts/patch_sheng618_module_reuse.py'])
-if options.legacy_fscrypt:
+if options.legacy_fscrypt and not options.no_records:
     run([sys.executable, work / 'scripts/patch_sheng618_fscrypt_legacy.py'])
-elif options.fscrypt_trace:
+elif options.fscrypt_trace and not options.no_records:
     run([sys.executable, work / 'scripts/patch_sheng618_fscrypt_trace.py'])
-if options.legacy_firmware_lsm:
+if options.legacy_firmware_lsm and not options.no_records:
     run([sys.executable, work / 'scripts/patch_sheng618_firmware_lsm.py'])
 shutil.copyfile(source, misc / 'sheng_bootlog.c')
 makefile = misc / 'Makefile'
@@ -88,7 +107,13 @@ make = ['make', '-C', ACK, 'O=' + str(oi), 'ARCH=arm64', 'LLVM=1', 'LLVM_IAS=1',
         'PAHOLE=' + str(TOOLS / 'kernel-build-tools/linux_musl-x86/bin/pahole')]
 log = LOGS / ('upstream-' + tag + '-image.log')
 try:
-    configure_identity(ACK, oi, work)
+    if options.no_records:
+        verify_identity(oi, (K618 / 'out-gki/include/config/kernel.release').read_text().strip())
+        assert 'sheng_module_reuse:' in (ACK / 'kernel/module/main.c').read_text()
+        assert 'CONFIG_SHENG_LEGACY_FSCRYPT_PROVISIONING' in (ACK / 'fs/crypto/keyring.c').read_text()
+        assert 'CONFIG_SHENG_LEGACY_FIRMWARE_LSM' in (ACK / 'security/selinux/hooks.c').read_text()
+    else:
+        configure_identity(ACK, oi, work)
     run([ACK / 'scripts/config', '--file', config, '--enable', 'SHENG_BOOTLOG',
          '--set-val', 'LOG_BUF_SHIFT', '22', '--set-str', 'INITRAMFS_SOURCE',
          options.overlay.resolve(), '--disable', 'INITRAMFS_FORCE'])
@@ -102,7 +127,8 @@ try:
     with log.open('w') as stream:
         run([*make, 'olddefconfig'], env=env, stdout=stream, stderr=subprocess.STDOUT)
         run([*make, '-j' + str(os.cpu_count()), 'Image'], env=env, stdout=stream, stderr=subprocess.STDOUT)
-    (native / 'kernel.config').write_bytes(config.read_bytes())
+    if not options.no_records:
+        (native / 'kernel.config').write_bytes(config.read_bytes())
     identity = verify_identity(oi, (K618 / 'out-gki/include/config/kernel.release').read_text().strip())
     expected = sorted(line for line in (K618 / 'out-gki/Module.symvers').read_text().splitlines()
                       if line.split('\t')[2] == 'vmlinux')
@@ -117,9 +143,20 @@ parts = native / 'stock-parts'
 args = shlex.split(run([sys.executable, unpack, '--boot_img', stock, '--out', parts,
                        '--format=mkbootimg'], capture_output=True, text=True).stdout)
 assert (parts / 'ramdisk').read_bytes() == b''
-args[args.index('--kernel') + 1] = str(image)
+kernel_payload = image
+if options.kernel_compression == 'gzip':
+    kernel_payload = native / 'Image.gz'
+    kernel_payload.write_bytes(gzip.compress(image.read_bytes(), compresslevel=9, mtime=0))
+    assert gzip.decompress(kernel_payload.read_bytes()) == image.read_bytes()
+args[args.index('--kernel') + 1] = str(kernel_payload)
 cmdline = 'printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=' + tag
 cmdline += ' sheng_bootlog.revision=' + tag
+if options.pre_driver_hold_ms:
+    cmdline += f' sheng_bootlog.pre_driver_hold_ms={options.pre_driver_hold_ms}'
+if options.post_dispcc_hold_ms:
+    cmdline += f' dispcc_kalama.sheng_postclock_hold_ms={options.post_dispcc_hold_ms}'
+if options.before_display_hold_ms:
+    cmdline += f' msm_drm.sheng_before_display_hold_ms={options.before_display_hold_ms}'
 if options.test_timeout:
     cmdline += f' sheng_bootlog.test_timeout={options.test_timeout} panic=5'
 args[args.index('--cmdline') + 1] = cmdline
@@ -131,7 +168,10 @@ run([avb, 'add_hash_footer', '--image', packed, '--partition_name', 'boot',
 run([avb, 'verify_image', '--image', packed], capture_output=True)
 verify = native / 'verified'
 header = run([sys.executable, unpack, '--boot_img', packed, '--out', verify], capture_output=True, text=True).stdout
-assert sha(verify / 'kernel') == sha(image) and (verify / 'ramdisk').read_bytes() == b''
+verified_kernel = (verify / 'kernel').read_bytes()
+if options.kernel_compression == 'gzip':
+    verified_kernel = gzip.decompress(verified_kernel)
+assert verified_kernel == image.read_bytes() and (verify / 'ramdisk').read_bytes() == b''
 assert cmdline in header and 'rdinit=' not in header
 dest.mkdir(exist_ok=options.replace_untested)
 shutil.copyfile(image, dest / 'Image')
@@ -168,12 +208,17 @@ if 'sheng_bootlog_fault_pause' in source.read_text():
     report['exception_pause_ms'] = 1500
     report['test_exception_pause_ms'] = 15000 if options.test_timeout else None
     report['exception_writer_runs_on_other_cpu'] = True
-(dest / 'build-result.json').write_text(json.dumps(report, indent=2) + '\n')
+if not options.no_records:
+    (dest / 'build-result.json').write_text(json.dumps(report, indent=2) + '\n')
 (dest / 'SHA256SUMS').write_text(report['boot_sha256'] + '  boot.img\n' + report['image_sha256'] + '  Image\n')
-(work / ('reports/kernel618-' + tag + '-boot.json')).write_text(json.dumps(report, indent=2) + '\n')
+if not options.no_records:
+    (work / ('reports/kernel618-' + tag + '-boot.json')).write_text(json.dumps(report, indent=2) + '\n')
 versions = sorted((p for p in (work / 'artifacts').glob('sheng-6.18-*') if p.is_dir()),
                   key=lambda p: p.stat().st_mtime, reverse=True)
 for old in versions[5:]:
     assert old.parent.resolve() == (work / 'artifacts').resolve() and not old.is_symlink()
     shutil.rmtree(old)
-print(json.dumps(report, indent=2), flush=True)
+if options.no_records:
+    print('Built ' + tag + ': ' + report['boot_sha256'], flush=True)
+else:
+    print(json.dumps(report, indent=2), flush=True)

@@ -1,0 +1,42 @@
+--- a/soc/drivers/clk/qcom/dispcc-kalama.c
++++ b/soc/drivers/clk/qcom/dispcc-kalama.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/clk.h>
++#include <linux/delay.h>
+ #include <linux/clk-provider.h>
+ #include <linux/err.h>
+ #include <linux/kernel.h>
+@@ -2005,6 +2006,9 @@
+ /* The shipping DT uses generic kalama-mtp compatible strings. Match the
+  * exact tablet model before preserving its already-running LCD scanout. */
+ static bool sheng_dispcc_live_splash;
++static unsigned int sheng_postclock_hold_ms;
++module_param(sheng_postclock_hold_ms, uint, 0400);
++MODULE_PARM_DESC(sheng_postclock_hold_ms, "Test-only post-DISP-CC hold, 0 disables, max 10000 ms");
+ 
+ static bool sheng_dispcc_board(void)
+ {
+@@ -2048,6 +2052,8 @@
+ 	unsigned int mdp_branch;
+ 	int ret;
+ 
++	if (sheng_postclock_hold_ms > 10000)
++		return -EINVAL;
+ 	regmap = qcom_cc_map(pdev, &disp_cc_kalama_desc);
+ 	if (IS_ERR(regmap))
+ 		return PTR_ERR(regmap);
+@@ -2110,6 +2116,12 @@
+ 	sheng_dispcc_boot_voltage(false);
+ 	pm_runtime_put_sync(&pdev->dev);
+ 	dev_info(&pdev->dev, "Registered DISP CC clocks\n");
++	if (!ret && sheng_dispcc_board() && sheng_postclock_hold_ms) {
++		dev_notice(&pdev->dev, "TEST_ONLY post-clock hold begin (%u ms)\n",
++			sheng_postclock_hold_ms);
++		msleep(sheng_postclock_hold_ms);
++		dev_notice(&pdev->dev, "TEST_ONLY post-clock hold end\n");
++	}
+ 
+ 	return ret;
+ }

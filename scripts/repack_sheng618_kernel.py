@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-"""Repack a verified kernel with gzip and an optional pre-driver timing hold."""
+"""Repack a verified kernel with bounded timing and SMMU attachment options."""
 import argparse
 import gzip
 import hashlib
@@ -16,6 +16,8 @@ parser.add_argument('--tag', required=True)
 parser.add_argument('--base', required=True)
 parser.add_argument('--pre-driver-hold-ms', type=int, default=0, choices=[0, 8000],
                     help='Test only: enable the existing built-in eight-second hold')
+parser.add_argument('--smmu-lazy-attach', type=int, choices=[0, 1],
+                    help='Override the existing SMMU module attachment parameter')
 args = parser.parse_args()
 assert all(re.fullmatch(r'hardware-r[0-9]+', tag) for tag in (args.tag, args.base))
 base = PROJECT / 'artifacts' / ('sheng-6.18-' + args.base)
@@ -49,6 +51,14 @@ cmdline = re.sub(r'(?:^|\s)sheng_bootlog\.pre_driver_hold_ms=\S+', '', cmdline)
 cmdline = cmdline.replace(args.base, args.tag)
 if args.pre_driver_hold_ms:
     cmdline += f' sheng_bootlog.pre_driver_hold_ms={args.pre_driver_hold_ms}'
+if args.smmu_lazy_attach is not None:
+    # The embedded module layer is compressed; inspect the audited source
+    # module instead of searching the outer Image for its parameter name.
+    smmu_module = ROOT / 'diagnostic' / args.base / 'layer/lib/modules/arm_smmu.ko'
+    assert b'lazy_attach' in smmu_module.read_bytes(), \
+        'Selected module lacks the attachment parameter'
+    cmdline = re.sub(r'(?:^|\s)arm_smmu\.lazy_attach=\S+', '', cmdline)
+    cmdline += f' arm_smmu.lazy_attach={args.smmu_lazy_attach}'
 assert 'sheng_bootlog.test_timeout=' not in cmdline, 'Do not inherit timed reboots'
 options[cmdline_index] = cmdline
 boot = native / 'boot.img'
@@ -81,3 +91,5 @@ print(f'{args.tag}: kernel payload {len(image)} -> {len(compressed)} bytes; '
       'decompressed kernel and embedded modules unchanged; AVB verified', flush=True)
 print('Boot SHA256: ' + digest(dest / 'boot.img'), flush=True)
 print(f'Pre-driver hold: {args.pre_driver_hold_ms} ms; cmdline readback verified', flush=True)
+if args.smmu_lazy_attach is not None:
+    print(f'SMMU lazy attachment: {args.smmu_lazy_attach}; exact kernel preserved', flush=True)

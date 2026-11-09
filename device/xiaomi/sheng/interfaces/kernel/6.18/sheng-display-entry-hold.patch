@@ -1,0 +1,32 @@
+--- a/vendor/qcom/opensource/display-drivers/msm/msm_drv.c
++++ b/vendor/qcom/opensource/display-drivers/msm/msm_drv.c
+@@ -1,4 +1,5 @@
+ #include "sheng_ktz8866.h"
++#include <linux/delay.h>
+ /*
+  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+  * Copyright (c) 2016-2021, The Linux Foundation. All rights reserved.
+@@ -2612,11 +2613,23 @@
+ }
+ #endif /* OPLUS_FEATURE_DISPLAY */
+ 
++static unsigned int sheng_before_display_hold_ms;
++module_param(sheng_before_display_hold_ms, uint, 0400);
++MODULE_PARM_DESC(sheng_before_display_hold_ms, "Test-only display entry hold, 0 disables, max 10000 ms");
++
+ static int __init msm_drm_register(void)
+ {
+ 	int ret;
+ 	if (!modeset)
+ 		return -EINVAL;
++	if (sheng_before_display_hold_ms > 10000)
++		return -EINVAL;
++	if (sheng_before_display_hold_ms) {
++		pr_notice("TEST_ONLY before-display hold begin (%u ms)\n",
++			sheng_before_display_hold_ms);
++		msleep(sheng_before_display_hold_ms);
++		pr_notice("TEST_ONLY before-display hold end\n");
++	}
+ 
+ 	DBG("init");
+ 
