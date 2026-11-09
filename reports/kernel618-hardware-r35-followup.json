@@ -1,0 +1,123 @@
+{
+  "revision": "hardware-r35",
+  "date": "2026-11-09",
+  "timezone": "Asia/Singapore",
+  "boot_sha256": "ba2579bd55e3978dec9ced6899c231d3e182674308d065dc2f94a5a74122dddb",
+  "image_sha256": "e721d6acd34296113f431c7567bddb69949a664532805758d706829fe2f43fad",
+  "flashed_partitions": [
+    "boot_a"
+  ],
+  "test_timeout_seconds": null,
+  "wireless_serial": "192.168.1.153:41129",
+  "actual_build_timestamp": "Mon Nov 9 16:36:36 +08 2026",
+  "android_boot_completed": true,
+  "kernel_cmdline_revision_verified": true,
+  "sensor_snapshots": {
+    "sensors-wireless.txt": {
+      "sensor_count": 54,
+      "events": {
+        "icm4x6xx Accelerometer Non-wakeup": {
+          "events": 50,
+          "first_timestamp_seconds": 200.973024886,
+          "last_timestamp_seconds": 210.828103532
+        },
+        "icm4x6xx Gyroscope Non-wakeup": {
+          "events": 9,
+          "first_timestamp_seconds": 38.281364202,
+          "last_timestamp_seconds": 137.234343346
+        },
+        "device_orient  Wakeup": {
+          "events": 1,
+          "first_timestamp_seconds": 43.224117327,
+          "last_timestamp_seconds": 43.224117327
+        }
+      },
+      "sha256": "4cf838ca9e63226af20279926489beb162bd38bb2d8071fea595c706bce080bb"
+    },
+    "sensors-wireless-later.txt": {
+      "sensor_count": 54,
+      "events": {
+        "icm4x6xx Accelerometer Non-wakeup": {
+          "events": 50,
+          "first_timestamp_seconds": 507.055571334,
+          "last_timestamp_seconds": 517.508389459
+        },
+        "icm4x6xx Gyroscope Non-wakeup": {
+          "events": 10,
+          "first_timestamp_seconds": 137.100817148,
+          "last_timestamp_seconds": 516.325684979
+        },
+        "device_orient  Wakeup": {
+          "events": 1,
+          "first_timestamp_seconds": 43.224117327,
+          "last_timestamp_seconds": 43.224117327
+        }
+      },
+      "sha256": "6ddd1f1f60a337098be201395ca1b1e708c2bfe100f9f4726a2648850e85c04d"
+    }
+  },
+  "fastrpc_session_allocation_failures_in_kernel": 0,
+  "sensor_data_path_restored": true,
+  "sensor_long_term_resume_stability_verified": false,
+  "usb_connected": false,
+  "usb_configured": false,
+  "usb_charging": false,
+  "usb_initial_300_second_gate_passed": false,
+  "stopped_after_usb_gate": false,
+  "ssphy_parent_clock_warning_present": true,
+  "root_shell_available": false,
+  "root_manager_work_deferred": true,
+  "root_startup_module_work_deferred": true,
+  "future_requested_module_port": 5555,
+  "scheduled_heartbeat_deleted": "sheng-6-18",
+  "continuous_goal_active": true,
+  "raw_evidence": "reports/device/kernel618-hardware-r35",
+  "evidence": {
+    "bugreport-r35.zip": {
+      "bytes": 28835471,
+      "sha256": "eb33e19f114109f1b8e4b8cfb86b427d0abbc7da3f3a1a04a2c95bb165f2b507"
+    },
+    "camera-wireless.txt": {
+      "bytes": 1183949,
+      "sha256": "1248794e72c251d289eab11b56d4363b9104cab67860c066a0dace3462bb9d7f"
+    },
+    "control.txt": {
+      "bytes": 8754,
+      "sha256": "009276981a01b71f01a592ee72ac222e9f8a7a9daa4ef1b70650259df2ecbf93"
+    },
+    "current-kernel.txt": {
+      "bytes": 2261730,
+      "sha256": "7317cf7b3e24260d05d3ec8cfbdbabed309d135bcc66e709767d66aeb38b5b6c"
+    },
+    "flash.txt": {
+      "bytes": 166,
+      "sha256": "58082e7adccadb1c84d0dcdac50122cf186b1a61b70c9e562a2787e69dee8130"
+    },
+    "identity-wireless.txt": {
+      "bytes": 1194,
+      "sha256": "c7b2353daf269ccd7eda588470eff6efa8a7cb38d43c73e9f4fae806e668ad8d"
+    },
+    "logcat-wireless.txt": {
+      "bytes": 26574524,
+      "sha256": "4979d6858c00c0ba84be54126abfa0163720de4655948fd519864cbe88854c59"
+    },
+    "sensors-wireless-later.txt": {
+      "bytes": 66773,
+      "sha256": "6ddd1f1f60a337098be201395ca1b1e708c2bfe100f9f4726a2648850e85c04d"
+    },
+    "sensors-wireless.txt": {
+      "bytes": 54528,
+      "sha256": "4cf838ca9e63226af20279926489beb162bd38bb2d8071fea595c706bce080bb"
+    },
+    "usb-wireless.txt": {
+      "bytes": 2489,
+      "sha256": "2a1918801e2837c4b7086d6b8ff1477dfe267561386ea88d2718a91ae358ff9c"
+    }
+  },
+  "limitations": [
+    "Observed sensor registrations and genuine samples, not a long-term sleep/resume stress test",
+    "USB still disconnected and not charging through the tested cable",
+    "Speaker distortion, video recording and startup white flash remain unaccepted",
+    "Next candidate removes built-in GKI root; no manager repair or startup module until user explicitly requests it"
+  ]
+}

@@ -10,7 +10,11 @@ from test_sheng618_hardware import ROOT, SERIAL, sha, win
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--revision', required=True)
+parser.add_argument('--observe-seconds', type=int, default=300)
+parser.add_argument('--stop-if-wired-absent', action='store_true',
+                    help='Historical opt-in gate; normally retain results and continue diagnostics')
 options = parser.parse_args()
+assert 30 <= options.observe_seconds <= 3600
 tag = options.revision
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', tag)
 delivery = ROOT / ('artifacts/sheng-6.18-' + tag)
@@ -24,7 +28,8 @@ assert not (folder / 'flash.txt').exists(), 'Preserve previous flash records'
 report = ROOT / ('reports/kernel618-' + tag + '-hardware.json')
 receipt = dict(revision=tag, boot_sha256=build['boot_sha256'], image_sha256=build['image_sha256'],
                writes=['boot_a'], test_mode_enabled=False, events=[], full_hardware_functionality_verified=False,
-               wired_adb_timeout_seconds=300, stop_task_if_wired_adb_absent=True,
+               wired_adb_timeout_seconds=options.observe_seconds,
+               stop_task_if_wired_adb_absent=options.stop_if_wired_absent,
                adb_transport='USB', adb_serial=SERIAL)
 
 def record(event, **data):
@@ -92,11 +97,13 @@ try:
     if available:
         # A listed transport alone does not prove that adbd can execute commands.
         available = call('adb', 'shell', 'uname -r', check=False).strip() == build['build_identity']['release']
-    receipt['stop_required'] = not available
+    receipt['stop_required'] = not available and options.stop_if_wired_absent
+    receipt['wired_adb_available_at_deadline'] = available
+    receipt['continued_diagnostics_required'] = not available and not options.stop_if_wired_absent
     record('wired_adb_deadline_reached', elapsed_seconds=round(time.monotonic()-start, 2),
            wired_adb_observed=receipt.get('candidate_adb_connected', False),
            wired_adb_available_at_deadline=available, stop_required=receipt['stop_required'])
-    if not available:
+    if receipt['stop_required']:
         raise TimeoutError('USB ADB absent at the 300-second deadline; preserve results and stop task')
 except Exception as error:
     record('failed', error=str(error))

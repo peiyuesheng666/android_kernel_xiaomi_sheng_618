@@ -11,6 +11,15 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
+2026-11-09 下午 r35：16:41:54 仅刷 boot_a；用户确认进入桌面，五分钟有线
+ADB 未出现。用户重新开启无线调试后，确认实际 r35；传感器恢复至 54 项，
+两次采样有真实加速度、陀螺仪和方向数据，原 FastRPC 会话分配错误消失。
+USB 仍未连接、未充电；传感器长期休眠恢复、炸音、录像、开机白闪和速度
+尚未验收。用户要求持续修复，原五分钟停止条件不再默认启用。
+误建的十分钟 heartbeat 已删除，持续目标仍有效。从 r36 起去掉内置 GKI
+root；KSU 版本处理和无线调试模块都暂缓，待用户说可以做模块时再做
+开机开启端口 5555 的模块。详见 [r35 实机记录](reports/kernel618-hardware-r35-followup.json)。
+
 2026-11-09 下午：用户重新要求继续修复，有线 ADB 已恢复。定位 r33/r34 的
 FastRPC 重编漏带 tp-autoconf.h：普通 DMA 缓冲被恒定 false 的所有权占位函数
 误判为安全缓冲，ADSP 安全会话申请返回 EUSERS，监听服务持续失败。

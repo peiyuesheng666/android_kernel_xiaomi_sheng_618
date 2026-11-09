@@ -1,5 +1,30 @@
 # 6.18 sheng 外围实机修复
 
+## 2026-11-09 r35 实机与持续修复约定
+
+16:41:54 校验 product=sheng、a 槽、unlocked=yes、is-userspace=no 后，
+仅刷已验证 r35 的 boot_a 并正常启动，不带定时重启。300.4 秒观察未收到
+有线 ADB；用户确认已进入桌面，提供新无线端口 192.168.1.153:41129。
+实际 banner 为 16:36:36 构建的 r35，bugreport 内核命令行含 hardware-r35。
+Android boot_completed=1，SELinux 保持原厂 Enforcing。
+
+两次 sensorservice 采样均有 54 项，包含加速度计、陀螺仪与设备方向；后次
+加速度事件更新至 516 秒，陀螺仪也有真实样本。当前 bugreport 内核段原来的
+fastrpc_session_alloc failed 完全消失。已证明传感器数据通路恢复，不能用
+这段观察代替长期休眠/唤醒和自动旋转稳定性验收。
+USB 仍为 DISCONNECTED、none/no-power/no-data，电池未充电，SS PHY 的
+pipe_clk set_parent disable 告警仍在，不能视为 USB 已修复。
+扬声器炸音、视频录制、白闪和启动慢继续处理。模块差异审计另发现 r33
+以后 EVA 缺少三个 FastRPC 导入，正在修正相关配置，尚不宣称录像恢复。
+
+用户要求设定持续目标并一直修复；本轮不因五分钟无有线 ADB 停止。
+test_sheng618_normal_boot.py 保留旧停止条件作为显式选项，默认记录结果后
+继续排查。误解用户“无人值守”而创建的 heartbeat sheng-6-18 已删除。
+当前持续目标仍 active。最新 root 指令为下一版去掉内置 GKI root，不处理
+管理器版本，也不创建模块；只有用户明确说可以做模块后，才制作开机开启
+无线调试端口 5555 的模块。当前 shell 没有 su，不假定已获 root。
+完整哈希与范围限制见 kernel618-hardware-r35-followup.json。
+
 ## 2026-11-09 下午 r35 FastRPC 厂商配置回归修复
 
 用户重新要求继续修复，并补充 USB 开机后不可用、过几十分钟自行恢复，方向
