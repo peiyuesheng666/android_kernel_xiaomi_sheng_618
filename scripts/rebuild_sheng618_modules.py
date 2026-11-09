@@ -14,6 +14,7 @@ import subprocess
 from build_sheng618_upstream import ACK, CLANG, K618, LOGS, OUT, PROJECT, ROOT, TOOLS, UPSTREAM, environment
 from sheng618_build_identity import configure, verify, LOCAL_SUFFIX
 from audit_kernel618_modules import ElfModule
+from sheng618_fastrpc_config import build_flags as rpc_build_flags, verify_imports as verify_rpc_imports
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', required=True)
@@ -96,7 +97,8 @@ def techpacks():
             # driver/device structures differ from the generic 6.12 provider.
             legacy = K618 / 'vendor/xiaomi/adsprpc-515'
             run('rpc-before-eva', [*make, 'M=' + str(legacy), 'modules', 'SOC=' + str(soc),
-                'KBUILD_EXTRA_SYMBOLS=' + str(soc / 'Module.symvers')])
+                'KBUILD_EXTRA_SYMBOLS=' + str(soc / 'Module.symvers'), *rpc_build_flags(K618)])
+            verify_rpc_imports(legacy / 'frpc-adsprpc.ko')
             incs = str(legacy / 'include') + ' ' + incs
             syms = [p for p in syms if p.name != 'dsp.symvers'] + [legacy / 'Module.symvers']
         args = [*make, 'M=' + str(stage), 'modules', 'KERNEL_SRC=' + str(ACK),
@@ -115,8 +117,11 @@ def tablet():
     stages = [K618 / 'sheng-ports' / group for group in ('pogo', 'cs35l43', 'touch', 'fingerprint', 'hall', 'keyboard')]
     stages += [ROOT / 'ports/ps5169', K618 / 'vendor/xiaomi/adsprpc-515', K618 / 'mark']
     for stage in stages:
+        extra = rpc_build_flags(K618) if stage.name == 'adsprpc-515' else []
         run('native-' + stage.name, [*make, 'M=' + str(stage), 'modules', 'SOC=' + str(soc),
-            'KBUILD_EXTRA_SYMBOLS=' + ' '.join(map(str, syms))])
+            'KBUILD_EXTRA_SYMBOLS=' + ' '.join(map(str, syms)), *extra])
+        if stage.name == 'adsprpc-515':
+            verify_rpc_imports(stage / 'frpc-adsprpc.ko')
         syms.append(stage / 'Module.symvers')
 
 
@@ -130,6 +135,7 @@ def manifest():
             sources.setdefault(path.name, []).append(path)
     preferred = {name: soc / name for name in ('qmi_helpers.ko', 'pdr_interface.ko', 'qcom_pdr_msg.ko')}
     preferred['frpc-adsprpc.ko'] = K618 / 'vendor/xiaomi/adsprpc-515/frpc-adsprpc.ko'
+    rpc_check = verify_rpc_imports(preferred['frpc-adsprpc.ko'])
     result = {}
     for old in sorted(baseline.glob('*.ko')):
         key = 'kiwi_v2.ko' if old.name == 'qca_cld3_kiwi_v2.ko' else old.name
@@ -150,6 +156,7 @@ def manifest():
     assert len(result) == 344, len(result)
     report = dict(revision=options.tag, release=expected_release, modules=result,
                   module_count=len(result), binary_vermagic_rewriting=False,
+                  fastrpc_vendor_api_check=rpc_check,
                   compiler_version_full=subprocess.check_output([CLANG / 'clang', '--version'], text=True))
     destination = native / 'all-modules.json'
     destination.write_text(json.dumps(report, indent=2) + '\n')

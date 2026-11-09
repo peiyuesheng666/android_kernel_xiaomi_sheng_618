@@ -1,5 +1,42 @@
 # 6.18 sheng 外围实机修复
 
+## 2026-11-09 下午 r35 FastRPC 厂商配置回归修复
+
+用户重新要求继续修复，并补充 USB 开机后不可用、过几十分钟自行恢复，方向
+传感器间歇失效，充电提示音等扬声器输出偶发炸音，拍照可用而录像失败。
+16:23–16:25 有线 ca10ede3 实际响应，运行 r34、boot_completed=1、SELinux
+Enforcing；USB 为 CONFIGURED、UFP/device/sink，电池报告充电中。
+当前 sensorservice 只有 Dynamic Sensor Manager，没有加速度计或陀螺仪。
+该恢复发生在旧 r34 上，不能视为本轮修复的效果，USB 延迟根因仍未确认。
+
+本次只读 bugreport 的内核段有 2489 条 fastrpc_session_alloc failed/ret -87
+记录；adsprpcd 和 sscrpcd 的监听线程反复得到 ENOSR 并重新初始化。
+对照固定上游 c3956156ce7c4193c451dfda531fad72d35bfebb 的 k618_rpc515.sh、
+LOS nuwa f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d 的 mem-buf.h，发现本项目
+rebuild_sheng618_modules.py 的 native-adsprpc-515 与 rpc-before-eva 两处漏带
+tp-autoconf.h。实际 r34 ELF 缺少 mem_buf_dma_buf_exclusive_owner、
+qcom_register_ssr_notifier、msm_minidump_add_region、qcom_elf_dump 四个导入。
+早期 tablet-r20 同名模块保留全部四项，区别不是单纯日志告警。
+
+选定 SoC 的 mem-buf.h 在 CONFIG_QCOM_MEM_BUF_DEV 未启用时将所有权 API
+替换为 static inline false。fastrpc_mmap_create 因而将普通缓冲误判为安全缓冲，
+请求 secure=1；sheng 原厂 ADSP context banks 都是非安全，故返回 EUSERS。
+调用方转为 ENOSR，即当前监听线程的 Out of streams resources。这里的
+“max concurrent sessions”告警不足以证明真正泄漏或耗尽 12 个普通会话。
+
+两处重编恢复上游同样的 SoC 头文件优先级和强制厂商配置，保留原厂安全归属
+API，不改其返回值或安全会话数量。新增真实 ELF 导入门槛，在两处 FastRPC
+重编后、完整模块清单和最终封包时检查；旧 r34 被拒绝，早期模块和重编模块
+被接受。FastRPC、EVA 以及板级模块重编通过，其余模块沿用 r33/r34 同一
+release 的真实重编输出；344 项清单来源哈希已核对，未二进制改 CRC/vermagic。
+r35 候选已构建，344 模块 ABI、18008 项内核导出、归档权限及官方 boot
+封包回读检查通过。尚未刷入，无自动重启。恢复传感器、扬声器及录像均待实机
+验证，不能从编译成功推定三项问题已经解决。
+
+原始日志保持在忽略目录，整理报告为 kernel618-fastrpc-config-source.json，
+包含 bugreport、前后 ELF 与固定参考文件哈希以及已知坏模块拒绝结果。
+交付目录按既有约定保留 r31–r35 五版，移除 r30 交付副本；原始线刷包只读。
+
 ## 2026-11-09 无线调试恢复助手与三分钟停止条件
 
 用户先撤销了 r34 的“仅有线 ADB”继续条件，要求无线 ADB 可用也继续修复，

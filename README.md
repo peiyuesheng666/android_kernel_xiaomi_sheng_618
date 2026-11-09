@@ -11,6 +11,16 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
+2026-11-09 下午：用户重新要求继续修复，有线 ADB 已恢复。定位 r33/r34 的
+FastRPC 重编漏带 tp-autoconf.h：普通 DMA 缓冲被恒定 false 的所有权占位函数
+误判为安全缓冲，ADSP 安全会话申请返回 EUSERS，监听服务持续失败。
+已恢复两处构建参数，并在重编、模块清单和封包阶段检查四个真实厂商接口导入；
+已用旧 r34 验证拒绝、早期及重编模块验证接受。r35 候选已构建，344 模块 ABI、
+18008 项内核导出和官方 boot 封包回读通过；尚未刷入，实机效果待验证。
+交付目录按既有规则保留 r31–r35 五版。
+USB 延迟自行恢复、扬声器偶发炸音和录像失败尚未确认根因或修复结果，详见
+[FastRPC 来源与实证](reports/kernel618-fastrpc-config-source.json)。
+
 2026-11-09 07:56：按用户最后要求，手动重启后观察三分钟仍无法连接 ADB，
 停止本轮设备调试与刷机。无线调试开机恢复助手已构建、安装并获得一次性
 ADB 设置授权，重启前设置写入成功；重启后只有 offline 旧连接，mDNS 未发现

@@ -1,0 +1,137 @@
+{
+  "date": "2026-11-09",
+  "timezone": "Asia/Singapore",
+  "revision": "hardware-r35",
+  "raw_capture_folder": "reports/device/kernel618-r34-wired-usb-sensors-20261109-1625",
+  "captures": {
+    "bugreport-sheng-BP2A.250605.031.A3-2026-11-09-16-24-35.zip": {
+      "bytes": 28001593,
+      "sha256": "a3ae86fb8f5c1ad70bdcf93dccfd267edf4fcf0c141286074db68305d57a2507"
+    },
+    "logcat-all.txt": {
+      "bytes": 33691469,
+      "sha256": "bd4da8887cc25a24667bd6d9458fd1b9e2e3e6d314b65ae2db867aad87224e7d"
+    },
+    "sensors.txt": {
+      "bytes": 1782,
+      "sha256": "b4e4d9a550206927c627ac193ca92e5b43dfb68fc87ef0b1ffd22a65d67324a4"
+    },
+    "usb.txt": {
+      "bytes": 3354,
+      "sha256": "b0cfd2ae03f8a16527f6ac9b66159d069df06eea77d19078e8aa2d558052ce3b"
+    }
+  },
+  "kernel_section_sha256": "b80b4cf967c9366a5830b749bad6669ae798a60227f544bd7b391ad07d17cab3",
+  "fastrpc_secure_session_failures_in_kernel": 2489,
+  "first_failure": "<3>[ 7816.881236][T20907] Error: adsprpc (1211): sscrpcd: fastrpc_mmap_create: fastrpc_session_alloc failed for fd 11 ret -87",
+  "failure_chain": [
+    "The r33 rebuild omitted tp-autoconf.h for adsprpc-515 in two call sites",
+    "CONFIG_QCOM_MEM_BUF_DEV was absent, selecting a static inline false ownership stub",
+    "fastrpc_mmap_create classified ordinary DMA buffers as secure",
+    "The sheng ADSP DT has no secure context bank, so secure session allocation returned EUSERS",
+    "fastrpc_mmap_create translated EUSERS to ENOSR, causing adsprpcd and sscrpcd listener failure"
+  ],
+  "before": {
+    "sha256": "0b7eece8c7a6667b916b26d61932de61f4c76b3bc378d3abb0c37239015a1b3b",
+    "missing_required_imports": [
+      "mem_buf_dma_buf_exclusive_owner",
+      "msm_minidump_add_region",
+      "qcom_elf_dump",
+      "qcom_register_ssr_notifier"
+    ]
+  },
+  "after": {
+    "sha256": "90843a094e8a616fc1012979732adea2937cb0aad6cd72475280825cd0f1eeca",
+    "check": {
+      "module": "/root/sheng-618/upstream-build/k618/vendor/xiaomi/adsprpc-515/frpc-adsprpc.ko",
+      "required_imports": [
+        "mem_buf_dma_buf_exclusive_owner",
+        "qcom_register_ssr_notifier",
+        "msm_minidump_add_region",
+        "qcom_elf_dump"
+      ],
+      "vendor_api_imports_verified": true
+    }
+  },
+  "references": [
+    {
+      "repository": "selected-sm8550-integration",
+      "commit": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+      "files": {
+        "kernel-6.18/k618_rpc515.sh": "325af87e06ef1510b49494f2c32c14416e0906278acb3a86b0092c6c7723a3c6"
+      }
+    },
+    {
+      "repository": "LineageOS-sm8550-nuwa",
+      "commit": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "files": {
+        "include/linux/mem-buf.h": "a418fcdc49521d5b2b07cd13cf36a642f5e696982cb3aaa020ea4fb16ff421b7"
+      }
+    },
+    {
+      "repository": "selected-soc-provider",
+      "commit": "b1916e6fb00018222d54469e507a729e5e9291bf",
+      "files": {
+        "include/linux/mem-buf.h": "d4ca6730c3942342bc43d6d4cacabcf2e667ce92fc5855f26b9e97735028fe4a",
+        "drivers/soc/qcom/mem_buf/mem_buf_dma_buf.c": "7e6a34a039e81e4bcbfdfc87ef29a81f657d9935982498cb811e7edfd900f2f1"
+      }
+    }
+  ],
+  "checks": {
+    "known_bad_r34_rejected": "FastRPC vendor APIs compiled as stubs: mem_buf_dma_buf_exclusive_owner, msm_minidump_add_region, qcom_elf_dump, qcom_register_ssr_notifier",
+    "earlier_working_provider": {
+      "module": "/root/sheng-618/diagnostic/tablet-r20/layer/lib/modules/frpc-adsprpc.ko",
+      "required_imports": [
+        "mem_buf_dma_buf_exclusive_owner",
+        "qcom_register_ssr_notifier",
+        "msm_minidump_add_region",
+        "qcom_elf_dump"
+      ],
+      "vendor_api_imports_verified": true
+    },
+    "rebuilt_provider": {
+      "module": "/root/sheng-618/upstream-build/k618/vendor/xiaomi/adsprpc-515/frpc-adsprpc.ko",
+      "required_imports": [
+        "mem_buf_dma_buf_exclusive_owner",
+        "qcom_register_ssr_notifier",
+        "msm_minidump_add_region",
+        "qcom_elf_dump"
+      ],
+      "vendor_api_imports_verified": true
+    }
+  },
+  "sensor_snapshot": "Only Dynamic Sensor Manager; no accelerometer or gyroscope exposed",
+  "usb_snapshot": "Wired ADB configured, UFP/device/sink, battery charging; no new USB fix applied",
+  "user_observations": [
+    "USB unavailable shortly after boot then recovers after tens of minutes",
+    "Orientation sensor intermittent",
+    "Occasional speaker/charging-sound distortion",
+    "Photo works; video recording fails"
+  ],
+  "limits": [
+    "Sensor recovery requires testing the rebuilt kernel on the device",
+    "Speaker distortion and camera recording causality not yet verified",
+    "Delayed USB recovery root cause remains unconfirmed"
+  ],
+  "hardware_result": "pending",
+  "automatic_reboot_enabled": false,
+  "candidate": {
+    "boot_sha256": "ba2579bd55e3978dec9ced6899c231d3e182674308d065dc2f94a5a74122dddb",
+    "image_sha256": "e721d6acd34296113f431c7567bddb69949a664532805758d706829fe2f43fad",
+    "module_count": 344,
+    "versioned_imports_checked": 20972,
+    "kernel_exports_unchanged": 18008,
+    "fastrpc_vendor_api_check": {
+      "module": "/root/sheng-618/diagnostic/hardware-r35/layer/lib/modules/frpc-adsprpc.ko",
+      "required_imports": [
+        "mem_buf_dma_buf_exclusive_owner",
+        "qcom_register_ssr_notifier",
+        "msm_minidump_add_region",
+        "qcom_elf_dump"
+      ],
+      "vendor_api_imports_verified": true
+    },
+    "hardware_tested": false,
+    "flashed": false
+  }
+}
