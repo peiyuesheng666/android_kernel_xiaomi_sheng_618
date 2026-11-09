@@ -1,0 +1,62 @@
+{
+  "revision": "hardware-r37",
+  "boot_sha256": "637ca987410d15eed20dade3e54d0c56440d083f0be2f2a612a8cc43052c7ccb",
+  "image_sha256": "bc3b41c21ae188acb40a9f05f0cbf914d066938ca4d95a1d096e0626b79f0946",
+  "writes": [
+    "boot_a"
+  ],
+  "automatic_reboot_enabled": false,
+  "actual_runtime_kernel_identity_verified": true,
+  "android_boot_completed_verified": true,
+  "first_root_identity_uptime_seconds": 77.33,
+  "root_shell_verified": true,
+  "adb_5555_boot_autostart_verified": true,
+  "selinux": "Enforcing",
+  "ro_adb_secure": 1,
+  "user_confirmed": {
+    "desktop": true,
+    "usb_unavailable": true,
+    "replug_usb_unavailable_and_not_charging": true,
+    "repeated_camera_recording_and_motion_normal": true
+  },
+  "usb_status": "DISCONNECTED; UDC not attached; raw UCSI connector status zero; USB ONLINE=0",
+  "camera_acceptance": "Repeated recording, tilting and reopen user test passed; captured FD SMMU fault not seen",
+  "camera_sync_warnings_remain": true,
+  "full_hardware_functionality_verified": false,
+  "remaining": [
+    "USB startup delay and charging detection",
+    "intermittent speaker distortion",
+    "white boot flash and slow startup",
+    "long-term sensors sleep/resume"
+  ],
+  "evidence": {
+    "identity.txt": {
+      "bytes": 2640,
+      "sha256": "e17d8cc7a067523e9c14282e88f5deda4e54c01eeb77aceb32786641e1c7fbae"
+    },
+    "kernel-root.txt": {
+      "bytes": 1648845,
+      "sha256": "abcef8ace2dec6f669dab3b64f1e26390daa378c2686fcbb5d6a5d3c05b981f2"
+    },
+    "usb-early.txt": {
+      "bytes": 3151,
+      "sha256": "33c94191defe26ba24582aa2b39661ac229194414f984d4a65cc9a62f5c3bb5b"
+    },
+    "ucsi-ipc.txt": {
+      "bytes": 10925,
+      "sha256": "a5b43f315164e06e575f8a15fd625e0511ac9216f51c268b94529b8ec669f7b8"
+    },
+    "dwc3-ipc.txt": {
+      "bytes": 4617,
+      "sha256": "60e1350aaa69acdcacfe85333a084519f598dabe732111775f47a18e30b616bb"
+    },
+    "camera-after-user-tests.txt": {
+      "bytes": 3485150,
+      "sha256": "78e660a279dd9634d9c7b0d812dcaeabc28c2bbf687e9863c1f34f767783d7e4"
+    },
+    "usb-after-replug.txt": {
+      "bytes": 1522,
+      "sha256": "9fc6d1a4d587c0c770e5d7939881a61c41dcc3006f3b9aeac4b4f752eb5480fe"
+    }
+  }
+}

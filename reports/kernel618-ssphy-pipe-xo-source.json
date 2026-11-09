@@ -41,9 +41,9 @@
     }
   ],
   "build_result": "SoC modules compiled successfully",
-  "hardware_result": "pending",
+  "hardware_result": "r37 selects bi_tcxo; pipe set_parent disable warnings absent; USB and charging still unavailable after boot and replug",
   "usb_fixed": false,
-  "limitation": "Repairs a proven clock-parent contract error; its role in total USB/no-charging remains to be tested",
+  "limitation": "Clock-parent contract corrected, but not the cause of full startup connection delay; raw UCSI and charger report physically disconnected",
   "module_sha256": "8095ec5e73ed9befcc738540d24998f76b17eb41abb5c1b9c7c79ed67289657b",
   "module_api_check": {
     "module": "/root/sheng-618/upstream-build/k618/soc/phy-msm-ssusb-qmp.ko",

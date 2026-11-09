@@ -1,0 +1,81 @@
+{
+  "revision": "hardware-r37",
+  "boot_sha256": "637ca987410d15eed20dade3e54d0c56440d083f0be2f2a612a8cc43052c7ccb",
+  "image_sha256": "bc3b41c21ae188acb40a9f05f0cbf914d066938ca4d95a1d096e0626b79f0946",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-09T18:09:30+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:09:30+0800",
+      "elapsed_seconds": 0.04
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:10:01+0800",
+      "elapsed_seconds": 30.77
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:10:32+0800",
+      "elapsed_seconds": 62.14
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:11:03+0800",
+      "elapsed_seconds": 92.79
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:11:34+0800",
+      "elapsed_seconds": 123.48
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:12:04+0800",
+      "elapsed_seconds": 154.12
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:12:35+0800",
+      "elapsed_seconds": 184.85
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:13:06+0800",
+      "elapsed_seconds": 215.51
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:13:36+0800",
+      "elapsed_seconds": 246.14
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-09T18:14:07+0800",
+      "elapsed_seconds": 276.78
+    },
+    {
+      "event": "wired_adb_deadline_reached",
+      "time": "2026-11-09T18:14:32+0800",
+      "elapsed_seconds": 301.35,
+      "wired_adb_observed": false,
+      "wired_adb_available_at_deadline": false,
+      "stop_required": false
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "wired_adb_timeout_seconds": 300,
+  "stop_task_if_wired_adb_absent": false,
+  "adb_transport": "USB",
+  "adb_serial": "ca10ede3",
+  "stop_required": false,
+  "wired_adb_available_at_deadline": false,
+  "continued_diagnostics_required": true
+}

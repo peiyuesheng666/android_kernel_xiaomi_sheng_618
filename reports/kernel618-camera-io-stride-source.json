@@ -68,9 +68,9 @@
   "userspace_abi_changed": false,
   "root_components_added": false,
   "build_result": "Camera techpack compiled successfully",
-  "hardware_result": "pending",
-  "camera_fixed": false,
-  "limitation": "Explains the captured FD overrun; camera tilting, repeated recording and other fence faults require runtime verification",
+  "hardware_result": "User verified repeated recordings, upward motion, exiting and reopening camera without green output or freeze on r37",
+  "camera_fixed": true,
+  "limitation": "Captured FD overrun no longer seen and user test passes; unrelated sync-object warnings remain and long-term/all-mode stability is unproven",
   "host_stride_regression": {
     "old": {
       "result": "pitch=864 last_UV_write_end=616436 allocation=614400 overflow=1",
@@ -93,5 +93,9 @@
     "source_hashes_verified": true,
     "vfe780_stride_initialization_present": true
   },
-  "known_old_r36_rejected": "VFE780 supplied-stride initialization absent from camera ELF"
+  "known_old_r36_rejected": "VFE780 supplied-stride initialization absent from camera ELF",
+  "hardware_acceptance_scope": "User repeated-recording and motion acceptance on r37; long-term/suspend and all camera modes not exhausted",
+  "runtime_vfe780_stride_enabled": true,
+  "r37_same_fd_smmu_fault_count": 0,
+  "r37_sync_object_warnings_retained": true
 }

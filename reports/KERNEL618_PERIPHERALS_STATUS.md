@@ -19,16 +19,27 @@ USB 在启动经过 2458668 ms（约 41 分钟）才连接，与用户“约四�
 USB 候选保留原 PHY XO_PAD 参考时钟投票，只在精确 sheng 型号和 GCC 主
 pipe mux 上使用该 mux 真正的 bi_tcxo 父时钟休眠，避免已确认的选父失败。
 SoC/camera 重编、344 模块的20984项导入CRC、18008内核导出、归档权限、
-来源哈希、AVB 和 boot 解包回读通过。r37 尚待刷入；交付保留 r33–r37 五版。
+来源哈希、AVB 和 boot 解包回读通过。r37于18:09:30仅刷boot_a，用户确认
+进入桌面；交付保留 r33–r37 五版。
 不内置 GKI KSU/SUSFS，不带定时重启，仍只刷 boot_a。
 
 已通过现有 /data/adb/ksud 安装用户授权的 5555 模块 v2（1.1），当前启动
 手动运行后 192.168.1.153:5555 已实际连接并执行 root 命令；ro.adb.secure=1，
 SELinux Enforcing。v2 移除无效的 settings Binder 操作，运行日志无相关失败。
-不写持久 ADB 属性，保留认证；开机自动执行待与 r37 重启一起验证。
+不写持久 ADB 属性，保留认证；r37重启后18:10:17模块自动执行，约77秒
+实际连接5555并读取root命令，开机自启已验证。
 详见 kernel618-camera-io-stride-source.json、kernel618-ssphy-pipe-xo-source.json、
 sheng-adb-5555-module-v2.json 和 r36 followup。炸音、白闪/速度及长期传感器
 休眠恢复仍继续处理。
+
+r37用户随后确认反复录制、向上移动、退出重开均正常，未再出现底部绿色或
+卡死，记录为本次相机验收通过；实机三个VFE780核心均启用原始IO stride，
+后续日志未见原IFE_FD SMMU越界，仍有sync对象告警，不虚报所有模式长期稳定。
+USB选父告警已消失，但301.35秒观察依旧无有线ADB；用户重插后仍不识别
+且不充电，故USB未修复。早期及重插后的UCSI固件GET_CONNECTOR_STATUS
+均返回未连接，USB ONLINE=0、VBUS约0.43V、CC orientation=0；控制器UDC
+存在且配置了ADB，问题已定位到连接检测/充电与Type-C链路，继续调查。
+固件原始UCSI与DWC3 IPC日志已保存；详见kernel618-hardware-r37-followup.json。
 
 ## 2026-11-09 r36 候选与 root 范围
 

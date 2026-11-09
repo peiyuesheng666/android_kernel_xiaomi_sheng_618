@@ -15,13 +15,17 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 相机按 r36 IFE_FD SMMU 越界证据恢复 VFE780 原始 plane stride（852 被错误
 写成864），保留其他硬件及 WM 覆盖值。实际代码旧/新边界对照、模块来源、
 344 模块ABI、20984项导入CRC、18008内核导出、归档及boot/AVB回读通过。
-尚待刷入实测；交付保留 r33–r37 五版。见
+18:09:30仅刷boot_a，已进入桌面；交付保留 r33–r37 五版。见
 [相机修补证据](reports/kernel618-camera-io-stride-source.json)及
 [USB候选证据](reports/kernel618-ssphy-pipe-xo-source.json)。
 r36 已确认实际 root 与内核身份，USB在启动约41分钟才恢复，与用户反馈吻合。
 已安装 5555 模块 v2，当前启动的固定端口root连接成功，保留认证及Enforcing；
-开机自动运行随r37重启验证。见 [模块实机记录](reports/sheng-adb-5555-module-v2.json)。
-相机、USB延迟、炸音、白闪和启动慢尚未宣称修复，持续目标仍 active。
+模块已在r37重启后自动执行，约77秒5555连接并读取root成功。见
+[模块实机记录](reports/sheng-adb-5555-module-v2.json)。
+用户确认反复录像、向上移动及退出重开相机均正常，本次验收通过，原FD SMMU
+越界未再见；sync告警和长期全部模式仍待观察。USB五分钟仍不识别，重插也
+不充电，固件UCSI状态为未连接，继续修复连接检测链路。炸音、白闪和启动慢
+继续处理，持续目标仍 active。见 [r37实机跟进](reports/kernel618-hardware-r37-followup.json)。
 
 2026-11-09 r36：按最新要求关闭内置 KSU/SUSFS；核心和最终内嵌 Image 的
 配置、符号表核查通过，旧 r35 的已启用 root 配置被校验门槛拒绝。

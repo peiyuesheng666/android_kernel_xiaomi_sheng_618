@@ -23,7 +23,7 @@
   "persistent_adb_properties_written": false,
   "watch_interval_seconds": 15,
   "install_result": "Native /data/adb/ksud module install succeeded",
-  "boot_autostart_verified": false,
+  "boot_autostart_verified": true,
   "references": [
     {
       "repository": "Android-packages-modules-adb",
@@ -51,15 +51,19 @@
       "applicability": "Device-specific tree does not provide a root startup-module recipe"
     }
   ],
-  "limitation": "Current-boot root and listener verified; boot execution still pending",
+  "limitation": "Device IP remains DHCP-dependent; fixed port verified",
   "runtime_5555_connected": true,
   "root_shell_verified": true,
-  "installed_directory": "/data/adb/modules_update/sheng_adb_5555",
+  "installed_directory": "/data/adb/modules/sheng_adb_5555",
   "runtime_serial": "192.168.1.153:5555",
   "runtime_evidence": "reports/device/kernel618-hardware-r36/adb5555-module-v2-runtime.txt",
   "runtime_evidence_sha256": "2772a6c3fcb2db180d2bfe7ddfd6dc59f98437546a3dcda78a5b6758bcb33557",
   "runtime_settings_binder_operations": false,
   "selinux": "Enforcing",
   "ro_adb_secure": "1",
-  "runtime_limitation": "Manually started installer-staged module; boot autostart to be tested during r37 reboot"
+  "runtime_limitation": "Boot autostart and authenticated root 5555 verified on r37; long-term network recovery not fully exercised",
+  "boot_autostart_revision": "hardware-r37",
+  "boot_autostart_evidence": "reports/device/kernel618-hardware-r37/identity.txt",
+  "boot_autostart_evidence_sha256": "e17d8cc7a067523e9c14282e88f5deda4e54c01eeb77aceb32786641e1c7fbae",
+  "boot_worker_started": "2026-11-09T18:10:17+0800"
 }
