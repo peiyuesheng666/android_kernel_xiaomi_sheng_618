@@ -1,0 +1,110 @@
+--- a/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -1160,6 +1160,31 @@
+ 	cb->sctlr = arm_smmu_lpae_sctlr(cfg);
+ }
+ 
++/* Read-only snapshots of the firmware's DT-pinned display stream.
++ * The caller already has the SMMU powered; none of these registers clear
++ * status on read. Do not dump ordinary clients or change handoff policy. */
++static void sheng_smmu_trace_streams(struct arm_smmu_device *smmu,
++		const char *stage)
++{
++	unsigned int i;
++
++	for (i = 0; i < smmu->num_mapping_groups; i++) {
++		struct arm_smmu_s2cr *s2cr = &smmu->s2crs[i];
++		unsigned int cbndx = s2cr->cbndx;
++
++		if (!s2cr->pinned || cbndx >= smmu->num_context_banks)
++			continue;
++		dev_info(smmu->dev,
++			"sheng smmu trace: %s SMR%u=%x S2CR=%x CB%u SCTLR=%x CBAR=%x CR0=%x linux_cfg=%u linux_sctlr=%x\n",
++			stage, i, arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(i)),
++			arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_S2CR(i)), cbndx,
++			arm_smmu_cb_read(smmu, cbndx, ARM_SMMU_CB_SCTLR),
++			arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBAR(cbndx)),
++			arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_sCR0),
++			!!smmu->cbs[cbndx].cfg, smmu->cbs[cbndx].sctlr);
++	}
++}
++
+ void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+ {
+ 	u32 reg;
+@@ -1167,6 +1192,11 @@
+ 	struct arm_smmu_cb *cb = &smmu->cbs[idx];
+ 	struct arm_smmu_cfg *cfg = cb->cfg;
+ 
++	if (sheng_smmu_context_has_pinned_stream(smmu, idx))
++		dev_info(smmu->dev,
++			"sheng smmu trace: write CB%d SCTLR=%x->%x cfg=%u caller=%pS\n",
++			idx, arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_SCTLR),
++			cfg ? cb->sctlr : 0, !!cfg, __builtin_return_address(0));
+ 	/* Unassigned context banks only need disabling */
+ 	if (!cfg) {
+ 		arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, 0);
+@@ -1575,6 +1605,7 @@
+ 			cfg->cbndx,
+ 			arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR),
+ 			smmu->cbs[cfg->cbndx].sctlr);
++		sheng_smmu_trace_streams(smmu, "context-deferred");
+ 	} else {
+ 		if (smmu->impl && smmu->impl->init_context_bank)
+ 			smmu->impl->init_context_bank(smmu_domain, dev);
+@@ -1716,6 +1747,11 @@
+ 
+ 	if (!(smmu->features & ARM_SMMU_FEAT_EXIDS) && smr->valid)
+ 		reg |= ARM_SMMU_SMR_VALID;
++	if (smmu->s2crs[idx].pinned)
++		dev_info(smmu->dev,
++			"sheng smmu trace: write SMR%d %x->%x caller=%pS\n",
++			idx, arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(idx)),
++			reg, __builtin_return_address(0));
+ 	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_SMR(idx), reg);
+ }
+ 
+@@ -1737,6 +1773,11 @@
+ 	if (smmu->features & ARM_SMMU_FEAT_EXIDS && smmu->smrs &&
+ 	    smmu->smrs[idx].valid)
+ 		reg |= ARM_SMMU_S2CR_EXIDVALID;
++	if (s2cr->pinned)
++		dev_info(smmu->dev,
++			"sheng smmu trace: write S2CR%d %x->%x caller=%pS\n",
++			idx, arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_S2CR(idx)),
++			reg, __builtin_return_address(0));
+ 	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_S2CR(idx), reg);
+ }
+ 
+@@ -2959,6 +3000,7 @@
+ 	cb->sctlr = arm_smmu_lpae_sctlr(cfg);
+ 
+ 	if (sheng_smmu_context_has_pinned_stream(smmu, idx)) {
++		sheng_smmu_trace_streams(smmu, "mappings-before-install");
+ 		/* This EARLY_MAP context was deferred at allocation. Install
+ 		 * CBA2R/CBAR, TCR, TTBR and MAIR before the final SCTLR.M write. */
+ 		if (smmu->impl && smmu->impl->init_context_bank)
+@@ -2967,6 +3009,7 @@
+ 		dev_info(smmu->dev,
+ 			"sheng splash: mappings ready; installed CB%d SCTLR=%x\n",
+ 			idx, cb->sctlr);
++		sheng_smmu_trace_streams(smmu, "mappings-after-install");
+ 	} else {
+ 		arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, cb->sctlr);
+ 	}
+@@ -3051,6 +3094,7 @@
+ 	u32 reg;
+ 	struct device *dev = smmu->dev;
+ 
++	sheng_smmu_trace_streams(smmu, "reset-before");
+ 	/* clear global FSR */
+ 	reg = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_sGFSR);
+ 	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_sGFSR, reg);
+@@ -3125,6 +3169,7 @@
+ 	/* Push the button */
+ 	arm_smmu_tlb_sync_global(smmu);
+ 	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_sCR0, reg);
++	sheng_smmu_trace_streams(smmu, "reset-after");
+ }
+ 
+ static int arm_smmu_id_size_to_bits(int size)
