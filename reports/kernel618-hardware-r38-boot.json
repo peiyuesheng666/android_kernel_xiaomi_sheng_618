@@ -1,0 +1,63 @@
+{
+  "revision": "hardware-r38",
+  "boot_sha256": "f7b495b1e9a07855c855b3bad9e62357b2f477352d96ad130bce3d814c307d37",
+  "image_sha256": "ee6e348dc22eb629f3dcd26116de04e67b6f4fd3b6b24432f16f1c38039e6e8a",
+  "boot_bytes": 100663296,
+  "image_bytes": 78854656,
+  "logger_source_sha256": "08cfa2c1fbc9135cf739ebca5ab422d50410d42b7cf858495801903793006ed1",
+  "kernel_exports_unchanged": 18008,
+  "build_identity": {
+    "release": "6.18.32-peiyuesheng-sheng-kernel",
+    "compile_header": "#define UTS_MACHINE\t\t\"aarch64\"\n#define LINUX_COMPILE_BY\t\"peiyuesheng\"\n#define LINUX_COMPILE_HOST\t\"MiFans\"\n#define LINUX_COMPILER\t\t\"Clang 22.0.1, LLD 22.0.1\"\n",
+    "root_policy": {
+      "built_in_gki_root": false,
+      "disabled_prefixes": [
+        "KSU",
+        "SUSFS"
+      ],
+      "active_root_options": [],
+      "defined_root_symbols": [],
+      "verified": true
+    }
+  },
+  "compiler_version_full": "Android (15323222, +pgo, +bolt, +lto, +mlgo, based on r584948c) clang version 22.0.1 (https://android.googlesource.com/toolchain/llvm-project 2d65e4108033380e6fe8e08b1f1826cd2bfb0c99)\nTarget: x86_64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /root/sheng-618/upstream-build/k618/ws/prebuilts/clang/host/linux-x86/clang-r584948c/bin\n",
+  "original_android_init_preserved": true,
+  "module_overlay": "/root/sheng-618/diagnostic/hardware-r38/overlay.cpio",
+  "module_overlay_sha256": "30a63166c43b62e72ac005745225724f88d7d60e0ad0e116398a638c1134c43e",
+  "usb_preinit_added": false,
+  "kernel_log_buffer_bytes": 4194304,
+  "writer_is_built_in": true,
+  "periodic_log_identity": true,
+  "snapshot_identity_trailer": true,
+  "preserved_early_driver_trace_bytes": 131072,
+  "destination": {
+    "gpt_name": "rawdump",
+    "required_partition_bytes": 314572800,
+    "offset": 301989888,
+    "span": 2097152,
+    "slots": 2,
+    "slot_bytes": 1048576
+  },
+  "interval_ms": 250,
+  "maximum_duration_ms": null,
+  "fast_capture_duration_ms": 120000,
+  "steady_interval_ms": 10000,
+  "late_exception_capture_retained": true,
+  "normal_panic_capture_enabled": true,
+  "test_timeout_seconds": null,
+  "crc32_and_footer": true,
+  "legacy_live_module_reuse": true,
+  "fscrypt_metadata_trace": true,
+  "legacy_fscrypt_provisioning": true,
+  "legacy_firmware_lsm": true,
+  "does_not_require_sysfs_or_device_nodes": true,
+  "requires_ufs_partition_registration": true,
+  "hardware_log_received": false,
+  "cmdline": "printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=hardware-r38 sheng_bootlog.revision=hardware-r38",
+  "build_log": "/root/sheng-618/logs/upstream-hardware-r38-image.log",
+  "maximum_retained_versions": 5,
+  "fault_capture_receipt": "kernel618-fault-capture-source.json",
+  "exception_pause_ms": 1500,
+  "test_exception_pause_ms": null,
+  "exception_writer_runs_on_other_cpu": true
+}

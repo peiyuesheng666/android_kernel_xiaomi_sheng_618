@@ -1,0 +1,64 @@
+{
+  "revision": "hardware-r37",
+  "date": "2026-11-09",
+  "usb_recovered_on_replug": true,
+  "recovered_device_role_uptime_seconds": 848.140050243,
+  "user_confirmed_same_cable_and_pc_port": true,
+  "user_confirmed_pc_disconnected_during_intermediate_interval": true,
+  "continuous_connected_failure_duration_measured": false,
+  "fixed_40_minute_recovery_threshold_proven": false,
+  "firmware_ucsi_notification_before_dwc3_role": true,
+  "recovery_status": {
+    "udc": "CONFIGURED",
+    "usb_online": 1,
+    "power_role": "sink",
+    "data_role": "device",
+    "voltage_uv": 4744000,
+    "current_ua": 1112000
+  },
+  "firmware_init_observation": "Stored initialization log initially reports bPlugIn=1, but subsequent GET_CONNECTOR_STATUS returns disconnected. Stored firmware timestamps and log retrieval timestamps are distinct.",
+  "usb_fixed": false,
+  "limitation": "No fixed delay or continuous failure window can be inferred while cable was disconnected; same-port early failure and later recovery are user-confirmed.",
+  "evidence": {
+    "kernel-usb-recovered.txt": {
+      "bytes": 3649136,
+      "sha256": "a46edf08fb31b170fc675fa1a02db9adcd851585ea1fda2834add1aa8fe17242"
+    },
+    "ucsi-recovered.txt": {
+      "bytes": 4051,
+      "sha256": "886255a095de1ddffb9b857d3746d469981e701e44056a576a70dcae1d56a8c5"
+    },
+    "dwc3-recovered.txt": {
+      "bytes": 7388,
+      "sha256": "f774f3245392d69357ce3cd6b03accb148280e9122e35f52b3b6efe035c18698"
+    },
+    "usb-recovered.txt": {
+      "bytes": 638,
+      "sha256": "290febe9899e17eb85589e8274d11b192cbcde053ad5bc112efbb7f2745d45d8"
+    },
+    "gpio-recovered.txt": {
+      "bytes": 34153,
+      "sha256": "ee1059495c9c6d4a333c62825365ed2e2a12e1e01cf47b1ff5f6b19273f576cc"
+    },
+    "logcat-usb-recovered.txt": {
+      "bytes": 27833855,
+      "sha256": "1be017d4bb72cf0e716e6c4df56c802fd97cd1b2c74d7357ac1ba4c86387be37"
+    },
+    "charger-firmware-init.txt": {
+      "bytes": 32924,
+      "sha256": "355d3b59aa8aa6e5f3ac3940384be27375e762b139f9ddc3f7b4dee8f6e2692e"
+    },
+    "charger-firmware-verbose.txt": {
+      "bytes": 45969,
+      "sha256": "f0470b1e337f5d96f7207a6e00a562cb886d07b3bbc3092001ddbbd23a5ae628"
+    },
+    "charger-init-logging-control.txt": {
+      "bytes": 20,
+      "sha256": "d8ec5575d93dfd0d19a6746eca574b676361bd02b15d7a7bfbdb72cc25b45019"
+    },
+    "charger-logging-control.txt": {
+      "bytes": 86,
+      "sha256": "90d6d94e3a21300c7089dc5e9a547c207af6cf982f9e2a49edf3872f16fe71ae"
+    }
+  }
+}

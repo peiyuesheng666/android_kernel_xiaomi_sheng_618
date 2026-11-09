@@ -11,6 +11,18 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
+2026-11-09 r38 候选：本机原厂模块核对发现当前驱动缺少 HyperOS 调用的
+screen_cctog（bool、46）、cc_toggle（int、111）、otg_ui_support（只读、109）；
+已按原厂语义补齐，限 sheng 注册，不新增默认固件写入。SoC 编译、实际回调
+解析/远端错误/注册失败回滚、旧 r37 模块拒绝、344 模块 ABI、归档、内嵌内核
+及原厂 boot 封包回读通过；保持无内置 KSU/SUSFS。尚未刷入，不能宣称 USB
+延迟修好。见 [接口修补](reports/kernel618-usb-charger-abi-source.json)与
+[验证](reports/kernel618-usb-charger-abi-validation.json)。交付保留 r34–r38 五版。
+r37 在约848.14秒后重插恢复为 CONFIGURED、sink/device，约4.744V/1.112A；
+用户确认同一线/电脑口，中间未连接电脑，因此没有测得连续故障时长，也不能
+断言固定40分钟自行恢复。早期重插失败仍保留，见
+[恢复证据](reports/kernel618-usb-recovery-r37.json)。持续目标保持 active。
+
 2026-11-09 r37 候选：修正 sheng USB PHY 休眠的实际 GCC 父时钟选择；
 相机按 r36 IFE_FD SMMU 越界证据恢复 VFE780 原始 plane stride（852 被错误
 写成864），保留其他硬件及 WM 覆盖值。实际代码旧/新边界对照、模块来源、

@@ -18,6 +18,7 @@ from sheng618_fastrpc_config import build_flags as rpc_build_flags, verify_impor
 from sheng618_fastrpc_config import EVA_REQUIRED_IMPORTS
 from sheng618_ssphy_pipe_xo import verify as verify_ssphy_pipe_xo
 from sheng618_camera_io_stride import verify as verify_camera_io_stride
+from sheng618_usb_charger_abi import verify as verify_usb_charger_abi
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', required=True)
@@ -65,6 +66,7 @@ def kernel():
 def soc_modules():
     run('soc', [*make, 'M=' + str(soc), 'modules'])
     verify_ssphy_pipe_xo(soc / 'phy-msm-ssusb-qmp.ko', PROJECT, K618)
+    verify_usb_charger_abi(soc / 'qti_battery_charger.ko', PROJECT, K618)
 
 
 def techpacks():
@@ -148,6 +150,7 @@ def manifest():
     eva_check = verify_rpc_imports(tp / 'eva-kernel-515/msm/msm-eva.ko', EVA_REQUIRED_IMPORTS)
     ssphy_check = verify_ssphy_pipe_xo(soc / 'phy-msm-ssusb-qmp.ko', PROJECT, K618)
     camera_check = verify_camera_io_stride(tp / 'camera-kernel/camera.ko', PROJECT, K618)
+    charger_check = verify_usb_charger_abi(soc / 'qti_battery_charger.ko', PROJECT, K618)
     result = {}
     for old in sorted(baseline.glob('*.ko')):
         key = 'kiwi_v2.ko' if old.name == 'qca_cld3_kiwi_v2.ko' else old.name
@@ -172,6 +175,7 @@ def manifest():
                   eva_fastrpc_api_check=eva_check,
                   ssphy_pipe_xo_api_check=ssphy_check,
                   camera_io_stride_check=camera_check,
+                  usb_charger_abi_check=charger_check,
                   compiler_version_full=subprocess.check_output([CLANG / 'clang', '--version'], text=True))
     destination = native / 'all-modules.json'
     destination.write_text(json.dumps(report, indent=2) + '\n')

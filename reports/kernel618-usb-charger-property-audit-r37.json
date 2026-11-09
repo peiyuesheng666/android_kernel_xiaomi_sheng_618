@@ -1,0 +1,71 @@
+{
+  "revision": "hardware-r37",
+  "date": "2026-11-09",
+  "stock_firmware": "OS3.0.303.0.WNXCNXM",
+  "stock_sha256": "3190a88b2bbc3abb3de123a08233c0ebea2bade2e424d67f18e62ea9e2e38047",
+  "source_sha256": "13c35b340cb1c68054f8e12ecebe5c290b851af7b0b3af5c21939e32a05e4d18",
+  "checked": {
+    "typec_mode": {
+      "property": "XM_PROP_TYPEC_MODE",
+      "current_id": 97,
+      "stock_id": 97,
+      "stock_function_address": "0x000000000000b8cc",
+      "match": true
+    },
+    "cc_orientation": {
+      "property": "XM_PROP_CC_ORIENTATION",
+      "current_id": 41,
+      "stock_id": 41,
+      "stock_function_address": "0x000000000000886c",
+      "match": true
+    },
+    "input_suspend": {
+      "property": "XM_PROP_INPUT_SUSPEND",
+      "current_id": 42,
+      "stock_id": 42,
+      "stock_function_address": "0x00000000000085a8",
+      "match": true
+    },
+    "reverse_chg_mode": {
+      "property": "XM_PROP_REVERSE_CHG_MODE",
+      "current_id": 62,
+      "stock_id": 62,
+      "stock_function_address": "0x000000000000ccfc",
+      "match": true
+    },
+    "reverse_chg_state": {
+      "property": "XM_PROP_REVERSE_CHG_STATE",
+      "current_id": 63,
+      "stock_id": 63,
+      "stock_function_address": "0x000000000000ceec",
+      "match": true
+    },
+    "mtbf_current": {
+      "property": "XM_PROP_MTBF_CURRENT",
+      "current_id": 98,
+      "stock_id": 98,
+      "stock_function_address": "0x000000000000b994",
+      "match": true
+    },
+    "authentic": {
+      "property": "XM_PROP_AUTHENTIC",
+      "current_id": 3,
+      "stock_id": 3,
+      "stock_function_address": "0x000000000000895c",
+      "match": true
+    },
+    "night_charging": {
+      "property": "XM_PROP_NIGHT_CHARGING",
+      "current_id": 44,
+      "stock_id": 44,
+      "stock_function_address": "0x0000000000009838",
+      "match": true
+    }
+  },
+  "conclusion": "Critical Type-C, input suspend, reverse charging, MTBF and authentication property IDs match the actual shipping module. MiCode older numbering differences do not prove a current regression.",
+  "usb_fixed": false,
+  "full_xm_property_table_audited": false,
+  "evidence": "reports/device/kernel618-hardware-r37/stock-charger-disassembly.txt",
+  "evidence_sha256": "06dc6b46f1bd097c4a4360434155f13f4accb836b28721fbe9755f70ca0fe9c5",
+  "limitation": "This scoped audit excludes these ID mismatches; it does not prove firmware connectivity, all properties or charging policy correctness"
+}

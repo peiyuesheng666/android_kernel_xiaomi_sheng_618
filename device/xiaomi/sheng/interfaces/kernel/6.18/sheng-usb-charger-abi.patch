@@ -1,0 +1,135 @@
+--- a/soc/drivers/power/supply/qti_battery_charger.c
++++ b/soc/drivers/power/supply/qti_battery_charger.c
+@@ -5575,6 +5575,118 @@
+ }
+ static CLASS_ATTR_RO(has_dp);
+ 
++/* HyperOS controls CC detection through these shipping class attributes.
++ * Keep its bool/int parsing and remote error handling. Do not invent a
++ * startup role, write a default, or disable firmware protections.
++ */
++static ssize_t screen_cctog_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev,
++						battery_class);
++	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_XM];
++	int rc;
++
++	rc = read_property_id(bcdev, pst, XM_PROP_SCREEN_CCTOG);
++	if (rc < 0)
++		return rc;
++	return scnprintf(buf, PAGE_SIZE, "%u", pst->prop[XM_PROP_SCREEN_CCTOG]);
++}
++
++static ssize_t screen_cctog_store(const struct class *c,
++		const struct class_attribute *attr, const char *buf, size_t count)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev,
++						battery_class);
++	bool val;
++	int rc;
++
++	if (kstrtobool(buf, &val))
++		return -EINVAL;
++	rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
++				XM_PROP_SCREEN_CCTOG, val);
++	if (rc < 0)
++		return rc;
++	return count;
++}
++
++static CLASS_ATTR_RW(screen_cctog);
++
++static ssize_t cc_toggle_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev,
++						battery_class);
++	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_XM];
++	int rc;
++
++	rc = read_property_id(bcdev, pst, XM_PROP_CC_TOGGLE);
++	if (rc < 0)
++		return rc;
++	return scnprintf(buf, PAGE_SIZE, "%u", pst->prop[XM_PROP_CC_TOGGLE]);
++}
++
++static ssize_t cc_toggle_store(const struct class *c,
++		const struct class_attribute *attr, const char *buf, size_t count)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev,
++						battery_class);
++	int val;
++	int rc;
++
++	if (kstrtoint(buf, 10, &val))
++		return -EINVAL;
++	rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
++				XM_PROP_CC_TOGGLE, val);
++	if (rc < 0)
++		return rc;
++	return count;
++}
++
++static CLASS_ATTR_RW(cc_toggle);
++
++static ssize_t otg_ui_support_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev,
++						battery_class);
++	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_XM];
++	int rc;
++
++	rc = read_property_id(bcdev, pst, XM_PROP_OTG_UI_SUPPORT);
++	if (rc < 0)
++		return rc;
++	return scnprintf(buf, PAGE_SIZE, "%u", pst->prop[XM_PROP_OTG_UI_SUPPORT]);
++}
++
++static CLASS_ATTR_RO(otg_ui_support);
++
++static int sheng_battery_chg_add_usb_attributes(struct battery_chg_dev *bcdev)
++{
++	int rc;
++
++	if (!of_root || of_property_match_string(of_root, "model",
++			"Qualcomm Technologies, Inc. 8550 sheng") < 0)
++		return 0;
++
++	rc = class_create_file(&bcdev->battery_class, &class_attr_screen_cctog);
++	if (rc)
++		return rc;
++	rc = class_create_file(&bcdev->battery_class, &class_attr_cc_toggle);
++	if (rc)
++		goto remove_screen;
++	rc = class_create_file(&bcdev->battery_class, &class_attr_otg_ui_support);
++	if (rc)
++		goto remove_toggle;
++	return 0;
++
++remove_toggle:
++	class_remove_file(&bcdev->battery_class, &class_attr_cc_toggle);
++remove_screen:
++	class_remove_file(&bcdev->battery_class, &class_attr_screen_cctog);
++	return rc;
++}
++
+ static struct attribute *battery_class_attrs[] = {
+ 	/*common charging node*/
+ 	&class_attr_soh.attr,
+@@ -6399,6 +6511,13 @@
+ 		goto error;
+ 	}
+ 
++	rc = sheng_battery_chg_add_usb_attributes(bcdev);
++	if (rc) {
++		class_unregister(&bcdev->battery_class);
++		dev_err(dev, "Failed to create sheng USB attributes rc=%d\n", rc);
++		goto error;
++	}
++
+ 	/*
+ 	 * k618: the "battery" cooling device, as the stock module (and soc's driver) register it.
+ 	 * 5.15's power-supply core made one for every supply with CHARGE_CONTROL_LIMIT; 6.18's

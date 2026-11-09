@@ -17,9 +17,12 @@
     "desktop": true,
     "usb_unavailable": true,
     "replug_usb_unavailable_and_not_charging": true,
-    "repeated_camera_recording_and_motion_normal": true
+    "repeated_camera_recording_and_motion_normal": true,
+    "usb_recovered_on_later_replug": true,
+    "pc_disconnected_during_intermediate_interval": true,
+    "same_cable_and_pc_port": true
   },
-  "usb_status": "DISCONNECTED; UDC not attached; raw UCSI connector status zero; USB ONLINE=0",
+  "usb_status": "Later replug at uptime 848.14s: UDC CONFIGURED, USB ONLINE=1, sink/device, about 4.744V and 1.112A. Earlier failed replug remains confirmed.",
   "camera_acceptance": "Repeated recording, tilting and reopen user test passed; captured FD SMMU fault not seen",
   "camera_sync_warnings_remain": true,
   "full_hardware_functionality_verified": false,
@@ -58,5 +61,8 @@
       "bytes": 1522,
       "sha256": "9fc6d1a4d587c0c770e5d7939881a61c41dcc3006f3b9aeac4b4f752eb5480fe"
     }
-  }
+  },
+  "usb_startup_delay_fixed": false,
+  "continuous_failure_duration_measured": false,
+  "usb_recovery_report": "reports/kernel618-usb-recovery-r37.json"
 }

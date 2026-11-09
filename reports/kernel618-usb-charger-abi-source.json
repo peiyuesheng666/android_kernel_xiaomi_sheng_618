@@ -1,0 +1,72 @@
+{
+  "revision": "hardware-r38",
+  "date": "2026-11-09",
+  "files": {
+    "soc/drivers/power/supply/qti_battery_charger.c": {
+      "before": "13c35b340cb1c68054f8e12ecebe5c290b851af7b0b3af5c21939e32a05e4d18",
+      "after": "995805ea1d4e692b12fbfa712ac82adad41648e911e675152e7a98c5ffe3f9da"
+    }
+  },
+  "patch_sha256": "965ce6c70bfc548b244921a42fa7e54c11239c89c5c6994d986057cffb84bfbe",
+  "stock_disassembly_sha256": "06dc6b46f1bd097c4a4360434155f13f4accb836b28721fbe9755f70ca0fe9c5",
+  "scope_model": "Qualcomm Technologies, Inc. 8550 sheng",
+  "contracts": {
+    "screen_cctog": {
+      "property": "XM_PROP_SCREEN_CCTOG",
+      "id": 46,
+      "parser": "bool",
+      "stock_functions": {
+        "show": "0x0000000000009b40",
+        "store": "0x0000000000009bf0"
+      },
+      "read_only": false
+    },
+    "cc_toggle": {
+      "property": "XM_PROP_CC_TOGGLE",
+      "id": 111,
+      "parser": "int",
+      "stock_functions": {
+        "show": "0x000000000000c494",
+        "store": "0x000000000000c544"
+      },
+      "read_only": false
+    },
+    "otg_ui_support": {
+      "property": "XM_PROP_OTG_UI_SUPPORT",
+      "id": 109,
+      "parser": null,
+      "stock_functions": {
+        "show": "0x000000000000c334"
+      },
+      "read_only": true
+    }
+  },
+  "references": [
+    {
+      "repository": "lineage-kernel",
+      "commit": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d"
+    },
+    {
+      "repository": "micode-kernel",
+      "commit": "29db5d592c5b577aa9d9611da988a5e071d100dd"
+    },
+    {
+      "repository": "lineage-devicetrees",
+      "commit": "43b5ada5654ed84c25f74789bc8f6326b7bacd20"
+    },
+    {
+      "repository": "LineageOS-piano",
+      "commit": "82adb0a5e072aeb90292ad4adff1d92a21580f12",
+      "applicability": "Reviewed rootdir USB recovery/Type-C permissions; no sheng XM class-control recipe. Its recovery peripheral override does not apply to normal HyperOS startup."
+    }
+  ],
+  "applicability": "MiCode sheng implements cc_toggle and otg_ui_support; LOS nuwa generic charger has no sheng XM controls. Actual shipping module supplies screen_cctog with bool parsing.",
+  "evidence": "r37: absent nodes read back; stock init writes screen_cctog at 47.117 and 50.141 seconds fail. micharge init expects cc_toggle and otg_ui_support.",
+  "default_property_writes_added": false,
+  "firmware_protections_changed": false,
+  "root_components_added": false,
+  "usb_fixed": false,
+  "build_result": "SoC compilation, actual callback harness, old r37 payload rejection and final 344-module ABI passed",
+  "hardware_result": "pending",
+  "limitation": "Repairs a proven missing userspace/firmware contract. Does not prove the cause of delayed USB recognition."
+}

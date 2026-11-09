@@ -1,0 +1,23 @@
+{
+  "actual_callback_source_tested": true,
+  "checks": [
+    "bool/int parsing",
+    "exact property IDs",
+    "remote error propagation",
+    "other models skipped",
+    "all three partial-registration failures rolled back"
+  ],
+  "target_elf": {
+    "module": "/root/sheng-618/upstream-build/k618/soc/qti_battery_charger.ko",
+    "sha256": "6f13b30b3f5a675bd49236cde7d794cd8e4ed837d717be7f167ad2c9f66fd6af",
+    "source_hashes_verified": true,
+    "class_attributes_verified": [
+      "cc_toggle",
+      "otg_ui_support",
+      "screen_cctog"
+    ],
+    "dynamic_class_registration_import_verified": true
+  },
+  "known_old_r37_rejected": "Shipping sheng Type-C attributes absent from ELF: cc_toggle_show, cc_toggle_store, class_attr_cc_toggle, class_attr_otg_ui_support, class_attr_screen_cctog, otg_ui_support_show, screen_cctog_show, screen_cctog_store",
+  "hardware_verified": false
+}
