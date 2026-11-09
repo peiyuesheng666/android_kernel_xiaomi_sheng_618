@@ -32,7 +32,23 @@ is-userspace no 后仅刷 boot_a；24.67 秒 USB ADB 返回，25.19 秒 Android
 - 证据：reports/kernel618-release-r70-hardware.json、
   reports/device/kernel618-release-r70/runtime-kernel.txt。
 
-源码 tar.gz 尚未交付：精简导出已开始，但检查发现 ACK 源码中残留未启用的
-KernelSU 绝对符号链接，打包程序正确拒绝导出。需要排除该未启用链接及
-核对完整构建输入后继续。尚未删除工作树 out 或其他编译目录，避免在用户
-要求先交付内核时破坏后续整理所需的输入。
+## 精简源码交付
+
+用户要求继续整理后，完成 `sheng-6.18.32-release-r70-source.tar.gz`，
+317926350 字节（约 303.2 MiB），含 103647 个普通源码及配置文件。
+源码包保留 ACK、SoC、techpack、平板适配源码、344 模块构建路径和 r69
+显示优先加载清单、实际 release 配置、打包工具与独立 Linux/WSL 构建入口。
+
+排除 out、对象和模块二进制、编译缓存、Git 历史、工具链、ROM 镜像、测试
+抓取及 rawdump 日志。排除未启用的 KernelSU 绝对链接及 SUSFS 实现，并
+从导出副本移除对应 Kconfig/Makefile 引用，避免干净配置读取缺失文件。
+原 ACK 条件集成守卫仍保留，release 配置不启用它们。
+
+精简源码的独立 `olddefconfig` 检查通过，测试日志及内置 root 配置保持关闭；
+清理涉及的硬件源码与 r70 已记录的哈希逐一匹配。tar.gz 全部普通文件的
+SHA256 回读匹配，路径及符号链接检查通过。未另行完成干净源码的全量重编；
+已实机验收的是先前对应工作树构建的 boot.img。工具链需按包内说明另行准备。
+源工作树编译目录保留，交付源码副本不含这些目录。
+
+- tar.gz SHA256：7c054599ce763bbbd75f21dccfc77102b2fb55f3dacb3f25c2d4d4ed03cef437
+- 证据：reports/kernel618-release-r70-source-package.json；源码包内 SOURCE-SHA256.json。
