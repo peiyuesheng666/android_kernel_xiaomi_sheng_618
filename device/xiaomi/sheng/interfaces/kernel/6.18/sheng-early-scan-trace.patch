@@ -1,0 +1,45 @@
+--- a/soc/drivers/clk/qcom/dispcc-kalama.c
++++ b/soc/drivers/clk/qcom/dispcc-kalama.c
+@@ -11,6 +11,7 @@
+ #include <linux/module.h>
+ #include <linux/of_device.h>
+ #include <linux/of.h>
++#include "sheng_early_scan_trace.h"
+ #include <linux/regmap.h>
+ #include <linux/pm_runtime.h>
+ 
+@@ -1967,6 +1968,7 @@
+ 	unsigned int value;
+ 	int i;
+ 
++	sheng_early_scan_trace(stage);
+ 	if (!map)
+ 		return;
+ 	for (i = 0; i < ARRAY_SIZE(regs); i++)
+@@ -2115,6 +2117,7 @@
+ put_runtime:
+ 	sheng_dispcc_boot_voltage(false);
+ 	pm_runtime_put_sync(&pdev->dev);
++	sheng_early_scan_trace("clock-runtime-released");
+ 	dev_info(&pdev->dev, "Registered DISP CC clocks\n");
+ 	if (!ret && sheng_dispcc_board() && sheng_postclock_hold_ms) {
+ 		dev_notice(&pdev->dev, "TEST_ONLY post-clock hold begin (%u ms)\n",
+--- a/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -32,6 +32,7 @@
+ #include <linux/iopoll.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include "sheng_early_scan_trace.h"
+ #include <linux/of_address.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
+@@ -1195,6 +1196,8 @@
+ {
+ 	unsigned int i;
+ 
++	if (smmu->smrs && sheng_smmu_firmware_bypass_active(smmu))
++		sheng_early_scan_trace(stage);
+ 	for (i = 0; i < smmu->num_mapping_groups; i++) {
+ 		struct arm_smmu_s2cr *s2cr = &smmu->s2crs[i];
+ 		unsigned int cbndx = s2cr->cbndx;

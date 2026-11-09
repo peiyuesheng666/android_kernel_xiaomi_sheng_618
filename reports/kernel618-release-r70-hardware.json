@@ -1,0 +1,60 @@
+{
+  "revision": "release-r70",
+  "boot_sha256": "777c2e37a3ece8e685845a7ae13dc9c3c0b6f8189f2fd6e038fa7d8faf13d144",
+  "image_sha256": "6959f15542487c389c108d0504646d2317e33bdadb26a57cfc4a60ef1cb8cda5",
+  "writes": [
+    "boot_a"
+  ],
+  "test_mode_enabled": false,
+  "events": [
+    {
+      "event": "boot_a_flashed",
+      "time": "2026-11-10T07:38:46+0800"
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-10T07:38:46+0800",
+      "elapsed_seconds": 0.04
+    },
+    {
+      "event": "candidate_adb_connected",
+      "time": "2026-11-10T07:39:11+0800",
+      "elapsed_seconds": 24.67
+    },
+    {
+      "event": "android_boot_completed",
+      "time": "2026-11-10T07:39:12+0800",
+      "elapsed_seconds": 25.19
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-10T07:39:18+0800",
+      "elapsed_seconds": 31.86
+    },
+    {
+      "event": "waiting_for_android",
+      "time": "2026-11-10T07:39:49+0800",
+      "elapsed_seconds": 62.64
+    },
+    {
+      "event": "wired_adb_deadline_reached",
+      "time": "2026-11-10T07:40:18+0800",
+      "elapsed_seconds": 91.25,
+      "wired_adb_observed": true,
+      "wired_adb_available_at_deadline": true,
+      "stop_required": false
+    }
+  ],
+  "full_hardware_functionality_verified": false,
+  "wired_adb_timeout_seconds": 90,
+  "stop_task_if_wired_adb_absent": false,
+  "adb_transport": "USB",
+  "adb_serial": "ca10ede3",
+  "live_cmdline_readable": true,
+  "candidate_adb_connected": true,
+  "kernel": "6.18.32-peiyuesheng-sheng-kernel",
+  "android_boot_completed": true,
+  "stop_required": false,
+  "wired_adb_available_at_deadline": true,
+  "continued_diagnostics_required": false
+}

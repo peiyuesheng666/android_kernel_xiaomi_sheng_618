@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', required=True)
 parser.add_argument('--base', required=True)
 parser.add_argument('--module', action='append', required=True)
+parser.add_argument('--smmu-scan-watch-ms', type=int, default=0, choices=[0, 3000])
 args = parser.parse_args()
 modules = [value.split('=', 1) for value in args.module]
 modules = [(names[0], names[-1]) for names in modules]
@@ -34,5 +35,6 @@ if result.returncode:
 assert all((stage / source).is_file() for name, source in modules)
 subprocess.run([sys.executable, PROJECT / 'scripts/build_sheng618_layer_variant.py',
     '--tag', args.tag, '--base', args.base,
+    '--smmu-scan-watch-ms', str(args.smmu_scan_watch_ms),
     *[arg for name, source in modules for arg in ('--replace', name + '=' + str(stage / source))]],
     check=True)

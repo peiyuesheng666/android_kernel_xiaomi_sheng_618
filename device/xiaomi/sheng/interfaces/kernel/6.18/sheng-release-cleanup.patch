@@ -1,0 +1,796 @@
+--- a/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/soc/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -1188,83 +1188,13 @@
+ 	if (next == reg)
+ 		return;
+ 	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_sCR0, next);
+-	dev_info(smmu->dev,
+-		"sheng splash: Linux mapping live; global CR0=%x->%x\n", reg, next);
+-}
+-
+-/* No boot hold or register writes. Sample for at most three seconds,
+- * then stop on the first underrun, lost power/clock access, or deadline. */
+-static unsigned int sheng_scan_watch_ms;
+-module_param(sheng_scan_watch_ms, uint, 0400);
+-MODULE_PARM_DESC(sheng_scan_watch_ms, "Diagnostic first-underrun watch, 0 disables, max 3000 ms");
+-static bool sheng_scan_watch_started;
+-static ktime_t sheng_scan_watch_deadline;
+-static void sheng_scan_watch_poll(struct work_struct *work);
+-static DECLARE_DELAYED_WORK(sheng_scan_watch_work, sheng_scan_watch_poll);
+-
+-static void sheng_scan_watch_poll(struct work_struct *work)
+-{
+-	u32 status = 0;
+-	int ret;
+-
+-	if (ktime_compare(ktime_get(), sheng_scan_watch_deadline) >= 0) {
+-		pr_info("sheng early scan: watch deadline reached without underrun\n");
+-		return;
+-	}
+-	ret = sheng_early_scan_probe("watch", false, &status);
+-	if (ret) {
+-		pr_info("sheng early scan: watch stopped, access=%d\n", ret);
+-		sheng_early_scan_trace("watch-access-ended");
+-		return;
+-	}
+-	if (status & (BIT(26) | BIT(28))) {
+-		pr_info("sheng early scan: first-underrun status=%x\n", status);
+-		sheng_early_scan_trace("first-underrun");
+-		return;
+-	}
+-	queue_delayed_work(system_unbound_wq, &sheng_scan_watch_work,
+-		msecs_to_jiffies(10));
+-}
+-
+-static void sheng_scan_watch_start(void)
+-{
+-	if (!sheng_scan_watch_ms || sheng_scan_watch_started)
+-		return;
+-	if (sheng_scan_watch_ms > 3000) {
+-		pr_err("sheng early scan: invalid watch duration %u\n", sheng_scan_watch_ms);
+-		return;
+-	}
+-	sheng_scan_watch_started = true;
+-	sheng_scan_watch_deadline = ktime_add_ms(ktime_get(), sheng_scan_watch_ms);
+-	pr_info("sheng early scan: bounded watch armed for %u ms\n", sheng_scan_watch_ms);
+-	queue_delayed_work(system_unbound_wq, &sheng_scan_watch_work, 0);
+-}
+-
+-static void sheng_smmu_trace_streams(struct arm_smmu_device *smmu,
+-		const char *stage)
+-{
+-	unsigned int i;
+-
+-	if (smmu->smrs && sheng_smmu_firmware_bypass_active(smmu)) {
+-		sheng_early_scan_trace(stage);
+-		if (sheng_smmu_board() && !strcmp(stage, "context-deferred"))
+-			sheng_scan_watch_start();
+-	}
+-	for (i = 0; i < smmu->num_mapping_groups; i++) {
+-		struct arm_smmu_s2cr *s2cr = &smmu->s2crs[i];
+-		unsigned int cbndx = s2cr->cbndx;
+-
+-		if (!s2cr->pinned || cbndx >= smmu->num_context_banks)
+-			continue;
+-		dev_info(smmu->dev,
+-			"sheng smmu trace: %s SMR%u=%x S2CR=%x CB%u SCTLR=%x CBAR=%x CR0=%x linux_cfg=%u linux_sctlr=%x\n",
+-			stage, i, arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(i)),
+-			arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_S2CR(i)), cbndx,
+-			arm_smmu_cb_read(smmu, cbndx, ARM_SMMU_CB_SCTLR),
+-			arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBAR(cbndx)),
+-			arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_sCR0),
+-			!!smmu->cbs[cbndx].cfg, smmu->cbs[cbndx].sctlr);
+-	}
++	do { } while (0);
++}
++
++static inline void sheng_smmu_trace_streams(struct arm_smmu_device *smmu,
++        const char *stage)
++{
++    /* Release: no register sampling or background watch. */
+ }
+ 
+ void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+@@ -1275,10 +1205,7 @@
+ 	struct arm_smmu_cfg *cfg = cb->cfg;
+ 
+ 	if (sheng_smmu_context_has_pinned_stream(smmu, idx))
+-		dev_info(smmu->dev,
+-			"sheng smmu trace: write CB%d SCTLR=%x->%x cfg=%u caller=%pS\n",
+-			idx, arm_smmu_cb_read(smmu, idx, ARM_SMMU_CB_SCTLR),
+-			cfg ? cb->sctlr : 0, !!cfg, __builtin_return_address(0));
++		do { } while (0);
+ 	/* Unassigned context banks only need disabling */
+ 	if (!cfg) {
+ 		arm_smmu_cb_write(smmu, idx, ARM_SMMU_CB_SCTLR, 0);
+@@ -1682,11 +1609,7 @@
+ 		 * firmware scanout's memory accesses. Store Linux's new tables
+ 		 * in RAM, but leave the live hardware context alone until the
+ 		 * display explicitly enables translation after mapping splash. */
+-		dev_info(smmu->dev,
+-			"sheng splash: defer CB%u context; firmware SCTLR=%x Linux bypass=%x\n",
+-			cfg->cbndx,
+-			arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_SCTLR),
+-			smmu->cbs[cfg->cbndx].sctlr);
++		do { } while (0);
+ 		sheng_smmu_trace_streams(smmu, "context-deferred");
+ 	} else {
+ 		if (smmu->impl && smmu->impl->init_context_bank)
+@@ -1830,10 +1753,7 @@
+ 	if (!(smmu->features & ARM_SMMU_FEAT_EXIDS) && smr->valid)
+ 		reg |= ARM_SMMU_SMR_VALID;
+ 	if (smmu->s2crs[idx].pinned)
+-		dev_info(smmu->dev,
+-			"sheng smmu trace: write SMR%d %x->%x caller=%pS\n",
+-			idx, arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(idx)),
+-			reg, __builtin_return_address(0));
++		do { } while (0);
+ 	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_SMR(idx), reg);
+ }
+ 
+@@ -1856,10 +1776,7 @@
+ 	    smmu->smrs[idx].valid)
+ 		reg |= ARM_SMMU_S2CR_EXIDVALID;
+ 	if (s2cr->pinned)
+-		dev_info(smmu->dev,
+-			"sheng smmu trace: write S2CR%d %x->%x caller=%pS\n",
+-			idx, arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_S2CR(idx)),
+-			reg, __builtin_return_address(0));
++		do { } while (0);
+ 	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_S2CR(idx), reg);
+ }
+ 
+@@ -2040,10 +1957,7 @@
+ 	for_each_cfg_sme(cfg, fwspec, i, idx) {
+ 		if (sheng_smmu_keep_firmware_smr(smmu, idx) &&
+ 		    sheng_smmu_boot_context_pinned(smmu, smmu->s2crs[idx].cbndx)) {
+-			dev_info(smmu->dev,
+-				"sheng splash: retain SMR%d id=%x mask=%x CB%u at claim\n",
+-				idx, smrs[idx].id, smrs[idx].mask,
+-				smmu->s2crs[idx].cbndx);
++			do { } while (0);
+ 			continue;
+ 		}
+ 		arm_smmu_write_sme(smmu, idx);
+@@ -3088,9 +3002,7 @@
+ 		if (smmu->impl && smmu->impl->init_context_bank)
+ 			smmu->impl->init_context_bank(smmu_domain, smmu_domain->dev);
+ 		arm_smmu_write_context_bank(smmu, idx);
+-		dev_info(smmu->dev,
+-			"sheng splash: mappings ready; installed CB%d SCTLR=%x\n",
+-			idx, cb->sctlr);
++		do { } while (0);
+ 		/* Context-bank writes precede changing attributes for bypass. */
+ 		wmb();
+ 		sheng_smmu_finish_global_handoff(smmu);
+@@ -3204,8 +3116,7 @@
+ 	/* Make sure all context banks are disabled and clear CB_FSR  */
+ 		for (i = 0; i < smmu->num_context_banks; ++i) {
+ 			if (sheng_smmu_boot_context_pinned(smmu, i)) {
+-				dev_info(dev, "sheng splash: preserve firmware CB%d SCTLR=%x\n",
+-					i, arm_smmu_cb_read(smmu, i, ARM_SMMU_CB_SCTLR));
++				do { } while (0);
+ 				continue;
+ 			}
+ 			arm_smmu_write_context_bank(smmu, i);
+@@ -3248,7 +3159,7 @@
+ 	 * Preserve its global memory attributes even after Linux allocates an
+ 	 * EARLY_MAP context; switch once every pinned Linux context has M=1. */
+ 	if (sheng_smmu_board() && sheng_smmu_firmware_bypass_active(smmu)) {
+-		dev_info(dev, "sheng splash: retain firmware global SHCFG in CR0=%x\n", reg);
++		do { } while (0);
+ 	} else {
+ 		reg &= ~ARM_SMMU_sCR0_SHCFG;
+ 		reg |= FIELD_PREP(ARM_SMMU_sCR0_SHCFG, ARM_SMMU_sCR0_SHCFG_NSH);
+@@ -3367,10 +3278,7 @@
+ 				smmu->s2crs[i].cbndx = FIELD_GET(ARM_SMMU_S2CR_CBNDX, s2cr);
+ 
+ 				smmu->s2crs[i].pinned = true;
+-				dev_info(smmu->dev,
+-					"sheng splash: handoff SMR%u raw=%x S2CR=%x id=%x mask=%x CB%u\n",
+-					i, smr, s2cr, smrs.id, smrs.mask,
+-					smmu->s2crs[i].cbndx);
++				do { } while (0);
+ 				bitmap_set(smmu->context_map, smmu->s2crs[i].cbndx, 1);
+ 				k618_pinned++;
+ 
+@@ -3751,7 +3659,7 @@
+ 	 * display even though this function has no mappings to install. */
+ 	if (list_empty(&rmr_list)) {
+ 		iort_put_rmr_sids(dev_fwnode(smmu->dev), &rmr_list);
+-		dev_info(smmu->dev, "sheng splash: empty RMR list; client access retained\n");
++		do { } while (0);
+ 		return;
+ 	}
+ 
+@@ -4136,7 +4044,6 @@
+ 
+ static void __exit arm_smmu_exit(void)
+ {
+-	cancel_delayed_work_sync(&sheng_scan_watch_work);
+ 	platform_driver_unregister(&arm_smmu_driver);
+ 	platform_driver_unregister(&qsmmuv500_tbu_driver);
+ }
+--- a/soc/drivers/clk/qcom/dispcc-kalama.c
++++ b/soc/drivers/clk/qcom/dispcc-kalama.c
+@@ -1957,24 +1957,7 @@
+  * None of these registers clears status on read. No panel or timing writes. */
+ static void sheng_dispcc_trace(struct device *dev, const char *stage)
+ {
+-	static const unsigned int regs[] = {
+-		0x0, 0x4, 0x10, 0x18, 0x1000, 0x1004, 0x1010, 0x1018,
+-		0x8004, 0x8008, 0x800c, 0x8018, 0x8024,
+-		0x8028, 0x802c, 0x8030, 0x8034, 0x80a4,
+-		0x80a8, 0x80ac, 0x80c0, 0x80c4, 0x80d8, 0x80dc,
+-		0x8108, 0x810c, 0x8124, 0x8128, 0x9000, 0xf000,
+-	};
+-	struct regmap *map = dev_get_regmap(dev, NULL);
+-	unsigned int value;
+-	int i;
+-
+-	sheng_early_scan_trace(stage);
+-	if (!map)
+-		return;
+-	for (i = 0; i < ARRAY_SIZE(regs); i++)
+-		if (!regmap_read(map, regs[i], &value))
+-			dev_info(dev, "sheng_dispcc: %s %04x=%08x\n",
+-				stage, regs[i], value);
++	/* Release: investigation disabled. */
+ }
+ 
+ /* Runtime resume votes the lowest corner before CCF has registered the
+@@ -2008,9 +1991,6 @@
+ /* The shipping DT uses generic kalama-mtp compatible strings. Match the
+  * exact tablet model before preserving its already-running LCD scanout. */
+ static bool sheng_dispcc_live_splash;
+-static unsigned int sheng_postclock_hold_ms;
+-module_param(sheng_postclock_hold_ms, uint, 0400);
+-MODULE_PARM_DESC(sheng_postclock_hold_ms, "Test-only post-DISP-CC hold, 0 disables, max 10000 ms");
+ 
+ static bool sheng_dispcc_board(void)
+ {
+@@ -2039,8 +2019,7 @@
+ 		if (ret)
+ 			return ret;
+ 		if ((mode & BIT(0)) && (opmode & BIT(0))) {
+-			dev_info(dev, "sheng_dispcc: retain live PLL%x mode=%x opmode=%x\n",
+-				pll->offset, mode, opmode);
++			do { } while (0);
+ 			return 0;
+ 		}
+ 	}
+@@ -2054,8 +2033,6 @@
+ 	unsigned int mdp_branch;
+ 	int ret;
+ 
+-	if (sheng_postclock_hold_ms > 10000)
+-		return -EINVAL;
+ 	regmap = qcom_cc_map(pdev, &disp_cc_kalama_desc);
+ 	if (IS_ERR(regmap))
+ 		return PTR_ERR(regmap);
+@@ -2064,8 +2041,7 @@
+ 	if (ret)
+ 		return ret;
+ 
+-	dev_info(&pdev->dev, "sheng_dispcc: before first resume mm=%d mxa=%d\n",
+-		vdd_mm.cur_level, vdd_mxa.cur_level);
++	do { } while (0);
+ 	ret = sheng_dispcc_boot_voltage(true);
+ 	if (ret)
+ 		return ret;
+@@ -2075,8 +2051,7 @@
+ 		sheng_dispcc_boot_voltage(false);
+ 		return ret;
+ 	}
+-	dev_info(&pdev->dev, "sheng_dispcc: first resume protected mm=%d mxa=%d\n",
+-		vdd_mm.cur_level, vdd_mxa.cur_level);
++	do { } while (0);
+ 
+ 	sheng_dispcc_trace(&pdev->dev, "firmware");
+ 	ret = regmap_read(regmap, 0x800c, &mdp_branch);
+@@ -2119,12 +2094,7 @@
+ 	pm_runtime_put_sync(&pdev->dev);
+ 	sheng_early_scan_trace("clock-runtime-released");
+ 	dev_info(&pdev->dev, "Registered DISP CC clocks\n");
+-	if (!ret && sheng_dispcc_board() && sheng_postclock_hold_ms) {
+-		dev_notice(&pdev->dev, "TEST_ONLY post-clock hold begin (%u ms)\n",
+-			sheng_postclock_hold_ms);
+-		msleep(sheng_postclock_hold_ms);
+-		dev_notice(&pdev->dev, "TEST_ONLY post-clock hold end\n");
+-	}
++
+ 
+ 	return ret;
+ }
+--- a/vendor/qcom/opensource/display-drivers/msm/msm_drv.c
++++ b/vendor/qcom/opensource/display-drivers/msm/msm_drv.c
+@@ -73,9 +73,6 @@
+ #include "hfi_msm_drv.h"
+ #include "sheng_boot_trace.h"
+ 
+-unsigned int sheng_probe_delay_ms;
+-module_param(sheng_probe_delay_ms, uint, 0600);
+-MODULE_PARM_DESC(sheng_probe_delay_ms, "Diagnostic display pause in ms (capped at 350, default 0)");
+ 
+ /*
+  * MSM driver version:
+@@ -2613,23 +2610,13 @@
+ }
+ #endif /* OPLUS_FEATURE_DISPLAY */
+ 
+-static unsigned int sheng_before_display_hold_ms;
+-module_param(sheng_before_display_hold_ms, uint, 0400);
+-MODULE_PARM_DESC(sheng_before_display_hold_ms, "Test-only display entry hold, 0 disables, max 10000 ms");
+ 
+ static int __init msm_drm_register(void)
+ {
+ 	int ret;
+ 	if (!modeset)
+ 		return -EINVAL;
+-	if (sheng_before_display_hold_ms > 10000)
+-		return -EINVAL;
+-	if (sheng_before_display_hold_ms) {
+-		pr_notice("TEST_ONLY before-display hold begin (%u ms)\n",
+-			sheng_before_display_hold_ms);
+-		msleep(sheng_before_display_hold_ms);
+-		pr_notice("TEST_ONLY before-display hold end\n");
+-	}
++
+ 
+ 	DBG("init");
+ 
+--- a/vendor/qcom/opensource/display-drivers/msm/sheng_boot_trace.h
++++ b/vendor/qcom/opensource/display-drivers/msm/sheng_boot_trace.h
+@@ -1,25 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ #ifndef SHENG_BOOT_TRACE_H
+ #define SHENG_BOOT_TRACE_H
+-#include <linux/delay.h>
+-#include <linux/kernel.h>
+-#include <linux/printk.h>
+-
+-extern unsigned int sheng_probe_delay_ms;
+-
+-/* These pauses only gave the diagnostic rawdump worker time to save stages.
+- * Keep them available for fault capture without delaying normal boot. */
+-static inline void sheng_probe_pause(void)
+-{
+-	unsigned int delay = READ_ONCE(sheng_probe_delay_ms);
+-
+-	if (delay)
+-		msleep(min(delay, 350U));
+-}
+-
+-static inline void sheng_probe_checkpoint(const char *stage)
+-{
+-	pr_notice("sheng_display_probe: %s\n", stage);
+-	sheng_probe_pause();
+-}
++static inline void sheng_probe_pause(void) { }
++static inline void sheng_probe_checkpoint(const char *stage) { }
+ #endif
+--- a/vendor/qcom/opensource/display-drivers/msm/sde/sde_hw_intf.c
++++ b/vendor/qcom/opensource/display-drivers/msm/sde/sde_hw_intf.c
+@@ -933,23 +933,7 @@
+  * interfaces to compare bootloader scanout with the first Linux mode. */
+ void sheng_intf_handoff_trace(struct sde_hw_intf *intf, const char *stage)
+ {
+-	struct sde_hw_blk_reg_map *c;
+-
+-	if (!intf || !intf->cap || intf->cap->type != INTF_DSI)
+-		return;
+-	c = &intf->hw;
+-	pr_info("sheng_handoff: %s intf=%u en=%x cfg=%x hsync=%x vperiod=%x vpulse=%x hdisplay=%x vstart=%x vend=%x cfg2=%x data_h=%x\n",
+-		stage, intf->idx,
+-		SDE_REG_READ(c, INTF_TIMING_ENGINE_EN),
+-		SDE_REG_READ(c, INTF_CONFIG),
+-		SDE_REG_READ(c, INTF_HSYNC_CTL),
+-		SDE_REG_READ(c, INTF_VSYNC_PERIOD_F0),
+-		SDE_REG_READ(c, INTF_VSYNC_PULSE_WIDTH_F0),
+-		SDE_REG_READ(c, INTF_DISPLAY_HCTL),
+-		SDE_REG_READ(c, INTF_DISPLAY_V_START_F0),
+-		SDE_REG_READ(c, INTF_DISPLAY_V_END_F0),
+-		SDE_REG_READ(c, INTF_CONFIG2),
+-		SDE_REG_READ(c, INTF_DISPLAY_DATA_HCTL));
++	/* Release: investigation disabled. */
+ }
+ 
+ static u32 sde_hw_intf_get_frame_count(struct sde_hw_intf *intf)
+--- a/vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c
++++ b/vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c
+@@ -134,8 +134,7 @@
+ 			if (!readback)
+ 				readback = regmap_read(ktz->regmap, KTZ8866_DISP_BL_ENABLE, &enable);
+ 			if (!readback)
+-				dev_info(ktz->dev, "sheng_backlight requested=%u cached=%d actual=%u enable=0x%x write_rc=%d\n",
+-					level, ktz->level, ((msb & 0xff) << 3) | (lsb & 7), enable, err);
++				do { } while (0);
+ 		}
+ 	}
+ 	mutex_unlock(&ktz8866_dev_list_mutex);
+--- a/vendor/qcom/opensource/display-drivers/msm/sde/sde_encoder_phys_vid.c
++++ b/vendor/qcom/opensource/display-drivers/msm/sde/sde_encoder_phys_vid.c
+@@ -698,13 +698,7 @@
+ 	vid_enc->timing_params = timing_params;
+ 	if (phys_enc->cont_splash_enabled) {
+ 		sheng_intf_handoff_trace(phys_enc->hw_intf, "first-enable");
+-		pr_info("sheng_handoff: Linux intf=%u fps=%u width=%u height=%u hbp=%u hfp=%u hpulse=%u vbp=%u vfp=%u vpulse=%u comp=%u wide=%u\n",
+-			phys_enc->hw_intf->idx, timing_params.vrefresh,
+-			timing_params.width, timing_params.height,
+-			timing_params.h_back_porch, timing_params.h_front_porch,
+-			timing_params.hsync_pulse_width, timing_params.v_back_porch,
+-			timing_params.v_front_porch, timing_params.vsync_pulse_width,
+-			timing_params.compression_en, timing_params.wide_bus_en);
++		do { } while (0);
+ 	}
+ 
+ 	if (phys_enc->cont_splash_enabled) {
+--- a/vendor/qcom/opensource/display-drivers/msm/sde/sde_kms.c
++++ b/vendor/qcom/opensource/display-drivers/msm/sde/sde_kms.c
+@@ -2697,11 +2697,10 @@
+ 
+ 	/* Create one CRTC per encoder */
+ 	for (i = 0; i < max_crtc_count; i++) {
+-		pr_notice("sheng_display_probe: CRTC %d/%d begin\n", i, max_crtc_count);
++		do { } while (0);
+ 		sheng_probe_pause();
+ 		crtc = sde_crtc_init(dev, primary_planes[i]);
+-		pr_notice("sheng_display_probe: CRTC %d/%d returned, error=%ld\n",
+-			i, max_crtc_count, IS_ERR(crtc) ? PTR_ERR(crtc) : 0L);
++		do { } while (0);
+ 		sheng_probe_pause();
+ 		if (IS_ERR(crtc)) {
+ 			ret = PTR_ERR(crtc);
+--- a/vendor/qcom/opensource/display-drivers/msm/dsi/dsi_clk_manager.c
++++ b/vendor/qcom/opensource/display-drivers/msm/dsi/dsi_clk_manager.c
+@@ -414,11 +414,7 @@
+ 	 * associated with this flag setting.
+ 	 */
+ 	if (mngr->is_cont_splash_enabled) {
+-		pr_info("sheng_handoff: DSI%u clock byte=%lu pixel=%lu wanted_byte=%llu wanted_pixel=%llu\n",
+-			index, clk_get_rate(link_hs_clks->byte_clk),
+-			clk_get_rate(link_hs_clks->pixel_clk),
+-			(unsigned long long)l_clks->freq.byte_clk_rate,
+-			(unsigned long long)l_clks->freq.pix_clk_rate);
++		do { } while (0);
+ 		return 0;
+ 	}
+ 
+--- a/soc/drivers/iommu/arm/arm-smmu/sheng_early_scan_trace.h
++++ b/soc/drivers/iommu/arm/arm-smmu/sheng_early_scan_trace.h
+@@ -1,97 +1,5 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ #ifndef SHENG_EARLY_SCAN_TRACE_H
+ #define SHENG_EARLY_SCAN_TRACE_H
+-#include <linux/io.h>
+-#include <linux/of_address.h>
+-#include <linux/printk.h>
+-#include <linux/string.h>
+-
+-/* Diagnostic snapshots at powered boot handoff sites, without clock votes,
+- * status clears, panel commands or timing writes. Bases and block offsets
+- * come from sheng's live DT. Register fields match the fixed Kalama drivers. */
+-static inline int sheng_early_scan_probe(const char *stage, bool dump, u32 *status)
+-{
+-	struct device_node *display, *clock;
+-	struct resource mdp_res, clock_res;
+-	void __iomem *mdp = NULL, *cc = NULL;
+-	const char *model;
+-	u32 intfs[4], pipes[10], top, ahb, core, gdsc, irq;
+-	int i, ret = -ENODEV;
+-
+-	if (of_property_read_string(of_root, "model", &model) ||
+-	    strcmp(model, "Qualcomm Technologies, Inc. 8550 sheng"))
+-		return -ENODEV;
+-	display = of_find_compatible_node(NULL, NULL, "qcom,sde-kms");
+-	clock = of_find_compatible_node(NULL, NULL, "qcom,kalama-dispcc");
+-	if (!display || !clock ||
+-	    of_address_to_resource(display, 0, &mdp_res) ||
+-	    of_address_to_resource(clock, 0, &clock_res) ||
+-	    of_property_read_u32(display, "qcom,sde-off", &top) ||
+-	    of_property_read_u32_array(display, "qcom,sde-intf-off", intfs, 4) ||
+-	    of_property_read_u32_array(display, "qcom,sde-sspp-off", pipes, 10) ||
+-	    resource_size(&clock_res) < 0x9004 ||
+-	    (u64)top + 0x18 > resource_size(&mdp_res))
+-		goto out;
+-	for (i = 0; i < 4; i++)
+-		if ((u64)intfs[i] + 0x1c8 > resource_size(&mdp_res))
+-			goto out;
+-	for (i = 0; i < 10; i++)
+-		if ((u64)pipes[i] + 0x34 > resource_size(&mdp_res))
+-			goto out;
+-	cc = ioremap(clock_res.start, resource_size(&clock_res));
+-	if (!cc)
+-		goto out;
+-	ahb = readl_relaxed(cc + 0x80a4);
+-	core = readl_relaxed(cc + 0x800c);
+-	gdsc = readl_relaxed(cc + 0x9000);
+-	if (dump)
+-		pr_info("sheng early scan: %s power=%x ahb=%x core=%x\n",
+-			stage, gdsc, ahb, core);
+-	/* Never touch a visibly halted bus or unpowered display island. */
+-	if (!(gdsc & BIT(31)) || !(ahb & BIT(0)) || (ahb & BIT(31)) ||
+-	    !(core & BIT(0)) || (core & BIT(31))) {
+-		ret = -EAGAIN;
+-		goto out;
+-	}
+-	mdp = ioremap(mdp_res.start, resource_size(&mdp_res));
+-	if (!mdp)
+-		goto out;
+-	irq = readl_relaxed(mdp + top + 0x14);
+-	if (status)
+-		*status = irq;
+-	ret = 0;
+-	if (!dump)
+-		goto out;
+-	pr_info("sheng early scan: %s irq_en=%x irq_status=%x underrun=%x\n",
+-		stage, readl_relaxed(mdp + top + 0x10),
+-		irq, irq & (BIT(26) | BIT(28)));
+-	/* INTF_0=1; DT slots 1 and 2 are DSI, logged as intf2/intf3. */
+-	for (i = 1; i <= 2; i++)
+-		pr_info("sheng early scan: %s intf%d en=%x frame=%u line=%u status=%x\n",
+-			stage, i + 1, readl_relaxed(mdp + intfs[i]),
+-			readl_relaxed(mdp + intfs[i] + 0xac),
+-			readl_relaxed(mdp + intfs[i] + 0xb0) & 0xffff,
+-			readl_relaxed(mdp + intfs[i] + 0x1c4));
+-	for (i = 0; i < 10; i++) {
+-		u32 address = readl_relaxed(mdp + pipes[i] + 0x14);
+-
+-		if (address)
+-			pr_info("sheng early scan: %s pipe%d off=%x addr=%x format=%x\n",
+-				stage, i, pipes[i], address,
+-				readl_relaxed(mdp + pipes[i] + 0x30));
+-	}
+-out:
+-	if (mdp)
+-		iounmap(mdp);
+-	if (cc)
+-		iounmap(cc);
+-	of_node_put(display);
+-	of_node_put(clock);
+-	return ret;
+-}
+-
+-static inline void sheng_early_scan_trace(const char *stage)
+-{
+-	sheng_early_scan_probe(stage, true, NULL);
+-}
++static inline void sheng_early_scan_trace(const char *stage) { }
+ #endif
+--- a/soc/drivers/clk/qcom/sheng_early_scan_trace.h
++++ b/soc/drivers/clk/qcom/sheng_early_scan_trace.h
+@@ -1,97 +1,5 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ #ifndef SHENG_EARLY_SCAN_TRACE_H
+ #define SHENG_EARLY_SCAN_TRACE_H
+-#include <linux/io.h>
+-#include <linux/of_address.h>
+-#include <linux/printk.h>
+-#include <linux/string.h>
+-
+-/* Diagnostic snapshots at powered boot handoff sites, without clock votes,
+- * status clears, panel commands or timing writes. Bases and block offsets
+- * come from sheng's live DT. Register fields match the fixed Kalama drivers. */
+-static inline int sheng_early_scan_probe(const char *stage, bool dump, u32 *status)
+-{
+-	struct device_node *display, *clock;
+-	struct resource mdp_res, clock_res;
+-	void __iomem *mdp = NULL, *cc = NULL;
+-	const char *model;
+-	u32 intfs[4], pipes[10], top, ahb, core, gdsc, irq;
+-	int i, ret = -ENODEV;
+-
+-	if (of_property_read_string(of_root, "model", &model) ||
+-	    strcmp(model, "Qualcomm Technologies, Inc. 8550 sheng"))
+-		return -ENODEV;
+-	display = of_find_compatible_node(NULL, NULL, "qcom,sde-kms");
+-	clock = of_find_compatible_node(NULL, NULL, "qcom,kalama-dispcc");
+-	if (!display || !clock ||
+-	    of_address_to_resource(display, 0, &mdp_res) ||
+-	    of_address_to_resource(clock, 0, &clock_res) ||
+-	    of_property_read_u32(display, "qcom,sde-off", &top) ||
+-	    of_property_read_u32_array(display, "qcom,sde-intf-off", intfs, 4) ||
+-	    of_property_read_u32_array(display, "qcom,sde-sspp-off", pipes, 10) ||
+-	    resource_size(&clock_res) < 0x9004 ||
+-	    (u64)top + 0x18 > resource_size(&mdp_res))
+-		goto out;
+-	for (i = 0; i < 4; i++)
+-		if ((u64)intfs[i] + 0x1c8 > resource_size(&mdp_res))
+-			goto out;
+-	for (i = 0; i < 10; i++)
+-		if ((u64)pipes[i] + 0x34 > resource_size(&mdp_res))
+-			goto out;
+-	cc = ioremap(clock_res.start, resource_size(&clock_res));
+-	if (!cc)
+-		goto out;
+-	ahb = readl_relaxed(cc + 0x80a4);
+-	core = readl_relaxed(cc + 0x800c);
+-	gdsc = readl_relaxed(cc + 0x9000);
+-	if (dump)
+-		pr_info("sheng early scan: %s power=%x ahb=%x core=%x\n",
+-			stage, gdsc, ahb, core);
+-	/* Never touch a visibly halted bus or unpowered display island. */
+-	if (!(gdsc & BIT(31)) || !(ahb & BIT(0)) || (ahb & BIT(31)) ||
+-	    !(core & BIT(0)) || (core & BIT(31))) {
+-		ret = -EAGAIN;
+-		goto out;
+-	}
+-	mdp = ioremap(mdp_res.start, resource_size(&mdp_res));
+-	if (!mdp)
+-		goto out;
+-	irq = readl_relaxed(mdp + top + 0x14);
+-	if (status)
+-		*status = irq;
+-	ret = 0;
+-	if (!dump)
+-		goto out;
+-	pr_info("sheng early scan: %s irq_en=%x irq_status=%x underrun=%x\n",
+-		stage, readl_relaxed(mdp + top + 0x10),
+-		irq, irq & (BIT(26) | BIT(28)));
+-	/* INTF_0=1; DT slots 1 and 2 are DSI, logged as intf2/intf3. */
+-	for (i = 1; i <= 2; i++)
+-		pr_info("sheng early scan: %s intf%d en=%x frame=%u line=%u status=%x\n",
+-			stage, i + 1, readl_relaxed(mdp + intfs[i]),
+-			readl_relaxed(mdp + intfs[i] + 0xac),
+-			readl_relaxed(mdp + intfs[i] + 0xb0) & 0xffff,
+-			readl_relaxed(mdp + intfs[i] + 0x1c4));
+-	for (i = 0; i < 10; i++) {
+-		u32 address = readl_relaxed(mdp + pipes[i] + 0x14);
+-
+-		if (address)
+-			pr_info("sheng early scan: %s pipe%d off=%x addr=%x format=%x\n",
+-				stage, i, pipes[i], address,
+-				readl_relaxed(mdp + pipes[i] + 0x30));
+-	}
+-out:
+-	if (mdp)
+-		iounmap(mdp);
+-	if (cc)
+-		iounmap(cc);
+-	of_node_put(display);
+-	of_node_put(clock);
+-	return ret;
+-}
+-
+-static inline void sheng_early_scan_trace(const char *stage)
+-{
+-	sheng_early_scan_probe(stage, true, NULL);
+-}
++static inline void sheng_early_scan_trace(const char *stage) { }
+ #endif
+--- a/sheng-ports/keyboard/sheng_nanosic.c
++++ b/sheng-ports/keyboard/sheng_nanosic.c
+@@ -856,7 +856,7 @@
+ 		mod_delayed_work(system_wq, &nano->plugin_worker, ret ? HZ : 0);
+ 	mutex_unlock(&nano->conn_mutex);
+ 	if (!ret)
+-		dev_info(nano->dev, "sheng_nanosic charger keyboard_plugin=%d acknowledged\n", wanted);
++		do { } while (0);
+ 	else
+ 		dev_warn_ratelimited(nano->dev, "Keyboard charger event %d failed: %d\n", wanted, ret);
+ }
+@@ -898,8 +898,7 @@
+ 				msecs_to_jiffies(12000));
+ 		}
+ 		enable_irq(nano->client->irq);
+-		dev_info(nano->dev, "sheng_nanosic MCU RAM firmware ready, attempt=%u\n",
+-			 nano->fw_attempts);
++		do { } while (0);
+ 	} else if ((ret == -ENOENT || ret == -EAGAIN) && nano->fw_attempts < 60) {
+ 		/* /odm may not be mounted, or PM may still block firmware requests. */
+ 		schedule_delayed_work(&nano->fw_worker, HZ);
+@@ -982,8 +981,7 @@
+ 						      &nano->supplies[1].supply);
+ 		if (ret)
+ 			goto free;
+-		dev_info(dev, "sheng_nanosic supplies: %s, %s\n",
+-			 nano->supplies[0].supply, nano->supplies[1].supply);
++		do { } while (0);
+ 	}
+ 	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(nano->supplies), nano->supplies);
+ 	if (ret)
+@@ -1010,7 +1008,7 @@
+ 	ret = misc_register(&nano->raw_misc);
+ 	if (ret)
+ 		goto free_irq;
+-	dev_info(dev, "sheng_nanosic registered stock nanodev0 transport irq=%d\n", client->irq);
++	do { } while (0);
+ 	schedule_delayed_work(&nano->fw_worker, HZ);
+ 	return 0;
+ 
+--- a/ws/common/kernel/module/main.c
++++ b/ws/common/kernel/module/main.c
+@@ -2316,8 +2316,7 @@
+ 		live = loaded && loaded->state == MODULE_STATE_LIVE;
+ 		mutex_unlock(&module_mutex);
+ 		if (live) {
+-			pr_notice("sheng_module_reuse: %s already live; legacy duplicate -> EEXIST\n",
+-				  info->name);
++			do { } while (0);
+ 			return -EEXIST;
+ 		}
+ 	}
+--- a/ws/common/fs/crypto/keyring.c
++++ b/ws/common/fs/crypto/keyring.c
+@@ -601,9 +601,7 @@
+ 	if (prep->datalen < sizeof(*payload))
+ 		return -EINVAL;
+ 
+-	pr_notice("sheng_fscrypt_abi: provisioning len=%zu header=%zu type=%u flags=0x%x raw=%zu\n",
+-		  prep->datalen, sizeof(*payload), payload->type, payload->flags,
+-		  prep->datalen - sizeof(*payload));
++	do { } while (0);
+ 	size_flags = payload->flags;
+ #ifdef CONFIG_SHENG_LEGACY_FSCRYPT_PROVISIONING
+ 	/* 5.15 used zero reserved here, including for up to 128 wrapped bytes.
+@@ -614,7 +612,7 @@
+ #endif
+ 	if (!fscrypt_valid_key_size(prep->datalen - sizeof(*payload),
+ 				    size_flags)) {
+-		pr_notice("sheng_fscrypt_abi: rejected provisioning key size\n");
++		do { } while (0);
+ 		return -EINVAL;
+ 	}
+ 
+--- a/soc/drivers/power/supply/qti_battery_charger.c
++++ b/soc/drivers/power/supply/qti_battery_charger.c
+@@ -6261,7 +6261,7 @@
+ 	if (!active_panel) {
+ 		active_panel = k618_registered_panel();
+ 		if (active_panel)
+-			dev_info(bcdev->dev, "k618: panel events from the registered panel (not in charge-screen)\n");
++			do { } while (0);
+ 	}
+ 	if (!active_panel) {
+ 		rc = PTR_ERR(panel);
+@@ -6284,7 +6284,7 @@
+ 		return 0;
+ 	}
+ 
+-	dev_info(bcdev->dev, "register panel notifier successful (try %d)\n", bcdev->k618_panel_tries);
++	do { } while (0);
+ 	bcdev->notifier_cookie = cookie;
+ 	return 0;
+ }
+--- a/mark/k618_load.c
++++ b/mark/k618_load.c
+@@ -144,8 +144,7 @@
+ 		pr_emerg("k618_load: %u/%u %s: no memory\n", n, total, name);
+ 		return;
+ 	}
+-	pr_emerg("k618_load: %u/%u %s: trying%s%s\n", n, total, name, args ? " with " : "",
+-		 args ?: "");
++	do { } while (0);
+ 	if (flush && flush_ms)
+ 		flush(flush_ms);
+ 	t0 = now_ms();
+@@ -159,8 +158,7 @@
+ 	/* a wait status: (exit code << 8) | the signal that killed it; or < 0, nothing ran */
+ 	if (ret == 0) {
+ 		n_loaded++;
+-		pr_emerg("k618_load: %u/%u %s: loaded (%llu ms)%s%s\n", n, total, name, now_ms() - t0,
+-			 args ? " with " : "", args ?: "");
++		do { } while (0);
+ 	} else if (ret > 0 && (ret & 0x7f)) {
+ 		/* killed by a signal: its init() faulted (SIGSEGV 11, SIGBUS 7, SIGILL 4...) and the
+ 		 * oops took the child, not us -- which is the whole point of loading it this way */
+@@ -209,8 +207,7 @@
+ 	for (p = buf; *p; p++)
+ 		if (*p == '\n')
+ 			total++;
+-	pr_emerg("k618_load: %u modules from %s, by %s, at %llu ms\n", total, list_path, helper,
+-		 now_ms());
++	do { } while (0);
+ 	if (delay_ms)
+ 		msleep(delay_ms);
+ 	p = buf;
+@@ -223,8 +220,7 @@
+ 			break;
+ 		}
+ 	}
+-	pr_emerg("k618_load: done: %u loaded, %u refused, %u died, %u not tried of %u, at %llu ms\n",
+-		 n_loaded, n_refused, n_died, n_noloader, total, now_ms());
++	do { } while (0);
+ 	kfree(buf);
+ 	kfree(opts_text);
+ 	kfree(cmdline_text);

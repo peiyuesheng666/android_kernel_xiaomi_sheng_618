@@ -73,7 +73,12 @@ try:
             cmdline = call('adb', 'shell', 'cat /proc/cmdline', check=False).strip()
             receipt['live_cmdline_readable'] = 'Permission denied' not in cmdline and bool(cmdline)
             if receipt['live_cmdline_readable']:
-                assert 'sheng_test=' + tag in cmdline.split(), cmdline
+                if build.get('build_type') == 'release':
+                    assert 'loglevel=4' in cmdline.split(), cmdline
+                    assert not any(value in cmdline for value in
+                                   ('sheng_test=', 'sheng_bootlog.', 'hold_ms=', 'scan_watch_ms=')), cmdline
+                else:
+                    assert 'sheng_test=' + tag in cmdline.split(), cmdline
             if not receipt.get('candidate_adb_connected'):
                 receipt['candidate_adb_connected'] = True
                 receipt['kernel'] = kernel

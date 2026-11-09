@@ -30,6 +30,8 @@ parser.add_argument('--post-dispcc-hold-ms', type=int, default=0, choices=[0, 80
                     help='Test only: hold after display clock registration, before later drivers')
 parser.add_argument('--before-display-hold-ms', type=int, default=0, choices=[0, 8000],
                     help='Test only: hold at display module entry after SoC driver loading')
+parser.add_argument('--smmu-scan-watch-ms', type=int, default=0, choices=[0, 3000],
+                    help='Read-only diagnostic watch duration; does not hold boot')
 parser.add_argument('--kernel-compression', choices=['gzip', 'none'], default='gzip',
                     help='Use the sheng ABL gzip path verified by hardware-r58')
 parser.add_argument('--legacy-module-reuse', action='store_true',
@@ -41,7 +43,14 @@ parser.add_argument('--replace-untested', action='store_true',
                     help='Replace only this unflashed candidate, preserving its directory')
 parser.add_argument('--no-records', action='store_true',
                     help='Reuse installed source adaptations and omit progress/receipt files')
+parser.add_argument('--release', action='store_true',
+                    help='Compile out rawdump logger and package normal production boot arguments')
 options = parser.parse_args()
+if options.release:
+    assert options.no_records, 'Release consumes the prepared, tested source tree'
+    assert not any((options.test_timeout, options.pre_driver_hold_ms,
+                    options.post_dispcc_hold_ms, options.before_display_hold_ms,
+                    options.smmu_scan_watch_ms, options.fscrypt_trace)), 'Release cannot enable diagnostics'
 assert sum(bool(x) for x in (options.pre_driver_hold_ms, options.post_dispcc_hold_ms,
                             options.before_display_hold_ms)) <= 1, 'Use a single stage hold'
 if options.post_dispcc_hold_ms:
@@ -50,6 +59,9 @@ if options.post_dispcc_hold_ms:
 if options.before_display_hold_ms:
     assert b'TEST_ONLY before-display hold begin' in options.overlay.read_bytes(), \
         'Overlay does not implement the selected display entry hold'
+if options.smmu_scan_watch_ms:
+    assert b'sheng_scan_watch_ms' in options.overlay.read_bytes(), \
+        'Overlay does not implement the scan watch'
 tag = options.tag
 assert re.fullmatch(r'[a-z][a-z0-9-]{0,63}', tag), 'Invalid artifact label'
 assert options.overlay.is_file()
@@ -109,13 +121,16 @@ log = LOGS / ('upstream-' + tag + '-image.log')
 try:
     if options.no_records:
         verify_identity(oi, (K618 / 'out-gki/include/config/kernel.release').read_text().strip())
-        assert 'sheng_module_reuse:' in (ACK / 'kernel/module/main.c').read_text()
+        assert 'CONFIG_SHENG_LEGACY_MODULE_REUSE' in (ACK / 'kernel/module/main.c').read_text()
         assert 'CONFIG_SHENG_LEGACY_FSCRYPT_PROVISIONING' in (ACK / 'fs/crypto/keyring.c').read_text()
         assert 'CONFIG_SHENG_LEGACY_FIRMWARE_LSM' in (ACK / 'security/selinux/hooks.c').read_text()
     else:
         configure_identity(ACK, oi, work)
-    run([ACK / 'scripts/config', '--file', config, '--enable', 'SHENG_BOOTLOG',
-         '--set-val', 'LOG_BUF_SHIFT', '22', '--set-str', 'INITRAMFS_SOURCE',
+    buffer_shift = int(re.search(rb'^CONFIG_LOG_BUF_SHIFT=(\d+)$',
+                                (K618 / 'out-gki/.config').read_bytes(), re.M)[1]) if options.release else 22
+    run([ACK / 'scripts/config', '--file', config,
+         '--disable' if options.release else '--enable', 'SHENG_BOOTLOG',
+         '--set-val', 'LOG_BUF_SHIFT', str(buffer_shift), '--set-str', 'INITRAMFS_SOURCE',
          options.overlay.resolve(), '--disable', 'INITRAMFS_FORCE'])
     run([ACK / 'scripts/config', '--file', config,
          '--enable' if options.legacy_module_reuse else '--disable', 'SHENG_LEGACY_MODULE_REUSE'])
@@ -123,12 +138,17 @@ try:
          '--enable' if options.legacy_fscrypt else '--disable', 'SHENG_LEGACY_FSCRYPT_PROVISIONING'])
     run([ACK / 'scripts/config', '--file', config,
          '--enable' if options.legacy_firmware_lsm else '--disable', 'SHENG_LEGACY_FIRMWARE_LSM'])
-    print('Building built-in disk logger: ' + str(log), flush=True)
+    print('Building ' + ('release kernel' if options.release else 'built-in disk logger') + ': ' + str(log), flush=True)
     with log.open('w') as stream:
         run([*make, 'olddefconfig'], env=env, stdout=stream, stderr=subprocess.STDOUT)
         run([*make, '-j' + str(os.cpu_count()), 'Image'], env=env, stdout=stream, stderr=subprocess.STDOUT)
-    if not options.no_records:
+    if not options.no_records or options.release:
         (native / 'kernel.config').write_bytes(config.read_bytes())
+    if options.release:
+        assert '# CONFIG_SHENG_BOOTLOG is not set' in config.read_text()
+        symbols = run([TOOLS / 'clang/host/linux-x86/clang-r584948c/bin/llvm-nm', oi / 'vmlinux'],
+                      capture_output=True, text=True).stdout
+        assert not re.search(r'\bsheng_bootlog_[A-Za-z0-9_]+$', symbols, re.M), 'Rawdump hooks remain'
     identity = verify_identity(oi, (K618 / 'out-gki/include/config/kernel.release').read_text().strip())
     expected = sorted(line for line in (K618 / 'out-gki/Module.symvers').read_text().splitlines()
                       if line.split('\t')[2] == 'vmlinux')
@@ -151,12 +171,16 @@ if options.kernel_compression == 'gzip':
 args[args.index('--kernel') + 1] = str(kernel_payload)
 cmdline = 'printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_test=' + tag
 cmdline += ' sheng_bootlog.revision=' + tag
+if options.release:
+    cmdline = 'loglevel=4'
 if options.pre_driver_hold_ms:
     cmdline += f' sheng_bootlog.pre_driver_hold_ms={options.pre_driver_hold_ms}'
 if options.post_dispcc_hold_ms:
     cmdline += f' dispcc_kalama.sheng_postclock_hold_ms={options.post_dispcc_hold_ms}'
 if options.before_display_hold_ms:
     cmdline += f' msm_drm.sheng_before_display_hold_ms={options.before_display_hold_ms}'
+if options.smmu_scan_watch_ms:
+    cmdline += f' arm_smmu.sheng_scan_watch_ms={options.smmu_scan_watch_ms}'
 if options.test_timeout:
     cmdline += f' sheng_bootlog.test_timeout={options.test_timeout} panic=5'
 args[args.index('--cmdline') + 1] = cmdline
@@ -203,15 +227,27 @@ report = {'revision': tag, 'boot_sha256': sha(dest / 'boot.img'), 'image_sha256'
           'does_not_require_sysfs_or_device_nodes': True,
           'requires_ufs_partition_registration': True, 'hardware_log_received': False,
           'cmdline': cmdline, 'build_log': str(log), 'maximum_retained_versions': 5}
-if 'sheng_bootlog_fault_pause' in source.read_text():
+if not options.release and 'sheng_bootlog_fault_pause' in source.read_text():
     report['fault_capture_receipt'] = 'kernel618-fault-capture-source.json'
     report['exception_pause_ms'] = 1500
     report['test_exception_pause_ms'] = 15000 if options.test_timeout else None
     report['exception_writer_runs_on_other_cpu'] = True
-if not options.no_records:
+if options.release:
+    for key in ('destination', 'interval_ms', 'maximum_duration_ms', 'fast_capture_duration_ms',
+                'steady_interval_ms', 'preserved_early_driver_trace_bytes'):
+        report.pop(key, None)
+    report.update(build_type='release', rawdump_writes_enabled=False,
+                  logger_source_sha256=None, writer_is_built_in=False,
+                  periodic_log_identity=False, snapshot_identity_trailer=False,
+                  late_exception_capture_retained=False, normal_panic_capture_enabled=False,
+                  crc32_and_footer=False, requires_ufs_partition_registration=False,
+                  fscrypt_metadata_trace=False, kernel_log_buffer_bytes=1 << buffer_shift,
+                  kernel_config_sha256=sha(native / 'kernel.config'))
+    shutil.copyfile(native / 'kernel.config', dest / 'kernel.config')
+if not options.no_records or options.release:
     (dest / 'build-result.json').write_text(json.dumps(report, indent=2) + '\n')
 (dest / 'SHA256SUMS').write_text(report['boot_sha256'] + '  boot.img\n' + report['image_sha256'] + '  Image\n')
-if not options.no_records:
+if not options.no_records or options.release:
     (work / ('reports/kernel618-' + tag + '-boot.json')).write_text(json.dumps(report, indent=2) + '\n')
 versions = sorted((p for p in (work / 'artifacts').glob('sheng-6.18-*') if p.is_dir()),
                   key=lambda p: p.stat().st_mtime, reverse=True)

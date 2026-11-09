@@ -1,0 +1,10 @@
+{
+  "revision": "release-r70",
+  "camera": "0",
+  "format": "yuv",
+  "evidence": "reports/device/kernel618-release-r70/camera-frames-1794267711572222756",
+  "returncode": 1,
+  "result": "accessible_cameras=2\r\ncamera=0 metadata_status=0 format=35\r\ncamera=0 open_status=0 size=640x480\r\ncamera=0 session_status=0\r\ncamera=0 repeating_status=0\r\nRESULT camera=0 frames=0 completed=0 failed=0 errors=0 passed=0\r\n",
+  "binary_sha256": "43943efd3124f90a83200dba8725cc74d786d25f920ba3b870ec8870ef679b49",
+  "pixels_saved": false
+}
