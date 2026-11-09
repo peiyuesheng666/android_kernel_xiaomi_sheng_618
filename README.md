@@ -11,12 +11,21 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 6.18 来源、模块兼容性检查与未完成事项见 [reports/KERNEL618_STATUS.md](reports/KERNEL618_STATUS.md)。
 触摸、笔、扬声器的最新实机排查见 [reports/KERNEL618_PERIPHERALS_STATUS.md](reports/KERNEL618_PERIPHERALS_STATUS.md)。
 
-2026-11-09 r38 候选：本机原厂模块核对发现当前驱动缺少 HyperOS 调用的
+2026-11-09 用户明确要求自动化整个调试流程，自动进入 Fastboot、刷 boot_a
+并重启已获授权，不需要逐版要求手动操作；保留无定时故障重启/循环刷写，
+原厂包只读、不擦分区、不备份当前 boot、最多五版的其他约定。
+
+2026-11-09 r38：本机原厂模块核对发现当前驱动缺少 HyperOS 调用的
 screen_cctog（bool、46）、cc_toggle（int、111）、otg_ui_support（只读、109）；
 已按原厂语义补齐，限 sheng 注册，不新增默认固件写入。SoC 编译、实际回调
 解析/远端错误/注册失败回滚、旧 r37 模块拒绝、344 模块 ABI、归档、内嵌内核
-及原厂 boot 封包回读通过；保持无内置 KSU/SUSFS。尚未刷入，不能宣称 USB
-延迟修好。见 [接口修补](reports/kernel618-usb-charger-abi-source.json)与
+及原厂 boot 封包回读通过；保持无内置 KSU/SUSFS。18:37:15仅刷boot_a并重启，
+约60.70秒无线root确认实际r38及系统启动完成；三个节点和权限正确，原
+screen_cctog写入失败消失。用户反馈USB仍不行，0→1→0的CC控制对照也未
+恢复USB。无线短暂掉线经主机断开/重连恢复；掉线样本记未知，不算USB故障。
+debugfs开机未挂载，诊断挂载后读到真实UCSI状态。USB延迟尚未修好，见
+[实机跟进](reports/kernel618-hardware-r38-followup.json)、
+[接口修补](reports/kernel618-usb-charger-abi-source.json)与
 [验证](reports/kernel618-usb-charger-abi-validation.json)。交付保留 r34–r38 五版。
 r37 在约848.14秒后重插恢复为 CONFIGURED、sink/device，约4.744V/1.112A；
 用户确认同一线/电脑口，中间未连接电脑，因此没有测得连续故障时长，也不能

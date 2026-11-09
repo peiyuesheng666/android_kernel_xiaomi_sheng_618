@@ -67,6 +67,6 @@
   "root_components_added": false,
   "usb_fixed": false,
   "build_result": "SoC compilation, actual callback harness, old r37 payload rejection and final 344-module ABI passed",
-  "hardware_result": "pending",
+  "hardware_result": "r38 confirms all three attributes and correct ownership; screen_cctog startup writes no longer fail. USB still unavailable; reversible cc_toggle 0->1->0 did not restore detection.",
   "limitation": "Repairs a proven missing userspace/firmware contract. Does not prove the cause of delayed USB recognition."
 }

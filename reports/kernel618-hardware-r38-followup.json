@@ -1,0 +1,90 @@
+{
+  "revision": "hardware-r38",
+  "boot_sha256": "f7b495b1e9a07855c855b3bad9e62357b2f477352d96ad130bce3d814c307d37",
+  "image_sha256": "ee6e348dc22eb629f3dcd26116de04e67b6f4fd3b6b24432f16f1c38039e6e8a",
+  "writes": [
+    "boot_a"
+  ],
+  "user_authorized_automated_bootloader_flash_and_restart": true,
+  "timed_test_reboot_enabled": false,
+  "actual_runtime_kernel_identity_verified": true,
+  "android_boot_completed_verified": true,
+  "first_root_identity_uptime_seconds": 60.7,
+  "selinux": "Enforcing",
+  "user_confirmed_usb_unavailable": true,
+  "usb_status": "DISCONNECTED, USB ONLINE=0, approximately 0.49V before/after reversible CC enable probe",
+  "new_attributes_present": [
+    "screen_cctog",
+    "cc_toggle",
+    "otg_ui_support"
+  ],
+  "new_attribute_permissions_verified": true,
+  "previous_screen_cctog_write_failures_absent": true,
+  "cc_toggle_probe": {
+    "before": 0,
+    "enabled": 1,
+    "restored": 0,
+    "usb_recovered": false
+  },
+  "wireless_transport_recovered_by_host_disconnect_reconnect": true,
+  "invalid_offline_samples_excluded_from_usb_status": true,
+  "debugfs_mounted_for_readonly_ipc_capture": true,
+  "usb_startup_delay_fixed": false,
+  "camera_r37_fix_preserved": true,
+  "evidence": {
+    "usb-startup-20261109-183715/identity.txt": {
+      "bytes": 1722,
+      "sha256": "456c708f1ad7df9d7c59bedc1257e11e7b502dbbda11fc33d57753e498d61f98"
+    },
+    "usb-startup-20261109-183715/00-usb.txt": {
+      "bytes": 1107,
+      "sha256": "fcdd8e375c5054594934d4a724bbe5bbd85f7ad688b44a7b7c68a721b268c3c8"
+    },
+    "usb-startup-20261109-183715/00-kernel.txt": {
+      "bytes": 1532746,
+      "sha256": "4c6a046c71dace551b1d53805ee8469969f9f554ad5a4ef9ba773f5363dc4d16"
+    },
+    "usb-startup-20261109-183715/01-usb.txt": {
+      "bytes": 1107,
+      "sha256": "4e0006394209a5ee480e2757d1112f271fe87ec453aa66cf7fc4c96479a7210e"
+    },
+    "usb-startup-20261109-183715/receipt.json": {
+      "bytes": 4844,
+      "sha256": "2c0d55a4025ddb1c871a2c7f21cea46b0f192519c74d2d9aa53b0591cbc2af3e"
+    },
+    "usb-startup-20261109-184607/00-usb.txt": {
+      "bytes": 1109,
+      "sha256": "b4ca8544f044d25d081e80ad46efdbab845a307368796e42f18090d330e43adf"
+    },
+    "usb-startup-20261109-184607/00-ucsi.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "debugfs-and-ucsi.txt": {
+      "bytes": 8597,
+      "sha256": "7d76b462dccf585d7e160c6060af1c4e1226a921bf5a894a14a53bbe2564a163"
+    },
+    "cc-toggle-probe.txt": {
+      "bytes": 1695,
+      "sha256": "797f4099bfc12b4c694a2838dad128d47e64ec26d614c6d6ca2dd505a91d54da"
+    },
+    "ucsi-after-cc.txt": {
+      "bytes": 9,
+      "sha256": "5467499c54a9af5bead6a3b461a0eedfed59709511b86c6347941cdf70053606"
+    },
+    "charger-firmware-after-cc.txt": {
+      "bytes": 45147,
+      "sha256": "553445ecd6b4b05bb4778453be58c1e349fa330d37b10c7183a9f9d56a457c39"
+    },
+    "flash.txt": {
+      "bytes": 166,
+      "sha256": "63977b162684ff6522071109ce08853ad4889b0d04f4426b22a94d1f90ba9b4f"
+    }
+  },
+  "remaining": [
+    "USB startup detection",
+    "intermittent speaker distortion",
+    "white boot flash and slow startup",
+    "long-term sensors sleep/resume"
+  ]
+}
