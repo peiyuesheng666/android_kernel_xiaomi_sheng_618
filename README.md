@@ -18,6 +18,12 @@ piano、LineageOS nuwa 及其依赖仓库作为逐项修复的实现参考；硬
 去掉内置 root 本身不能证明其他 root 方案可用。详见
 [r36 root 移除记录](reports/kernel618-root-removal-r36.json)。
 
+r36 同时收尾此前已发现的 EVA 重编配置回归：恢复上游指定的
+CONFIG_MSM_ADSPRPC，三个实际 FastRPC 导入恢复，旧 r35 占位版本被拒绝。
+344 模块、20975 项导入 CRC 和 18008 项内核导出通过，官方 boot 封包、
+AVB 和解包回读通过；交付保留 r32–r36 五版。录像效果尚未实机验证，详见
+[EVA 构建记录](reports/kernel618-eva-fastrpc-config-r36.json)。
+
 2026-11-09 下午 r35：16:41:54 仅刷 boot_a；用户确认进入桌面，五分钟有线
 ADB 未出现。用户重新开启无线调试后，确认实际 r35；传感器恢复至 54 项，
 两次采样有真实加速度、陀螺仪和方向数据，原 FastRPC 会话分配错误消失。

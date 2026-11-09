@@ -10,6 +10,11 @@ REQUIRED_IMPORTS = (
     'msm_minidump_add_region',
     'qcom_elf_dump',
 )
+EVA_REQUIRED_IMPORTS = (
+    'fastrpc_driver_register',
+    'fastrpc_driver_unregister',
+    'fastrpc_driver_invoke',
+)
 
 
 def build_flags(k618):
@@ -25,13 +30,13 @@ def build_flags(k618):
     ]
 
 
-def verify_imports(module):
+def verify_imports(module, required=REQUIRED_IMPORTS):
     parsed = ElfModule(module)
     # An ABI check cannot find a missing dependency after the compiler replaced
     # its API with a static inline stub. Require the actual external calls too.
     imported = parsed.undefined()
-    missing = sorted(set(REQUIRED_IMPORTS) - imported)
+    missing = sorted(set(required) - imported)
     if missing:
         raise ValueError('FastRPC vendor APIs compiled as stubs: ' + ', '.join(missing))
-    return dict(module=str(module), required_imports=list(REQUIRED_IMPORTS),
+    return dict(module=str(module), required_imports=list(required),
                 vendor_api_imports_verified=True)

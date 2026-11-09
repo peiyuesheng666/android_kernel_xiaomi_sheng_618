@@ -1,0 +1,63 @@
+{
+  "revision": "hardware-r36",
+  "date": "2026-11-09",
+  "regression": "r33 generic rebuild omitted CONFIG_MSM_ADSPRPC for the EVA FastRPC consumer",
+  "consequence": "Legacy fastrpc.h inlined zero-return stubs; actual EVA no longer imported the three FastRPC driver APIs",
+  "repair": "Restore selected integration define and verify real ELF imports after rebuild, manifest and packing",
+  "before": {
+    "sha256": "d74691b135a28d3f774bcd1c8d9c66502c497bff381890c1a750f41514ae3b41",
+    "rejected": "FastRPC vendor APIs compiled as stubs: fastrpc_driver_invoke, fastrpc_driver_register, fastrpc_driver_unregister"
+  },
+  "after": {
+    "sha256": "7f7d66919279eb92835978ac34987b8399b05b8e6ad0ea459dd963377106a46d",
+    "check": {
+      "module": "/root/sheng-618/diagnostic/hardware-r36/layer/lib/modules/msm-eva.ko",
+      "required_imports": [
+        "fastrpc_driver_register",
+        "fastrpc_driver_unregister",
+        "fastrpc_driver_invoke"
+      ],
+      "vendor_api_imports_verified": true
+    }
+  },
+  "references": [
+    {
+      "repository": "selected-sm8550-integration",
+      "commit": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+      "files": {
+        "kernel-6.18/k618_rpc515.sh": "325af87e06ef1510b49494f2c32c14416e0906278acb3a86b0092c6c7723a3c6",
+        "kernel-6.18/k618_tp.sh": "8cf6a40ca5bf49182865dbc86f1cab99863998e5c9e052bd9cdde880e177707f"
+      },
+      "applicability": "k618_rpc515.sh explicitly passes -DCONFIG_MSM_ADSPRPC=1 for the 5.15 EVA consumer"
+    },
+    {
+      "repository": "LineageOS-piano",
+      "commit": "3f10fc25273b42d18d0bd533551a0a5c3dda0094",
+      "applicability": "Reviewed BoardConfig.mk/device.mk; Snapdragon 860 platform does not provide the selected Kalama EVA/FastRPC build recipe"
+    },
+    {
+      "repository": "LineageOS-nuwa",
+      "commit": "8e2b6ca4375919035587115189760eed64f14b8d",
+      "applicability": "BoardConfig.mk inherits sm8550-common; no device-specific EVA build define"
+    },
+    {
+      "repository": "LineageOS-sm8550-common",
+      "commit": "63da741c41384a23416159f148f7ef7c85c8ea61",
+      "applicability": "BoardConfigCommon.mk builds qcom/opensource/eva-kernel with the complete platform configuration; preserve APIs rather than stub them"
+    },
+    {
+      "repository": "LineageOS-sm8550-kernel",
+      "commit": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "applicability": "5.15 reference foundation; selected 6.18 integration supplies the adapted legacy EVA/RPC pair"
+    }
+  ],
+  "effective_source_hashes": {
+    "msm_cvp_dsp.c": "fee2411a7761ad4992f155def0a261d0ac98112a3f67fde7cb7a84309caea3d4",
+    "cvp_comm_def.h": "1127caaafe67ef8a5e644c34da5f1a503f54fcb9f0d11ffaed3da0376b2d2715",
+    "fastrpc.h": "cf68f49d70c594b38f2659336ce0af65f0a8855cc55236903bfbd453e2e4eefc"
+  },
+  "build_log": "/root/sheng-618/diagnostic/hardware-r36/rebuild-logs/tp-eva515.log",
+  "module_count": 344,
+  "hardware_result": "not flashed; video recording recovery not established",
+  "video_recording_fixed": false
+}

@@ -13,6 +13,7 @@ from build_sheng618_upstream import CLANG, K618, OUT, PROJECT, ROOT
 from audit_kernel618_modules import ElfModule, check_candidate
 from audit_sheng618_overlay import audit, entries
 from sheng618_fastrpc_config import verify_imports as verify_rpc_imports
+from sheng618_fastrpc_config import EVA_REQUIRED_IMPORTS
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', default='peripherals-r21')
@@ -118,6 +119,7 @@ for name, source in replacements.items():
     shutil.copyfile(source, modules/name)
     subprocess.run([CLANG/'llvm-strip','--strip-debug',modules/name],check=True)
 rpc_check = verify_rpc_imports(modules/'frpc-adsprpc.ko')
+eva_check = verify_rpc_imports(modules/'msm-eva.ko', EVA_REQUIRED_IMPORTS)
 checked = check_candidate({p.name:ElfModule(p) for p in modules.glob('*.ko')},
     {'source_keep_modules':['zram.ko','zsmalloc.ko']},OUT,
     [modules/'zram.ko',modules/'zsmalloc.ko'],'6.18')
@@ -171,6 +173,7 @@ expected_count = sum(name.endswith('.ko') for name in baseline) + len(expected_a
 assert metadata['helper_executable'] and metadata['module_count'] == expected_count
 report = dict(revision=tag,base_revision=options.base,checks=checked,archive=metadata,
     fastrpc_vendor_api_check=rpc_check,
+    eva_fastrpc_api_check=eva_check,
     all_modules_rebuilt=all_modules is not None,
     all_modules_manifest_sha256=hashlib.sha256(options.all_modules_manifest.read_bytes()).hexdigest() if all_modules else None,
     changed_payloads=changed,added_payloads=added,source_receipts=source_receipts,

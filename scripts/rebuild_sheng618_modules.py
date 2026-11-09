@@ -15,6 +15,7 @@ from build_sheng618_upstream import ACK, CLANG, K618, LOGS, OUT, PROJECT, ROOT, 
 from sheng618_build_identity import configure, verify, LOCAL_SUFFIX
 from audit_kernel618_modules import ElfModule
 from sheng618_fastrpc_config import build_flags as rpc_build_flags, verify_imports as verify_rpc_imports
+from sheng618_fastrpc_config import EVA_REQUIRED_IMPORTS
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--tag', required=True)
@@ -48,7 +49,7 @@ def run(label, args):
 
 
 def kernel():
-    # Preserve the exact adapted .config, changing only user-requested identity.
+    # Preserve the adapted .config, applying the requested identity and root policy.
     for output in (OUT, K618 / 'out-gki-ir'):
         shutil.copyfile(output / '.config', native / (output.name + '-config-before'))
         configure(ACK, output, PROJECT)
@@ -100,6 +101,7 @@ def techpacks():
                 'KBUILD_EXTRA_SYMBOLS=' + str(soc / 'Module.symvers'), *rpc_build_flags(K618)])
             verify_rpc_imports(legacy / 'frpc-adsprpc.ko')
             incs = str(legacy / 'include') + ' ' + incs
+            defs += ' -DCONFIG_MSM_ADSPRPC=1'
             syms = [p for p in syms if p.name != 'dsp.symvers'] + [legacy / 'Module.symvers']
         args = [*make, 'M=' + str(stage), 'modules', 'KERNEL_SRC=' + str(ACK),
                 'KERNEL_ROOT=' + str(ACK), 'CONFIG_ARCH_KALAMA=y',
@@ -109,6 +111,8 @@ def techpacks():
                 'KCFLAGS=-Wno-error -include ' + str(K618 / 'tp-autoconf.h') + ' ' + expand(defs),
                 *shlex.split(expand(variables))]
         run('tp-' + name, args)
+        if name == 'eva515':
+            verify_rpc_imports(stage / 'msm/msm-eva.ko', EVA_REQUIRED_IMPORTS)
         shutil.copyfile(stage / 'Module.symvers', K618 / 'tp-log' / (name + '.symvers'))
 
 
@@ -136,6 +140,7 @@ def manifest():
     preferred = {name: soc / name for name in ('qmi_helpers.ko', 'pdr_interface.ko', 'qcom_pdr_msg.ko')}
     preferred['frpc-adsprpc.ko'] = K618 / 'vendor/xiaomi/adsprpc-515/frpc-adsprpc.ko'
     rpc_check = verify_rpc_imports(preferred['frpc-adsprpc.ko'])
+    eva_check = verify_rpc_imports(tp / 'eva-kernel-515/msm/msm-eva.ko', EVA_REQUIRED_IMPORTS)
     result = {}
     for old in sorted(baseline.glob('*.ko')):
         key = 'kiwi_v2.ko' if old.name == 'qca_cld3_kiwi_v2.ko' else old.name
@@ -157,6 +162,7 @@ def manifest():
     report = dict(revision=options.tag, release=expected_release, modules=result,
                   module_count=len(result), binary_vermagic_rewriting=False,
                   fastrpc_vendor_api_check=rpc_check,
+                  eva_fastrpc_api_check=eva_check,
                   compiler_version_full=subprocess.check_output([CLANG / 'clang', '--version'], text=True))
     destination = native / 'all-modules.json'
     destination.write_text(json.dumps(report, indent=2) + '\n')

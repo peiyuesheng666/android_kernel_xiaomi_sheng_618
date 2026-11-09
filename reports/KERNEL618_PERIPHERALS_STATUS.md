@@ -1,5 +1,21 @@
 # 6.18 sheng 外围实机修复
 
+## 2026-11-09 r36 候选与 root 范围
+
+按用户最新指令去掉内置 GKI root；核心与最终内嵌 Image 都没有启用的
+KSU/SUSFS 配置或相应定义符号，已用旧 r35 的真实已启用配置验证拒绝。
+管理器版本和开机无线 ADB 5555 模块暂缓，待用户明确授权模块后再做。
+
+收尾已有 EVA 配置调查：选定上游 k618_rpc515.sh 明确为 EVA 传入
+CONFIG_MSM_ADSPRPC=1，通用重编路径此前遗漏，fastrpc.h 因而内联为返回零
+的占位函数。恢复该定义后，msm-eva.ko 实际导入三个 FastRPC 驱动接口，
+重编、清单、封包三级检查通过；旧 r35 EVA 被拒绝。
+344 模块、20975 项版本化导入、18008 项内核导出一致性、归档权限、
+来源哈希、AVB 和官方 boot 模板解包回读通过。交付仅保留 r32–r36 五版。
+r36 尚未刷入，USB、炸音、录像、白闪及启动速度不标记为修复。
+完整证据见 kernel618-root-removal-r36.json、kernel618-eva-fastrpc-config-r36.json
+及 kernel618-hardware-r36-{layer,boot}.json。
+
 ## 2026-11-09 r35 实机与持续修复约定
 
 16:41:54 校验 product=sheng、a 槽、unlocked=yes、is-userspace=no 后，
