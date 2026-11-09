@@ -56,6 +56,9 @@ module_param_named(enable, enabled, bool, 0400);
 /* Test builds opt in on the command line; normal builds never reboot here. */
 static unsigned int test_timeout;
 module_param(test_timeout, uint, 0400);
+/* Opt-in stage isolation before Android init loads board driver modules. */
+static unsigned int pre_driver_hold_ms;
+module_param(pre_driver_hold_ms, uint, 0400);
 static char revision[65] = "unspecified";
 module_param_string(revision, revision, sizeof(revision), 0400);
 static unsigned long next_identity;
@@ -382,6 +385,14 @@ static int __init sheng_bootlog_init(void)
         return 0;
     if (test_timeout && (test_timeout < 10 || test_timeout > 600))
         return -EINVAL;
+    if (pre_driver_hold_ms > 10000)
+        return -EINVAL;
+    if (pre_driver_hold_ms) {
+        pr_notice("sheng_bootlog: TEST_ONLY pre-driver hold begin (%u ms)\n",
+                  pre_driver_hold_ms);
+        msleep(pre_driver_hold_ms);
+        pr_notice("sheng_bootlog: TEST_ONLY pre-driver hold end\n");
+    }
     snapshot = vzalloc(SLOT_BYTES);
     if (!snapshot)
         return -ENOMEM;
