@@ -31,7 +31,16 @@ final class StockDms {
     static void setEnabled(AudioEffect effect, boolean enabled) { send(effect, 0, enabled ? 1 : 0); }
     static boolean isEnabled(AudioEffect effect) { return read(effect, 0, 0, 0, 1)[0] != 0; }
     static int getProfile(AudioEffect effect) { return read(effect, 10, 0, 0, 1)[0]; }
-    static void setProfile(AudioEffect effect, int profile) { send(effect, 10, profile); }
+    static void setProfile(AudioEffect effect, int profile) {
+        if (profile < 0 || profile > 8) throw new IllegalArgumentException("Unknown DMS profile");
+        // Stock DsManager::setSelectedProfile subtracts 4 from every ID > 3
+        // while Dolby surround is off, including Voice (8). Its getter and
+        // parameter/reset commands use actual database IDs. Check the native
+        // result rather than reading a vendor property from the app domain.
+        // Retry only this verified remapping; other failures remain visible.
+        send(effect, 10, profile);
+        if (profile > 3 && getProfile(effect) == profile - 4) send(effect, 10, profile + 4);
+    }
     static void resetProfile(AudioEffect effect, int profile) { send(effect, 12, profile); }
     static int[] getParameter(AudioEffect effect, int profile, int parameter) {
         return read(effect, 1, profile, parameter, parameter == GAINS ? 20 : 1);

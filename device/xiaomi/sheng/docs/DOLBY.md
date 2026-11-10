@@ -102,3 +102,7 @@ the existing protected AudioEffect bridge.
 
 The cleaned build, PCM/offload channel isolation and restart persistence still
 require validation before packaging or flashing a permanent revision.
+
+The r41 Voice-selection repair and normal module/build/flash acceptance are
+recorded in [DOLBY_VOICE_PROFILE.md](DOLBY_VOICE_PROFILE.md). The user accepted
+that reported selection issue on 2026-11-10.

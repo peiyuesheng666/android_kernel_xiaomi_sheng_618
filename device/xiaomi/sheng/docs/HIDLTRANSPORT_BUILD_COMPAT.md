@@ -31,3 +31,10 @@ installable, its bare module name is not a Make build target; build its exact
 Soong output when verifying the compatibility ELF. Raw build logs stay in
 `reports/device/20261110-resume/dolby/`. This fixes build metadata and does not
 establish face enrollment or unlock acceptance.
+
+The exact Soong library output built successfully with the expected SONAME
+and no defined dynamic symbols. The unchanged `sheng-miface-service`
+`check_elf_file` target and its dependencies passed (73 actions). The normal
+ShengDolby module also built after graph regeneration. Neither the
+compatibility library nor a replacement face service was included in r41's
+two-partition Dolby update.
