@@ -1,0 +1,45 @@
+{
+  "uploaded_at_utc": "2026-11-10T09:58:18.652898+00:00",
+  "repository": "peiyuesheng666/android_kernel_xiaomi_sheng_618",
+  "repository_url": "https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618",
+  "private": true,
+  "default_branch": "main",
+  "commit": "06315a36c0be73ee3d9984d0f924a5d526d55d79",
+  "release_tag": "release-r70-four-stages",
+  "release_url": "https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/tag/release-r70-four-stages",
+  "config": "sheng_defconfig",
+  "build_scripts": [
+    "buildkernel.sh",
+    "buildmodules.sh",
+    "embed.sh",
+    "mkbootimage.sh"
+  ],
+  "one_click_script": "build.sh",
+  "remote_asset_sha256_verified": true,
+  "assets": [
+    {
+      "name": "android_kernel_618_for_sheng-source-four-stages.zip",
+      "bytes": 5605134,
+      "digest": "sha256:9491d87c2ab3aaf482b4c3d61ee0a535c9e0ab9e3f868d705eb6b5790d76336a",
+      "url": "https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/download/release-r70-four-stages/android_kernel_618_for_sheng-source-four-stages.zip"
+    },
+    {
+      "name": "android_kernel_618_for_sheng-source-with-inputs-four-stages.tar.gz",
+      "bytes": 316072494,
+      "digest": "sha256:2d2e8843bd86e6fe4289def86359e0ad37f7eb4a7e30d87e0a2fb8fdb7d9d823",
+      "url": "https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/download/release-r70-four-stages/android_kernel_618_for_sheng-source-with-inputs-four-stages.tar.gz"
+    },
+    {
+      "name": "sheng-6.18.32-release-r70-source.tar.gz",
+      "bytes": 317926350,
+      "digest": "sha256:7c054599ce763bbbd75f21dccfc77102b2fb55f3dacb3f25c2d4d4ed03cef437",
+      "url": "https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/download/release-r70-four-stages/sheng-6.18.32-release-r70-source.tar.gz"
+    },
+    {
+      "name": "SOURCE_SHA256SUMS",
+      "bytes": 357,
+      "digest": "sha256:bdd08f2159b87f049887b6a6f6bfe87764888051c7d04c377a3cc00c32796e7b",
+      "url": "https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/download/release-r70-four-stages/SOURCE_SHA256SUMS"
+    }
+  ]
+}
