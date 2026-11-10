@@ -1,10 +1,12 @@
 # Xiaomi Pad 6S Pro 12.4（sheng）完整适配清单
 
 2026-11-10：已从澎湃 A 槽重新写入完整 r38 配套镜像。14 个输入与完整 AVB
-链验证通过；七个物理启动分区回读匹配。两次启动因 init_user0_failed 返回
-Recovery，尚未通过 Android 启动验收；未清除 userdata/metadata。清数据或
-恢复澎湃的选择正在等待用户确认。软件人脸 0.2 引擎候选编译及 62 项合成检查
-通过，尚未安装。后续正式接入目标为 6.18，模块按 Android 分区打包。
+链验证通过；七个物理启动分区回读匹配。保留澎湃数据时两次启动因
+init_user0_failed 返回 Recovery；用户随后明确授权清数据，标准 Recovery
+清除后 Android 已正常启动。七个逻辑分区及两份 vbmeta 回读匹配，原版
+SystemUI 保持，SELinux 为 Enforcing，两项 health 服务在 root 前注册。
+软件人脸 0.2 引擎候选编译及 62 项合成检查通过，已安装并通过不开相机的
+引擎自检；实际录入及解锁仍未通过。后续正式接入目标为 6.18，模块按 Android 分区打包。
 见 r38-restore-20261110.md、software-face-engine-20261110.md 和
 KERNEL618_ANDROID_INTEGRATION.md。下面的 B 槽状态为 2026-11-08 历史记录。
 
