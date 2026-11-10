@@ -1,0 +1,38 @@
+{
+  "source_files_verified": 103604,
+  "module_count": 344,
+  "source_layout_verified": true,
+  "build_root": "/root/sheng-618-project-build",
+  "fresh_build_verified": true,
+  "regenerated_camera_build_metadata": {
+    "k618/vendor/qcom/opensource/camera-kernel/cam_generated_h": {
+      "snapshot_sha256": "c61463acb9883c54c3a1b1f8e3b5790a8757fe23ab89920047baca8497be9f15",
+      "compiled_sha256": "58b4019857838b1de46826b7894842a3e83e9d20e489d77426b9209ddccd2660"
+    }
+  },
+  "build": {
+    "release": "6.18.32-peiyuesheng-sheng-kernel",
+    "module_count": 344,
+    "exports_and_crcs_verified": true,
+    "boot_packaged": true,
+    "artifacts": {
+      "Image": "ed272953a91b4bbd0cdd5b5bd047d31ea77849f2ab10ccda7b819e6dc60f5654",
+      "boot.img": "f5e133d61a06c40e72da0c7b0547cec5cabc7c5b9019704de6a1096cef3466dc"
+    },
+    "source_snapshot_sha256": "7c054599ce763bbbd75f21dccfc77102b2fb55f3dacb3f25c2d4d4ed03cef437"
+  },
+  "module_abi": {
+    "release": "6.18.32-peiyuesheng-sheng-kernel",
+    "expected_series": "6.18",
+    "symvers_sha256": "f145e6a36d7f7dc574acbf4cd6dd11ebf3f6597f723d7099d4fb27de4c9fe373",
+    "effective_module_count": 344,
+    "versioned_imports_checked": 21003,
+    "issue_counts": {},
+    "issue_count": 0,
+    "issues": [],
+    "issues_truncated": false,
+    "warnings": [],
+    "abi_passed": true,
+    "scope": "Static ELF/CRC checks only; signatures, namespaces, DT binding and hardware require further validation."
+  }
+}

@@ -1,0 +1,9 @@
+[
+  {
+    "path": "k618/sheng-ports/ps5169/Makefile",
+    "old": "-I/root/sheng-618/upstream-build/k618/soc/include",
+    "new": "-I$(SOC)/include",
+    "before_sha256": "d96c64de11b997cc720613caaa9a468a859118e8240b03ebd370853d7ae5544a",
+    "after_sha256": "56fca642e8d8d9ac0d5cd40884e5ed16da7877e3b87f698254044046fdca0985"
+  }
+]

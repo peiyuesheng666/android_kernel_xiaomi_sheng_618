@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: GPL-2.0-only
+ccflags-y += -I$(src)/include
+obj-m += xm_utils.o
+xm_utils-y := battmngr_voter.o battmngr_notifier.o platform_class.o

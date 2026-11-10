@@ -1,0 +1,1 @@
+options k618_load list=/lib/modules/k618_batch.load dir=/lib/modules helper=/k618_umh

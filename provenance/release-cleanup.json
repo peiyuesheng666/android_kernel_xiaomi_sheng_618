@@ -1,0 +1,72 @@
+{
+  "changes": {
+    "soc/drivers/iommu/arm/arm-smmu/arm-smmu.c": {
+      "before_sha256": "b3d1ac54eec296d2cd00425af632414a2086bb37e99075f34259067e77c37113",
+      "after_sha256": "48d49842b288fb4d620d3c0f1fe4cc48be8220145fbdcb2231f44944453ede83"
+    },
+    "soc/drivers/clk/qcom/dispcc-kalama.c": {
+      "before_sha256": "9b176de8f3d672a96c8143b707fa8a72e454c2d88c35920d01a710b4fd03aa9c",
+      "after_sha256": "9c817af2632a33ea3d40a6c51cc7edf5d1ae5e6d9c697da3350f82894db36c78"
+    },
+    "vendor/qcom/opensource/display-drivers/msm/msm_drv.c": {
+      "before_sha256": "8282aa6a220d173db701d79c30e41765611618493b14b1ef7bfcef3c00adacab",
+      "after_sha256": "0bee0c61aab863b8b379c98265aa7ea27d29229d27e652888a6981d1bc659059"
+    },
+    "vendor/qcom/opensource/display-drivers/msm/sheng_boot_trace.h": {
+      "before_sha256": "bdcfca87979d5ac2f4e832abf95e39ab27bb738e9029512957e8a486814bfd08",
+      "after_sha256": "393c734cb45f735cdeaf7c8e6107659152184a06daaa51d64abb244344df9ac3"
+    },
+    "vendor/qcom/opensource/display-drivers/msm/sde/sde_hw_intf.c": {
+      "before_sha256": "62d85d372eb798e4e1f63642394dc4a68fc7e654c4a9dde77dedc7bf46c74a43",
+      "after_sha256": "68fdc437c36c9de388a4b3008c47b730e98ebbfc22b63a1dce50546531712401"
+    },
+    "vendor/qcom/opensource/display-drivers/msm/sheng_ktz8866.c": {
+      "before_sha256": "ec78f39741f28101c7a9108c24c59d4c58803885f6cf2120da6cb4d8f73fcbf2",
+      "after_sha256": "1c90fa9c7c38237521cd32791c143e36c09917b06c8f85610fb9f858baff8efe"
+    },
+    "vendor/qcom/opensource/display-drivers/msm/sde/sde_encoder_phys_vid.c": {
+      "before_sha256": "d9bf8e77e70cdc965320d93445d5097fe8fe2f4861522ea9bcee5ee8708421c6",
+      "after_sha256": "22cab6e8805738fb6b2e975cf051a6622b15a46c0b18b2492714e1a7716814ff"
+    },
+    "vendor/qcom/opensource/display-drivers/msm/sde/sde_kms.c": {
+      "before_sha256": "d1bcdaadce7ec9f614d4c4767bd96d8a49b60b7160e7897b8bbd9016e507a5b1",
+      "after_sha256": "245ba3ad636285fc09920042549060b60b2747873c7619c7202369a3f7e85424"
+    },
+    "vendor/qcom/opensource/display-drivers/msm/dsi/dsi_clk_manager.c": {
+      "before_sha256": "9f3a64d5ed4d2fe3db950a94d9e28e60f36cefa1e67b13b0e93f7f4410f68430",
+      "after_sha256": "d20fd2532586595611ea309dc3fa6c1aa6189878932b122f4699b1b9b6a3a5f6"
+    },
+    "soc/drivers/iommu/arm/arm-smmu/sheng_early_scan_trace.h": {
+      "before_sha256": "d7dabc56d6cd3cab5fb451bc5b83577f0e7fe9efb598e2bd1f088c9e900bec61",
+      "after_sha256": "63528dfe5a94b1b6493430f9035482cfe227a9c12c39b5f988b739051851f142"
+    },
+    "soc/drivers/clk/qcom/sheng_early_scan_trace.h": {
+      "before_sha256": "d7dabc56d6cd3cab5fb451bc5b83577f0e7fe9efb598e2bd1f088c9e900bec61",
+      "after_sha256": "63528dfe5a94b1b6493430f9035482cfe227a9c12c39b5f988b739051851f142"
+    },
+    "sheng-ports/keyboard/sheng_nanosic.c": {
+      "before_sha256": "6d5105bdc2f2980960d72d28a2a75b864566bb3574879626aba7af8a793a3591",
+      "after_sha256": "a6b070da5e2e8081fc8901a33137fda53b09b061dbd2080ce0116ed121a34a4d"
+    },
+    "ws/common/kernel/module/main.c": {
+      "before_sha256": "80606ebb42fd6f365a307f49b8f5eef87a6191b6b0db7a97f521f3f301256643",
+      "after_sha256": "18bc88346770a1b3cf7932438be5a1c7154e282bb77c878fb21ad2447aae02b5"
+    },
+    "ws/common/fs/crypto/keyring.c": {
+      "before_sha256": "9c55bf356044ec0699b69072ffb26359b88985b0cc8946f5077520a2cb4fd945",
+      "after_sha256": "842628727cd5ac7cfbd21b42d75c232afa4da43f6f238570253ddc153b067df8"
+    },
+    "soc/drivers/power/supply/qti_battery_charger.c": {
+      "before_sha256": "e0dcead0aa03c1dd3d4a6fe359648e7896b45e4e7ce07200abe24255f3a85d2a",
+      "after_sha256": "cf46fc4b02d27fb14bff72eaaf0349ae9219e77733a3eb61102eb833eea05cf9"
+    },
+    "mark/k618_load.c": {
+      "before_sha256": "8435d07f31dff58be1e9035888826c6c6f920ad4a37a994c0e908d056be2c89c",
+      "after_sha256": "d8abfc41a00b08c6721ac23a5c454c7fa13f9c73a6c580bc39df415375eeaa4f"
+    }
+  },
+  "hardware_fixes_retained": true,
+  "keyboard_disconnect_retained": true,
+  "display_priority_base": "hardware-r69",
+  "logger_config": "CONFIG_SHENG_BOOTLOG=n"
+}

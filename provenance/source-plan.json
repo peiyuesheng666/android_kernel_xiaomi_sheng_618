@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "device": "sheng",
+  "primary_rom": "HyperOS OS3.0.303.0.WNXCNXM",
+  "vendor_baseline": "OS3.0.303.0.WNXCNXM",
+  "secondary_rom": null,
+  "required_roms": ["HyperOS OS3.0.303.0.WNXCNXM"],
+  "rom_compatibility_policy": "2026-11-08 user narrowed this task to HyperOS only. Reuse the selected upstream project's existing HyperOS integration and adapt sheng hardware differences. No separate LineageOS or generic HyperOS compatibility workstream.",
+  "status": "adopting-user-selected-sm8550-integration-with-sheng-deltas; no device boot validation yet",
+  "delivery": {"format": "raw ARM64 Image binary", "packaging_requested": false, "device_testing": "user"},
+  "build_root": "/root/sheng-618",
+  "minimum_host_free_gib": 40,
+  "kernel_core": {
+    "url": "https://android.googlesource.com/kernel/common",
+    "revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+    "version": "6.18.32",
+    "scope": "Pinned ACK core used by the selected SM8550 integration; preserve the earlier clean baseline"
+  },
+  "reference": {
+    "url": "https://github.com/JiaqiLi404/android_kernel_618_for_sm8550.git",
+    "revision": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+    "ack_revision": "ff4a6c3bb0f471a9dd186293a47b62c83829b97d",
+    "ack_version": "6.18.32",
+    "strategy": "recompiled SoC/techpack/device modules plus selected madrid 6.18 binaries; embedded replacement module layer",
+    "physical_device_validation": "pending according to upstream README",
+    "direct_nuwa_image_use": false,
+    "role": "selected primary 6.18 build and common SM8550 integration; adapt tablet differences only",
+    "reuse_earlier_ports": true
+  },
+  "board_sources": [
+    {
+      "name": "lineage-kernel",
+      "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550.git",
+      "revision": "f9ca2b71f6725a0d4f0b1cb2aa553baaea98e74d",
+      "branch": "lineage-24.0",
+      "scope": "Current ROM-pinned LOS SM8550 5.15 driver foundation; migrate required interfaces to 6.18"
+    },
+    {
+      "name": "lineage-modules",
+      "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-modules.git",
+      "revision": "92a9fde479d3262da080cfd28bab0775b0da500a",
+      "branch": "lineage-24.0",
+      "scope": "LOS Qualcomm and Xiaomi external drivers; audit tablet touch, pen, keyboard, display, audio and camera coverage"
+    },
+    {
+      "name": "lineage-devicetrees",
+      "url": "https://github.com/LineageOS/android_kernel_xiaomi_sm8550-devicetrees.git",
+      "revision": "43b5ada5654ed84c25f74789bc8f6326b7bacd20",
+      "branch": "lineage-24.0",
+      "scope": "LOS SM8550 hardware definitions, checked against sheng stock DTB/DTBO"
+    }
+  ],
+  "supplemental_board_sources": [
+    {
+      "name": "micode-kernel",
+      "url": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "branch": "sheng-u-oss",
+      "scope": "Official sheng tablet drivers missing from LOS; not a replacement kernel core"
+    },
+    {
+      "name": "micode-audio",
+      "url": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "branch": "sheng-u-oss",
+      "scope": "Official sheng CS35L43 amplifier and tablet audio differences"
+    },
+    {
+      "name": "micode-devicetree",
+      "url": "https://github.com/MiCode/kernel_devicetree.git",
+      "revision": "c4e85e1569f8acbbfe8e6dd694623aa56e424c60",
+      "branch": "sheng-u-oss",
+      "scope": "Tablet board wiring and input dependencies, checked against shipping firmware"
+    },
+    {
+      "name": "micode-display-devicetree",
+      "url": "https://github.com/MiCode/vendor_qcom_proprietary_display-devicetree.git",
+      "revision": "0af012cb525b81e293ddc83a5a5c41538946489a",
+      "branch": "sheng-u-oss",
+      "scope": "N81A dual-DSI tablet panel definitions absent from LOS phone trees"
+    },
+    {
+      "name": "micode-display",
+      "url": "https://github.com/MiCode/vendor_opensource_display-drivers.git",
+      "revision": "6461221b68908b990e1fa2b60feaa812cb944ef5",
+      "branch": "sheng-u-oss",
+      "scope": "Tablet display differences only; LOS remains the general driver foundation"
+    },
+    {
+      "name": "micode-camera",
+      "url": "https://github.com/MiCode/vendor_qcom_opensource_camera-kernel.git",
+      "revision": "ad342a26a37e9fabc2f626a6622b788bf9aa546b",
+      "branch": "sheng-u-oss",
+      "scope": "Tablet camera differences only"
+    }
+  ],
+  "source_policy": "2026-11-08 latest user instruction selects JiaqiLi404/android_kernel_618_for_sm8550 as the primary integrated base, retaining usable earlier work and supplementing tablet differences from pinned LOS and official MiCode sheng sources. HyperOS only; deliver raw Image for user testing. Keep the existing ROM checkout unchanged. Record fixed revisions and source provenance.",
+  "module_inputs": "../stock-modules/module-plan.json",
+  "board_groups": [
+    {"name": "display", "modules": ["msm_drm.ko"], "requires": "tablet LCD dual-DSI/DSC and original display userspace ABI"},
+    {"name": "touch-and-pen", "modules": ["nt36532_touch.ko", "xiaomi_touch.ko", "metis.ko"], "requires": "Tablet Novatek host-processing and pen path, sourced from LOS where available"},
+    {"name": "keyboard-and-hall", "modules": ["nanosic_driver.ko", "xiaomi_keyboard_driver.ko", "xiaomi_hall.ko"], "requires": "tablet-specific input protocols and screen notifications"},
+    {"name": "charging", "modules": ["xm_charger.ko", "xm_battmngr_init.ko", "xm_utils.ko", "nanosic_platform.ko", "virtual_fg.ko", "xm_power.ko"], "requires": "tablet battery/POGO/pen charging interfaces"},
+    {"name": "audio", "modules": ["cs35l43_dlkm.ko"], "requires": "tablet speaker amp; reference CS35L41 alone is insufficient"},
+    {"name": "fingerprint", "modules": ["fpc1552.ko", "xiaomifp.ko"], "requires": "tablet FPC and panel notification interfaces"}
+  ],
+  "release_gates": [
+    "Complete built 6.18 candidate and all effective modules",
+    "Real symbol CRCs, module_layout, structure size, dependencies, namespaces and signature checks",
+    "Merged tablet DTB/DTBO matches enabled drivers",
+    "Original init/vendor ramdisk remains in charge, with any replacement module layer explicitly audited",
+    "Boot/package/AVB validation against actual sheng partitions",
+    "User-performed sheng HyperOS device boot and hardware checks",
+    "HyperOS stock vendor HAL/device-node/ioctl/sysfs compatibility, encrypted userdata and wrapped-key recovery without data conversion",
+    "Display, audio, camera, input/pen/keyboard, charging, radio, suspend/resume and performance validation on sheng HyperOS"
+  ]
+}
