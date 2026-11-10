@@ -34,6 +34,15 @@ project statuses, plus SDK/R8/JDK toolchain byte checks. APK and detailed build
 receipt are in artifacts/ShengFaceLab-20261110. Sources were compiled directly
 from this workspace via --source, with public build inputs read-only in WSL.
 
-Android installation and engine runtime testing await successful r38 startup.
+After the authorized data reset, r38 booted and the APK installed successfully.
+The native blank-matrix detector/recognizer and model-integrity self-test passed
+on the tablet: `Engine self-test passed; camera not opened`. Camera appops were
+ignored during this check and no active camera clients were observed.
 Enrollment, identity accuracy, liveness, credential validation and system unlock
 remain unaccepted. No camera or personal image/template was acquired by the agent.
+
+The user selected **FaceUnlock** as the final application name. The current
+ShengFaceLab remains a test application with a launcher entry for user-operated
+trials. A formal implementation must follow DEVICE_APP_DESIGN.md: modern Monet
+controls, a suitable themed icon and Settings-only entry. The engine candidate
+is not yet a registered system biometric or credential-authorized unlock path.

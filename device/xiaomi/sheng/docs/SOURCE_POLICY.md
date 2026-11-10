@@ -7,6 +7,9 @@ using unique binary/RC filenames; PAL uses preferred-prebuilt selection with a
 device-compiled ELF input. Package `overrides` alone cannot prevent same-path
 Make installation collisions. No normal build patches a public repository.
 
+Device-owned application UI and entry points must also follow
+`DEVICE_APP_DESIGN.md`, as requested by the user on 2026-11-10.
+
 For every bug fix, first inspect piano, LineageOS nuwa and the relevant
 dependency repositories, as requested by the user on 2026-11-08. Pin the
 reviewed commits and record what is applicable, already present or incompatible.
