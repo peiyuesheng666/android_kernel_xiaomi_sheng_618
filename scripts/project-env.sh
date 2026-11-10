@@ -17,8 +17,18 @@ case "$BUILD_ROOT$PROJECT_ROOT" in *[[:space:]]*)
 esac
 export PROJECT_ROOT BUILD_ROOT
 export K618="$BUILD_ROOT/k618"
-export PREBUILTS="${PREBUILTS:-$K618/ws/prebuilts}"
-export ELFUTILS="${ELFUTILS:-$BUILD_ROOT/host-tools/elfutils-0.193}"
+default_prebuilts=$K618/ws/prebuilts
+default_elfutils=$BUILD_ROOT/host-tools/elfutils-0.193
+if [ -d "${PROJECT_ROOT}-deps/prebuilts" ]; then default_prebuilts=${PROJECT_ROOT}-deps/prebuilts; fi
+if [ -d "${PROJECT_ROOT}-deps/elfutils-0.193" ]; then default_elfutils=${PROJECT_ROOT}-deps/elfutils-0.193; fi
+export PREBUILTS="${PREBUILTS:-$default_prebuilts}"
+export ELFUTILS="${ELFUTILS:-$default_elfutils}"
+if [ -z "${STOCK_BOOT:-}" ]; then
+  for stock_candidate in "$PROJECT_ROOT/stock-boot.img" "${PROJECT_ROOT}-deps/sheng-stock-boot.img" "$BUILD_ROOT/stock-boot.img"; do
+    if [ -f "$stock_candidate" ]; then STOCK_BOOT=$stock_candidate; break; fi
+  done
+fi
+export STOCK_BOOT="${STOCK_BOOT:-}"
 export PYTHON="${PYTHON:-python3.11}"
 export JOBS="${JOBS:-4}" TAG="${TAG:-release-r70}"
 [[ "$JOBS" =~ ^[1-9][0-9]*$ && "$JOBS" -le 4 ]] || { echo 'JOBS must be 1..4' >&2; return 2 2>/dev/null || exit 2; }

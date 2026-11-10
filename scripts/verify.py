@@ -37,11 +37,13 @@ for name in ('Makefile', 'arch', 'drivers', 'fs', 'include'):
 for path in k.rglob('*'):
     if path.is_symlink():
         assert path.resolve().is_relative_to(root), path
-for path in (project / 'scripts').glob('*.sh'):
+for path in [*project.glob('*.sh'), *(project / 'scripts').glob('*.sh')]:
     subprocess.run(['bash', '-n', path], check=True)
 for path in [*(project / 'scripts').glob('*.py'), *(project / 'kernel-6.18').glob('*.py')]:
     compile(path.read_text(), str(path), 'exec')
 result = {'source_files_verified': len(expected), 'module_count': len(mapping),
+          'defconfig': 'sheng_defconfig',
+          'stage_scripts': ['buildkernel.sh', 'buildmodules.sh', 'embed.sh', 'mkbootimage.sh'],
           'source_layout_verified': True, 'build_root': str(root), 'fresh_build_verified': False,
           'regenerated_camera_build_metadata': generated_metadata}
 built = k / 'out-gki/build-result.json'
