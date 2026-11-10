@@ -13,11 +13,12 @@ clean Git status. The exact receipt is
 Device-owned replacement modules are being compiled; this source audit is
 not a claim that the new images have passed hardware testing.
 
-The separate 6.18 investigation uses the official LOS SM8550 kernel, modules
-and devicetrees as its driver foundation, as requested on 2026-11-08. Its source
-plan lives in `interfaces/kernel/6.18`; the workspace report is
-`reports/KERNEL618_STATUS.md`. No 6.18 device kernel or flashable package has
-been built or validated, and the production 5.15 selection is unchanged.
+The separate 6.18.32 r70 kernel has been built and tested on HyperOS; see the
+workspace kernel-project documentation. On 2026-11-10 the user selected it for
+future Android integration with modules in vendor_boot/vendor_dlkm/system_dlkm.
+This Android partition set is not yet built or tested. Retained r38 5.15 images
+remain the restoration control. See docs/KERNEL618_ANDROID_INTEGRATION.md and
+docs/r38-restore-20261110.md.
 
 ## Work records and commits
 
@@ -38,8 +39,8 @@ read-only; cached partition files and firmware are on C: inside WSL.
 
 External source dependencies are the official LineageOS SM8550 kernel, modules,
 devicetrees and `hardware/xiaomi`, plus normal Android/LineageOS/Qualcomm platform
-repositories. The first kernel is 5.15; the separate 6.18 port is under source
-and ABI investigation, with the existing 6.12 build retained as a control.
+repositories. The retained Android baseline uses 5.15. The tested HyperOS 6.18
+port is the future Android target; the old 6.12 baseline has been retired.
 
 For the initial source-kernel build candidate, the kernel core is built from the official
 LineageOS 5.15 source. The vendor BSP uses the supplied firmware's complete
