@@ -4,8 +4,13 @@ package org.lineageos.sheng.dolby;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.res.Configuration;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.RippleDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,7 +24,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toolbar;
 import java.util.Locale;
@@ -31,7 +35,7 @@ public final class AtmosActivity extends Activity {
     private final int[] modeDescriptions = {R.string.dynamic_description, R.string.movie_description,
             R.string.music_description, R.string.voice_description, R.string.custom_description};
     private AtmosApplication controller;
-    private Switch toggle, dialog;
+    private MonetSwitch toggle, dialog;
     private TextView status, modeDescription, toneValue, eqHint, amountValue;
     private RadioGroup profiles;
     private final RadioButton[] modeButtons = new RadioButton[5];
@@ -41,7 +45,7 @@ public final class AtmosActivity extends Activity {
     private Button reset;
     private LinearLayout toneRow;
     private boolean updating, dragging, dark;
-    private int accent, surface, secondary, primary;
+    private int accent, onAccent, surface, background, secondary, primary, outline, tonal, onTonal;
     private long seen = -1;
     private final Runnable refresh = new Runnable() {
         @Override public void run() {
@@ -59,6 +63,65 @@ public final class AtmosActivity extends Activity {
     }
     private GradientDrawable shape(int fill) {
         GradientDrawable drawable = new GradientDrawable(); drawable.setColor(fill); drawable.setCornerRadius(dp(24)); return drawable;
+    }
+    private int disabled(int value) { return blend(surface, value, .38f); }
+    private int blend(int a, int b, float fraction) {
+        return 0xff000000 | (Math.round(((a >> 16)&255)*(1-fraction)+((b >> 16)&255)*fraction)<<16)
+                | (Math.round(((a >> 8)&255)*(1-fraction)+((b >> 8)&255)*fraction)<<8)
+                | Math.round((a&255)*(1-fraction)+(b&255)*fraction);
+    }
+    private ColorStateList colors(int enabled) {
+        return new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled},new int[]{}},
+                new int[]{disabled(enabled),enabled});
+    }
+    private void roundedButton(Button button) {
+        button.setAllCaps(false); button.setTextColor(colors(onTonal));
+        button.setTextSize(16); button.setMinHeight(dp(52));
+        button.setBackgroundTintList(null);
+        StateListDrawable fills = new StateListDrawable();
+        fills.addState(new int[]{-android.R.attr.state_enabled},shape(blend(surface,primary,.12f)));
+        fills.addState(new int[]{},shape(tonal));
+        button.setBackground(new RippleDrawable(ColorStateList.valueOf((accent&0xffffff)|0x20000000),fills,shape(0xffffffff)));
+        button.setPadding(dp(20),dp(8),dp(20),dp(8));
+    }
+    private void profileButton(RadioButton button) {
+        button.setButtonDrawable(null); button.setGravity(Gravity.CENTER_VERTICAL);
+        button.setPaddingRelative(dp(16),dp(8),dp(16),dp(8));
+        button.setTextColor(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled},
+                new int[]{android.R.attr.state_checked},new int[]{}},new int[]{disabled(primary),onTonal,primary}));
+        StateListDrawable fills = new StateListDrawable();
+        fills.addState(new int[]{-android.R.attr.state_enabled},shape(surface));
+        fills.addState(new int[]{android.R.attr.state_checked},shape(tonal));
+        fills.addState(new int[]{},shape(surface));
+        button.setBackground(new RippleDrawable(ColorStateList.valueOf((accent&0xffffff)|0x18000000),fills,shape(0xffffffff)));
+    }
+    private void slider(SeekBar bar) {
+        LayerDrawable track = new LayerDrawable(new android.graphics.drawable.Drawable[]{
+                shape(tonal), new ClipDrawable(shape(accent),Gravity.START,ClipDrawable.HORIZONTAL)});
+        track.setId(0,android.R.id.background); track.setId(1,android.R.id.progress);
+        for (int i=0;i<2;i++) {track.setLayerHeight(i,dp(10));track.setLayerGravity(i,Gravity.CENTER_VERTICAL);}
+        bar.setProgressDrawable(track);
+        GradientDrawable handle = shape(accent); handle.setSize(dp(4),dp(36));
+        handle.setCornerRadius(dp(2)); bar.setThumb(handle); bar.setThumbOffset(dp(2));
+        bar.setThumbTintList(colors(accent));
+        bar.setProgressTintList(colors(accent));
+        bar.setProgressBackgroundTintList(colors(tonal));
+        bar.setMinHeight(dp(48)); bar.setSplitTrack(false);
+    }
+    private void showToneDialog() {
+        String[] labels = getResources().getStringArray(R.array.tone_labels);
+        RadioGroup choices = new RadioGroup(this); choices.setPadding(dp(16),dp(8),dp(16),dp(8));
+        AlertDialog popup = new AlertDialog.Builder(this).setTitle(R.string.tone).setView(choices)
+                .setNegativeButton(android.R.string.cancel,null).create();
+        for (int i=0;i<labels.length;i++) {
+            RadioButton option = new RadioButton(this); profileButton(option); option.setText(labels[i]);
+            option.setId(View.generateViewId()); choices.addView(option,new RadioGroup.LayoutParams(-1,dp(56)));
+            option.setChecked(controller.getState().ieq==i);
+            final int index=i;
+            option.setOnClickListener(view -> {controller.setParameter(StockDms.IEQ,index);popup.dismiss();});
+        }
+        popup.show(); popup.getWindow().setBackgroundDrawable(shape(surface));
+        popup.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(accent);
     }
     private TextView text(int resource, int size, boolean bold) {
         TextView view = new TextView(this); view.setText(resource); view.setTextSize(size);
@@ -80,13 +143,18 @@ public final class AtmosActivity extends Activity {
     @Override public void onCreate(Bundle saved) {
         setTheme(R.style.ShengDolbyTheme);
         super.onCreate(saved);
-        controller = (AtmosApplication) getApplication();
+        controller = (AtmosApplication) ((CompatibilityApplication) getApplication()).controller();
         dark = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
         accent = color(android.R.attr.colorAccent);
         primary = color(android.R.attr.textColorPrimary);
         secondary = color(android.R.attr.textColorSecondary);
-        surface = dark ? 0xff202127 : 0xffffffff;
-        LinearLayout root = column(); root.setBackgroundColor(dark ? 0xff121318 : 0xfff3f4f8);
+        onAccent = getColor(dark ? android.R.color.system_accent1_800 : android.R.color.system_accent1_0);
+        surface = getColor(dark ? android.R.color.system_neutral1_900 : android.R.color.system_neutral1_100);
+        background = getColor(dark ? android.R.color.system_neutral1_1000 : android.R.color.system_neutral1_50);
+        outline = getColor(dark ? android.R.color.system_neutral2_400 : android.R.color.system_neutral2_500);
+        tonal = getColor(dark ? android.R.color.system_accent1_800 : android.R.color.system_accent1_100);
+        onTonal = getColor(dark ? android.R.color.system_accent1_100 : android.R.color.system_accent1_900);
+        LinearLayout root = column(); root.setBackgroundColor(background);
         getWindow().setDecorFitsSystemWindows(false);
         root.setOnApplyWindowInsetsListener((view, insets) -> {
             android.graphics.Insets bars = insets.getInsets(WindowInsets.Type.systemBars());
@@ -105,10 +173,10 @@ public final class AtmosActivity extends Activity {
         LinearLayout content = column();
         outer.addView(content, new LinearLayout.LayoutParams(width > 936 ? dp(888) : -1, -2));
         LinearLayout power = card(content);
-        power.setBackground(shape(getColor(dark ? android.R.color.system_accent1_800 : android.R.color.system_accent1_100)));
-        toggle = new Switch(this); toggle.setText(R.string.switch_label); toggle.setTextSize(20); toggle.setTextColor(primary);
+        power.setBackground(shape(tonal));
+        toggle = new MonetSwitch(this,true,accent,onAccent,surface,outline,colors(onTonal)); toggle.setText(R.string.switch_label);
         toggle.setMinHeight(dp(48)); power.addView(toggle, new LinearLayout.LayoutParams(-1, -2));
-        status = text(R.string.waiting, 14, false); power.addView(status);
+        status = text(R.string.waiting, 14, false); status.setTextColor(onTonal); power.addView(status);
         toggle.setOnCheckedChangeListener((button, enabled) -> { if (!updating) controller.setRequested(enabled); });
         LinearLayout columns = new LinearLayout(this);
         boolean wide = width >= 840;
@@ -122,8 +190,10 @@ public final class AtmosActivity extends Activity {
         profiles = new RadioGroup(this); modeCard.addView(profiles);
         for (int i = 0; i < modes.length; i++) {
             RadioButton button = new RadioButton(this); button.setId(View.generateViewId());
+            profileButton(button);
             button.setText(modeLabels[i]); button.setTextSize(17); button.setMinHeight(dp(48));
-            modeButtons[i] = button; profiles.addView(button, new RadioGroup.LayoutParams(-1, dp(48)));
+            modeButtons[i] = button; RadioGroup.LayoutParams optionParams=new RadioGroup.LayoutParams(-1,dp(56));
+            optionParams.bottomMargin=dp(6); profiles.addView(button, optionParams);
             final int mode = modes[i];
             button.setOnCheckedChangeListener((unused, checked) -> { if (checked && !updating) controller.setProfile(mode); });
         }
@@ -136,18 +206,12 @@ public final class AtmosActivity extends Activity {
         toneRow.setContentDescription(getString(R.string.tone)); toneRow.setClickable(true); toneRow.setFocusable(true);
         TypedValue selectable = new TypedValue(); getTheme().resolveAttribute(android.R.attr.selectableItemBackground, selectable, true);
         toneRow.setForeground(getDrawable(selectable.resourceId)); tuning.addView(toneRow);
-        toneRow.setOnClickListener(view -> {
-            String[] labels = getResources().getStringArray(R.array.tone_labels);
-            new AlertDialog.Builder(this).setTitle(R.string.tone)
-                    .setSingleChoiceItems(labels, Math.max(0, Math.min(3, controller.getState().ieq)), (popup, which) -> {
-                        controller.setParameter(StockDms.IEQ, which); popup.dismiss();
-                    }).setNegativeButton(android.R.string.cancel, null).show();
-        });
-        dialog = new Switch(this); dialog.setText(R.string.dialog_enhancement); dialog.setTextSize(17);
+        toneRow.setOnClickListener(view -> showToneDialog());
+        dialog = new MonetSwitch(this,false,accent,onAccent,surface,outline,colors(primary)); dialog.setText(R.string.dialog_enhancement);
         dialog.setMinHeight(dp(56)); tuning.addView(dialog, new LinearLayout.LayoutParams(-1, -2));
         dialog.setOnCheckedChangeListener((button, enabled) -> { if (!updating) controller.setParameter(StockDms.DIALOG, enabled ? 1 : 0); });
         amountValue = text(R.string.strength, 14, false); tuning.addView(amountValue);
-        amount = new SeekBar(this); amount.setMax(16); amount.setContentDescription(getString(R.string.dialog_strength));
+        amount = new SeekBar(this); slider(amount); amount.setMax(16); amount.setContentDescription(getString(R.string.dialog_strength));
         tuning.addView(amount, new LinearLayout.LayoutParams(-1, dp(48)));
         amount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar bar, int progress, boolean user) {
@@ -164,7 +228,7 @@ public final class AtmosActivity extends Activity {
             LinearLayout row = new LinearLayout(this); row.setGravity(Gravity.CENTER_VERTICAL); row.setPadding(0, dp(12), 0, 0);
             row.addView(text(names[i], 16, true), new LinearLayout.LayoutParams(0, -2, 1));
             bandValues[i] = text(R.string.zero_db, 14, false); row.addView(bandValues[i]); eq.addView(row);
-            bands[i] = new SeekBar(this); bands[i].setMax(12); bands[i].setProgress(6);
+            bands[i] = new SeekBar(this); slider(bands[i]); bands[i].setMax(12); bands[i].setProgress(6);
             bands[i].setContentDescription(getString(names[i])); eq.addView(bands[i], new LinearLayout.LayoutParams(-1, dp(48)));
             final int band = i;
             bands[i].setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -185,6 +249,7 @@ public final class AtmosActivity extends Activity {
             });
         }
         reset = new Button(this); reset.setText(R.string.reset_profile); reset.setAllCaps(false);
+        roundedButton(reset);
         eq.addView(reset, new LinearLayout.LayoutParams(-1, dp(52)));
         reset.setOnClickListener(view -> new AlertDialog.Builder(this).setTitle(R.string.reset_profile)
                 .setMessage(R.string.reset_description).setNegativeButton(android.R.string.cancel, null)

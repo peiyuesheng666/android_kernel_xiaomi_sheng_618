@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Original geometric drawing of the opposing double-D silhouette. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#FF000000"
+        android:pathData="M2,5 L4.06,5 C7.926,5 11.06,8.134 11.06,12 C11.06,15.866 7.926,19 4.06,19 L2,19 Z M22,5 L19.94,5 C16.074,5 12.94,8.134 12.94,12 C12.94,15.866 16.074,19 19.94,19 L22,19 Z" />
+</vector>

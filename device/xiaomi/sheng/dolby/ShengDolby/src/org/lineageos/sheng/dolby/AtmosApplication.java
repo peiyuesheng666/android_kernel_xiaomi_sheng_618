@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.lineageos.sheng.dolby;
 
-import android.app.Application;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.media.audiofx.AudioEffect;
 import android.os.Handler;
@@ -15,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 /** Serializes controls and retains the native effect while its page is closed. */
-public final class AtmosApplication extends Application {
+public final class AtmosApplication extends ContextWrapper {
     private static final UUID DAP = UUID.fromString("9d4921da-8225-4f29-aefa-39537a04bcaa");
     private static final UUID TYPE_NULL = UUID.fromString("ec7178ec-e5e1-4432-a3f4-4657e6795210");
     private static final int[] PARAMETERS = {104, 105, 106, 108, 110};
@@ -51,8 +52,8 @@ public final class AtmosApplication extends Application {
         worker.removeCallbacks(reconcile);
         worker.postDelayed(reconcile, 1000);
     });
-    @Override public void onCreate() {
-        super.onCreate();
+    public AtmosApplication(Context context) {
+        super(context);
         preferences = createDeviceProtectedStorageContext().getSharedPreferences("atmos", MODE_PRIVATE);
         requested = preferences.getBoolean("enabled", true);
         desiredProfile = preferences.getInt("profile", -1);

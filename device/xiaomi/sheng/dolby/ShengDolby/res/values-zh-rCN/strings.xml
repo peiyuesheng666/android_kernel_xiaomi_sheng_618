@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">杜比全景声</string>
+    <string name="unsupported_platform">当前系统或设备不支持杜比音效控制，音频设置保持原样。</string>
     <string name="switch_label">使用杜比全景声</string>
     <string name="enabled">已开启</string>
     <string name="disabled">已关闭</string>

@@ -1,8 +1,4 @@
 <resources>
-    <style name="ShengDolbyTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
-        <item name="android:colorAccent">@android:color/system_accent1_600</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:fontFamily">sans</item>
-    </style>
+    <!-- Only API 1 resources occur in the fallback theme. -->
+    <style name="ShengDolbyTheme" parent="@android:style/Theme" />
 </resources>

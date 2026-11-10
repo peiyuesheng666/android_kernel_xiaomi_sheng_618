@@ -1,0 +1,5 @@
+<resources>
+    <!-- Fixed fallback colors apply before platform Monet resources exist. -->
+    <color name="dolby_icon_background">#E7E1F1</color>
+    <color name="dolby_icon_foreground">#302A3A</color>
+</resources>

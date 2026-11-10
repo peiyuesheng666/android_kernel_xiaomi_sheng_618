@@ -5,6 +5,7 @@ android_app {
     resource_dirs: ["res"],
     certificate: "platform",
     platform_apis: true,
+    min_sdk_version: "1",
     system_ext_specific: true,
     privileged: true,
     required: ["privapp-permissions-org.lineageos.sheng.dolby.xml"],
