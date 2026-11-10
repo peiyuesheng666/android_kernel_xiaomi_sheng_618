@@ -96,7 +96,8 @@ def main():
         return completed.stdout + completed.stderr
 
     package = source/'src/org/lineageos/sheng/facelab'
-    core = [package/n for n in ('FrameMath.java', 'FaceDescriptor.java', 'SampleCollector.java')]
+    core = [package/n for n in ('FrameMath.java', 'FaceDescriptor.java', 'SampleCollector.java',
+                                'AnalysisGate.java', 'PreviewGeometry.java')]
     if engine:
         core.append(package/'FaceEmbedding.java')
     run([javac, '--release', '11', '-encoding', 'UTF-8', '-d', host, *core, source/'tests/CoreTests.java'])
@@ -105,6 +106,9 @@ def main():
         run([javac, '--release', '11', '-encoding', 'UTF-8', '-cp', host, '-d', host,
              source/'tests/EmbeddingTests.java'])
         tests += '\n' + run([java, '-cp', host, 'org.lineageos.sheng.facelab.EmbeddingTests']).strip()
+        run([javac, '--release', '11', '-encoding', 'UTF-8', '-cp', host, '-d', host,
+             source/'tests/PipelineTests.java'])
+        tests += '\n' + run([java, '-cp', host, 'org.lineageos.sheng.facelab.PipelineTests']).strip()
     run([javac, '-source', '8', '-target', '8', '-encoding', 'UTF-8',
          '-bootclasspath', str(lambda_stubs)+os.pathsep+str(sdk),
          *(['-classpath', str(engine/'opencv-classes.jar')] if engine else []),
@@ -146,6 +150,8 @@ def main():
     signing = args.signing_dir or work
     key = signing/'lab-signing.p12'
     password = signing/'lab-signing-password.txt'
+    if args.signing_dir:
+        assert key.is_file() and password.is_file(), 'Explicit signing directory must contain the existing key and password; do not replace an installed app signing identity'
     if not key.exists():
         assert not password.exists(), 'Inspect incomplete prior key generation before retrying'
         password.write_text(secrets.token_hex(24)+'\n')

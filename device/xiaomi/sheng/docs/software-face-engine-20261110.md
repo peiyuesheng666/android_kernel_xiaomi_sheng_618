@@ -1,5 +1,9 @@
 # Source-owned software face engine candidate
 
+The installed 0.3 performance candidate is documented in
+`software-face-performance-20261110.md`. The 0.2 artifact and validation below
+remain historical engine evidence; they do not measure the new preview path.
+
 The user resumed face enrollment/unlock work on 2026-11-10. The r38 protected
 preview path remains unaccepted. Continue the ordinary Camera2 application
 written in this tree, preserving original SystemUI.

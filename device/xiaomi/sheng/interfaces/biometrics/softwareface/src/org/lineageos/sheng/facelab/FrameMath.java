@@ -2,6 +2,7 @@
 package org.lineageos.sheng.facelab;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 /** Camera-plane and coordinate operations, independent of Android and testable on the host. */
 public final class FrameMath {
@@ -49,6 +50,27 @@ public final class FrameMath {
         return angle;
     }
 
+    /** Copy camera rows in bulk, preserving plane offsets and padded/interleaved layouts. */
+    public static byte[] nv21(Plane y, Plane u, Plane v) {
+        if ((y.width & 1) != 0 || (y.height & 1) != 0
+                || u.width != y.width/2 || v.width != u.width
+                || u.height != y.height/2 || v.height != u.height
+                || (long)y.width*y.height*3/2 > Integer.MAX_VALUE)
+            throw new IllegalArgumentException("Invalid YUV planes");
+        byte[] result = new byte[(int)((long)y.width*y.height*3/2)];
+        int span = Math.max((y.width-1)*y.pixelStride+1,
+                Math.max((u.width-1)*u.pixelStride+1, (v.width-1)*v.pixelStride+1));
+        byte[] scratch = new byte[span];
+        try {
+            y.copyRows(result, 0, y.width, 1, scratch);
+            v.copyRows(result, y.width*y.height, y.width, 2, scratch);
+            u.copyRows(result, y.width*y.height+1, y.width, 2, scratch);
+            return result;
+        } catch (RuntimeException failure) {
+            Arrays.fill(result, (byte)0); throw failure;
+        } finally { Arrays.fill(scratch, (byte)0); }
+    }
+
     public static final class Plane {
         private final ByteBuffer bytes;
         private final int rowStride, pixelStride, width, height, origin;
@@ -67,6 +89,19 @@ public final class FrameMath {
             if (x < 0 || y < 0 || x >= width || y >= height)
                 throw new IllegalArgumentException("Pixel outside plane");
             return bytes.get(origin + y * rowStride + x * pixelStride) & 255;
+        }
+        private void copyRows(byte[] target, int offset, int targetRow, int step, byte[] scratch) {
+            ByteBuffer source = bytes.duplicate();
+            int span = (width-1)*pixelStride+1;
+            for (int row = 0; row < height; row++) {
+                source.position(origin+row*rowStride);
+                int destination = offset+row*targetRow;
+                if (pixelStride == 1 && step == 1) source.get(target, destination, width);
+                else {
+                    source.get(scratch, 0, span);
+                    for (int col = 0; col < width; col++) target[destination+col*step] = scratch[col*pixelStride];
+                }
+            }
         }
         public byte[] normalized(Box region, int size, int degrees) {
             if (size < 2 || size > 1024 || region.left < 0 || region.top < 0

@@ -25,6 +25,10 @@ public final class SampleCollector {
     public synchronized long generation() { return generation; }
     public synchronized int count() { return samples.size(); }
     public synchronized boolean collecting() { return collecting; }
+    public synchronized boolean wantsSample(long timestamp) {
+        return collecting && timestamp >= 0
+                && (lastTimestamp < 0 || timestamp-lastTimestamp >= INTERVAL_NS);
+    }
     private void clear() {
         for (float[] sample : samples) Arrays.fill(sample, 0);
         samples.clear(); lastTimestamp = -1;
