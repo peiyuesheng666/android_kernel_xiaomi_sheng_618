@@ -1,0 +1,3027 @@
+{
+  "date": "2026-11-06",
+  "workspace_baseline_commit": "2be5ded567c8ae6fb3b88a4a93bb885c640c50ee",
+  "scope": "Current workspace device tree, local checkouts, migration script and stock receipts.",
+  "references": {
+    "lineage_common": {
+      "path": "/root/sheng-source-inputs/reference/lineage-common",
+      "commit": "dfb9e56a0d9c38742ec569471d25657f91a4a38b",
+      "origin": "https://github.com/LineageOS/android_device_xiaomi_sm8550-common.git",
+      "working_tree_status": "",
+      "tracked_file_count": 116,
+      "available_file_count": 115,
+      "unavailable_files": [
+        ".clang-format"
+      ]
+    },
+    "piano": {
+      "path": "/root/sheng-source-inputs/reference/piano-device",
+      "commit": "82adb0a5e072aeb90292ad4adff1d92a21580f12",
+      "origin": "https://github.com/xiaomi-pad-8-pro-development/android_device_xiaomi_piano.git",
+      "working_tree_status": "",
+      "tracked_file_count": 250,
+      "available_file_count": 250,
+      "unavailable_files": []
+    },
+    "community_sheng": {
+      "path": "/root/sheng-source-inputs/reference/sheng-device-reference",
+      "commit": "14cc26cfea08cebc28a5ab1b181b5547ab471bad",
+      "origin": "https://github.com/xiaomi-sm8550-devs/android_device_xiaomi_sheng.git",
+      "working_tree_status": "",
+      "tracked_file_count": 49,
+      "available_file_count": 49,
+      "unavailable_files": []
+    },
+    "twrp_sheng": {
+      "path": "/root/sheng-lineage/reference/twrp-sheng",
+      "commit": "2a05a067497a565e10442bff6736609d2d3f4f40",
+      "origin": "https://github.com/peiyuesheng666/twrp_device_xiaomi_sheng.git",
+      "working_tree_status": "",
+      "tracked_file_count": 578,
+      "available_file_count": 23,
+      "unavailable_files": [
+        "assets/Magisk-v30.7-sheng-recovery.zip",
+        "assets/README.md",
+        "assets/magisk-v30.7-provenance.json",
+        "assets/maintainer-original.png",
+        "generated/orangefox/advanced.xml",
+        "generated/orangefox/init.recovery.sheng-tools.rc",
+        "generated/orangefox/languages/ar_SA.xml",
+        "generated/orangefox/languages/bg_BG.xml",
+        "generated/orangefox/languages/bn_BD.xml",
+        "generated/orangefox/languages/ca_ES.xml",
+        "generated/orangefox/languages/cs_CZ.xml",
+        "generated/orangefox/languages/de_DE.xml",
+        "generated/orangefox/languages/el_GR.xml",
+        "generated/orangefox/languages/en.xml",
+        "generated/orangefox/languages/es-ES.xml",
+        "generated/orangefox/languages/fa_IR.xml",
+        "generated/orangefox/languages/fr_FR.xml",
+        "generated/orangefox/languages/he_IL.xml",
+        "generated/orangefox/languages/hi_IN.xml",
+        "generated/orangefox/languages/hu.xml",
+        "generated/orangefox/languages/id_ID.xml",
+        "generated/orangefox/languages/it_IT.xml",
+        "generated/orangefox/languages/ja_JP.xml",
+        "generated/orangefox/languages/ko_KR.xml",
+        "generated/orangefox/languages/nl_NL.xml",
+        "generated/orangefox/languages/no_NO.xml",
+        "generated/orangefox/languages/pl_PL.xml",
+        "generated/orangefox/languages/pt_BR.xml",
+        "generated/orangefox/languages/pt_PT.xml",
+        "generated/orangefox/languages/ro_RO.xml",
+        "generated/orangefox/languages/ru.xml",
+        "generated/orangefox/languages/sr_Cyrl.xml",
+        "generated/orangefox/languages/th_TH.xml",
+        "generated/orangefox/languages/tr_TR.xml",
+        "generated/orangefox/languages/uk_UA.xml",
+        "generated/orangefox/languages/vi_VN.xml",
+        "generated/orangefox/languages/zh_CN.xml",
+        "generated/orangefox/languages/zh_TW.xml",
+        "generated/orangefox/ui.xml",
+        "generated/twrp/init.recovery.sheng-tools.rc",
+        "generated/twrp/languages/cz.xml",
+        "generated/twrp/languages/de.xml",
+        "generated/twrp/languages/el.xml",
+        "generated/twrp/languages/en.xml",
+        "generated/twrp/languages/es.xml",
+        "generated/twrp/languages/fr.xml",
+        "generated/twrp/languages/hu.xml",
+        "generated/twrp/languages/id.xml",
+        "generated/twrp/languages/it.xml",
+        "generated/twrp/languages/ja.xml",
+        "generated/twrp/languages/lk.xml",
+        "generated/twrp/languages/nl.xml",
+        "generated/twrp/languages/pl.xml",
+        "generated/twrp/languages/pt_BR.xml",
+        "generated/twrp/languages/pt_PT.xml",
+        "generated/twrp/languages/ru.xml",
+        "generated/twrp/languages/sk.xml",
+        "generated/twrp/languages/sl.xml",
+        "generated/twrp/languages/sv.xml",
+        "generated/twrp/languages/tr.xml",
+        "generated/twrp/languages/uk.xml",
+        "generated/twrp/languages/zh_CN.xml",
+        "generated/twrp/languages/zh_TW.xml",
+        "generated/twrp/provenance.json",
+        "generated/twrp/ui.xml",
+        "gpt-utils/Android.bp",
+        "gpt-utils/README.md",
+        "gpt-utils/gpt-utils.cpp",
+        "gpt-utils/gpt-utils.h",
+        "gpt-utils/recovery-ufs-bsg.cpp",
+        "gpt-utils/recovery-ufs-bsg.h",
+        "prebuilt/stock303/Image",
+        "prebuilt/stock303/Image.gz",
+        "prebuilt/stock303/dtb",
+        "prebuilt/stock303/dtbo.img",
+        "recovery/root/init.recovery.qcom.rc",
+        "recovery/root/init.recovery.sheng303.crypto.rc",
+        "recovery/root/init.recovery.sheng303.rc",
+        "recovery/root/init.recovery.usb.rc",
+        "recovery/root/lib/firmware/novatek_nt36532_n81a_fw_csot.bin",
+        "recovery/root/lib/modules/adsp_sleepmon.ko",
+        "recovery/root/lib/modules/altmode-glink.ko",
+        "recovery/root/lib/modules/arm_smmu.ko",
+        "recovery/root/lib/modules/bam_dma.ko",
+        "recovery/root/lib/modules/bcl_pmic5.ko",
+        "recovery/root/lib/modules/bcl_soc.ko",
+        "recovery/root/lib/modules/binder_gki.ko",
+        "recovery/root/lib/modules/binder_prio.ko",
+        "recovery/root/lib/modules/block2mtd.ko",
+        "recovery/root/lib/modules/boot_stats.ko",
+        "recovery/root/lib/modules/bootinfo.ko",
+        "recovery/root/lib/modules/bwmon.ko",
+        "recovery/root/lib/modules/c1dcvs_scmi.ko",
+        "recovery/root/lib/modules/c1dcvs_vendor.ko",
+        "recovery/root/lib/modules/camcc-kalama.ko",
+        "recovery/root/lib/modules/cdsp-loader.ko",
+        "recovery/root/lib/modules/cdsprm.ko",
+        "recovery/root/lib/modules/cfg80211.ko",
+        "recovery/root/lib/modules/charger-ulog-glink.ko",
+        "recovery/root/lib/modules/chipreg.ko",
+        "recovery/root/lib/modules/clk-dummy.ko",
+        "recovery/root/lib/modules/clk-qcom.ko",
+        "recovery/root/lib/modules/clk-rpmh.ko",
+        "recovery/root/lib/modules/cma_balance.ko",
+        "recovery/root/lib/modules/cmd-db.ko",
+        "recovery/root/lib/modules/core_hang_detect.ko",
+        "recovery/root/lib/modules/coresight-csr.ko",
+        "recovery/root/lib/modules/coresight-cti.ko",
+        "recovery/root/lib/modules/coresight-dummy.ko",
+        "recovery/root/lib/modules/coresight-funnel.ko",
+        "recovery/root/lib/modules/coresight-hwevent.ko",
+        "recovery/root/lib/modules/coresight-remote-etm.ko",
+        "recovery/root/lib/modules/coresight-replicator.ko",
+        "recovery/root/lib/modules/coresight-stm.ko",
+        "recovery/root/lib/modules/coresight-tgu.ko",
+        "recovery/root/lib/modules/coresight-tmc.ko",
+        "recovery/root/lib/modules/coresight-tpda.ko",
+        "recovery/root/lib/modules/coresight-tpdm.ko",
+        "recovery/root/lib/modules/coresight.ko",
+        "recovery/root/lib/modules/cpq.ko",
+        "recovery/root/lib/modules/cpu_hotplug.ko",
+        "recovery/root/lib/modules/cpu_voltage_cooling.ko",
+        "recovery/root/lib/modules/cpufreq_stats_scmi.ko",
+        "recovery/root/lib/modules/cpufreq_stats_vendor.ko",
+        "recovery/root/lib/modules/cqhci.ko",
+        "recovery/root/lib/modules/crypto-qti-common.ko",
+        "recovery/root/lib/modules/crypto-qti-hwkm.ko",
+        "recovery/root/lib/modules/dcc_v2.ko",
+        "recovery/root/lib/modules/dcvs_fp.ko",
+        "recovery/root/lib/modules/ddr_cdev.ko",
+        "recovery/root/lib/modules/debug-regulator.ko",
+        "recovery/root/lib/modules/debug_ext.ko",
+        "recovery/root/lib/modules/debug_symbol.ko",
+        "recovery/root/lib/modules/debugcc-kalama.ko",
+        "recovery/root/lib/modules/dispcc-kalama.ko",
+        "recovery/root/lib/modules/dmesg_dumper.ko",
+        "recovery/root/lib/modules/dump_display.ko",
+        "recovery/root/lib/modules/dwc3-msm.ko",
+        "recovery/root/lib/modules/ehset.ko",
+        "recovery/root/lib/modules/eud.ko",
+        "recovery/root/lib/modules/f_fs_ipc_log.ko",
+        "recovery/root/lib/modules/fpc1552.ko",
+        "recovery/root/lib/modules/frpc-adsprpc.ko",
+        "recovery/root/lib/modules/fsa4480-i2c.ko",
+        "recovery/root/lib/modules/gcc-kalama.ko",
+        "recovery/root/lib/modules/gdsc-regulator.ko",
+        "recovery/root/lib/modules/gh_arm_drv.ko",
+        "recovery/root/lib/modules/gh_ctrl.ko",
+        "recovery/root/lib/modules/gh_dbl.ko",
+        "recovery/root/lib/modules/gh_irq_lend.ko",
+        "recovery/root/lib/modules/gh_mem_notifier.ko",
+        "recovery/root/lib/modules/gh_msgq.ko",
+        "recovery/root/lib/modules/gh_rm_drv.ko",
+        "recovery/root/lib/modules/gh_tlmm_vm_mem_access.ko",
+        "recovery/root/lib/modules/gh_virt_wdt.ko",
+        "recovery/root/lib/modules/glink_pkt.ko",
+        "recovery/root/lib/modules/glink_probe.ko",
+        "recovery/root/lib/modules/gpucc-kalama.ko",
+        "recovery/root/lib/modules/gunyah.ko",
+        "recovery/root/lib/modules/hdcp_qseecom_dlkm.ko",
+        "recovery/root/lib/modules/heap_mem_ext_v01.ko",
+        "recovery/root/lib/modules/hid-xbox_haptics-mi.ko",
+        "recovery/root/lib/modules/hung_task_enh.ko",
+        "recovery/root/lib/modules/hvc_gunyah.ko",
+        "recovery/root/lib/modules/hwid.ko",
+        "recovery/root/lib/modules/hwkm.ko",
+        "recovery/root/lib/modules/i2c-msm-geni.ko",
+        "recovery/root/lib/modules/i3c-master-msm-geni.ko",
+        "recovery/root/lib/modules/icc-bcm-voter.ko",
+        "recovery/root/lib/modules/icc-debug.ko",
+        "recovery/root/lib/modules/icc-rpmh.ko",
+        "recovery/root/lib/modules/icc-test.ko",
+        "recovery/root/lib/modules/industrialio-buffer-cb.ko",
+        "recovery/root/lib/modules/iommu-logger.ko",
+        "recovery/root/lib/modules/ipa_fmwk.ko",
+        "recovery/root/lib/modules/ir-spi.ko",
+        "recovery/root/lib/modules/kunit.ko",
+        "recovery/root/lib/modules/leds-qti-flash.ko",
+        "recovery/root/lib/modules/leds-qti-tri-led.ko",
+        "recovery/root/lib/modules/llcc-qcom.ko",
+        "recovery/root/lib/modules/llcc_perfmon.ko",
+        "recovery/root/lib/modules/low_free_memory_kill.ko",
+        "recovery/root/lib/modules/lt9611uxc.ko",
+        "recovery/root/lib/modules/mac80211.ko",
+        "recovery/root/lib/modules/max31760_fan.ko",
+        "recovery/root/lib/modules/mdt_loader.ko",
+        "recovery/root/lib/modules/mem-hooks.ko",
+        "recovery/root/lib/modules/mem-offline.ko",
+        "recovery/root/lib/modules/mem_buf.ko",
+        "recovery/root/lib/modules/mem_buf_dev.ko",
+        "recovery/root/lib/modules/mem_buf_msgq.ko",
+        "recovery/root/lib/modules/memlat.ko",
+        "recovery/root/lib/modules/memlat_scmi.ko",
+        "recovery/root/lib/modules/memlat_vendor.ko",
+        "recovery/root/lib/modules/memory_dump_v2.ko",
+        "recovery/root/lib/modules/metis.ko",
+        "recovery/root/lib/modules/mhi.ko",
+        "recovery/root/lib/modules/mhi_cntrl_qcom.ko",
+        "recovery/root/lib/modules/mhi_dev_dtr.ko",
+        "recovery/root/lib/modules/mhi_dev_netdev.ko",
+        "recovery/root/lib/modules/mhi_dev_satellite.ko",
+        "recovery/root/lib/modules/mhi_dev_uci.ko",
+        "recovery/root/lib/modules/mi_cnss_statistic.ko",
+        "recovery/root/lib/modules/mi_freqwdg.ko",
+        "recovery/root/lib/modules/mi_memory.ko",
+        "recovery/root/lib/modules/mi_mempool.ko",
+        "recovery/root/lib/modules/mi_power.ko",
+        "recovery/root/lib/modules/mi_schedule.ko",
+        "recovery/root/lib/modules/mi_thermal_interface.ko",
+        "recovery/root/lib/modules/microdump_collector.ko",
+        "recovery/root/lib/modules/miev.ko",
+        "recovery/root/lib/modules/migt.ko",
+        "recovery/root/lib/modules/millet_binder.ko",
+        "recovery/root/lib/modules/millet_core.ko",
+        "recovery/root/lib/modules/millet_hs.ko",
+        "recovery/root/lib/modules/millet_oem_cgroup.ko",
+        "recovery/root/lib/modules/millet_pkg.ko",
+        "recovery/root/lib/modules/millet_sig.ko",
+        "recovery/root/lib/modules/minidump.ko",
+        "recovery/root/lib/modules/modules.alias",
+        "recovery/root/lib/modules/modules.blocklist",
+        "recovery/root/lib/modules/modules.dep",
+        "recovery/root/lib/modules/modules.load",
+        "recovery/root/lib/modules/modules.load.recovery",
+        "recovery/root/lib/modules/modules.softdep",
+        "recovery/root/lib/modules/msm-mmrm.ko",
+        "recovery/root/lib/modules/msm_dma_iommu_mapping.ko",
+        "recovery/root/lib/modules/msm_drm.ko",
+        "recovery/root/lib/modules/msm_ext_display.ko",
+        "recovery/root/lib/modules/msm_geni_serial.ko",
+        "recovery/root/lib/modules/msm_gpi.ko",
+        "recovery/root/lib/modules/msm_hw_fence.ko",
+        "recovery/root/lib/modules/msm_lmh_dcvs.ko",
+        "recovery/root/lib/modules/msm_memshare.ko",
+        "recovery/root/lib/modules/msm_performance.ko",
+        "recovery/root/lib/modules/msm_qmp.ko",
+        "recovery/root/lib/modules/msm_sharedmem.ko",
+        "recovery/root/lib/modules/msm_show_epoch.ko",
+        "recovery/root/lib/modules/msm_show_resume_irq.ko",
+        "recovery/root/lib/modules/msm_sysstats.ko",
+        "recovery/root/lib/modules/mtd.ko",
+        "recovery/root/lib/modules/mtd_blkdevs.ko",
+        "recovery/root/lib/modules/mtdblock.ko",
+        "recovery/root/lib/modules/mtdoops.ko",
+        "recovery/root/lib/modules/nanosic_platform.ko",
+        "recovery/root/lib/modules/ns.ko",
+        "recovery/root/lib/modules/nt36532_touch.ko",
+        "recovery/root/lib/modules/ntag5_i2c.ko",
+        "recovery/root/lib/modules/nvme-core.ko",
+        "recovery/root/lib/modules/nvme.ko",
+        "recovery/root/lib/modules/nvmem_qcom-spmi-sdam.ko",
+        "recovery/root/lib/modules/nvmem_qfprom.ko",
+        "recovery/root/lib/modules/ofpart.ko",
+        "recovery/root/lib/modules/panel_event_notifier.ko",
+        "recovery/root/lib/modules/pci-msm-drv.ko",
+        "recovery/root/lib/modules/pdr_interface.ko",
+        "recovery/root/lib/modules/perf_helper.ko",
+        "recovery/root/lib/modules/perfmgr.ko",
+        "recovery/root/lib/modules/phy-generic.ko",
+        "recovery/root/lib/modules/phy-msm-m31-eusb2.ko",
+        "recovery/root/lib/modules/phy-msm-snps-eusb2.ko",
+        "recovery/root/lib/modules/phy-msm-ssusb-qmp.ko",
+        "recovery/root/lib/modules/phy-qcom-emu.ko",
+        "recovery/root/lib/modules/phy-qcom-ufs-qmp-v4-kalama.ko",
+        "recovery/root/lib/modules/phy-qcom-ufs-qmp-v4-khaje.ko",
+        "recovery/root/lib/modules/phy-qcom-ufs-qmp-v4-kona.ko",
+        "recovery/root/lib/modules/phy-qcom-ufs-qmp-v4-lahaina.ko",
+        "recovery/root/lib/modules/phy-qcom-ufs-qmp-v4-waipio.ko",
+        "recovery/root/lib/modules/phy-qcom-ufs-qmp-v4.ko",
+        "recovery/root/lib/modules/phy-qcom-ufs-qrbtc-sdm845.ko",
+        "recovery/root/lib/modules/phy-qcom-ufs.ko",
+        "recovery/root/lib/modules/pinctrl-crow.ko",
+        "recovery/root/lib/modules/pinctrl-kalama.ko",
+        "recovery/root/lib/modules/pinctrl-msm.ko",
+        "recovery/root/lib/modules/pinctrl-spmi-gpio.ko",
+        "recovery/root/lib/modules/pinctrl-spmi-mpp.ko",
+        "recovery/root/lib/modules/pm8941-pwrkey.ko",
+        "recovery/root/lib/modules/pmic-pon-log.ko",
+        "recovery/root/lib/modules/pmic_glink.ko",
+        "recovery/root/lib/modules/pmu_scmi.ko",
+        "recovery/root/lib/modules/pmu_vendor.ko",
+        "recovery/root/lib/modules/policy_engine.ko",
+        "recovery/root/lib/modules/proxy-consumer.ko",
+        "recovery/root/lib/modules/ps5169.ko",
+        "recovery/root/lib/modules/pwm-qti-lpg.ko",
+        "recovery/root/lib/modules/qbt_handler.ko",
+        "recovery/root/lib/modules/qcom-cpufreq-hw-debug.ko",
+        "recovery/root/lib/modules/qcom-cpufreq-hw.ko",
+        "recovery/root/lib/modules/qcom-dcvs.ko",
+        "recovery/root/lib/modules/qcom-dload-mode.ko",
+        "recovery/root/lib/modules/qcom-hv-haptics.ko",
+        "recovery/root/lib/modules/qcom-pdc.ko",
+        "recovery/root/lib/modules/qcom-pmu-lib.ko",
+        "recovery/root/lib/modules/qcom-pon.ko",
+        "recovery/root/lib/modules/qcom-reboot-reason.ko",
+        "recovery/root/lib/modules/qcom-scm.ko",
+        "recovery/root/lib/modules/qcom-spmi-adc5-gen3.ko",
+        "recovery/root/lib/modules/qcom-spmi-pmic.ko",
+        "recovery/root/lib/modules/qcom-spmi-temp-alarm.ko",
+        "recovery/root/lib/modules/qcom-vadc-common.ko",
+        "recovery/root/lib/modules/qcom_aoss.ko",
+        "recovery/root/lib/modules/qcom_cpu_vendor_hooks.ko",
+        "recovery/root/lib/modules/qcom_cpuss_sleep_stats.ko",
+        "recovery/root/lib/modules/qcom_dma_heaps.ko",
+        "recovery/root/lib/modules/qcom_edac.ko",
+        "recovery/root/lib/modules/qcom_esoc.ko",
+        "recovery/root/lib/modules/qcom_glink.ko",
+        "recovery/root/lib/modules/qcom_glink_smem.ko",
+        "recovery/root/lib/modules/qcom_hwspinlock.ko",
+        "recovery/root/lib/modules/qcom_iommu_debug.ko",
+        "recovery/root/lib/modules/qcom_iommu_util.ko",
+        "recovery/root/lib/modules/qcom_ipc_lite.ko",
+        "recovery/root/lib/modules/qcom_ipc_logging.ko",
+        "recovery/root/lib/modules/qcom_ipcc.ko",
+        "recovery/root/lib/modules/qcom_llcc_pmu.ko",
+        "recovery/root/lib/modules/qcom_logbuf_vh.ko",
+        "recovery/root/lib/modules/qcom_lpm.ko",
+        "recovery/root/lib/modules/qcom_pil_info.ko",
+        "recovery/root/lib/modules/qcom_q6v5.ko",
+        "recovery/root/lib/modules/qcom_q6v5_pas.ko",
+        "recovery/root/lib/modules/qcom_ramdump.ko",
+        "recovery/root/lib/modules/qcom_rimps.ko",
+        "recovery/root/lib/modules/qcom_rpmh.ko",
+        "recovery/root/lib/modules/qcom_smd.ko",
+        "recovery/root/lib/modules/qcom_sysmon.ko",
+        "recovery/root/lib/modules/qcom_tsens.ko",
+        "recovery/root/lib/modules/qcom_va_minidump.ko",
+        "recovery/root/lib/modules/qcom_wdt_core.ko",
+        "recovery/root/lib/modules/qdss_bridge.ko",
+        "recovery/root/lib/modules/qmi_helpers.ko",
+        "recovery/root/lib/modules/qnoc-crow.ko",
+        "recovery/root/lib/modules/qnoc-kalama.ko",
+        "recovery/root/lib/modules/qnoc-qos.ko",
+        "recovery/root/lib/modules/qrng_dlkm.ko",
+        "recovery/root/lib/modules/qrtr-gunyah.ko",
+        "recovery/root/lib/modules/qrtr-mhi.ko",
+        "recovery/root/lib/modules/qrtr-smd.ko",
+        "recovery/root/lib/modules/qrtr.ko",
+        "recovery/root/lib/modules/qsee_ipc_irq_bridge.ko",
+        "recovery/root/lib/modules/qseecom_proxy.ko",
+        "recovery/root/lib/modules/qti-fixed-regulator.ko",
+        "recovery/root/lib/modules/qti-ocp-notifier.ko",
+        "recovery/root/lib/modules/qti-regmap-debugfs.ko",
+        "recovery/root/lib/modules/qti_battery_charger.ko",
+        "recovery/root/lib/modules/qti_battery_debug.ko",
+        "recovery/root/lib/modules/qti_cpufreq_cdev.ko",
+        "recovery/root/lib/modules/qti_devfreq_cdev.ko",
+        "recovery/root/lib/modules/qti_qmi_cdev.ko",
+        "recovery/root/lib/modules/qti_qmi_sensor_v2.ko",
+        "recovery/root/lib/modules/qti_userspace_cdev.ko",
+        "recovery/root/lib/modules/rdbg.ko",
+        "recovery/root/lib/modules/reboot-mode.ko",
+        "recovery/root/lib/modules/redriver.ko",
+        "recovery/root/lib/modules/regmap-spmi.ko",
+        "recovery/root/lib/modules/repeater-i2c-eusb2.ko",
+        "recovery/root/lib/modules/repeater-qti-pmic-eusb2.ko",
+        "recovery/root/lib/modules/repeater.ko",
+        "recovery/root/lib/modules/rimps_log.ko",
+        "recovery/root/lib/modules/rpmh-regulator.ko",
+        "recovery/root/lib/modules/rproc_qcom_common.ko",
+        "recovery/root/lib/modules/rq_stats.ko",
+        "recovery/root/lib/modules/rtc-pm8xxx.ko",
+        "recovery/root/lib/modules/sched-walt.ko",
+        "recovery/root/lib/modules/sdhci-msm.ko",
+        "recovery/root/lib/modules/sdpm_clk.ko",
+        "recovery/root/lib/modules/secure_buffer.ko",
+        "recovery/root/lib/modules/sg.ko",
+        "recovery/root/lib/modules/slim-qcom-ngd-ctrl.ko",
+        "recovery/root/lib/modules/slimbus.ko",
+        "recovery/root/lib/modules/smcinvoke_dlkm.ko",
+        "recovery/root/lib/modules/smem.ko",
+        "recovery/root/lib/modules/smp2p.ko",
+        "recovery/root/lib/modules/smp2p_sleepstate.ko",
+        "recovery/root/lib/modules/snd-soc-hdmi-codec.ko",
+        "recovery/root/lib/modules/snd-usb-audio-qmi.ko",
+        "recovery/root/lib/modules/soc_sleep_stats.ko",
+        "recovery/root/lib/modules/socinfo.ko",
+        "recovery/root/lib/modules/spi-msm-geni.ko",
+        "recovery/root/lib/modules/spmi-glink-debug.ko",
+        "recovery/root/lib/modules/spmi-pmic-arb-debug.ko",
+        "recovery/root/lib/modules/spmi-pmic-arb.ko",
+        "recovery/root/lib/modules/sps_drv.ko",
+        "recovery/root/lib/modules/stm_console.ko",
+        "recovery/root/lib/modules/stm_core.ko",
+        "recovery/root/lib/modules/stm_ftrace.ko",
+        "recovery/root/lib/modules/stm_p_basic.ko",
+        "recovery/root/lib/modules/stm_p_ost.ko",
+        "recovery/root/lib/modules/stub-regulator.ko",
+        "recovery/root/lib/modules/subsystem_sleep_stats.ko",
+        "recovery/root/lib/modules/swinfo.ko",
+        "recovery/root/lib/modules/sync_fence.ko",
+        "recovery/root/lib/modules/synx-driver.ko",
+        "recovery/root/lib/modules/sys_pm_vx.ko",
+        "recovery/root/lib/modules/sysmon_subsystem_stats.ko",
+        "recovery/root/lib/modules/tcsrcc-kalama.ko",
+        "recovery/root/lib/modules/thermal_minidump.ko",
+        "recovery/root/lib/modules/thermal_pause.ko",
+        "recovery/root/lib/modules/tmecom-intf.ko",
+        "recovery/root/lib/modules/tz_log_dlkm.ko",
+        "recovery/root/lib/modules/ucsi_glink.ko",
+        "recovery/root/lib/modules/ufs_qcom.ko",
+        "recovery/root/lib/modules/ufshcd-crypto-qti.ko",
+        "recovery/root/lib/modules/usb_bam.ko",
+        "recovery/root/lib/modules/usb_f_ccid.ko",
+        "recovery/root/lib/modules/usb_f_cdev.ko",
+        "recovery/root/lib/modules/usb_f_diag.ko",
+        "recovery/root/lib/modules/usb_f_gsi.ko",
+        "recovery/root/lib/modules/usb_f_qdss.ko",
+        "recovery/root/lib/modules/usb_f_rndis.ko",
+        "recovery/root/lib/modules/usbmon.ko",
+        "recovery/root/lib/modules/videocc-kalama.ko",
+        "recovery/root/lib/modules/virtual_fg.ko",
+        "recovery/root/lib/modules/wl2866d.ko",
+        "recovery/root/lib/modules/wl2868c.ko",
+        "recovery/root/lib/modules/xiaomi_touch.ko",
+        "recovery/root/lib/modules/xiaomi_wifi_gpio.ko",
+        "recovery/root/lib/modules/xiaomifp.ko",
+        "recovery/root/lib/modules/xlogchar.ko",
+        "recovery/root/lib/modules/xm_battmngr_init.ko",
+        "recovery/root/lib/modules/xm_charger.ko",
+        "recovery/root/lib/modules/xm_power.ko",
+        "recovery/root/lib/modules/xm_utils.ko",
+        "recovery/root/lib/modules/zram.ko",
+        "recovery/root/lib/modules/zsmalloc.ko",
+        "recovery/root/system/etc/vintf/manifest.xml",
+        "recovery/root/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti",
+        "recovery/root/vendor/bin/hw/android.hardware.security.keymint-service-qti",
+        "recovery/root/vendor/bin/qseecomd",
+        "recovery/root/vendor/bin/sheng303-linker64",
+        "recovery/root/vendor/etc/sheng303/modules.order",
+        "recovery/root/vendor/etc/ueventd.rc",
+        "recovery/root/vendor/etc/vintf/manifest.xml",
+        "recovery/root/vendor/lib64/android.hardware.gatekeeper@1.0.so",
+        "recovery/root/vendor/lib64/android.hardware.keymaster@3.0.so",
+        "recovery/root/vendor/lib64/android.hardware.keymaster@4.0.so",
+        "recovery/root/vendor/lib64/android.hardware.keymaster@4.1.so",
+        "recovery/root/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so",
+        "recovery/root/vendor/lib64/libGPreqcancel.so",
+        "recovery/root/vendor/lib64/libGPreqcancel_svc.so",
+        "recovery/root/vendor/lib64/libQSEEComAPI.so",
+        "recovery/root/vendor/lib64/libdiag.so",
+        "recovery/root/vendor/lib64/libdisplayconfig.qti.so",
+        "recovery/root/vendor/lib64/libdrm.so",
+        "recovery/root/vendor/lib64/libdrmfs.so",
+        "recovery/root/vendor/lib64/libdrmtime.so",
+        "recovery/root/vendor/lib64/libgpt.so",
+        "recovery/root/vendor/lib64/libkeymaster_messages.so",
+        "recovery/root/vendor/lib64/libkeymasterdeviceutils.so",
+        "recovery/root/vendor/lib64/libkeymasterutils.so",
+        "recovery/root/vendor/lib64/libminkdescriptor.so",
+        "recovery/root/vendor/lib64/libops.so",
+        "recovery/root/vendor/lib64/libqcbor.so",
+        "recovery/root/vendor/lib64/libqisl.so",
+        "recovery/root/vendor/lib64/libqtikeymint.so",
+        "recovery/root/vendor/lib64/librpmb.so",
+        "recovery/root/vendor/lib64/libspcom.so",
+        "recovery/root/vendor/lib64/libspl.so",
+        "recovery/root/vendor/lib64/libssd.so",
+        "recovery/root/vendor/lib64/libtime_genoff.so",
+        "recovery/root/vendor/lib64/libvmmem.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/android.hardware.gatekeeper@1.0-impl-qti.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/android.hardware.gatekeeper@1.0.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/android.hardware.keymaster@3.0.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/android.hardware.keymaster@4.0.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/android.hardware.keymaster@4.1.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/android.hardware.security.keymint-V2-ndk.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/android.hardware.security.secureclock-V1-ndk.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/android.hardware.security.sharedsecret-V1-ndk.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/ld-android.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libGPreqcancel.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libGPreqcancel_svc.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libQSEEComAPI.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libandroid_runtime_lazy.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libbase.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libbinder.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libbinder_ndk.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libc++.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libc.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libcrypto.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libcutils.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libdiag.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libdisplayconfig.qti.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libdl.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libdl_android.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libdmabufheap.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libdrm.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libdrmfs.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libdrmtime.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libgpt.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libhardware.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libhidlbase.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libion.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libkeymaster_messages.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libkeymasterdeviceutils.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libkeymasterutils.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/liblog.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libm.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libminkdescriptor.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libops.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libqcbor.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libqisl.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libqtikeymint.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/librpmb.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libspcom.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libspl.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libssd.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libssl.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libtensorflowlite_touch_c.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libtime_genoff.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libtouchsensor.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libutils.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libvmmem.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libvndksupport.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/libxml2.so",
+        "recovery/root/vendor/lib64/sheng303-runtime/vendor.display.config@2.0.so",
+        "recovery/root/vendor/lib64/vendor.display.config@2.0.so",
+        "recovery/root/vendor/odm/bin/touch_report_debug",
+        "recovery/root/vendor/odm/firmware/film_model.tflite",
+        "recovery/root/vendor/odm/firmware/glove_model.tflite",
+        "recovery/root/vendor/odm/firmware/n81a_nova_thp_config.ini",
+        "recovery/root/vendor/odm/firmware/novatek_nt36532_n81a_fw_csot.bin",
+        "recovery/root/vendor/odm/firmware/water_check.tflite",
+        "recovery/root/vendor/odm/lib64/libtensorflowlite_touch_c.so",
+        "recovery/root/vendor/odm/lib64/libtouchsensor.so",
+        "scripts/sheng-avb-ui.sh",
+        "scripts/sheng303-hardware.sh",
+        "scripts/sheng303-logs.sh",
+        "scripts/sheng303-run.sh",
+        "scripts/sheng303-touch.sh",
+        "src/ORANGEFOX-NOTICE",
+        "src/sheng_avb.cpp",
+        "src/sheng_avb_messages.h",
+        "tools/apply-platform-fixes.py",
+        "tools/build.sh",
+        "tools/capture_boot_layout.py",
+        "tools/device-avb-messages.json",
+        "tools/device-tools-orangefox-translations.json",
+        "tools/device-tools-translations.json",
+        "tools/export-device-tools.py",
+        "tools/extract_stock_apex.py",
+        "tools/inspect_stock303.py",
+        "tools/newc.py",
+        "tools/prepare-device-tools.py",
+        "tools/prepare_magisk_addon.py",
+        "tools/verify-fastboot-startup.py",
+        "tools/verify_avb_console.py",
+        "tools/verify_bootctrl_lun_routing.py",
+        "tools/verify_device_avb.py",
+        "tools/verify_tablet_input.py",
+        "tools/verify_unified303_frame_budget.py",
+        "tools/verify_usb_boot_order.py",
+        "tools/verify_virtual_ab_space.py",
+        "tools/vintf_transport_check.cpp",
+        "twrp-ui/Android.mk",
+        "twrp-ui/console_filter.cpp"
+      ]
+    }
+  },
+  "device_file_count": 139,
+  "migration_entry_count": 75,
+  "migration_current_counts": {
+    "identical": 49,
+    "modified": 26,
+    "missing": 0
+  },
+  "exact_match_counts": {
+    "lineage_common": 51,
+    "piano": 1,
+    "community_sheng": 0,
+    "twrp_sheng": 0
+  },
+  "wsl_source_counts": {
+    "identical": 134,
+    "different": 4,
+    "missing": 1
+  },
+  "runtime_other_xiaomi_device_includes": [],
+  "legacy_common_device_exists": false,
+  "legacy_common_vendor_exists": false,
+  "makefile_includes": [
+    {
+      "file": "BoardConfig.mk",
+      "line": 123,
+      "statement": "include vendor/lineage/config/BoardConfigReservedSize.mk"
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 141,
+      "statement": "include device/qcom/sepolicy_vndr/SEPolicy.mk"
+    },
+    {
+      "file": "BoardConfig.mk",
+      "line": 230,
+      "statement": "include vendor/xiaomi/sheng/BoardConfigVendor.mk"
+    },
+    {
+      "file": "device.mk",
+      "line": 10,
+      "statement": "$(call inherit-product, hardware/qcom-caf/common/common.mk)"
+    },
+    {
+      "file": "device.mk",
+      "line": 20,
+      "statement": "$(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)"
+    },
+    {
+      "file": "device.mk",
+      "line": 23,
+      "statement": "$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)"
+    },
+    {
+      "file": "device.mk",
+      "line": 341,
+      "statement": "$(call inherit-product, vendor/xiaomi/sheng/sheng-vendor.mk)"
+    },
+    {
+      "file": "lineage_sheng.mk",
+      "line": 2,
+      "statement": "$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)"
+    },
+    {
+      "file": "lineage_sheng.mk",
+      "line": 3,
+      "statement": "$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)"
+    },
+    {
+      "file": "lineage_sheng.mk",
+      "line": 4,
+      "statement": "$(call inherit-product, device/xiaomi/sheng/device.mk)"
+    },
+    {
+      "file": "lineage_sheng.mk",
+      "line": 6,
+      "statement": "$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)"
+    }
+  ],
+  "migration_inputs": [
+    {
+      "source": "configs/config.fs",
+      "destination": "configs/config.fs",
+      "source_sha256": "7651e22589fc951b2e70129534d0d759f2358f3daf63afe26333d81ee80e6d62",
+      "source_hash_verified": true,
+      "current_sha256": "7651e22589fc951b2e70129534d0d759f2358f3daf63afe26333d81ee80e6d62",
+      "current_relation": "identical"
+    },
+    {
+      "source": "configs/sensors/hals.conf",
+      "destination": "configs/sensors/hals.conf",
+      "source_sha256": "73c581650b4e72cc9a558dbbaf8e11858aafaa738139c296954b1a31badc92bb",
+      "source_hash_verified": true,
+      "current_sha256": "73c581650b4e72cc9a558dbbaf8e11858aafaa738139c296954b1a31badc92bb",
+      "current_relation": "identical"
+    },
+    {
+      "source": "configs/permissions/camerax-vendor-extensions.xml",
+      "destination": "configs/permissions/camerax-vendor-extensions.xml",
+      "source_sha256": "411b44ad463720472bf6f69e15a6b400e4390d54046b3f5b3df23e7cafdd010c",
+      "source_hash_verified": true,
+      "current_sha256": "411b44ad463720472bf6f69e15a6b400e4390d54046b3f5b3df23e7cafdd010c",
+      "current_relation": "identical"
+    },
+    {
+      "source": "configs/vintf/framework_manifest.xml",
+      "destination": "configs/vintf/framework_manifest.xml",
+      "source_sha256": "0a864413633900220dbd5d422d67705a11aa3912dc6dcaf50814df0e577cdbc5",
+      "source_hash_verified": true,
+      "current_sha256": "0a864413633900220dbd5d422d67705a11aa3912dc6dcaf50814df0e577cdbc5",
+      "current_relation": "identical"
+    },
+    {
+      "source": "configs/audio/audio_cloud_control_white_list.xml",
+      "destination": "configs/audio/audio_cloud_control_white_list.xml",
+      "source_sha256": "c2a9d7248fb9433e3b36f2915cc5bdd212935adea10f45b8aff3baf6fff83dea",
+      "source_hash_verified": true,
+      "current_sha256": "c2a9d7248fb9433e3b36f2915cc5bdd212935adea10f45b8aff3baf6fff83dea",
+      "current_relation": "identical"
+    },
+    {
+      "source": "configs/audio/audio_policy_volumes.xml",
+      "destination": "configs/audio/audio_policy_volumes.xml",
+      "source_sha256": "6732440a6237e80159e71cd4b861d94b9aed6908070a43786f9e216bfbb3f2c7",
+      "source_hash_verified": true,
+      "current_sha256": "6732440a6237e80159e71cd4b861d94b9aed6908070a43786f9e216bfbb3f2c7",
+      "current_relation": "identical"
+    },
+    {
+      "source": "configs/audio/usecaseKvManager.xml",
+      "destination": "configs/audio/usecaseKvManager.xml",
+      "source_sha256": "74d97e69086875645429abe640bdbac95e1cce6132d5708725c6c3b7505cfa5b",
+      "source_hash_verified": true,
+      "current_sha256": "74d97e69086875645429abe640bdbac95e1cce6132d5708725c6c3b7505cfa5b",
+      "current_relation": "identical"
+    },
+    {
+      "source": "configs/audio/sku_kalama/adsp_sleep_monitor.conf",
+      "destination": "configs/audio/sku_kalama/adsp_sleep_monitor.conf",
+      "source_sha256": "a6e89f08f891dd153da0e8a5e65f40a262b9190fd86454cee9f1ab0e4584e00e",
+      "source_hash_verified": true,
+      "current_sha256": "a6e89f08f891dd153da0e8a5e65f40a262b9190fd86454cee9f1ab0e4584e00e",
+      "current_relation": "identical"
+    },
+    {
+      "source": "configs/audio/sku_kalama/audio_policy_configuration.xml",
+      "destination": "configs/audio/sku_kalama/audio_policy_configuration.xml",
+      "source_sha256": "f4c3c89ba48313484548c4e3fca9a74a76c2126f390d4dd4f513d83db82fc6be",
+      "source_hash_verified": true,
+      "current_sha256": "f4c3c89ba48313484548c4e3fca9a74a76c2126f390d4dd4f513d83db82fc6be",
+      "current_relation": "identical"
+    },
+    {
+      "source": "configs/audio/sku_kalama/audio_effects.conf",
+      "destination": "configs/audio/sku_kalama/audio_effects.conf",
+      "source_sha256": "6d9ef9583fdd3329f3ea4df02c062e2b5d1ab92f8a64688e25749f8dfcccea09",
+      "source_hash_verified": true,
+      "current_sha256": "c8edcd894d4a4151ea55b475258df275cae81306b9cfa279113a6a628cfc3123",
+      "current_relation": "modified"
+    },
+    {
+      "source": "modules.load.first_stage",
+      "destination": "configs/modules/modules.load.first_stage",
+      "source_sha256": "c5e18a5b73c8a42303a09056b054ebde21de4324de15511420252bf200af56be",
+      "source_hash_verified": true,
+      "current_sha256": "04c2e50361f1ae8e705b7dab8f614f3d7988724fdaba4de289ad7e7b808dfd76",
+      "current_relation": "modified"
+    },
+    {
+      "source": "modules.load.vendor_dlkm",
+      "destination": "configs/modules/modules.load.vendor_dlkm",
+      "source_sha256": "f6b104ffe12a8726ee47e0ac70becc2781c6562db2413d28b9405326db6f1b73",
+      "source_hash_verified": true,
+      "current_sha256": "d4c43e704d57516fc1b539a6daa7c21e247bb7ce1921d47ade526c484e88c48e",
+      "current_relation": "modified"
+    },
+    {
+      "source": "modules.load.recovery",
+      "destination": "configs/modules/modules.load.recovery",
+      "source_sha256": "cfe3cded2f89ac2063da793dbf2a7a057566adc173c4b5f4962cf4b3dc787048",
+      "source_hash_verified": true,
+      "current_sha256": "67d1d4f49cb7e0518eb6da98564f50ea5654a1d98e4e080c675c63ee49a15f31",
+      "current_relation": "modified"
+    },
+    {
+      "source": "init/ueventd-odm.rc",
+      "destination": "rootdir/etc/ueventd-odm.rc",
+      "source_sha256": "f24ff9dacd6df32f8a2cbac59e377113d0b17002351cfb9bd5f7989c5e9a59a4",
+      "source_hash_verified": true,
+      "current_sha256": "f24ff9dacd6df32f8a2cbac59e377113d0b17002351cfb9bd5f7989c5e9a59a4",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.kernel.post_boot.sh",
+      "destination": "rootdir/bin/init.kernel.post_boot.sh",
+      "source_sha256": "81468950cabede166b9db5322a08c66a214fecd405e88fe474779f7c476abf38",
+      "source_hash_verified": true,
+      "current_sha256": "81468950cabede166b9db5322a08c66a214fecd405e88fe474779f7c476abf38",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.qcom.rc",
+      "destination": "rootdir/etc/init.qcom.rc",
+      "source_sha256": "5d2df9a3886fc0f8323f251286cfd497d14a6af29505165a0d5cae542b0c3fa4",
+      "source_hash_verified": true,
+      "current_sha256": "5d2df9a3886fc0f8323f251286cfd497d14a6af29505165a0d5cae542b0c3fa4",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/vendor_modprobe.sh",
+      "destination": "rootdir/bin/vendor_modprobe.sh",
+      "source_sha256": "00d7ed47117272883e0d195537ac4b930a509ba09fd3c67ec77fe4c3c449d882",
+      "source_hash_verified": true,
+      "current_sha256": "00d7ed47117272883e0d195537ac4b930a509ba09fd3c67ec77fe4c3c449d882",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.qcom.class_core.sh",
+      "destination": "rootdir/bin/init.qcom.class_core.sh",
+      "source_sha256": "fdf84ed982871b51fb4e76471ec661abd7c6a33239184e0a0a61428d90b6d3ba",
+      "source_hash_verified": true,
+      "current_sha256": "fdf84ed982871b51fb4e76471ec661abd7c6a33239184e0a0a61428d90b6d3ba",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.qcom.post_boot.sh",
+      "destination": "rootdir/bin/init.qcom.post_boot.sh",
+      "source_sha256": "fbbcbb14b22bee2e4d3a4b57b7955d820112f63138b0c2b0a9b304d1f525ac25",
+      "source_hash_verified": true,
+      "current_sha256": "fbbcbb14b22bee2e4d3a4b57b7955d820112f63138b0c2b0a9b304d1f525ac25",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.qcom.early_boot.sh",
+      "destination": "rootdir/bin/init.qcom.early_boot.sh",
+      "source_sha256": "a092f4acdb6cd19a3d33279afc45c6234be59d3be6e77aa0b032740704f98120",
+      "source_hash_verified": true,
+      "current_sha256": "a092f4acdb6cd19a3d33279afc45c6234be59d3be6e77aa0b032740704f98120",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/ueventd.qcom.rc",
+      "destination": "rootdir/etc/ueventd.qcom.rc",
+      "source_sha256": "25caf0f2a7875eb9c94a486277afe18fdd4de8f7614bdc2496ad8b0ff05307d8",
+      "source_hash_verified": true,
+      "current_sha256": "25caf0f2a7875eb9c94a486277afe18fdd4de8f7614bdc2496ad8b0ff05307d8",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.qti.kernel.sh",
+      "destination": "rootdir/bin/init.qti.kernel.sh",
+      "source_sha256": "115e259f424b6c87f5a5bb9c17d197d46e0b62d1660cd13c48a579feda686eea",
+      "source_hash_verified": true,
+      "current_sha256": "115e259f424b6c87f5a5bb9c17d197d46e0b62d1660cd13c48a579feda686eea",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.qti.write.sh",
+      "destination": "rootdir/bin/init.qti.write.sh",
+      "source_sha256": "ba6820e92beb129b848fea7dcf2988fd42d0e21f423df1ea67bceb9c95b1966d",
+      "source_hash_verified": true,
+      "current_sha256": "ba6820e92beb129b848fea7dcf2988fd42d0e21f423df1ea67bceb9c95b1966d",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.sm8550.rc",
+      "destination": "rootdir/etc/init.sm8550.rc",
+      "source_sha256": "c04a548596f16b249f902ea2982ce2d8cd65d79d50e20a990a0f7c40d4191a71",
+      "source_hash_verified": true,
+      "current_sha256": "c04a548596f16b249f902ea2982ce2d8cd65d79d50e20a990a0f7c40d4191a71",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.qcom.sh",
+      "destination": "rootdir/bin/init.qcom.sh",
+      "source_sha256": "e6bc5f3c5aab77312dc0c323ba47f8e6c6037ced911023832f88f5f29a18e2a0",
+      "source_hash_verified": true,
+      "current_sha256": "e6bc5f3c5aab77312dc0c323ba47f8e6c6037ced911023832f88f5f29a18e2a0",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/system_dlkm_modprobe.sh",
+      "destination": "rootdir/bin/system_dlkm_modprobe.sh",
+      "source_sha256": "02a9569cf0696c488a083c8c34fb82108945bc07cd21818053e8f179f17b7d9c",
+      "source_hash_verified": true,
+      "current_sha256": "02a9569cf0696c488a083c8c34fb82108945bc07cd21818053e8f179f17b7d9c",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.target.rc",
+      "destination": "rootdir/etc/init.target.rc",
+      "source_sha256": "cd6a88683649d90dcdfcd8995ac920b278f55e926c82804b17347f02d12f2701",
+      "source_hash_verified": true,
+      "current_sha256": "cd6a88683649d90dcdfcd8995ac920b278f55e926c82804b17347f02d12f2701",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.recovery.qcom.rc",
+      "destination": "rootdir/etc/init.recovery.qcom.rc",
+      "source_sha256": "4582ab05d86df5f955a7266d96f12c4055bf07d50109bcb9e0d2d75557961e2b",
+      "source_hash_verified": true,
+      "current_sha256": "4582ab05d86df5f955a7266d96f12c4055bf07d50109bcb9e0d2d75557961e2b",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.qcom.factory.rc",
+      "destination": "rootdir/etc/init.qcom.factory.rc",
+      "source_sha256": "9231679b45207ae272245a26a51de5d0e9804f774e62b299a80b0c234844f857",
+      "source_hash_verified": true,
+      "current_sha256": "9231679b45207ae272245a26a51de5d0e9804f774e62b299a80b0c234844f857",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.class_main.sh",
+      "destination": "rootdir/bin/init.class_main.sh",
+      "source_sha256": "4fe935ea9b0afe25907bfc321fd487384844c856e6d6bac1d93093ffc60dae7b",
+      "source_hash_verified": true,
+      "current_sha256": "4fe935ea9b0afe25907bfc321fd487384844c856e6d6bac1d93093ffc60dae7b",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.qti.kernel.rc",
+      "destination": "rootdir/etc/init.qti.kernel.rc",
+      "source_sha256": "a17e4fe9077c17e185fdc568a1c752122ecf3602cb381596f2e42e3ff2d65f1e",
+      "source_hash_verified": true,
+      "current_sha256": "a17e4fe9077c17e185fdc568a1c752122ecf3602cb381596f2e42e3ff2d65f1e",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/charger_fw_fstab.qti",
+      "destination": "rootdir/etc/charger_fw_fstab.qti",
+      "source_sha256": "ea20ec5865dbfc2d877fcd7cc407f2eb58a1e7c89f3b9ed2389dc7f996dade33",
+      "source_hash_verified": true,
+      "current_sha256": "ea20ec5865dbfc2d877fcd7cc407f2eb58a1e7c89f3b9ed2389dc7f996dade33",
+      "current_relation": "identical"
+    },
+    {
+      "source": "init/init.kernel.post_boot-kalama.sh",
+      "destination": "rootdir/bin/init.kernel.post_boot-kalama.sh",
+      "source_sha256": "960bbafc3a087b8bc53db522a621770b709bd3670e54ca344855ab9c487a0e40",
+      "source_hash_verified": true,
+      "current_sha256": "960bbafc3a087b8bc53db522a621770b709bd3670e54ca344855ab9c487a0e40",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/vndservice_contexts",
+      "destination": "sepolicy/vendor/vndservice_contexts",
+      "source_sha256": "e683e8ef102bc87114dde413bf5ab2df7da9dd0ceb154f977929f1c1ee2a9daa",
+      "source_hash_verified": true,
+      "current_sha256": "e683e8ef102bc87114dde413bf5ab2df7da9dd0ceb154f977929f1c1ee2a9daa",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/hal_camera_default.te",
+      "destination": "sepolicy/vendor/hal_camera_default.te",
+      "source_sha256": "18e08ae2c388f3019a916773530f9746899ec8019c6662f0f97e79b2b166693f",
+      "source_hash_verified": true,
+      "current_sha256": "18e08ae2c388f3019a916773530f9746899ec8019c6662f0f97e79b2b166693f",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/property.te",
+      "destination": "sepolicy/vendor/property.te",
+      "source_sha256": "ebff57fdba84733a6affee0a342b7544186160a714ef511720177c8fc5e5db31",
+      "source_hash_verified": true,
+      "current_sha256": "b44b0a76e0e8372c031e89c62d023e3cdbd1006e38206fed0da699de34f26fcb",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/mi_thermald.te",
+      "destination": "sepolicy/vendor/mi_thermald.te",
+      "source_sha256": "406d1bd9a45abb0c5402958a349e13b278cb81706fc7b0121491a6ec7d3b3c4d",
+      "source_hash_verified": true,
+      "current_sha256": "406d1bd9a45abb0c5402958a349e13b278cb81706fc7b0121491a6ec7d3b3c4d",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/file_contexts",
+      "destination": "sepolicy/vendor/file_contexts",
+      "source_sha256": "17d6f80e95c20e037dd80089ab66c0d12718f24f31677e0dc92b088a05f1dbce",
+      "source_hash_verified": true,
+      "current_sha256": "3d13567526f7d54eadd79a35da8a5990806f6cddc68c5a5388bee4caff934306",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/init.te",
+      "destination": "sepolicy/vendor/init.te",
+      "source_sha256": "66940965d9a1a5de05f00fc49cb08aced24265f1e492e3316eb10cda7ab388bb",
+      "source_hash_verified": true,
+      "current_sha256": "058735e892b285aa319f879f0d01d2dbbdfafd512e742876e76454301e947a2a",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/miclstc_service.te",
+      "destination": "sepolicy/vendor/miclstc_service.te",
+      "source_sha256": "0dcde6d01ffb2ddd17a9e92c2610b96ce523b4dc8834cc9a805275ccc548580c",
+      "source_hash_verified": true,
+      "current_sha256": "0dcde6d01ffb2ddd17a9e92c2610b96ce523b4dc8834cc9a805275ccc548580c",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/hal_lineage_touch_default.te",
+      "destination": "sepolicy/vendor/hal_lineage_touch_default.te",
+      "source_sha256": "23b93c5f3c43d4f29a6edede70ec58246353893296faee64b950944cf8857d74",
+      "source_hash_verified": true,
+      "current_sha256": "850caa526c86436fba431df3a77600c38eca61d72470d85d83eb134f848e978e",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/hal_dumpstate_impl.te",
+      "destination": "sepolicy/vendor/hal_dumpstate_impl.te",
+      "source_sha256": "faafeb47fbd023daa29ca124e985dfe6dc56e6f17a12cce72bed76e094b13d82",
+      "source_hash_verified": true,
+      "current_sha256": "faafeb47fbd023daa29ca124e985dfe6dc56e6f17a12cce72bed76e094b13d82",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/hwservice_contexts",
+      "destination": "sepolicy/vendor/hwservice_contexts",
+      "source_sha256": "770ee3f772db4eb21e32e830fff8c31c7630e1a9889942b8f7fb6ff82a91cd3c",
+      "source_hash_verified": true,
+      "current_sha256": "26712cd583f448459ce2127421d97fc06ecf340c8c0c0789bc132f109d969f8b",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/vendor_init.te",
+      "destination": "sepolicy/vendor/vendor_init.te",
+      "source_sha256": "a80a7d2f4563b71057c5025d0e9f695a698d267abb9cf82d86ea956881c5d943",
+      "source_hash_verified": true,
+      "current_sha256": "9596b7587f2e4bda2add57cf7236d3b05e44e54110dc586a84f2911c18dd5d71",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/device.te",
+      "destination": "sepolicy/vendor/device.te",
+      "source_sha256": "a9d93ed9f3392a092fe205e33163b915ac19a033b51bae2befe5aaf367ecb4c2",
+      "source_hash_verified": true,
+      "current_sha256": "a9d93ed9f3392a092fe205e33163b915ac19a033b51bae2befe5aaf367ecb4c2",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/file.te",
+      "destination": "sepolicy/vendor/file.te",
+      "source_sha256": "48f499530f4a194b80234a13678bb1594229e1033eebfe0f3da6b312697e324b",
+      "source_hash_verified": true,
+      "current_sha256": "b8084f0d85af5efd586de13d94a6aaffb2c8a46b493779ca2f9d6b8faebc7c39",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/vendor_hal_perf.te",
+      "destination": "sepolicy/vendor/vendor_hal_perf.te",
+      "source_sha256": "31e7ae13ecf65368b2bad6faa013550921ce03c40d07e8531bb0c247fc22e517",
+      "source_hash_verified": true,
+      "current_sha256": "31e7ae13ecf65368b2bad6faa013550921ce03c40d07e8531bb0c247fc22e517",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/hal_sensors_default.te",
+      "destination": "sepolicy/vendor/hal_sensors_default.te",
+      "source_sha256": "5f0c2e8877f7a33de1c83840452189306084a8a5c19055f34237cad151903b02",
+      "source_hash_verified": true,
+      "current_sha256": "5f0c2e8877f7a33de1c83840452189306084a8a5c19055f34237cad151903b02",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/hal_fingerprint_default.te",
+      "destination": "sepolicy/vendor/hal_fingerprint_default.te",
+      "source_sha256": "76ac11477a11852d2919cd739a03a215fb800419aff413c981172f674581d386",
+      "source_hash_verified": true,
+      "current_sha256": "38645479700604b89515b0e979499506c91f3345c1296f22427178698f0c2386",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/hal_power_default.te",
+      "destination": "sepolicy/vendor/hal_power_default.te",
+      "source_sha256": "e1047037b15e973e17a8f3365d8e2a792bba652bc058666f2b2baaae0e575430",
+      "source_hash_verified": true,
+      "current_sha256": "e1047037b15e973e17a8f3365d8e2a792bba652bc058666f2b2baaae0e575430",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/genfs_contexts",
+      "destination": "sepolicy/vendor/genfs_contexts",
+      "source_sha256": "3342519dbe48e5cdc30a39ed3734dcc3dc6ec55d2785899ef9cf287717067b26",
+      "source_hash_verified": true,
+      "current_sha256": "1e6767878c410d3f1d7b38dc7ee3e0ae017bc20e8fdb5654ae0564869357a162",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/vendorcodec.te",
+      "destination": "sepolicy/vendor/vendorcodec.te",
+      "source_sha256": "28a57df6ece847b32dba8369e9039b2e162a3104cafb8791c4dd2c493c304bf3",
+      "source_hash_verified": true,
+      "current_sha256": "71550a145c3dcf81b21d2e275ed2fea0e87c7ad951d8904d0038f3e5c3cffae9",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/mistcdisplay_service.te",
+      "destination": "sepolicy/vendor/mistcdisplay_service.te",
+      "source_sha256": "a1abab2b4cc8ea9074c592a90be1f291319f73ca95224715de721f5254241594",
+      "source_hash_verified": true,
+      "current_sha256": "a1abab2b4cc8ea9074c592a90be1f291319f73ca95224715de721f5254241594",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/hal_camerapostproc_xiaomi.te",
+      "destination": "sepolicy/vendor/hal_camerapostproc_xiaomi.te",
+      "source_sha256": "b04f83daf999436267e92db5359bb9127e80f95001b430fe153497d56f36f40c",
+      "source_hash_verified": true,
+      "current_sha256": "b04f83daf999436267e92db5359bb9127e80f95001b430fe153497d56f36f40c",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/attributes",
+      "destination": "sepolicy/vendor/attributes",
+      "source_sha256": "28fe020cd3f821d0ca608b9c99da3f1a1c58da70df1a649f62ab41efb780fb67",
+      "source_hash_verified": true,
+      "current_sha256": "28fe020cd3f821d0ca608b9c99da3f1a1c58da70df1a649f62ab41efb780fb67",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/app.te",
+      "destination": "sepolicy/vendor/app.te",
+      "source_sha256": "db7f6e5d556f5ebbaf464123228fb25c110689f06daf0cef63707edf6b2598ac",
+      "source_hash_verified": true,
+      "current_sha256": "db7f6e5d556f5ebbaf464123228fb25c110689f06daf0cef63707edf6b2598ac",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/tee.te",
+      "destination": "sepolicy/vendor/tee.te",
+      "source_sha256": "eec5df82a52b939336ac8e00ab5ef1d0a2eeef77afc5c4b168b782786f488343",
+      "source_hash_verified": true,
+      "current_sha256": "eec5df82a52b939336ac8e00ab5ef1d0a2eeef77afc5c4b168b782786f488343",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/property_contexts",
+      "destination": "sepolicy/vendor/property_contexts",
+      "source_sha256": "f1f2ca18d8ff46eec108afa52db541159cb44506c647a0f7641bf036a3d6d904",
+      "source_hash_verified": true,
+      "current_sha256": "bde96e685abf3e3251bdcc6f992203d64e2cce0bb85d16c6a5607ae4490d6a14",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/hal_graphics_composer.te",
+      "destination": "sepolicy/vendor/hal_graphics_composer.te",
+      "source_sha256": "f5855cc37bb027ee5749e63bb4f000653f4ab33bd79271fde79b6f082b016e83",
+      "source_hash_verified": true,
+      "current_sha256": "f5855cc37bb027ee5749e63bb4f000653f4ab33bd79271fde79b6f082b016e83",
+      "current_relation": "identical"
+    },
+    {
+      "source": "sepolicy/vendor/batterysecret.te",
+      "destination": "sepolicy/vendor/batterysecret.te",
+      "source_sha256": "460ea9fadc4b568979709dad0cf40d6b1c038ac0fdbbb2c5de5297457b746a0d",
+      "source_hash_verified": true,
+      "current_sha256": "d8a23aed83c71cbe1f35367bee20dfcd1b82568654ff7eac3dc7165eb3370107",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/system_app.te",
+      "destination": "sepolicy/vendor/system_app.te",
+      "source_sha256": "cbc12299ce47ff3d1a20c226e0eae0048287b2c6c95eec5a372e7ab7932c49e0",
+      "source_hash_verified": true,
+      "current_sha256": "2e7400d20a2ad8e766adb2955890c10137088744a0b5e61fb5d3871b38b43ab3",
+      "current_relation": "modified"
+    },
+    {
+      "source": "sepolicy/vendor/hal_quickcamera.te",
+      "destination": "sepolicy/vendor/hal_quickcamera.te",
+      "source_sha256": "5dccf7ba70d9ad9cfd1d0069b63522a715ad273173ec930530e66382581772a6",
+      "source_hash_verified": true,
+      "current_sha256": "5dccf7ba70d9ad9cfd1d0069b63522a715ad273173ec930530e66382581772a6",
+      "current_relation": "identical"
+    },
+    {
+      "source": "overlay/SystemUIOverlayCommon/Android.bp",
+      "destination": "overlay/SystemUIResOverlaySheng/Android.bp",
+      "source_sha256": "c0a374654f94aebf37c0baa5036049eee641291ab07d3153aadcc8b8ff5e47da",
+      "source_hash_verified": true,
+      "current_sha256": "bed10b56b377483a5e3cb61a3e78d7a84a8ca96cdc55ebef718d49d927f6b892",
+      "current_relation": "modified"
+    },
+    {
+      "source": "overlay/SystemUIOverlayCommon/AndroidManifest.xml",
+      "destination": "overlay/SystemUIResOverlaySheng/AndroidManifest.xml",
+      "source_sha256": "58f02a46425a2cc9647a82ff81ccdcf5cc787040d6ee3a197db572b93413846d",
+      "source_hash_verified": true,
+      "current_sha256": "8943a96ebf1ef0e66aba20e1f857102ba11cc7966123ad2ae9dead35a2cc4676",
+      "current_relation": "modified"
+    },
+    {
+      "source": "overlay/SystemUIOverlayCommon/res/values/config.xml",
+      "destination": "overlay/SystemUIResOverlaySheng/res/values/config.xml",
+      "source_sha256": "c299180e84125a76d2bd69e51a30edbd73c9d7863104e8e5bad5a443fc8fa329",
+      "source_hash_verified": true,
+      "current_sha256": "c299180e84125a76d2bd69e51a30edbd73c9d7863104e8e5bad5a443fc8fa329",
+      "current_relation": "identical"
+    },
+    {
+      "source": "overlay/SettingsOverlayCommon/Android.bp",
+      "destination": "overlay/SettingsResOverlaySheng/Android.bp",
+      "source_sha256": "14881c7a5b95df887638aa55eca450139d76a637082e00eb7fa11fbf39eabebb",
+      "source_hash_verified": true,
+      "current_sha256": "00dfeb788e0ec92c9bcd15743a5054ff43135f1e6ab8309b9a7f63ee93b91e42",
+      "current_relation": "modified"
+    },
+    {
+      "source": "overlay/SettingsOverlayCommon/AndroidManifest.xml",
+      "destination": "overlay/SettingsResOverlaySheng/AndroidManifest.xml",
+      "source_sha256": "0f4e2f1f0ab9493d08a9fcc3d95b52aaa23fe366fe94d037fd130020dc913106",
+      "source_hash_verified": true,
+      "current_sha256": "6878933b35932e1753bd98a56741b987774ae006a03f27da674ab62be74dbc00",
+      "current_relation": "modified"
+    },
+    {
+      "source": "overlay/SettingsOverlayCommon/res/values/config.xml",
+      "destination": "overlay/SettingsResOverlaySheng/res/values/config.xml",
+      "source_sha256": "57ff97c2c87c6ccef9591aa05730e1d9a678658498b32ae75a96b9e436edfda1",
+      "source_hash_verified": true,
+      "current_sha256": "860ed5dfbfa9ce0f2a825857e65952462930881d51e6d3be35125cb90aac013e",
+      "current_relation": "modified"
+    },
+    {
+      "source": "overlay/SettingsOverlayCommon/res/values/lineage.xml",
+      "destination": "overlay/SettingsResOverlaySheng/res/values/lineage.xml",
+      "source_sha256": "011c0e82d76883755c625e4a4bd28c05314cd249aa7e5bd9c82b8712d0240c70",
+      "source_hash_verified": true,
+      "current_sha256": "011c0e82d76883755c625e4a4bd28c05314cd249aa7e5bd9c82b8712d0240c70",
+      "current_relation": "identical"
+    },
+    {
+      "source": "overlay/WifiOverlayCommon/Android.bp",
+      "destination": "overlay/WifiResOverlaySheng/Android.bp",
+      "source_sha256": "e0c36a426208de2154912cc8792ef363e9505a03449977be1f8ce52a10f7b719",
+      "source_hash_verified": true,
+      "current_sha256": "2faebabcd321d6f0038523f71f902e1cf6442a2f0a671160cc0e4a56c081633f",
+      "current_relation": "modified"
+    },
+    {
+      "source": "overlay/WifiOverlayCommon/AndroidManifest.xml",
+      "destination": "overlay/WifiResOverlaySheng/AndroidManifest.xml",
+      "source_sha256": "e5bab8ea96cf46616cc2ec3c61e027298758678b52939b8eaa1a7751b3dc7931",
+      "source_hash_verified": true,
+      "current_sha256": "c79d2e09a138cd37c8beceeb9e604529e02aefe3eaf900bae1417194dda126d1",
+      "current_relation": "modified"
+    },
+    {
+      "source": "overlay/WifiOverlayCommon/res/values/config.xml",
+      "destination": "overlay/WifiResOverlaySheng/res/values/config.xml",
+      "source_sha256": "9a336cb1e2bebb572336ba1ad48e9ee055f289b107c9f11c6a7c7f0bb2127a3d",
+      "source_hash_verified": true,
+      "current_sha256": "9a336cb1e2bebb572336ba1ad48e9ee055f289b107c9f11c6a7c7f0bb2127a3d",
+      "current_relation": "identical"
+    },
+    {
+      "source": "overlay/LineageResXiaomi/Android.bp",
+      "destination": "overlay/LineageResOverlaySheng/Android.bp",
+      "source_sha256": "a3d514ccc31738328040419053ceebf9241ab3110b84558bbb0629abc478085c",
+      "source_hash_verified": true,
+      "current_sha256": "cdfb2a10a02610ce876930e55a61013e5b2e3c42039b50f8768a32a08583997e",
+      "current_relation": "modified"
+    },
+    {
+      "source": "overlay/LineageResXiaomi/AndroidManifest.xml",
+      "destination": "overlay/LineageResOverlaySheng/AndroidManifest.xml",
+      "source_sha256": "d25637c084276721f4011a81a4be4902de8b474c46a97326476f07bf98b4b757",
+      "source_hash_verified": true,
+      "current_sha256": "64ea231911e16c385dea859395016a937f5a587d12d5e515685513fa21eaecd6",
+      "current_relation": "modified"
+    },
+    {
+      "source": "overlay/LineageResXiaomi/res/values/config.xml",
+      "destination": "overlay/LineageResOverlaySheng/res/values/config.xml",
+      "source_sha256": "569ea633449f5ebcc5788ac9d24fa543dfa54e4b84e51bc61cba2d4d89b924ba",
+      "source_hash_verified": true,
+      "current_sha256": "569ea633449f5ebcc5788ac9d24fa543dfa54e4b84e51bc61cba2d4d89b924ba",
+      "current_relation": "identical"
+    }
+  ],
+  "upstream_line_comparisons": [
+    {
+      "file": "BoardConfig.mk",
+      "reference_file": "BoardConfigCommon.mk",
+      "current_significant_lines": 146,
+      "reference_significant_lines": 160,
+      "ordered_shared_significant_lines": 92,
+      "largest_shared_block_lines": 33,
+      "interpretation": "Supporting comparison; not an originality percentage."
+    },
+    {
+      "file": "extract-files.py",
+      "reference_file": "extract-files.py",
+      "current_significant_lines": 123,
+      "reference_significant_lines": 89,
+      "ordered_shared_significant_lines": 74,
+      "largest_shared_block_lines": 24,
+      "interpretation": "Supporting comparison; not an originality percentage."
+    },
+    {
+      "file": "device.mk",
+      "reference_file": "common.mk",
+      "current_significant_lines": 294,
+      "reference_significant_lines": 327,
+      "ordered_shared_significant_lines": 241,
+      "largest_shared_block_lines": 67,
+      "interpretation": "Supporting comparison; not an originality percentage."
+    },
+    {
+      "file": "Android.bp",
+      "reference_file": "Android.bp",
+      "current_significant_lines": 42,
+      "reference_significant_lines": 29,
+      "ordered_shared_significant_lines": 22,
+      "largest_shared_block_lines": 5,
+      "interpretation": "Supporting comparison; not an originality percentage."
+    },
+    {
+      "file": "rootdir/Android.bp",
+      "reference_file": "init/Android.bp",
+      "current_significant_lines": 108,
+      "reference_significant_lines": 114,
+      "ordered_shared_significant_lines": 88,
+      "largest_shared_block_lines": 6,
+      "interpretation": "Supporting comparison; not an originality percentage."
+    }
+  ],
+  "stock_configuration_checks": [
+    {
+      "source": "vendor/etc/audio/sku_kalama/mixer_paths_kalama_mtp.xml",
+      "target": "configs/audio/mixer_paths_kalama_mtp.xml",
+      "sha256": "1535aedfff5a344939e2b676cd735be2eea44a6a8ac2f5e6eef5aa32e88aacfc",
+      "source_hash_verified": true,
+      "current_relation": "modified"
+    },
+    {
+      "source": "vendor/etc/audio/sku_kalama/resourcemanager_kalama_mtp.xml",
+      "target": "configs/audio/resourcemanager_kalama_mtp.xml",
+      "sha256": "521f1e4b17f2ddaa75aea6d34524776eedd80ebc460d45a2006ecce389a21587",
+      "source_hash_verified": true,
+      "current_relation": "modified"
+    },
+    {
+      "source": "vendor/etc/card-defs.xml",
+      "target": "configs/audio/card-defs.xml",
+      "sha256": "97c35429427e17ded24643b3fdc410b6e53ba7884358ad805074a4ec35ad8f2a",
+      "source_hash_verified": true,
+      "current_relation": "identical"
+    },
+    {
+      "source": "vendor/etc/microphone_characteristics.xml",
+      "target": "configs/audio/microphone_characteristics.xml",
+      "sha256": "618133e7ddd73dba10d45036856127b91b9e649299e1fd8b30fcb2e1002744bb",
+      "source_hash_verified": true,
+      "current_relation": "identical"
+    },
+    {
+      "source": "system/usr/idc/uinput-fpc.idc",
+      "target": "configs/idc/uinput-fpc.idc",
+      "sha256": "40c60cbbaedb118216ff0ea02686940c530889f823b599ee874aeb27d8c80f42",
+      "source_hash_verified": true,
+      "current_relation": "identical"
+    },
+    {
+      "source": "system/usr/keylayout/uinput-fpc.kl",
+      "target": "configs/keylayout/uinput-fpc.kl",
+      "sha256": "38425e3bb0bd4e9238b106eb49ad373893d4520060c1b6b146618ca6f1107e75",
+      "source_hash_verified": true,
+      "current_relation": "identical"
+    }
+  ],
+  "stock_touch_binary_check": {
+    "stock_path": "/root/sheng-lineage/firmware-dump/partitions/odm/bin/touch_report_debug",
+    "current_path": "/mnt/c/Users/Dev裴月笙/Desktop/XiaomiPad6SProPort6.18/device/xiaomi/sheng/configs/touch/sheng-touch-report",
+    "stock_sha256": "7707a312a7629e675820487765735991b16c0f16d14e3c37002590ce0a97aa95",
+    "current_sha256": "22a3662e8e9f834a3c96895d795d0cfbb64f18087a14930fd2de0c17b888ffe4",
+    "matches_documented_path_patch": true
+  },
+  "device_inventory": [
+    {
+      "file": "Android.bp",
+      "bytes": 1314,
+      "sha256": "cd622072564420aad59aba35bb7db5616174c602576cbb771229edc490a87ff2",
+      "lf_normalized_sha256": "cd622072564420aad59aba35bb7db5616174c602576cbb771229edc490a87ff2",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// Copyright (C) 2024 The LineageOS Project",
+        "// SPDX-License-Identifier: Apache-2.0",
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "AndroidProducts.mk",
+      "bytes": 149,
+      "sha256": "238ba0a2185cde32d747e1f2cbb352fb4257cd893ebfbd0a6310b45a201b0453",
+      "lf_normalized_sha256": "238ba0a2185cde32d747e1f2cbb352fb4257cd893ebfbd0a6310b45a201b0453",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "BoardConfig.mk",
+      "bytes": 8214,
+      "sha256": "79c947e326db20dc7bc66307276614276fc79123dee70bac138d258db6e88721",
+      "lf_normalized_sha256": "79c947e326db20dc7bc66307276614276fc79123dee70bac138d258db6e88721",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# Copyright (C) 2024-2025 The LineageOS Project",
+        "# SPDX-License-Identifier: Apache-2.0",
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "README.md",
+      "bytes": 3380,
+      "sha256": "d15c242036663b1b2453bfed1e6c47444eae7d660da120ae321ece0d12d19d9f",
+      "lf_normalized_sha256": "d15c242036663b1b2453bfed1e6c47444eae7d660da120ae321ece0d12d19d9f",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "compat/AudioLogLevel.c",
+      "bytes": 411,
+      "sha256": "cfa55871eac140a90418c5cedc6b858430659b75fc68ab7dc43f562e67fcf28e",
+      "lf_normalized_sha256": "cfa55871eac140a90418c5cedc6b858430659b75fc68ab7dc43f562e67fcf28e",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/audio_cloud_control_white_list.xml",
+      "bytes": 2319,
+      "sha256": "c2a9d7248fb9433e3b36f2915cc5bdd212935adea10f45b8aff3baf6fff83dea",
+      "lf_normalized_sha256": "c2a9d7248fb9433e3b36f2915cc5bdd212935adea10f45b8aff3baf6fff83dea",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/audio/audio_cloud_control_white_list.xml"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/audio_policy_volumes.xml",
+      "bytes": 13561,
+      "sha256": "6732440a6237e80159e71cd4b861d94b9aed6908070a43786f9e216bfbb3f2c7",
+      "lf_normalized_sha256": "6732440a6237e80159e71cd4b861d94b9aed6908070a43786f9e216bfbb3f2c7",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/audio/audio_policy_volumes.xml"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "<!-- Copyright (C) 2015 The Android Open Source Project",
+        "Licensed under the Apache License, Version 2.0 (the \"License\");"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/card-defs.xml",
+      "bytes": 13046,
+      "sha256": "97c35429427e17ded24643b3fdc410b6e53ba7884358ad805074a4ec35ad8f2a",
+      "lf_normalized_sha256": "97c35429427e17ded24643b3fdc410b6e53ba7884358ad805074a4ec35ad8f2a",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "<!-- Copyright (c) 2019, 2021, The Linux Foundation. All rights reserved.",
+        "* Changes from Qualcomm Innovation Center are provided under the following license:",
+        "* Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/microphone_characteristics.xml",
+      "bytes": 12420,
+      "sha256": "618133e7ddd73dba10d45036856127b91b9e649299e1fd8b30fcb2e1002744bb",
+      "lf_normalized_sha256": "618133e7ddd73dba10d45036856127b91b9e649299e1fd8b30fcb2e1002744bb",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "<!-- Copyright (c) 2014, 2016-2018, 2021, The Linux Foundation. All rights reserved.",
+        "* Changes from Qualcomm Innovation Center are provided under the following license:",
+        "* Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/mixer_paths_kalama_mtp.xml",
+      "bytes": 68218,
+      "sha256": "65a59dff9e0c7c1d76a200ea4018a156ba14daaf0f9cf3678beaeb45b444b478",
+      "lf_normalized_sha256": "65a59dff9e0c7c1d76a200ea4018a156ba14daaf0f9cf3678beaeb45b444b478",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/resourcemanager_kalama_mtp.xml",
+      "bytes": 114803,
+      "sha256": "dabb48abf7841ad511881195a334496bbe406451b61636e8ff652a70d12ce83f",
+      "lf_normalized_sha256": "dabb48abf7841ad511881195a334496bbe406451b61636e8ff652a70d12ce83f",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "<!-- Copyright (c) 2020-2022, Qualcomm Innovation Center, Inc.All rights reserved -->",
+        "<!-- Changes from Qualcomm Innovation Center are provided under the following license:    -->",
+        "<!-- Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.             -->"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/sku_kalama/adsp_sleep_monitor.conf",
+      "bytes": 55,
+      "sha256": "a6e89f08f891dd153da0e8a5e65f40a262b9190fd86454cee9f1ab0e4584e00e",
+      "lf_normalized_sha256": "a6e89f08f891dd153da0e8a5e65f40a262b9190fd86454cee9f1ab0e4584e00e",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/audio/sku_kalama/adsp_sleep_monitor.conf"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/sku_kalama/audio_effects.conf",
+      "bytes": 8903,
+      "sha256": "c8edcd894d4a4151ea55b475258df275cae81306b9cfa279113a6a628cfc3123",
+      "lf_normalized_sha256": "c8edcd894d4a4151ea55b475258df275cae81306b9cfa279113a6a628cfc3123",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "#  Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.",
+        "# * Changes from Qualcomm Innovation Center are provided under the following license:",
+        "# * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/sku_kalama/audio_effects.xml",
+      "bytes": 9763,
+      "sha256": "5efcafd5314bdaaa1b5ee1e9d963f65a77822e28b16365b3347a39d677120749",
+      "lf_normalized_sha256": "5efcafd5314bdaaa1b5ee1e9d963f65a77822e28b16365b3347a39d677120749",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "<!-- Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.",
+        "* Changes from Qualcomm Innovation Center are provided under the following license:",
+        "* Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/sku_kalama/audio_policy_configuration.xml",
+      "bytes": 30773,
+      "sha256": "f4c3c89ba48313484548c4e3fca9a74a76c2126f390d4dd4f513d83db82fc6be",
+      "lf_normalized_sha256": "f4c3c89ba48313484548c4e3fca9a74a76c2126f390d4dd4f513d83db82fc6be",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/audio/sku_kalama/audio_policy_configuration.xml"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "<!-- Copyright (c) 2016-2021, The Linux Foundation. All rights reserved",
+        "<!-- Copyright (C) 2015 The Android Open Source Project",
+        "Licensed under the Apache License, Version 2.0 (the \"License\");"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/audio/usecaseKvManager.xml",
+      "bytes": 95037,
+      "sha256": "74d97e69086875645429abe640bdbac95e1cce6132d5708725c6c3b7505cfa5b",
+      "lf_normalized_sha256": "74d97e69086875645429abe640bdbac95e1cce6132d5708725c6c3b7505cfa5b",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/audio/usecaseKvManager.xml"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "<!-- Copyright (c) 2021, The Linux Foundation. All rights reserved.",
+        "* Changes from Qualcomm Innovation Center are provided under the following license:",
+        "* Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/config.fs",
+      "bytes": 4514,
+      "sha256": "7651e22589fc951b2e70129534d0d759f2358f3daf63afe26333d81ee80e6d62",
+      "lf_normalized_sha256": "7651e22589fc951b2e70129534d0d759f2358f3daf63afe26333d81ee80e6d62",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/config.fs"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/idc/NVTCapacitiveTouchScreen.idc",
+      "bytes": 211,
+      "sha256": "6d29cbc33a3ba25ca4c2fc04c3b8e86a7081bf928bbe304ef13cbd461d249e0d",
+      "lf_normalized_sha256": "6d29cbc33a3ba25ca4c2fc04c3b8e86a7081bf928bbe304ef13cbd461d249e0d",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/idc/uinput-fpc.idc",
+      "bytes": 475,
+      "sha256": "40c60cbbaedb118216ff0ea02686940c530889f823b599ee874aeb27d8c80f42",
+      "lf_normalized_sha256": "40c60cbbaedb118216ff0ea02686940c530889f823b599ee874aeb27d8c80f42",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2013,2014 Fingerprint Cards AB <tech@fingerprints.com>"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/kernel/sheng.config",
+      "bytes": 398,
+      "sha256": "e8608e1d660c798ec6f33e1254f5f7702629cf41f85ffea6bc4bf01878d4330c",
+      "lf_normalized_sha256": "e8608e1d660c798ec6f33e1254f5f7702629cf41f85ffea6bc4bf01878d4330c",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/keylayout/uinput-fpc.kl",
+      "bytes": 802,
+      "sha256": "38425e3bb0bd4e9238b106eb49ad373893d4520060c1b6b146618ca6f1107e75",
+      "lf_normalized_sha256": "38425e3bb0bd4e9238b106eb49ad373893d4520060c1b6b146618ca6f1107e75",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2013,2014 Fingerprint Cards AB <tech@fingerprints.com>"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/modules/modules.list.boot",
+      "bytes": 1715,
+      "sha256": "7b59c71bdc4113d9cc166d444cda7c7e08b698d0f8dd125b70faa4e6f48c29f7",
+      "lf_normalized_sha256": "7b59c71bdc4113d9cc166d444cda7c7e08b698d0f8dd125b70faa4e6f48c29f7",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/modules/modules.list.recovery",
+      "bytes": 5344,
+      "sha256": "ea149ea74fbbd5e7b2841f66d723f795b09a4df6b9bd70e2c0a1e4a9d7d91b0d",
+      "lf_normalized_sha256": "ea149ea74fbbd5e7b2841f66d723f795b09a4df6b9bd70e2c0a1e4a9d7d91b0d",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/modules/modules.load.first_stage",
+      "bytes": 1715,
+      "sha256": "04c2e50361f1ae8e705b7dab8f614f3d7988724fdaba4de289ad7e7b808dfd76",
+      "lf_normalized_sha256": "04c2e50361f1ae8e705b7dab8f614f3d7988724fdaba4de289ad7e7b808dfd76",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/modules/modules.load.recovery",
+      "bytes": 5328,
+      "sha256": "67d1d4f49cb7e0518eb6da98564f50ea5654a1d98e4e080c675c63ee49a15f31",
+      "lf_normalized_sha256": "67d1d4f49cb7e0518eb6da98564f50ea5654a1d98e4e080c675c63ee49a15f31",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/modules/modules.load.vendor_dlkm",
+      "bytes": 4985,
+      "sha256": "d4c43e704d57516fc1b539a6daa7c21e247bb7ce1921d47ade526c484e88c48e",
+      "lf_normalized_sha256": "d4c43e704d57516fc1b539a6daa7c21e247bb7ce1921d47ade526c484e88c48e",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/modules/stock-modules.list",
+      "bytes": 11671,
+      "sha256": "8093bfaaefcfff0d1de68ebcd2162d304983011f7537e35276cc9c355630c99e",
+      "lf_normalized_sha256": "8093bfaaefcfff0d1de68ebcd2162d304983011f7537e35276cc9c355630c99e",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/permissions/camerax-vendor-extensions.xml",
+      "bytes": 192,
+      "sha256": "411b44ad463720472bf6f69e15a6b400e4390d54046b3f5b3df23e7cafdd010c",
+      "lf_normalized_sha256": "411b44ad463720472bf6f69e15a6b400e4390d54046b3f5b3df23e7cafdd010c",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/permissions/camerax-vendor-extensions.xml"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/sensors/hals.conf",
+      "bytes": 21,
+      "sha256": "73c581650b4e72cc9a558dbbaf8e11858aafaa738139c296954b1a31badc92bb",
+      "lf_normalized_sha256": "73c581650b4e72cc9a558dbbaf8e11858aafaa738139c296954b1a31badc92bb",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/sensors/hals.conf"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/touch/sheng-touch-report",
+      "bytes": 743472,
+      "sha256": "22a3662e8e9f834a3c96895d795d0cfbb64f18087a14930fd2de0c17b888ffe4",
+      "lf_normalized_sha256": "76329b2769302f534ea8cda99c1a02043ce373e01b24e65ca3161f0b8dba7bba",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/vintf/framework_dolby_matrix.xml",
+      "bytes": 611,
+      "sha256": "7beb392431858f878ca63f6ad2e61675443764d17f8cbb51f8753d3188c89df8",
+      "lf_normalized_sha256": "7beb392431858f878ca63f6ad2e61675443764d17f8cbb51f8753d3188c89df8",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/vintf/framework_manifest.xml",
+      "bytes": 1875,
+      "sha256": "0a864413633900220dbd5d422d67705a11aa3912dc6dcaf50814df0e577cdbc5",
+      "lf_normalized_sha256": "0a864413633900220dbd5d422d67705a11aa3912dc6dcaf50814df0e577cdbc5",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/vintf/framework_manifest.xml"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "<!-- Copyright (c) 2018-2019, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/vintf/manifest_kalama.xml",
+      "bytes": 10055,
+      "sha256": "6d59774e5cbc7374206a9db9b5f51374cfe2d5887c887683b8f327300507d5b5",
+      "lf_normalized_sha256": "6d59774e5cbc7374206a9db9b5f51374cfe2d5887c887683b8f327300507d5b5",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "configs/vintf/manifest_xiaomi.xml",
+      "bytes": 791,
+      "sha256": "1d2f8a9313b2d71c1ac4f7ecf0fd1fd654fc3463f9cd2697c1d04683e38d5bd9",
+      "lf_normalized_sha256": "1d2f8a9313b2d71c1ac4f7ecf0fd1fd654fc3463f9cd2697c1d04683e38d5bd9",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "device.mk",
+      "bytes": 18501,
+      "sha256": "270925dd7d64a32c43c049461d05f1e98736ab5a799537259c434ece7f8e0457",
+      "lf_normalized_sha256": "270925dd7d64a32c43c049461d05f1e98736ab5a799537259c434ece7f8e0457",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# Copyright (C) 2024-2026 The LineageOS Project",
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "different"
+    },
+    {
+      "file": "docs/BRINGUP.md",
+      "bytes": 2283,
+      "sha256": "30bb3ab7e0a67217e4574b8e97283656b335b70cba3689b1dc6bc8e4c202df9f",
+      "lf_normalized_sha256": "30bb3ab7e0a67217e4574b8e97283656b335b70cba3689b1dc6bc8e4c202df9f",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "dolby/ShengDolby/Android.bp",
+      "bytes": 553,
+      "sha256": "71bf4678dcd9e664085c6a0af232487233f4b609a98805b9f79500aa43120226",
+      "lf_normalized_sha256": "71bf4678dcd9e664085c6a0af232487233f4b609a98805b9f79500aa43120226",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "dolby/ShengDolby/AndroidManifest.xml",
+      "bytes": 1084,
+      "sha256": "95292218b7ebd943c74823a0026e49605da9f9ce649fed71c330eef0283bf8cc",
+      "lf_normalized_sha256": "95292218b7ebd943c74823a0026e49605da9f9ce649fed71c330eef0283bf8cc",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "dolby/ShengDolby/privapp-permissions-org.lineageos.sheng.dolby.xml",
+      "bytes": 235,
+      "sha256": "1eb31818392c453f76e5270dbe0cabe9d87f62c3a459fe50f7c480880dccb348",
+      "lf_normalized_sha256": "1eb31818392c453f76e5270dbe0cabe9d87f62c3a459fe50f7c480880dccb348",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "dolby/ShengDolby/res/values/strings.xml",
+      "bytes": 287,
+      "sha256": "3e2e21a0ea698bd6a14ac242f63095a7d4261210af7a07beaa9f400722dbbbc5",
+      "lf_normalized_sha256": "3e2e21a0ea698bd6a14ac242f63095a7d4261210af7a07beaa9f400722dbbbc5",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "dolby/ShengDolby/res/values-zh-rCN/strings.xml",
+      "bytes": 295,
+      "sha256": "4d344f0f2181cf6295f734beb9ef387e0fefdd1a1197a0fe66c9bedf6afdb95c",
+      "lf_normalized_sha256": "4d344f0f2181cf6295f734beb9ef387e0fefdd1a1197a0fe66c9bedf6afdb95c",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "dolby/ShengDolby/src/org/lineageos/sheng/dolby/AtmosActivity.java",
+      "bytes": 1964,
+      "sha256": "3a3b01c4577927b302c2505bf17b497f0a89a112c7c4a0cda22bfd9590d61d47",
+      "lf_normalized_sha256": "3a3b01c4577927b302c2505bf17b497f0a89a112c7c4a0cda22bfd9590d61d47",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "dolby/ShengDolby/src/org/lineageos/sheng/dolby/AtmosApplication.java",
+      "bytes": 5401,
+      "sha256": "01613d72e5e7a249bada72314fd4ed2145bd19845c47993b2172478936af3709",
+      "lf_normalized_sha256": "01613d72e5e7a249bada72314fd4ed2145bd19845c47993b2172478936af3709",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "dolby/ShengDolby/src/org/lineageos/sheng/dolby/StockDms.java",
+      "bytes": 963,
+      "sha256": "a0ac081ca8a65b96485b1c2789a87d845da2bb5420a70ba876446b02f0ceee47",
+      "lf_normalized_sha256": "a0ac081ca8a65b96485b1c2789a87d845da2bb5420a70ba876446b02f0ceee47",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "extract-files.py",
+      "bytes": 5786,
+      "sha256": "46133a38b66cd4dcac0f228ae236ae67e0a8328cafa63e79fa7d0e01e9dd02e1",
+      "lf_normalized_sha256": "46133a38b66cd4dcac0f228ae236ae67e0a8328cafa63e79fa7d0e01e9dd02e1",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-FileCopyrightText: 2024 The LineageOS Project",
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "kernel/stock-modules/Makefile",
+      "bytes": 362,
+      "sha256": "87c37dc06887b695599773acde10f2891b1de32894b6896f552d259e694c04fc",
+      "lf_normalized_sha256": "87c37dc06887b695599773acde10f2891b1de32894b6896f552d259e694c04fc",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "kernel/stock-modules/module-plan.json",
+      "bytes": 48420,
+      "sha256": "1fe62f90a8b9914627d83ab57be60d344bf6384b3d761f0c5307d4e7f300bb99",
+      "lf_normalized_sha256": "1fe62f90a8b9914627d83ab57be60d344bf6384b3d761f0c5307d4e7f300bb99",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "kernel/stock-modules/stage.py",
+      "bytes": 9045,
+      "sha256": "53383619510eef534dd9b9a06518e2bed9c1d7cbc5cfece52954feb59a1f962d",
+      "lf_normalized_sha256": "53383619510eef534dd9b9a06518e2bed9c1d7cbc5cfece52954feb59a1f962d",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "lineage.dependencies",
+      "bytes": 557,
+      "sha256": "3c221f5470e39980bac9dfed4d466769854e56be3dc7b157d581a24e67cdb787",
+      "lf_normalized_sha256": "3c221f5470e39980bac9dfed4d466769854e56be3dc7b157d581a24e67cdb787",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "lineage_sheng.mk",
+      "bytes": 757,
+      "sha256": "6bdcc2b89f002c1583113fb13eecd6783d86943ade434dc74a475b5a49794125",
+      "lf_normalized_sha256": "6bdcc2b89f002c1583113fb13eecd6783d86943ade434dc74a475b5a49794125",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/FrameworkResOverlaySheng/Android.bp",
+      "bytes": 161,
+      "sha256": "1b874af55f809c473a0b7e07a8162866812f58a7e0c85318ee4574ffcde4b19d",
+      "lf_normalized_sha256": "1b874af55f809c473a0b7e07a8162866812f58a7e0c85318ee4574ffcde4b19d",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/FrameworkResOverlaySheng/AndroidManifest.xml",
+      "bytes": 328,
+      "sha256": "f80600604bcb3f9cf3681bf466a515bf8860d016a4b33ced488c6615b2b258d3",
+      "lf_normalized_sha256": "f80600604bcb3f9cf3681bf466a515bf8860d016a4b33ced488c6615b2b258d3",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/FrameworkResOverlaySheng/res/values/config.xml",
+      "bytes": 451,
+      "sha256": "a2b2fd6e5e255991524cf9748d447de35b90870aa2914a6090ca4f5ff75ecaeb",
+      "lf_normalized_sha256": "a2b2fd6e5e255991524cf9748d447de35b90870aa2914a6090ca4f5ff75ecaeb",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/FrameworkResOverlaySheng/res/values/platform-defaults.xml",
+      "bytes": 4390,
+      "sha256": "01684077d52c6dde6d9d2eec4ebe5990986c3b4cfa4d521853b4540dd00ee4e1",
+      "lf_normalized_sha256": "01684077d52c6dde6d9d2eec4ebe5990986c3b4cfa4d521853b4540dd00ee4e1",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "<!-- Copyright 2009 The Android Open Source Project.",
+        "SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/FrameworkResOverlaySheng/res/values/stock-display.xml",
+      "bytes": 1669,
+      "sha256": "d039c0ce0c431c52b2b1d4c0421e4da568351f913a9d8d0e08707d28feed3b12",
+      "lf_normalized_sha256": "d039c0ce0c431c52b2b1d4c0421e4da568351f913a9d8d0e08707d28feed3b12",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/FrameworkResOverlaySheng/res/values/tablet-mode.xml",
+      "bytes": 410,
+      "sha256": "8ab1bc91843006e92c3f318fed57b3161f51699dd08371bb8fa8c9acc70c30d8",
+      "lf_normalized_sha256": "8ab1bc91843006e92c3f318fed57b3161f51699dd08371bb8fa8c9acc70c30d8",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/FrameworkResOverlaySheng/res/xml/power_profile.xml",
+      "bytes": 4884,
+      "sha256": "a65906d41ceaf3ef283da5aca971fcedd5136bcc5da43e24cccdbda320859b45",
+      "lf_normalized_sha256": "a65906d41ceaf3ef283da5aca971fcedd5136bcc5da43e24cccdbda320859b45",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/LineageResOverlaySheng/Android.bp",
+      "bytes": 185,
+      "sha256": "cdfb2a10a02610ce876930e55a61013e5b2e3c42039b50f8768a32a08583997e",
+      "lf_normalized_sha256": "cdfb2a10a02610ce876930e55a61013e5b2e3c42039b50f8768a32a08583997e",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// Copyright (C) 2024 The LineageOS Project",
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/LineageResOverlaySheng/AndroidManifest.xml",
+      "bytes": 375,
+      "sha256": "64ea231911e16c385dea859395016a937f5a587d12d5e515685513fa21eaecd6",
+      "lf_normalized_sha256": "64ea231911e16c385dea859395016a937f5a587d12d5e515685513fa21eaecd6",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "Copyright (C) 2024 The LineageOS Project",
+        "SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/LineageResOverlaySheng/res/values/config.xml",
+      "bytes": 628,
+      "sha256": "569ea633449f5ebcc5788ac9d24fa543dfa54e4b84e51bc61cba2d4d89b924ba",
+      "lf_normalized_sha256": "569ea633449f5ebcc5788ac9d24fa543dfa54e4b84e51bc61cba2d4d89b924ba",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "overlay/LineageResXiaomi/res/values/config.xml"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "Copyright (C) 2024 The LineageOS Project",
+        "SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/SettingsResOverlaySheng/Android.bp",
+      "bytes": 214,
+      "sha256": "00dfeb788e0ec92c9bcd15743a5054ff43135f1e6ab8309b9a7f63ee93b91e42",
+      "lf_normalized_sha256": "00dfeb788e0ec92c9bcd15743a5054ff43135f1e6ab8309b9a7f63ee93b91e42",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// Copyright (C) 2024 The LineageOS Project",
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/SettingsResOverlaySheng/AndroidManifest.xml",
+      "bytes": 371,
+      "sha256": "6878933b35932e1753bd98a56741b987774ae006a03f27da674ab62be74dbc00",
+      "lf_normalized_sha256": "6878933b35932e1753bd98a56741b987774ae006a03f27da674ab62be74dbc00",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/SettingsResOverlaySheng/res/values/config.xml",
+      "bytes": 3963,
+      "sha256": "860ed5dfbfa9ce0f2a825857e65952462930881d51e6d3be35125cb90aac013e",
+      "lf_normalized_sha256": "860ed5dfbfa9ce0f2a825857e65952462930881d51e6d3be35125cb90aac013e",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "** Copyright 2009, The Android Open Source Project",
+        "** Licensed under the Apache License, Version 2.0 (the \"License\");"
+      ],
+      "wsl_source_relation": "different"
+    },
+    {
+      "file": "overlay/SettingsResOverlaySheng/res/values/lineage.xml",
+      "bytes": 337,
+      "sha256": "011c0e82d76883755c625e4a4bd28c05314cd249aa7e5bd9c82b8712d0240c70",
+      "lf_normalized_sha256": "011c0e82d76883755c625e4a4bd28c05314cd249aa7e5bd9c82b8712d0240c70",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "overlay/SettingsOverlayCommon/res/values/lineage.xml"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "SPDX-FileCopyrightText: The LineageOS Project",
+        "SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/SystemUIResOverlaySheng/Android.bp",
+      "bytes": 214,
+      "sha256": "bed10b56b377483a5e3cb61a3e78d7a84a8ca96cdc55ebef718d49d927f6b892",
+      "lf_normalized_sha256": "bed10b56b377483a5e3cb61a3e78d7a84a8ca96cdc55ebef718d49d927f6b892",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// Copyright (C) 2024 The LineageOS Project",
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/SystemUIResOverlaySheng/AndroidManifest.xml",
+      "bytes": 371,
+      "sha256": "8943a96ebf1ef0e66aba20e1f857102ba11cc7966123ad2ae9dead35a2cc4676",
+      "lf_normalized_sha256": "8943a96ebf1ef0e66aba20e1f857102ba11cc7966123ad2ae9dead35a2cc4676",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/SystemUIResOverlaySheng/res/values/config.xml",
+      "bytes": 932,
+      "sha256": "c299180e84125a76d2bd69e51a30edbd73c9d7863104e8e5bad5a443fc8fa329",
+      "lf_normalized_sha256": "c299180e84125a76d2bd69e51a30edbd73c9d7863104e8e5bad5a443fc8fa329",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "overlay/SystemUIOverlayCommon/res/values/config.xml"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "** Copyright 2009, The Android Open Source Project",
+        "** Licensed under the Apache License, Version 2.0 (the \"License\");"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/WifiResOverlaySheng/Android.bp",
+      "bytes": 181,
+      "sha256": "2faebabcd321d6f0038523f71f902e1cf6442a2f0a671160cc0e4a56c081633f",
+      "lf_normalized_sha256": "2faebabcd321d6f0038523f71f902e1cf6442a2f0a671160cc0e4a56c081633f",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// Copyright (C) 2023 The LineageOS Project",
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/WifiResOverlaySheng/AndroidManifest.xml",
+      "bytes": 387,
+      "sha256": "c79d2e09a138cd37c8beceeb9e604529e02aefe3eaf900bae1417194dda126d1",
+      "lf_normalized_sha256": "c79d2e09a138cd37c8beceeb9e604529e02aefe3eaf900bae1417194dda126d1",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "overlay/WifiResOverlaySheng/res/values/config.xml",
+      "bytes": 2135,
+      "sha256": "9a336cb1e2bebb572336ba1ad48e9ee055f289b107c9f11c6a7c7f0bb2127a3d",
+      "lf_normalized_sha256": "9a336cb1e2bebb572336ba1ad48e9ee055f289b107c9f11c6a7c7f0bb2127a3d",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "overlay/WifiOverlayCommon/res/values/config.xml"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "processgroup-compat.json",
+      "bytes": 626,
+      "sha256": "a93b9667798811774fc0f345098008e901f8d1768cfc5434271dc2bf4a9622ca",
+      "lf_normalized_sha256": "a93b9667798811774fc0f345098008e901f8d1768cfc5434271dc2bf4a9622ca",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "properties/odm.prop",
+      "bytes": 4792,
+      "sha256": "911521dcda9cdd6e2d2e1560aaa6ae772b79698558489c90dcb2208c793f435c",
+      "lf_normalized_sha256": "911521dcda9cdd6e2d2e1560aaa6ae772b79698558489c90dcb2208c793f435c",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "properties/product.prop",
+      "bytes": 127,
+      "sha256": "df3b40770b762e0f9b25282e9d1f72605cb1b0c9be5b4d09ad2304e5a3169140",
+      "lf_normalized_sha256": "df3b40770b762e0f9b25282e9d1f72605cb1b0c9be5b4d09ad2304e5a3169140",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/properties/product.prop"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "properties/system.prop",
+      "bytes": 528,
+      "sha256": "b444c3af65d0443a8717fc8d53bbab369e925c91ff1c1d37ea563a9751e78582",
+      "lf_normalized_sha256": "b444c3af65d0443a8717fc8d53bbab369e925c91ff1c1d37ea563a9751e78582",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "properties/system_ext.prop",
+      "bytes": 578,
+      "sha256": "bfa05aa67c877068e13dac041846028e2e87c4a5268c8fddd36e3f395139c1bf",
+      "lf_normalized_sha256": "bfa05aa67c877068e13dac041846028e2e87c4a5268c8fddd36e3f395139c1bf",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "configs/properties/system_ext.prop"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "properties/vendor.prop",
+      "bytes": 8721,
+      "sha256": "e501e6694f22a219a3a2df9b3d9ec6363fcc5ed52157c561c7abb29d2fbce6a8",
+      "lf_normalized_sha256": "e501e6694f22a219a3a2df9b3d9ec6363fcc5ed52157c561c7abb29d2fbce6a8",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "proprietary-files.txt",
+      "bytes": 87568,
+      "sha256": "2374434f18cae8acbf386b44ece3edba24f8e7e8d6bc0b43439c4bf2c5654c25",
+      "lf_normalized_sha256": "2374434f18cae8acbf386b44ece3edba24f8e7e8d6bc0b43439c4bf2c5654c25",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "recovery/drm_dpms_cycle.c",
+      "bytes": 3587,
+      "sha256": "0a9d22670dedab1a73f15676b7b9f94e91655ef1987f4c4448067b56e116ad44",
+      "lf_normalized_sha256": "0a9d22670dedab1a73f15676b7b9f94e91655ef1987f4c4448067b56e116ad44",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "recovery/drm_probe.c",
+      "bytes": 6421,
+      "sha256": "c93260c1d047e2bf837a787881fb8f2b4d4e7c7b403716654cf9a342a39b2624",
+      "lf_normalized_sha256": "c93260c1d047e2bf837a787881fb8f2b4d4e7c7b403716654cf9a342a39b2624",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "recovery/hardware.sh",
+      "bytes": 814,
+      "sha256": "736abfe84cdc3e08e2b7e6287a79117edccd4c644f8c60b5e2deff862af186a8",
+      "lf_normalized_sha256": "736abfe84cdc3e08e2b7e6287a79117edccd4c644f8c60b5e2deff862af186a8",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "recovery/init.recovery.sheng.rc",
+      "bytes": 1733,
+      "sha256": "3f0a893fa921b99fb70feda2e763aa232b17b0e55f575a2eab4ee0d6800c637b",
+      "lf_normalized_sha256": "3f0a893fa921b99fb70feda2e763aa232b17b0e55f575a2eab4ee0d6800c637b",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "recovery/serial_init.c",
+      "bytes": 17966,
+      "sha256": "24cdf7a8e04c77902f2381bfa237808d2b2128f126745d49dec6cb40e325d8ee",
+      "lf_normalized_sha256": "24cdf7a8e04c77902f2381bfa237808d2b2128f126745d49dec6cb40e325d8ee",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "different"
+    },
+    {
+      "file": "recovery/standalone.json",
+      "bytes": 992,
+      "sha256": "d0761db8bb072c9300edff30123936e900b63d17c4393206818cbec5a6d41694",
+      "lf_normalized_sha256": "d0761db8bb072c9300edff30123936e900b63d17c4393206818cbec5a6d41694",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "recovery/touch.sh",
+      "bytes": 661,
+      "sha256": "5526b212e04a32830dca2c0de2d24a6295d849d09d56dab874f569d57e4c0003",
+      "lf_normalized_sha256": "5526b212e04a32830dca2c0de2d24a6295d849d09d56dab874f569d57e4c0003",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "missing"
+    },
+    {
+      "file": "rootdir/Android.bp",
+      "bytes": 2361,
+      "sha256": "4c6250cd5bcdf64d90d3c605e62debe12c6fc5ef025f8a6c7ca9aafe649e2d0b",
+      "lf_normalized_sha256": "4c6250cd5bcdf64d90d3c605e62debe12c6fc5ef025f8a6c7ca9aafe649e2d0b",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "// SPDX-FileCopyrightText: The LineageOS Project",
+        "// SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/init.class_main.sh",
+      "bytes": 3488,
+      "sha256": "4fe935ea9b0afe25907bfc321fd487384844c856e6d6bac1d93093ffc60dae7b",
+      "lf_normalized_sha256": "4fe935ea9b0afe25907bfc321fd487384844c856e6d6bac1d93093ffc60dae7b",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.class_main.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2013-2014, 2019 The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/init.kernel.post_boot-kalama.sh",
+      "bytes": 10990,
+      "sha256": "960bbafc3a087b8bc53db522a621770b709bd3670e54ca344855ab9c487a0e40",
+      "lf_normalized_sha256": "960bbafc3a087b8bc53db522a621770b709bd3670e54ca344855ab9c487a0e40",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.kernel.post_boot-kalama.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2020-2022 Qualcomm Technologies, Inc.",
+        "# Copyright (c) 2009-2012, 2014-2019, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/init.kernel.post_boot.sh",
+      "bytes": 6142,
+      "sha256": "81468950cabede166b9db5322a08c66a214fecd405e88fe474779f7c476abf38",
+      "lf_normalized_sha256": "81468950cabede166b9db5322a08c66a214fecd405e88fe474779f7c476abf38",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.kernel.post_boot.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2019-2022 Qualcomm Technologies, Inc.",
+        "# Copyright (c) 2009-2012, 2014-2019, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/init.qcom.class_core.sh",
+      "bytes": 7055,
+      "sha256": "fdf84ed982871b51fb4e76471ec661abd7c6a33239184e0a0a61428d90b6d3ba",
+      "lf_normalized_sha256": "fdf84ed982871b51fb4e76471ec661abd7c6a33239184e0a0a61428d90b6d3ba",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.qcom.class_core.sh"
+        ],
+        "piano": [
+          "rootdir/bin/init.qcom.class_core.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2012-2013, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/init.qcom.early_boot.sh",
+      "bytes": 16719,
+      "sha256": "a092f4acdb6cd19a3d33279afc45c6234be59d3be6e77aa0b032740704f98120",
+      "lf_normalized_sha256": "a092f4acdb6cd19a3d33279afc45c6234be59d3be6e77aa0b032740704f98120",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.qcom.early_boot.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2012-2013,2016,2018-2020 The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/init.qcom.post_boot.sh",
+      "bytes": 278070,
+      "sha256": "fbbcbb14b22bee2e4d3a4b57b7955d820112f63138b0c2b0a9b304d1f525ac25",
+      "lf_normalized_sha256": "fbbcbb14b22bee2e4d3a4b57b7955d820112f63138b0c2b0a9b304d1f525ac25",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.qcom.post_boot.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2012-2013, 2016-2021, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/init.qcom.sh",
+      "bytes": 15954,
+      "sha256": "e6bc5f3c5aab77312dc0c323ba47f8e6c6037ced911023832f88f5f29a18e2a0",
+      "lf_normalized_sha256": "e6bc5f3c5aab77312dc0c323ba47f8e6c6037ced911023832f88f5f29a18e2a0",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.qcom.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2009-2016, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/init.qti.kernel.sh",
+      "bytes": 2455,
+      "sha256": "115e259f424b6c87f5a5bb9c17d197d46e0b62d1660cd13c48a579feda686eea",
+      "lf_normalized_sha256": "115e259f424b6c87f5a5bb9c17d197d46e0b62d1660cd13c48a579feda686eea",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.qti.kernel.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2019-2020 Qualcomm Technologies, Inc.",
+        "# Copyright (c) 2009-2012, 2014-2019, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/init.qti.write.sh",
+      "bytes": 517,
+      "sha256": "ba6820e92beb129b848fea7dcf2988fd42d0e21f423df1ea67bceb9c95b1966d",
+      "lf_normalized_sha256": "ba6820e92beb129b848fea7dcf2988fd42d0e21f423df1ea67bceb9c95b1966d",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.qti.write.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2021 Qualcomm Technologies, Inc."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/system_dlkm_modprobe.sh",
+      "bytes": 1480,
+      "sha256": "02a9569cf0696c488a083c8c34fb82108945bc07cd21818053e8f179f17b7d9c",
+      "lf_normalized_sha256": "02a9569cf0696c488a083c8c34fb82108945bc07cd21818053e8f179f17b7d9c",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/system_dlkm_modprobe.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2022 Qualcomm Technologies, Inc."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/bin/vendor_modprobe.sh",
+      "bytes": 1512,
+      "sha256": "00d7ed47117272883e0d195537ac4b930a509ba09fd3c67ec77fe4c3c449d882",
+      "lf_normalized_sha256": "00d7ed47117272883e0d195537ac4b930a509ba09fd3c67ec77fe4c3c449d882",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/vendor_modprobe.sh"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2019-2022 Qualcomm Technologies, Inc."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/charger_fw_fstab.qti",
+      "bytes": 2100,
+      "sha256": "ea20ec5865dbfc2d877fcd7cc407f2eb58a1e7c89f3b9ed2389dc7f996dade33",
+      "lf_normalized_sha256": "ea20ec5865dbfc2d877fcd7cc407f2eb58a1e7c89f3b9ed2389dc7f996dade33",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/charger_fw_fstab.qti"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2019 - 2020, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/fstab.qcom",
+      "bytes": 7257,
+      "sha256": "c1ae86fc011249a39c861ad33a786bf3ecdd9dac9ac6c663e87910ea3a07a5c2",
+      "lf_normalized_sha256": "c1ae86fc011249a39c861ad33a786bf3ecdd9dac9ac6c663e87910ea3a07a5c2",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2019-2020 The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/init.qcom.factory.rc",
+      "bytes": 8030,
+      "sha256": "9231679b45207ae272245a26a51de5d0e9804f774e62b299a80b0c234844f857",
+      "lf_normalized_sha256": "9231679b45207ae272245a26a51de5d0e9804f774e62b299a80b0c234844f857",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.qcom.factory.rc"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2009-2016, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/init.qcom.rc",
+      "bytes": 30267,
+      "sha256": "5d2df9a3886fc0f8323f251286cfd497d14a6af29505165a0d5cae542b0c3fa4",
+      "lf_normalized_sha256": "5d2df9a3886fc0f8323f251286cfd497d14a6af29505165a0d5cae542b0c3fa4",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.qcom.rc"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2009-2012, 2014-2021, The Linux Foundation. All rights reserved.",
+        "# Changes from Qualcomm Innovation Center are provided under the following",
+        "# Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/init.qti.kernel.rc",
+      "bytes": 7807,
+      "sha256": "a17e4fe9077c17e185fdc568a1c752122ecf3602cb381596f2e42e3ff2d65f1e",
+      "lf_normalized_sha256": "a17e4fe9077c17e185fdc568a1c752122ecf3602cb381596f2e42e3ff2d65f1e",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.qti.kernel.rc"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2019-2022 Qualcomm Technologies, Inc.",
+        "# Copyright (c) 2009-2012, 2014-2019, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/init.recovery.qcom.rc",
+      "bytes": 2569,
+      "sha256": "4582ab05d86df5f955a7266d96f12c4055bf07d50109bcb9e0d2d75557961e2b",
+      "lf_normalized_sha256": "4582ab05d86df5f955a7266d96f12c4055bf07d50109bcb9e0d2d75557961e2b",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.recovery.qcom.rc"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2017-2018,2020-2021 The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/init.sheng.rc",
+      "bytes": 1854,
+      "sha256": "f94176a9624fb091d146b2e714f2fa9413198a436e1fe95eafcf5e50b0a72a32",
+      "lf_normalized_sha256": "f94176a9624fb091d146b2e714f2fa9413198a436e1fe95eafcf5e50b0a72a32",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/init.sm8550.rc",
+      "bytes": 12573,
+      "sha256": "c04a548596f16b249f902ea2982ce2d8cd65d79d50e20a990a0f7c40d4191a71",
+      "lf_normalized_sha256": "c04a548596f16b249f902ea2982ce2d8cd65d79d50e20a990a0f7c40d4191a71",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.sm8550.rc"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (C) 2026 The LineageOS Project",
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/init.target.rc",
+      "bytes": 6941,
+      "sha256": "cd6a88683649d90dcdfcd8995ac920b278f55e926c82804b17347f02d12f2701",
+      "lf_normalized_sha256": "cd6a88683649d90dcdfcd8995ac920b278f55e926c82804b17347f02d12f2701",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/init.target.rc"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2019-2021, The Linux Foundation. All rights reserved.",
+        "# Changes from Qualcomm Innovation Center are provided under the following license:",
+        "# Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/ueventd-odm.rc",
+      "bytes": 5415,
+      "sha256": "f24ff9dacd6df32f8a2cbac59e377113d0b17002351cfb9bd5f7989c5e9a59a4",
+      "lf_normalized_sha256": "f24ff9dacd6df32f8a2cbac59e377113d0b17002351cfb9bd5f7989c5e9a59a4",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/ueventd-odm.rc"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2020-2021, The Linux Foundation. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/ueventd.qcom.rc",
+      "bytes": 34321,
+      "sha256": "25caf0f2a7875eb9c94a486277afe18fdd4de8f7614bdc2496ad8b0ff05307d8",
+      "lf_normalized_sha256": "25caf0f2a7875eb9c94a486277afe18fdd4de8f7614bdc2496ad8b0ff05307d8",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "init/ueventd.qcom.rc"
+        ]
+      },
+      "copyright_or_license_lines": [
+        "# Copyright (c) 2012-2015, 2017-2021, The Linux Foundation. All rights reserved.",
+        "# Changes from Qualcomm Innovation Center are provided under the following license:",
+        "# Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved."
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "rootdir/etc/vendor.qti.camera.provider-service_64.rc",
+      "bytes": 801,
+      "sha256": "f7e27befd2fb12a9879e9588b6e95ada62bd0de8f06f79dab57869cbd98e4d09",
+      "lf_normalized_sha256": "f7e27befd2fb12a9879e9588b6e95ada62bd0de8f06f79dab57869cbd98e4d09",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/app.te",
+      "bytes": 130,
+      "sha256": "db7f6e5d556f5ebbaf464123228fb25c110689f06daf0cef63707edf6b2598ac",
+      "lf_normalized_sha256": "db7f6e5d556f5ebbaf464123228fb25c110689f06daf0cef63707edf6b2598ac",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/app.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/attributes",
+      "bytes": 155,
+      "sha256": "28fe020cd3f821d0ca608b9c99da3f1a1c58da70df1a649f62ab41efb780fb67",
+      "lf_normalized_sha256": "28fe020cd3f821d0ca608b9c99da3f1a1c58da70df1a649f62ab41efb780fb67",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/attributes"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/batterysecret.te",
+      "bytes": 1318,
+      "sha256": "d8a23aed83c71cbe1f35367bee20dfcd1b82568654ff7eac3dc7165eb3370107",
+      "lf_normalized_sha256": "d8a23aed83c71cbe1f35367bee20dfcd1b82568654ff7eac3dc7165eb3370107",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/device.te",
+      "bytes": 123,
+      "sha256": "a9d93ed9f3392a092fe205e33163b915ac19a033b51bae2befe5aaf367ecb4c2",
+      "lf_normalized_sha256": "a9d93ed9f3392a092fe205e33163b915ac19a033b51bae2befe5aaf367ecb4c2",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/device.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/file.te",
+      "bytes": 678,
+      "sha256": "b8084f0d85af5efd586de13d94a6aaffb2c8a46b493779ca2f9d6b8faebc7c39",
+      "lf_normalized_sha256": "b8084f0d85af5efd586de13d94a6aaffb2c8a46b493779ca2f9d6b8faebc7c39",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/file_contexts",
+      "bytes": 2788,
+      "sha256": "3d13567526f7d54eadd79a35da8a5990806f6cddc68c5a5388bee4caff934306",
+      "lf_normalized_sha256": "3d13567526f7d54eadd79a35da8a5990806f6cddc68c5a5388bee4caff934306",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/genfs_contexts",
+      "bytes": 2209,
+      "sha256": "1e6767878c410d3f1d7b38dc7ee3e0ae017bc20e8fdb5654ae0564869357a162",
+      "lf_normalized_sha256": "1e6767878c410d3f1d7b38dc7ee3e0ae017bc20e8fdb5654ae0564869357a162",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_camera_default.te",
+      "bytes": 1675,
+      "sha256": "18e08ae2c388f3019a916773530f9746899ec8019c6662f0f97e79b2b166693f",
+      "lf_normalized_sha256": "18e08ae2c388f3019a916773530f9746899ec8019c6662f0f97e79b2b166693f",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/hal_camera_default.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_camerapostproc_xiaomi.te",
+      "bytes": 375,
+      "sha256": "b04f83daf999436267e92db5359bb9127e80f95001b430fe153497d56f36f40c",
+      "lf_normalized_sha256": "b04f83daf999436267e92db5359bb9127e80f95001b430fe153497d56f36f40c",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/hal_camerapostproc_xiaomi.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_dumpstate_impl.te",
+      "bytes": 432,
+      "sha256": "faafeb47fbd023daa29ca124e985dfe6dc56e6f17a12cce72bed76e094b13d82",
+      "lf_normalized_sha256": "faafeb47fbd023daa29ca124e985dfe6dc56e6f17a12cce72bed76e094b13d82",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/hal_dumpstate_impl.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_fingerprint_default.te",
+      "bytes": 2040,
+      "sha256": "38645479700604b89515b0e979499506c91f3345c1296f22427178698f0c2386",
+      "lf_normalized_sha256": "38645479700604b89515b0e979499506c91f3345c1296f22427178698f0c2386",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_graphics_composer.te",
+      "bytes": 200,
+      "sha256": "f5855cc37bb027ee5749e63bb4f000653f4ab33bd79271fde79b6f082b016e83",
+      "lf_normalized_sha256": "f5855cc37bb027ee5749e63bb4f000653f4ab33bd79271fde79b6f082b016e83",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/hal_graphics_composer.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_lineage_touch_default.te",
+      "bytes": 965,
+      "sha256": "850caa526c86436fba431df3a77600c38eca61d72470d85d83eb134f848e978e",
+      "lf_normalized_sha256": "850caa526c86436fba431df3a77600c38eca61d72470d85d83eb134f848e978e",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_power_default.te",
+      "bytes": 123,
+      "sha256": "e1047037b15e973e17a8f3365d8e2a792bba652bc058666f2b2baaae0e575430",
+      "lf_normalized_sha256": "e1047037b15e973e17a8f3365d8e2a792bba652bc058666f2b2baaae0e575430",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/hal_power_default.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_quickcamera.te",
+      "bytes": 489,
+      "sha256": "5dccf7ba70d9ad9cfd1d0069b63522a715ad273173ec930530e66382581772a6",
+      "lf_normalized_sha256": "5dccf7ba70d9ad9cfd1d0069b63522a715ad273173ec930530e66382581772a6",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/hal_quickcamera.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_sensors_default.te",
+      "bytes": 132,
+      "sha256": "5f0c2e8877f7a33de1c83840452189306084a8a5c19055f34237cad151903b02",
+      "lf_normalized_sha256": "5f0c2e8877f7a33de1c83840452189306084a8a5c19055f34237cad151903b02",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/hal_sensors_default.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/hal_sheng_dolby.te",
+      "bytes": 1373,
+      "sha256": "5013706f2432c7f30d3bee9d7be437cb344138f2dd66da9d8fa36308ad654dab",
+      "lf_normalized_sha256": "5013706f2432c7f30d3bee9d7be437cb344138f2dd66da9d8fa36308ad654dab",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "different"
+    },
+    {
+      "file": "sepolicy/vendor/hwservice_contexts",
+      "bytes": 404,
+      "sha256": "26712cd583f448459ce2127421d97fc06ecf340c8c0c0789bc132f109d969f8b",
+      "lf_normalized_sha256": "26712cd583f448459ce2127421d97fc06ecf340c8c0c0789bc132f109d969f8b",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/init.te",
+      "bytes": 682,
+      "sha256": "058735e892b285aa319f879f0d01d2dbbdfafd512e742876e76454301e947a2a",
+      "lf_normalized_sha256": "058735e892b285aa319f879f0d01d2dbbdfafd512e742876e76454301e947a2a",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/mi_thermald.te",
+      "bytes": 1419,
+      "sha256": "406d1bd9a45abb0c5402958a349e13b278cb81706fc7b0121491a6ec7d3b3c4d",
+      "lf_normalized_sha256": "406d1bd9a45abb0c5402958a349e13b278cb81706fc7b0121491a6ec7d3b3c4d",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/mi_thermald.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/miclstc_service.te",
+      "bytes": 54,
+      "sha256": "0dcde6d01ffb2ddd17a9e92c2610b96ce523b4dc8834cc9a805275ccc548580c",
+      "lf_normalized_sha256": "0dcde6d01ffb2ddd17a9e92c2610b96ce523b4dc8834cc9a805275ccc548580c",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/miclstc_service.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/mistcdisplay_service.te",
+      "bytes": 59,
+      "sha256": "a1abab2b4cc8ea9074c592a90be1f291319f73ca95224715de721f5254241594",
+      "lf_normalized_sha256": "a1abab2b4cc8ea9074c592a90be1f291319f73ca95224715de721f5254241594",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/mistcdisplay_service.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/property.te",
+      "bytes": 235,
+      "sha256": "b44b0a76e0e8372c031e89c62d023e3cdbd1006e38206fed0da699de34f26fcb",
+      "lf_normalized_sha256": "b44b0a76e0e8372c031e89c62d023e3cdbd1006e38206fed0da699de34f26fcb",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/property_contexts",
+      "bytes": 752,
+      "sha256": "bde96e685abf3e3251bdcc6f992203d64e2cce0bb85d16c6a5607ae4490d6a14",
+      "lf_normalized_sha256": "bde96e685abf3e3251bdcc6f992203d64e2cce0bb85d16c6a5607ae4490d6a14",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/system_app.te",
+      "bytes": 88,
+      "sha256": "2e7400d20a2ad8e766adb2955890c10137088744a0b5e61fb5d3871b38b43ab3",
+      "lf_normalized_sha256": "2e7400d20a2ad8e766adb2955890c10137088744a0b5e61fb5d3871b38b43ab3",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/tee.te",
+      "bytes": 120,
+      "sha256": "eec5df82a52b939336ac8e00ab5ef1d0a2eeef77afc5c4b168b782786f488343",
+      "lf_normalized_sha256": "eec5df82a52b939336ac8e00ab5ef1d0a2eeef77afc5c4b168b782786f488343",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/tee.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/vendor_hal_perf.te",
+      "bytes": 877,
+      "sha256": "31e7ae13ecf65368b2bad6faa013550921ce03c40d07e8531bb0c247fc22e517",
+      "lf_normalized_sha256": "31e7ae13ecf65368b2bad6faa013550921ce03c40d07e8531bb0c247fc22e517",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/vendor_hal_perf.te"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/vendor_init.te",
+      "bytes": 38,
+      "sha256": "9596b7587f2e4bda2add57cf7236d3b05e44e54110dc586a84f2911c18dd5d71",
+      "lf_normalized_sha256": "9596b7587f2e4bda2add57cf7236d3b05e44e54110dc586a84f2911c18dd5d71",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/vendorcodec.te",
+      "bytes": 866,
+      "sha256": "71550a145c3dcf81b21d2e275ed2fea0e87c7ad951d8904d0038f3e5c3cffae9",
+      "lf_normalized_sha256": "71550a145c3dcf81b21d2e275ed2fea0e87c7ad951d8904d0038f3e5c3cffae9",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "sepolicy/vendor/vndservice_contexts",
+      "bytes": 190,
+      "sha256": "e683e8ef102bc87114dde413bf5ab2df7da9dd0ceb154f977929f1c1ee2a9daa",
+      "lf_normalized_sha256": "e683e8ef102bc87114dde413bf5ab2df7da9dd0ceb154f977929f1c1ee2a9daa",
+      "exact_reference_matches": {
+        "lineage_common": [
+          "sepolicy/vendor/vndservice_contexts"
+        ]
+      },
+      "copyright_or_license_lines": [],
+      "wsl_source_relation": "identical"
+    },
+    {
+      "file": "setup-makefiles.py",
+      "bytes": 259,
+      "sha256": "cf5fcc4c986a316e8aa080982e2197d9a82610578a65d9a38fcdfa2ebe91d747",
+      "lf_normalized_sha256": "cf5fcc4c986a316e8aa080982e2197d9a82610578a65d9a38fcdfa2ebe91d747",
+      "exact_reference_matches": {},
+      "copyright_or_license_lines": [
+        "# SPDX-License-Identifier: Apache-2.0"
+      ],
+      "wsl_source_relation": "identical"
+    }
+  ],
+  "limitations": [
+    "No complete commit history exists before the initial workspace baseline.",
+    "Available reference checkouts are finite and may be sparse; all unavailable paths are listed.",
+    "Common upstream code and stock hardware data can match several repositories.",
+    "Equality or similarity cannot identify which repository originally supplied a file.",
+    "No claim of zero external code, original authorship of every file, or complete license compliance."
+  ]
+}

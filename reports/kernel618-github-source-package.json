@@ -1,0 +1,19 @@
+{
+  "project_root": "/root/sheng-618-project",
+  "config": "profiles/release.config",
+  "build_script": "build.sh",
+  "build_steps_script": "scripts/build.sh",
+  "github_package": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/sheng-6.18-project-r70/android_kernel_618_for_sheng-source.zip",
+  "github_package_bytes": 5600828,
+  "github_package_sha256": "66c85beffc43024f42923dc86400badc6edc6d36c43357f7c929ef24083d15d9",
+  "full_source_package": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/sheng-6.18-project-r70/android_kernel_618_for_sheng-source-with-inputs.tar.gz",
+  "full_source_package_bytes": 316069497,
+  "full_source_package_sha256": "f9ae0be5921ea47a3c67ef00f67ff4de012e42e540f383e67662da82b799d788",
+  "source_cache_required_by_github_package": true,
+  "github_file_count": 135,
+  "fresh_compile_passed": true,
+  "module_count": 344,
+  "versioned_imports_checked": 21003,
+  "boot_completed": true,
+  "user_confirmed_all_tests_ok": true
+}

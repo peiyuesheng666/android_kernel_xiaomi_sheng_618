@@ -1,0 +1,3 @@
+# SPDX-License-Identifier: GPL-2.0-only
+obj-m += xiaomi_hall.o
+xiaomi_hall-y := sheng_hall.o

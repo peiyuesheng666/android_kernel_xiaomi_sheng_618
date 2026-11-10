@@ -52,6 +52,6 @@
       "Linux version %s (%s)",
       "Linux version 5.15.178-android13-8-00021-g6f2f96be86b9-ab13729987 (build-user@build-host) (Android (8508608, based on r450784e) clang version 14.0.7 (https://android.googlesource.com/toolchain/llvm-project 4c603efb0cca074e9238af8b4106c30add4418f6), LLD 14.0.7) #1 SMP PREEMPT Wed Jul 2 02:41:59 UTC 2025"
     ],
-    "config": "/root/sheng-612/stock/boot/stock.config"
+    "config": "/root/sheng-source-inputs/stock/boot/stock.config"
   }
 }

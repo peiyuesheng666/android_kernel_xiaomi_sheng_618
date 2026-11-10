@@ -62,16 +62,16 @@ def main():
     components = hardware / 'boot-components'
     components.mkdir(exist_ok=True)
     for source, name in (
-        (Path('/root/sheng-612/stock/vendor_boot/dtb'), 'stock.dtb'),
-        (Path('/root/sheng-612/stock/vendor_boot/bootconfig'), 'bootconfig'),
-        (Path('/root/sheng-612/stock/vendor_boot-files/first_stage_ramdisk/fstab.qcom'), 'fstab.qcom'),
+        (Path('/root/sheng-source-inputs/stock/vendor_boot/dtb'), 'stock.dtb'),
+        (Path('/root/sheng-source-inputs/stock/vendor_boot/bootconfig'), 'bootconfig'),
+        (Path('/root/sheng-source-inputs/stock/vendor_boot-files/first_stage_ramdisk/fstab.qcom'), 'fstab.qcom'),
     ):
         cache(source, components / name)
     spec = importlib.util.spec_from_file_location('sheng_abi', WORK / 'device/xiaomi/sheng/kernel/stock-modules/stage.py')
     abi = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(abi)
     module_roots = {
-        'vendor_boot': Path('/root/sheng-612/stock/vendor_boot-files/lib/modules'),
+        'vendor_boot': Path('/root/sheng-source-inputs/stock/vendor_boot-files/lib/modules'),
         'vendor_dlkm': ROOT / 'partitions/vendor_dlkm/lib/modules',
         'system_dlkm': ROOT / 'partitions/system_dlkm/lib/modules',
     }

@@ -5,7 +5,7 @@ The remote default is `lineage-24.0` at
 `8e2b6ca4375919035587115189760eed64f14b8d`. Its `lineage.dependencies` points
 to `android_device_xiaomi_sm8550-common`, inspected at
 `63da741c41384a23416159f148f7ef7c85c8ea61`. Both references are separate bare
-repositories under `/root/sheng-612/reference`; no ROM checkout was replaced.
+repositories under `/root/sheng-source-inputs/reference`; no ROM checkout was replaced.
 
 The complete device and common trees were searched at all five published
 branches: lineage-22.2, 23.0, 23.1, 23.2 and 24.0. The nuwa extraction list

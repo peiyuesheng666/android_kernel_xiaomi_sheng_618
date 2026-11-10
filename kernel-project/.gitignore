@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+logs/
+dist/
+assets/*.tar.gz
+assets/*.tar.zst

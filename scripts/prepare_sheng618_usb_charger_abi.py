@@ -133,7 +133,7 @@ for name in ('lineage-kernel', 'micode-kernel', 'lineage-devicetrees'):
     root = ROOT / 'src' / name
     references.append(dict(repository=name, commit=subprocess.check_output(
         ['git', '-C', root, 'rev-parse', 'HEAD'], text=True).strip()))
-piano = '/root/sheng-612/reference/piano-device'
+piano = '/root/sheng-source-inputs/reference/piano-device'
 references.append(dict(repository='LineageOS-piano', commit=subprocess.check_output(
     ['git', '-C', piano, 'rev-parse', 'HEAD'], text=True).strip(),
     applicability='Reviewed rootdir USB recovery/Type-C permissions; no sheng XM class-control recipe. Its recovery peripheral override does not apply to normal HyperOS startup.'))

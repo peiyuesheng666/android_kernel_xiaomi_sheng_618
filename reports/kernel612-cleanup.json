@@ -1,0 +1,103 @@
+{
+  "retired_root": "/root/sheng-612",
+  "shared_input_root": "/root/sheng-source-inputs",
+  "relocated": [
+    {
+      "from": "/root/sheng-612/reference",
+      "to": "/root/sheng-source-inputs/reference"
+    },
+    {
+      "from": "/root/sheng-612/stock",
+      "to": "/root/sheng-source-inputs/stock"
+    },
+    {
+      "from": "/root/sheng-612/tools",
+      "to": "/root/sheng-source-inputs/tools"
+    }
+  ],
+  "deleted_wsl": [
+    "/root/sheng-612/lineage-build.swap",
+    "/root/sheng-612/logs",
+    "/root/sheng-612/out",
+    "/root/sheng-612/src",
+    "/root/sheng-612/toolchains"
+  ],
+  "deleted_workspace": [
+    {
+      "path": "artifacts/6.12.96-4k-android16-7-sheng-ack-baseline-baseline.tar.gz",
+      "sha256": "747ac0a6efe4736961f728bb4b0d5a2c18e01a15fc2f839d6d28de3ab1cd5ea0",
+      "bytes": 42474883
+    },
+    {
+      "path": "artifacts/6.12.96-4k-android16-7-sheng-ack-baseline-baseline.tar.gz.sha256",
+      "sha256": "f490baedc9fbca75de4b81d520ee9173be458a84a116121a79fa2eac961b7e64",
+      "bytes": 124
+    },
+    {
+      "path": "scripts/build_ack.sh",
+      "status": "removed_in_initial_cleanup",
+      "prior_git_blob": "bf58c548f80bca557681195cabd0aac425635da7"
+    },
+    {
+      "path": "scripts/fetch_ack.sh",
+      "status": "removed_in_initial_cleanup",
+      "prior_git_blob": "2e8a283b9882c678c9daa1d663ff2b63c3c3a9c5"
+    },
+    {
+      "path": "scripts/fetch_toolchains.py",
+      "status": "removed_in_initial_cleanup",
+      "prior_git_blob": "fe9e14e8de4f341e55bd0fbcca170d5bf1314ebe"
+    },
+    {
+      "path": "scripts/export_baseline.py",
+      "status": "removed_in_initial_cleanup",
+      "prior_git_blob": "81c1d4d77841e7b7c663f2bbc835a538e85c30c3"
+    },
+    {
+      "path": "scripts/verify_build.py",
+      "status": "removed_in_initial_cleanup",
+      "prior_git_blob": "0a778b51d0d28bf0047753af4f3af391a097fff5"
+    },
+    {
+      "path": "scripts/probe_sources.py",
+      "status": "removed_in_initial_cleanup",
+      "prior_git_blob": "480ed228aad1343357a771427af6b1fa8465992e"
+    },
+    {
+      "path": "reports/build-result.json",
+      "status": "removed_in_initial_cleanup",
+      "prior_git_blob": "1e624eff6e070e84d9dc7399b0f53514a1c331a4"
+    },
+    {
+      "path": "reports/toolchains.json",
+      "status": "removed_in_initial_cleanup",
+      "prior_git_blob": "0ab165bacc85720f1a9a24638776316d010a2657"
+    },
+    {
+      "path": "reports/source-probe.json",
+      "status": "removed_in_initial_cleanup",
+      "prior_git_blob": "ca6acdf14dd3a08fd1c358a0f53c11f52e0be2cd"
+    }
+  ],
+  "updated_files": [
+    "scripts/audit_device_tree_provenance.py",
+    "scripts/audit_stock.py",
+    "scripts/cache_stock_hardware.py",
+    "scripts/complete_stock_library_deps.py",
+    "scripts/inventory_ramdisk.py",
+    "scripts/materialize_standalone.py",
+    "scripts/prepare_audit_sources.py",
+    "scripts/prepare_sheng618_usb_charger_abi.py",
+    "scripts/extract_sheng_vendor.sh",
+    "scripts/inspect_environment.sh",
+    "scripts/setup_rom_workspace.sh",
+    "device/xiaomi/sheng/tools/build_hardware.sh",
+    "device/xiaomi/sheng/tools/extract_vendor.sh",
+    "device/xiaomi/sheng/docs/nuwa-face-reference-review-20261108.md",
+    "reports/audit-sources.json",
+    "reports/device-tree-provenance-audit.json",
+    "reports/stock-boot.json",
+    "reports/stock-ramdisk.json",
+    "reports/LINEAGE_STATUS.md"
+  ]
+}

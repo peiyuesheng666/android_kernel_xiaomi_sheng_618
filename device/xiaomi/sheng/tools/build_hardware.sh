@@ -4,7 +4,7 @@ set -euo pipefail
 rom=${SHENG_ROM_ROOT:-/root/sheng-lineage/lineage-24.0}
 cd "$rom"
 # Re-enable the already provisioned build swap after a WSL restart.
-for swap in /root/sheng-612/lineage-build.swap /root/sheng-lineage/lineage-extra.swap; do
+for swap in /root/sheng-lineage/lineage-build.swap /root/sheng-lineage/lineage-extra.swap; do
     if [[ -f "$swap" ]] && ! swapon --show=NAME --noheadings | grep -Fxq "$swap"; then
         swapon --priority 0 "$swap"
     fi

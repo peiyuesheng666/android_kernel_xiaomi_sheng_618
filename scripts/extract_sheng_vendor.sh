@@ -19,7 +19,7 @@ fi
 llvm="$sandbox/prebuilts/clang/host/linux-x86/llvm-binutils-stable"
 mkdir -p "$llvm"
 for name in llvm-strip llvm-objdump; do
-    ln -sfn "/root/sheng-612/toolchains/clang-r536225/bin/$name" "$llvm/$name"
+    ln -sfn "/root/sheng-618-project-deps/prebuilts/clang/host/linux-x86/clang-r584948c/bin/$name" "$llvm/$name"
 done
 cd "$sandbox"
 python3 device/xiaomi/sheng/extract-files.py "$root/firmware-dump/extract-source" \

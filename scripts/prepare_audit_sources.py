@@ -7,7 +7,7 @@ from pathlib import Path
 import subprocess
 
 PROJECT = Path(__file__).resolve().parents[1]
-BASE = Path('/root/sheng-612/reference')
+BASE = Path('/root/sheng-source-inputs/reference')
 SPECS = [
     ('micode-kernel', 'MiCode/Xiaomi_Kernel_OpenSource', 'sheng-u-oss'),
     ('micode-devicetree', 'MiCode/kernel_devicetree', 'sheng-u-oss'),
@@ -27,7 +27,7 @@ def prepare(spec):
     name, repo, branch = spec
     path = BASE / name
     url = f'https://github.com/{repo}.git'
-    log_path = Path('/root/sheng-612/logs') / f'audit-fetch-{name}.log'
+    log_path = Path('/root/sheng-source-inputs/logs') / f'audit-fetch-{name}.log'
     with log_path.open('w') as log:
         if not (path / '.git').is_dir():
             subprocess.run(['git', 'clone', '--filter=blob:none', '--depth=1', '--single-branch',

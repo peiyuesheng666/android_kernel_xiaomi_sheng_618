@@ -1,0 +1,7 @@
+{
+  "path": "assets/sheng-6.18.32-release-r70-source.tar.gz",
+  "sha256": "7c054599ce763bbbd75f21dccfc77102b2fb55f3dacb3f25c2d4d4ed03cef437",
+  "prefix": "sheng-6.18.32-release-r70-source",
+  "mode": "complete-adapted-release-snapshot",
+  "revision": "release-r70"
+}

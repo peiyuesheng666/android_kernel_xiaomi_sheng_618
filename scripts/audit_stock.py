@@ -9,7 +9,7 @@ import re
 import subprocess
 
 PROJECT = Path(__file__).resolve().parents[1]
-WORK = Path("/root/sheng-612")
+WORK = Path("/root/sheng-source-inputs")
 DEFAULT = "/mnt/e/6/玩机资源/XiaomiPad6SPro12.4刷机资源/sheng_images_OS3.0.303.0.WNXCNXM_16.0/images"
 
 def sha256(path):

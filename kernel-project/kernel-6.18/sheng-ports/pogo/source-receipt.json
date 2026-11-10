@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "source_files": [
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "drivers/power/supply/pogoChg/utils/battmngr_voter.c",
+      "source_sha256": "fdb779e4ad8033de5645d22bb77069d84b4bd445702b4396ca2f4ddd119047d0",
+      "staged_path": "battmngr_voter.c",
+      "staged_sha256": "553e219aec73b9613d55179eb5cfcc6a5914957281514352a6b574463e1bfd8d"
+    },
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "drivers/power/supply/pogoChg/utils/battmngr_notifier.c",
+      "source_sha256": "43c4b56a9391aae7e1ce2aa298ea4cb57695aa02c6ad389cd61dfde389e24f22",
+      "staged_path": "battmngr_notifier.c",
+      "staged_sha256": "f7c6256774be74fec477fe917416385278fb2b928a5326a811a9b8e47898b61d"
+    },
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "drivers/power/supply/pogoChg/utils/platform_class.c",
+      "source_sha256": "dbd5a8df4c1629d6ce68531dbfc423a7b6a97d562cb7c22d91b6778a96334994",
+      "staged_path": "platform_class.c",
+      "staged_sha256": "461834c23d049be056be9ae2d270f6bf9101388892ad5beec415783d0ab5cb49"
+    },
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "include/linux/battmngr/battmngr_notifier.h",
+      "source_sha256": "c6cb8e432bd0585db9f72363cc0293bde4ad8b23908fb9860c5cdbd4f9763cb3",
+      "staged_path": "include/linux/battmngr/battmngr_notifier.h",
+      "staged_sha256": "27e675a6ae69dcab49558c77eaae4d4d3d764555270cf00ecba59110bae080ec"
+    },
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "include/linux/battmngr/battmngr_voter.h",
+      "source_sha256": "27df22107bb8fc4ab3bff18793fba16354489fd4a39b53c3def0edd167badab3",
+      "staged_path": "include/linux/battmngr/battmngr_voter.h",
+      "staged_sha256": "b16026693b1d419fc9938de6a0331ba21beba57afbf0f88d0e356d6fabf96e60"
+    },
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "include/linux/battmngr/platform_class.h",
+      "source_sha256": "a8ffea565be91523171a91cfe9f2139821847fdd76359f3ede97594dd310bbfe",
+      "staged_path": "include/linux/battmngr/platform_class.h",
+      "staged_sha256": "9c772e94663f498e4050da7a3ac5a0c584a52ada5caf5b4cd3f02a8982feaa4c"
+    },
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "include/linux/battmngr/qti_use_pogo.h",
+      "source_sha256": "14175dac88d7c399c133fed4f4d63d3fb131a9cadfcec41f55da03cc55d20f22",
+      "staged_path": "include/linux/battmngr/qti_use_pogo.h",
+      "staged_sha256": "14175dac88d7c399c133fed4f4d63d3fb131a9cadfcec41f55da03cc55d20f22"
+    },
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "include/linux/battmngr/step-chg-jeita.h",
+      "source_sha256": "1fc3adeeb6cef57c20f83aa6e647f9e77fdcb7aeb00d817a637965568951ea22",
+      "staged_path": "include/linux/battmngr/step-chg-jeita.h",
+      "staged_sha256": "1fc3adeeb6cef57c20f83aa6e647f9e77fdcb7aeb00d817a637965568951ea22"
+    },
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "include/linux/battmngr/xm_charger_core.h",
+      "source_sha256": "56a57fbf58c36fee8485b0085727dc4798f43dfb4ae01c084a31facdb503edb7",
+      "staged_path": "include/linux/battmngr/xm_charger_core.h",
+      "staged_sha256": "db171f37dd30deaa71fb7680ec03d05e20506311007d47d2fa8fe5cacae6da4b"
+    },
+    {
+      "repository": "https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git",
+      "revision": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+      "path": "include/linux/battmngr/xm_charger_feature.h",
+      "source_sha256": "0bfe3b4c9666f562ec18a42a386346447345304b47d647c13d0a1d9fce53e992",
+      "staged_path": "include/linux/battmngr/xm_charger_feature.h",
+      "staged_sha256": "f1b302a1b21ba03370ef99e6e3004ca1a0130ec6c920457df9050f48a43593ec"
+    }
+  ],
+  "generated_sha256": {
+    "battmngr_voter.c": "553e219aec73b9613d55179eb5cfcc6a5914957281514352a6b574463e1bfd8d",
+    "battmngr_notifier.c": "f7c6256774be74fec477fe917416385278fb2b928a5326a811a9b8e47898b61d",
+    "platform_class.c": "461834c23d049be056be9ae2d270f6bf9101388892ad5beec415783d0ab5cb49",
+    "include/linux/battmngr/battmngr_notifier.h": "27e675a6ae69dcab49558c77eaae4d4d3d764555270cf00ecba59110bae080ec",
+    "include/linux/battmngr/battmngr_voter.h": "b16026693b1d419fc9938de6a0331ba21beba57afbf0f88d0e356d6fabf96e60",
+    "include/linux/battmngr/platform_class.h": "9c772e94663f498e4050da7a3ac5a0c584a52ada5caf5b4cd3f02a8982feaa4c",
+    "include/linux/battmngr/qti_use_pogo.h": "14175dac88d7c399c133fed4f4d63d3fb131a9cadfcec41f55da03cc55d20f22",
+    "include/linux/battmngr/step-chg-jeita.h": "1fc3adeeb6cef57c20f83aa6e647f9e77fdcb7aeb00d817a637965568951ea22",
+    "include/linux/battmngr/xm_charger_core.h": "db171f37dd30deaa71fb7680ec03d05e20506311007d47d2fa8fe5cacae6da4b",
+    "include/linux/battmngr/xm_charger_feature.h": "f1b302a1b21ba03370ef99e6e3004ca1a0130ec6c920457df9050f48a43593ec",
+    "Kbuild": "79a7e83c452efe996c9d428285035d5b0fd686ff2cc2fe0a68a8e65474641ea1"
+  },
+  "scope": "battery manager notifier, voting and device class only",
+  "charging_driver_complete": false,
+  "runtime_validated": false
+}

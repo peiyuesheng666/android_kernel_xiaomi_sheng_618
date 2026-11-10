@@ -35,7 +35,7 @@
 - 官方 LOS kernel23.2 是5.15.211，缺 sheng_GKI.config，官方 DT/模块对 sheng 的
   板级支持尚未完成。必须处理此项，不能用通用内核冒充完成适配。
 - 初稿 `AndroidProducts.mk` 暂列 `bp2a`，需用实际23.2平台 release config 核实。
-- 已获取的参考树在 `/root/sheng-612/reference`，piano、社区 sheng 只读参考；
+- 已获取的参考树在 `/root/sheng-source-inputs/reference`，piano、社区 sheng 只读参考；
   官方 common 的共享实现允许使用。没有复制其整棵设备树。
 - 下一步：完成官方平台及设备依赖同步；核对 lunch release；由本地原厂提取物生成
   vendor 清单和 makefiles；完成 sheng 板级内核/模块/DT 配套、HAL/overlay/init/policy；

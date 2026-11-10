@@ -1,5 +1,5 @@
 {
-  "/root/sheng-612/stock/vendor_boot/vendor_ramdisk00": [
+  "/root/sheng-source-inputs/stock/vendor_boot/vendor_ramdisk00": [
     {
       "path": "first_stage_ramdisk",
       "mode": "0o40755",
@@ -2201,7 +2201,7 @@
       "bytes": 106248
     }
   ],
-  "/root/sheng-612/stock/init_boot/ramdisk": [
+  "/root/sheng-source-inputs/stock/init_boot/ramdisk": [
     {
       "path": "debug_ramdisk",
       "mode": "0o40755",

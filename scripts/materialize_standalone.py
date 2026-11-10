@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 
 WORK = Path(__file__).resolve().parents[1]
 DEVICE = WORK / 'device/xiaomi/sheng'
-REF = Path('/root/sheng-612/reference/lineage-common')
+REF = Path('/root/sheng-source-inputs/reference/lineage-common')
 ROOT = Path('/root/sheng-lineage')
 receipt = []
 

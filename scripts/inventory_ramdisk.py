@@ -8,7 +8,7 @@ import stat
 import struct
 import subprocess
 
-WORK = Path('/root/sheng-612')
+WORK = Path('/root/sheng-source-inputs')
 REPORTS = Path(__file__).resolve().parents[1] / 'reports'
 stock_report = json.loads((REPORTS / 'stock-boot.json').read_text())
 stock_release = next(s.split()[2] for s in stock_report['kernel']['banners'] if re.match(r'Linux version \d', s))

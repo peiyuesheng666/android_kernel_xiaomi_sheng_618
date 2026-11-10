@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "source_files": [
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "asoc/codecs/cs35l43/cs35l43-cal.c",
+      "source_sha256": "5322dc89c05530f9cb3fa82b2219b0ec66c69477f8422f42c2ff8c15ef8830ca",
+      "staged_path": "cs35l43-cal.c",
+      "staged_sha256": "e09cc90c0553a1325f81a69a240a406058560ac5c4c33947befe050bd4094ad0"
+    },
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "asoc/codecs/cs35l43/cs35l43-i2c.c",
+      "source_sha256": "0a494fb3478b8795ba48bf98e66fcaea20eb59e7209779c0c960addcd251d541",
+      "staged_path": "cs35l43-i2c.c",
+      "staged_sha256": "b4eeb855d074f199991aeceddf2038a13509dbd42c74fc6e8dc1e710e618b338"
+    },
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "asoc/codecs/cs35l43/cs35l43-spi.c",
+      "source_sha256": "7e0c6043837b54555671691ade29c8685f8b6f8cdee4759563eb1562b7a413af",
+      "staged_path": "cs35l43-spi.c",
+      "staged_sha256": "7e0c6043837b54555671691ade29c8685f8b6f8cdee4759563eb1562b7a413af"
+    },
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "asoc/codecs/cs35l43/cs35l43-tables.c",
+      "source_sha256": "5c235294f0a45a410494e2dfdcdddfe49df473e7f54a8413e07d6e0763066bf6",
+      "staged_path": "cs35l43-tables.c",
+      "staged_sha256": "5c235294f0a45a410494e2dfdcdddfe49df473e7f54a8413e07d6e0763066bf6"
+    },
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "asoc/codecs/cs35l43/cs35l43.c",
+      "source_sha256": "d37f244128451f2e246dc920efabd93f3112cada7ab3b8d92a72e3fa8a213775",
+      "staged_path": "cs35l43.c",
+      "staged_sha256": "643340fd3052954dc4f641416b613eccb0c283cab6453e755e76e9781b0a3e80"
+    },
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "asoc/codecs/cs35l43/cs35l43.h",
+      "source_sha256": "2e36aed48faff99bd884a6c1351d0e11488e067d30c1823730fce298cddd5758",
+      "staged_path": "cs35l43.h",
+      "staged_sha256": "2e36aed48faff99bd884a6c1351d0e11488e067d30c1823730fce298cddd5758"
+    },
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "asoc/codecs/cs35l43/wm_adsp.c",
+      "source_sha256": "6650a9a13ac93cdf0c2e6d6269a8e30edf1a60061c561bc4ba78372a06403922",
+      "staged_path": "wm_adsp.c",
+      "staged_sha256": "aa76d571a8c72b15840851960eab437b032d847da7ef5d2f823d463291dfc43b"
+    },
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "asoc/codecs/cs35l43/wm_adsp.h",
+      "source_sha256": "9faf71ffac33ccc441198af13cbff105bd812bd076dc67fc55a7e6f78d327f9e",
+      "staged_path": "wm_adsp.h",
+      "staged_sha256": "c66638c8100e41a64497af70ada94c9c1b6172e1e5a61c005b77416faa16a54d"
+    },
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "asoc/codecs/cs35l43/wmfw.h",
+      "source_sha256": "a93b48db4801cae879dc2cbbac6ec890a0ba51339b96d44c417e46c2ed97d76c",
+      "staged_path": "wmfw.h",
+      "staged_sha256": "a93b48db4801cae879dc2cbbac6ec890a0ba51339b96d44c417e46c2ed97d76c"
+    },
+    {
+      "repository": "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel.git",
+      "revision": "ecb48c9495fc9aff0c340f9de53cb944a58b448a",
+      "path": "include/uapi/audio/sound/cs35l43.h",
+      "source_sha256": "8902ab2ca22f8aa2b120e3226838a0ff2c6d6af0cfbde35d981dbf28effa0934",
+      "staged_path": "include/sound/cs35l43.h",
+      "staged_sha256": "8902ab2ca22f8aa2b120e3226838a0ff2c6d6af0cfbde35d981dbf28effa0934"
+    }
+  ],
+  "generated_sha256": {
+    "cs35l43-cal.c": "e09cc90c0553a1325f81a69a240a406058560ac5c4c33947befe050bd4094ad0",
+    "cs35l43-i2c.c": "b4eeb855d074f199991aeceddf2038a13509dbd42c74fc6e8dc1e710e618b338",
+    "cs35l43-spi.c": "7e0c6043837b54555671691ade29c8685f8b6f8cdee4759563eb1562b7a413af",
+    "cs35l43-tables.c": "5c235294f0a45a410494e2dfdcdddfe49df473e7f54a8413e07d6e0763066bf6",
+    "cs35l43.c": "643340fd3052954dc4f641416b613eccb0c283cab6453e755e76e9781b0a3e80",
+    "cs35l43.h": "2e36aed48faff99bd884a6c1351d0e11488e067d30c1823730fce298cddd5758",
+    "wm_adsp.c": "aa76d571a8c72b15840851960eab437b032d847da7ef5d2f823d463291dfc43b",
+    "wm_adsp.h": "c66638c8100e41a64497af70ada94c9c1b6172e1e5a61c005b77416faa16a54d",
+    "wmfw.h": "a93b48db4801cae879dc2cbbac6ec890a0ba51339b96d44c417e46c2ed97d76c",
+    "include/sound/cs35l43.h": "8902ab2ca22f8aa2b120e3226838a0ff2c6d6af0cfbde35d981dbf28effa0934",
+    "Kbuild": "df66d1f96d75e2e482ccb46cdef8687e189f8c100a3b90703a27ad2bbbaab122"
+  },
+  "runtime_validated": false,
+  "limits": [
+    "Vendor ONETRACK telemetry is not enabled; its mihw provider is not ported."
+  ]
+}

@@ -2,7 +2,7 @@
 set -euo pipefail
 export LC_ALL=C LANG=C
 root=/root/sheng-lineage
-swap=/root/sheng-612/lineage-build.swap
+swap=/root/sheng-lineage/lineage-build.swap
 mkdir -p "$root"/{lineage-24.0,logs,firmware-dump,artifacts}
 # Ubuntu's native ext4 filesystem is backed by the C: VHDX.
 [[ $(findmnt -n -o FSTYPE -T "$root") == ext4 ]] || {

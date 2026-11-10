@@ -12,7 +12,7 @@ done
 printf 'Existing official toolchain candidates\n'
 find /root/sheng_kernel /root/kernel-lineage /root/sheng /root/sheng-gh -maxdepth 5 -name AndroidVersion.txt -print 2>/dev/null | head -n 20
 printf 'Machine\n'
-df -h /root/sheng-612 /mnt/c /mnt/e
+df -h /root/sheng-618-project-build /mnt/c /mnt/e
 free -h
 printf 'Relevant commands\n'
 command -v python3 curl git make flex bison bc pahole cpio dtc lz4 zstd debugfs simg2img fsck.erofs dump.erofs depmod modinfo || true

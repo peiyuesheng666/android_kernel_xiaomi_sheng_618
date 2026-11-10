@@ -1,0 +1,230 @@
+{
+  "multimedia_includes": "%T/synx-kernel/msm/synx %T/synx-kernel/include %T/synx-kernel/include/uapi\n       %T/synx-kernel/include/uapi/synx/media %T/mm-drivers/hw_fence/include\n       %T/mm-drivers/hfi_core/inc %T/mm-drivers/msm_ext_display/include\n       %T/mm-drivers/sync_fence/include %T/securemsm-kernel/hdcp\n       %T/securemsm-kernel/include %T/securemsm-kernel/include/linux %T/dsp-kernel/include",
+  "network_includes": "%D/include %D/include/uapi/linux %T/datarmnet/core %T/datarmnet-ext/mem\n       %T/datarmnet-ext/mem/include %T/datarmnet-ext/mem/include/uapi/linux\n       %T/dataipa/drivers/platform/msm/include %T/dataipa/drivers/platform/msm/include/uapi",
+  "modules": [
+    [
+      "securemsm",
+      "securemsm-kernel",
+      "SSG_MODULE_ROOT=%D CONFIG_DISABLE_TEST_MODULES=y",
+      "%T/securemsm-kernel/include %T/securemsm-kernel/include/linux",
+      ""
+    ],
+    [
+      "synx",
+      "synx-kernel",
+      "SYNX_ROOT=%D",
+      "",
+      ""
+    ],
+    [
+      "sync_fence",
+      "mm-drivers/sync_fence",
+      "SYNC_FENCE_ROOT=%P/",
+      "",
+      ""
+    ],
+    [
+      "msm_ext_display",
+      "mm-drivers/msm_ext_display",
+      "MSM_EXT_DISPLAY_ROOT=%P/",
+      "",
+      ""
+    ],
+    [
+      "hw_fence",
+      "mm-drivers/hw_fence",
+      "MSM_HW_FENCE_ROOT=%P/",
+      "%T/synx-kernel/msm/synx %T/synx-kernel/include %T/synx-kernel/include/uapi %T/synx-kernel/include/uapi/synx/media",
+      ""
+    ],
+    [
+      "mmrm",
+      "mmrm-driver",
+      "MMRM_ROOT=%D",
+      "",
+      ""
+    ],
+    [
+      "dsp",
+      "dsp-kernel",
+      "DSP_ROOT=%D",
+      "",
+      ""
+    ],
+    [
+      "hfi_core",
+      "mm-drivers/hfi_core",
+      "MSM_HFI_CORE_ROOT=%P/",
+      "%M",
+      ""
+    ],
+    [
+      "display",
+      "display-drivers",
+      "DISPLAY_ROOT=%D CONFIG_DRM_MSM=m CONFIG_QTI_HFI_CORE=y CONFIG_MDSS_HFI_ADAPTER=y CONFIG_MDSS_HFI=y",
+      "%M",
+      "-DCONFIG_QTI_HFI_CORE=1 -DCONFIG_MDSS_HFI_ADAPTER=1 -DCONFIG_MDSS_HFI=1 -include %T/k618_oplus_stub.h"
+    ],
+    [
+      "graphics",
+      "graphics-kernel",
+      "KGSL_PATH=%D CONFIG_QCOM_KGSL_SYNX=y CONFIG_ARM_SMMU=y",
+      "%M %W/drivers/devfreq",
+      "-DCONFIG_QCOM_KGSL_SYNX=1 -DCONFIG_ARM_SMMU=1"
+    ],
+    [
+      "video",
+      "video-driver",
+      "VIDEO_ROOT=%D CONFIG_MSM_VIDC_ANDROID=m",
+      "%M",
+      ""
+    ],
+    [
+      "eva",
+      "eva-kernel",
+      "EVA_ROOT=%D",
+      "%M %T/dsp-kernel/include/linux",
+      ""
+    ],
+    [
+      "video515",
+      "video-driver-515",
+      "VIDEO_ROOT=%D CONFIG_MSM_VIDC_KALAMA=y",
+      "%M",
+      "-DCONFIG_MSM_VIDC_KALAMA=1"
+    ],
+    [
+      "eva515",
+      "eva-kernel-515",
+      "EVA_ROOT=%D UBSAN_SANITIZE=n",
+      "%M",
+      ""
+    ],
+    [
+      "camera",
+      "camera-kernel",
+      "CAMERA_KERNEL_ROOT=%D MODNAME=camera",
+      "%M",
+      "-DCONFIG_MSM_GLOBAL_SYNX=1 -DCONFIG_SPECTRA_SECURE_SCM_API=1"
+    ],
+    [
+      "audio",
+      "audio-kernel",
+      "AUDIO_ROOT=%D MODNAME=audio_dlkm",
+      "%M",
+      ""
+    ],
+    [
+      "bt",
+      "bt-kernel",
+      "BT_ROOT=%D CONFIG_MSM_BT_POWER=m CONFIG_BTFM_SLIM=m CONFIG_I2C_RTC6226_QCA=m",
+      "%M",
+      ""
+    ],
+    [
+      "rmnet_mem",
+      "datarmnet-ext/mem",
+      "%C",
+      "%R",
+      "%L"
+    ],
+    [
+      "ipa",
+      "dataipa/drivers/platform/msm",
+      "KP_MODULE_ROOT=%P/../../..",
+      "%R",
+      "%L -DCONFIG_QCOM_MDT_LOADER_MODULE=1"
+    ],
+    [
+      "rmnet_core",
+      "datarmnet/core",
+      "RMNET_CORE_ROOT=%D %C",
+      "%R",
+      "%L %I"
+    ],
+    [
+      "rmnet_aps",
+      "datarmnet-ext/aps",
+      "%C",
+      "%R",
+      "%L %I"
+    ],
+    [
+      "rmnet_shs",
+      "datarmnet-ext/shs",
+      "%C",
+      "%R",
+      "%L %I"
+    ],
+    [
+      "rmnet_wlan",
+      "datarmnet-ext/wlan",
+      "%C",
+      "%R",
+      "%L %I"
+    ],
+    [
+      "rmnet_offload",
+      "datarmnet-ext/offload",
+      "%C",
+      "%R",
+      "%L %I"
+    ],
+    [
+      "rmnet_perf",
+      "datarmnet-ext/perf",
+      "%C",
+      "%R",
+      "%L %I"
+    ],
+    [
+      "rmnet_perf_tether",
+      "datarmnet-ext/perf_tether",
+      "%C",
+      "%R",
+      "%L %I"
+    ],
+    [
+      "rmnet_sch",
+      "datarmnet-ext/sch",
+      "%C",
+      "%R",
+      "%L %I"
+    ],
+    [
+      "nfc_nxp",
+      "../../nxp/opensource/driver",
+      "NFC_ROOT=%D CONFIG_NXP_NFC_I2C=m",
+      "%T/securemsm-kernel/include",
+      "-DNFC_SECURE_PERIPHERAL_ENABLED -DNFC_CLK_REQ_GPIO_WAKEUP -include %T/k618_nfc_trace.h ${NFC_TRACE:+-DK618_NFC_TRACE}"
+    ],
+    [
+      "nfc_st",
+      "../../st/opensource/driver",
+      "NFC_ROOT=%D CONFIG_STM_NCI=m CONFIG_STM_SECURE_ELEMENT=m",
+      "%T/securemsm-kernel/include",
+      ""
+    ],
+    [
+      "nfc_st_ese",
+      "../../st/opensource/eSE-driver",
+      "NFC_ROOT=%D",
+      "%T/securemsm-kernel/include",
+      ""
+    ],
+    [
+      "wlan_platform",
+      "wlan/platform",
+      "WLAN_PLATFORM_ROOT=%D CONFIG_CNSS2=m CONFIG_CNSS_UTILS=m CONFIG_CNSS_GENL=m CONFIG_WCNSS_MEM_PRE_ALLOC=m CONFIG_CNSS2_QMI=y CONFIG_CNSS_QMI_SVC=m CONFIG_CNSS_PLAT_IPC_QMI_SVC=m CONFIG_CNSS_OUT_OF_TREE=y CONFIG_PCI_MSM=y",
+      "%R",
+      "-include %T/k618_oplus_stub.h"
+    ],
+    [
+      "wlan",
+      "wlan/qcacld-3.0",
+      "WLAN_ROOT=%D WLAN_COMMON_ROOT=../qca-wifi-host-cmn MODNAME=kiwi_v2 DEVNAME=kiwi_v2 WLAN_CTRL_NAME=wlan WLAN_PROFILE=kiwi_v2 CONFIG_QCA_CLD_WLAN=m CONFIG_CNSS2=m CONFIG_CNSS_GENL=m CONFIG_CNSS_UTILS=m CONFIG_WCNSS_MEM_PRE_ALLOC=m CONFIG_CNSS_OUT_OF_TREE=y CONFIG_BUILD_TAG=n",
+      "%R",
+      ""
+    ]
+  ]
+}

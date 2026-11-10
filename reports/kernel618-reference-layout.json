@@ -1,0 +1,22 @@
+{
+  "project_root": "/root/sheng-618-project",
+  "reference_revision": "c3956156ce7c4193c451dfda531fad72d35bfebb",
+  "reference_layout_adopted": true,
+  "kernel_module_build_language": "Bash",
+  "module_count": 344,
+  "source_files": 103604,
+  "source_cache_sha256": "7c054599ce763bbbd75f21dccfc77102b2fb55f3dacb3f25c2d4d4ed03cef437",
+  "fresh_build_verified": true,
+  "new_hardware_validation": true,
+  "module_abi_passed": true,
+  "source_archive": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/sheng-6.18-project-r70/sheng-6.18.32-project-r70-source.tar.gz",
+  "source_archive_sha256": "94c61d8e5d9f363f8f361662891c1d770337b95905c63a23a243415b3bed0031",
+  "source_archive_files_verified": 134,
+  "shared_inputs": "/root/sheng-source-inputs",
+  "retired_kernel612_removed": true,
+  "portable_ps5169_include": true,
+  "user_confirmed_all_tests_ok": true,
+  "compiled_identity_and_boot_readback_verified": true,
+  "github_package_sha256": "66c85beffc43024f42923dc86400badc6edc6d36c43357f7c929ef24083d15d9",
+  "final_full_source_package_sha256": "f9ae0be5921ea47a3c67ef00f67ff4de012e42e540f383e67662da82b799d788"
+}

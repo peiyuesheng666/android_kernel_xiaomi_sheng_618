@@ -45,7 +45,7 @@ while queue:
     if source in visited:
         continue
     visited.add(source)
-    dynamic = subprocess.check_output(['/root/sheng-612/toolchains/clang-r536225/bin/llvm-readelf',
+    dynamic = subprocess.check_output(['/root/sheng-618-project-deps/prebuilts/clang/host/linux-x86/clang-r584948c/bin/llvm-readelf',
                                        '-d', str(DUMP / source)], text=True)
     for dependency in re.findall(r'\(NEEDED\).*\[([^\]]+)\]', dynamic):
         module = dependency.removesuffix('.so')
