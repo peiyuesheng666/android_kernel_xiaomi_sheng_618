@@ -1,0 +1,36 @@
+{
+  "project_root": "/root/sheng-618-project",
+  "config": "sheng_defconfig",
+  "build_script": "build.sh",
+  "stage_scripts": [
+    "buildkernel.sh",
+    "buildmodules.sh",
+    "embed.sh",
+    "mkbootimage.sh"
+  ],
+  "github_package": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/sheng-6.18-project-r70/android_kernel_618_for_sheng-source-four-stages.zip",
+  "github_package_bytes": 5605134,
+  "github_package_sha256": "9491d87c2ab3aaf482b4c3d61ee0a535c9e0ab9e3f868d705eb6b5790d76336a",
+  "full_source_package": "/mnt/c/Users/Dev\u88f4\u6708\u7b19/Desktop/XiaomiPad6SProPort6.18/artifacts/sheng-6.18-project-r70/android_kernel_618_for_sheng-source-with-inputs-four-stages.tar.gz",
+  "full_source_package_bytes": 316072494,
+  "full_source_package_sha256": "2d2e8843bd86e6fe4289def86359e0ad37f7eb4a7e30d87e0a2fb8fdb7d9d823",
+  "source_cache_required_by_github_package": true,
+  "github_file_count": 140,
+  "fresh_compile_passed": true,
+  "module_count": 344,
+  "versioned_imports_checked": 21003,
+  "boot_completed": true,
+  "user_confirmed_all_tests_ok": true,
+  "hardware_evidence_reused_for_script_only_changes": true,
+  "compiled_build": {
+    "release": "6.18.32-peiyuesheng-sheng-kernel",
+    "module_count": 344,
+    "exports_and_crcs_verified": true,
+    "boot_packaged": true,
+    "artifacts": {
+      "Image": "35cde9a57ce9c19f243d63347be5b5c74489afa76c7278d306c32d6a9ad59601",
+      "boot.img": "d8a047a77719127f792821200ca4ad3c80e9230ba775b65d8085aa3e3766bd66"
+    },
+    "source_snapshot_sha256": "7c054599ce763bbbd75f21dccfc77102b2fb55f3dacb3f25c2d4d4ed03cef437"
+  }
+}

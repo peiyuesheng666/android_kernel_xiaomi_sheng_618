@@ -1,13 +1,20 @@
 {
   "source_files_verified": 103604,
   "module_count": 344,
+  "defconfig": "sheng_defconfig",
+  "stage_scripts": [
+    "buildkernel.sh",
+    "buildmodules.sh",
+    "embed.sh",
+    "mkbootimage.sh"
+  ],
   "source_layout_verified": true,
   "build_root": "/root/sheng-618-project-build",
   "fresh_build_verified": true,
   "regenerated_camera_build_metadata": {
     "k618/vendor/qcom/opensource/camera-kernel/cam_generated_h": {
       "snapshot_sha256": "c61463acb9883c54c3a1b1f8e3b5790a8757fe23ab89920047baca8497be9f15",
-      "compiled_sha256": "58b4019857838b1de46826b7894842a3e83e9d20e489d77426b9209ddccd2660"
+      "compiled_sha256": "211aedffcc0b556e5a05ebb20d6a5c26d0402ea51cf60ef65f0837639969d2e2"
     }
   },
   "build": {
@@ -16,8 +23,8 @@
     "exports_and_crcs_verified": true,
     "boot_packaged": true,
     "artifacts": {
-      "Image": "ed272953a91b4bbd0cdd5b5bd047d31ea77849f2ab10ccda7b819e6dc60f5654",
-      "boot.img": "f5e133d61a06c40e72da0c7b0547cec5cabc7c5b9019704de6a1096cef3466dc"
+      "Image": "35cde9a57ce9c19f243d63347be5b5c74489afa76c7278d306c32d6a9ad59601",
+      "boot.img": "d8a047a77719127f792821200ca4ad3c80e9230ba775b65d8085aa3e3766bd66"
     },
     "source_snapshot_sha256": "7c054599ce763bbbd75f21dccfc77102b2fb55f3dacb3f25c2d4d4ed03cef437"
   },

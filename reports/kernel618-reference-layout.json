@@ -17,6 +17,14 @@
   "portable_ps5169_include": true,
   "user_confirmed_all_tests_ok": true,
   "compiled_identity_and_boot_readback_verified": true,
-  "github_package_sha256": "66c85beffc43024f42923dc86400badc6edc6d36c43357f7c929ef24083d15d9",
-  "final_full_source_package_sha256": "f9ae0be5921ea47a3c67ef00f67ff4de012e42e540f383e67662da82b799d788"
+  "github_package_sha256": "9491d87c2ab3aaf482b4c3d61ee0a535c9e0ab9e3f868d705eb6b5790d76336a",
+  "final_full_source_package_sha256": "2d2e8843bd86e6fe4289def86359e0ad37f7eb4a7e30d87e0a2fb8fdb7d9d823",
+  "config": "sheng_defconfig",
+  "stage_scripts": [
+    "buildkernel.sh",
+    "buildmodules.sh",
+    "embed.sh",
+    "mkbootimage.sh"
+  ],
+  "one_click_script": "build.sh"
 }
