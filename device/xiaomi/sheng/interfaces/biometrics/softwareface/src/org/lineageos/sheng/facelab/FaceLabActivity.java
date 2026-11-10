@@ -20,9 +20,6 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
-import android.hardware.camera2.CaptureResult;
-import android.hardware.camera2.TotalCaptureResult;
-import android.hardware.camera2.params.Face;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.hardware.display.DisplayManager;
 import android.media.Image;
@@ -44,25 +41,24 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Locale;
-import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 /** User-operated development UI. Never registers a biometric sensor or unlocks the device. */
 public final class FaceLabActivity extends Activity {
     private static final int CAMERA_PERMISSION = 10, CONFIRM_CREDENTIAL = 11;
-    private final SampleCollector collector = new SampleCollector();
+    private final SampleCollector collector = new SampleCollector(FaceEmbedding::validate);
     private final AtomicLong epoch = new AtomicLong();
-    private final TreeMap<Long, FrameInfo> metadata = new TreeMap<>();
     private HandlerThread cameraThread;
     private Handler worker;
     private TextView status;
+    private TextView guidanceView;
     private Preview preview;
     private TemplateStore store;
     // Camera resources, descriptors and capture state are confined to worker.
     private CameraDevice camera;
     private CameraCaptureSession session;
     private ImageReader reader;
-    private Image pendingImage;
+    private OpenCvEngine engine;
     private float[][] enrolled;
     private boolean comparing;
     private long lastFrame, lastUi, enrollmentDeadline;
@@ -102,8 +98,10 @@ public final class FaceLabActivity extends Activity {
                 + "只在本应用保存加密特征，不保存照片；尚未接入系统解锁。");
         root.addView(description);
         preview = new Preview(); root.addView(preview, new LinearLayout.LayoutParams(-1, 0, 1));
-        status = new TextView(this); status.setTextSize(16); root.addView(status);
+        status = new TextView(this); status.setTextSize(18); root.addView(status);
+        guidanceView = new TextView(this); guidanceView.setTextSize(16); root.addView(guidanceView);
         button(root, "开启前摄", this::requestCamera);
+        button(root, "检查识别引擎（不打开前摄）", this::checkEngine);
         button(root, "录入样本（先验证锁屏密码）", this::requestEnrollment);
         button(root, "比较当前人脸", this::requestComparison);
         button(root, "停止前摄", this::stopCamera);
@@ -117,6 +115,23 @@ public final class FaceLabActivity extends Activity {
         });
         setContentView(root); root.requestApplyInsets(); message("前摄尚未开启");
         getSystemService(DisplayManager.class).registerDisplayListener(displayListener, new Handler(getMainLooper()));
+        if (getIntent().getBooleanExtra("engine_self_test", false)) checkEngine();
+    }
+
+    private void checkEngine() {
+        message("正在检查识别引擎，前摄保持关闭…");
+        worker.post(() -> {
+            if (cameraRequested || camera != null) { message("请先停止前摄"); return; }
+            try {
+                if (engine == null) engine = new OpenCvEngine(this);
+                engine.checkFeatureOutput();
+                android.util.Log.i("ShengFaceLab", "Engine self-test passed; camera not opened");
+                message("检测与识别引擎检查通过，前摄尚未开启");
+            } catch (Exception | LinkageError failure) {
+                android.util.Log.e("ShengFaceLab", "Engine self-test failed", failure);
+                message("识别引擎检查失败：" + failure.getClass().getSimpleName());
+            }
+        });
     }
 
     private void button(LinearLayout root, String label, Runnable action) {
@@ -167,9 +182,8 @@ public final class FaceLabActivity extends Activity {
         message("前摄已停止，未完成的采集已取消");
     }
     private void closeCamera() {
-        comparing = false; metadata.clear(); lastFrame = 0; lastUi = 0;
+        comparing = false; lastFrame = 0; lastUi = 0;
         wipeEnrolled();
-        if (pendingImage != null) { pendingImage.close(); pendingImage = null; }
         if (session != null) { session.close(); session = null; }
         if (camera != null) { camera.close(); camera = null; }
         if (reader != null) { reader.close(); reader = null; }
@@ -186,6 +200,11 @@ public final class FaceLabActivity extends Activity {
     private void openCamera(long token, int displayDegrees) {
         if (!current(token)) return;
         try {
+            if (engine == null) {
+                message("正在加载已校验的检测和识别模型…");
+                engine = new OpenCvEngine(this);
+            }
+            if (!current(token)) return;
             CameraManager manager = getSystemService(CameraManager.class);
             String front = null; CameraCharacteristics characteristics = null;
             for (String id : manager.getCameraIdList()) {
@@ -196,10 +215,6 @@ public final class FaceLabActivity extends Activity {
                 }
             }
             if (front == null) throw new IllegalStateException("Front camera unavailable");
-            int[] modes = characteristics.get(CameraCharacteristics.STATISTICS_INFO_AVAILABLE_FACE_DETECT_MODES);
-            int detect = CaptureRequest.STATISTICS_FACE_DETECT_MODE_OFF;
-            if (modes != null) for (int mode : modes) detect = Math.max(detect, mode);
-            final int faceMode = detect;
             boolean none = false;
             if (Build.VERSION.SDK_INT >= 31) {
                 int[] rotations = characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_ROTATE_AND_CROP_MODES);
@@ -225,9 +240,7 @@ public final class FaceLabActivity extends Activity {
                 try {
                     Image next = r.acquireLatestImage();
                     if (next == null) return;
-                    if (pendingImage != null) pendingImage.close();
-                    pendingImage = next;
-                    consumePending(token);
+                    processImage(next, token);
                 } catch (Exception e) { cameraFailure(token, "接收前摄帧失败：" + e.getClass().getSimpleName()); }
             }, worker);
             manager.openCamera(front, new CameraDevice.StateCallback() {
@@ -246,26 +259,13 @@ public final class FaceLabActivity extends Activity {
                                             CameraDevice.TEMPLATE_PREVIEW);
                                     request.addTarget(target);
                                     request.set(CaptureRequest.CONTROL_MODE, CaptureRequest.CONTROL_MODE_AUTO);
-                                    request.set(CaptureRequest.STATISTICS_FACE_DETECT_MODE, faceMode);
+                                    request.set(CaptureRequest.STATISTICS_FACE_DETECT_MODE,
+                                            CaptureRequest.STATISTICS_FACE_DETECT_MODE_OFF);
                                     if (disableRotateCrop && Build.VERSION.SDK_INT >= 31)
                                         request.set(CaptureRequest.SCALER_ROTATE_AND_CROP,
                                                 CaptureRequest.SCALER_ROTATE_AND_CROP_NONE);
-                                    configured.setRepeatingRequest(request.build(), new CameraCaptureSession.CaptureCallback() {
-                                        @Override public void onCaptureCompleted(CameraCaptureSession s,
-                                                CaptureRequest r, TotalCaptureResult result) {
-                                            if (!current(token)) return;
-                                            Long timestamp = result.get(CaptureResult.SENSOR_TIMESTAMP);
-                                            Rect crop = result.get(CaptureResult.SCALER_CROP_REGION);
-                                            if (timestamp != null && crop != null) {
-                                                metadata.put(timestamp, new FrameInfo(crop,
-                                                        result.get(CaptureResult.STATISTICS_FACES)));
-                                                while (metadata.size() > 32) metadata.pollFirstEntry();
-                                                consumePending(token);
-                                            }
-                                        }
-                                    }, worker);
-                                    message(faceMode == 0 ? "前摄可用，但未提供人脸框；暂不能录入"
-                                            : "前摄已开启，请保持单人正脸入镜");
+                                    configured.setRepeatingRequest(request.build(), null, worker);
+                                    message("前摄已开启，软件检测已就绪；请保持单人正脸入镜");
                                 } catch (Exception e) { cameraFailure(token, "启动预览失败：" + e.getClass().getSimpleName()); }
                             }
                             @Override public void onConfigureFailed(CameraCaptureSession s) {
@@ -281,18 +281,12 @@ public final class FaceLabActivity extends Activity {
                     device.close(); cameraFailure(token, "前摄错误 " + error);
                 }
             }, worker);
-        } catch (Exception e) { cameraFailure(token, "开启前摄失败：" + e.getClass().getSimpleName()); }
+        } catch (Exception | LinkageError e) {
+            cameraFailure(token, "开启前摄或引擎失败：" + e.getClass().getSimpleName());
+        }
     }
     private static long sizeCost(Size size) {
-        return Math.abs((long) size.getWidth() * size.getHeight() - 640 * 480);
-    }
-    private static FrameMath.Box box(Rect r) { return new FrameMath.Box(r.left, r.top, r.right, r.bottom); }
-    private static final class FrameInfo {
-        final Rect crop;
-        final Face[] faces;
-        FrameInfo(Rect crop, Face[] faces) {
-            this.crop = new Rect(crop); this.faces = faces == null ? new Face[0] : faces.clone();
-        }
+        return Math.abs((long) size.getWidth() * size.getHeight() - 1280 * 960);
     }
 
     private void requestEnrollment() {
@@ -341,45 +335,24 @@ public final class FaceLabActivity extends Activity {
         });
     }
 
-    private void consumePending(long token) {
-        if (pendingImage == null || !metadata.containsKey(pendingImage.getTimestamp())) return;
-        Image image = pendingImage; pendingImage = null;
-        processImage(image, token);
-    }
-
     private void processImage(Image acquired, long token) {
         try (Image image = acquired) {
             if (image == null || !current(token)) return;
             long timestamp = image.getTimestamp();
-            if (timestamp - lastFrame < 100_000_000L) return;
+            if (timestamp - lastFrame < 200_000_000L) return;
             lastFrame = timestamp;
-            FrameInfo info = metadata.remove(timestamp);
-            Image.Plane y = image.getPlanes()[0];
-            FrameMath.Plane luma = new FrameMath.Plane(y.getBuffer(), y.getRowStride(),
-                    y.getPixelStride(), image.getWidth(), image.getHeight());
-            FrameMath.Box face = null;
-            String guidance = "等待同帧人脸信息";
-            if (info != null) {
-                guidance = info.faces.length == 0 ? "未检测到人脸" : "请保持只有一张人脸入镜";
-                if (info.faces.length == 1 && info.faces[0].getScore() >= 60) {
-                    FrameMath.Box crop = FrameMath.streamCrop(box(info.crop), image.getWidth(), image.getHeight());
-                    face = FrameMath.toStream(box(info.faces[0].getBounds()), crop,
-                            image.getWidth(), image.getHeight());
-                    guidance = face == null ? "请将整张脸移入画面" : "请将脸靠近一些";
-                    if (face != null && (face.width() < 96 || face.height() < 96)) face = null;
-                }
-            }
-            render(image, luma, face, token);
+            OpenCvEngine.Result result = engine.analyze(image, orientation, collector.collecting() || comparing);
+            runOnUiThread(() -> {
+                if (current(token)) preview.update(result.preview, result.face, 0);
+                else result.preview.recycle();
+            });
             if (collector.collecting() && SystemClock.elapsedRealtime() >= enrollmentDeadline) {
                 collector.cancel(); message("采集超时，未修改原有样本"); return;
             }
-            if (face == null) { periodic(guidance); return; }
-            byte[] normalized = luma.normalized(face, FaceDescriptor.SIZE, orientation);
-            float[] descriptor = null;
+            float[] descriptor = result.embedding;
             try {
-                FaceDescriptor.Quality quality = FaceDescriptor.quality(normalized);
-                if (!quality.usable()) { periodic("请改善光线并保持画面清晰"); return; }
-                descriptor = FaceDescriptor.extract(normalized);
+                periodic(result.guidance);
+                if (descriptor == null) return;
                 if (collector.collecting()) {
                     long generation = collector.generation();
                     if (collector.offer(generation, timestamp, descriptor)) {
@@ -396,48 +369,22 @@ public final class FaceLabActivity extends Activity {
                     }
                 } else if (comparing && enrolled != null) {
                     double sum = 0;
-                    for (float[] sample : enrolled) sum += FaceDescriptor.distance(descriptor, sample);
-                    periodic(String.format(Locale.ROOT, "平均特征距离 %.4f（越低越相似）\n尚未标定误识率，不用于解锁", sum / enrolled.length));
-                } else periodic("正脸质量可用，可开始录入或比较");
+                    for (float[] sample : enrolled) sum += FaceEmbedding.cosine(descriptor, sample);
+                    periodic(String.format(Locale.ROOT, "平均余弦相似度 %.4f（越高越相似）\n测试结果，不执行解锁", sum / enrolled.length));
+                }
             } finally {
-                Arrays.fill(normalized, (byte) 0);
                 if (descriptor != null) Arrays.fill(descriptor, 0);
             }
         } catch (Exception e) { cameraFailure(token, "处理前摄帧失败：" + e.getClass().getSimpleName()); }
     }
     private void periodic(String text) {
         long now = SystemClock.elapsedRealtime();
-        if (now - lastUi >= 500) { lastUi = now; message(text); }
-    }
-
-    private void render(Image image, FrameMath.Plane luma, FrameMath.Box face, long token) {
-        int w = 320, h = Math.max(1, image.getHeight() * w / image.getWidth());
-        int[] pixels = new int[w * h];
-        // A deliberately ordinary CPU preview avoids the protected MiSecureCamera/EGL path.
-        Image.Plane u = image.getPlanes()[1], v = image.getPlanes()[2];
-        FrameMath.Plane chromaU = new FrameMath.Plane(u.getBuffer(), u.getRowStride(), u.getPixelStride(),
-                (image.getWidth() + 1) / 2, (image.getHeight() + 1) / 2);
-        FrameMath.Plane chromaV = new FrameMath.Plane(v.getBuffer(), v.getRowStride(), v.getPixelStride(),
-                (image.getWidth() + 1) / 2, (image.getHeight() + 1) / 2);
-        for (int py = 0; py < h; py++) for (int px = 0; px < w; px++) {
-            int x = px * image.getWidth() / w, y = py * image.getHeight() / h;
-            int yy = Math.max(0, luma.at(x, y) - 16), uu = chromaU.at(x / 2, y / 2) - 128;
-            int vv = chromaV.at(x / 2, y / 2) - 128;
-            pixels[py*w+px] = Color.rgb(clamp((298*yy + 409*vv + 128) >> 8),
-                    clamp((298*yy - 100*uu - 208*vv + 128) >> 8),
-                    clamp((298*yy + 516*uu + 128) >> 8));
+        if (now - lastUi >= 500) {
+            lastUi = now;
+            String prefix = collector.collecting() ? "当前采集 " + collector.count() + "/12：" : "";
+            runOnUiThread(() -> guidanceView.setText(prefix + text));
         }
-        Bitmap frame = Bitmap.createBitmap(pixels, w, h, Bitmap.Config.ARGB_8888);
-        Arrays.fill(pixels, 0);
-        RectF bounds = face == null ? null : new RectF((float)(face.left*w/image.getWidth()),
-                (float)(face.top*h/image.getHeight()), (float)(face.right*w/image.getWidth()),
-                (float)(face.bottom*h/image.getHeight()));
-        int degrees = orientation;
-        runOnUiThread(() -> {
-            if (current(token)) preview.update(frame, bounds, degrees); else frame.recycle();
-        });
     }
-    private static int clamp(int value) { return Math.max(0, Math.min(255, value)); }
 
     private final class Preview extends View {
         private Bitmap bitmap;

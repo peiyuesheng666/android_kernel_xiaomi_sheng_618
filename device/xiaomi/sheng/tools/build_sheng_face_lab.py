@@ -24,12 +24,17 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--rom', type=Path, default=Path('/root/sheng-lineage/lineage-24.0'))
     parser.add_argument('--work', type=Path, required=True)
+    parser.add_argument('--source', type=Path)
+    parser.add_argument('--engine-dir', type=Path)
+    parser.add_argument('--audit', type=Path)
+    parser.add_argument('--tool-audit', type=Path)
+    parser.add_argument('--signing-dir', type=Path)
     args = parser.parse_args()
     rom, work = args.rom.resolve(), args.work.resolve()
-    source = rom/'device/xiaomi/sheng/interfaces/biometrics/softwareface'
+    source = (args.source or rom/'device/xiaomi/sheng/interfaces/biometrics/softwareface').resolve()
     work.mkdir(parents=True, exist_ok=True)
-    audit = work/'upstream-preaudit.json'
-    toolaudit = work/'toolchain-preaudit.json'
+    audit = args.audit or work/'upstream-preaudit.json'
+    toolaudit = args.tool_audit or work/'toolchain-preaudit.json'
     report = json.loads(audit.read_text())
     tools = json.loads(toolaudit.read_text())
     assert report['known_public_sources_passed'] and not report['all_project_nonclean_status']
@@ -45,6 +50,20 @@ def main():
     application = manifest.find('application')
     assert application.get(android+'allowBackup') == 'false'
     assert application.find('service') is None and application.find('receiver') is None
+    engine = args.engine_dir
+    if engine:
+        dependencies = json.loads((source/'engine-dependencies.json').read_text())
+        for name, expected in dependencies['files_sha256'].items():
+            assert digest(engine/name) == expected, name
+        assert set(dependencies['license_files_sha256']) == {
+            'licenses/OpenCV-LICENSE', 'licenses/YuNet-LICENSE', 'licenses/SFace-LICENSE'}
+        for name, expected in dependencies['license_files_sha256'].items():
+            assert digest(source/name) == expected, name
+        with zipfile.ZipFile(engine/'opencv-4.13.0.aar') as aar:
+            assert aar.read('classes.jar') == (engine/'opencv-classes.jar').read_bytes()
+            assert aar.read('jni/arm64-v8a/libopencv_java4.so') == (engine/'libopencv_java4.so').read_bytes()
+            cxx = aar.read('jni/arm64-v8a/libc++_shared.so')
+            assert hashlib.sha256(cxx).hexdigest() == dependencies['libcxx_shared_sha256']
 
     java_home = rom/'prebuilts/jdk/jdk21/linux-x86'
     java = java_home/'bin/java'
@@ -78,17 +97,25 @@ def main():
 
     package = source/'src/org/lineageos/sheng/facelab'
     core = [package/n for n in ('FrameMath.java', 'FaceDescriptor.java', 'SampleCollector.java')]
+    if engine:
+        core.append(package/'FaceEmbedding.java')
     run([javac, '--release', '11', '-encoding', 'UTF-8', '-d', host, *core, source/'tests/CoreTests.java'])
     tests = run([java, '-cp', host, 'org.lineageos.sheng.facelab.CoreTests']).strip()
+    if engine:
+        run([javac, '--release', '11', '-encoding', 'UTF-8', '-cp', host, '-d', host,
+             source/'tests/EmbeddingTests.java'])
+        tests += '\n' + run([java, '-cp', host, 'org.lineageos.sheng.facelab.EmbeddingTests']).strip()
     run([javac, '-source', '8', '-target', '8', '-encoding', 'UTF-8',
          '-bootclasspath', str(lambda_stubs)+os.pathsep+str(sdk),
+         *(['-classpath', str(engine/'opencv-classes.jar')] if engine else []),
          '-d', classes, *sorted((source/'src').rglob('*.java'))])
     classjar = build/'classes.jar'
     with zipfile.ZipFile(classjar, 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(classes.rglob('*.class')):
             archive.write(path, path.relative_to(classes).as_posix())
     run([java, '-cp', r8, 'com.android.tools.r8.D8', '--release', '--min-api', '30',
-         '--lib', sdk, '--output', dex, classjar])
+         '--lib', sdk, '--output', dex, classjar,
+         *([engine/'opencv-classes.jar'] if engine else [])])
     resources = build/'resources.apk'
     run([aapt, 'link', '-I', sdk, '--manifest', source/'AndroidManifest.xml', '-o', resources])
     unsigned = build/'ShengFaceLab-unsigned.apk'
@@ -97,9 +124,28 @@ def main():
             archive.writestr(entry, inputs.read(entry))
         for path in sorted(dex.glob('*.dex')):
             archive.write(path, path.name)
+        if engine:
+            for name in dependencies['models']:
+                archive.write(engine/name, 'assets/models/'+name)
+            archive.write(engine/'libopencv_java4.so', 'lib/arm64-v8a/libopencv_java4.so',
+                          compress_type=zipfile.ZIP_STORED)
+            archive.writestr('lib/arm64-v8a/libc++_shared.so', cxx, compress_type=zipfile.ZIP_STORED)
+            for path in sorted((source/'licenses').rglob('*')):
+                if path.is_file(): archive.write(path, 'assets/licenses/'+path.relative_to(source/'licenses').as_posix())
+            archive.write(source/'LICENSE', 'assets/licenses/ShengFaceLab-LICENSE')
+            archive.write(source/'engine-dependencies.json', 'assets/licenses/engine-dependencies.json')
+            with zipfile.ZipFile(engine/'opencv-4.13.0-android-sdk.zip') as sdkzip:
+                for name in sdkzip.namelist():
+                    if name.startswith('OpenCV-android-sdk/sdk/etc/licenses/') and not name.endswith('/'):
+                        archive.writestr('assets/licenses/opencv-sdk/'+name.rsplit('/',1)[-1], sdkzip.read(name))
+            for name in dependencies['additional_notices']:
+                archive.write(engine/name, 'assets/licenses/additional/'+name)
+    aligned = build/'ShengFaceLab-aligned.apk'
+    run([rom/'out/host/linux-x86/bin/zipalign', '-P', '16', '-f', '4', unsigned, aligned])
 
-    key = work/'lab-signing.p12'
-    password = work/'lab-signing-password.txt'
+    signing = args.signing_dir or work
+    key = signing/'lab-signing.p12'
+    password = signing/'lab-signing-password.txt'
     if not key.exists():
         assert not password.exists(), 'Inspect incomplete prior key generation before retrying'
         password.write_text(secrets.token_hex(24)+'\n')
@@ -110,14 +156,25 @@ def main():
         os.chmod(key, 0o600)
     apk = build/'ShengFaceLab.apk'
     run([java, '-jar', signer, 'sign', '--ks', key, '--ks-key-alias', 'shengfacelab',
-         '--ks-pass', 'file:'+str(password), '--out', apk, unsigned])
+         '--ks-pass', 'file:'+str(password), '--out', apk, aligned])
     signature = run([java, '-jar', signer, 'verify', '--verbose', '--print-certs', apk])
     badging = run([aapt, 'dump', 'badging', apk])
     with zipfile.ZipFile(apk) as archive:
         assert 'classes.dex' in archive.namelist()
-        assert not any(x.startswith('lib/') for x in archive.namelist())
+        if engine:
+            assert {x for x in archive.namelist() if x.startswith('lib/')} == {
+                'lib/arm64-v8a/libopencv_java4.so', 'lib/arm64-v8a/libc++_shared.so'}
+            assert all('assets/models/'+x in archive.namelist() for x in dependencies['models'])
+            assert 'assets/licenses/engine-dependencies.json' in archive.namelist()
+        else:
+            assert not any(x.startswith('lib/') for x in archive.namelist())
+    run([rom/'out/host/linux-x86/bin/zipalign', '-c', '-P', '16', '4', apk])
     inputs = [*sorted(source.rglob('*.java')), source/'AndroidManifest.xml', source/'Android.bp',
               Path(__file__).resolve()]
+    if engine:
+        inputs += [source/'engine-dependencies.json', source/'LICENSE',
+                   *sorted((source/'licenses').rglob('*'))]
+        inputs = [p for p in inputs if p.is_file()]
     receipt = {
         'date_utc': datetime.now(timezone.utc).isoformat(),
         'status': 'development capture/comparison APK; not a face HAL or accepted repair',
@@ -125,8 +182,10 @@ def main():
         'raw_images_persisted': False, 'authentication_decision_implemented': False,
         'core_tests': tests, 'apk': str(apk), 'apk_bytes': apk.stat().st_size,
         'apk_sha256': digest(apk), 'signature_verification': signature,
-        'badging': badging, 'source_sha256': {str(p.relative_to(rom)): digest(p) for p in inputs},
-        'build_inputs': {str(p.relative_to(rom)): digest(p) for p in (sdk, lambda_stubs, aapt, r8, signer, java, javac)},
+        'engine_dependencies': dependencies if engine else None,
+        'badging': badging, 'source_sha256': {str(p): digest(p) for p in inputs},
+        'build_inputs': {str(p.relative_to(rom)): digest(p) for p in
+                         (sdk, lambda_stubs, aapt, r8, signer, java, javac, rom/'out/host/linux-x86/bin/zipalign')},
         'upstream_audit': {'path': str(audit), 'sha256': digest(audit),
                            'project_count': report['project_count'], 'public_repositories': len(report['repositories'])},
         'toolchain_audit': {'path': str(toolaudit), 'sha256': digest(toolaudit)},

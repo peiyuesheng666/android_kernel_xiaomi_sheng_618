@@ -23,15 +23,16 @@ import javax.crypto.spec.GCMParameterSpec;
 
 /** Encrypted, app-private, credential-encrypted storage. No frames or images are persisted. */
 final class TemplateStore {
-    private static final int MAGIC = 0x53464c31, VERSION = 1, MAX_BYTES = 256 * 1024;
-    private static final String ALIAS = "sheng_face_lab_templates_v1";
-    private static final byte[] AAD = "ShengFaceLab:LBP96:8:59:v1".getBytes(
+    private static final int MAGIC = 0x53464c32, VERSION = 2, MAX_BYTES = 64 * 1024;
+    private static final String ALIAS = "sheng_face_lab_sface_v2";
+    private static final byte[] AAD = ("ShengFaceLab:SFace128:v2:"
+            + "0ba9fbfa01b5270c96627c4ef784da859931e02f04419c829e83484087c34e79").getBytes(
             java.nio.charset.StandardCharsets.US_ASCII);
     private final AtomicFile file;
 
     TemplateStore(Context context) {
         if (context.isDeviceProtectedStorage()) throw new IllegalArgumentException("CE only");
-        file = new AtomicFile(new File(context.getNoBackupFilesDir(), "face-samples.aesgcm"));
+        file = new AtomicFile(new File(context.getNoBackupFilesDir(), "face-sface-v2.aesgcm"));
     }
 
     private SecretKey key(boolean create) throws Exception {
@@ -56,7 +57,7 @@ final class TemplateStore {
         try (DataOutputStream data = new DataOutputStream(buffer)) {
             data.writeInt(VERSION); data.writeInt(samples.length);
             for (float[] sample : samples) {
-                FaceDescriptor.validate(sample);
+                FaceEmbedding.validate(sample);
                 for (float value : sample) data.writeFloat(value);
             }
         }
@@ -94,14 +95,15 @@ final class TemplateStore {
             byte[] iv = new byte[12]; data.readFully(iv);
             Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
             cipher.init(Cipher.DECRYPT_MODE, key(false), new GCMParameterSpec(128, iv));
-            cipher.updateAAD(AAD); plain = cipher.doFinal(data.readAllBytes());
+            byte[] ciphertext = new byte[packed.length - 16]; data.readFully(ciphertext);
+            cipher.updateAAD(AAD); plain = cipher.doFinal(ciphertext);
             try (DataInputStream decoded = new DataInputStream(new ByteArrayInputStream(plain))) {
                 if (decoded.readInt() != VERSION || decoded.readInt() != SampleCollector.REQUIRED)
                     throw new IllegalStateException("Invalid template version or count");
-                float[][] samples = new float[SampleCollector.REQUIRED][FaceDescriptor.LENGTH];
+                float[][] samples = new float[SampleCollector.REQUIRED][FaceEmbedding.LENGTH];
                 for (float[] sample : samples) {
                     for (int i = 0; i < sample.length; i++) sample[i] = decoded.readFloat();
-                    FaceDescriptor.validate(sample);
+                    FaceEmbedding.validate(sample);
                 }
                 if (decoded.available() != 0) throw new IllegalStateException("Trailing data");
                 return samples;

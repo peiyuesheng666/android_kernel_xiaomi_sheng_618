@@ -1,0 +1,44 @@
+{
+  "opencv": {
+    "version": "4.13.0",
+    "commit": "fe38fc608f6acb8b68953438a62305d8318f4fcd",
+    "license": "Apache-2.0",
+    "url": "https://github.com/opencv/opencv/releases/tag/4.13.0"
+  },
+  "models": {
+    "face_detection_yunet_2023mar.onnx": {
+      "license": "MIT",
+      "url": "https://github.com/opencv/opencv_zoo/tree/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/face_detection_yunet"
+    },
+    "face_recognition_sface_2021dec.onnx": {
+      "license": "Apache-2.0",
+      "url": "https://github.com/opencv/opencv_zoo/tree/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/face_recognition_sface"
+    }
+  },
+  "files_sha256": {
+    "opencv-4.13.0.aar": "a8c9b0929d8d6367bb476320a1f36587db2b57ea18d8f7521ce509514903ca04",
+    "opencv-4.13.0-android-sdk.zip": "edfda20fdf65d0bd45391d168ec5261dd30b600b00279c4d910d7f1c3e020f0f",
+    "opencv-classes.jar": "9a5f8f1189ecb60b9ca18c4f1102c692badbdda809c69a602d1b10e1598abb05",
+    "libopencv_java4.so": "d331aac20d0a76981ea652f7df7978e3b82ccc46d5926dc7c394d33c813694ab",
+    "face_detection_yunet_2023mar.onnx": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+    "face_recognition_sface_2021dec.onnx": "0ba9fbfa01b5270c96627c4ef784da859931e02f04419c829e83484087c34e79",
+    "opencv-3rdparty__libwebp__COPYING": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf",
+    "opencv-3rdparty__libjpeg-turbo__LICENSE.md": "96f5b328adbb78eeaaec6980d73fd558cb1e4d62560ed615646bc3cf5e532430",
+    "kleidicv-kleidicv-0.7.0__LICENSES__Apache-2.0.txt": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+    "ndk27c-android-ndk-r27c__NOTICE": "4d5224d1c0b54ffa88b0dc0088191638fdbb7227835095dfb98f7f66b416a323",
+    "ndk27c-android-ndk-r27c__NOTICE.toolchain": "cbe3237be53c0a819f8df6aac5358fdee848eee3b6571b4e2ca20767ebd7465e"
+  },
+  "libcxx_shared_sha256": "4397241b4bd20a8e579bfb41d21107857e12985f6a01ca0c2a5f83380d1270b4",
+  "additional_notices": [
+    "opencv-3rdparty__libwebp__COPYING",
+    "opencv-3rdparty__libjpeg-turbo__LICENSE.md",
+    "kleidicv-kleidicv-0.7.0__LICENSES__Apache-2.0.txt",
+    "ndk27c-android-ndk-r27c__NOTICE",
+    "ndk27c-android-ndk-r27c__NOTICE.toolchain"
+  ],
+  "license_files_sha256": {
+    "licenses/OpenCV-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "licenses/SFace-LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "licenses/YuNet-LICENSE": "c83b8120c50ccbd4c4f96edf53141bdd566ebb8f8e9227e415326aa1b1aba958"
+  }
+}

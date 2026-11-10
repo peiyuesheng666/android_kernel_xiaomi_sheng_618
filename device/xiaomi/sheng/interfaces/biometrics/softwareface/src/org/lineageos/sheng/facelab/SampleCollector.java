@@ -4,6 +4,7 @@ package org.lineageos.sheng.facelab;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 /** Generation tokens prevent delayed camera callbacks from entering a later enrollment. */
 public final class SampleCollector {
@@ -12,6 +13,10 @@ public final class SampleCollector {
     private long generation, lastTimestamp = -1;
     private boolean collecting;
     private final List<float[]> samples = new ArrayList<>();
+    private final Consumer<float[]> validator;
+
+    public SampleCollector() { this(FaceDescriptor::validate); }
+    public SampleCollector(Consumer<float[]> validator) { this.validator = validator; }
 
     public synchronized long begin() {
         clear(); collecting = true; return ++generation;
@@ -27,7 +32,7 @@ public final class SampleCollector {
     public synchronized boolean offer(long token, long timestamp, float[] descriptor) {
         if (!collecting || token != generation || timestamp < 0
                 || (lastTimestamp >= 0 && timestamp - lastTimestamp < INTERVAL_NS)) return false;
-        FaceDescriptor.validate(descriptor);
+        validator.accept(descriptor);
         samples.add(descriptor.clone()); lastTimestamp = timestamp;
         if (samples.size() == REQUIRED) collecting = false;
         return true;
