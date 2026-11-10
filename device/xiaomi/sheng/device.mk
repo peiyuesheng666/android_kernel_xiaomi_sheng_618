@@ -477,3 +477,6 @@ PRODUCT_PACKAGES += \
     sheng-tablet-compat \
     sheng-tablet-compat-init \
     sheng-derive-classpath
+
+# Populate missing per-user min/peak refresh settings without replacing choices.
+PRODUCT_PACKAGES += ShengDisplayDefaults

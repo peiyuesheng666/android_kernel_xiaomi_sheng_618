@@ -64,5 +64,6 @@
   <integer name="config_screenBrightnessSettingMaximum">255</integer>
   <integer name="config_screenBrightnessSettingDefault">67</integer>
   <integer name="config_screenBrightnessDim">5</integer>
-  <integer name="config_defaultRefreshRate">60</integer>
+    <!-- User-selected factory default; later per-user min/peak settings win. -->
+    <integer name="config_defaultRefreshRate">144</integer>
 </resources>

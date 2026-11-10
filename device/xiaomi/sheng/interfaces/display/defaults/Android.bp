@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: Apache-2.0
+package {
+    default_applicable_licenses: ["sheng_display_defaults_license"],
+}
+license {
+    name: "sheng_display_defaults_license",
+    license_kinds: ["SPDX-license-identifier-Apache-2.0"],
+    license_text: ["LICENSE"],
+}
+android_app {
+    name: "ShengDisplayDefaults",
+    manifest: "AndroidManifest.xml",
+    srcs: ["src/**/*.java"],
+    sdk_version: "current",
+    min_sdk_version: "33",
+    certificate: "platform",
+    privileged: true,
+    system_ext_specific: true,
+    optimize: { enabled: false },
+}
