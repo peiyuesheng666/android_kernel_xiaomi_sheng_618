@@ -1,0 +1,26 @@
+{
+  "after": {
+    "vhdx_path": "C:\\Users\\Public\\wsl\\Ubuntu2204\\ext4.vhdx",
+    "c_free_bytes": 165138796544,
+    "measured_at": "2026-11-10T17:41:41.1244048+08:00",
+    "vhdx_bytes": 421224513536
+  },
+  "c_reclaimed_bytes": 160973475840,
+  "before": {
+    "measured_at": "2026-11-10T17:27:19.7411817+08:00",
+    "vhdx_path": "C:\\Users\\Public\\wsl\\Ubuntu2204\\ext4.vhdx",
+    "vhdx_bytes": 581285445632,
+    "c_free_bytes": 4165320704
+  },
+  "compact_exit_code": 0,
+  "vhdx_reduced_bytes": 160060932096,
+  "method": [
+    "delete audited obsolete directories",
+    "sync",
+    "fstrim -av",
+    "wsl --terminate Ubuntu-22.04",
+    "wsl --manage Ubuntu-22.04 --compact"
+  ],
+  "post_compact_verification_passed": true,
+  "native_source_commit": "06315a3"
+}

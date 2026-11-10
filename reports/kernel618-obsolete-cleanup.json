@@ -1,0 +1,43 @@
+{
+  "timestamp_utc": "2026-11-10T17:28:08.877273+08:00",
+  "dependency_scan_passed": true,
+  "retained": [
+    "/root/sheng-618-project",
+    "/root/sheng-618-project-build",
+    "/root/sheng-618-project-deps",
+    "/root/sheng-source-inputs"
+  ],
+  "reference_preserved": "/root/sheng-source-inputs/reference/sm8550-618",
+  "removed_directories": [
+    {
+      "path": "/root/sheng-618",
+      "allocated_bytes": 60000006144,
+      "removed": true
+    },
+    {
+      "path": "/root/sheng-618-project-prepare-check",
+      "allocated_bytes": 2184728576,
+      "removed": true
+    },
+    {
+      "path": "/root/sheng618-project-materialize-check",
+      "allocated_bytes": 335601664,
+      "removed": true
+    },
+    {
+      "path": "/root/sheng-618-project-deps/pack-check",
+      "allocated_bytes": 123326464,
+      "removed": true
+    },
+    {
+      "path": "/root/sheng-618-project-deps/stock-check",
+      "allocated_bytes": 47448064,
+      "removed": true
+    }
+  ],
+  "removed_allocated_bytes": 62691110912,
+  "post_cleanup_validation": "reports/kernel618-four-stages-post-cleanup-validation.json",
+  "native_source_commit": "06315a3",
+  "workspace_source_commit": "3ad264d",
+  "latest_outputs": "artifacts/sheng-6.18-project-r70/four-stages-build"
+}
