@@ -1,0 +1,11 @@
+// SPDX-License-Identifier: Apache-2.0
+// Match system/libhidl's deprecated empty compatibility library for ELF checks.
+// Existing vendor blobs install the platform libhidltransport.so at runtime.
+// Do not create a second installation rule for that pathname.
+cc_library_shared {
+    name: "libsheng_hidltransport_link",
+    stem: "libhidltransport",
+    vendor: true,
+    installable: false,
+    stl: "none",
+}

@@ -45,7 +45,7 @@ cc_prebuilt_binary {
         "libutils",
         "libQSEEComAPI",
         "libhidlbase",
-        "libhidltransport",
+        "libsheng_hidltransport_link",
         "libcamera2ndk_vendor",
         "libcamera_metadata",
         "libmediandk",
