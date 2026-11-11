@@ -1,0 +1,20 @@
+--- a/k618/soc/include/dt-bindings/arm/qcom,ids.h
++++ b/k618/soc/include/dt-bindings/arm/qcom,ids.h
+@@ -258,6 +258,7 @@
+ #define QCOM_ID_SM8475			530
+ #define QCOM_ID_SM8475P			531
+ #define QCOM_ID_SA8775P			534
++#define QCOM_ID_KALAMAP			536
+ #define QCOM_ID_QRU1000			539
+ #define QCOM_ID_SM8475_2		540
+ #define QCOM_ID_QDU1000			545
+--- a/k618/soc/drivers/soc/qcom/socinfo.c
++++ b/k618/soc/drivers/soc/qcom/socinfo.c
+@@ -646,6 +646,7 @@
+ 	{ qcom_board_id(SM8475) },
+ 	{ qcom_board_id(SM8475P) },
+ 	{ qcom_board_id(SA8775P) },
++	{ qcom_board_id(KALAMAP) },
+ 	{ qcom_board_id(QRU1000) },
+ 	{ qcom_board_id(SM8475_2) },
+ 	{ qcom_board_id(QDU1000) },

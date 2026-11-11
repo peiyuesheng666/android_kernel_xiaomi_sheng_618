@@ -1,0 +1,22 @@
+{
+  "revision": "scene-socinfo-r73",
+  "base": "network-r72",
+  "patch": "patches/sheng-scene-socinfo.patch",
+  "patch_sha256": "9215b68e23c3eada1d8fb9c3fa0cad12a1b43d2b23d8fcbe07392d27523311ce",
+  "files": {
+    "k618/soc/include/dt-bindings/arm/qcom,ids.h": {
+      "before": "83e5f063026303339137e2b5e54146a06f339f8ae309d663945577f43510c593",
+      "after": "b878613cd18f7fd776168b4396efaa96f475f50c1c08437ebdb0bc1fedf276ee"
+    },
+    "k618/soc/drivers/soc/qcom/socinfo.c": {
+      "before": "297be726fff97f4285c661932777f2a43ec5002ddd7627badfc8b000a8dd3958",
+      "after": "55335ce170effbd44ee1177099ace076d959a577b34b4fea1e4af91599d2e874"
+    }
+  },
+  "soc_id": 536,
+  "machine": "KALAMAP",
+  "scene_normalized_platform": "kalama",
+  "reference_url": "https://github.com/OnePlusOSS/android_kernel_oneplus_sm8550/blob/oneplus/sm8550_v_15.0.0_oneplus11/drivers/soc/qcom/socinfo.c",
+  "reference_sha256": "87a8bbc120dd37ef2e88ed273384c2508a4929c38db359151a81018a7587683a",
+  "device_tree_model_changed": false
+}
