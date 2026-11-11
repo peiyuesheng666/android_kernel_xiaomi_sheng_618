@@ -2,7 +2,7 @@
 static bool sheng_pps_auto_verify = true;
 module_param_named(sheng_pps_auto_verify, sheng_pps_auto_verify, bool, 0600);
 MODULE_PARM_DESC(sheng_pps_auto_verify,
-        "Verify eligible third-party PPS after native discovery; replug after changing");
+        "Maintain eligible third-party PPS after native discovery; N disables automatic writes");
 
 static bool sheng_pps_live(struct battery_chg_dev *bcdev)
 {
@@ -52,6 +52,10 @@ static int sheng_pps_snapshot(struct battery_chg_dev *bcdev, struct sheng_pps_sa
     rc = sheng_pps_read(bcdev, PSY_TYPE_XM, XM_PROP_CURRENT_STATE, &value);
     if (rc < 0)
         return rc;
+    rc = sheng_pps_read(bcdev, PSY_TYPE_XM, XM_PROP_VERIFY_PROCESS, &match);
+    if (rc < 0)
+        return rc;
+    s->verifying = match != 0;
     /* Shipping current_state_show maps firmware state 31 to SNK_Ready. */
     s->ready = value == 31;
 #define SHENG_PPS_GET(id, field) do { \
@@ -105,6 +109,11 @@ static void sheng_pps_auto_work(struct work_struct *work)
     if (rc < 0)
         goto error;
     action = sheng_pps_decide(&bcdev->sheng_pps, &sample);
+    /* Only attached PPS is monitored; already verified samples cost three reads.
+     * Events and stores kick immediately. The five-second fallback catches
+     * firmware-only clears; it is not a recognition grace period. */
+    retry = sample.online && sample.pps && bcdev->sheng_pps.attempts < 3;
+    retry_delay = 5 * HZ;
     if (action != SHENG_PPS_UNLOCK)
         goto out;
     /* Revalidate the complete source and protection state immediately before writing. */
@@ -115,15 +124,16 @@ static void sheng_pps_auto_work(struct work_struct *work)
     action = sheng_pps_decide(&bcdev->sheng_pps, &sample);
     if (action != SHENG_PPS_UNLOCK || !READ_ONCE(sheng_pps_auto_verify) ||
             !sheng_pps_live(bcdev) || epoch != atomic_read(&bcdev->sheng_pps_epoch)) {
-        retry = action == SHENG_PPS_UNLOCK;
+        retry = sample.online && sample.pps && bcdev->sheng_pps.attempts < 3;
+        retry_delay = 0;
         goto out;
     }
     if (first.svid != sample.svid || first.adapter_id != sample.adapter_id ||
             first.apdo_watts != sample.apdo_watts || first.power_watts != sample.power_watts) {
         retry = true;
+        retry_delay = 0;
         goto out;
     }
-    ++bcdev->sheng_pps.attempts;
     rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM], XM_PROP_PD_VERIFED, 1);
     if (rc < 0)
         goto write_error;
@@ -146,11 +156,13 @@ static void sheng_pps_auto_work(struct work_struct *work)
     }
     dev_info(bcdev->dev, "sheng PPS auto verified: svid=%04x id=%08x APDO=%u W\n",
             sample.svid, sample.adapter_id, sample.apdo_watts);
+    bcdev->sheng_pps.attempts = 0;
     changed = true;
     goto out;
 error:
-    ++bcdev->sheng_pps.attempts;
 write_error:
+    if (bcdev->sheng_pps.attempts < 3)
+        ++bcdev->sheng_pps.attempts;
     retry_delay = HZ;
     retry = bcdev->sheng_pps.attempts < 3 && sheng_pps_live(bcdev);
     dev_warn(bcdev->dev, "sheng PPS auto verification deferred/failed: %d\n", rc);
@@ -168,5 +180,5 @@ out:
 static void sheng_pps_kick(struct battery_chg_dev *bcdev)
 {
     if (READ_ONCE(sheng_pps_auto_verify) && !READ_ONCE(bcdev->sheng_pps_stopping))
-        queue_delayed_work(system_freezable_wq, &bcdev->sheng_pps_work, 0);
+        mod_delayed_work(system_freezable_wq, &bcdev->sheng_pps_work, 0);
 }

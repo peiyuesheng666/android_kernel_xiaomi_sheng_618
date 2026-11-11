@@ -4938,12 +4938,12 @@ static ssize_t pd_verifed_store(const struct class *c,
         -ENOTCONN;
     if (rc >= 0 && !sheng_pps_live(bcdev))
         rc = -ENOTCONN;
-    /* Explicit zero while connected wins until the next observed disconnect. */
-    if (rc >= 0 && !val && bcdev->sheng_pps.connected)
-        bcdev->sheng_pps.inhibit = true;
+    /* batterysecret also writes zero on third-party auth failure. Automatic
+     * mode re-evaluates the live source instead of inhibiting the connection. */
     mutex_unlock(&bcdev->sheng_pps_lock);
     if (rc < 0)
         return rc;
+    sheng_pps_kick(bcdev);
     return count;
 }
 
@@ -4991,11 +4991,15 @@ static ssize_t verify_process_store(const struct class *c,
 	if (kstrtobool(buf, &val))
 		return -EINVAL;
 
+	mutex_lock(&bcdev->sheng_pps_lock);
+	atomic_inc(&bcdev->sheng_pps_epoch);
 	rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
 				XM_PROP_VERIFY_PROCESS, val);
+	mutex_unlock(&bcdev->sheng_pps_lock);
 	if (rc < 0)
 		return rc;
 
+	sheng_pps_kick(bcdev);
 	return count;
 }
 

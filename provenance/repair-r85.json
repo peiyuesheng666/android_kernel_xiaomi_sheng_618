@@ -1,12 +1,12 @@
 {
-  "revision": "repair-r86",
+  "revision": "repair-r87",
   "base": "ipv6-release-r76",
   "project": "/root/sheng-618-repair-r87-project",
   "build": "/root/sheng-618-repair-r86-build",
   "files": {
     "k618/soc/drivers/power/supply/qti_battery_charger.c": {
       "before": "aa8c41650da9b97715238bd5a4581f3d003245c990bc0c3aa3ccd347bafbe666",
-      "after": "cb5b252c3dd126a4c7c77326d6ee1b172206ba0c5b09afdbe7025d84188202a7"
+      "after": "b60bfc7e3f8439a316fa190325e43787fa97c38153e90099d5e31fcbedeb3165"
     },
     "k618/soc/drivers/power/supply/sheng_charging_interfaces.h": {
       "before": null,
@@ -26,15 +26,15 @@
     },
     "k618/soc/drivers/power/supply/sheng_pps_policy.h": {
       "before": null,
-      "after": "a5b814078bdfacd3b4b617bfd6713395c3053f9e07ceddc2181f7a3cad48a84d"
+      "after": "12ece892437feabcb5bfc01d096d06ee63e2d150f84efbfa3189114697377747"
     },
     "k618/soc/drivers/power/supply/sheng_pps_auto_verify.h": {
       "before": null,
-      "after": "492a4ae1c2065277f4bc15931f0621ca24f9afaa016fcd97e1007e526f0303dc"
+      "after": "1fa7e1a7ff6767c3f2c39028421dbdaff08d58012b7bbd1bdca1866ddd0819b8"
     }
   },
-  "patch": "patches/sheng-repair-r86.patch",
-  "patch_sha256": "e59bf3902f84438f8b6979ba9ec2b0a4c8091667e62871f9bf3a6c40b95cde16",
+  "patch": "patches/sheng-repair-r87.patch",
+  "patch_sha256": "2086529ab15925f14a66c956f62b7d1fe0728aa865028500bd20fbce421f7085",
   "bypass_property_id": 219,
   "default_charging_writes_added": true,
   "bypass_runtime_verified": false,
