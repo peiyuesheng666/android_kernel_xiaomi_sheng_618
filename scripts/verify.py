@@ -64,7 +64,7 @@ for path in k.rglob('*'):
         assert path.resolve().is_relative_to(root), path
 for path in [*project.glob('*.sh'), *(project / 'scripts').glob('*.sh')]:
     subprocess.run(['bash', '-n', path], check=True)
-for path in [*(project / 'scripts').glob('*.py'), *(project / 'kernel-6.18').glob('*.py')]:
+for path in [*(project / 'scripts').glob('*.py'), *(project / 'kernel').glob('*.py')]:
     compile(path.read_text(), str(path), 'exec')
 result = {'source_files_verified': len(expected), 'module_count': len(mapping),
           'defconfig': 'sheng_defconfig',

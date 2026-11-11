@@ -1,4 +1,4 @@
-# r87 功能说明
+# 当前内核 功能说明
 
 小米平板6S Pro（sheng），Linux 6.18.32，默认release，内置344模块。
 
@@ -22,11 +22,11 @@
 特殊接口包括batt_sn（属性160，64字节请求/48字节文本）、wireless_tx_uuid
 （属性73，44字节请求/24字节文本）、battery_param_reset（原厂格式100）、
 car_app（真实DCIN属性223）与wireless_version_forcit（有界等待和错误传递）。
-完整属性编号、parser、格式和源码回放哈希见provenance/repair-r85.json。
+完整属性编号、parser、格式和源码回放哈希见[充电接口来源记录](../provenance/repair-r85.json)。
 
 PPS策略不更改电流与温控限制，动画/协议能力不代表实际输入功率；身份不明的
 ≥100W第三方PPS仍可能被保守跳过。自动功能可通过模块参数sheng_pps_auto_verify禁用。
 手写笔长期/休眠恢复、低SOC峰值及全部硬件/充电器覆盖没有完整承诺。
 
 本机独立/data温控配置不在本仓库和发布源码包中；单刷boot不会撤销已有data覆盖。
-风驰已取消，7.2 zram/swap移植暂停且未应用到r87。
+风驰已取消，7.2 zram/swap移植暂停且未应用到当前内核。

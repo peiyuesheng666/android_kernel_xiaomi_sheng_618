@@ -4,4 +4,4 @@
 
 # Preserve audited vendor bytes and unified-patch context exactly.
 *.patch -whitespace
-kernel-6.18/charging/* -whitespace
+kernel/charging/* -whitespace

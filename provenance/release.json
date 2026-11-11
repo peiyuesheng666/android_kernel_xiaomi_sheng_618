@@ -3,12 +3,12 @@
   "kernel": "6.18.32-peiyuesheng-sheng-kernel",
   "build_profile": "release",
   "module_count": 344,
-  "source_model": "pinned adapted r71 cache plus retained r87 patches",
+  "source_model": "pinned adapted build inputs plus retained r87 patches",
   "publication_rebuild": false,
   "author_account": "peiyuesheng666",
   "memory72_applied": false,
   "wind_scheduler_included": false,
   "original_main_commits_preserved": true,
   "archived_port_commit_count": 427,
-  "feature_document": "docs/FEATURES-REPAIR-r87.zh-CN.md"
+  "feature_document": "docs/FEATURES.zh-CN.md"
 }
