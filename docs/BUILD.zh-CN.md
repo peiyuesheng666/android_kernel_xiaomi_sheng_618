@@ -1,16 +1,32 @@
-# 构建
+# r87 构建
 
-在 Linux/WSL 原生文件系统中解压项目。宿主安装 bash、make、gcc/g++、jq、
-rsync、flex、bison、bc、cpio、kmod、gzip、libssl-dev、libelf-dev、libzstd-dev
-和 Python 3.11+。运行资源限制入口需要 root 或已委托的 cgroup-v2 控制权；
-当前 WSL 未启用 systemd，因此入口直接创建独立 cgroup，限制整个编译进程组。
+在 Linux/WSL **原生 Linux 文件系统**中放置项目与构建目录，路径不得有空格。
+准备 bash、make、gcc/g++、jq、rsync、flex、bison、bc、cpio、kmod、gzip、
+libssl-dev、libelf-dev、libzstd-dev，以及 Python 3.11+。Ubuntu 22.04 使用
+带 `tarfile` data filter 支持的更新 Python 3.11。默认 `PYTHON=python3.11`。
+资源限制入口要求 root 或已委托的 cgroup-v2 控制权。默认 JOBS=4，上限4。
 
-默认 BUILD_ROOT 为当前账户的 `~/sheng-618-project-build`，可以显式设置到
-另一个空的原生 Linux 目录。bootstrap 不会覆盖非空、未准备的目录。
+## 获取固定源码输入
 
-## 工具链
+```bash
+gh repo clone peiyuesheng666/android_kernel_xiaomi_sheng_618
+cd android_kernel_xiaomi_sheng_618
+gh release download repair-r87 --repo peiyuesheng666/android_kernel_xiaomi_sheng_618 \
+  --pattern sheng-6.18.32-release-r71-source.tar.gz --dir assets
+(cd assets && sha256sum -c SHA256SUMS)
+```
 
-使用 provenance/kernel-manifest.xml 固定的 Google prebuilts，要求以下布局：
+仓库目前为私有，gh 需使用有访问权限的账号。也可从 Release 网页下载后放到
+相同路径。完整源码包已包含输入缓存，无需重复下载。
+固定缓存 SHA256：
+`06400886b7d6572c4e2440811e991525eeda88e491804e4e8a26d9dd3577e04f`。
+bootstrap 只进行离线解压、路径修正、逐文件验证与补丁回放；不会下载工具链，
+也不会从所有原始上游仓库重新演绎早期移植。
+
+## 工具链与打包模板
+
+固定 Google 工具链仓库/提交见 `provenance/toolchains.json` 和
+`provenance/kernel-manifest.xml`，布局如下：
 
 ```text
 PREBUILTS/
@@ -21,40 +37,39 @@ PREBUILTS/
   build-tools/linux-x86/bin/
 ```
 
-默认 PREBUILTS 为 `$BUILD_ROOT/k618/ws/prebuilts`。已有工具链可通过
-`export PREBUILTS=/path/to/prebuilts` 使用。固定工具链仓库与版本见
-`provenance/toolchains.json`；不要用宿主自带 clang 替代。
+不要用宿主 clang 替代固定版本。elfutils 使用0.193，启用zstd，ELFUTILS前缀
+须包含 `include/elfutils/libdw.h` 与 `lib/libdw`。工具链不是源码包内的输入。
 
-elfutils 使用 0.193 并启用 zstd，安装前缀通过 `ELFUTILS` 指定，默认是
-`$BUILD_ROOT/host-tools/elfutils-0.193`。需有 include/elfutils/libdw.h 和 lib/libdw。
+提供自己的原厂 boot 模板；mkbootimage.sh仅接受 SHA256
+`4156a2369f78bc5df61b6a521b07a508dedf20d5e63c207d30986ae37df3eaea`。
+模板不随 GitHub 上传。输出 header v4、空 ramdisk、192 MiB boot分区镜像，
+保留模板版本字段并添加未签名 AVB hash footer。
 
-## 执行
+## 四阶段构建与验证
 
 ```bash
-bash scripts/run-limited.sh bootstrap
+export BUILD_ROOT="$HOME/sheng-618-repair-r87-build"
 export PREBUILTS=/path/to/prebuilts
 export ELFUTILS=/path/to/elfutils-0.193
-bash build.sh --config-only
-bash build.sh
+export STOCK_BOOT=/path/to/sheng-stock-boot.img
+export SHENG_BUILD_MODE=release TAG=repair-r87
+bash buildkernel.sh
+bash buildmodules.sh
+bash embed.sh
+bash mkbootimage.sh
 bash scripts/run-limited.sh verify
+bash scripts/test-charging.sh
 ```
 
-构建顺序为 ACK Image/modules → SoC → techpacks → 平板专用驱动 → 加载器。
-所有外部模块均使用 `make -C ws/common O=out-gki M=源码目录 modules` 编译，
-前序模块的 Module.symvers 通过 KBUILD_EXTRA_SYMBOLS 传递。
+`BUILD_ROOT` 必须在项目外；新目录必须为空。仅检查配置可运行
+`bash buildkernel.sh --config-only`；全部四阶段也可用 `bash build.sh`。
+最终文件在 `dist/repair-r87/`。模块顺序为 ACK→SoC→techpacks→平板驱动→加载器，
+使用KBUILD_EXTRA_SYMBOLS传递符号版本。344模块汇入模块层并嵌入Image。
+重编前后内核导出符号和CRC必须一致，所有模块split BTF必须通过验证。
 
-脚本汇总 344 个模块到 `out-gki/layer/lib/modules`，生成依赖清单并打包
-`overlay.cpio`，再编译内置该模块层的 Image。重编前后内核导出符号及 CRC
-必须完全相同。最终文件复制到 `dist/release-r70/`。
+默认release：rawdump关闭，无300秒自动回fastboot。debug仅显式设置时启用。
+所有构建入口均不会执行adb/fastboot或写设备分区。
 
-## boot 镜像
-
-```bash
-bash build.sh --stock-boot /path/to/sheng_OS3.0.303_boot.img
-```
-
-仅接受 SHA256 为
-`4156a2369f78bc5df61b6a521b07a508dedf20d5e63c207d30986ae37df3eaea`
-的原厂 boot 模板。打包得到与其分区大小相同的 boot.img，使用 header v4、
-原始版本字段（此模板未设置版本和补丁日期）、`loglevel=4` 命令行及未签名 AVB hash footer。
-原厂模板只读，构建脚本不执行 adb/fastboot 或刷写分区。
+维护机器已有的r87缓存目录仍叫 `/root/sheng-618-repair-r86-build`，内容是r87。
+可通过显式BUILD_ROOT复用；新克隆默认使用r87目录。不需要恢复任何已删旧工程。
+`port-scripts/`仅为历史过程，包含旧绝对路径与设备操作；不是构建入口。

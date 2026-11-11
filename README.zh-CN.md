@@ -1,56 +1,30 @@
-# 小米平板 6S Pro · Linux 6.18.32
+# 小米平板 6S Pro（sheng）Linux 6.18.32 · r87
 
-按 JiaqiLi404/android_kernel_618_for_sm8550 的项目布局整理的 sheng 内核构建工程。
-目标系统为 HyperOS OS3.0.303.0.WNXCNXM，源码快照对应 release-r70。
+当前版本：**repair-r87**。默认 release，内置 344 个重新编译的模块。
 
-这个仓库与小米 13 Pro 参考项目一样，将构建脚本、设备配置、补丁和来源记录放在
-项目目录，将内核源码、外部驱动源码和编译输出放在独立的 Linux 构建目录。
+本版本包括双电池认证、Droidspaces/SYSVIPC 与容器网络、IPv6 NAT、SoC/Scene
+识别、手写笔充电接口、57 个原厂充电节点、旁路供电、第三方 PPS 自动认证、
+以及模块 split BTF 的缓存重链接修复。保留原有 32 ms 手写笔滤波。
 
-```text
-sheng-618-project/
-├── build.sh                  Bash 构建入口
-├── kernel-6.18/              内核构建环境、平板驱动源码和模块表
-├── scripts/                  bootstrap / prepare / build / verify
-├── profiles/                 r70 配置、techpack 参数、模块加载清单
-├── patches/                  已应用适配补丁的审核副本
-├── provenance/               固定版本、源码哈希、参考项目与实机记录
-├── tools/                    模块加载器、mkbootimg、avbtool
-├── docs/                     构建、来源和验证说明
-├── assets/                   已校验的完整适配源码缓存；Git 忽略大文件
-├── logs/                     构建日志；Git 忽略
-└── dist/release-r70/          Image、可选 boot.img 与验证报告；Git 忽略
+- [构建步骤](docs/BUILD.zh-CN.md)
+- [功能与实机验证边界](docs/FEATURES-REPAIR-r87.zh-CN.md)
+- [源码来源](docs/PROVENANCE.zh-CN.md)
+- [验证方法](docs/VALIDATION.zh-CN.md)
+- [提交历史](docs/HISTORY.md)
 
-~/sheng-618-project-build/k618/
-├── ws/common/                标准 ACK 内核源码，含 Makefile/arch/drivers/fs/include
-├── soc/                      SM8550 SoC 外部驱动
-├── vendor/qcom/opensource/   显示、相机、音频、GPU、Wi-Fi 等外部驱动
-├── vendor/xiaomi/            适配的旧版 DSP RPC
-├── vendor/nxp/、vendor/st/   NFC 等厂商源码
-├── sheng-ports/              触摸、键盘、霍尔、指纹、功放、POGO、PS5169
-├── mark/                     模块批量加载器
-└── out-gki/                  编译输出、模块层和 Image
-```
+Git 仓库保存构建脚本、配置、补丁和来源记录；完整内核源码通过本仓库
+`repair-r87` Release 提供。克隆仓库后下载固定基线缓存到 `assets/`。
+完整源码包 `sheng-6.18.32-repair-r87-source-with-inputs.tar.gz` 已包含该缓存。
+基线缓存名称沿用 r71，应用补丁后得到 r87；并非在构建旧版本。
+不依赖已删除的独立 r76 或风驰工程。7.2 zram/swap 移植未应用到本版本。
 
-首先按 [构建说明](docs/BUILD.zh-CN.md) 准备固定工具链与 elfutils，然后运行：
+`boot.img` 与 `Image` 是现有已验证 r87 产物，本次整理没有重新编译或刷写。
+固件能力/充电动画显示 90 W、120 W不等于实际输入达到该功率。
+手写笔长期稳定性、所有充电器覆盖及全部硬件功能仍有未完成验收项。
 
-```bash
-bash scripts/run-limited.sh bootstrap
-bash build.sh
-bash scripts/run-limited.sh verify
-```
+本机曾应用独立 `/data/vendor/thermal/config/thermal-normal.conf` 覆盖；它不在
+内核镜像或源码包中，单刷 boot 不会撤销该配置。不能将它当作内核性能改动。
 
-构建内核与外部模块的全部步骤均由 Bash 执行。Python 用于源码缓存与哈希检查、
-cgroup 限制，以及上游 mkbootimg/avbtool 工具，不负责内核编译调度。
-默认限制为 4 个编译任务、12 GiB 内存、1 GiB swap。
-
-源码缓存包含全部适配后的源文件，准备过程不依赖旧工程目录。bootstrap 在本版本
-使用随包提供的源码快照；它不会从原始上游自动重演全部历史移植步骤。
-补丁保留供审核，缓存中已应用的补丁不能重复应用。
-
-保留 r70 的显示优先加载、键盘、手写笔、USB 和充电适配。测试日志和内置
-KernelSU/SUSFS 关闭。正常内核错误信息及 GKI 必需的 ABI/BTF 配置保留。
-
-原始 r70 已实机启动。整理后的工程是否完整重编和实机验证，以
-`dist/release-r70/validation.json` 和新的测试记录为准。
-
-参考仓库：https://github.com/JiaqiLi404/android_kernel_618_for_sm8550
+新的功能提交统一归属 GitHub 账号 peiyuesheng666。原 r70 的两条提交保留；
+427 条原始共享项目历史在独立 `port-history` 分支，包含内核与设备树开发。
+主分支当前文件只用于 r87 内核构建。旧 r70 Release 和标签在 r87 验证后删除。
