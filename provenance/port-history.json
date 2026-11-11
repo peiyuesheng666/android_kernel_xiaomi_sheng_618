@@ -1,0 +1,8 @@
+{
+  "original_head": "d60069db416ca2d6e3e334cde1e6349304ed2784",
+  "original_commit_count": 427,
+  "original_commit_ids_preserved": true,
+  "branch": "port-history",
+  "scope": "Original shared sheng workspace history, including kernel port and device-tree work",
+  "bundle": "sheng-port-history.bundle"
+}
