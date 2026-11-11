@@ -7,9 +7,9 @@
 以及模块 split BTF 的缓存重链接修复。保留原有 32 ms 手写笔滤波。
 
 - [构建步骤](docs/BUILD.zh-CN.md)
-- [功能与实机验证边界](docs/FEATURES-REPAIR-r87.zh-CN.md)
+- [功能说明](docs/FEATURES-REPAIR-r87.zh-CN.md)
 - [源码来源](docs/PROVENANCE.zh-CN.md)
-- [验证方法](docs/VALIDATION.zh-CN.md)
+- [本地检查入口](docs/VALIDATION.zh-CN.md)
 - [提交历史](docs/HISTORY.md)
 
 Git 仓库保存构建脚本、配置、补丁和来源记录；完整内核源码通过本仓库
@@ -18,7 +18,7 @@ Git 仓库保存构建脚本、配置、补丁和来源记录；完整内核源�
 基线缓存名称沿用 r71，应用补丁后得到 r87；并非在构建旧版本。
 不依赖已删除的独立 r76 或风驰工程。7.2 zram/swap 移植未应用到本版本。
 
-`boot.img` 与 `Image` 是现有已验证 r87 产物，本次整理没有重新编译或刷写。
+`boot.img` 与 `Image` 是现有 r87 产物，本次整理没有重新编译或刷写。
 固件能力/充电动画显示 90 W、120 W不等于实际输入达到该功率。
 手写笔长期稳定性、所有充电器覆盖及全部硬件功能仍有未完成验收项。
 

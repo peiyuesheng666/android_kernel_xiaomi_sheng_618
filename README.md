@@ -1,13 +1,13 @@
 # Xiaomi Pad 6S Pro (sheng) — Linux 6.18.32 repair r87
 
 [中文说明](README.zh-CN.md) · [Build](docs/BUILD.zh-CN.md) ·
-[Features and device evidence](docs/FEATURES-REPAIR-r87.zh-CN.md) · [History](docs/HISTORY.md)
+[Features](docs/FEATURES-REPAIR-r87.zh-CN.md) · [History](docs/HISTORY.md)
 
 Current release: **repair-r87**, default release profile, 344 embedded modules.
 Includes dual-battery authentication, container networking/IPv6 NAT, SoC identity,
 pen charging interfaces, 57 restored shipping charging nodes, battery bypass,
 immediate eligible third-party PPS verification and split-BTF rebuild fixes.
-The existing 32 ms stylus filter is retained. Hardware limitations are documented.
+The existing 32 ms stylus filter is retained. Functional limitations are documented.
 
 This repository contains the build recipes, configurations, patches, source
 review copies and pinned provenance. Full ACK/SoC/techpack sources are delivered
@@ -30,7 +30,7 @@ bash mkbootimage.sh
 bash scripts/run-limited.sh verify
 ```
 
-Build scripts do not flash a device. Release images match the verified local
-r87 boot/Image hashes. This upload does not introduce a new kernel build.
+Build scripts do not flash a device. Release images are the current r87
+boot.img and Image. This upload does not introduce a new kernel build.
 Original r70 commits remain in main history; the separate `port-history` branch
 retains the 427 original shared-project commits. Old release downloads are retired.
