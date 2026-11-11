@@ -1,0 +1,912 @@
+--- a/k618/soc/drivers/power/supply/qti_battery_charger.c
++++ b/k618/soc/drivers/power/supply/qti_battery_charger.c
+@@ -346,19 +346,19 @@
+ 	XM_PROP_OVER_VOL_DURATION = 163,	/* v */
+ 	XM_PROP_BATT_EMERG = 164,	/* v */
+ 	XM_PROP_SLAVE_AUTHENTIC = 165,	/* sheng shipping slave_authentic */
+-	XM_PROP_FG_VENDOR_ID = 217,	/* v */
+-	XM_PROP_DAM_OVPGATE = 219,	/* v */
+-	XM_PROP_CHARGING_SUSPEND_BATTERY = 220,	/* v */
+-	XM_PROP_IS_EU_MODEL = 221,	/* v */
+-	XM_PROP_PPS_PTF = 222,	/* v */
++	XM_PROP_FG_VENDOR_ID = 216,	/* v */
++	XM_PROP_DAM_OVPGATE = 218,	/* v */
++	XM_PROP_CHARGING_SUSPEND_BATTERY = 219,	/* v */
++	XM_PROP_IS_EU_MODEL = 230,	/* v */
++	XM_PROP_PPS_PTF = 231,	/* v */
+ 	XM_PROP_DOD_COUNT = 223,	/* v */
+ 	XM_PROP_BATT_CAPACITY_INCREASE = 224,	/* v */
+ 	XM_PROP_BATT_SPEC = 225,	/* v */
+ 	XM_PROP_BATT_SPEC_ENABLE = 226,	/* v */
+ 	XM_PROP_BATT_DEVICE_NAME = 227,	/* v */
+ 	XM_PROP_PACK_VENDOR = 228,	/* v */
+-	XM_PROP_LAST_NODE = 229,	/* v */
+-	XM_PROP_MAX = 230,
++	XM_PROP_LAST_NODE = 232,	/* v */
++	XM_PROP_MAX = 233,
+ };
+ enum fg_venodr{
+ 	POWER_SUPPLY_VENDOR_BYD = 0,
+@@ -396,6 +396,8 @@
+ 	u32			value;
+ 	u32			ret_code;
+ };
++
++#include "sheng_charging_messages.h"
+ 
+ struct battery_model_resp_msg {
+ 	struct pmic_glink_hdr	hdr;
+@@ -571,6 +573,8 @@
+ 	int sheng_pen_last;
+ 	bool sheng_has_pen;
+ 	struct mutex sheng_pen_lock;
++	char sheng_battery_serial[49];
++	char sheng_wireless_uuid[25];
+ 	int			k618_panel_tries;
+ };
+ 
+@@ -964,6 +968,8 @@
+ }
+ EXPORT_SYMBOL(qti_battery_charger_get_prop);
+ 
++#include "sheng_charging_message_decode.h"
++
+ static bool validate_message(struct battery_charger_resp_msg *resp_msg,
+ 				size_t len)
+ {
+@@ -1048,6 +1054,11 @@
+ 		break;
+ 	case BC_XM_STATUS_GET:
+ 		pst = &bcdev->psy_list[PSY_TYPE_XM];
++
++		if (sheng_charging_decode_text(bcdev, data, len)) {
++			ack_set = true;
++			break;
++		}
+ 
+ 		/* Handle digest response uniquely as it's a string */
+ 		if (bcdev->digest && len == sizeof(*verify_digest_resp_msg)) {
+@@ -3384,6 +3395,50 @@
+ }
+ static CLASS_ATTR_RW(input_suspend);
+ 
++/* Shipping sheng bypass control: property 219, independent of input suspend. */
++static ssize_t charging_suspend_battery_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev,
++                                               battery_class);
++    struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_XM];
++    int rc;
++
++    if (atomic_read(&bcdev->state) != PMIC_GLINK_STATE_UP ||
++        (bcdev->debug_battery_detected && bcdev->block_tx))
++        return -ENOTCONN;
++    rc = read_property_id(bcdev, pst, XM_PROP_CHARGING_SUSPEND_BATTERY);
++    if (rc < 0)
++        return rc;
++    if (atomic_read(&bcdev->state) != PMIC_GLINK_STATE_UP)
++        return -ENOTCONN;
++    return scnprintf(buf, PAGE_SIZE, "%u\n",
++        READ_ONCE(pst->prop[XM_PROP_CHARGING_SUSPEND_BATTERY]));
++}
++
++static ssize_t charging_suspend_battery_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev,
++                                               battery_class);
++    bool value;
++    int rc;
++
++    if (kstrtobool(buf, &value))
++        return -EINVAL;
++    if (atomic_read(&bcdev->state) != PMIC_GLINK_STATE_UP ||
++        (bcdev->debug_battery_detected && bcdev->block_tx))
++        return -ENOTCONN;
++    rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
++                          XM_PROP_CHARGING_SUSPEND_BATTERY, value);
++    if (rc < 0)
++        return rc;
++    if (atomic_read(&bcdev->state) != PMIC_GLINK_STATE_UP)
++        return -ENOTCONN;
++    return count;
++}
++static CLASS_ATTR_RW(charging_suspend_battery);
++
+ static ssize_t fastchg_mode_show(const struct class *c,
+ 					const struct class_attribute *attr, char *buf)
+ {
+@@ -5934,7 +5989,66 @@
+ 	return rc;
+ }
+ 
++#include "sheng_charging_interfaces.h"
++#include "sheng_charging_special.h"
++
+ static struct attribute *battery_class_attrs[] = {
++	&class_attr_batt_sn.attr,
++	&class_attr_battery_param_reset.attr,
++	&class_attr_car_app.attr,
++	&class_attr_wireless_tx_uuid.attr,
++	&class_attr_wireless_version_forcit.attr,
++	&class_attr_afp_temp.attr,
++	&class_attr_battmoni_isc.attr,
++	&class_attr_battmoni_soa.attr,
++	&class_attr_blank_status.attr,
++	&class_attr_cc_short_vbus.attr,
++	&class_attr_charger_user_value_map.attr,
++	&class_attr_cid_status.attr,
++	&class_attr_cloud_control_cid_mode.attr,
++	&class_attr_cp_ovp_mode.attr,
++	&class_attr_dam_ovpgate.attr,
++	&class_attr_fg1_FullChargeFlag.attr,
++	&class_attr_fg1_ibatt.attr,
++	&class_attr_fg1_r1_discharge_flag.attr,
++	&class_attr_fg1_r2_discharge_flag.attr,
++	&class_attr_fg1_record_delta_r1.attr,
++	&class_attr_fg1_record_delta_r2.attr,
++	&class_attr_fg1_soc.attr,
++	&class_attr_fg1_temp.attr,
++	&class_attr_fg1_vol.attr,
++	&class_attr_fg2_FullChargeFlag.attr,
++	&class_attr_fg2_ai.attr,
++	&class_attr_fg2_current_max.attr,
++	&class_attr_fg2_fcc.attr,
++	&class_attr_fg2_ibatt.attr,
++	&class_attr_fg2_r1_discharge_flag.attr,
++	&class_attr_fg2_r2_discharge_flag.attr,
++	&class_attr_fg2_record_delta_r1.attr,
++	&class_attr_fg2_record_delta_r2.attr,
++	&class_attr_fg2_rm.attr,
++	&class_attr_fg2_rsoc.attr,
++	&class_attr_fg2_soc.attr,
++	&class_attr_fg2_soh.attr,
++	&class_attr_fg2_temp.attr,
++	&class_attr_fg2_tfullq.attr,
++	&class_attr_fg2_tremq.attr,
++	&class_attr_fg2_vol.attr,
++	&class_attr_fg2_vol_max.attr,
++	&class_attr_fg_raw_soc.attr,
++	&class_attr_last_node.attr,
++	&class_attr_max_life_temp.attr,
++	&class_attr_max_life_vol.attr,
++	&class_attr_ntc_alarm.attr,
++	&class_attr_over_vol_duration.attr,
++	&class_attr_plate_shock.attr,
++	&class_attr_pogo_connect.attr,
++	&class_attr_pps_ptf.attr,
++	&class_attr_rx_offset.attr,
++	&class_attr_rx_ss.attr,
++	&class_attr_slave_chip_ok.attr,
++	&class_attr_smart_chg.attr,
++	&class_attr_tx_q.attr,
+ 	/*common charging node*/
+ 	&class_attr_soh.attr,
+ 	&class_attr_resistance.attr,
+@@ -5964,6 +6078,7 @@
+ 	&class_attr_bq2597x_battery_voltage.attr,
+ 	&class_attr_resistance_id.attr,
+ 	&class_attr_input_suspend.attr,
++	&class_attr_charging_suspend_battery.attr,
+ 	&class_attr_cc_orientation.attr,
+ 	&class_attr_authentic.attr,
+ 	&class_attr_slave_authentic.attr,
+--- /dev/null
++++ b/k618/soc/drivers/power/supply/sheng_charging_interfaces.h
+@@ -0,0 +1,553 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Shipping sheng scalar charger ABI. No default property writes. */
++static int sheng_charging_live(struct battery_chg_dev *bcdev)
++{
++    return atomic_read(&bcdev->state) == PMIC_GLINK_STATE_UP &&
++           !(bcdev->debug_battery_detected && bcdev->block_tx);
++}
++
++static ssize_t sheng_charging_show(struct battery_chg_dev *bcdev,
++        u32 id, const char *format, char *buf)
++{
++    struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_XM];
++    int rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    rc = read_property_id(bcdev, pst, id);
++    if (rc < 0)
++        return rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    return scnprintf(buf, PAGE_SIZE, format, READ_ONCE(pst->prop[id]));
++}
++
++static ssize_t sheng_charging_store(struct battery_chg_dev *bcdev,
++        u32 id, u32 value, size_t count)
++{
++    int rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM], id, value);
++    if (rc < 0)
++        return rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    return count;
++}
++
++static ssize_t afp_temp_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 106, "%d\n", buf);
++}
++static CLASS_ATTR_RO(afp_temp);
++
++static ssize_t battmoni_isc_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 114, "%d\n", buf);
++}
++static ssize_t battmoni_isc_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int value;
++    if (kstrtoint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 114, value, count);
++}
++static CLASS_ATTR_RW(battmoni_isc);
++
++static ssize_t battmoni_soa_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 115, "%d\n", buf);
++}
++static CLASS_ATTR_RO(battmoni_soa);
++
++static ssize_t blank_status_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 45, "%u\n", buf);
++}
++static ssize_t blank_status_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    bool value;
++    if (kstrtobool(buf, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 45, value, count);
++}
++static CLASS_ATTR_RW(blank_status);
++
++static ssize_t cc_short_vbus_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 108, "%u", buf);
++}
++static ssize_t cc_short_vbus_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int value;
++    if (kstrtoint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 108, value, count);
++}
++static CLASS_ATTR_RW(cc_short_vbus);
++
++static ssize_t charger_user_value_map_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 10, "%u", buf);
++}
++static ssize_t charger_user_value_map_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int value;
++    if (kstrtoint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 10, value, count);
++}
++static CLASS_ATTR_RW(charger_user_value_map);
++
++static ssize_t cid_status_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 110, "%u", buf);
++}
++static CLASS_ATTR_RO(cid_status);
++
++static ssize_t cloud_control_cid_mode_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 11, "%u", buf);
++}
++static ssize_t cloud_control_cid_mode_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int value;
++    if (kstrtoint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 11, value, count);
++}
++static CLASS_ATTR_RW(cloud_control_cid_mode);
++
++static ssize_t cp_ovp_mode_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 221, "%u\n", buf);
++}
++static ssize_t cp_ovp_mode_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    bool value;
++    if (kstrtobool(buf, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 221, value, count);
++}
++static CLASS_ATTR_RW(cp_ovp_mode);
++
++static ssize_t dam_ovpgate_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 218, "%u\n", buf);
++}
++static ssize_t dam_ovpgate_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    bool value;
++    if (kstrtobool(buf, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 218, value, count);
++}
++static CLASS_ATTR_RW(dam_ovpgate);
++
++static ssize_t fg1_FullChargeFlag_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 181, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg1_FullChargeFlag);
++
++static ssize_t fg1_ibatt_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 172, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg1_ibatt);
++
++static ssize_t fg1_r1_discharge_flag_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 187, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg1_r1_discharge_flag);
++
++static ssize_t fg1_r2_discharge_flag_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 188, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg1_r2_discharge_flag);
++
++static ssize_t fg1_record_delta_r1_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 185, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg1_record_delta_r1);
++
++static ssize_t fg1_record_delta_r2_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 186, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg1_record_delta_r2);
++
++static ssize_t fg1_soc_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 183, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg1_soc);
++
++static ssize_t fg1_temp_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 174, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg1_temp);
++
++static ssize_t fg1_vol_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 176, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg1_vol);
++
++static ssize_t fg2_FullChargeFlag_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 182, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_FullChargeFlag);
++
++static ssize_t fg2_ai_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 178, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_ai);
++
++static ssize_t fg2_current_max_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 169, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_current_max);
++
++static ssize_t fg2_fcc_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 167, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_fcc);
++
++static ssize_t fg2_ibatt_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 173, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_ibatt);
++
++static ssize_t fg2_r1_discharge_flag_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 191, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg2_r1_discharge_flag);
++
++static ssize_t fg2_r2_discharge_flag_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 192, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg2_r2_discharge_flag);
++
++static ssize_t fg2_record_delta_r1_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 189, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg2_record_delta_r1);
++
++static ssize_t fg2_record_delta_r2_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 190, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg2_record_delta_r2);
++
++static ssize_t fg2_rm_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 166, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_rm);
++
++static ssize_t fg2_rsoc_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 171, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_rsoc);
++
++static ssize_t fg2_soc_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 184, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg2_soc);
++
++static ssize_t fg2_soh_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 168, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_soh);
++
++static ssize_t fg2_temp_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 175, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_temp);
++
++static ssize_t fg2_tfullq_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 180, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_tfullq);
++
++static ssize_t fg2_tremq_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 179, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_tremq);
++
++static ssize_t fg2_vol_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 177, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg2_vol);
++
++static ssize_t fg2_vol_max_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 170, "%d\n", buf);
++}
++static CLASS_ATTR_RO(fg2_vol_max);
++
++static ssize_t fg_raw_soc_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 54, "%u\n", buf);
++}
++static CLASS_ATTR_RO(fg_raw_soc);
++
++static ssize_t last_node_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 232, "%u\n", buf);
++}
++static CLASS_ATTR_RO(last_node);
++
++static ssize_t max_life_temp_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 162, "%d\n", buf);
++}
++static CLASS_ATTR_RO(max_life_temp);
++
++static ssize_t max_life_vol_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 161, "%d\n", buf);
++}
++static CLASS_ATTR_RO(max_life_vol);
++
++static ssize_t ntc_alarm_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 9, "%u", buf);
++}
++static ssize_t ntc_alarm_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int value;
++    if (kstrtoint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 9, value, count);
++}
++static CLASS_ATTR_RW(ntc_alarm);
++
++static ssize_t over_vol_duration_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 163, "%d\n", buf);
++}
++static CLASS_ATTR_RO(over_vol_duration);
++
++static ssize_t plate_shock_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 107, "%d\n", buf);
++}
++static ssize_t plate_shock_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int value;
++    if (kstrtoint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 107, value, count);
++}
++static CLASS_ATTR_RW(plate_shock);
++
++static ssize_t pogo_connect_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 223, "%d\n", buf);
++}
++static CLASS_ATTR_RO(pogo_connect);
++
++static ssize_t pps_ptf_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 231, "%u\n", buf);
++}
++static ssize_t pps_ptf_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int value;
++    if (kstrtoint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 231, value, count);
++}
++static CLASS_ATTR_RW(pps_ptf);
++
++static ssize_t rx_offset_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 81, "%u", buf);
++}
++static ssize_t rx_offset_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int value;
++    if (kstrtoint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 81, value, count);
++}
++static CLASS_ATTR_RW(rx_offset);
++
++static ssize_t rx_ss_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 80, "%u", buf);
++}
++static CLASS_ATTR_RO(rx_ss);
++
++static ssize_t slave_chip_ok_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 164, "%u\n", buf);
++}
++static CLASS_ATTR_RO(slave_chip_ok);
++
++static ssize_t smart_chg_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 112, "%u\n", buf);
++}
++static ssize_t smart_chg_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int value;
++    if (kstrtoint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 112, value, count);
++}
++static CLASS_ATTR_RW(smart_chg);
++
++static ssize_t tx_q_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    return sheng_charging_show(bcdev, 82, "%u", buf);
++}
++static CLASS_ATTR_RO(tx_q);
++
+--- /dev/null
++++ b/k618/soc/drivers/power/supply/sheng_charging_messages.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Verified shipping requests: serial property 160 is 64 bytes, UUID 73 is 44 bytes. */
++struct sheng_battery_serial_msg {
++    struct pmic_glink_hdr hdr;
++    u32 property_id;
++    char serial[48];
++};
++struct sheng_wireless_uuid_msg {
++    struct pmic_glink_hdr hdr;
++    u32 property_id;
++    u32 value;
++    char version[24];
++};
++static_assert(sizeof(struct sheng_battery_serial_msg) == 64);
++static_assert(sizeof(struct sheng_wireless_uuid_msg) == 44);
+--- /dev/null
++++ b/k618/soc/drivers/power/supply/sheng_charging_message_decode.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++static bool sheng_charging_decode_text(struct battery_chg_dev *bcdev,
++        const void *data, size_t len)
++{
++    const struct sheng_battery_serial_msg *serial = data;
++    const struct sheng_wireless_uuid_msg *uuid = data;
++    if (len < sizeof(struct pmic_glink_hdr) + sizeof(u32))
++        return false;
++    if (serial->hdr.opcode != BC_XM_STATUS_GET)
++        return false;
++    if (len == sizeof(*serial) && serial->property_id == 160) {
++        memcpy(bcdev->sheng_battery_serial, serial->serial, sizeof(serial->serial));
++        bcdev->sheng_battery_serial[sizeof(serial->serial)] = '\0';
++        return true;
++    }
++    if (len == sizeof(*uuid) && uuid->property_id == 73) {
++        memcpy(bcdev->sheng_wireless_uuid, uuid->version, sizeof(uuid->version));
++        bcdev->sheng_wireless_uuid[sizeof(uuid->version)] = '\0';
++        return true;
++    }
++    return false;
++}
+--- /dev/null
++++ b/k618/soc/drivers/power/supply/sheng_charging_special.h
+@@ -0,0 +1,116 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++static ssize_t batt_sn_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    struct sheng_battery_serial_msg request = { .property_id = 160 };
++    int rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    request.hdr.owner = MSG_OWNER_BC;
++    request.hdr.type = MSG_TYPE_REQ_RESP;
++    request.hdr.opcode = bcdev->psy_list[PSY_TYPE_XM].opcode_get;
++    rc = battery_chg_write(bcdev, &request, sizeof(request));
++    if (rc < 0)
++        return rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    return scnprintf(buf, PAGE_SIZE, "%.*s\n", 48, bcdev->sheng_battery_serial);
++}
++static CLASS_ATTR_RO(batt_sn);
++
++static ssize_t wireless_tx_uuid_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    struct sheng_wireless_uuid_msg request = { .property_id = 73 };
++    int rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    request.hdr.owner = MSG_OWNER_BC;
++    request.hdr.type = MSG_TYPE_REQ_RESP;
++    request.hdr.opcode = bcdev->psy_list[PSY_TYPE_XM].opcode_get;
++    rc = battery_chg_write(bcdev, &request, sizeof(request));
++    if (rc < 0)
++        return rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    return scnprintf(buf, PAGE_SIZE, "%.*s\n", 24, bcdev->sheng_wireless_uuid);
++}
++static CLASS_ATTR_RO(wireless_tx_uuid);
++
++static ssize_t battery_param_reset_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    int rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    rc = read_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM], 113);
++    if (rc < 0)
++        return rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    /* Shipping factory ABI returns 100 after an acknowledged read, not a progress counter. */
++    return scnprintf(buf, PAGE_SIZE, "%u\n", 100);
++}
++static ssize_t battery_param_reset_store(const struct class *c,
++        const struct class_attribute *attr, const char *buf, size_t count)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    unsigned int value;
++    if (kstrtouint(buf, 0, &value))
++        return -EINVAL;
++    return sheng_charging_store(bcdev, 113, value, count);
++}
++static CLASS_ATTR_RW(battery_param_reset);
++
++static ssize_t car_app_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    /* Shipping pogo_flag is initialized by qti_get_DCIN_STATE (property 223).
++     * Read the live property rather than introduce a second stale notification cache. */
++    return sheng_charging_show(bcdev, 223, "%u", buf);
++}
++static CLASS_ATTR_RO(car_app);
++
++static ssize_t wireless_version_forcit_show(const struct class *c,
++        const struct class_attribute *attr, char *buf)
++{
++    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++    unsigned long deadline = jiffies + msecs_to_jiffies(5000);
++    char *value;
++    ssize_t rc;
++    if (!sheng_charging_live(bcdev))
++        return -ENOTCONN;
++    value = kzalloc(PAGE_SIZE, GFP_KERNEL);
++    if (!value)
++        return -ENOMEM;
++    for (;;) {
++        rc = wireless_chip_fw_show(c, attr, value);
++        if (rc < 0)
++            goto out;
++        if (!sheng_charging_live(bcdev)) {
++            rc = -ENOTCONN;
++            goto out;
++        }
++        if (rc == 0 || value[0] == '\0' || value[0] == '\n') {
++            rc = -ENODATA;
++            goto out;
++        }
++        if (strncmp(value, "updating", 8))
++            break;
++        if (time_after_eq(jiffies, deadline)) {
++            rc = -ETIMEDOUT;
++            goto out;
++        }
++        msleep(200);
++    }
++    rc = scnprintf(buf, PAGE_SIZE, "%s\n",
++        !strncmp(value, "00.00.00.00", 11) || strstr(value, "fe") ? "fail" : "pass");
++out:
++    kfree(value);
++    return rc;
++}
++static CLASS_ATTR_RO(wireless_version_forcit);

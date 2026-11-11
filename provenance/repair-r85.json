@@ -1,0 +1,468 @@
+{
+  "revision": "repair-r85",
+  "base": "ipv6-release-r76",
+  "project": "/root/sheng-618-repair-r87-project",
+  "build": "/root/sheng-618-repair-r86-build",
+  "files": {
+    "k618/soc/drivers/power/supply/qti_battery_charger.c": {
+      "before": "aa8c41650da9b97715238bd5a4581f3d003245c990bc0c3aa3ccd347bafbe666",
+      "after": "174b86c848c3813a67b986f33507a12af5ff744e706922db928a05600b204c49"
+    },
+    "k618/soc/drivers/power/supply/sheng_charging_interfaces.h": {
+      "before": null,
+      "after": "fefaacc3172dd56016f827d269a8c62160c965f9b7b2b5ec9330bce80baf0618"
+    },
+    "k618/soc/drivers/power/supply/sheng_charging_messages.h": {
+      "before": null,
+      "after": "a9f3e5e6aa8f593de0b7058e1353d9a80b49d1f9c887981d5d0511aa6a91663a"
+    },
+    "k618/soc/drivers/power/supply/sheng_charging_message_decode.h": {
+      "before": null,
+      "after": "7a41318654b3629e7871654dbf6ef23f5aabc30a8bfacf88c27c22eee1fe2e7d"
+    },
+    "k618/soc/drivers/power/supply/sheng_charging_special.h": {
+      "before": null,
+      "after": "0ec13fd6b3fb4de66a543fe52f49b09a63317183624551350c4697405631b488"
+    }
+  },
+  "patch": "patches/sheng-repair-r85.patch",
+  "patch_sha256": "0f4a5892b874b25dc42e207bc89e7ad57799b9a17af35c47a8e2b0593fd6ffeb",
+  "bypass_property_id": 219,
+  "default_charging_writes_added": false,
+  "bypass_runtime_verified": false,
+  "pen_fixed": false,
+  "pps_fixed": false,
+  "flashed": false,
+  "restored_scalar_nodes": [
+    {
+      "node": "afp_temp",
+      "id": 106,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x00000000000057f8",
+      "store_address": null
+    },
+    {
+      "node": "battmoni_isc",
+      "id": 114,
+      "format": "%d\n",
+      "parser": "kstrtoint",
+      "show_address": "0x0000000000010340",
+      "store_address": "0x00000000000103f0"
+    },
+    {
+      "node": "battmoni_soa",
+      "id": 115,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x00000000000104cc",
+      "store_address": null
+    },
+    {
+      "node": "blank_status",
+      "id": 45,
+      "format": "%u\n",
+      "parser": "kstrtobool",
+      "show_address": "0x00000000000099bc",
+      "store_address": "0x0000000000009a6c"
+    },
+    {
+      "node": "cc_short_vbus",
+      "id": 108,
+      "format": "%u",
+      "parser": "kstrtoint",
+      "show_address": "0x000000000000c1c4",
+      "store_address": "0x000000000000c274"
+    },
+    {
+      "node": "charger_user_value_map",
+      "id": 10,
+      "format": "%u",
+      "parser": "kstrtoint",
+      "show_address": "0x000000000000a278",
+      "store_address": "0x000000000000a328"
+    },
+    {
+      "node": "cid_status",
+      "id": 110,
+      "format": "%u",
+      "parser": null,
+      "show_address": "0x000000000000c3e4",
+      "store_address": null
+    },
+    {
+      "node": "cloud_control_cid_mode",
+      "id": 11,
+      "format": "%u",
+      "parser": "kstrtoint",
+      "show_address": "0x000000000000a404",
+      "store_address": "0x000000000000a4b4"
+    },
+    {
+      "node": "cp_ovp_mode",
+      "id": 221,
+      "format": "%u\n",
+      "parser": "kstrtobool",
+      "show_address": "0x0000000000011fa8",
+      "store_address": "0x0000000000012078"
+    },
+    {
+      "node": "dam_ovpgate",
+      "id": 218,
+      "format": "%u\n",
+      "parser": "kstrtobool",
+      "show_address": "0x0000000000011af4",
+      "store_address": "0x0000000000011ba4"
+    },
+    {
+      "node": "fg1_FullChargeFlag",
+      "id": 181,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000011204",
+      "store_address": null
+    },
+    {
+      "node": "fg1_ibatt",
+      "id": 172,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010bd4",
+      "store_address": null
+    },
+    {
+      "node": "fg1_r1_discharge_flag",
+      "id": 187,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000011624",
+      "store_address": null
+    },
+    {
+      "node": "fg1_r2_discharge_flag",
+      "id": 188,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x00000000000116d4",
+      "store_address": null
+    },
+    {
+      "node": "fg1_record_delta_r1",
+      "id": 185,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x00000000000114c4",
+      "store_address": null
+    },
+    {
+      "node": "fg1_record_delta_r2",
+      "id": 186,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000011574",
+      "store_address": null
+    },
+    {
+      "node": "fg1_soc",
+      "id": 183,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000011364",
+      "store_address": null
+    },
+    {
+      "node": "fg1_temp",
+      "id": 174,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010d34",
+      "store_address": null
+    },
+    {
+      "node": "fg1_vol",
+      "id": 176,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000010e94",
+      "store_address": null
+    },
+    {
+      "node": "fg2_FullChargeFlag",
+      "id": 182,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x00000000000112b4",
+      "store_address": null
+    },
+    {
+      "node": "fg2_ai",
+      "id": 178,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010ff4",
+      "store_address": null
+    },
+    {
+      "node": "fg2_current_max",
+      "id": 169,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x00000000000109c4",
+      "store_address": null
+    },
+    {
+      "node": "fg2_fcc",
+      "id": 167,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010864",
+      "store_address": null
+    },
+    {
+      "node": "fg2_ibatt",
+      "id": 173,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010c84",
+      "store_address": null
+    },
+    {
+      "node": "fg2_r1_discharge_flag",
+      "id": 191,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x00000000000118e4",
+      "store_address": null
+    },
+    {
+      "node": "fg2_r2_discharge_flag",
+      "id": 192,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000011994",
+      "store_address": null
+    },
+    {
+      "node": "fg2_record_delta_r1",
+      "id": 189,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000011784",
+      "store_address": null
+    },
+    {
+      "node": "fg2_record_delta_r2",
+      "id": 190,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000011834",
+      "store_address": null
+    },
+    {
+      "node": "fg2_rm",
+      "id": 166,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x00000000000107b4",
+      "store_address": null
+    },
+    {
+      "node": "fg2_rsoc",
+      "id": 171,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010b24",
+      "store_address": null
+    },
+    {
+      "node": "fg2_soc",
+      "id": 184,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000011414",
+      "store_address": null
+    },
+    {
+      "node": "fg2_soh",
+      "id": 168,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010914",
+      "store_address": null
+    },
+    {
+      "node": "fg2_temp",
+      "id": 175,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010de4",
+      "store_address": null
+    },
+    {
+      "node": "fg2_tfullq",
+      "id": 180,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000011154",
+      "store_address": null
+    },
+    {
+      "node": "fg2_tremq",
+      "id": 179,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x00000000000110a4",
+      "store_address": null
+    },
+    {
+      "node": "fg2_vol",
+      "id": 177,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000010f44",
+      "store_address": null
+    },
+    {
+      "node": "fg2_vol_max",
+      "id": 170,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010a74",
+      "store_address": null
+    },
+    {
+      "node": "fg_raw_soc",
+      "id": 54,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000009788",
+      "store_address": null
+    },
+    {
+      "node": "last_node",
+      "id": 232,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x0000000000011dc4",
+      "store_address": null
+    },
+    {
+      "node": "max_life_temp",
+      "id": 162,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x00000000000101e0",
+      "store_address": null
+    },
+    {
+      "node": "max_life_vol",
+      "id": 161,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010130",
+      "store_address": null
+    },
+    {
+      "node": "ntc_alarm",
+      "id": 9,
+      "format": "%u",
+      "parser": "kstrtoint",
+      "show_address": "0x000000000000a0ec",
+      "store_address": "0x000000000000a19c"
+    },
+    {
+      "node": "over_vol_duration",
+      "id": 163,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000010290",
+      "store_address": null
+    },
+    {
+      "node": "plate_shock",
+      "id": 107,
+      "format": "%d\n",
+      "parser": "kstrtoint",
+      "show_address": "0x000000000000be04",
+      "store_address": "0x000000000000beb4"
+    },
+    {
+      "node": "pogo_connect",
+      "id": 223,
+      "format": "%d\n",
+      "parser": null,
+      "show_address": "0x0000000000011ecc",
+      "store_address": null
+    },
+    {
+      "node": "pps_ptf",
+      "id": 231,
+      "format": "%u\n",
+      "parser": "kstrtoint",
+      "show_address": "0x00000000000122b4",
+      "store_address": "0x0000000000012364"
+    },
+    {
+      "node": "rx_offset",
+      "id": 81,
+      "format": "%u",
+      "parser": "kstrtoint",
+      "show_address": "0x000000000000e638",
+      "store_address": "0x000000000000e6e8"
+    },
+    {
+      "node": "rx_ss",
+      "id": 80,
+      "format": "%u",
+      "parser": null,
+      "show_address": "0x000000000000e588",
+      "store_address": null
+    },
+    {
+      "node": "slave_chip_ok",
+      "id": 164,
+      "format": "%u\n",
+      "parser": null,
+      "show_address": "0x000000000001057c",
+      "store_address": null
+    },
+    {
+      "node": "smart_chg",
+      "id": 112,
+      "format": "%u\n",
+      "parser": "kstrtoint",
+      "show_address": "0x000000000000c604",
+      "store_address": "0x000000000000c6b4"
+    },
+    {
+      "node": "tx_q",
+      "id": 82,
+      "format": "%u",
+      "parser": null,
+      "show_address": "0x000000000000e7a8",
+      "store_address": null
+    }
+  ],
+  "deferred_non_scalar_nodes": [],
+  "stock_property_array_size": 233,
+  "restored_special_nodes": [
+    "batt_sn",
+    "battery_param_reset",
+    "car_app",
+    "wireless_tx_uuid",
+    "wireless_version_forcit"
+  ],
+  "special_abi_notes": {
+    "serial_request_bytes": 64,
+    "serial_id": 160,
+    "serial_payload_bytes": 48,
+    "uuid_request_bytes": 44,
+    "uuid_id": 73,
+    "uuid_payload_bytes": 24,
+    "pogo_source": "live DCIN property 223",
+    "factory_reset_read": "shipping constant 100 after live acknowledgement",
+    "factory_version_timeout_ms": 5000,
+    "factory_rejects_empty_or_disconnected_reply": true
+  },
+  "reused_mutable_build_cache": true
+}
