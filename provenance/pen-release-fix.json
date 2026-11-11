@@ -1,0 +1,56 @@
+{
+  "revision": "pen-release-r75",
+  "base": "scene-debug-r74",
+  "patch": "patches/sheng-pen-release-r75.patch",
+  "patch_sha256": "b42db4995148f8c546a8171117dd31b065c8d5ce41e63b3eb2708366c33e51cf",
+  "files": {
+    "k618/soc/drivers/power/supply/qti_battery_charger.c": {
+      "before": "580adf51c053897bc74779cd939b099750e92816ec060d76c1cdd999ac2c3ee6",
+      "after": "aa8c41650da9b97715238bd5a4581f3d003245c990bc0c3aa3ccd347bafbe666"
+    },
+    "k618/ws/common/kernel/reboot.c": {
+      "before": "e44110017d8f67e8cb5ded844ec36525cf89b2c10e25a43fae4760b2d6b491f8",
+      "after": "da5e1f16be3e528391692771761e98b2fad0da45e67f24e5551d60f01d0ce711"
+    },
+    "k618/ws/common/kernel/panic.c": {
+      "before": "4dab8155bb7b46ae8c0dc3b4d54b9c268bdb9ee4ed3f8c088f7dd3dc3ce0202f",
+      "after": "40378aae0439dbfdceae35def45d7f4075f91ba01b78359ecc1d906c7b5ad863"
+    },
+    "k618/ws/common/arch/arm64/kernel/traps.c": {
+      "before": "681d72ab4b92937c6126a8a58f791d003ebcb8f5f2dfce370224143b543f084d",
+      "after": "3e3561b2134cbbe93589f4cd7df1c7f2559ee41e25a7366644f84ae64b9a6845"
+    }
+  },
+  "nodes": [
+    "pen_mac",
+    "tx_iout",
+    "tx_vout",
+    "pen_soc",
+    "pen_hall3",
+    "pen_hall4",
+    "pen_tx_ss",
+    "pen_place_err",
+    "fake_ss"
+  ],
+  "property_ids": {
+    "XM_PROP_PEN_MACL": 83,
+    "XM_PROP_PEN_MACH": 84,
+    "XM_PROP_TX_IOUT": 85,
+    "XM_PROP_TX_VOUT": 86,
+    "XM_PROP_PEN_SOC": 87,
+    "XM_PROP_PEN_HALL3": 88,
+    "XM_PROP_PEN_HALL4": 89,
+    "XM_PROP_PEN_TX_SS": 90,
+    "XM_PROP_PEN_PLACE_ERR": 91,
+    "XM_PROP_FAKE_SS": 92
+  },
+  "reference_commit": "29db5d592c5b577aa9d9611da988a5e071d100dd",
+  "reference_branch": "sheng-u-oss",
+  "shipped_wireless_id_offset": 5,
+  "runtime_gate": "sheng panel 0x4e38316150360200",
+  "firmware_reads": true,
+  "rawdump": false,
+  "timeout_reboot": false,
+  "force_fault_fastboot": false,
+  "oplus_gamesched_included": false
+}

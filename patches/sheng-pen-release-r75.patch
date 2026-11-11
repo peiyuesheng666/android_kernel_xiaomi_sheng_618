@@ -1,0 +1,436 @@
+--- a/k618/soc/drivers/power/supply/qti_battery_charger.c
++++ b/k618/soc/drivers/power/supply/qti_battery_charger.c
+@@ -264,8 +264,16 @@
+ 	XM_PROP_RX_SS = 80,	/* v */
+ 	XM_PROP_RX_OFFSET = 81,	/* v */
+ 	XM_PROP_TX_Q = 82,	/* v */
+-	XM_PROP_PEN_HALL3 = 88,	/* v */
+-	XM_PROP_PEN_HALL4 = 89,	/* v */
++	XM_PROP_PEN_MACL = 83,	/* MiCode wireless block + shipped sheng offset */
++	XM_PROP_PEN_MACH = 84,	/* MiCode wireless block + shipped sheng offset */
++	XM_PROP_TX_IOUT = 85,	/* MiCode wireless block + shipped sheng offset */
++	XM_PROP_TX_VOUT = 86,	/* MiCode wireless block + shipped sheng offset */
++	XM_PROP_PEN_SOC = 87,	/* MiCode wireless block + shipped sheng offset */
++	XM_PROP_PEN_HALL3 = 88,	/* MiCode wireless block + shipped sheng offset */
++	XM_PROP_PEN_HALL4 = 89,	/* MiCode wireless block + shipped sheng offset */
++	XM_PROP_PEN_TX_SS = 90,	/* MiCode wireless block + shipped sheng offset */
++	XM_PROP_PEN_PLACE_ERR = 91,	/* MiCode wireless block + shipped sheng offset */
++	XM_PROP_FAKE_SS = 92,	/* MiCode wireless block + shipped sheng offset */
+ 	XM_PROP_SHUTDOWN_DELAY = 94,	/* v */
+ 	XM_PROP_FAKE_TEMP = 95,	/* v */
+ 	XM_PROP_THERMAL_REMOVE = 96,	/* v */
+@@ -562,6 +570,7 @@
+ 	struct work_struct sheng_pen_work;
+ 	int sheng_pen_last;
+ 	bool sheng_has_pen;
++	struct mutex sheng_pen_lock;
+ 	int			k618_panel_tries;
+ };
+ 
+@@ -1287,6 +1296,52 @@
+ 	kernel_power_off();*/
+ }
+ 
++/* Pen values must come from a live glink transaction, never a zero-filled cache. */
++static int sheng_pen_read_locked(struct battery_chg_dev *bcdev, u32 id, u32 *value)
++{
++	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_XM];
++	int rc;
++
++	lockdep_assert_held(&bcdev->sheng_pen_lock);
++	if (!bcdev->sheng_has_pen)
++		return -ENODEV;
++	if (atomic_read(&bcdev->state) != PMIC_GLINK_STATE_UP ||
++	    (bcdev->debug_battery_detected && bcdev->block_tx))
++		return -ENOTCONN;
++	rc = read_property_id(bcdev, pst, id);
++	if (rc)
++		return rc;
++	if (atomic_read(&bcdev->state) != PMIC_GLINK_STATE_UP)
++		return -ENOTCONN;
++	*value = READ_ONCE(pst->prop[id]);
++	return 0;
++}
++
++static int sheng_pen_read(struct battery_chg_dev *bcdev, u32 id, u32 *value)
++{
++	int rc;
++
++	mutex_lock(&bcdev->sheng_pen_lock);
++	rc = sheng_pen_read_locked(bcdev, id, value);
++	mutex_unlock(&bcdev->sheng_pen_lock);
++	return rc;
++}
++
++static int sheng_pen_read_mac(struct battery_chg_dev *bcdev, u64 *mac)
++{
++	u32 low, high;
++	int rc;
++
++	mutex_lock(&bcdev->sheng_pen_lock);
++	rc = sheng_pen_read_locked(bcdev, XM_PROP_PEN_MACL, &low);
++	if (!rc)
++		rc = sheng_pen_read_locked(bcdev, XM_PROP_PEN_MACH, &high);
++	if (!rc)
++		*mac = ((u64)high << 32) | low;
++	mutex_unlock(&bcdev->sheng_pen_lock);
++	return rc;
++}
++
+ /* sheng: MiCode pen docking notifications (real XM hall properties). */
+ static ATOMIC_NOTIFIER_HEAD(pen_charge_state_notifier);
+ int pen_charge_state_notifier_register_client(struct notifier_block *nb);
+@@ -1296,16 +1351,17 @@
+ {
+ 	struct battery_chg_dev *bcdev = container_of(work, struct battery_chg_dev,
+ 		sheng_pen_work);
+-	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_XM];
++	u32 hall3, hall4;
+ 	int rc, attached;
+ 
+-	rc = read_property_id(bcdev, pst, XM_PROP_PEN_HALL3);
++	mutex_lock(&bcdev->sheng_pen_lock);
++	rc = sheng_pen_read_locked(bcdev, XM_PROP_PEN_HALL3, &hall3);
++	if (!rc)
++		rc = sheng_pen_read_locked(bcdev, XM_PROP_PEN_HALL4, &hall4);
++	mutex_unlock(&bcdev->sheng_pen_lock);
+ 	if (rc)
+ 		return;
+-	rc = read_property_id(bcdev, pst, XM_PROP_PEN_HALL4);
+-	if (rc)
+-		return;
+-	attached = !(!!pst->prop[XM_PROP_PEN_HALL3] & !!pst->prop[XM_PROP_PEN_HALL4]);
++	attached = !(!!hall3 & !!hall4);
+ 	if (attached != bcdev->sheng_pen_last) {
+ 		bcdev->sheng_pen_last = attached;
+ 		atomic_notifier_call_chain(&pen_charge_state_notifier, attached, NULL);
+@@ -5728,6 +5784,153 @@
+ 	class_remove_file(&bcdev->battery_class, &class_attr_cc_toggle);
+ remove_screen:
+ 	class_remove_file(&bcdev->battery_class, &class_attr_screen_cctog);
++	return rc;
++}
++
++/* sheng pen sysfs ABI used by HyperOS stylus/battery services. */
++static ssize_t pen_mac_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	u64 mac;
++	int rc = sheng_pen_read_mac(bcdev, &mac);
++
++	return rc ? rc : scnprintf(buf, PAGE_SIZE, "%llx", mac);
++}
++static CLASS_ATTR_RO(pen_mac);
++
++static ssize_t tx_iout_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	u32 value;
++	int rc = sheng_pen_read(bcdev, XM_PROP_TX_IOUT, &value);
++
++	return rc ? rc : scnprintf(buf, PAGE_SIZE, "%d\n", value);
++}
++static CLASS_ATTR_RO(tx_iout);
++
++static ssize_t tx_vout_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	u32 value;
++	int rc = sheng_pen_read(bcdev, XM_PROP_TX_VOUT, &value);
++
++	return rc ? rc : scnprintf(buf, PAGE_SIZE, "%d\n", value);
++}
++static CLASS_ATTR_RO(tx_vout);
++
++static ssize_t pen_soc_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	u32 value;
++	int rc = sheng_pen_read(bcdev, XM_PROP_PEN_SOC, &value);
++
++	return rc ? rc : scnprintf(buf, PAGE_SIZE, "%d\n", value);
++}
++static CLASS_ATTR_RO(pen_soc);
++
++static ssize_t pen_hall3_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	u32 value;
++	int rc = sheng_pen_read(bcdev, XM_PROP_PEN_HALL3, &value);
++
++	return rc ? rc : scnprintf(buf, PAGE_SIZE, "%d", value);
++}
++static CLASS_ATTR_RO(pen_hall3);
++
++static ssize_t pen_hall4_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	u32 value;
++	int rc = sheng_pen_read(bcdev, XM_PROP_PEN_HALL4, &value);
++
++	return rc ? rc : scnprintf(buf, PAGE_SIZE, "%d", value);
++}
++static CLASS_ATTR_RO(pen_hall4);
++
++static ssize_t pen_tx_ss_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	u32 value;
++	int rc = sheng_pen_read(bcdev, XM_PROP_PEN_TX_SS, &value);
++
++	return rc ? rc : scnprintf(buf, PAGE_SIZE, "%d", value);
++}
++static CLASS_ATTR_RO(pen_tx_ss);
++
++static ssize_t pen_place_err_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	u32 value;
++	int rc = sheng_pen_read(bcdev, XM_PROP_PEN_PLACE_ERR, &value);
++
++	return rc ? rc : scnprintf(buf, PAGE_SIZE, "%d", value);
++}
++static CLASS_ATTR_RO(pen_place_err);
++
++static ssize_t fake_ss_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	u32 value;
++	int rc = sheng_pen_read(bcdev, XM_PROP_FAKE_SS, &value);
++
++	return rc ? rc : scnprintf(buf, PAGE_SIZE, "%u\n", value);
++}
++static ssize_t fake_ss_store(const struct class *c,
++		const struct class_attribute *attr, const char *buf, size_t count)
++{
++	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
++	int rc, value;
++
++	if (kstrtoint(buf, 10, &value))
++		return -EINVAL;
++	mutex_lock(&bcdev->sheng_pen_lock);
++	if (atomic_read(&bcdev->state) != PMIC_GLINK_STATE_UP)
++		rc = -ENOTCONN;
++	else
++		rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM], XM_PROP_FAKE_SS, value);
++	mutex_unlock(&bcdev->sheng_pen_lock);
++	return rc ? rc : count;
++}
++static CLASS_ATTR_RW(fake_ss);
++
++static const struct class_attribute *sheng_pen_attrs[] = {
++	&class_attr_pen_mac,
++	&class_attr_tx_iout,
++	&class_attr_tx_vout,
++	&class_attr_pen_soc,
++	&class_attr_pen_hall3,
++	&class_attr_pen_hall4,
++	&class_attr_pen_tx_ss,
++	&class_attr_pen_place_err,
++	&class_attr_fake_ss,
++};
++
++static int sheng_battery_chg_add_pen_attributes(struct battery_chg_dev *bcdev)
++{
++	int rc;
++	size_t i;
++
++	if (!bcdev->sheng_has_pen)
++		return 0;
++	for (i = 0; i < ARRAY_SIZE(sheng_pen_attrs); i++) {
++		rc = class_create_file(&bcdev->battery_class, sheng_pen_attrs[i]);
++		if (rc)
++			goto remove;
++	}
++	return 0;
++remove:
++	while (i)
++		class_remove_file(&bcdev->battery_class, sheng_pen_attrs[--i]);
+ 	return rc;
+ }
+ 
+@@ -6339,6 +6542,41 @@
+ 	battery_chg_register_panel_notifier(bcdev);
+ }
+ 
++/* Use the original platform-device uevent path/field names. Failed reads emit nothing. */
++static int sheng_pen_add_uevent(struct battery_chg_dev *bcdev, struct kobj_uevent_env *env)
++{
++	static const struct {
++		u32 id;
++		const char *name;
++	} fields[] = {
++		{ XM_PROP_REVERSE_CHG_STATE, "POWER_SUPPLY_REVERSE_PEN_CHG_STATE" },
++		{ XM_PROP_PEN_HALL3, "POWER_SUPPLY_PEN_HALL3" },
++		{ XM_PROP_PEN_HALL4, "POWER_SUPPLY_PEN_HALL4" },
++		{ XM_PROP_PEN_SOC, "POWER_SUPPLY_REVERSE_PEN_SOC" },
++		{ XM_PROP_PEN_PLACE_ERR, "POWER_SUPPLY_PEN_PLACE_ERR" },
++	};
++	u32 value;
++	u64 mac;
++	size_t i;
++	int rc;
++
++	if (!bcdev || !bcdev->sheng_has_pen)
++		return 0;
++	for (i = 0; i < ARRAY_SIZE(fields); i++) {
++		if (sheng_pen_read(bcdev, fields[i].id, &value))
++			continue;
++		/* MiCode uses 0xff for unknown pen charge level. */
++		if (fields[i].id == XM_PROP_PEN_SOC && value == 0xff)
++			continue;
++		rc = add_uevent_var(env, "%s=%u", fields[i].name, value);
++		if (rc)
++			return rc;
++	}
++	if (!sheng_pen_read_mac(bcdev, &mac))
++		return add_uevent_var(env, "POWER_SUPPLY_PEN_MAC=%llx", mac);
++	return 0;
++}
++
+ #define MAX_UEVENT_LENGTH 50
+ static int add_xiaomi_uevent(const struct device *dev, struct kobj_uevent_env *env)
+ {
+@@ -6348,6 +6586,11 @@
+ 	char *prop_buf = NULL;
+ 	char uevent_string[MAX_UEVENT_LENGTH+1];
+ 	u32 i = 0;
++	int rc;
++
++	rc = sheng_pen_add_uevent(bcdev, env);
++	if (rc)
++		return rc;
+ 
+ 	prop_buf = (char *)get_zeroed_page(GFP_KERNEL);
+ 	if (!prop_buf)
+@@ -6477,6 +6720,7 @@
+ 		return -ENOMEM;
+ 
+ 	mutex_init(&bcdev->rw_lock);
++	mutex_init(&bcdev->sheng_pen_lock);
+ 	init_completion(&bcdev->ack);
+ 	init_completion(&bcdev->fw_buf_ack);
+ 	init_completion(&bcdev->fw_update_ack);
+@@ -6556,6 +6800,12 @@
+ 		goto error;
+ 	}
+ 
++	rc = sheng_battery_chg_add_pen_attributes(bcdev);
++	if (rc) {
++		class_unregister(&bcdev->battery_class);
++		goto error;
++	}
++
+ 	rc = sheng_battery_chg_add_usb_attributes(bcdev);
+ 	if (rc) {
+ 		class_unregister(&bcdev->battery_class);
+@@ -6584,6 +6834,7 @@
+ 
+ 	bcdev->wls_fw_update_time_ms = WLS_FW_UPDATE_TIME_MS;
+ 	battery_chg_add_debugfs(bcdev);
++	dev->type = &dev_type_xiaomi_uevent;
+ 	bcdev->notify_en = false;
+ 	battery_chg_notify_enable(bcdev);
+ 	device_init_wakeup(bcdev->dev, true);
+@@ -6591,7 +6842,8 @@
+ 	schedule_delayed_work(&bcdev->charger_debug_info_print_work, 5 * HZ);
+ 	schedule_delayed_work(&bcdev->batt_update_work, 0);
+ 	bcdev->debug_work_en = 1;
+-	dev->type = &dev_type_xiaomi_uevent;
++	if (bcdev->sheng_has_pen)
++		schedule_delayed_work(&bcdev->xm_prop_change_work, 0);
+ 
+ 	strcpy(bcdev->wireless_chip_fw_version, "00.00.00.00");
+ 	bcdev->battery_auth = false;
+@@ -6633,13 +6885,14 @@
+ 	device_init_wakeup(bcdev->dev, false);
+ 	debugfs_remove_recursive(bcdev->debugfs_dir);
+ 	cancel_work_sync(&bcdev->subsys_up_work);
+-	class_unregister(&bcdev->battery_class);
+ 	unregister_reboot_notifier(&bcdev->reboot_notifier);
+ 	unregister_reboot_notifier(&bcdev->shutdown_notifier);
+ 	rc = pmic_glink_unregister_client(bcdev->client);
+ 	if (rc < 0)
+ 		pr_err("Error unregistering from pmic_glink, rc=%d\n", rc);
+ 	cancel_work_sync(&bcdev->sheng_pen_work);
++	cancel_delayed_work_sync(&bcdev->xm_prop_change_work);
++	class_unregister(&bcdev->battery_class);
+ 
+ }
+ 
+--- a/k618/ws/common/kernel/reboot.c
++++ b/k618/ws/common/kernel/reboot.c
+@@ -14,7 +14,6 @@
+ #include <linux/kmod.h>
+ #include <linux/kmsg_dump.h>
+ #include <linux/reboot.h>
+-#include <linux/sheng_bootlog.h>
+ #include <linux/suspend.h>
+ #include <linux/syscalls.h>
+ #include <linux/syscore_ops.h>
+@@ -97,10 +96,7 @@
+ {
+ 	kmsg_dump(KMSG_DUMP_EMERG);
+ 	system_state = SYSTEM_RESTART;
+-	if (sheng_bootlog_test_mode())
+-		machine_restart("bootloader");
+-	else
+-		machine_emergency_restart();
++	machine_emergency_restart();
+ }
+ EXPORT_SYMBOL_GPL(emergency_restart);
+ 
+@@ -293,8 +289,6 @@
+  */
+ void kernel_restart(char *cmd)
+ {
+-	if (sheng_bootlog_test_mode())
+-		cmd = "bootloader";
+ 	kernel_restart_prepare(cmd);
+ 	do_kernel_restart_prepare();
+ 	migrate_to_reboot_cpu();
+--- a/k618/ws/common/kernel/panic.c
++++ b/k618/ws/common/kernel/panic.c
+@@ -21,7 +21,6 @@
+ #include <linux/random.h>
+ #include <linux/ftrace.h>
+ #include <linux/reboot.h>
+-#include <linux/sheng_bootlog.h>
+ #include <linux/delay.h>
+ #include <linux/kexec.h>
+ #include <linux/panic_notifier.h>
+@@ -497,7 +496,6 @@
+ 	 * the other CPUs or else we won't be able to debug processes left
+ 	 * running on them.
+ 	 */
+-	sheng_bootlog_panic_pause();
+ 	kgdb_panic(buf);
+ 
+ 	/*
+--- a/k618/ws/common/arch/arm64/kernel/traps.c
++++ b/k618/ws/common/arch/arm64/kernel/traps.c
+@@ -15,7 +15,6 @@
+ #include <linux/uaccess.h>
+ #include <linux/hardirq.h>
+ #include <linux/kdebug.h>
+-#include <linux/sheng_bootlog.h>
+ #include <linux/module.h>
+ #include <linux/kexec.h>
+ #include <linux/delay.h>
+@@ -197,7 +196,6 @@
+ 		return ret;
+ 
+ 	dump_kernel_instr(addr);
+-	sheng_bootlog_fault_pause();
+ 
+ 	return ret;
+ }
