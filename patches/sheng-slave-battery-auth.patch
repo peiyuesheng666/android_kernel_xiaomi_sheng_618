@@ -1,0 +1,89 @@
+--- a/k618/soc/drivers/power/supply/qti_battery_charger.c
++++ b/k618/soc/drivers/power/supply/qti_battery_charger.c
+@@ -337,7 +337,7 @@
+ 	XM_PROP_MAX_LIFE_TEMP = 162,	/* v */
+ 	XM_PROP_OVER_VOL_DURATION = 163,	/* v */
+ 	XM_PROP_BATT_EMERG = 164,	/* v */
+-	XM_PROP_SLAVE_AUTHENTIC = 166,	/* v */
++	XM_PROP_SLAVE_AUTHENTIC = 165,	/* sheng shipping slave_authentic */
+ 	XM_PROP_FG_VENDOR_ID = 217,	/* v */
+ 	XM_PROP_DAM_OVPGATE = 219,	/* v */
+ 	XM_PROP_CHARGING_SUSPEND_BATTERY = 220,	/* v */
+@@ -545,6 +545,7 @@
+ 	bool				notify_en;
+ 	/*battery auth check for ssr*/
+ 	bool				battery_auth;
++	bool				slave_battery_auth;
+ 	/*dual battery authentic flag*/
+ 	bool				slave_fg_verify_flag;
+ 	int				mtbf_current;
+@@ -3069,6 +3070,46 @@
+ }
+ static CLASS_ATTR_RW(authentic);
+ 
++/* sheng has two authenticated fuel gauges. The shipping batterysecret
++ * service computes the digest through verify_slave_flag/verify_digest and
++ * writes its result here. Property 165 is verified against the device's
++ * shipping qti_battery_charger.ko; 166 belongs to the next gauge property.
++ */
++static ssize_t slave_authentic_show(const struct class *c,
++		const struct class_attribute *attr, char *buf)
++{
++	struct battery_chg_dev *bcdev =
++		container_of(c, struct battery_chg_dev, battery_class);
++	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_XM];
++	int rc;
++
++	rc = read_property_id(bcdev, pst, XM_PROP_SLAVE_AUTHENTIC);
++	if (rc < 0)
++		return rc;
++	return scnprintf(buf, PAGE_SIZE, "%u\n",
++			 pst->prop[XM_PROP_SLAVE_AUTHENTIC]);
++}
++
++static ssize_t slave_authentic_store(const struct class *c,
++		const struct class_attribute *attr, const char *buf, size_t count)
++{
++	struct battery_chg_dev *bcdev =
++		container_of(c, struct battery_chg_dev, battery_class);
++	bool val;
++	int rc;
++
++	if (kstrtobool(buf, &val))
++		return -EINVAL;
++	rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
++				XM_PROP_SLAVE_AUTHENTIC, val);
++	if (rc < 0)
++		return rc;
++	/* Remember only a successfully delivered authentication result. */
++	bcdev->slave_battery_auth = val;
++	return count;
++}
++static CLASS_ATTR_RW(slave_authentic);
++
+ static ssize_t bap_match_store(const struct class *c,
+ 		const struct class_attribute *attr, const char *buf, size_t count)
+ {
+@@ -5722,6 +5763,7 @@
+ 	&class_attr_input_suspend.attr,
+ 	&class_attr_cc_orientation.attr,
+ 	&class_attr_authentic.attr,
++	&class_attr_slave_authentic.attr,
+ 	&class_attr_bap_match.attr,
+ 	&class_attr_chip_ok.attr,
+ 	&class_attr_soc_decimal.attr,
+@@ -5964,12 +6006,12 @@
+ 			pr_info("XM_PROP_AUTHENTIC = %d bcdev->battery_auth = %d, re-set battery auth\n", pst->prop[XM_PROP_AUTHENTIC], bcdev->battery_auth);
+ 		}
+ 
+-		/*rc = read_property_id(bcdev, pst, XM_PROP_SLAVE_AUTHENTIC);
++		rc = read_property_id(bcdev, pst, XM_PROP_SLAVE_AUTHENTIC);
+ 		if (!rc && !pst->prop[XM_PROP_SLAVE_AUTHENTIC] && bcdev->slave_battery_auth) {
+ 			rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
+ 					XM_PROP_SLAVE_AUTHENTIC, bcdev->slave_battery_auth);
+ 			pr_info("XM_PROP_SLAVE_AUTHENTIC = %d bcdev->slave_battery_auth = %d, re-set battery auth\n", pst->prop[XM_PROP_SLAVE_AUTHENTIC], bcdev->slave_battery_auth);
+-		}*/
++		}
+ 
+ 		pr_err("vbus_vol_uv: %d, ibus_ua: %d\n", vbus_vol_uv, ibus_ua);
+ 		interval = CHARGING_PERIOD_S;

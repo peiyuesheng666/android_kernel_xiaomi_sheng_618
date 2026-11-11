@@ -1,3 +1,7 @@
 * text=auto eol=lf
 *.tar.gz -text
 *.tar.zst -text
+
+# Preserve audited vendor bytes and unified-patch context exactly.
+*.patch -whitespace
+kernel-6.18/charging/* -whitespace

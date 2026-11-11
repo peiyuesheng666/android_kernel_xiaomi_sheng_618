@@ -1,0 +1,19 @@
+{
+  "revision": "fastcharge-r71",
+  "base": "release-r70",
+  "patch": "patches/sheng-slave-battery-auth.patch",
+  "patch_sha256": "1f77a094b261339f938c570788fbfd17d501b25dfcb26ed05643c37dca582ec5",
+  "files": {
+    "k618/soc/drivers/power/supply/qti_battery_charger.c": {
+      "before": "cf46fc4b02d27fb14bff72eaaf0349ae9219e77733a3eb61102eb833eea05cf9",
+      "after": "580adf51c053897bc74779cd939b099750e92816ec060d76c1cdd999ac2c3ee6"
+    }
+  },
+  "shipping_module_sha256": "3190a88b2bbc3abb3de123a08233c0ebea2bade2e424d67f18e62ea9e2e38047",
+  "slave_authentic_property_id": 165,
+  "shipping_read_function_address": "0x1062c",
+  "shipping_write_function_address": "0x106dc",
+  "authentication_service": "/vendor/bin/batterysecret",
+  "automatic_authentication_success_written": false,
+  "thermal_or_current_protections_changed": false
+}
