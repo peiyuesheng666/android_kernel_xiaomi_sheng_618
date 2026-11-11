@@ -6,12 +6,18 @@ if [ "${1:-}" = --help ]; then echo 'Usage: bash buildmodules.sh'; exit 0; fi
 start_stage buildmodules "$@"
 require_toolchain
 require_kernel
+"$PYTHON" "$PROJECT_ROOT/scripts/apply-charging-fix.py"
+"$PYTHON" "$PROJECT_ROOT/scripts/apply-repair-r85.py"
 invalidate_result
 rm -f -- "$output/.modules-ready.json" "$output/.embed-ready.json"
 # Restore the core configuration when rerunning this stage after embedding.
 cp "$output/kernel.config" "$output/.config"
 run modules-config "${make_cmd[@]}" olddefconfig
+# Split BTF is tied to vmlinux even when module object files are unchanged.
+# Regenerate the final .ko links before extracting this run's kernel BTF base.
+"$PYTHON" "$PROJECT_ROOT/tools/invalidate-module-links.py"
 run gki-modules "${make_cmd[@]}" modules
+"$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" extract --kernel "$output/vmlinux" --output "$output/kernel-module-base.btf"
 awk -F '\t' '$3 == "vmlinux"' "$output/Module.symvers" | sort > "$output/kernel-symbols.before"
 run soc "${make_cmd[@]}" "M=$soc" modules
 symbols=("$soc/Module.symvers")

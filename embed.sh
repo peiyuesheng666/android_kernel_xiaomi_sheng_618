@@ -34,6 +34,15 @@ while IFS=$'\t' read -r name source; do
   "$clang/llvm-strip" --strip-debug "$modules/$name"
 done < <(jq -r 'to_entries[] | [.key, .value] | @tsv' "$mapping")
 [ "$(find "$modules" -maxdepth 1 -name '*.ko' | wc -l)" = 344 ] || { echo 'Unexpected module count'; exit 1; }
+host_btf=$BUILD_ROOT/host-tools/btf-distill
+mkdir -p "$host_btf/libbpf"
+run host-libbpf make -C "$ack/tools/lib/bpf" OUTPUT="$host_btf/libbpf/" -j"$JOBS" BUILD_STATIC_ONLY=1 EXTRA_CFLAGS=-O2
+gcc -O2 -Wall -Wextra -Werror -I"$ack/tools/lib/bpf" -I"$ack/tools/include/uapi" \
+  "$PROJECT_ROOT/tools/sheng-btf-distill.c" "$host_btf/libbpf/libbpf.a" -lelf -lz -o "$host_btf/sheng-btf-distill"
+run module-btf-distill "$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" distill --count 344 \
+  --kernel "$output/kernel-module-base.btf" --modules "$modules" --tool "$host_btf/sheng-btf-distill" \
+  --objcopy "$clang/llvm-objcopy" --output "$output/module-btf-distill.json"
+
 run usermode-loader "$clang/clang" --target=aarch64-linux-gnu -O2 -nostdlib -static \
   -ffreestanding -fno-stack-protector -fuse-ld=lld -Wl,--build-id=none -s \
   -o "$layer/k618_umh" "$PROJECT_ROOT/tools/k618_umh.c"
@@ -59,6 +68,11 @@ run embedded-image "${make_cmd[@]}" Image
 sort "$output/vmlinux.symvers" > "$output/kernel-symbols.after"
 cmp "$output/kernel-symbols.before" "$output/kernel-symbols.after"
 cp "$output/arch/arm64/boot/Image" "$output/Image"
+"$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" extract --kernel "$output/vmlinux" --output "$output/kernel-final-r85.btf"
+run module-btf-final "$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" verify --count 344 \
+  --kernel "$output/kernel-final-r85.btf" --modules "$modules" --tool "$host_btf/sheng-btf-distill" \
+  --output "$output/module-btf-final.json"
+
 image_sha=$(sha256sum "$output/Image" | cut -d' ' -f1)
 jq -n --arg release "$release" --arg image "$image_sha" \
   --arg snapshot "$(jq -r .sha256 "$PROJECT_ROOT/provenance/source-cache.json")" \
