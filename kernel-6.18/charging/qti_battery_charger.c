@@ -16,6 +16,8 @@
 #include <linux/reboot.h>
 #include <linux/rpmsg.h>
 #include <linux/mutex.h>
+#include <linux/jiffies.h>
+#include <linux/workqueue.h>
 #include <linux/pm_wakeup.h>
 #include <linux/power_supply.h>
 #include <linux/thermal.h>
@@ -503,6 +505,8 @@ struct psy_state {
 	u32			opcode_set;
 };
 
+#include "sheng_pps_policy.h"
+
 struct battery_chg_dev {
 	struct device			*dev;
 	struct class			battery_class;
@@ -523,6 +527,11 @@ struct battery_chg_dev {
 	atomic_t			state;
 	struct work_struct		subsys_up_work;
 	struct work_struct		usb_type_work;
+	struct delayed_work sheng_pps_work;
+	struct mutex sheng_pps_lock;
+	struct sheng_pps_policy sheng_pps;
+	atomic_t sheng_pps_epoch, sheng_pps_reset;
+	bool sheng_pps_stopping;
 	struct work_struct		battery_check_work;
 	struct delayed_work		charger_debug_info_print_work;
 	struct delayed_work		batt_update_work;
@@ -912,6 +921,9 @@ static void battery_chg_state_cb(void *priv, enum pmic_glink_state state)
 		return;
 	}
 
+	atomic_inc(&bcdev->sheng_pps_epoch);
+	if (state == PMIC_GLINK_STATE_DOWN)
+		atomic_set(&bcdev->sheng_pps_reset, 1);
 	atomic_set(&bcdev->state, state);
 	if (state == PMIC_GLINK_STATE_UP)
 		schedule_work(&bcdev->subsys_up_work);
@@ -1177,6 +1189,8 @@ static void handle_message(struct battery_chg_dev *bcdev, void *data,
 
 static struct power_supply_desc usb_psy_desc;
 
+#include "sheng_pps_auto_verify.h"
+
 static void battery_chg_update_usb_type_work(struct work_struct *work)
 {
 	struct battery_chg_dev *bcdev = container_of(work,
@@ -1184,6 +1198,8 @@ static void battery_chg_update_usb_type_work(struct work_struct *work)
 	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_USB];
 	int rc;
 
+	if (READ_ONCE(bcdev->sheng_pps_stopping))
+		return;
 	rc = read_property_id(bcdev, pst, USB_ADAP_TYPE);
 	if (rc < 0) {
 		pr_err("Failed to read USB_ADAP_TYPE rc=%d\n", rc);
@@ -1231,6 +1247,7 @@ static void battery_chg_update_usb_type_work(struct work_struct *work)
 		usb_psy_desc.type = POWER_SUPPLY_TYPE_UNKNOWN;
 		break;
 	}
+	sheng_pps_kick(bcdev);
 }
 
 static void battery_chg_check_status_work(struct work_struct *work)
@@ -1434,6 +1451,7 @@ static void handle_notification(struct battery_chg_dev *bcdev, void *data,
 		break;
 	case BC_USB_STATUS_GET:
 		pst = &bcdev->psy_list[PSY_TYPE_USB];
+		atomic_inc(&bcdev->sheng_pps_epoch);
 		schedule_work(&bcdev->usb_type_work);
 		break;
 	case BC_WLS_STATUS_GET:
@@ -1441,6 +1459,7 @@ static void handle_notification(struct battery_chg_dev *bcdev, void *data,
 		break;
 	case BC_XM_STATUS_GET:
 		schedule_delayed_work(&bcdev->xm_prop_change_work, 0);
+		sheng_pps_kick(bcdev);
 		if (bcdev->sheng_has_pen)
 			schedule_work(&bcdev->sheng_pen_work);
 		break;
@@ -2311,6 +2330,7 @@ static void battery_chg_subsys_up_work(struct work_struct *work)
 			pr_err("Failed to set ICL(%u uA), rc=%d\n",
 				bcdev->usb_icl_ua, rc);
 	}
+	schedule_work(&bcdev->usb_type_work);
 }
 
 static int wireless_fw_send_firmware(struct battery_chg_dev *bcdev,
@@ -4905,23 +4925,26 @@ static ssize_t adapter_svid_show(const struct class *c,
 static CLASS_ATTR_RO(adapter_svid);
 
 static ssize_t pd_verifed_store(const struct class *c,
-					const struct class_attribute *attr,
-					const char *buf, size_t count)
+        const struct class_attribute *attr, const char *buf, size_t count)
 {
-	struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev,
-						battery_class);
-	int rc;
-	bool val;
-
-	if (kstrtobool(buf, &val))
-		return -EINVAL;
-
-	rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
-				XM_PROP_PD_VERIFED, val);
-	if (rc < 0)
-		return rc;
-
-	return count;
+    struct battery_chg_dev *bcdev = container_of(c, struct battery_chg_dev, battery_class);
+    bool val;
+    int rc;
+    if (kstrtobool(buf, &val))
+        return -EINVAL;
+    mutex_lock(&bcdev->sheng_pps_lock);
+    rc = sheng_pps_live(bcdev) ?
+        write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM], XM_PROP_PD_VERIFED, val) :
+        -ENOTCONN;
+    if (rc >= 0 && !sheng_pps_live(bcdev))
+        rc = -ENOTCONN;
+    /* Explicit zero while connected wins until the next observed disconnect. */
+    if (rc >= 0 && !val && bcdev->sheng_pps.connected)
+        bcdev->sheng_pps.inhibit = true;
+    mutex_unlock(&bcdev->sheng_pps_lock);
+    if (rc < 0)
+        return rc;
+    return count;
 }
 
 static ssize_t pd_verifed_show(const struct class *c,
@@ -6856,6 +6879,10 @@ static int battery_chg_probe(struct platform_device *pdev)
 	}
 	INIT_WORK(&bcdev->subsys_up_work, battery_chg_subsys_up_work);
 	INIT_WORK(&bcdev->usb_type_work, battery_chg_update_usb_type_work);
+	INIT_DELAYED_WORK(&bcdev->sheng_pps_work, sheng_pps_auto_work);
+	mutex_init(&bcdev->sheng_pps_lock);
+	atomic_set(&bcdev->sheng_pps_epoch, 0);
+	atomic_set(&bcdev->sheng_pps_reset, 0);
 	INIT_WORK(&bcdev->battery_check_work, battery_chg_check_status_work);
 	INIT_DELAYED_WORK( &bcdev->xm_prop_change_work, generate_xm_charge_uvent);
 	INIT_DELAYED_WORK( &bcdev->charger_debug_info_print_work, xm_charger_debug_info_print_work);
@@ -6973,10 +7000,15 @@ static int battery_chg_probe(struct platform_device *pdev)
 	dev_err(dev, "battery_chg probe done\n");	/* k618: the %d had no argument */
 	return 0;
 error:
+	WRITE_ONCE(bcdev->sheng_pps_stopping, true);
 	cancel_work_sync(&bcdev->subsys_up_work);
+	cancel_work_sync(&bcdev->usb_type_work);
+	cancel_delayed_work_sync(&bcdev->sheng_pps_work);
 	bcdev->initialized = false;
 	complete(&bcdev->ack);
 	pmic_glink_unregister_client(bcdev->client);
+	cancel_work_sync(&bcdev->usb_type_work);
+	cancel_delayed_work_sync(&bcdev->sheng_pps_work);
 	unregister_reboot_notifier(&bcdev->reboot_notifier);
 	unregister_reboot_notifier(&bcdev->shutdown_notifier);
 	return rc;
@@ -6986,6 +7018,11 @@ static void battery_chg_remove(struct platform_device *pdev)
 {
 	struct battery_chg_dev *bcdev = platform_get_drvdata(pdev);
 	int rc;
+
+	WRITE_ONCE(bcdev->sheng_pps_stopping, true);
+	cancel_work_sync(&bcdev->subsys_up_work);
+	cancel_work_sync(&bcdev->usb_type_work);
+	cancel_delayed_work_sync(&bcdev->sheng_pps_work);
 
 	mutex_lock(&sheng_keyboard_charger_lock);
 	if (sheng_keyboard_bcdev == bcdev)
@@ -7005,6 +7042,8 @@ static void battery_chg_remove(struct platform_device *pdev)
 	rc = pmic_glink_unregister_client(bcdev->client);
 	if (rc < 0)
 		pr_err("Error unregistering from pmic_glink, rc=%d\n", rc);
+	cancel_work_sync(&bcdev->usb_type_work);
+	cancel_delayed_work_sync(&bcdev->sheng_pps_work);
 	cancel_work_sync(&bcdev->sheng_pen_work);
 	cancel_delayed_work_sync(&bcdev->xm_prop_change_work);
 	class_unregister(&bcdev->battery_class);
