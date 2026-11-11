@@ -1,0 +1,18 @@
+{
+  "revision": "release-r71",
+  "source_files": 103604,
+  "source_links": 133,
+  "archive_bytes": 309494461,
+  "archive_sha256": "06400886b7d6572c4e2440811e991525eeda88e491804e4e8a26d9dd3577e04f",
+  "all_source_hashes_readback_verified": true,
+  "compiled_inputs_match": true,
+  "excluded": [
+    "out",
+    ".git",
+    "toolchains",
+    "*.o",
+    "*.ko",
+    "logs",
+    "ROM images"
+  ]
+}
