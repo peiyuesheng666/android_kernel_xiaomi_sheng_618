@@ -1,0 +1,21 @@
+{
+  "revision": "ipv6-release-r76",
+  "baseline": "pen-release-r75",
+  "build_root": "/root/sheng-618-pen-release-build",
+  "reuse_prepared_source_for_config_only_update": true,
+  "r75_delivery_unchanged": true,
+  "defconfig_before_sha256": "078ee0099546e41c9fd59e635df5c46efa48e60038ef3da860cf0dde61e171de",
+  "defconfig_after_sha256": "88d6d837d479f4d76baa345a09ac79ef42dcfcdb696614b9f42277bbc1a93527",
+  "built_in_ipv6_nat_options": [
+    "IP6_NF_NAT",
+    "IP6_NF_TARGET_MASQUERADE",
+    "NETFILTER_XT_NAT",
+    "NETFILTER_XT_TARGET_MASQUERADE",
+    "IP6_NF_IPTABLES_LEGACY",
+    "NF_NAT"
+  ],
+  "release": true,
+  "rawdump": false,
+  "timer_fastboot": false,
+  "oplus_gamesched_included": false
+}

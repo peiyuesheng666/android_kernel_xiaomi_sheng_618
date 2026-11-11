@@ -1,0 +1,16 @@
+--- a/sheng_defconfig
++++ b/sheng_defconfig
+@@ -1528,7 +1528,7 @@
+ CONFIG_IP6_NF_MANGLE=y
+ CONFIG_IP6_NF_RAW=y
+ # CONFIG_IP6_NF_SECURITY is not set
+-# CONFIG_IP6_NF_NAT is not set
++CONFIG_IP6_NF_NAT=y
+ # end of IPv6: Netfilter Configuration
+ 
+ CONFIG_NF_DEFRAG_IPV6=y
+@@ -8603,3 +8603,4 @@
+ 
+ CONFIG_IO_URING_ZCRX=y
+ CONFIG_IPC_NS=y
++CONFIG_IP6_NF_TARGET_MASQUERADE=y
