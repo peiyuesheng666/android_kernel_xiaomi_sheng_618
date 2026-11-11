@@ -1,0 +1,31 @@
+{
+  "upstream": "https://github.com/ravindu644/Droidspaces-OSS",
+  "upstream_commit": "cdadb9eb5d0f86aacffff60776333e6f6b73a30a",
+  "upstream_patch": "Documentation/resources/kernel-patches/GKI/kernel-6.12/001.GKI-6.12-or-above-fix_sysvipc_kabi.patch",
+  "upstream_patch_sha256": "059db74ecf615273785f25c54b0b26f61cee9ea330d3b4787cdfd8172778eaad",
+  "official_version_scope": "GKI 6.12 and newer",
+  "patch": "patches/sheng-droidspaces-sysvipc.patch",
+  "patch_sha256": "146283b94a0f2671f73c131fc6566fb5b34db1537584aba0f81d2bbf3b38c0c5",
+  "files": {
+    "k618/ws/common/include/linux/sched.h": {
+      "before": "6987b25e88fb92fd282a34c5c0f31234fdbf6f76025071ff1eaff5e313c416fe",
+      "after": "7fb9f3eba00c7eb6ec2906a4944dc6c8d7640983f2dc08344d90ad5925f26df1"
+    }
+  },
+  "enabled_options": [
+    "CONFIG_SYSVIPC",
+    "CONFIG_POSIX_MQUEUE",
+    "CONFIG_IPC_NS",
+    "CONFIG_PID_NS",
+    "CONFIG_DEVTMPFS",
+    "CONFIG_USER_NS",
+    "CONFIG_NETFILTER_XT_MATCH_ADDRTYPE"
+  ],
+  "defconfig_before_sha256": "14f12d753b38b6710dc1a129b88443843b5e22b5c1f451a6e33f7a1864e2103d",
+  "defconfig_after_sha256": "d3f4853fc1d1d3882339e2ad70a875eeb771c4de970744c2c1f657945a0aa3f8",
+  "unused_rust_binder_disabled": true,
+  "rust_binder_disable_reason": "The optional rust_binder.ko is absent from the 344 shipping modules and references unexported init_ipc_ns/put_ipc_ns when IPC_NS is enabled; the built-in C Binder remains enabled.",
+  "baseline_task_struct_padding_bytes": 24,
+  "baseline_task_struct_sched_entity_offset": 192,
+  "runtime_verified": false
+}
