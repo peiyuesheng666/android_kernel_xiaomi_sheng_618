@@ -18,7 +18,7 @@ if [ -n "$os_patch" ] && [ "$os_patch" != None ]; then version_args+=(--os_patch
 gzip -n -9 -c "$image" > "$output/Image.gz"
 "$python" "$here/mkbootimg/mkbootimg.py" --kernel "$output/Image.gz" \
   --header_version "$header" "${version_args[@]}" \
-  --cmdline loglevel=4 --output "$output/boot.img"
+  --cmdline "${SHENG_BOOT_CMDLINE:?Source build-env.sh before packing}" --output "$output/boot.img"
 "$python" "$here/avbtool.py" add_hash_footer --image "$output/boot.img" \
-  --partition_name boot --partition_size "$(stat -c %s "$stock")" --algorithm NONE
+  --partition_name boot --partition_size 201326592 --algorithm NONE
 "$python" "$here/avbtool.py" verify_image --image "$output/boot.img"

@@ -12,7 +12,32 @@ project = Path(os.environ['PROJECT_ROOT']).resolve()
 root = Path(os.environ['BUILD_ROOT']).resolve()
 k = root / 'k618'
 expected = json.loads((project / 'provenance/source-files.json').read_text())
+charging_fix = json.loads((project / 'provenance/charging-fix.json').read_text())
+subprocess.run([os.environ['PYTHON'], project / 'scripts/apply-charging-fix.py', '--check'], check=True)
+for name, hashes in charging_fix['files'].items():
+    assert expected[name] in (hashes['before'], hashes['after']), name
+    expected[name] = hashes['after']
+droidspaces_fix = json.loads((project / 'provenance/droidspaces-fix.json').read_text())
+subprocess.run([os.environ['PYTHON'], project / 'scripts/apply-droidspaces-fix.py', '--check'], check=True)
+for name, hashes in droidspaces_fix['files'].items():
+    assert expected[name] in (hashes['before'], hashes['after']), name
+    expected[name] = hashes['after']
 generated_metadata = {}
+scene_fix = json.loads((project / 'provenance/scene-socinfo-fix.json').read_text())
+subprocess.run([os.environ['PYTHON'], project / 'scripts/apply-scene-socinfo-fix.py', '--check'], check=True)
+for name, hashes in scene_fix['files'].items():
+    assert expected[name] in (hashes['before'], hashes['after']), name
+    expected[name] = hashes['after']
+pen_fix = json.loads((project / 'provenance/pen-release-fix.json').read_text())
+subprocess.run([os.environ['PYTHON'], project / 'scripts/apply-pen-release-fix.py', '--check'], check=True)
+for name, hashes in pen_fix['files'].items():
+    assert expected[name] in (hashes['before'], hashes['after']), name
+    expected[name] = hashes['after']
+repair_fix = json.loads((project / 'provenance/repair-r85.json').read_text())
+subprocess.run([os.environ['PYTHON'], project / 'scripts/apply-repair-r85.py', '--check'], check=True)
+for name, hashes in repair_fix['files'].items():
+    assert expected.get(name) == hashes['before'], name
+    expected[name] = hashes['after']
 for name, want in expected.items():
     with (root / name).open('rb') as stream:
         got = hashlib.file_digest(stream, 'sha256').hexdigest()
@@ -45,10 +70,33 @@ result = {'source_files_verified': len(expected), 'module_count': len(mapping),
           'defconfig': 'sheng_defconfig',
           'stage_scripts': ['buildkernel.sh', 'buildmodules.sh', 'embed.sh', 'mkbootimage.sh'],
           'source_layout_verified': True, 'build_root': str(root), 'fresh_build_verified': False,
-          'regenerated_camera_build_metadata': generated_metadata}
+          'regenerated_camera_build_metadata': generated_metadata,
+          'charging_fix': charging_fix, 'droidspaces_fix': droidspaces_fix,
+          'scene_socinfo_fix': scene_fix, 'pen_release_fix': pen_fix, 'repair_r87': repair_fix}
 built = k / 'out-gki/build-result.json'
 if built.exists():
     build = json.loads(built.read_text())
+    network_options = ('IPVLAN', 'MACVLAN', 'VXLAN', 'BRIDGE',
+                       'BRIDGE_VLAN_FILTERING', 'VLAN_8021Q', 'OVERLAY_FS')
+    config = (k / 'out-gki/kernel.config').read_text().splitlines()
+    for option in network_options:
+        assert f'CONFIG_{option}=y' in config, option
+    result['container_network_filesystem'] = {option: 'y' for option in network_options}
+    ipv6_nat_options = ('IP6_NF_NAT', 'IP6_NF_TARGET_MASQUERADE', 'NETFILTER_XT_NAT', 'NETFILTER_XT_TARGET_MASQUERADE', 'IP6_NF_IPTABLES_LEGACY', 'NF_NAT')
+    for option in ipv6_nat_options:
+        assert f'CONFIG_{option}=y' in config, option
+    result['ipv6_nat'] = {option: 'y' for option in ipv6_nat_options}
+    mode = os.environ['SHENG_BUILD_MODE']
+    assert mode in ('debug', 'release')
+    logger = 'CONFIG_SHENG_BOOTLOG=y' in config
+    assert logger == (mode == 'debug'), 'Build mode and logger configuration differ'
+    embedded_config = subprocess.check_output(['bash', k / 'ws/common/scripts/extract-ikconfig',
+                                               k / 'out-gki/Image'], text=True).splitlines()
+    assert ('CONFIG_SHENG_BOOTLOG=y' in embedded_config) == logger
+    result['build_profile'] = dict(mode=mode, rawdump_enabled=logger,
+                                  test_timeout_seconds=int(os.environ['SHENG_TEST_TIMEOUT']) if logger else None,
+                                  cmdline=os.environ['SHENG_BOOT_CMDLINE'],
+                                  release_default=True)
     for name, want in build['artifacts'].items():
         with (k / 'out-gki' / name).open('rb') as stream:
             assert hashlib.file_digest(stream, 'sha256').hexdigest() == want, name
@@ -61,9 +109,20 @@ if built.exists():
                                  '--boot_img', k / 'out-gki/boot.img', '--out', unpack])
         assert (unpack / 'ramdisk').stat().st_size == 0
         assert gzip.decompress((unpack / 'kernel').read_bytes()) == (k / 'out-gki/Image').read_bytes()
+        boot_data = (k / 'out-gki/boot.img').read_bytes()
+        assert boot_data[44:1580].split(b'\0', 1)[0].decode() == os.environ['SHENG_BOOT_CMDLINE']
     abi = subprocess.check_output([os.environ['PYTHON'], project / 'tools/verify-module-abi.py',
                                    k / 'out-gki', k / 'out-gki/layer/lib/modules'], text=True)
     result.update(fresh_build_verified=True, build=build, module_abi=json.loads(abi))
+    btf = json.loads((k / 'out-gki/module-btf-final.json').read_text())
+    assert btf['all_modules_passed'] and btf['module_count'] == 344
+    for record in btf['modules']:
+        with (k / 'out-gki/layer/lib/modules' / record['module']).open('rb') as stream:
+            assert hashlib.file_digest(stream, 'sha256').hexdigest() == record['sha256']
+        assert set(record['btf']) == {'.BTF', '.BTF.base'}
+    result['module_btf'] = {key: value for key, value in btf.items() if key != 'modules'}
+    result['source_model'] = 'pinned r76 baseline cache plus inherited and combined repair-r87 patches'
+
 else:
     result['build_status'] = 'No completed build in this prepared workspace'
 dest = project / 'dist' / os.environ['TAG']

@@ -17,6 +17,11 @@ if marker.exists():
     if json.loads(marker.read_text())['archive_sha256'] != inputs['sha256']:
         raise SystemExit('Build root belongs to a different snapshot; choose a new BUILD_ROOT')
     print('Already prepared: ' + str(root))
+    subprocess.run([sys.executable, project / 'scripts/apply-charging-fix.py'], check=True)
+    subprocess.run([sys.executable, project / 'scripts/apply-droidspaces-fix.py'], check=True)
+    subprocess.run([sys.executable, project / 'scripts/apply-scene-socinfo-fix.py'], check=True)
+    subprocess.run([sys.executable, project / 'scripts/apply-pen-release-fix.py'], check=True)
+    subprocess.run([sys.executable, project / 'scripts/apply-repair-r85.py'], check=True)
     raise SystemExit(0)
 if root.exists() and any(root.iterdir()):
     raise SystemExit('Unprepared BUILD_ROOT is nonempty; choose an empty directory')
@@ -50,5 +55,10 @@ for name, want in expected.items():
 for path in (root / 'k618').rglob('*'):
     if path.is_symlink() and not path.resolve().is_relative_to(root):
         raise SystemExit('Escaping source symlink: ' + str(path))
+subprocess.run([sys.executable, project / 'scripts/apply-charging-fix.py'], check=True)
+subprocess.run([sys.executable, project / 'scripts/apply-droidspaces-fix.py'], check=True)
+subprocess.run([sys.executable, project / 'scripts/apply-scene-socinfo-fix.py'], check=True)
+subprocess.run([sys.executable, project / 'scripts/apply-pen-release-fix.py'], check=True)
+subprocess.run([sys.executable, project / 'scripts/apply-repair-r85.py'], check=True)
 marker.write_text(json.dumps({'archive_sha256': digest, 'source_files': len(expected)}, indent=2) + '\n')
 print('Prepared and hash-verified ' + str(len(expected)) + ' source files: ' + str(root / 'k618'))

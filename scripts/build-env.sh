@@ -2,6 +2,13 @@
 # Shared environment and state checks for the four independent build stages.
 . "$(dirname -- "${BASH_SOURCE[0]}")/project-env.sh"
 . "$PROJECT_ROOT/profiles/default.env"
+case "$SHENG_BUILD_MODE" in
+  debug)
+    export SHENG_BOOT_CMDLINE="printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_bootlog.test_timeout=$SHENG_TEST_TIMEOUT sheng_bootlog.revision=$TAG panic=5"
+    ;;
+  release) export SHENG_BOOT_CMDLINE='loglevel=4';;
+  *) echo 'SHENG_BUILD_MODE must be debug or release' >&2; return 2 2>/dev/null || exit 2;;
+esac
 ack=$K618/ws/common
 soc=$K618/soc
 tp=$K618/vendor/qcom/opensource
