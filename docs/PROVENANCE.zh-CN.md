@@ -8,7 +8,7 @@ Qualcomm WALT 来自 CodeLinaro kernel.lnx.6.12.r70-rel，固定提交 46f13428a
 本版源码与镜像记录见[WALT 来源记录](../provenance/walt-charge-release.json)。
 
 工程使用已适配的固定源码快照 sheng-kernel-build-inputs.tar.gz。
-构建入口校验源码哈希、修正路径并回放适配补丁，生成外部 BUILD_ROOT 中的源码树。
+构建入口读取固定源码、修正路径并回放适配补丁，生成外部 BUILD_ROOT 中的源码树。
 完整源码包已包含该输入；归档内部的名称用于解包和来源追溯。
 
 kernel/ 中保留驱动审核副本，实际构建使用 BUILD_ROOT 中的源码。

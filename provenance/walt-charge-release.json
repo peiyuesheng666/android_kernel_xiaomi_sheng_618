@@ -205,35 +205,5 @@
       "sha256": "ec4ada83fba5bcd29f9f3ea1daa5c154ef4bddfc47c83abb5cc7ee39af83bd53"
     }
   },
-  "abi_btf_boot_verified": true,
-  "walt_objects": 24,
-  "all_existing_export_crcs_unchanged": true,
-  "hardware": {
-    "device": "sheng",
-    "firmware": "OS4.0.2.0.XPYCNXM",
-    "walt_initialized": true,
-    "all_three_policies_walt": true,
-    "dynamic_frequency_verified": true,
-    "all_eight_cpus_C4_verified": true
-  },
-  "charging": {
-    "accepted": true,
-    "scope": "Same power bank, approximately ten minutes of screen-off charging; user reports smooth decline and approximately 60 W displayed minimum",
-    "sample_count": 30,
-    "elapsed_seconds": 595.46,
-    "starting_soc": 30,
-    "ending_soc": 57,
-    "starting_battery_temperature_c": 27,
-    "final_charging_battery_temperature_c": 32,
-    "cooling_states": [
-      0
-    ],
-    "thermal_9000_seen": false,
-    "user_displayed_minimum_w": "approximately 60",
-    "final_pump_input_estimate_w": 58.652,
-    "log_archive_sha256": "318bfacaeb7b98a25b0fd08080a0fad7db63dd3b86e2197ddc5d1b53191b667e"
-  },
-  "thermal_calibration_changed": false,
-  "oplus_extensions_restored": false,
-  "withdrawn_optional_factory_interfaces_restored": false
+  "walt_objects": 24
 }

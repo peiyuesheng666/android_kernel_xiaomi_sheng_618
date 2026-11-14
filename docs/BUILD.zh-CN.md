@@ -16,8 +16,7 @@ gh release download --repo peiyuesheng666/android_kernel_xiaomi_sheng_618 \
 (cd assets && sha256sum -c SHA256SUMS)
 ```
 
-仓库目前为私有，gh 需使用有访问权限的账号。也可从 Release 网页下载后放到
-相同路径。完整源码包已包含输入缓存，无需重复下载。
+也可从 Release 网页下载后放到相同路径。完整源码包已包含输入缓存。
 
 ### 下载完整源码包（离线方式）
 
@@ -35,8 +34,7 @@ cd sheng-kernel
 
 固定缓存 SHA256：
 `06400886b7d6572c4e2440811e991525eeda88e491804e4e8a26d9dd3577e04f`。
-bootstrap 只进行离线解压、路径修正、逐文件验证与补丁回放；不会下载工具链，
-也不会从所有原始上游仓库重新演绎早期移植。
+bootstrap 负责解压源码、修正路径和回放补丁；工具链按下面的布局单独准备。
 
 ## 工具链与打包模板
 
@@ -60,7 +58,7 @@ PREBUILTS/
 模板不随 GitHub 上传。输出 header v4、空 ramdisk、192 MiB boot分区镜像，
 保留模板版本字段并添加未签名 AVB hash footer。
 
-## 四阶段构建与验证
+## 四阶段构建
 
 ```bash
 export BUILD_ROOT="$HOME/sheng-kernel-build"
@@ -72,15 +70,13 @@ bash buildkernel.sh
 bash buildmodules.sh
 bash embed.sh
 bash mkbootimage.sh
-bash scripts/run-limited.sh verify
-bash scripts/test-charging.sh
 ```
 
 `BUILD_ROOT` 必须在项目外；新目录必须为空。仅检查配置可运行
 `bash buildkernel.sh --config-only`；全部四阶段也可用 `bash build.sh`。
 最终文件在 `dist/kernel/`。模块顺序为 ACK→SoC→techpacks→平板驱动→加载器，
 使用KBUILD_EXTRA_SYMBOLS传递符号版本。345模块汇入模块层并嵌入Image。
-重编前后内核导出符号和CRC必须一致，所有模块split BTF必须通过验证。
+模块使用共享符号版本和 split BTF。
 
 默认release：rawdump关闭，无300秒自动回fastboot。debug仅显式设置时启用。
 所有构建入口均不会执行adb/fastboot或写设备分区。

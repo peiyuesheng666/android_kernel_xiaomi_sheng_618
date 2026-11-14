@@ -7,13 +7,10 @@
 | WALT | Qualcomm WALT 负载统计、调度和 CPU 调速 |
 | 手写笔 | 修复重复连接与状态切换，恢复原厂充电状态接口 |
 | 温控 | 原厂温控消息接口 |
-| CPU 空闲 | qcom_lpm 兼容修复，实机验证 8 个 CPU 进入 C4 |
+| CPU 空闲 | qcom_lpm 深度空闲兼容修复 |
 | 充电 | 原厂充电节点、双电池认证、旁路控制和 PPS 识别处理 |
 | 容器与网络 | 启用 namespace、容器网络、overlay 和 IPv6 NAT 配置 |
 | 平台与构建 | 修复 SoC 平台识别及模块 split BTF，关闭 rawdump 和自动回 fastboot 计时 |
 
 PPS 处理沿用原厂电流、温控和适配器认证限制。
 充电接口的属性与实现见[来源记录](../provenance/repair-r85.json)。
-
-本版已完成同一酷泰科充电宝的约十分钟熄屏充电复测，功率平缓下降。
-实测使用平板现有的系统温控配置，结果见[发布说明](RELEASE.md)。
