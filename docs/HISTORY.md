@@ -1,23 +1,11 @@
-# Development history
+# 已完成改动
 
-`main` keeps the existing two r70 repository commits and the r87 repair commits.
-`port-history` preserves 427 original shared-project commits through
-`d60069db416ca2d6e3e334cde1e6349304ed2784`. That branch includes historical
-kernel port and device-tree work. It does not supply files to the r87 build.
-Original authors, dates, commit IDs and parent relationships are unchanged.
-All original commits are authored by peiyuesheng666 <1203133791@qq.com>.
-New commits use the account's GitHub noreply email.
+- 补回 Qualcomm WALT，恢复原厂 CPU 调速。
+- 整合手写笔修复和原厂充电状态接口。
+- 补齐必要温控、充电接口，修复 CPU 深度空闲。
+- 整理构建流程，发布 Image、boot.img 和完整源码，并完成完整性校验。
 
-The r87 commits are organized now from surviving patches and source receipts.
-Their dates describe this organization; they do not pretend to be the original
-development or device-test dates. The current release tag selects the final r87 project.
-Original upstream revisions remain pinned in `provenance/`.
+2026-11-14 已刷入 HyperOS 平板完成约十分钟充电复测，功率平缓下降。
+详情见[发布说明](RELEASE.md)。
 
-The release also contains an offline backup:
-
-```bash
-git clone sheng-port-history.bundle sheng-port-history
-```
-
-Old r70 release assets and its release tag are retired after r87 verification;
-the two historical r70 commits remain reachable from main.
+main 保存当前项目的提交记录；port-history 和发布页中的 Git bundle 保存原始开发历史。
