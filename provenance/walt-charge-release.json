@@ -8,16 +8,6 @@
     "branch": "kernel.lnx.6.12.r70-rel",
     "commit": "46f13428ae2d6e32ddfe2f3e5cb5046428ae73b4"
   },
-  "artifacts": {
-    "Image": {
-      "bytes": 65559040,
-      "sha256": "2ec122d6eead9d31d1472752cd04d6831f8fa6ad9ef3ac851cfd657c39464600"
-    },
-    "boot.img": {
-      "bytes": 201326592,
-      "sha256": "0b6431e87654edf6c29105268fc1b3f4f4760dbd599d3f9cecee24458be48e60"
-    }
-  },
   "source_cache_sha256": "06400886b7d6572c4e2440811e991525eeda88e491804e4e8a26d9dd3577e04f",
   "exact_compiled_review_sources": {
     "k618/sheng-ports/touch/p81/nt36532/nt36xxx.c": {
@@ -205,5 +195,6 @@
       "sha256": "ec4ada83fba5bcd29f9f3ea1daa5c154ef4bddfc47c83abb5cc7ee39af83bd53"
     }
   },
-  "walt_objects": 24
+  "walt_objects": 24,
+  "delivery": "source-only"
 }

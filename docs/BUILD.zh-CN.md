@@ -6,35 +6,18 @@ libssl-dev、libelf-dev、libzstd-dev，以及 Python 3.11+。Ubuntu 22.04 使�
 带 `tarfile` data filter 支持的更新 Python 3.11。默认 `PYTHON=python3.11`。
 资源限制入口要求 root 或已委托的 cgroup-v2 控制权。默认 JOBS=4，上限4。
 
-## 获取固定源码输入
+## 获取完整源码
 
-```bash
-gh repo clone peiyuesheng666/android_kernel_xiaomi_sheng_618
-cd android_kernel_xiaomi_sheng_618
-gh release download --repo peiyuesheng666/android_kernel_xiaomi_sheng_618 \
-  --pattern sheng-kernel-build-inputs.tar.gz --dir assets
-(cd assets && sha256sum -c SHA256SUMS)
-```
+完整源码包包含当前项目、固定源码输入和 Git 历史。
 
-也可从 Release 网页下载后放到相同路径。完整源码包已包含输入缓存。
-
-### 下载完整源码包（离线方式）
-
-```bash
-gh release download --repo peiyuesheng666/android_kernel_xiaomi_sheng_618 \
-  --pattern sheng-kernel-source.tar.gz --pattern SHA256SUMS
-sha256sum --ignore-missing -c SHA256SUMS
+~~~bash
+gh release download --repo peiyuesheng666/android_kernel_xiaomi_sheng_618 --pattern sheng-kernel-source.tar.gz
 tar -xzf sheng-kernel-source.tar.gz
 cd sheng-kernel
-(cd assets && sha256sum -c SHA256SUMS)
-```
+~~~
 
-项目 ZIP 不包含固定源码输入，需另下载 build-inputs 包到项目的 `assets/`。
-下载前按首页文件表选择；无需下载任何旧发布版本。
-
-固定缓存 SHA256：
-`06400886b7d6572c4e2440811e991525eeda88e491804e4e8a26d9dd3577e04f`。
-bootstrap 负责解压源码、修正路径和回放补丁；工具链按下面的布局单独准备。
+Git 克隆的项目可从完整源码包取出 assets/sheng-kernel-build-inputs.tar.gz，放入项目的 assets/。
+工具链及匹配的原厂 boot 模板按下面的布局单独准备。
 
 ## 工具链与打包模板
 
