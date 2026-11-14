@@ -8,6 +8,9 @@ require_toolchain
 require_kernel
 "$PYTHON" "$PROJECT_ROOT/scripts/apply-charging-fix.py"
 "$PYTHON" "$PROJECT_ROOT/scripts/apply-repair-r85.py"
+"$PYTHON" "$PROJECT_ROOT/scripts/apply-pen-stability.py"
+"$PYTHON" "$PROJECT_ROOT/scripts/apply-factory-interfaces.py"
+"$PYTHON" "$PROJECT_ROOT/scripts/apply-walt-compatibility.py"
 invalidate_result
 rm -f -- "$output/.modules-ready.json" "$output/.embed-ready.json"
 # Restore the core configuration when rerunning this stage after embedding.
@@ -20,6 +23,7 @@ run gki-modules "${make_cmd[@]}" modules
 "$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" extract --kernel "$output/vmlinux" --output "$output/kernel-module-base.btf"
 awk -F '\t' '$3 == "vmlinux"' "$output/Module.symvers" | sort > "$output/kernel-symbols.before"
 run soc "${make_cmd[@]}" "M=$soc" modules
+run walt "${make_cmd[@]}" "M=$soc/kernel/sched/walt" modules "KBUILD_EXTRA_SYMBOLS=$soc/Module.symvers"
 symbols=("$soc/Module.symvers")
 legacy=$K618/vendor/xiaomi/adsprpc-515
 rpc_flags=("SOC=$soc" CONFIG_ARCH_KALAMA=y
@@ -85,10 +89,10 @@ while IFS=$'\t' read -r name source; do
   [ -f "$path" ] || { echo "Missing built module: $path"; exit 1; }
   printf '%s\t%s\n' "$name" "$(sha256sum "$path" | cut -d' ' -f1)" >> "$rows"
 done < <(jq -r 'to_entries[] | [.key, .value] | @tsv' "$mapping")
-[ "$(wc -l < "$rows")" = 344 ] || { echo 'Expected 344 modules'; exit 1; }
+[ "$(wc -l < "$rows")" = 345 ] || { echo 'Expected 345 modules'; exit 1; }
 jq -n --arg symbols "$(sha256sum "$output/kernel-symbols.before" | cut -d' ' -f1)" \
   --arg hashes "$(sha256sum "$rows" | cut -d' ' -f1)" \
   --arg mapping "$(sha256sum "$mapping" | cut -d' ' -f1)" \
-  '{module_count: 344, kernel_symbols_sha256: $symbols, module_hashes_sha256: $hashes, module_map_sha256: $mapping}' \
+  '{module_count: 345, kernel_symbols_sha256: $symbols, module_hashes_sha256: $hashes, module_map_sha256: $mapping}' \
   > "$output/.modules-ready.json"
-echo 'Built all 344 kernel modules.'
+echo 'Built all 345 kernel modules.'

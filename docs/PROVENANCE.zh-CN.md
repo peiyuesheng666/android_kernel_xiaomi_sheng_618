@@ -31,3 +31,5 @@ BUILD_ROOT中的对应文件。修改审核副本本身不会更改构建输入�
 `source-cache.json` 的 `prefix` 与基线 `revision` 保留归档内部的原始名称，
 用于严格解包与来源追溯；它们不表示仍提供或需要安装旧内核。
 当前构建仍按原有补丁链生成当前内核源码，现有 Image/boot 内容保持不变。
+
+当前版本的 WALT、手写笔 v4、温控／空闲叠加补丁和硬件验证范围见 [发布说明](WALT-CHARGE-20261114.zh-CN.md) 与 [来源记录](../provenance/walt-charge-release.json)。

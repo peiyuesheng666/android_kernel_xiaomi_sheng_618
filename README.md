@@ -6,8 +6,8 @@
 
 Download: **[Current kernel](https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/latest)**.
 This is the Linux 6.18.32 port for Xiaomi Pad 6S Pro (`sheng`, Snapdragon 8 Gen 2 / SM8550),
-developed against HyperOS **OS3.0.303.0.WNXCNXM**. The default release profile embeds
-**344 modules** in `Image`. Use the matching device and firmware; other devices and ROMs
+developed against HyperOS **OS4.0.2.0.XPYCNXM**. The default release profile embeds
+**345 modules** in `Image`. Use the matching device and firmware; other devices and ROMs
 need their own validation.
 
 ## Included features
@@ -18,6 +18,8 @@ need their own validation.
 | Third-party PPS | Automatic verification after eligible PPS identification; immediate recovery after a system reset to zero; stock-charger authentication takes priority |
 | Containers | SYSVIPC, IPC/PID/user namespaces, IPVLAN/MACVLAN/VXLAN, VLAN/bridge, overlay filesystem and built-in IPv6 NAT/MASQUERADE |
 | Device integration | SoC ID 536 maps to KALAMAP for Scene; stock pen charging sysfs/uevents; existing 32 ms stylus filter retained |
+| Scheduling and idle | Full Qualcomm WALT governor and accounting; native post-boot selects WALT; all eight CPUs enter C4 |
+| Thermal compatibility | Shipping thermal message interface; necessary charging controls retained |
 | Release and build | Rawdump and the 300-second fastboot timer disabled by default; module relinking fixes stale split BTF |
 
 See [the feature document](docs/FEATURES.zh-CN.md) for property details and limits.
@@ -27,8 +29,7 @@ The cancelled wind scheduler and the Linux 7.2 zram/swap work are absent from cu
 
 ## Download
 
-Open **[repair-current Release](https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/latest)**
-with an account that has access to this private repository.
+Open **[Current WALT Release](https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/latest)**.
 
 | Asset | Purpose |
 | --- | --- |
@@ -75,8 +76,10 @@ scripts and is separate from the supported build entry points.
 `kernel/` includes board ports and charging source review copies. Full build inputs
 are prepared outside Git into `BUILD_ROOT/k618/`.
 
-This documentation/package update preserves the existing `boot.img` and `Image`.
+The current release contains the tested Qualcomm WALT kernel, pen v4 and thermal/CPU-idle compatibility fixes.
 Local test results stay in `dist/` and are not release assets. An independent
 `/data/vendor/thermal/config/thermal-normal.conf` override is outside the kernel and
 source packages; flashing boot alone does not remove it. Original commits remain in
 history; the `port-history` branch retains the shared kernel/device-tree development history.
+
+Current hardware and charging results: [WALT release notes](docs/WALT-CHARGE-20261114.zh-CN.md).

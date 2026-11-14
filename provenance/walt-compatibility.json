@@ -1,0 +1,229 @@
+{
+  "revision": "walt-charge-20261114",
+  "files": {
+    "k618/soc/kernel/sched/walt/Kconfig": {
+      "before": "7c60764020122cef83ba1b606e0b18b29af8f1f4ae3da80188b645862bb98eb8",
+      "after": "7c60764020122cef83ba1b606e0b18b29af8f1f4ae3da80188b645862bb98eb8"
+    },
+    "k618/soc/kernel/sched/walt/Makefile": {
+      "before": null,
+      "after": "ac50e1901185cbfd50628173bb96c971392ac509971f4b224c902be2699bc2c5"
+    },
+    "k618/soc/kernel/sched/walt/boost.c": {
+      "before": "0de0f09c174455396356a3d568539e25f1606382e70c00da9cfa127106f2a22a",
+      "after": "a7247611983b06364ec5d717021d6aa47c65875a2cd0849bc6f33a61a2a798d6"
+    },
+    "k618/soc/kernel/sched/walt/core_ctl.c": {
+      "before": "9988ac0a03795b2d9e9a750b9070415b4f765fd66515444d4ff83a641b330d1c",
+      "after": "e90248e33147412f07d2c65255e36a5c6f3b3384c1fa972028ac265b050ca379"
+    },
+    "k618/soc/kernel/sched/walt/cpufreq_walt.c": {
+      "before": "4302cdc50891c482c35d0f3d6a4173c619cf221b66919fee4294b82f4efcf4a0",
+      "after": "e4e4574b7596c2646585fbb1a2fc137b9388de5d69b1a4e01f6da3e2dab070d6"
+    },
+    "k618/soc/kernel/sched/walt/debugfs.c": {
+      "before": "d5735c2fd33f2d61eca44150152a78a291054aa4f6962c67449e005475b3ef15",
+      "after": "d5735c2fd33f2d61eca44150152a78a291054aa4f6962c67449e005475b3ef15"
+    },
+    "k618/soc/kernel/sched/walt/fixup.c": {
+      "before": "a0d971378746464edbabbf99fcb90f5135e3f51965a9fc3adc7ee11ca01778a4",
+      "after": "e8902af6bcf0b35d7d26c583bb25756d1774e3b7dadd5eda4199f650ee4ed67e"
+    },
+    "k618/soc/kernel/sched/walt/input-boost.c": {
+      "before": "477e8e600c8c5bcb8b22325f5b3bb8c6672e1c5999f1961245f9566e0ebe112d",
+      "after": "f72b000fd02310282782ab9aa8476c4c4fb199f1de3aaf58400e9a7da53199cd"
+    },
+    "k618/soc/kernel/sched/walt/midpoint.c": {
+      "before": "c38c885bf08947267e1fd2fa8e911ec269620aa44469fe76670d60620fb44dd6",
+      "after": "c38c885bf08947267e1fd2fa8e911ec269620aa44469fe76670d60620fb44dd6"
+    },
+    "k618/soc/kernel/sched/walt/modules.bzl": {
+      "before": "d836f028c5e32312fc13f48cabd6060ddd8df76cdbe64c5fd8d261b444aaf5ef",
+      "after": "d836f028c5e32312fc13f48cabd6060ddd8df76cdbe64c5fd8d261b444aaf5ef"
+    },
+    "k618/soc/kernel/sched/walt/mvp_locking.c": {
+      "before": "218123b9f8b0b2090e23e8f4401652ca82e009cc5ba450f08ff61fe95424545e",
+      "after": "0195f7206fc84efc4e6478630af163fabc8f799964764584f773a6bda502383b"
+    },
+    "k618/soc/kernel/sched/walt/perf_trace_counters.h": {
+      "before": "8ccb3ae75bcc0bf91f745e3fe90de9099b1e40b64fbe27df423e73f3de404c2c",
+      "after": "8ccb3ae75bcc0bf91f745e3fe90de9099b1e40b64fbe27df423e73f3de404c2c"
+    },
+    "k618/soc/kernel/sched/walt/pipeline.c": {
+      "before": "81dcfa7dd180da8ad8eb49ee4e075526d76bdb3f34a75fd0df594138662f25c3",
+      "after": "f48a6be5d1a7f200d74a99416e9a6b01e6368909950739241608de5dd4635094"
+    },
+    "k618/soc/kernel/sched/walt/preemptirq_long.c": {
+      "before": "5d9c12e3cd849f0be37f6369b540d6858f671214af6880e4791adfd228430366",
+      "after": "5d9c12e3cd849f0be37f6369b540d6858f671214af6880e4791adfd228430366"
+    },
+    "k618/soc/kernel/sched/walt/preemptirq_long.h": {
+      "before": "bd406a6aa0c0f82ce77b6bacb03ceb7a6fd89ba4acc08e625aef14cc5a14af73",
+      "after": "bd406a6aa0c0f82ce77b6bacb03ceb7a6fd89ba4acc08e625aef14cc5a14af73"
+    },
+    "k618/soc/kernel/sched/walt/sched_avg.c": {
+      "before": "9010407c2db8f37ac8d3ee2f1af62001932f285b3914790822419dee3b91227b",
+      "after": "9010407c2db8f37ac8d3ee2f1af62001932f285b3914790822419dee3b91227b"
+    },
+    "k618/soc/kernel/sched/walt/smart_freq.c": {
+      "before": "eac60e8b5186863b085f00db63f76f416f05ba74c0dbe881df047770507d190c",
+      "after": "eac60e8b5186863b085f00db63f76f416f05ba74c0dbe881df047770507d190c"
+    },
+    "k618/soc/kernel/sched/walt/sysctl.c": {
+      "before": "dcf5016368815ee29a9d3eddf570d2f25ed30e05f426a035554c7c6a5dddd61b",
+      "after": "080dc9d471d61511c38feebc34ffd7ea5b7f53ee8b39c74cc108201fd89a4d55"
+    },
+    "k618/soc/kernel/sched/walt/sysctl_walt_stats.c": {
+      "before": "951755932c893e9fc3c0c6576cf0b58c7de2ec34a6a57075df1741f4fb2a79b0",
+      "after": "951755932c893e9fc3c0c6576cf0b58c7de2ec34a6a57075df1741f4fb2a79b0"
+    },
+    "k618/soc/kernel/sched/walt/sysctl_walt_stats.h": {
+      "before": "8da3f7623be27f837c756c75e30b89a4b6ba732f58aa9405bca46ce9aac575c7",
+      "after": "8da3f7623be27f837c756c75e30b89a4b6ba732f58aa9405bca46ce9aac575c7"
+    },
+    "k618/soc/kernel/sched/walt/trace.c": {
+      "before": "0ab514468a2f70ad04a9d03291554b71ee874688bc942e2c0790906d4dca465d",
+      "after": "21b81881f14f4b84ef2c96a465511aa2402499050679ea586e0e749c4a0074fc"
+    },
+    "k618/soc/kernel/sched/walt/trace.h": {
+      "before": "f466341210420ee3515c8ea5e00f102178c7b130a16e395dcce3ec8dc387e553",
+      "after": "79c3c0c6b1fe77c00e26d14f59dd8026af6d81562e020851be388133ff7899fe"
+    },
+    "k618/soc/kernel/sched/walt/voter.c": {
+      "before": "6819ef419192adc8b3b910068f5bb761d40e1c0f58bce929195f037648e3cc9d",
+      "after": "6819ef419192adc8b3b910068f5bb761d40e1c0f58bce929195f037648e3cc9d"
+    },
+    "k618/soc/kernel/sched/walt/voter.h": {
+      "before": "bf0fbdaefae3e642ba6413c304b83563ff088f3a6b9a0f6c696cda8f3a72777c",
+      "after": "bf0fbdaefae3e642ba6413c304b83563ff088f3a6b9a0f6c696cda8f3a72777c"
+    },
+    "k618/soc/kernel/sched/walt/walt.c": {
+      "before": "afb5e7910a1f8b2a3ff6b11c7afc83915f72bc6c6ebd3ede0b4b4355ffea5d01",
+      "after": "bf310ff5dfdc2674a49253cdce0a948d8dc252fe942539a8f5a3c554079f6bb0"
+    },
+    "k618/soc/kernel/sched/walt/walt.h": {
+      "before": "b337a093ea4d82c21563b87d950ae4b86f4fd8763e7042f3bf5c7c90c20f5c90",
+      "after": "5c1b1423ba648e7348d567fe8705985726edeb1639ce98ad3257dc5eaea86f0d"
+    },
+    "k618/soc/kernel/sched/walt/walt_cfs.c": {
+      "before": "7d635c5b14aa92eb432c4dbbb065d9c0cdd776447f75590127bbebbab02ea265",
+      "after": "a29f5d7392e57b1289c83a9b295b40727b5217c720902e8b184d44ab1c986fc6"
+    },
+    "k618/soc/kernel/sched/walt/walt_config.c": {
+      "before": "8fb1eaa102064b29c17119724fa0ad02f0be175ac2c52b10a72021db744d8ee6",
+      "after": "8fb1eaa102064b29c17119724fa0ad02f0be175ac2c52b10a72021db744d8ee6"
+    },
+    "k618/soc/kernel/sched/walt/walt_cpufreq_cycle_cntr_driver.c": {
+      "before": "ee6d9effe4d8a6dc3b6be8625b6c74aeed6f7f3bce4eeddad30f1b2e8e614951",
+      "after": "84f7db5586408c4cc07f938774893637277a5625e89bf9685476d666752f14bd"
+    },
+    "k618/soc/kernel/sched/walt/walt_cycles.c": {
+      "before": "cc6547598df30e372d2dcac0dd0439ccc9fcc3b94a86010dc06d6c328c3ba969",
+      "after": "cc6547598df30e372d2dcac0dd0439ccc9fcc3b94a86010dc06d6c328c3ba969"
+    },
+    "k618/soc/kernel/sched/walt/walt_debug.c": {
+      "before": "10c87a4579beefcf7ffdc72991abd44b69898a5f1306f34171e4fb29137781ad",
+      "after": "10c87a4579beefcf7ffdc72991abd44b69898a5f1306f34171e4fb29137781ad"
+    },
+    "k618/soc/kernel/sched/walt/walt_debug.h": {
+      "before": "2237e2cfc516d7159b0642217bc4cb22c66b28cfe7a8a6030a09e25d89045240",
+      "after": "2237e2cfc516d7159b0642217bc4cb22c66b28cfe7a8a6030a09e25d89045240"
+    },
+    "k618/soc/kernel/sched/walt/walt_gclk_cycle_counter_driver.c": {
+      "before": "552e149ac53d58e325c0dbb4015f357f0052db235cee82ec218b3575ee6afa7f",
+      "after": "21aeb55c4f460a059975eaf434ae3ef09d2ec19f5de2c5ae6322099e0e026d02"
+    },
+    "k618/soc/kernel/sched/walt/walt_halt.c": {
+      "before": "7b80eae96797698751008b906f60c96b95b19df78b71f523d05df9bc4c448285",
+      "after": "2fa0d0879f75013d7e140d711025a21359d6854000df5f6bc1cb60517623509f"
+    },
+    "k618/soc/kernel/sched/walt/walt_lb.c": {
+      "before": "1c582bbb9af3ac9cb15a4da3750e5a9e4746e11dd6dc39e13890e0bc13cb1cc2",
+      "after": "ec7ec598c690ff5e9e9149546c8402b2019bf39ad77d978f5e048e51a7651001"
+    },
+    "k618/soc/kernel/sched/walt/walt_rt.c": {
+      "before": "d5b813793f334e488076ce9d8b4e5ef20478d7c73086f1e3c6af7b62ef5c712a",
+      "after": "669e2caffccc1875338548831da24f1fb3a00567d97127649623c267c230bc16"
+    },
+    "k618/soc/kernel/sched/walt/walt_storage_lb.c": {
+      "before": "8a6f23b4d49100b5c686aad7f510374a834756a530f1d5203564960583d7dd9d",
+      "after": "2395dcd8d35d919a6cea91622b7712dfc6a06fa8238760e1bc4aa22933a50ce9"
+    },
+    "k618/soc/kernel/sched/walt/walt_tp.c": {
+      "before": "585984dc44e0e4795aba6342e0c94d9217cfe7dd0ad492387904c7a482cd3681",
+      "after": "177fb057ada57ae7f0b3fffe7bb969118d115284ce7811de45b14c6cf28aad2a"
+    },
+    "k618/ws/common/init/main.c": {
+      "before": "07efd5caf2ca721818d4442ac132772e2b51771f1fafada05914bcd64ab14c83",
+      "after": "f5a1941c49ae350b9cea2e3b130ac898d3b245874b66d4b959e65dbdc24a7942"
+    },
+    "k618/ws/common/kernel/fork.c": {
+      "before": "d601e6f2db339561abc8cf74a866b2d3b7fb4f4b919caeffc266de3ce8c841e3",
+      "after": "42f5f61180a87dd7d5d2effb2fa026776c8048666df913e7b20855e228a14df2"
+    },
+    "k618/ws/common/kernel/sched/fair.c": {
+      "before": "ddb6a0382e5b2ce0478ea74f7b0dfa4e8fce4f496c4bb908519d4078a1b1d3d5",
+      "after": "ec4ada83fba5bcd29f9f3ea1daa5c154ef4bddfc47c83abb5cc7ee39af83bd53"
+    }
+  },
+  "qualcomm_revision": "46f13428ae2d6e32ddfe2f3e5cb5046428ae73b4",
+  "migration_patch_sha256": "a1317c90ffe28bc86892ad2693dca14a06baa5678109638c8b7d4267cf710755",
+  "oplus_extensions_enabled": false,
+  "required_boot_cmdline": "sched_proxy_exec=0",
+  "task_vendor_size_max": 1280,
+  "asynchronous_activation": "automatic after topology readiness",
+  "hardware_verified": false,
+  "charging_stability_verified": false,
+  "github_push_allowed": false,
+  "phase": "source-and-build-integrated",
+  "patch": "patches/sheng-walt-charge-20261114.patch",
+  "patch_sha256": "e9c96b6f9ac498464c3759d37a3ccb354124179c8e6edc8984bb7349e79b29a8",
+  "source_review_paths": {
+    "k618/soc/kernel/sched/walt/Kconfig": "kernel/walt/Kconfig",
+    "k618/soc/kernel/sched/walt/Makefile": "kernel/walt/Makefile",
+    "k618/soc/kernel/sched/walt/boost.c": "kernel/walt/boost.c",
+    "k618/soc/kernel/sched/walt/core_ctl.c": "kernel/walt/core_ctl.c",
+    "k618/soc/kernel/sched/walt/cpufreq_walt.c": "kernel/walt/cpufreq_walt.c",
+    "k618/soc/kernel/sched/walt/debugfs.c": "kernel/walt/debugfs.c",
+    "k618/soc/kernel/sched/walt/fixup.c": "kernel/walt/fixup.c",
+    "k618/soc/kernel/sched/walt/input-boost.c": "kernel/walt/input-boost.c",
+    "k618/soc/kernel/sched/walt/midpoint.c": "kernel/walt/midpoint.c",
+    "k618/soc/kernel/sched/walt/modules.bzl": "kernel/walt/modules.bzl",
+    "k618/soc/kernel/sched/walt/mvp_locking.c": "kernel/walt/mvp_locking.c",
+    "k618/soc/kernel/sched/walt/perf_trace_counters.h": "kernel/walt/perf_trace_counters.h",
+    "k618/soc/kernel/sched/walt/pipeline.c": "kernel/walt/pipeline.c",
+    "k618/soc/kernel/sched/walt/preemptirq_long.c": "kernel/walt/preemptirq_long.c",
+    "k618/soc/kernel/sched/walt/preemptirq_long.h": "kernel/walt/preemptirq_long.h",
+    "k618/soc/kernel/sched/walt/sched_avg.c": "kernel/walt/sched_avg.c",
+    "k618/soc/kernel/sched/walt/smart_freq.c": "kernel/walt/smart_freq.c",
+    "k618/soc/kernel/sched/walt/sysctl.c": "kernel/walt/sysctl.c",
+    "k618/soc/kernel/sched/walt/sysctl_walt_stats.c": "kernel/walt/sysctl_walt_stats.c",
+    "k618/soc/kernel/sched/walt/sysctl_walt_stats.h": "kernel/walt/sysctl_walt_stats.h",
+    "k618/soc/kernel/sched/walt/trace.c": "kernel/walt/trace.c",
+    "k618/soc/kernel/sched/walt/trace.h": "kernel/walt/trace.h",
+    "k618/soc/kernel/sched/walt/voter.c": "kernel/walt/voter.c",
+    "k618/soc/kernel/sched/walt/voter.h": "kernel/walt/voter.h",
+    "k618/soc/kernel/sched/walt/walt.c": "kernel/walt/walt.c",
+    "k618/soc/kernel/sched/walt/walt.h": "kernel/walt/walt.h",
+    "k618/soc/kernel/sched/walt/walt_cfs.c": "kernel/walt/walt_cfs.c",
+    "k618/soc/kernel/sched/walt/walt_config.c": "kernel/walt/walt_config.c",
+    "k618/soc/kernel/sched/walt/walt_cpufreq_cycle_cntr_driver.c": "kernel/walt/walt_cpufreq_cycle_cntr_driver.c",
+    "k618/soc/kernel/sched/walt/walt_cycles.c": "kernel/walt/walt_cycles.c",
+    "k618/soc/kernel/sched/walt/walt_debug.c": "kernel/walt/walt_debug.c",
+    "k618/soc/kernel/sched/walt/walt_debug.h": "kernel/walt/walt_debug.h",
+    "k618/soc/kernel/sched/walt/walt_gclk_cycle_counter_driver.c": "kernel/walt/walt_gclk_cycle_counter_driver.c",
+    "k618/soc/kernel/sched/walt/walt_halt.c": "kernel/walt/walt_halt.c",
+    "k618/soc/kernel/sched/walt/walt_lb.c": "kernel/walt/walt_lb.c",
+    "k618/soc/kernel/sched/walt/walt_rt.c": "kernel/walt/walt_rt.c",
+    "k618/soc/kernel/sched/walt/walt_storage_lb.c": "kernel/walt/walt_storage_lb.c",
+    "k618/soc/kernel/sched/walt/walt_tp.c": "kernel/walt/walt_tp.c",
+    "k618/ws/common/init/main.c": "kernel/scheduler-compat/init-main.c",
+    "k618/ws/common/kernel/fork.c": "kernel/scheduler-compat/kernel-fork.c",
+    "k618/ws/common/kernel/sched/fair.c": "kernel/scheduler-compat/sched-fair.c"
+  },
+  "module_count": 345,
+  "governor_implementation": "Qualcomm WALT, 24 objects",
+  "boot_governor_override": false,
+  "boot_cmdline_policy": "stock base plus sched_proxy_exec=0 required by WALT",
+  "thermal_calibration_changed": false
+}

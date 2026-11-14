@@ -1,0 +1,10 @@
+{
+  "old_exports": 18038,
+  "new_exports": 18040,
+  "added": [
+    "arch_task_struct_size",
+    "fair_sched_class"
+  ],
+  "removed": [],
+  "changed_existing_crcs": []
+}

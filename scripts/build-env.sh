@@ -6,7 +6,7 @@ case "$SHENG_BUILD_MODE" in
   debug)
     export SHENG_BOOT_CMDLINE="printk.devkmsg=on loglevel=7 sheng_bootlog.enable=1 sheng_bootlog.test_timeout=$SHENG_TEST_TIMEOUT sheng_bootlog.revision=$TAG panic=5"
     ;;
-  release) export SHENG_BOOT_CMDLINE='loglevel=4';;
+  release) export SHENG_BOOT_CMDLINE='sched_proxy_exec=0';;
   *) echo 'SHENG_BUILD_MODE must be debug or release' >&2; return 2 2>/dev/null || exit 2;;
 esac
 ack=$K618/ws/common
@@ -22,7 +22,9 @@ export LIBCLANG_PATH="${clang%/bin}/lib" RUSTC_BOOTSTRAP=1
 export RUST_LIB_SRC="$rust/lib/rustlib/src/rust/library"
 export KBUILD_GENDWARFKSYMS_STABLE=1 LOCALVERSION=
 export MAKEFLAGS="HOSTCFLAGS=-O2\ -I$ELFUTILS/include HOSTLDFLAGS=-L$ELFUTILS/lib\ -Wl,-rpath,$ELFUTILS/lib"
-make_cmd=(make -C "$ack" "O=$output" ARCH=arm64 LLVM=1 LLVM_IAS=1 "PAHOLE=$tools/pahole" "-j$JOBS")
+make_cmd=(make -C "$ack" "O=$output" ARCH=arm64 LLVM=1 LLVM_IAS=1 "PAHOLE=$tools/pahole" "-j$JOBS" "JOBS=$JOBS")
+export SHENG_REAL_PAHOLE="$tools/pahole"
+make_cmd+=("PAHOLE=$PROJECT_ROOT/scripts/pahole-memory-gate.py")
 start_stage() {
   local stage=$1
   shift
@@ -46,6 +48,7 @@ require_prepared() {
   [ -f "$BUILD_ROOT/.sheng618-ready.json" ] || { echo 'Run bash buildkernel.sh first.' >&2; exit 2; }
 }
 require_kernel() {
+  "$PYTHON" "$PROJECT_ROOT/scripts/apply-walt-compatibility.py" --check
   require_prepared
   [ -f "$output/.kernel-ready.json" ] || { echo 'Run bash buildkernel.sh first.' >&2; exit 2; }
   [ "$(sha256sum "$PROJECT_ROOT/sheng_defconfig" | cut -d' ' -f1)" = "$(jq -r .defconfig_sha256 "$output/.kernel-ready.json")" ] || {
@@ -56,6 +59,9 @@ require_kernel() {
   }
   [ "$(sha256sum "$output/kernel-Image" | cut -d' ' -f1)" = "$(jq -r .kernel_image_sha256 "$output/.kernel-ready.json")" ] || {
     echo 'Core Image changed; rerun buildkernel.sh.' >&2; exit 2;
+  }
+  [ "$(sha256sum "$PROJECT_ROOT/provenance/walt-compatibility.json" | cut -d' ' -f1)" = "$(jq -r .walt_source_receipt_sha256 "$output/.kernel-ready.json")" ] || {
+    echo 'WALT source receipt changed; rerun buildkernel.sh.' >&2; exit 2;
   }
 }
 run() {

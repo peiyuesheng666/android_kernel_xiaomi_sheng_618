@@ -1,6 +1,6 @@
 # 当前内核 功能说明
 
-小米平板6S Pro（sheng），Linux 6.18.32，默认release，内置344模块。
+小米平板6S Pro（sheng），Linux 6.18.32，默认release，内置345模块。
 
 | 功能 | 实现 |
 | --- | --- |
@@ -17,7 +17,7 @@
 | 原装认证保护 | verify_process非0、非零adapter_id和未知/小米SVID且能力≥100W优先原厂 |
 | PPS清零恢复 | 系统写0后即时重判；成功重置失败预算，连续失败最多3次 |
 | PPS兜底 | 在线PPS用5秒freezable监测固件清零，断开/非PPS停止周期 |
-| BTF构建 | 重链接344个模块，避免复用旧split BTF |
+| BTF构建 | 重链接345个模块，避免复用旧split BTF |
 
 特殊接口包括batt_sn（属性160，64字节请求/48字节文本）、wireless_tx_uuid
 （属性73，44字节请求/24字节文本）、battery_param_reset（原厂格式100）、
@@ -30,3 +30,6 @@ PPS策略不更改电流与温控限制，动画/协议能力不代表实际输�
 
 本机独立/data温控配置不在本仓库和发布源码包中；单刷boot不会撤销已有data覆盖。
 风驰已取消，7.2 zram/swap移植暂停且未应用到当前内核。
+
+本版补回完整 Qualcomm WALT，保留手写笔 v4、必要温控接口与 qcom_lpm 深度空闲修复。
+本机同一酷泰科充电宝的约十分钟熄屏复测没有重现 thermal-9000 限流，详情见 [发布说明](WALT-CHARGE-20261114.zh-CN.md)。

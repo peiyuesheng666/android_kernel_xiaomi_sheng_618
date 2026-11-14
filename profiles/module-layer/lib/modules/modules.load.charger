@@ -71,6 +71,7 @@ rtc-pm8xxx.ko
 secure_buffer.ko
 smem.ko
 socinfo.ko
+sched-walt.ko
 stub-regulator.ko
 qcom_aoss.ko
 msm_qmp.ko

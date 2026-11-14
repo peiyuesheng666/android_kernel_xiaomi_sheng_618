@@ -1,23 +1,17 @@
-# 小米平板 6S Pro 内核
+# 小米平板 6S Pro WALT 内核 · 20261114
 
-适配 sheng / SM8550，开发验证系统为 HyperOS OS3.0.303.0.WNXCNXM。
-默认 release，344 个模块内嵌 Image，关闭 rawdump 与 300 秒回 fastboot。
-包含双电池认证、57 个原厂充电节点、旁路供电、第三方 PPS 自动认证与清零恢复、
-容器网络/IPv6 NAT、SoC/Scene 识别、手写笔充电接口与 32 ms 滤波、split BTF 构建修复。
+补回完整 Qualcomm WALT 负载统计和 walt 调速器，解决原厂 post-boot 找不到 WALT 而保持 performance 的兼容差异。三个 CPU 策略已由原厂脚本自动选择 walt，实机自动降频与 8 个 CPU 的 C4 深度空闲均通过验证。
 
-## 下载选择
+保留手写笔 v4、必要的原厂温控／充电消息接口与 qcom_lpm 空闲修复。未恢复已取消的 Oplus 扩展及存储、内存、整机工厂调试接口；本轮没有提高温控阈值或伪造温度。
 
-- 使用现有内核镜像：`boot.img`、`Image`。
-- 离线获取完整构建源码：`sheng-kernel-source.tar.gz`，已包含固定源码输入。
-- Git 克隆或项目 ZIP：另下载 `sheng-kernel-build-inputs.tar.gz` 到项目的 `assets/`。
-- 历史：`sheng-port-history.bundle` 保存 427 条原开发提交。
-- 说明与校验：`FEATURES.zh-CN.md`、`SHA256SUMS`。
+WALT 源码来自 CodeLinaro kernel.lnx.6.12.r70-rel，固定提交 46f13428ae2d6e32ddfe2f3e5cb5046428ae73b4，共 24 个构建对象。内核分配真实任务 vendor tail，新增 arch_task_struct_size 和 fair_sched_class 导出。保留原有 18,038 个导出 CRC。boot 增加 sched_proxy_exec=0，使用原厂 WALT 支持的经典调度模式。
 
-源码依赖统一命名为 sheng-kernel-build-inputs；无需恢复已删除的旧版本工程。
-2026-11-12 更新中英文首页、构建与来源说明，并同步项目包和校验清单；
-固定源码输入、boot.img 和 Image 字节保持不变，没有新增内核编译或刷写。
+已通过 103,612 个源码文件哈希、41 个 WALT 源码补丁回放、345 模块 ABI/BTF、boot 解包和 AVB 校验。镜像已经刷入 HyperOS OS4.0.2.0.XPYCNXM 的 sheng 平板并完成重启验证。
 
-充电动画与协议能力不等于实际输入功率；长期手写笔/休眠、全部充电器和硬件覆盖
-仍需验收，详见功能说明。风驰和 Linux 7.2 zram/swap 未包含在内核中。
-工具链、原厂 boot 模板、个人分区备份和独立 /data 温控配置不随源码包交付。
-仓库保持私有，原提交历史与 port-history 分支保留；测试结果留在本地。
+2026-11-14 07:40–07:50，同一个酷泰科充电宝熄屏复测约十分钟。起始电量 30%、电池约 27°C，结束电量 57%、电池约 32°C。输入功率估算从约 74W 平缓下降到约 57–59W，用户看到最低仍约 60W。温控档位保持 0，限流原因按 StepChgJeit 档位变化，没有再次出现 thermal-9000，也没有重现上一版骤降到约 40W 的故障。日志归档下载前后 SHA256 与 61 个解包文件回读通过。
+
+本次验收覆盖上述设备、系统、充电宝和约十分钟的条件。原有 /data 温控覆盖独立于 boot 和源码包；当前构建没有打包或改动该覆盖。
+
+Image 为内核镜像，boot.img 为原厂模板打包后的启动镜像。完整源码包包含固定源码输入；Git 克隆或项目 ZIP 使用同一 Release 的 sheng-kernel-build-inputs.tar.gz。工具链和匹配的原厂 boot 模板按 [构建说明](BUILD.zh-CN.md) 准备。
+
+实际改动与镜像校验值见 [来源记录](../provenance/walt-charge-release.json)。根目录四阶段入口按来源哈希回放补丁，使用隔离的原生 Linux 编译目录。构建入口不刷设备。

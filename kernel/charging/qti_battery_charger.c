@@ -26,6 +26,8 @@
 #include <linux/soc/qcom/battery_charger.h>
 #include <linux/soc/qcom/panel_event_notifier.h>
 
+#include "sheng_thermal_message.h"
+
 #define MSG_OWNER_BC			32778
 #define MSG_TYPE_REQ_RESP		1
 #define MSG_TYPE_NOTIFY			2
@@ -576,6 +578,10 @@ struct battery_chg_dev {
 	struct thermal_cooling_device	*tcd;	/* "battery": mi_thermald's charge limit */
 	struct notifier_block	charger_nb;		/* charger_notifier: board temperature */
 	int			thermal_board_temp;	/* 0.1 degC, last value sent (XM 8) */
+	struct sheng_thermal_message *thermal_message;
+	struct mutex sheng_thermal_lock;
+	atomic_t sheng_thermal_epoch;
+	bool charger_nb_registered;
 	struct work_struct	blank_work;		/* XM_PROP_BLANK_STATUS off the display thread */
 	struct delayed_work	k618_panel_dw;		/* k618: panel events once msm_drm is up */
 	struct work_struct sheng_pen_work;
@@ -924,6 +930,7 @@ static void battery_chg_state_cb(void *priv, enum pmic_glink_state state)
 	atomic_inc(&bcdev->sheng_pps_epoch);
 	if (state == PMIC_GLINK_STATE_DOWN)
 		atomic_set(&bcdev->sheng_pps_reset, 1);
+	atomic_inc(&bcdev->sheng_thermal_epoch);
 	atomic_set(&bcdev->state, state);
 	if (state == PMIC_GLINK_STATE_UP)
 		schedule_work(&bcdev->subsys_up_work);
@@ -5098,13 +5105,61 @@ static const struct thermal_cooling_device_ops battery_tcd_ops = {
 	.set_cur_state = battery_chg_set_cur_charge_cntl_limit,
 };
 
-/*
- * B7: Xiaomi's charger notifier chain: the three calls the stock module exports (stock exports
- * the chain head as well; nothing on 6.18 uses it, so it stays static). k618_mi_thermal
- * symbol_get()s charger_notifier_call_chain and calls it from board_sensor_temp_store with event 0
- * and the board temperature in tenths of a degree (stock mi_thermal_interface divides mi_thermald's
- * milli-degrees by 100); the firmware gets it as XM_PROP_THERMAL_BOARD_TEMP.
- */
+static bool sheng_thermal_transport_ready(struct battery_chg_dev *bcdev)
+{
+	return READ_ONCE(bcdev->initialized) &&
+		!READ_ONCE(bcdev->sheng_pps_stopping) &&
+		atomic_read(&bcdev->state) == PMIC_GLINK_STATE_UP &&
+		!(bcdev->debug_battery_detected && bcdev->block_tx);
+}
+
+/* All board-temperature writers share the same units, serialization and cache.
+ * battery_chg_write() may report success while GLINK is down; never publish a
+ * new board temperature unless the firmware transaction really completed. */
+static int sheng_set_board_temperature(void *data, int deci_c)
+{
+	struct battery_chg_dev *bcdev = data;
+	int epoch, rc;
+
+	mutex_lock(&bcdev->sheng_thermal_lock);
+	epoch = atomic_read(&bcdev->sheng_thermal_epoch);
+	if (!sheng_thermal_transport_ready(bcdev)) {
+		rc = -ENOTCONN;
+		goto out;
+	}
+	rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
+			XM_PROP_THERMAL_BOARD_TEMP, deci_c);
+	if (!rc && (!sheng_thermal_transport_ready(bcdev) ||
+		    epoch != atomic_read(&bcdev->sheng_thermal_epoch)))
+		rc = -ENOTCONN;
+	if (!rc)
+		WRITE_ONCE(bcdev->thermal_board_temp, deci_c);
+out:
+	mutex_unlock(&bcdev->sheng_thermal_lock);
+	return rc;
+}
+
+static int sheng_thermal_usb_online(void *data, int *online)
+{
+	struct battery_chg_dev *bcdev = data;
+	struct psy_state *pst = &bcdev->psy_list[PSY_TYPE_USB];
+	int epoch = atomic_read(&bcdev->sheng_thermal_epoch);
+	int rc;
+
+	if (!sheng_thermal_transport_ready(bcdev))
+		return -ENOTCONN;
+	rc = read_property_id(bcdev, pst, USB_ONLINE);
+	if (rc < 0)
+		return rc;
+	if (!sheng_thermal_transport_ready(bcdev) ||
+	    epoch != atomic_read(&bcdev->sheng_thermal_epoch))
+		return -ENOTCONN;
+	*online = READ_ONCE(pst->prop[USB_ONLINE]);
+	return 0;
+}
+
+/* Keep the shipping board-temperature notifier ABI for other kernel clients.
+ * thermal_message is now hosted here and calls the same transaction helper. */
 #define CHARGER_EVENT_BOARD_TEMP	0
 static BLOCKING_NOTIFIER_HEAD(charger_notifier);
 
@@ -5140,14 +5195,11 @@ static int charger_notifier_event(struct notifier_block *nb, unsigned long event
 		return NOTIFY_DONE;
 	}
 
-	bcdev->thermal_board_temp = *(int *)data;
-	pr_debug("thermal_board_temp: %d\n", bcdev->thermal_board_temp);
-	rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
-			       XM_PROP_THERMAL_BOARD_TEMP, bcdev->thermal_board_temp);
+	rc = sheng_set_board_temperature(bcdev, *(int *)data);
 	if (rc < 0)
 		pr_err("Failed to send thermal_board_temp, rc=%d\n", rc);
 
-	return NOTIFY_DONE;
+	return notifier_from_errno(rc);
 }
 
 /* B8: the screen state to the firmware (stock: from the panel callback itself) */
@@ -5174,8 +5226,7 @@ static ssize_t thermal_board_temp_store(const struct class *c,
 	if (kstrtoint(buf, 10, &val))
 		return -EINVAL;
 
-	rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
-			       XM_PROP_THERMAL_BOARD_TEMP, val);
+	rc = sheng_set_board_temperature(bcdev, val);
 	if (rc < 0)
 		return rc;
 
@@ -5194,7 +5245,7 @@ static ssize_t thermal_board_temp_show(const struct class *c,
 	if (rc < 0)
 		return rc;
 
-	return scnprintf(buf, PAGE_SIZE, "%d", bcdev->thermal_board_temp);
+	return scnprintf(buf, PAGE_SIZE, "%d", READ_ONCE(bcdev->thermal_board_temp));
 }
 static CLASS_ATTR_RW(thermal_board_temp);
 
@@ -6589,8 +6640,9 @@ static void panel_event_notifier_callback(enum panel_event_notifier_tag tag,
 		return;
 	default:
 		pr_debug("Ignore panel event: %d\n", notification->notif_type);
-		break;
+		return;
 	}
+	sheng_thermal_screen_changed(bcdev->thermal_message, !bcdev->blank_state);
 	pr_info("%s, blank_state = %d\n", __func__, bcdev->blank_state);
 	/* k618: stock writes XM_PROP_BLANK_STATUS here; we do it from a work item */
 	schedule_work(&bcdev->blank_work);
@@ -6863,6 +6915,8 @@ static int battery_chg_probe(struct platform_device *pdev)
 
 	mutex_init(&bcdev->rw_lock);
 	mutex_init(&bcdev->sheng_pen_lock);
+	mutex_init(&bcdev->sheng_thermal_lock);
+	atomic_set(&bcdev->sheng_thermal_epoch, 0);
 	init_completion(&bcdev->ack);
 	init_completion(&bcdev->fw_buf_ack);
 	init_completion(&bcdev->fw_update_ack);
@@ -6894,10 +6948,6 @@ static int battery_chg_probe(struct platform_device *pdev)
 	INIT_WORK(&bcdev->blank_work, battery_chg_blank_work);	/* k618 */
 	INIT_DELAYED_WORK(&bcdev->k618_panel_dw, k618_bc_panel_fn);	/* k618 */
 	bcdev->dev = dev;
-
-	rc = battery_chg_register_panel_notifier(bcdev);
-	if (rc < 0)
-		return rc;
 
 	client_data.id = MSG_OWNER_BC;
 	client_data.name = "battery_charger";
@@ -6962,21 +7012,44 @@ static int battery_chg_probe(struct platform_device *pdev)
 	/*
 	 * k618: the "battery" cooling device, as the stock module (and soc's driver) register it.
 	 * 5.15's power-supply core made one for every supply with CHARGE_CONTROL_LIMIT; 6.18's
-	 * does not, and mi_thermald limits charging only through this device. Not fatal: without
-	 * it the battery still works, unthrottled by mi_thermald.
+	 * does not, and mi_thermald needs this device to limit charging. Sheng also
+	 * uses its public thermal class to host the shipping thermal_message ABI.
 	 */
 	bcdev->tcd = devm_thermal_of_cooling_device_register(dev, dev->of_node,
 			(char *)bcdev->psy_list[PSY_TYPE_BATTERY].psy->desc->name,
 			bcdev, &battery_tcd_ops);
 	if (IS_ERR_OR_NULL(bcdev->tcd)) {
+		rc = bcdev->tcd ? PTR_ERR(bcdev->tcd) : -ENODEV;
 		dev_err(dev, "Failed to register thermal cooling device rc=%ld\n",
 			PTR_ERR(bcdev->tcd));
 		bcdev->tcd = NULL;
+		if (bcdev->sheng_has_pen)
+			goto error_thermal;
+	}
+
+	if (bcdev->sheng_has_pen) {
+		bcdev->thermal_message = sheng_thermal_message_register(
+				bcdev->tcd->device.class, bcdev->psy_list[PSY_TYPE_USB].psy,
+				bcdev, sheng_set_board_temperature, sheng_thermal_usb_online);
+		if (IS_ERR(bcdev->thermal_message)) {
+			rc = PTR_ERR(bcdev->thermal_message);
+			bcdev->thermal_message = NULL;
+			dev_err(dev, "Failed to register sheng thermal interfaces: %d\n", rc);
+			goto error_thermal;
+		}
 	}
 
 	/* k618: mi_thermal's board temperature, as stock (charger_notifier_event) */
 	bcdev->charger_nb.notifier_call = charger_notifier_event;
-	charger_reg_notifier(&bcdev->charger_nb);
+	rc = charger_reg_notifier(&bcdev->charger_nb);
+	if (rc)
+		goto error_thermal;
+	bcdev->charger_nb_registered = true;
+
+	/* Register only after transport and both thermal devices are ready. */
+	rc = battery_chg_register_panel_notifier(bcdev);
+	if (rc < 0)
+		goto error_thermal;
 
 	bcdev->wls_fw_update_time_ms = WLS_FW_UPDATE_TIME_MS;
 	battery_chg_add_debugfs(bcdev);
@@ -7003,6 +7076,16 @@ static int battery_chg_probe(struct platform_device *pdev)
 	}
 	dev_err(dev, "battery_chg probe done\n");	/* k618: the %d had no argument */
 	return 0;
+error_thermal:
+	cancel_delayed_work_sync(&bcdev->k618_panel_dw);
+	if (bcdev->notifier_cookie)
+		panel_event_notifier_unregister(bcdev->notifier_cookie);
+	cancel_work_sync(&bcdev->blank_work);
+	if (bcdev->charger_nb_registered)
+		charger_unreg_notifier(&bcdev->charger_nb);
+	sheng_thermal_message_unregister(bcdev->thermal_message);
+	bcdev->thermal_message = NULL;
+	class_unregister(&bcdev->battery_class);
 error:
 	WRITE_ONCE(bcdev->sheng_pps_stopping, true);
 	cancel_work_sync(&bcdev->subsys_up_work);
@@ -7035,14 +7118,21 @@ static void battery_chg_remove(struct platform_device *pdev)
 	cancel_delayed_work_sync(&bcdev->k618_panel_dw);	/* k618 */
 	if (bcdev->notifier_cookie)
 		panel_event_notifier_unregister(bcdev->notifier_cookie);
-	charger_unreg_notifier(&bcdev->charger_nb);	/* k618 */
+	if (bcdev->charger_nb_registered)
+		charger_unreg_notifier(&bcdev->charger_nb);
 	cancel_work_sync(&bcdev->blank_work);		/* k618 */
+	sheng_thermal_message_unregister(bcdev->thermal_message);
+	bcdev->thermal_message = NULL;
+	/* Drain sysfs writers before removing their GLINK transport. */
+	class_unregister(&bcdev->battery_class);
 
 	device_init_wakeup(bcdev->dev, false);
 	debugfs_remove_recursive(bcdev->debugfs_dir);
 	cancel_work_sync(&bcdev->subsys_up_work);
 	unregister_reboot_notifier(&bcdev->reboot_notifier);
 	unregister_reboot_notifier(&bcdev->shutdown_notifier);
+	cancel_delayed_work_sync(&bcdev->charger_debug_info_print_work);
+	cancel_delayed_work_sync(&bcdev->batt_update_work);
 	rc = pmic_glink_unregister_client(bcdev->client);
 	if (rc < 0)
 		pr_err("Error unregistering from pmic_glink, rc=%d\n", rc);
@@ -7050,7 +7140,6 @@ static void battery_chg_remove(struct platform_device *pdev)
 	cancel_delayed_work_sync(&bcdev->sheng_pps_work);
 	cancel_work_sync(&bcdev->sheng_pen_work);
 	cancel_delayed_work_sync(&bcdev->xm_prop_change_work);
-	class_unregister(&bcdev->battery_class);
 
 }
 

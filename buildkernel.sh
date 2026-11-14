@@ -13,6 +13,9 @@ if [ ! -f "$BUILD_ROOT/.sheng618-ready.json" ]; then bash "$PROJECT_ROOT/scripts
 "$PYTHON" "$PROJECT_ROOT/scripts/apply-scene-socinfo-fix.py"
 "$PYTHON" "$PROJECT_ROOT/scripts/apply-pen-release-fix.py"
 "$PYTHON" "$PROJECT_ROOT/scripts/apply-repair-r85.py"
+"$PYTHON" "$PROJECT_ROOT/scripts/apply-pen-stability.py"
+"$PYTHON" "$PROJECT_ROOT/scripts/apply-factory-interfaces.py"
+"$PYTHON" "$PROJECT_ROOT/scripts/apply-walt-compatibility.py"
 mkdir -p "$output"
 invalidate_result
 rm -f -- "$output/.kernel-ready.json" "$output/.modules-ready.json" "$output/.embed-ready.json"
@@ -51,5 +54,6 @@ cp "$output/arch/arm64/boot/Image" "$output/kernel-Image"
 jq -n --arg defconfig "$(sha256sum "$PROJECT_ROOT/sheng_defconfig" | cut -d' ' -f1)" \
   --arg config "$(sha256sum "$output/kernel.config" | cut -d' ' -f1)" \
   --arg image "$(sha256sum "$output/kernel-Image" | cut -d' ' -f1)" \
-  '{defconfig_sha256: $defconfig, kernel_config_sha256: $config, kernel_image_sha256: $image}' > "$output/.kernel-ready.json"
+  --arg walt "$(sha256sum "$PROJECT_ROOT/provenance/walt-compatibility.json" | cut -d' ' -f1)" \
+  '{defconfig_sha256: $defconfig, kernel_config_sha256: $config, kernel_image_sha256: $image, walt_source_receipt_sha256: $walt}' > "$output/.kernel-ready.json"
 echo "Kernel built: $output/kernel-Image"

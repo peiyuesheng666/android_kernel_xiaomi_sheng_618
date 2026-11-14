@@ -6,8 +6,8 @@
 
 下载：**[当前内核](https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/latest)**。
 适配设备为 **小米平板 6S Pro**，代号 `sheng`，平台为骁龙 8 Gen 2 / SM8550；
-开发与实机验证使用 **HyperOS OS3.0.303.0.WNXCNXM**。
-内核为 **Linux 6.18.32**，默认使用 release 配置，**344 个模块内嵌到 Image**。
+开发与实机验证使用 **HyperOS OS4.0.2.0.XPYCNXM**。
+内核为 **Linux 6.18.32**，默认使用 release 配置，**345 个模块内嵌到 Image**。
 其他设备或系统版本需要另行验证兼容性。
 
 ## 已包含的功能
@@ -22,15 +22,17 @@
 | 网络与文件系统 | IPVLAN/MACVLAN/VXLAN、VLAN/bridge、overlay，以及内置 IPv6 NAT/MASQUERADE |
 | SoC / Scene | SoC ID 536 映射 KALAMAP，恢复平台识别 |
 | 手写笔 | 原厂充电 sysfs 与 uevent 字段；保留原有 32 ms 滤波 |
+| WALT | 补回完整 Qualcomm WALT，原厂启动脚本自动选择 walt，三个 CPU 策略自动降频 |
+| 温控与空闲 | 保留必要的原厂温控消息接口，8 个 CPU 均验证进入 C4 |
 | release 行为 | 默认关闭 rawdump 和 300 秒自动回 fastboot |
-| 模块构建 | 重新链接 344 个模块，修复缓存模块的 split BTF 问题 |
+| 模块构建 | 重新链接 345 个模块，修复缓存模块的 split BTF 问题 |
 
 属性编号、PPS 识别保护和特殊接口格式见 [功能说明](docs/FEATURES.zh-CN.md)。
 
 ## 下载哪个文件
 
 全部当前交付文件在 **[repair-当前内核 Release](https://github.com/peiyuesheng666/android_kernel_xiaomi_sheng_618/releases/latest)**。
-仓库保持私有，下载需要有访问权限的 GitHub 账号。
+当前 Release 同时提供镜像、源码和固定构建输入。
 
 | 文件 | 用途 |
 | --- | --- |
@@ -85,7 +87,7 @@ bash scripts/run-limited.sh verify
 
 ## 验证范围与注意事项
 
-当前下载的 `boot.img`、`Image` 保持现有内核内容。本次说明与包名整理没有生成新的内核。
+当前下载为已刷入验证的 WALT 内核，保留手写笔 v4、温控／充电接口和 CPU 深度空闲修复。
 源码哈希、补丁回放、模块 ABI / BTF 与主机充电故障测试的入口见
 [检查说明](docs/VALIDATION.zh-CN.md)，测试结果保存在本地 `dist/`。
 
@@ -97,3 +99,5 @@ bash scripts/run-limited.sh verify
 独立 `/data/vendor/thermal/config/thermal-normal.conf` 温控覆盖不在内核镜像或源码包中，
 单刷 boot 不会撤销已有的 `/data` 覆盖。原始提交保留在 Git 历史；
 `port-history` 分支保存原共享项目的内核与设备树开发记录。
+
+本版变更、来源及充电复测见 [WALT 发布说明](docs/WALT-CHARGE-20261114.zh-CN.md)。

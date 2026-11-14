@@ -38,6 +38,21 @@ subprocess.run([os.environ['PYTHON'], project / 'scripts/apply-repair-r85.py', '
 for name, hashes in repair_fix['files'].items():
     assert expected.get(name) == hashes['before'], name
     expected[name] = hashes['after']
+pen_stability=json.loads((project/'provenance/pen-stability.json').read_text())
+subprocess.run([os.environ['PYTHON'],project/'scripts/apply-pen-stability.py','--check'],check=True)
+for name,entry in pen_stability['files'].items():
+    assert expected[name]==entry['before'],name
+    expected[name]=entry['after']
+factory_interfaces = json.loads((project / 'provenance/factory-interfaces.json').read_text())
+subprocess.run([os.environ['PYTHON'], project / 'scripts/apply-factory-interfaces.py', '--check'], check=True)
+for name, hashes in factory_interfaces['files'].items():
+    assert expected.get(name) == hashes['before'], name
+    expected[name] = hashes['after']
+walt_compatibility = json.loads((project / 'provenance/walt-compatibility.json').read_text())
+subprocess.run([os.environ['PYTHON'], project / 'scripts/apply-walt-compatibility.py', '--check'], check=True)
+for name, hashes in walt_compatibility['files'].items():
+    assert expected.get(name) == hashes['before'], name
+    expected[name] = hashes['after']
 for name, want in expected.items():
     with (root / name).open('rb') as stream:
         got = hashlib.file_digest(stream, 'sha256').hexdigest()
@@ -52,7 +67,7 @@ for name, want in expected.items():
         else:
             raise SystemExit('Source mismatch: ' + name)
 mapping = json.loads((project / 'profiles/module-sources.json').read_text())
-assert len(mapping) == 344
+assert len(mapping) == 345
 for name, relative in mapping.items():
     if relative.startswith('out/'):
         continue
@@ -71,8 +86,10 @@ result = {'source_files_verified': len(expected), 'module_count': len(mapping),
           'stage_scripts': ['buildkernel.sh', 'buildmodules.sh', 'embed.sh', 'mkbootimage.sh'],
           'source_layout_verified': True, 'build_root': str(root), 'fresh_build_verified': False,
           'regenerated_camera_build_metadata': generated_metadata,
-          'charging_fix': charging_fix, 'droidspaces_fix': droidspaces_fix,
+          'pen_stability': pen_stability, 'charging_fix': charging_fix, 'droidspaces_fix': droidspaces_fix,
           'scene_socinfo_fix': scene_fix, 'pen_release_fix': pen_fix, 'repair_r87': repair_fix}
+result['factory_interfaces'] = factory_interfaces
+result['walt_compatibility'] = walt_compatibility
 built = k / 'out-gki/build-result.json'
 if built.exists():
     build = json.loads(built.read_text())
@@ -111,17 +128,29 @@ if built.exists():
         assert gzip.decompress((unpack / 'kernel').read_bytes()) == (k / 'out-gki/Image').read_bytes()
         boot_data = (k / 'out-gki/boot.img').read_bytes()
         assert boot_data[44:1580].split(b'\0', 1)[0].decode() == os.environ['SHENG_BOOT_CMDLINE']
+        if mode == 'release':
+            stock = Path(os.environ['STOCK_BOOT'])
+            assert hashlib.file_digest(stock.open('rb'), 'sha256').hexdigest() == factory_interfaces['stock_boot_sha256']
+            with stock.open('rb') as stream:
+                stock_header = stream.read(4096)
+            stock_cmdline = stock_header[44:1580].split(b'\0', 1)[0].decode()
+            assert stock_cmdline == factory_interfaces['stock_boot_cmdline']
+            expected_cmdline = ' '.join(filter(None, (stock_cmdline, walt_compatibility['required_boot_cmdline'])))
+            assert os.environ['SHENG_BOOT_CMDLINE'] == expected_cmdline == 'sched_proxy_exec=0'
+            assert boot_data[44:1580] == expected_cmdline.encode().ljust(1536, b'\0')
+            result['factory_boot_cmdline_base_verified'] = True
+            result['walt_boot_cmdline_verified'] = True
     abi = subprocess.check_output([os.environ['PYTHON'], project / 'tools/verify-module-abi.py',
                                    k / 'out-gki', k / 'out-gki/layer/lib/modules'], text=True)
     result.update(fresh_build_verified=True, build=build, module_abi=json.loads(abi))
     btf = json.loads((k / 'out-gki/module-btf-final.json').read_text())
-    assert btf['all_modules_passed'] and btf['module_count'] == 344
+    assert btf['all_modules_passed'] and btf['module_count'] == 345
     for record in btf['modules']:
         with (k / 'out-gki/layer/lib/modules' / record['module']).open('rb') as stream:
             assert hashlib.file_digest(stream, 'sha256').hexdigest() == record['sha256']
         assert set(record['btf']) == {'.BTF', '.BTF.base'}
     result['module_btf'] = {key: value for key, value in btf.items() if key != 'modules'}
-    result['source_model'] = 'pinned r76 baseline cache plus inherited and combined repair-r87 patches'
+    result['source_model'] = 'pinned r76 cache plus repair-r87, pen v4, thermal/idle and full Qualcomm WALT overlays'
 
 else:
     result['build_status'] = 'No completed build in this prepared workspace'

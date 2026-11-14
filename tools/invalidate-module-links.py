@@ -6,7 +6,7 @@ project=Path(os.environ['PROJECT_ROOT']).resolve()
 k618=Path(os.environ['K618']).resolve()
 output=k618/'out-gki'
 mapping=json.loads((project/'profiles/module-sources.json').read_text())
-assert len(mapping)==344
+assert len(mapping)==345
 count=0
 for name,source in mapping.items():
     path=(output/source[4:] if source.startswith('out/') else k618/source)

@@ -31,6 +31,7 @@
 #define NVT_ACTIVE_PEN_STATIONARY "nvt_active_pen_stationary"
 #ifdef CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE
 #define NVT_XIAOMI_LOCKDOWN_INFO "tp_lockdown_info"
+extern void nvt_pen_status_cache_invalidate(void);
 #endif	/* #ifdef CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE */
 
 
@@ -816,6 +817,9 @@ static ssize_t nvt_pen_switch_proc_write(struct file *filp,const char __user *bu
 	nvt_esd_check_enable(false);
 #endif /* #if NVT_TOUCH_ESD_PROTECT */
 
+#ifdef CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE
+	nvt_pen_status_cache_invalidate();
+#endif
 	nvt_set_pen_switch(pen_switch);
 
 	mutex_unlock(&ts->lock);
@@ -882,9 +886,20 @@ int32_t nvt_set_active_pen_stationary(uint8_t pen_stationary)
 
 		buf[0] = EVENT_MAP_HOST_CMD;
 		buf[1] = 0xFF;
-		CTP_SPI_READ(ts->client, buf, 2);
+		ret = CTP_SPI_READ(ts->client, buf, 2);
+		if (ret < 0)
+			goto out;
 		if (buf[1] == 0x00)
 			break;
+		/* N81A rejects this optional command with 0xFB. Do not hold the
+		 * touch IRQ lock through nine more retries of a rejected command.
+		 * A pending command still retries; resume can try the command again.
+		 */
+		if (buf[1] == 0xFB) {
+			NVT_LOG("pen stationary command rejected by firmware\n");
+			ret = -EOPNOTSUPP;
+			goto out;
+		}
 	}
 
 	if (unlikely(i >= retry)) {
@@ -1569,6 +1584,9 @@ static ssize_t xm_htc_stylus_enable_proc_write(struct file *filp,const char __us
 	nvt_esd_check_enable(false);
 #endif /* #if NVT_TOUCH_ESD_PROTECT */
 
+#ifdef CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE
+	nvt_pen_status_cache_invalidate();
+#endif
 	nvt_xm_htc_set_stylus_enable(stylus_enable);
 
 	mutex_unlock(&ts->lock);

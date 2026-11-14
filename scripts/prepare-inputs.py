@@ -22,6 +22,9 @@ if marker.exists():
     subprocess.run([sys.executable, project / 'scripts/apply-scene-socinfo-fix.py'], check=True)
     subprocess.run([sys.executable, project / 'scripts/apply-pen-release-fix.py'], check=True)
     subprocess.run([sys.executable, project / 'scripts/apply-repair-r85.py'], check=True)
+    subprocess.run([sys.executable, project / 'scripts/apply-pen-stability.py'], check=True)
+    subprocess.run([sys.executable, project / 'scripts/apply-factory-interfaces.py'], check=True)
+    subprocess.run([sys.executable, project / 'scripts/apply-walt-compatibility.py'], check=True)
     raise SystemExit(0)
 if root.exists() and any(root.iterdir()):
     raise SystemExit('Unprepared BUILD_ROOT is nonempty; choose an empty directory')
@@ -60,5 +63,8 @@ subprocess.run([sys.executable, project / 'scripts/apply-droidspaces-fix.py'], c
 subprocess.run([sys.executable, project / 'scripts/apply-scene-socinfo-fix.py'], check=True)
 subprocess.run([sys.executable, project / 'scripts/apply-pen-release-fix.py'], check=True)
 subprocess.run([sys.executable, project / 'scripts/apply-repair-r85.py'], check=True)
+subprocess.run([sys.executable, project / 'scripts/apply-pen-stability.py'], check=True)
+subprocess.run([sys.executable, project / 'scripts/apply-factory-interfaces.py'], check=True)
+subprocess.run([sys.executable, project / 'scripts/apply-walt-compatibility.py'], check=True)
 marker.write_text(json.dumps({'archive_sha256': digest, 'source_files': len(expected)}, indent=2) + '\n')
 print('Prepared and hash-verified ' + str(len(expected)) + ' source files: ' + str(root / 'k618'))

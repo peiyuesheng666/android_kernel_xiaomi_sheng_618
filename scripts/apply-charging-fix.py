@@ -7,6 +7,16 @@ from pathlib import Path
 import subprocess
 import sys
 
+
+# Factory interface overlay: allow only its pinned final source, never an arbitrary edit.
+def factory_interface_matches(name, got):
+    path = Path(os.environ['PROJECT_ROOT']) / 'provenance/factory-interfaces.json'
+    if not path.exists():
+        return False
+    item = json.loads(path.read_text())['files'].get(name)
+    return bool(item and item['after'] == got)
+
+
 project = Path(os.environ['PROJECT_ROOT']).resolve()
 root = Path(os.environ['BUILD_ROOT']).resolve()
 receipt = json.loads((project / 'provenance/charging-fix.json').read_text())
@@ -22,7 +32,7 @@ for name, hashes in receipt['files'].items():
     assert base[name] in (hashes['before'], hashes['after']), name
     got = hashlib.sha256((root / name).read_bytes()).hexdigest()
     downstream = json.loads((project / 'provenance/pen-release-fix.json').read_text())['files'].get(name)
-    if got == hashes['after'] or (downstream and got == downstream['after']) or repaired(name, got):
+    if (got == hashes['after'] or factory_interface_matches(name, got)) or (downstream and got == downstream['after']) or repaired(name, got):
         states.add('after')
     elif got == hashes['before']:
         states.add('before')
@@ -37,5 +47,5 @@ elif states == {'before'}:
 for name, hashes in receipt['files'].items():
     got = hashlib.sha256((root / name).read_bytes()).hexdigest()
     downstream = json.loads((project / 'provenance/pen-release-fix.json').read_text())['files'].get(name)
-    assert got == hashes['after'] or (downstream and got == downstream['after']) or repaired(name, got), name
+    assert (got == hashes['after'] or factory_interface_matches(name, got)) or (downstream and got == downstream['after']) or repaired(name, got), name
 print('Verified sheng slave-battery authentication patch (firmware property 165)')

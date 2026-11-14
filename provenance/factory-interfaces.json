@@ -1,0 +1,37 @@
+{
+  "revision": "idle-charge-20261114",
+  "previous_candidate": "pen-stability-v4-20261113",
+  "patch": "patches/sheng-idle-charge-20261114.patch",
+  "patch_sha256": "d8d1be90e2a5cfd387e08b754bc982c6c5e359783a94c63db6203a4db2fd947e",
+  "files": {
+    "k618/soc/drivers/power/supply/qti_battery_charger.c": {
+      "before": "b60bfc7e3f8439a316fa190325e43787fa97c38153e90099d5e31fcbedeb3165",
+      "after": "5b45daaf814f5eb885617eee4c5b31d1978b3004fb27d0a505df0f06bde896f8"
+    },
+    "k618/soc/drivers/power/supply/sheng_thermal_message.h": {
+      "before": null,
+      "after": "c416f44ce0f1ee201314fc7f7fd4ea959901efbb1927f237c0bdabc7c472cb2d"
+    },
+    "k618/soc/drivers/cpuidle/governors/qcom-lpm.c": {
+      "before": "b002e74d2aa5cbf5f1e81501cbf8d02d95acd6ba99ceb826b0db28bc514be287",
+      "after": "35bb28cbb2a5bb3f9534ebd098b40f06d97e5b67155729fbc0aba5c335ab372a"
+    }
+  },
+  "source_review_paths": {
+    "k618/soc/drivers/power/supply/qti_battery_charger.c": "kernel-project/kernel/charging/qti_battery_charger.c",
+    "k618/soc/drivers/power/supply/sheng_thermal_message.h": "kernel-project/kernel/charging/sheng_thermal_message.h",
+    "k618/soc/drivers/cpuidle/governors/qcom-lpm.c": "kernel-project/kernel/cpuidle/qcom-lpm.c"
+  },
+  "thermal_stock_module_sha256": "48fa8da640329a37cc5e8353396667b5ca46642f580b50d90f741c0690f71517",
+  "boot_governor_override": false,
+  "stock_boot_cmdline": "",
+  "stock_boot_sha256": "4156a2369f78bc5df61b6a521b07a508dedf20d5e63c207d30986ae37df3eaea",
+  "boot_cmdline_policy": "exact shipping boot header; vendor_boot unchanged",
+  "thermal_calibration_changed": false,
+  "hardware_verified": false,
+  "entire_device_abi_verified": false,
+  "scope": "Necessary thermal/charging interfaces and non-WALT CPU-idle startup compatibility",
+  "withdrawn_optional_interfaces": true,
+  "charging_stability_verified": false,
+  "github_push_allowed": false
+}

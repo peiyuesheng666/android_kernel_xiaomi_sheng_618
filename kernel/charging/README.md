@@ -1,6 +1,6 @@
 # Charging source review copies
 
-These files are exact current copies from the verified compiled inputs. The build
-uses `BUILD_ROOT/k618/soc/drivers/power/supply`, reconstructed by the pinned
-cache and patches. Editing these review copies alone does not affect a build.
-`provenance/repair-r85.json` retains its historical filename; its revision is current.
+These files are exact compiled sources for the current WALT release. The build
+reconstructs its external BUILD_ROOT from the fixed source cache and applies the
+inherited repairs, pen v4, thermal/idle and Qualcomm WALT overlays. Review copies
+and their SHA256 values are recorded in provenance/walt-charge-release.json.

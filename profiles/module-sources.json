@@ -277,6 +277,7 @@
   "rproc_qcom_common.ko": "soc/rproc_qcom_common.ko",
   "rq_stats.ko": "soc/rq_stats.ko",
   "rtc-pm8xxx.ko": "soc/rtc-pm8xxx.ko",
+  "sched-walt.ko": "soc/kernel/sched/walt/sched-walt.ko",
   "sdpm_clk.ko": "soc/sdpm_clk.ko",
   "secure_buffer.ko": "soc/secure_buffer.ko",
   "sg.ko": "soc/sg.ko",

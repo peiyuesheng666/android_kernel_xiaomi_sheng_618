@@ -26,20 +26,20 @@ mkdir -p "$layer"
 cp -a "$PROJECT_ROOT/profiles/module-layer/." "$layer/"
 modules=$layer/lib/modules
 mapping=$PROJECT_ROOT/profiles/module-sources.json
-[ "$(jq length "$mapping")" = 344 ] || { echo 'Module map must contain 344 modules'; exit 1; }
+[ "$(jq length "$mapping")" = 345 ] || { echo 'Module map must contain 345 modules'; exit 1; }
 while IFS=$'\t' read -r name source; do
   case "$source" in out/*) path=$output/${source#out/};; *) path=$K618/$source;; esac
   [ -f "$path" ] || { echo "Missing built module: $path"; exit 1; }
   cp "$path" "$modules/$name"
   "$clang/llvm-strip" --strip-debug "$modules/$name"
 done < <(jq -r 'to_entries[] | [.key, .value] | @tsv' "$mapping")
-[ "$(find "$modules" -maxdepth 1 -name '*.ko' | wc -l)" = 344 ] || { echo 'Unexpected module count'; exit 1; }
+[ "$(find "$modules" -maxdepth 1 -name '*.ko' | wc -l)" = 345 ] || { echo 'Unexpected module count'; exit 1; }
 host_btf=$BUILD_ROOT/host-tools/btf-distill
 mkdir -p "$host_btf/libbpf"
 run host-libbpf make -C "$ack/tools/lib/bpf" OUTPUT="$host_btf/libbpf/" -j"$JOBS" BUILD_STATIC_ONLY=1 EXTRA_CFLAGS=-O2
 gcc -O2 -Wall -Wextra -Werror -I"$ack/tools/lib/bpf" -I"$ack/tools/include/uapi" \
   "$PROJECT_ROOT/tools/sheng-btf-distill.c" "$host_btf/libbpf/libbpf.a" -lelf -lz -o "$host_btf/sheng-btf-distill"
-run module-btf-distill "$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" distill --count 344 \
+run module-btf-distill "$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" distill --count 345 \
   --kernel "$output/kernel-module-base.btf" --modules "$modules" --tool "$host_btf/sheng-btf-distill" \
   --objcopy "$clang/llvm-objcopy" --output "$output/module-btf-distill.json"
 
@@ -69,14 +69,14 @@ sort "$output/vmlinux.symvers" > "$output/kernel-symbols.after"
 cmp "$output/kernel-symbols.before" "$output/kernel-symbols.after"
 cp "$output/arch/arm64/boot/Image" "$output/Image"
 "$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" extract --kernel "$output/vmlinux" --output "$output/kernel-final-r85.btf"
-run module-btf-final "$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" verify --count 344 \
+run module-btf-final "$PYTHON" "$PROJECT_ROOT/tools/module-btf.py" verify --count 345 \
   --kernel "$output/kernel-final-r85.btf" --modules "$modules" --tool "$host_btf/sheng-btf-distill" \
   --output "$output/module-btf-final.json"
 
 image_sha=$(sha256sum "$output/Image" | cut -d' ' -f1)
 jq -n --arg release "$release" --arg image "$image_sha" \
   --arg snapshot "$(jq -r .sha256 "$PROJECT_ROOT/provenance/source-cache.json")" \
-  '{release: $release, module_count: 344, exports_and_crcs_verified: true, boot_packaged: false, artifacts: {Image: $image}, source_snapshot_sha256: $snapshot}' \
+  '{release: $release, module_count: 345, exports_and_crcs_verified: true, boot_packaged: false, artifacts: {Image: $image}, source_snapshot_sha256: $snapshot}' \
   > "$output/build-result.json"
 jq -n --arg image "$image_sha" '{image_sha256: $image}' > "$output/.embed-ready.json"
 publish_result

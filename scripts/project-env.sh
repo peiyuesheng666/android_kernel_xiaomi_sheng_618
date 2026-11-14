@@ -30,6 +30,6 @@ if [ -z "${STOCK_BOOT:-}" ]; then
 fi
 export STOCK_BOOT="${STOCK_BOOT:-}"
 export PYTHON="${PYTHON:-python3.11}"
-export JOBS="${JOBS:-4}" TAG="${TAG:-kernel}"
+export JOBS="${JOBS:-4}" TAG="${TAG:-walt-charge-20261114}"
 [[ "$JOBS" =~ ^[1-9][0-9]*$ && "$JOBS" -le 4 ]] || { echo 'JOBS must be 1..4' >&2; return 2 2>/dev/null || exit 2; }
 [[ "$TAG" =~ ^[a-zA-Z0-9_-]+$ ]] || { echo 'Invalid TAG' >&2; return 2 2>/dev/null || exit 2; }

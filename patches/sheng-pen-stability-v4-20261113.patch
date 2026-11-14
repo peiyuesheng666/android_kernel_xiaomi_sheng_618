@@ -1,0 +1,440 @@
+--- a/k618/sheng-ports/touch/p81/nt36532/nt36xxx.c
++++ b/k618/sheng-ports/touch/p81/nt36532/nt36xxx.c
+@@ -19,6 +19,7 @@
+ #include <linux/module.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
++#include <linux/spinlock.h>
+ #include <linux/gpio.h>
+ #include <linux/proc_fs.h>
+ #include <linux/input/mt.h>
+@@ -2630,6 +2631,41 @@
+ static unsigned int sheng_pen_contact_hold_ms = 32;
+ module_param(sheng_pen_contact_hold_ms, uint, 0600);
+ MODULE_PARM_DESC(sheng_pen_contact_hold_ms, "N81A P81c contact-gap hold, 0 disables, maximum 32 ms");
++static struct sheng_pen_contact sheng_m80p_contact_state;
++static DEFINE_SPINLOCK(sheng_m80p_contact_lock);
++static unsigned int sheng_m80p_contact_hold_ms = 16;
++module_param(sheng_m80p_contact_hold_ms, uint, 0600);
++MODULE_PARM_DESC(sheng_m80p_contact_hold_ms, "N81A M80p contact-gap hold, 0 disables, maximum 32 ms");
++
++/* M80p type-29 captures have periodic zero-contact packets during a stroke.
++ * Use the same verified packet layout with an independent, shorter deadline.
++ * Hand-data fragment numbers are not contact bits. Repaired packets never
++ * renew the deadline. A zero-contact packet is held only within hold_ms of
++ * the last real contact. Serialize notification resets with IRQs.
++ */
++static void sheng_m80p_contact_reset(void)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&sheng_m80p_contact_lock, flags);
++	memset(&sheng_m80p_contact_state, 0, sizeof(sheng_m80p_contact_state));
++	spin_unlock_irqrestore(&sheng_m80p_contact_lock, flags);
++}
++
++static void sheng_m80p_filter_frame(unsigned char *data, unsigned int size,
++		unsigned long long now_ns)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&sheng_m80p_contact_lock, flags);
++	sheng_pen_filter_contact(&sheng_m80p_contact_state, data, size, now_ns,
++		READ_ONCE(sheng_m80p_contact_hold_ms));
++	spin_unlock_irqrestore(&sheng_m80p_contact_lock, flags);
++}
++
++static unsigned int sheng_pen_stability_revision = 2026111301;
++module_param(sheng_pen_stability_revision, uint, 0400);
++MODULE_PARM_DESC(sheng_pen_stability_revision, "Pen state/command repair revision");
+ uint16_t nvt_xm_htc_cal_checksum(uint16_t u16_message[], int data_len)
+ {
+ 	int i;
+@@ -3122,6 +3158,7 @@
+ 	struct tp_frame *tp_frame = (struct tp_frame *)get_raw_data_base(0);
+ 	struct timespec64 time;
+ 	uint8_t *frame_data_packet;
++	bool m80p_frame_delivered = false;
+ #endif 
+ 
+ 	static struct task_struct *touch_task = NULL;
+@@ -3236,11 +3273,12 @@
+ 	memcpy(ts->eventbuf_debug, ts->data_buf + 1, EVENTBUF_DEBUG_LEN);
+ 	frame_data_packet = ts->data_buf + 1 + 256;
+ 	// check packet  crc  crc_len  crc_r  crc_r_len
+-	protocol_type =  *((uint8_t *)(frame_data_packet));
+-	crc = *((uint16_t *)(frame_data_packet + 4));
+-	crc_len = *((int32_t *)(frame_data_packet + 8));
+-	crc_r = *((uint16_t *)(frame_data_packet + 12));
+-	crc_r_len = *((int32_t *)(frame_data_packet + 16));
++	/* SPI payload follows a one-byte prefix; do not assume word alignment. */
++	protocol_type = frame_data_packet[0];
++	crc = sheng_pen_u16(frame_data_packet + 4);
++	crc_len = sheng_pen_u32(frame_data_packet + 8);
++	crc_r = sheng_pen_u16(frame_data_packet + 12);
++	crc_r_len = sheng_pen_u32(frame_data_packet + 16);
+ 	if ((crc_len != XM_HTC_DEFAULT_FINGER_PACKET_LEN && crc_len != XM_HTC_DEFAULT_STYLUS_PACKET_LEN) || (crc_r != ((uint16_t)(~crc))) || (crc_r_len != ~crc_len)) {
+ 		printk("nvt-ts:  packet  wrong(crc=0x%04X, crc_len=0x%08X, crc_r=0x%04X, crc_r_len=0x%08X)!\n",
+ 				crc, crc_len, crc_r, crc_r_len);
+@@ -3255,6 +3293,13 @@
+ 			ktime_get_ns(), READ_ONCE(sheng_pen_contact_hold_ms));
+ 	else
+ 		memset(&sheng_pen_contact_state, 0, sizeof(sheng_pen_contact_state));
++	if (ts->cur_pen == PEN_M80P && ts->pen_switch == SUPPORT_M80P &&
++	    ts->pen_bluetooth_connect && bTouchIsAwake)
++		sheng_m80p_filter_frame((unsigned char *)tp_frame->tp_raw,
++			ts->frame_len, ktime_get_ns());
++	else
++		sheng_m80p_contact_reset();
++	m80p_frame_delivered = true;
+ 	tp_frame->time_ns = timespec64_to_ns(&time);
+ 	tp_frame->fod_pressed = 0;
+ 	tp_frame->fod_trackingId = 0;
+@@ -3267,6 +3312,10 @@
+ 
+ 	//thp end 6.8
+ XFER_ERROR:
++	#if TOUCH_THP_SUPPORT
++	if (!m80p_frame_delivered)
++		sheng_m80p_contact_reset();
++	#endif
+ 
+ 	mutex_unlock(&ts->lock);
+ 
+@@ -3776,20 +3825,46 @@
+  *  1                |0                |0                |1                |0
+  *  1                |0                |0                |0                |1
+  */
++static int enable_last_time = -1;
++static int pen_switch_last_time = -1;
++static bool enable_cmd_valid;
++
++void nvt_pen_status_cache_invalidate(void);
++void nvt_pen_status_cache_invalidate(void)
++{
++	/* Direct proc writes hold ts->lock and may change controller state even
++	 * when their acknowledgement fails. Defer policy restoration until the
++	 * next status update, preserving the manual write's immediate effect.
++	 */
++	if (!ts)
++		return;
++	#if TOUCH_THP_SUPPORT
++	sheng_m80p_contact_reset();
++	#endif
++	mutex_lock(&ts->pen_switch_lock);
++	enable_cmd_valid = false;
++	pen_switch_last_time = -1;
++	mutex_unlock(&ts->pen_switch_lock);
++}
++
+ int update_pen_status(bool enforce_send_cmd) {
+ 	int32_t ret = 0;
+ 	int enable = 0;
+ 	int enable_stylus_in_gamemode = 0;
+-	static int enable_last_time = -1;
++	int pen_switch;
++	bool send_enable;
++
++	if (!ts)
++		return -ENODEV;
+ 
+ 	NVT_LOG("++, enforce_send_cmd:%d, bluetooth:%d, charge:%d, gamemode:%d, game_in_whitelist:%d, enable_last_time:%d\n",
+ 		enforce_send_cmd, ts->pen_bluetooth_connect, ts->pen_charge_connect,
+ 		ts->gamemode_enable, ts->game_in_whitelist, enable_last_time);
+ 
+ 	mutex_lock(&ts->pen_switch_lock);
+-	if (!bTouchIsAwake || !ts) {
++	if (!bTouchIsAwake) {
+ 		NVT_LOG("touch suspend, stop switch");
+-		goto nvt_set_pen_enable_out;
++		goto nvt_pen_status_unlock;
+ 	}
+ 
+ #ifdef CONFIG_FACTORY_BUILD
+@@ -3799,24 +3874,30 @@
+ #endif // CONFIG_FACTORY_BUILD
+ 	enable_stylus_in_gamemode = ts->game_in_whitelist ? 1 : ts->gamemode_enable ? 0 : 1;
+ 	enable = (ts->pen_bluetooth_connect) && (!(ts->pen_charge_connect) && enable_stylus_in_gamemode);
+-	if(enable_last_time == enable) {
+-		if(!enforce_send_cmd) {
+-			goto nvt_set_pen_enable_out;
+-		}
+-	}
++#ifdef CONFIG_FACTORY_BUILD
++	pen_switch = SUPPORT_M80P;
++#else
++	pen_switch = ts->pen_switch;
++#endif
++	send_enable = enforce_send_cmd || !enable_cmd_valid || enable_last_time != enable;
++	if (!send_enable)
++		goto nvt_apply_pen_type;
+ 
+ 	ret = nvt_xm_htc_set_stylus_enable(!!enable);
+ 	if (ret < 0) {
+ 		NVT_ERR("nvt_xm_htc_set_stylus_enable fail! ret=%d\n", ret);
+-		goto nvt_set_pen_enable_out;
+-	}
++		enable_cmd_valid = false;
++		pen_switch_last_time = -1;
++		goto nvt_pen_status_unlock;
++	}
++	enable_cmd_valid = true;
+ 
+ #ifdef TOUCH_STYLUS_SUPPORT
+ 	/* notify surfaceflinger */
+-	if(enforce_send_cmd && (enable_last_time == enable) ) {
++	if (enable_last_time == enable) {
+ 		/* skip notify surfaceflinger */
+ 		NVT_LOG("enable_last_time = %d, enable = %d, enforce_send_cmd = %d, skip notify surfaceflinger", enable_last_time, enable, enforce_send_cmd);
+-		goto nvt_set_pen_enable_out;
++		goto nvt_apply_pen_type;
+ 	}
+ 	update_stylus_connect_status_value(!!enable);
+ #endif
+@@ -3827,16 +3908,27 @@
+ 
+ 	enable_last_time = enable;
+ 
+-nvt_set_pen_enable_out:
++nvt_apply_pen_type:
++	/* Replayed connection/game notifications must not restart pen scanning.
++	 * Firmware reload/resume explicitly forces both commands; a real enable
++	 * transition also reapplies the pen type even when its value is unchanged.
++	 */
+ #ifdef CONFIG_FACTORY_BUILD
+-	ret = nvt_set_pen_switch(SUPPORT_M80P);
++	if (send_enable || pen_switch_last_time != pen_switch)
+ #else
+-	if (enable)
+-		ret = nvt_set_pen_switch(ts->pen_switch);
+-#endif
+-	if (ret < 0) {
+-		NVT_ERR("nvt_set_pen_switch fail! ret=%d\n", ret);
+-	}
++	if (enable && (send_enable || pen_switch_last_time != pen_switch))
++#endif
++	{
++		ret = nvt_set_pen_switch(pen_switch);
++		if (ret < 0) {
++			/* A forced/reenable write can fail even with the same pen type. */
++			pen_switch_last_time = -1;
++			NVT_ERR("nvt_set_pen_switch fail! ret=%d\n", ret);
++		} else {
++			pen_switch_last_time = pen_switch;
++		}
++	}
++nvt_pen_status_unlock:
+ 	mutex_unlock(&ts->pen_switch_lock);
+ 	NVT_LOG("--\n");
+ 
+@@ -3856,6 +3948,9 @@
+ }
+ 
+ static void release_pen_event(void) {
++	#if TOUCH_THP_SUPPORT
++	sheng_m80p_contact_reset();
++	#endif
+ 	if (ts && ts->pen_input_dev_m80p && ts->pen_input_dev_p81c) {
+ 		report_release_pen_event(ts->pen_input_dev_m80p);
+ 		report_release_pen_event(ts->pen_input_dev_p81c);
+@@ -3973,55 +4068,61 @@
+ 	}
+ 
+ 	if (nvt_mode == DATA_MODE_20 && ts) {
++		/* Notifications carry a model ID, not a physical pen identity.
++		 * Track each supported model once so replay cannot inflate pen_count.
++		 * The touchfeature ioctl serializes these notifications.
++		 */
++		static unsigned int connected_models;
++		unsigned int model = nvt_value & 0x0F;
++		unsigned int model_bit;
++		int previous_connected = ts->pen_bluetooth_connect;
++		int previous_pen = ts->cur_pen;
++
+ 		/* cover system server crash */
+ 		if (nvt_value == -1) {
++			connected_models = 0;
+ 			ts->pen_count = 0;
+ 			release_pen_event();
+ 			return;
+ 		}
+ 
+-		if (!!(nvt_value >> 4)) {
+-			/* connect logic */
+-			if ((nvt_value & 0x0F) == 3) {
+-				ts->pen_count ++;
++		if (nvt_value < 0 ||
++		    (model != 1 && model != 2 && model != 3 && model != 8)) {
++			NVT_LOG("ignore unknown pen notification: 0x%x", nvt_value);
++			return;
++		}
++		model_bit = 1U << model;
++		if (nvt_value >> 4) {
++			if (!(connected_models & model_bit) && model == 3) {
+ 				ts->cur_pen = PEN_M80P;
+ 				ts->pen_switch = SUPPORT_M80P;
+ 				NVT_LOG("Xiaomi stylus m80p");
+-			} else if ((nvt_value & 0x0F) == 1 || (nvt_value & 0x0F) == 2) {
+-				ts->pen_shield_flag = 1;//shield K81P/M81P
+-				NVT_LOG("Xiaomi stylus Generation one connect, sheild pen connection");
+-			} else if ((nvt_value & 0x0F) == 8) { //P81C
+-				ts->pen_count ++;
++			} else if (!(connected_models & model_bit) && model == 8) {
+ 				ts->cur_pen = PEN_P81C;
+ 				ts->pen_switch = SUPPORT_P81C;
+ 				NVT_LOG("Xiaomi stylus p81c");
+ 			}
++			connected_models |= model_bit;
+ 		} else {
+-			/* disconnect logic */
+-			if ((nvt_value & 0x0F) == 3) {
+-				ts->pen_count -- ;
+-				NVT_LOG("disconnect m80p");
+-			} else if ((nvt_value & 0x0F) == 1 || (nvt_value & 0x0F) == 2) {
+-				ts->pen_shield_flag = 0;//open it
+-				NVT_LOG("Xiaomi stylus Generation one disconnect, open pen connection");
+-			}if ((nvt_value & 0x0F) == 8) {
+-				ts->pen_count -- ;
+-				NVT_LOG("disconnect p81c");
+-			}
+-		}
+-
+-		if (ts->pen_shield_flag){
+-			/* sheild pen connection */
+-			ts->pen_bluetooth_connect = 0;
+-		} else {
+-			if (!!ts->pen_count) {
+-				/* M80P connect num >= 1 */
+-				ts->pen_bluetooth_connect = 1;
+-			} else {
+-				/* M80P connect num = 0 */
+-				ts->pen_bluetooth_connect = 0;
+-			}
+-		}
++			connected_models &= ~model_bit;
++		}
++
++		/* If the selected model disconnected, use the remaining model.
++		 * A disconnect for an inactive model must not end the active stroke.
++		 */
++		if (ts->cur_pen == PEN_M80P && !(connected_models & (1U << 3)) &&
++		    (connected_models & (1U << 8))) {
++			ts->cur_pen = PEN_P81C;
++			ts->pen_switch = SUPPORT_P81C;
++		} else if (ts->cur_pen == PEN_P81C && !(connected_models & (1U << 8)) &&
++			   (connected_models & (1U << 3))) {
++			ts->cur_pen = PEN_M80P;
++			ts->pen_switch = SUPPORT_M80P;
++		}
++		ts->pen_count = !!(connected_models & (1U << 3)) +
++				!!(connected_models & (1U << 8));
++		ts->pen_shield_flag = !!(connected_models & ((1U << 1) | (1U << 2)));
++		ts->pen_bluetooth_connect = ts->pen_count && !ts->pen_shield_flag;
+ 		NVT_LOG("nvt_value is 0x%02X, pen status is %s, pen id is %d, pen_bluetooth_connect is %d, pen_count is %d",
+ 					nvt_value, (nvt_value >> 4) ? "connect":"disconnect", nvt_value & 0x0F, ts->pen_bluetooth_connect, ts->pen_count);
+ 		nvt_set_gesture_mode((ts->pen_bluetooth_connect && driver_get_touch_mode(TOUCH_ID, DATA_MODE_24)) ?
+@@ -4031,7 +4132,13 @@
+ 			update_pen_status(false);
+ 			mutex_unlock(&ts->lock);
+ 		}
+-		release_pen_event();
++		/* Keep an ongoing stroke when a connection notification only updates
++		 * bookkeeping for the already selected pen. Real disconnection, legacy
++		 * shielding and a change of active pen still release the old events.
++		 */
++		if (previous_connected != ts->pen_bluetooth_connect ||
++		    (previous_connected && previous_pen != ts->cur_pen))
++			release_pen_event();
+ 		return;
+ 	}
+ 	if (nvt_mode == DATA_MODE_29 && ts) {
+@@ -4216,9 +4323,16 @@
+ }
+ 
+ static int nvt_pen_charge_state_notifier_callback(struct notifier_block *self, unsigned long event, void *data) {
++	bool changed;
++
++	if (!ts)
++		return 0;
++	changed = ts->pen_charge_connect != !!event;
+ 	ts->pen_charge_connect = !!event;
+ 	NVT_LOG("pen_charge_connect is %d", ts->pen_charge_connect);
+-	release_pen_event();
++	/* Repeated charging status must not interrupt an ongoing stroke. */
++	if (changed)
++		release_pen_event();
+ 	schedule_work(&ts->pen_charge_state_change_work);
+ 	return 0;
+ }
+@@ -5630,6 +5744,9 @@
+ 	mutex_lock(&ts->lock);
+ 
+ 	/* gesture mode setup */
++	#if TOUCH_THP_SUPPORT
++	sheng_m80p_contact_reset();
++	#endif
+ 	if (ts->gesture_command) {
+ 		nvt_enable_gesture_mode(true);
+ 	} else {
+@@ -5697,6 +5814,9 @@
+ 	mutex_lock(&ts->lock);
+ 
+ 	/* SPI Pinctrl setup */
++	#if TOUCH_THP_SUPPORT
++	sheng_m80p_contact_reset();
++	#endif
+ 	if (!ts->gesture_command) {
+ 		if (ts->ts_pinctrl) {
+ 			ret = pinctrl_select_state(ts->ts_pinctrl, ts->pinctrl_state_active);
+--- a/k618/sheng-ports/touch/p81/nt36532/nt36xxx_ext_proc.c
++++ b/k618/sheng-ports/touch/p81/nt36532/nt36xxx_ext_proc.c
+@@ -31,6 +31,7 @@
+ #define NVT_ACTIVE_PEN_STATIONARY "nvt_active_pen_stationary"
+ #ifdef CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE
+ #define NVT_XIAOMI_LOCKDOWN_INFO "tp_lockdown_info"
++extern void nvt_pen_status_cache_invalidate(void);
+ #endif	/* #ifdef CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE */
+ 
+ 
+@@ -816,6 +817,9 @@
+ 	nvt_esd_check_enable(false);
+ #endif /* #if NVT_TOUCH_ESD_PROTECT */
+ 
++#ifdef CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE
++	nvt_pen_status_cache_invalidate();
++#endif
+ 	nvt_set_pen_switch(pen_switch);
+ 
+ 	mutex_unlock(&ts->lock);
+@@ -882,9 +886,20 @@
+ 
+ 		buf[0] = EVENT_MAP_HOST_CMD;
+ 		buf[1] = 0xFF;
+-		CTP_SPI_READ(ts->client, buf, 2);
++		ret = CTP_SPI_READ(ts->client, buf, 2);
++		if (ret < 0)
++			goto out;
+ 		if (buf[1] == 0x00)
+ 			break;
++		/* N81A rejects this optional command with 0xFB. Do not hold the
++		 * touch IRQ lock through nine more retries of a rejected command.
++		 * A pending command still retries; resume can try the command again.
++		 */
++		if (buf[1] == 0xFB) {
++			NVT_LOG("pen stationary command rejected by firmware\n");
++			ret = -EOPNOTSUPP;
++			goto out;
++		}
+ 	}
+ 
+ 	if (unlikely(i >= retry)) {
+@@ -1569,6 +1584,9 @@
+ 	nvt_esd_check_enable(false);
+ #endif /* #if NVT_TOUCH_ESD_PROTECT */
+ 
++#ifdef CONFIG_TOUCHSCREEN_XIAOMI_TOUCHFEATURE
++	nvt_pen_status_cache_invalidate();
++#endif
+ 	nvt_xm_htc_set_stylus_enable(stylus_enable);
+ 
+ 	mutex_unlock(&ts->lock);

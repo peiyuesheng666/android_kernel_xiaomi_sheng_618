@@ -1,0 +1,45 @@
+{
+  "revision": "pen-stability-v4-20261113",
+  "base": "repair-r87",
+  "previous_candidate": "pen-stability-v3-20261112",
+  "patch": "patches/sheng-pen-stability-v4-20261113.patch",
+  "files": {
+    "k618/sheng-ports/touch/p81/nt36532/nt36xxx.c": {
+      "before": "c7e782e6071148d4ff64df372ef7b8a512294762423afa49256e9213997c0a50",
+      "after": "96e94cd36a58f11156a745471a5d8a77edcb2c38eacc78ae096ca7c3cd135a6c"
+    },
+    "k618/sheng-ports/touch/p81/nt36532/nt36xxx_ext_proc.c": {
+      "before": "0e8c501f22243472ca5596a2e6b2a6436baef237612410f99b54ef57949b6058",
+      "after": "e19a860f946ae9ff60c6870fa6248fca58181c7b80643cba8b4cfb27a88d0a8f"
+    }
+  },
+  "unchanged_files": {
+    "k618/ws/common/kernel/reboot.c": "da5e1f16be3e528391692771761e98b2fad0da45e67f24e5551d60f01d0ce711",
+    "k618/ws/common/kernel/panic.c": "40378aae0439dbfdceae35def45d7f4075f91ba01b78359ecc1d906c7b5ad863",
+    "k618/ws/common/arch/arm64/kernel/traps.c": "3e3561b2134cbbe93589f4cd7df1c7f2559ee41e25a7366644f84ae64b9a6845",
+    "k618/sheng-ports/touch/p81/nt36532/sheng_pen_contact.h": "2936ed96d6fb8a913be247f52af4f4cf1b728e3d9b6c664f51d10fce7b3785fd",
+    "k618/sheng-ports/touch/p81/nt36532/nt36xxx.h": "c128a105b20c41212ec1a2bcab0ccbcb6179d5348c76eb3efcdcd10dc2a817e1",
+    "k618/sheng-ports/touch/p81/nt36532/nt36xxx_fw_update.c": "dbd4ebbdc638a535ac6007a9e4937a3f215ae035b516dea05a4e9996d60f2788",
+    "k618/sheng-ports/touch/p81/nt36532/nt36xxx_mp_ctrlram.c": "1d9f83f62c28dea38d9166bff8d0f46110a2d6c1bbbf32e3e357311450df76bd"
+  },
+  "default_contact_hold_ms": 32,
+  "default_m80p_contact_hold_ms": 16,
+  "maximum_contact_hold_ms": 32,
+  "hardware_verified": false,
+  "test_scenarios": 70,
+  "module_revision": 2026111301,
+  "connection_identity": "model IDs 1/2/3/8; no physical identity; same-model pens cannot be distinguished",
+  "source_scope": "two driver C files relative to r87; nt36xxx.c only relative to v3",
+  "behavior": [
+    "skip unchanged connection/charging releases",
+    "skip already applied enable/type commands; force/retry preserved",
+    "deduplicate model connections and disconnections; preserve selected pen on replay",
+    "select the remaining supported model after the active model disconnects",
+    "end optional stationary command on firmware rejection or SPI read failure",
+    "invalidate cached pen commands after direct proc writes, including failed writes; preserve direct-write semantics",
+    "M80p uses an independent bounded contact hold; P81c filter and default stay unchanged",
+    "clear M80p contact cache on pen release, manual state writes, suspend/resume and failed transfer",
+    "never renew the contact deadline with repaired frames; only checksum-valid consecutive packets qualify"
+  ],
+  "patch_sha256": "35e08c8e7d87947a3f03f7f8f4c9e73b6a158f976e08950ae6231eef453d07b9"
+}

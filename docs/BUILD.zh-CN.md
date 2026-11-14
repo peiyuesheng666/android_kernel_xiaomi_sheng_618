@@ -79,7 +79,7 @@ bash scripts/test-charging.sh
 `BUILD_ROOT` 必须在项目外；新目录必须为空。仅检查配置可运行
 `bash buildkernel.sh --config-only`；全部四阶段也可用 `bash build.sh`。
 最终文件在 `dist/kernel/`。模块顺序为 ACK→SoC→techpacks→平板驱动→加载器，
-使用KBUILD_EXTRA_SYMBOLS传递符号版本。344模块汇入模块层并嵌入Image。
+使用KBUILD_EXTRA_SYMBOLS传递符号版本。345模块汇入模块层并嵌入Image。
 重编前后内核导出符号和CRC必须一致，所有模块split BTF必须通过验证。
 
 默认release：rawdump关闭，无300秒自动回fastboot。debug仅显式设置时启用。
